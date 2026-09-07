@@ -86,55 +86,60 @@ def daily_gap_map(frame5: pd.DataFrame) -> pd.Series:
     return daily.set_index("trading_day")["overnight_gap_log"]
 
 
-def exact_point_map(frame3: pd.DataFrame) -> dict[pd.Timestamp, list[float]]:
-    out: dict[pd.Timestamp, list[float]] = {}
-    for t, g in frame3.groupby("market_time_shanghai", sort=False):
-        prices = pd.to_numeric(g["price"], errors="coerce").dropna().astype(float).tolist()
-        if prices:
-            out[pd.Timestamp(t)] = prices
-    return out
+def _min_abs_match(
+    frame1: pd.DataFrame,
+    frame3: pd.DataFrame,
+    *,
+    value_col: str,
+    offset_minutes: int,
+    field_name: str,
+) -> pd.DataFrame:
+    """Vectorized minimum absolute difference to exact-time 3s observations."""
+    left = frame1[["market_time_shanghai", value_col]].copy().reset_index(drop=True)
+    left["audit_id"] = np.arange(len(left), dtype=np.int64)
+    left["lookup_time"] = left["market_time_shanghai"] + pd.Timedelta(minutes=offset_minutes)
+    right = frame3[["market_time_shanghai", "price"]].copy().rename(
+        columns={"market_time_shanghai": "lookup_time", "price": "point_price"}
+    )
+    merged = left.merge(right, on="lookup_time", how="inner")
+    merged["abs_diff"] = (
+        pd.to_numeric(merged[value_col], errors="coerce")
+        - pd.to_numeric(merged["point_price"], errors="coerce")
+    ).abs()
+    best = merged.groupby("audit_id", sort=False)["abs_diff"].min()
+    if best.empty:
+        return pd.DataFrame()
+    return pd.DataFrame(
+        [
+            {
+                "field": field_name,
+                "comparisons": int(len(best)),
+                "exact_matches": int((best == 0.0).sum()),
+                "exact_match_rate": float((best == 0.0).mean()),
+                "median_abs_point_diff": float(best.median()),
+                "max_abs_point_diff": float(best.max()),
+            }
+        ]
+    )
 
 
 def alignment_audit(frame1_2025: pd.DataFrame, frame3: pd.DataFrame) -> pd.DataFrame:
-    """Empirically verify the 1m end-label/open-start wall-clock contract."""
-    point_map = exact_point_map(frame3)
-    rows = []
-    for _, r in frame1_2025.iterrows():
-        label = pd.Timestamp(r["market_time_shanghai"])
-        open_time = label - pd.Timedelta(minutes=1)
-        close_time = label
-        open_prices = point_map.get(open_time, [])
-        close_prices = point_map.get(close_time, [])
-        open_ = float(r["open"])
-        close = float(r["close"])
-        if open_prices:
-            rows.append(
-                {
-                    "field": "1m_open_vs_3s_at_label_minus_1m",
-                    "abs_diff": min(abs(open_ - p) for p in open_prices),
-                }
-            )
-        if close_prices:
-            rows.append(
-                {
-                    "field": "1m_close_vs_3s_at_label",
-                    "abs_diff": min(abs(close - p) for p in close_prices),
-                }
-            )
-    x = pd.DataFrame(rows)
-    if x.empty:
-        return pd.DataFrame()
-    return (
-        x.groupby("field", observed=True)["abs_diff"]
-        .agg(
-            comparisons="size",
-            exact_matches=lambda s: int((s == 0.0).sum()),
-            exact_match_rate=lambda s: float((s == 0.0).mean()),
-            median_abs_point_diff="median",
-            max_abs_point_diff="max",
-        )
-        .reset_index()
+    """Empirically verify 1m end-label/open-start wall-clock semantics."""
+    open_audit = _min_abs_match(
+        frame1_2025,
+        frame3,
+        value_col="open",
+        offset_minutes=-1,
+        field_name="1m_open_vs_3s_at_label_minus_1m",
     )
+    close_audit = _min_abs_match(
+        frame1_2025,
+        frame3,
+        value_col="close",
+        offset_minutes=0,
+        field_name="1m_close_vs_3s_at_label",
+    )
+    return pd.concat([open_audit, close_audit], ignore_index=True)
 
 
 def classify_grid_relation(one_minute_outcome: str, point_outcome: str) -> str:
@@ -161,6 +166,7 @@ def main() -> None:
     frame3 = raw3.loc[
         continuous_auction(raw3) & raw3["session_phase"].astype(str).eq("continuous_auction")
     ].copy().reset_index(drop=True)
+    frame3["trading_day"] = frame3["trading_day"].astype(str)
 
     feature_cfg = ReversalFeatureConfig()
     robust_cfg = RobustResidualConfig(threshold=2.0)
@@ -169,13 +175,15 @@ def main() -> None:
     signal5 = robust_residual_reentry_signal(frame5, state5, robust_cfg)
 
     gaps = daily_gap_map(frame5)
-    gap5 = frame5["trading_day"].astype(str).map(gaps)
-    candidate5 = signal5.eq(1) & h1_mask(frame5) & gap5.lt(0)
-
     signal_map = pd.Series(signal5.to_numpy(), index=frame5["market_time_shanghai"])
     signal1 = frame1["market_time_shanghai"].map(signal_map).fillna(0).astype("int8")
     gap1 = frame1["trading_day"].astype(str).map(gaps)
-    candidate1 = signal1.eq(1) & h1_mask(frame1) & gap1.lt(0) & frame1["market_time_shanghai"].dt.year.eq(2025)
+    candidate1 = (
+        signal1.eq(1)
+        & h1_mask(frame1)
+        & gap1.lt(0)
+        & frame1["market_time_shanghai"].dt.year.eq(2025)
+    )
 
     first_idx = (
         frame1.loc[candidate1, ["trading_day", "market_time_shanghai"]]
@@ -200,14 +208,16 @@ def main() -> None:
     align = alignment_audit(frame1_2025, frame3)
     align.to_csv(OUT / "bar_clock_alignment_audit.csv", index=False)
 
-    point_map = exact_point_map(frame3)
-    event_rows = []
-    quote_rows = []
+    # 242-ish groups rather than ~1 million timestamp groups.
+    points_by_day = {day: g.copy() for day, g in frame3.groupby("trading_day", sort=False)}
 
-    # Prior trading-day map for causal IM contract-selection data requests.
-    all_days = frame5[["trading_day"]].drop_duplicates().reset_index(drop=True)
+    all_days = frame5[["trading_day"]].drop_duplicates().copy().reset_index(drop=True)
+    all_days["trading_day"] = all_days["trading_day"].astype(str)
     all_days["prior_trading_day"] = all_days["trading_day"].shift(1)
     prior_day_map = all_days.set_index("trading_day")["prior_trading_day"]
+
+    event_rows = []
+    quote_rows = []
 
     for idx in event_indices:
         signal_time = pd.Timestamp(frame1.loc[idx, "market_time_shanghai"])
@@ -217,7 +227,7 @@ def main() -> None:
         resolution_min = int(policy1.loc[idx, "resolution_bars"])
         end_time = signal_time + pd.Timedelta(minutes=HORIZON_MINUTES)
 
-        day_points = frame3.loc[frame3["trading_day"].astype(str).eq(day)]
+        day_points = points_by_day.get(day, frame3.iloc[:0])
         p = resolve_point_first_passage(
             day_points,
             entry_time=signal_time,
@@ -228,28 +238,29 @@ def main() -> None:
         )
         relation = classify_grid_relation(one_outcome, p.outcome)
 
-        entry_obs = point_map.get(signal_time, [])
-        entry_abs_diff = min((abs(entry_price - q) for q in entry_obs), default=np.nan)
-        entry_exact = bool(entry_abs_diff == 0.0) if np.isfinite(entry_abs_diff) else False
+        exact_entry_points = pd.to_numeric(
+            day_points.loc[day_points["market_time_shanghai"].eq(signal_time), "price"],
+            errors="coerce",
+        ).dropna()
+        if len(exact_entry_points):
+            entry_abs_diff = float((exact_entry_points - entry_price).abs().min())
+            entry_exact = entry_abs_diff == 0.0
+        else:
+            entry_abs_diff = np.nan
+            entry_exact = False
 
         minute_interval_start = signal_time + pd.Timedelta(minutes=max(resolution_min - 1, 0))
         minute_interval_end = signal_time + pd.Timedelta(minutes=resolution_min)
 
         if p.trigger_time is not None:
-            exit_center = p.trigger_time
-            exit_window_start = exit_center - pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
-            exit_window_end = exit_center + pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
+            exit_window_start = p.trigger_time - pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
+            exit_window_end = p.trigger_time + pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
             exit_window_basis = "3s_observed_crossing"
         elif one_outcome == "time_out":
-            exit_center = end_time
-            exit_window_start = exit_center - pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
-            exit_window_end = exit_center + pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
+            exit_window_start = end_time - pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
+            exit_window_end = end_time + pd.Timedelta(seconds=EXIT_WINDOW_SECONDS)
             exit_window_basis = "frozen_10m_timeout"
         else:
-            # 1m native OHLC saw a barrier, but supplied point sampling did not.
-            # Request the full native-resolution minute rather than inventing a
-            # precise 3s trigger.
-            exit_center = pd.NaT
             exit_window_start = minute_interval_start - pd.Timedelta(seconds=3)
             exit_window_end = minute_interval_end + pd.Timedelta(seconds=3)
             exit_window_basis = "1m_resolution_interval_3s_unobserved"
