@@ -9,10 +9,12 @@ on:
       - 'src/regime_lab/reversal_mean_reversion.py'
       - 'src/regime_lab/reversal_confirmations.py'
       - 'src/regime_lab/robust_mean_reversion.py'
+      - 'src/regime_lab/relative_mean_reversion.py'
       - 'tests/test_reversal_mean_reversion.py'
       - 'tests/test_reversal_confirmations.py'
       - 'tests/test_robust_mean_reversion.py'
-      - 'scripts/run_robust_mr_threshold_surface_v0_6.py'
+      - 'tests/test_relative_mean_reversion.py'
+      - 'scripts/run_relative_mean_reversion_v0_7.py'
       - 'src/regime_lab/market_data.py'
       - 'data/market/5m/**'
       - 'data/manifest.json'
@@ -64,9 +66,9 @@ jobs:
           git worktree add /tmp/seed-main FETCH_HEAD
           (cd /tmp/seed-main && python scripts/validate_seed.py)
       - run: python -m pytest -q
-      - run: python scripts/run_robust_mr_threshold_surface_v0_6.py
+      - run: python scripts/run_relative_mean_reversion_v0_7.py
       - uses: actions/upload-artifact@v4
         with:
-          name: robust-mr-threshold-surface-v0-6
-          path: artifacts/robust_mr_threshold_surface_v0_6/
+          name: relative-mean-reversion-v0-7
+          path: artifacts/relative_mean_reversion_v0_7/
           if-no-files-found: error
