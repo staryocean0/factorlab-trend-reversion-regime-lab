@@ -1,4 +1,4 @@
-name: reversal-baseline-v0-1
+name: reversal-research
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
       - 'tests/test_reversal_mean_reversion.py'
       - 'scripts/run_reversal_baseline.py'
       - 'scripts/run_reversal_path_diagnostic.py'
+      - 'scripts/run_reversal_confirmation_v0_3.py'
       - 'src/regime_lab/market_data.py'
       - 'data/market/5m/**'
       - 'data/manifest.json'
@@ -63,6 +64,7 @@ jobs:
       - run: python -m pytest -q
       - run: python scripts/run_reversal_baseline.py
       - run: python scripts/run_reversal_path_diagnostic.py
+      - run: python scripts/run_reversal_confirmation_v0_3.py
       - uses: actions/upload-artifact@v4
         with:
           name: reversal-baseline-v0-1
@@ -72,4 +74,9 @@ jobs:
         with:
           name: reversal-path-diagnostic-v0-2
           path: artifacts/reversal_path_diagnostic_v0_2/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reversal-confirmation-v0-3
+          path: artifacts/reversal_confirmation_v0_3/
           if-no-files-found: error
