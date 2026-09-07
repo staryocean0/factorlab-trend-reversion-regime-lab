@@ -1,203 +1,147 @@
-# Initial Research Memo — What Should Be Tested First?
+# Initial Research Memo — Strategy-First Reversal / Mean Reversion
 
 Date: 2026-09-07  
 Branch: `research/phase0-regime-protocol`  
-Status: conceptual phase-0 research; **no new empirical strategy result yet**.
+Status: research direction revised by owner before new empirical strategy results.
 
 ## Executive conclusion
 
-The repository's broad research direction is valid, but the first experiment should **not** be a direct implementation or optimization of a hand-built `TrendScore` versus `ReversionScore`.
+The repository should **not** spend its first cycle building a balanced Trend-vs-Reversion classifier.
 
-The most defensible first question is:
+Trend is being studied externally. This repository's job is now narrower and more useful:
 
-> **Conditional on the same volatility environment, does past path structure identify whether the market's current directional leg is more likely to continue or reverse over a fixed future physical horizon?**
+> **Make the reversal / mean-reversion side work as far as it can work, preserve its failures, and let those failures reveal the eventual boundary with trend.**
 
-This reframing matters because volatility, trendability, direction, liquidity/news mechanism, and strategy profitability are different objects. A high-volatility move may be either a genuine directional transition or a temporary shock; volume/amount may accompany either; and a single K-line shape cannot resolve the distinction by itself.
+This changes the role of the earlier continuation/reversal classification idea. It remains useful as a diagnostic, but it is no longer the primary product.
 
-The first-stage research therefore treats the problem as a **conditional continuation/reversal classification problem with an explicit transition region**, then asks whether that state information has economic value for simple symmetric control policies.
+## 1. Why strategy-first is appropriate here
 
-## 1. Main methodological correction to the seed framework
+A regime gate built before either side is well understood tends to encode assumptions about where each strategy ought to work.
 
-The seed framework contains useful candidate variables — autocorrelation, variance ratio, efficiency ratio, volatility ratio, breakout, CLV, wick rejection, amount interactions — but its illustrative point system and thresholds (`rho`, `VR`, score >= 6, etc.) should remain examples rather than become the first model.
+That creates two risks:
 
-Why:
+1. the gate can hide a weak reversal strategy by avoiding its hard cases;
+2. the eventual "trend vs reversal" boundary can become a hand-designed narrative rather than an empirical complementarity.
 
-1. threshold scores can silently convert a literature narrative into dozens of tuning degrees of freedom;
-2. if the score is optimized against strategy PnL, the state label becomes circular;
-3. different physical horizons may naturally have opposite persistence signs;
-4. a single full-sample winner can hide year, index, volatility-bucket, and grid instability.
+A better sequence is:
 
-The first phase should instead use continuous targets, coarse preregistered horizons, simple models, and ablations against a volatility-only baseline.
+1. build a simple reversal/MR strategy;
+2. measure exactly where it wins and loses;
+3. improve it only when the failure suggests a concrete mechanism;
+4. later compare the reversal failure surface with the independently discovered trend strength surface.
 
-## 2. The key observable axis: continuation vs reversal of the current leg
+If the two surfaces are complementary, the final gate will emerge naturally.
 
-At time `t`, define a past-only current-leg direction from a fixed trailing window `Ls`:
+## 2. The first unifying mechanism to test
 
-`d_t = sign(log(P_t) - log(P_{t-Ls}))`.
+The working mechanism is:
 
-For future horizon `h`, define:
+**displacement -> failed continuation -> return toward a causal reference**
 
-`CR_t = d_t * (log(P_{t+h}) - log(P_t))`.
+This immediately distinguishes three objects that are often conflated:
 
-This creates a direct behavioral axis:
+- a large move;
+- evidence that the move is no longer accepted;
+- actual reversion toward an equilibrium reference.
 
-- positive `CR`: continuation;
-- negative `CR`: reversal;
-- near-zero `CR`: transition / no strong directional resolution.
+A large move by itself is not enough.
 
-This is preferable to labeling a regime from the profit of a complex strategy. It says what the future path did relative to the already-observed leg, without assuming an execution vehicle.
+## 3. Two baselines, not one abstract classifier
 
-A second, direction-free target — future path efficiency — is required as a cross-check. If `CR` says continuation but future efficiency is very low, the result may reflect a noisy endpoint rather than a clean trend path.
+### MR0
 
-## 3. The first genuinely interesting hypothesis is not “high vol = trend”
+Fade price only when it is far from a causal prior-price anchor.
 
-The strongest phase-0 hypothesis is an **interaction**:
+Purpose: establish how dangerous/useful naked mean reversion actually is.
 
-### Distributed displacement
+This baseline should not be "protected" from strong trends at first. If it repeatedly loses in accepted breakouts or efficient directional legs, that is valuable evidence.
 
-If recent displacement is spread across many bars, path efficiency is high, and price is accepted outside a prior range, continuation should become more likely.
+### REV0
 
-### Isolated shock
+Require an established directional leg, then a failed breakout/rejection in the same direction, then trade the reversal.
 
-If the same total realized volatility is dominated by one/few bars, followed by rejection or close back inside the prior range, reversal/transition should become more likely.
+Purpose: test whether explicit evidence of failed continuation provides a cleaner turning-point mechanism than stretch alone.
 
-Therefore the experiment should compare paths at approximately similar volatility but different **shock concentration / displacement morphology**.
+### MR1
 
-Candidate measurements:
+Add failed-acceptance confirmation to MR0.
 
-- `max(abs(r_i)) / sum(abs(r_i))`;
-- `max(r_i^2) / sum(r_i^2)`;
-- number/share of bars accounting for 50% or 80% of absolute movement;
-- path efficiency;
-- breakout acceptance / failed breakout;
-- close-location and wick rejection.
+Purpose: test one specific improvement: whether rejection is the missing ingredient in naked mean reversion.
 
-This is a more falsifiable statement than “large bar trends” or “large bar reverts.”
+## 4. Why the causal anchor matters
 
-## 4. Volatility should be the mandatory baseline, not the answer
+Mean reversion requires a mean/reference.
 
-The minimum baseline `B0` should contain:
+The first anchor is deliberately plain: an EMA of **prior closes**, not including the signal bar, with a 120-trading-minute physical horizon.
 
-- realized-volatility level;
-- short/long volatility ratio;
-- recent absolute-return level;
-- time-of-day/session controls;
-- index identity for pooled diagnostics.
+Distance is normalized by prior ATR.
 
-Every proposed regime feature family must show **incremental information over B0**.
+The anchor is frozen at signal time when evaluating "did price revert?", so a moving reference cannot chase price and manufacture a success.
 
-This means a feature is not promoted because it has a standalone t-stat or a nice quintile chart. It must improve predictive ordering, calibration, or conditional continuation/reversal separation beyond what volatility and clock effects already explain.
+Later iterations may test rolling median, prior-range midpoint, or multi-scale anchors, but only if the first failure atlas gives a reason.
 
-## 5. Persistence metrics should be tested as a family, not as sacred formulas
+## 5. What we want to learn from failure
 
-The natural first family is:
+The most important first-cycle output may be the losing trades.
 
-- lag-1 autocorrelation;
-- coarse variance ratio;
-- path efficiency;
-- bar-direction continuity / signed streak.
+For each failure, ask:
 
-The literature motivates these as measures of persistence or random-walk deviation, but none should be treated as a universal trading signal.
+- Was the breakout actually accepted?
+- Was the prior path unusually efficient?
+- Did volatility expand after entry?
+- Was the event one part of a large clustered episode?
+- Did short-side and long-side reversals behave differently?
+- Did the signal disappear on matched 1m/5m measurement?
+- Was the gross edge too small relative to plausible costs?
 
-The relevant test is:
+These are future handoff variables to the trend research.
 
-> Do these lagged path measures predict the **sign and magnitude of future continuation/reversal**, after controlling for volatility, and does the relationship transport across STAR50 / CSI1000 and 5m / 1m at matched physical horizons?
+We should not import a trend filter merely because one of these conditions looks dangerous. First measure the danger.
 
-If not, the research should not rescue them by adding ever more thresholds.
+## 6. Minimal implementation already selected
 
-## 6. Amount should enter only through interactions
+Phase 1 uses:
 
-The supplied index dataset contains `amount`, not share volume or turnover. It also lacks news, order flow, book depth, signed trades, and IV.
+- 5m primary;
+- 1m matched-horizon robustness;
+- causal 120m EMA anchor;
+- prior 120m ATR scale;
+- prior 60m breakout range;
+- 60m directional leg for REV0;
+- next-bar-open entry;
+- fixed 30m / 60m / 120m diagnostic exits;
+- frozen-anchor touch outcome.
 
-Therefore phase 1 should not claim to distinguish “information trades” from “liquidity trades” causally.
+Initial constants are engineering baselines rather than fitted optimums.
 
-The defensible question is weaker:
+After baseline results are recorded, only coarse perturbations are allowed.
 
-> Conditional on price-path morphology, does unusual `amount` help distinguish accepted movement from rejected movement?
+## 7. What is explicitly out of scope
 
-Test examples:
+For now this repository will not:
 
-- `amount_rank x breakout_acceptance`;
-- `amount_rank x CLV`;
-- `amount_rank x wick_rejection`;
-- `amount_rank x shock_concentration`.
+- develop or optimize a trend-following strategy;
+- build a Trend-vs-Reversion gating model;
+- optimize a two-sided score;
+- use PnL to retroactively define the regime;
+- patch individual historical episodes with special rules;
+- claim fresh OOS from the supplied history;
+- claim direct executability of an index-direction diagnostic.
 
-A standalone `high amount -> trend` rule should be considered a null candidate, not the default prior.
+## 8. Immediate implementation order
 
-## 7. Why 5m should be primary
+1. replace the old two-sided protocol with the reversal/MR-first protocol;
+2. write exact causal formulas and timing;
+3. implement MR0/MR1/REV0 baseline measurements;
+4. add synthetic/prefix-invariance tests;
+5. audit the real 5m/1m fields and session/quality filters;
+6. execute the unchanged baseline;
+7. publish the failure atlas before adding filters;
+8. iterate one mechanism at a time;
+9. only after this side is understood, compare with the separate trend research.
 
-Phase 1 should use 5m as the primary research plane, 1m as matched-horizon robustness, and 3s only as diagnostic support.
+## 9. Current execution limitation
 
-Reasons:
+The authorized GitHub integration can read and write the repository. The general execution container used in the earlier handoff could not resolve `github.com`, so full repository validation and empirical runs have not yet been truthfully executed in this session.
 
-- 1m is more exposed to grid-specific bounce/noise and quality flags;
-- 3s has changing observation density and same-second multiple rows, so treating it as a uniform 3-second clock would be invalid;
-- 5m provides enough intraday resolution to study 30–120 minute behavior while reducing the temptation to overfit microstructure noise.
-
-An effect that appears only on 1m and fails on matched 5m physical horizons should be downgraded rather than celebrated.
-
-## 8. Cross-index design
-
-STAR50 begins much later than CSI1000, so the primary comparative panel should use the common period beginning 2020-07-23.
-
-The desired evidence order is:
-
-1. estimate the relationship within each index;
-2. compare sign / monotonic ordering across indices;
-3. test pooled specification with index calibration terms;
-4. only then ask whether a common gate is justified.
-
-CSI1000's earlier history can test backward temporal transport, but it is not fresh OOS and should not be mixed into the shared training pool before the common-period relationship is frozen.
-
-## 9. Phase-1 minimal experiment matrix
-
-Primary frequency/horizon grid:
-
-| Item | Frozen candidates |
-|---|---|
-| Frequency | 5m primary; 1m robustness |
-| Past state lookback `L` | 60m, 120m, 240m |
-| Current-leg direction `Ls` | 15m, 30m, 60m |
-| Future horizon `h` | 30m, 60m, 120m; 240m only if same-session valid |
-| Baseline | volatility + absolute return + clock + index |
-| Feature ablations | persistence; morphology; breakout; amount interactions; all |
-| Model ladder | bins -> linear/ridge -> one shallow nonlinear benchmark |
-
-The purpose of the grid is not to find one magic cell. It is to reveal a **surface**: where continuation/reversal relationships are stable, where they flip with scale, and where evidence is weak.
-
-## 10. What would count as a meaningful phase-1 result?
-
-A promising result would have most of these properties:
-
-1. score buckets show monotonic movement in `CR` or future efficiency;
-2. incremental value over volatility baseline exists in multiple years;
-3. sign/ordering is similar in both indices, with calibration differences allowed;
-4. matched physical-horizon results survive from 5m to 1m;
-5. the relationship is not dominated by one event cluster;
-6. 2025 project-local historical confirmation does not reverse the frozen conclusion;
-7. a simple regime gate improves the relative behavior of symmetric Trend vs Reversion controls without requiring a large parameter search.
-
-A weak or failed result should stop the model ladder early.
-
-## 11. Immediate implementation order
-
-1. Write the exact causal feature/target math whitepaper.
-2. Audit 5m/1m session structure and quality flags for both indices.
-3. Implement synthetic-path tests before touching empirical model selection:
-   - monotone path;
-   - oscillatory path;
-   - isolated shock then flat;
-   - isolated shock then reversal;
-   - distributed trend;
-   - breakout then failure.
-4. Implement `B0` and feature-family measurements.
-5. Produce 2020–2024 ablation tables and stability panels.
-6. Freeze candidate family.
-7. Open 2025 project-local historical confirmation.
-8. Only if phase 1 survives, design a phase-2 economic gate/backtest.
-
-## 12. Evidence status and execution limitation
-
-The GitHub repository is readable and writable through the authorized integration. The current general execution container, however, could not resolve `github.com`, so `git clone`, `scripts/validate_seed.py`, and `pytest` have **not** been executed in this session. No execution result is claimed.
-
-The phase-0 design used the repository research framework / bibliography and publicly visible paper abstracts or official summaries. The privately supplied PDF full texts were not available to this session, so no claim of full-text review is made.
+The new source and synthetic tests can be prepared and reviewed through GitHub, but no empirical result is claimed until an actual execution path records it.
