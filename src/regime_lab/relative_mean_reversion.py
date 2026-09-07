@@ -7,6 +7,7 @@ entries occur no earlier than the next bar open.
 
 from __future__ import annotations
 
+from collections import deque
 from dataclasses import dataclass
 
 import numpy as np
@@ -35,13 +36,13 @@ class RelativeMRConfig:
         return self.dislocation_minutes // self.bar_minutes
 
     @property
-    def distribution_bars(self) -> int:
+    def distribution_observations(self) -> int:
+        """Number of valid completed dislocation observations used for scale."""
         return self.distribution_minutes // self.bar_minutes
 
 
 def align_pair(star: pd.DataFrame, csi: pd.DataFrame) -> pd.DataFrame:
     """Inner-align the two supplied index bars on trading day and market time."""
-
     keys = ["trading_day", "market_time_shanghai"]
     required = set(keys + ["open", "close"])
     for name, frame in (("star", star), ("csi", csi)):
@@ -61,6 +62,31 @@ def align_pair(star: pd.DataFrame, csi: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values(keys, kind="stable").reset_index(drop=True)
 
 
+def _last_valid_robust_stats(
+    prior_series: pd.Series,
+    observations: int,
+) -> tuple[pd.Series, pd.Series]:
+    """Median/MAD of the most recent N finite prior observations."""
+    if observations < 2:
+        raise ValueError("observations must be >= 2")
+
+    location = pd.Series(np.nan, index=prior_series.index, dtype=float)
+    scale = pd.Series(np.nan, index=prior_series.index, dtype=float)
+    history: deque[float] = deque(maxlen=observations)
+
+    for idx, value in prior_series.items():
+        if pd.notna(value) and np.isfinite(value):
+            history.append(float(value))
+        if len(history) == observations:
+            arr = np.asarray(history, dtype=float)
+            median = float(np.median(arr))
+            mad = float(np.median(np.abs(arr - median)))
+            location.loc[idx] = median
+            scale.loc[idx] = 1.4826 * mad
+
+    return location, scale
+
+
 def compute_relative_state(
     pair: pd.DataFrame,
     config: RelativeMRConfig = RelativeMRConfig(),
@@ -69,10 +95,9 @@ def compute_relative_state(
 
     The dislocation is the STAR-minus-CSI log return over the configured
     physical lookback. If the lookback crosses a trading-day boundary it is
-    undefined. The robust location and scale use strictly prior dislocation
-    observations only.
+    undefined. The robust location and scale use the most recent configured
+    number of valid, strictly prior dislocation observations.
     """
-
     required = {"trading_day", "star_close", "csi_close"}
     missing = required - set(pair.columns)
     if missing:
@@ -92,13 +117,10 @@ def compute_relative_state(
     ).where(same_day_lookback)
 
     prior = relative_move.shift(1)
-    w = config.distribution_bars
-    location = prior.rolling(w, min_periods=w).median()
-    mad = prior.rolling(w, min_periods=w).apply(
-        lambda x: np.median(np.abs(x - np.median(x))),
-        raw=True,
+    location, scale = _last_valid_robust_stats(
+        prior,
+        config.distribution_observations,
     )
-    scale = 1.4826 * mad
     z = (relative_move - location) / scale.replace(0, np.nan)
 
     return pd.DataFrame(
@@ -120,10 +142,7 @@ def relative_reentry_signal(
     """Trade only after a relative extreme crosses back inside the robust band.
 
     +1 means long STAR / short CSI. -1 means short STAR / long CSI.
-    A previous downside relative extreme that re-enters -> +1; an upside
-    extreme that re-enters -> -1. Signal forms at current close.
     """
-
     if len(pair) != len(state):
         raise ValueError("pair and state length mismatch")
     if "relative_robust_z" not in state.columns:
@@ -156,7 +175,6 @@ def relative_diagnostic_return(
     Cross-day horizons are masked. Financing, spread, fees and impact are not
     included and must be added before any economic strategy claim.
     """
-
     if holding_bars < 1:
         raise ValueError("holding_bars must be >= 1")
     if len(pair) != len(signal):
