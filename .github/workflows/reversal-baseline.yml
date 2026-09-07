@@ -8,12 +8,15 @@ on:
       - '.github/workflows/reversal-baseline.yml'
       - 'src/regime_lab/reversal_mean_reversion.py'
       - 'src/regime_lab/reversal_confirmations.py'
+      - 'src/regime_lab/robust_mean_reversion.py'
       - 'tests/test_reversal_mean_reversion.py'
       - 'tests/test_reversal_confirmations.py'
+      - 'tests/test_robust_mean_reversion.py'
       - 'scripts/run_reversal_baseline.py'
       - 'scripts/run_reversal_path_diagnostic.py'
       - 'scripts/run_reversal_confirmation_v0_3.py'
       - 'scripts/run_reversal_structure_v0_4.py'
+      - 'scripts/run_robust_mean_reversion_v0_5.py'
       - 'src/regime_lab/market_data.py'
       - 'data/market/5m/**'
       - 'data/manifest.json'
@@ -69,6 +72,7 @@ jobs:
       - run: python scripts/run_reversal_path_diagnostic.py
       - run: python scripts/run_reversal_confirmation_v0_3.py
       - run: python scripts/run_reversal_structure_v0_4.py
+      - run: python scripts/run_robust_mean_reversion_v0_5.py
       - uses: actions/upload-artifact@v4
         with:
           name: reversal-baseline-v0-1
@@ -88,4 +92,9 @@ jobs:
         with:
           name: reversal-structure-v0-4
           path: artifacts/reversal_structure_v0_4/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: robust-mean-reversion-v0-5
+          path: artifacts/robust_mean_reversion_v0_5/
           if-no-files-found: error
