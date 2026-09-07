@@ -9,6 +9,7 @@ on:
       - 'src/regime_lab/reversal_mean_reversion.py'
       - 'tests/test_reversal_mean_reversion.py'
       - 'scripts/run_reversal_baseline.py'
+      - 'scripts/run_reversal_path_diagnostic.py'
       - 'src/regime_lab/market_data.py'
       - 'data/market/5m/**'
       - 'data/manifest.json'
@@ -37,7 +38,6 @@ jobs:
           from regime_lab.package_guard import public_files
 
           root = Path('.').resolve()
-          # Scan the whole research tree for forbidden public payloads.
           public_files(root)
           manifest = json.loads((root / 'docs/seed_manifest.json').read_text())
           missing = []
@@ -62,8 +62,14 @@ jobs:
           (cd /tmp/seed-main && python scripts/validate_seed.py)
       - run: python -m pytest -q
       - run: python scripts/run_reversal_baseline.py
+      - run: python scripts/run_reversal_path_diagnostic.py
       - uses: actions/upload-artifact@v4
         with:
           name: reversal-baseline-v0-1
           path: artifacts/reversal_baseline_v0_1/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reversal-path-diagnostic-v0-2
+          path: artifacts/reversal_path_diagnostic_v0_2/
           if-no-files-found: error
