@@ -7,6 +7,7 @@ from regime_lab.reversal_mean_reversion import (
     diagnostic_event_return,
     frozen_anchor_hit_bars,
     mean_reversion_signal,
+    one_bar_directional_confirmation,
     trend_reversal_signal,
 )
 
@@ -98,6 +99,41 @@ def test_features_are_prefix_invariant():
         prefix,
         check_dtype=False,
     )
+
+
+def test_one_bar_confirmation_occurs_only_after_intended_direction_bar_closes():
+    frame = pd.DataFrame(
+        {
+            "open": [100.0, 101.0, 102.0, 101.0],
+            "high": [101.0, 103.0, 102.5, 101.5],
+            "low": [99.0, 100.5, 100.5, 100.0],
+            "close": [100.0, 102.0, 101.0, 100.5],
+            "trading_day": ["d"] * 4,
+        }
+    )
+    candidate = pd.Series([0, -1, 0, 0], dtype="int8")
+
+    confirmed = one_bar_directional_confirmation(frame, candidate)
+
+    assert confirmed.iloc[1] == 0
+    assert confirmed.iloc[2] == -1
+
+
+def test_one_bar_confirmation_does_not_cross_trading_day():
+    frame = pd.DataFrame(
+        {
+            "open": [100.0, 101.0, 100.0],
+            "high": [101.0, 102.0, 100.5],
+            "low": [99.0, 100.0, 99.0],
+            "close": [100.0, 101.0, 99.5],
+            "trading_day": ["d1", "d1", "d2"],
+        }
+    )
+    candidate = pd.Series([0, -1, 0], dtype="int8")
+
+    confirmed = one_bar_directional_confirmation(frame, candidate)
+
+    assert confirmed.abs().sum() == 0
 
 
 def test_diagnostic_return_enters_next_bar_open():
