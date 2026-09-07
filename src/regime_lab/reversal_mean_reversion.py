@@ -242,6 +242,41 @@ def trend_reversal_signal(
     return signal
 
 
+def one_bar_directional_confirmation(
+    frame: pd.DataFrame,
+    candidate_signal: pd.Series,
+    *,
+    require_same_trading_day: bool = True,
+) -> pd.Series:
+    """Confirm a prior-bar candidate with one completed bar in fade direction.
+
+    A candidate observed at close ``t-1`` becomes a confirmed signal at close
+    ``t`` only when the close-to-close move of bar ``t`` is in the candidate's
+    intended reversal direction.  Confirmed entry may therefore occur no
+    earlier than open ``t+1``.
+
+    No magnitude threshold is introduced: this isolates confirmation timing
+    from threshold optimization.
+    """
+
+    if len(frame) != len(candidate_signal):
+        raise ValueError("frame and candidate_signal length mismatch")
+    close = _numeric(frame, "close")
+    candidate = candidate_signal.shift(1).fillna(0).astype("int8")
+    move = close / close.shift(1) - 1.0
+    confirmed = candidate.ne(0) & (candidate.astype(float) * move > 0)
+
+    if require_same_trading_day:
+        if "trading_day" not in frame.columns:
+            raise ValueError("trading_day required for same-day confirmation")
+        day = frame["trading_day"].astype(str)
+        confirmed &= day.eq(day.shift(1))
+
+    signal = pd.Series(0, index=frame.index, dtype="int8")
+    signal.loc[confirmed] = candidate.loc[confirmed]
+    return signal
+
+
 def diagnostic_event_return(
     frame: pd.DataFrame,
     signal: pd.Series,
