@@ -1,0 +1,67 @@
+name: reversal-execution-overlay-v0-14-1
+
+on:
+  push:
+    branches:
+      - research/reversal-execution-overlay-v0-14-1
+    paths:
+      - '.github/workflows/reversal-execution-overlay-v0-14-1.yml'
+      - 'scripts/run_reversal_execution_overlay_v0_14_1.py'
+      - 'src/regime_lab/**'
+      - 'tests/**'
+      - 'data/market/1m/**'
+      - 'data/market/5m/**'
+      - 'data/manifest.json'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e .
+      - name: Validate sealed seed files remain unchanged
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          from regime_lab.package_guard import public_files
+
+          root = Path('.').resolve()
+          public_files(root)
+          manifest = json.loads((root / 'docs/seed_manifest.json').read_text())
+          missing, mismatched = [], []
+          for row in manifest['files']:
+              path = root / row['path']
+              if not path.exists():
+                  missing.append(row['path'])
+                  continue
+              with path.open('rb') as handle:
+                  actual = hashlib.file_digest(handle, 'sha256').hexdigest()
+              if actual != row['sha256']:
+                  mismatched.append(row['path'])
+          assert not missing, missing
+          assert not mismatched, mismatched
+          print({'status': 'passed', 'sealed_seed_files': len(manifest['files'])})
+          PY
+      - name: Validate original main seed snapshot
+        run: |
+          git fetch --depth=1 origin main
+          git worktree add /tmp/seed-main FETCH_HEAD
+          (cd /tmp/seed-main && python scripts/validate_seed.py)
+      - run: python -m pytest -q
+      - run: python scripts/run_reversal_execution_overlay_v0_14_1.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reversal-execution-overlay-v0-14-1
+          path: artifacts/reversal_execution_overlay_v0_14_1/
+          if-no-files-found: error

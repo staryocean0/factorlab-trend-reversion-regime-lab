@@ -1,0 +1,45 @@
+name: reversal-3s-execution-clock-v0-14-2
+
+on:
+  push:
+    branches:
+      - research/reversal-3s-execution-clock-v0-14-2
+    paths:
+      - '.github/workflows/reversal-3s-execution-clock-v0-14-2.yml'
+      - 'scripts/audit_reversal_3s_schema_v0_14_2.py'
+      - 'scripts/run_reversal_3s_execution_clock_v0_14_2.py'
+      - 'src/regime_lab/**'
+      - 'tests/**'
+      - 'data/market/3s/**'
+      - 'data/market/1m/**'
+      - 'data/market/5m/**'
+      - 'data/manifest.json'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e .
+      - run: python -m pytest -q
+      - name: Audit supplied 3s schema before assigning execution-clock semantics
+        run: python scripts/audit_reversal_3s_schema_v0_14_2.py
+      - name: Run v0.14.2 execution clock when implemented
+        if: ${{ hashFiles('scripts/run_reversal_3s_execution_clock_v0_14_2.py') != '' }}
+        run: python scripts/run_reversal_3s_execution_clock_v0_14_2.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reversal-3s-execution-clock-v0-14-2
+          path: |
+            artifacts/reversal_3s_schema_audit_v0_14_2/
+            artifacts/reversal_3s_execution_clock_v0_14_2/
+          if-no-files-found: warn

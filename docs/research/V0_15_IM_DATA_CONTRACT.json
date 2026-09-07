@@ -1,0 +1,39 @@
+{
+  "schema": "im_hedge_release_quote_request@0.1",
+  "account_architecture": "prior_day_IM_short_hedge_release_then_restore",
+  "event_policy": "first_frozen_candidate_signal_per_trading_day_only",
+  "contract_selection_fields_required_on_prior_trading_day": [
+    "contract_code",
+    "expiry_date",
+    "last_trading_day",
+    "daily_volume",
+    "daily_open_interest",
+    "settlement_price"
+  ],
+  "causal_contract_rule": "among IM contracts active on the event day and not on their last trading day, select highest prior-day open interest; tie-break highest prior-day volume; then nearest expiry",
+  "quote_fields_required_in_manifest_windows": [
+    "exchange_timestamp",
+    "contract_code",
+    "bid_price_1",
+    "bid_size_1",
+    "ask_price_1",
+    "ask_size_1",
+    "last_price",
+    "cumulative_volume_or_trade_size_if_available"
+  ],
+  "execution_actions": {
+    "entry": "first executable ask at or after frozen trigger: BUY_CLOSE one prior-day historical IM short",
+    "exit": "first executable bid at or after frozen cash-index exit trigger: SELL_OPEN one IM short to restore hedge"
+  },
+  "still_required_for_net_replay": [
+    "effective-dated CFFEX ordinary transaction fee",
+    "effective-dated CFFEX order fee where applicable",
+    "broker commission/markup",
+    "cash-index/IM basis at entry and exit",
+    "declared slippage/fill sensitivity"
+  ],
+  "preferred_source": "official CFFEX historical Level-1 or Level-2 data, or equivalently authoritative licensed point-in-time feed",
+  "event_window_manifest": "docs/research/V0_15_IM_QUOTE_REQUEST_MANIFEST_2025.csv",
+  "protocol": "docs/research/V0_15_IM_HEDGE_RELEASE_REPLAY_PROTOCOL.md",
+  "warning": "CSI1000 3s index observations only narrow cash-index trigger clocks; they are not executable IM quotes and must not be used as futures fills"
+}
