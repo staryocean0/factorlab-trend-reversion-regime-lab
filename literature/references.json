@@ -1,0 +1,295 @@
+[
+  {
+    "id": "R-A1",
+    "title": "Time Series Momentum",
+    "authors": "Tobias J. Moskowitz; Yao Hua Ooi; Lasse Heje Pedersen",
+    "year": 2012,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www.aqr.com/Insights/Research/Journal-Article/Time-Series-Momentum"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "复用资料库已验全文"
+  },
+  {
+    "id": "R-A2",
+    "title": "A Century of Evidence on Trend-Following Investing",
+    "authors": "Brian Hurst; Yao Hua Ooi; Lasse Heje Pedersen",
+    "year": 2017,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www.aqr.com/Insights/Research/Journal-Article/A-Century-of-Evidence-on-Trend-Following-Investing"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "复用资料库已验全文"
+  },
+  {
+    "id": "R-A3",
+    "title": "Time series momentum: Is it there?",
+    "authors": "Dashan Huang; Jiangyuan Li; Liyao Wang; Guofu Zhou",
+    "year": 2020,
+    "doi": "10.1016/j.jfineco.2019.08.004",
+    "official_or_author_links": [
+      "https://down.aefweb.net/WorkingPapers/w717.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "学术机构公开副本，需核验正文"
+  },
+  {
+    "id": "R-M1",
+    "title": "Stock Market Prices Do Not Follow Random Walks: Evidence from a Simple Specification Test",
+    "authors": "Andrew W. Lo; A. Craig MacKinlay",
+    "year": 1988,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www-2.rotman.utoronto.ca/~kan/3032/pdf/PredictabilityOfReturns_ShortHorizon/Lo_MacKinlay_RFS_1988.pdf",
+      "https://www.nber.org/papers/w2168.pdf",
+      "https://rodneywhitecenter.wharton.upenn.edu/wp-content/uploads/2014/04/8705.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "优先大学课程出版者全文；备选NBER/Wharton工作稿"
+  },
+  {
+    "id": "R-M2",
+    "title": "Mean Reversion in Stock Prices: Evidence and Implications",
+    "authors": "James M. Poterba; Lawrence H. Summers",
+    "year": 1988,
+    "doi": "10.1016/0304-405X(88)90021-9",
+    "official_or_author_links": [
+      "https://economics.mit.edu/sites/default/files/publications/1-s2.0-0304405X88900219-main.pdf",
+      "https://www.nber.org/system/files/working_papers/w2343/w2343.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "优先MIT作者机构出版者全文；备选NBER工作稿2343"
+  },
+  {
+    "id": "R-M3",
+    "title": "Evaporating Liquidity",
+    "authors": "Stefan Nagel",
+    "year": 2012,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www.nber.org/system/files/working_papers/w17653/w17653.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "NBER工作稿17653，2011；期刊版2012"
+  },
+  {
+    "id": "R-M4",
+    "title": "Trading Volume and Serial Correlation in Stock Returns",
+    "authors": "John Y. Campbell; Sanford J. Grossman; Jiang Wang",
+    "year": 1993,
+    "doi": null,
+    "official_or_author_links": [
+      "https://web.mit.edu/wangj/www/pap/CampbellGrossmanWang93.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "MIT作者机构全文"
+  },
+  {
+    "id": "R-M5",
+    "title": "Short-term reversals, short-term momentum, and news-driven trading activity",
+    "authors": "I-Hsuan Ethan Chiang; Chris Kirby; Ziye Zoe Nie",
+    "year": 2021,
+    "doi": "10.1016/j.jbankfin.2021.106068",
+    "official_or_author_links": [
+      "https://belkcollegeofbusiness.charlotte.edu/ckirby10/wp-content/uploads/sites/871/2020/02/turnoverReversalJuly12.pdf",
+      "https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID3726569_code42242.pdf?abstractid=3369648&mirid=1&type=2"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "用户提供出版者全文，21页；已核验题名/作者，桌面重命名移入，非联网下载"
+  },
+  {
+    "id": "R-M6",
+    "title": "Liquidity Risk and Expected Stock Returns",
+    "authors": "Lubos Pastor; Robert F. Stambaugh",
+    "year": 2003,
+    "doi": null,
+    "official_or_author_links": [
+      "https://rodneywhitecenter.wharton.upenn.edu/wp-content/uploads/2014/03/0121.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "原文泛称作者流动性研究；按订单流反转测度内容匹配该经典作品，Wharton工作稿"
+  },
+  {
+    "id": "R-K1",
+    "title": "Foundations of Technical Analysis: Computational Algorithms, Statistical Inference, and Empirical Implementation",
+    "authors": "Andrew W. Lo; Harry Mamaysky; Jiang Wang",
+    "year": 2000,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www.mit.edu/~wangj/pap/LoMamayskyWang00.pdf",
+      "https://business.columbia.edu/sites/default/files-efs/pubfiles/19268/Lo-Mamaysky_wang_foundations.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "优先作者机构出版者全文，备选NBER工作稿"
+  },
+  {
+    "id": "R-K2",
+    "title": "Trend definition or holding strategy: What determines the profitability of candlestick charting?",
+    "authors": "Tsung-Hsun Lu; Yi-Chi Chen; Yu-Chin Hsu",
+    "year": 2015,
+    "doi": "10.1016/j.jbankfin.2015.09.009",
+    "official_or_author_links": [
+      "https://www.econ.sinica.edu.tw/~econ/pdfPaper/14-A010.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "中研院IEAS 14-A010工作稿2015修订，题名长于期刊版"
+  },
+  {
+    "id": "R-K3",
+    "title": "Profitable candlestick trading strategies—The evidence from a new perspective",
+    "authors": "Tsung-Hsun Lu; Yung-Ming Shiu; Tsung-Chi Liu",
+    "year": 2012,
+    "doi": "10.1016/j.rfe.2012.02.001",
+    "official_or_author_links": [
+      "https://ah.lib.nccu.edu.tw/bitstream/140.119/61660/1/6368.pdf",
+      "https://onlinelibrary.wiley.com/doi/pdf/10.1016/j.rfe.2012.02.001"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "用户提供出版者全文，6页；已核验题名/作者，桌面重命名移入，非联网下载"
+  },
+  {
+    "id": "R-V1",
+    "title": "The Extreme Value Method for Estimating the Variance of the Rate of Return",
+    "authors": "Michael Parkinson",
+    "year": 1980,
+    "doi": "10.1086/296071",
+    "official_or_author_links": [
+      "https://www.cmegroup.com/trading/fx/files/michael_parkinson.pdf",
+      "https://citeseerx.ist.psu.edu/document?doi=3f58abcf6813849cbe6970cb56a48b4bc099d93b&repid=rep1&type=pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "优先CME公开论文副本；备选学术文献库"
+  },
+  {
+    "id": "R-V2",
+    "title": "Measuring volatility with the realized range",
+    "authors": "Martin Martens; Dick van Dijk",
+    "year": 2007,
+    "doi": null,
+    "official_or_author_links": [
+      "https://repub.eur.nl/pub/7582/ei2006-10.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "Erasmus机构库EI2006-10工作稿；期刊版2007"
+  },
+  {
+    "id": "R-C1",
+    "title": "The overnight return puzzle and the T+1 trading rule in Chinese stock markets",
+    "authors": "Kenan Qiao; Lammertjan Dam",
+    "year": 2020,
+    "doi": "10.1016/j.finmar.2020.100534",
+    "official_or_author_links": [
+      "https://pure.rug.nl/ws/portalfiles/portal/132141807/1_s2.0_S1386418120300033_main.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "Groningen机构库出版者全文；按其个人研究许可使用，不宣称开放再分发"
+  },
+  {
+    "id": "R-C2",
+    "title": "T+1 trading mechanism causes negative overnight return",
+    "authors": "Bing Zhang",
+    "year": 2020,
+    "doi": "10.1016/j.econmod.2019.10.013",
+    "official_or_author_links": [
+      "https://www.sciencedirect.com/science/article/pii/S0264999319307023"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "用户提供出版者全文，17页；已核验题名/作者，桌面重命名移入，非联网下载"
+  },
+  {
+    "id": "R-C3",
+    "title": "Intraday momentum and reversal in Chinese stock market",
+    "authors": "Xiaojun Chu; Zherong Gu; Haigang Zhou",
+    "year": 2019,
+    "doi": "10.1016/j.frl.2019.04.002",
+    "official_or_author_links": [
+      "https://engagedscholarship.csuohio.edu/bus_facpub/288/",
+      "https://www.sciencedirect.com/science/article/pii/S1544612318307414"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "用户提供出版者全文，6页；已核验题名/作者，桌面重命名移入，非联网下载"
+  },
+  {
+    "id": "R-C4",
+    "title": "Does short-term momentum exist in China?",
+    "authors": "Tian Yue; Tianjiao Li; Xinfeng Ruan",
+    "year": 2023,
+    "doi": "10.1016/j.pacfin.2022.101920",
+    "official_or_author_links": [
+      "https://www.sciencedirect.com/science/article/pii/S0927538X22002153"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "用户提供出版者全文，9页；已核验题名/作者，桌面重命名移入，非联网下载"
+  },
+  {
+    "id": "R-C5",
+    "title": "Signed momentum in the Chinese stock market",
+    "authors": "Ya Gao; Bin Guo; Xiong Xiong",
+    "year": 2021,
+    "doi": "10.1016/j.pacfin.2020.101433",
+    "official_or_author_links": [
+      "https://cirforum.org/2019forum_papers/CIRF2019_paper_57.pdf",
+      "https://www.sciencedirect.com/science/article/pii/S0927538X19305323"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "CIRF2019匿名会议全文；大连理工高雅参会公示及正式论文致谢确认同一会议研究线，不冒充2021出版者版"
+  },
+  {
+    "id": "R-S1",
+    "title": "… and the Cross-Section of Expected Returns",
+    "authors": "Campbell R. Harvey; Yan Liu; Heqing Zhu",
+    "year": 2016,
+    "doi": null,
+    "official_or_author_links": [],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "复用资料库已验全文"
+  },
+  {
+    "id": "R-S2",
+    "title": "The Probability of Backtest Overfitting",
+    "authors": "David H. Bailey; Jonathan M. Borwein; Marcos Lopez de Prado; Qiji Jim Zhu",
+    "year": 2017,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "作者公开工作稿；期刊版2017"
+  },
+  {
+    "id": "R-S3",
+    "title": "The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting, and Non-Normality",
+    "authors": "David H. Bailey; Marcos Lopez de Prado",
+    "year": 2014,
+    "doi": null,
+    "official_or_author_links": [
+      "https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf"
+    ],
+    "pdf_in_repository": false,
+    "delivery": "owner_provides_separately",
+    "version_note": "作者公开稿2014-07-31"
+  }
+]

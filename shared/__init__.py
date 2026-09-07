@@ -1,0 +1,1 @@
+"""Curated workspace exception foundation."""
