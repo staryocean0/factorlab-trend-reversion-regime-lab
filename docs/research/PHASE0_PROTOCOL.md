@@ -1,327 +1,213 @@
-# Phase 0 — Trend / Reversion Regime Preregistered Protocol
+# Phase 0 — Reversal / Mean-Reversion Strategy-First Protocol
 
-Status: **preregistered before any new strategy/backtest result is inspected**  
+Status: **supersedes the initial two-sided Trend-vs-Reversion gate design before any new strategy result is inspected**  
 Project: `factorlab-trend-reversion-regime-lab`  
 Subjects: STAR50 `000688.SH`, CSI1000 `000852.SH`  
-Evidence role: supplied history is `consumed_development_material`, not fresh OOS.
+Evidence role: supplied history is consumed development material, not fresh OOS.
 
-## 1. Research question
+## 1. Owner-directed scope
 
-Primary question:
+The current research track is intentionally one-sided:
 
-> After controlling for the common volatility environment and clock/session effects, can information available at time `t` distinguish whether the market's current directional move is more likely to **continue**, **reverse**, or remain **ambiguous/transitionary** over a fixed future physical horizon?
+> **Build and iterate trend-reversal / mean-reversion strategies first. Do not research a trend-following strategy and do not force a Trend-vs-Reversion regime gate yet.**
 
-This is intentionally narrower than directly searching for the most profitable TrendScore/ReversionScore. The first objective is **state predictability**, not strategy optimization.
+A separate external research track is studying trend. This repository should discover the reversal side on its own terms. Only after reversal/MR produces a stable policy and a clear failure atlas should the two research tracks be compared for complementarity.
 
-The project separates four layers:
+Therefore phase 1 does **not** optimize a `TrendScore`, does **not** evaluate a symmetric trend control, and does **not** predefine a final strategy arbitration rule.
 
-1. **state measurement** from past-only observations;
-2. **future behavioral target** describing continuation/reversal without execution assumptions;
-3. **simple policy differential** as a secondary economic diagnostic;
-4. **real executable strategy** only after the first three survive robustness tests.
+## 2. Two related but distinct objects
 
-## 2. Core falsifiable hypotheses
+### Mean reversion
 
-### H0 — volatility is amplitude, not regime direction
+Mean reversion means price is materially displaced from a causal reference level and subsequently moves back toward that reference.
 
-A model using only realized-volatility level/ratio and session/time-of-day controls should not be treated as sufficient evidence for Trend vs Reversion selection.
+It requires:
 
-**Failure of the research thesis:** if richer past-path variables do not add stable predictive information beyond this volatility-only baseline, stop before building a complex gate.
+1. a causal anchor available at decision time;
+2. a scale for "far from anchor";
+3. a return-to-anchor outcome or economically equivalent convergence measure.
 
-### H1 — path persistence has incremental information
+### Trend reversal
 
-Lagged path-dependence variables such as rolling return autocorrelation, variance ratio, and path efficiency should provide incremental predictive power for future continuation vs reversal after volatility controls.
+Trend reversal means an already-observed directional leg stops being accepted and a move in the opposite direction follows.
 
-Expected direction:
+It requires:
 
-- higher positive dependence / higher directional efficiency -> more continuation;
-- stronger negative dependence / low directional efficiency -> more reversal or transition.
+1. an already-established directional leg;
+2. evidence that continuation failed or was rejected;
+3. an opposite-direction outcome.
 
-No fixed numerical threshold is assumed.
+The two mechanisms can overlap. A failed upside breakout far above a causal anchor can be both a trend-reversal event and a mean-reversion event. Phase 1 will measure them separately before deciding whether they should be unified.
 
-### H2 — shock morphology matters conditional on equal volatility
+## 3. Strategy-first research thesis
 
-At similar realized-volatility levels, a displacement concentrated in one/few bars should behave differently from a displacement distributed across many bars.
+The initial candidate mechanism is:
 
-Primary interaction to test:
+> **displacement -> failed acceptance / rejection -> return toward a causal anchor**
 
-- **distributed directional displacement + breakout acceptance** -> continuation prior increases;
-- **isolated shock + rejection / return into prior range** -> reversal or transition prior increases.
+This is deliberately stronger than "large move -> fade it".
 
-A large move alone is not defined as either trend or mean reversion.
+The first iteration should expose where this simple idea fails. Those failures are not to be repaired immediately with a trend gate. They become a structured failure atlas for later comparison with the external trend research.
 
-### H3 — volatility expansion interacts with path structure
+## 4. Baseline strategy family
 
-Volatility expansion is hypothesized to be conditional rather than directional:
+The exact formulas and observation timing are in `docs/research/REVERSAL_MR_WHITEPAPER.md`.
 
-- expansion following efficient directional movement / accepted breakout -> continuation more likely;
-- expansion with inefficient path / rejection / isolated shock -> reversal or transition more likely.
+### MR0 — stretch-only mean reversion
 
-### H4 — amount is conditional evidence, not a standalone direction variable
+At completed bar `t`:
 
-`amount` may add information only through interaction with price acceptance/rejection and path morphology. `amount_z` alone is not expected to have a stable universal sign.
+- causal anchor: prior-close EMA over 120 trading minutes;
+- scale: ATR estimated from bars strictly before `t`, over 120 trading minutes;
+- stretch: `(close_t - anchor_t) / ATR_past_t`;
+- baseline trigger: `|stretch| >= 2.0`;
+- direction: trade toward the anchor.
 
-The dataset has no share volume, turnover, OFI, depth, or signed trade direction; these must not be synthesized.
+This intentionally weak baseline tests whether "extreme displacement alone" has value. It is expected to reveal catching-a-falling-knife / fading-a-breakout failure modes.
 
-### H5 — scale consistency is required
+### MR1 — stretch plus failed acceptance
 
-A useful state relationship should survive at matched **physical horizons** across 5m (primary) and 1m (robustness) data. Effects that exist only at one grid and collapse when the same physical horizon is measured on another grid are downgraded as microstructure/grid-sensitive.
+MR0 plus:
 
-3s observations are diagnostic support only in the first phase, not a model-search grid.
+- positive stretch must also have an upside break of the lagged 60-minute range that closes back inside;
+- negative stretch must also have a downside break of the lagged 60-minute range that closes back inside.
 
-### H6 — cross-index transport matters more than pooled fit
+MR1 asks whether explicit rejection materially improves MR0.
 
-A relationship is stronger evidence if its sign/rank structure transports between STAR50 and CSI1000, even if calibration differs. A pooled fit improvement that relies on index identity interactions but fails within-index transport is not sufficient.
+### REV0 — failed breakout after an established leg
 
-## 3. Data roles and sample boundaries
+A directional leg is measured over 60 trading minutes.
 
-### 3.1 Primary comparable sample
+Baseline requirements:
 
-Use the common 1m/5m availability window:
+- leg path efficiency >= 0.60;
+- absolute leg displacement >= 1.50 prior ATR;
+- the current bar attempts to break the lagged 60-minute range in the leg direction;
+- the bar closes back inside that prior range.
 
-- start: `2020-07-23`
-- end: `2025-12-31`
+The trade is opposite the prior leg.
 
-Both indices must use intersected trading days for direct cross-index comparisons.
+These constants are first-iteration engineering baselines, not claimed natural thresholds. They are recorded before empirical strategy results and should receive only coarse robustness perturbations after the baseline is reported.
 
-### 3.2 CSI1000 earlier history
+## 5. Timing and diagnostic execution
 
-CSI1000 pre-`2020-07-23` history is reserved for **backward temporal transport / historical robustness** only. It must not be used to tune a shared STAR50/CSI1000 model and then described as independent OOS.
+A signal is observed only after bar `t` is closed.
 
-### 3.3 Project-local chronological roles
+Primary diagnostic execution:
 
-Because all supplied history is already consumed material, these names describe only this project's internal discipline:
+- entry: open of bar `t+1`;
+- exit: close after 30, 60, or 120 trading minutes;
+- no same-bar fill;
+- no intrabar stop/target ordering assumptions in the first iteration;
+- diagnostic returns are masked when they require crossing into another trading day.
 
-- `development_fit`: `2020-07-23` through `2022-12-30`
-- `development_calibration`: calendar year `2023`
-- `development_validation`: calendar year `2024`
-- `historical_confirmation_consumed`: calendar year `2025`
+The first phase is an **index-direction diagnostic**, not a claim that the cash index is directly tradable.
 
-`2025` must not be used for threshold/model-family selection before the phase-1 specification is frozen. It is **not** fresh OOS.
+A second outcome is the probability/time for future price to touch the **anchor frozen at signal time**. The anchor must not move retrospectively to make a trade look successful.
 
-### 3.4 Session rule
+## 6. Primary data plane
 
-Initial tests use continuous auction sessions only. Auction / after-hours observations are excluded unless a later protocol explicitly studies them.
+Primary: 5m bars.  
+Robustness: 1m bars at matched physical trading-minute horizons.  
+3s: diagnostic only until a separate high-frequency contract is justified.
 
-Lunch and overnight gaps are not silently converted into ordinary adjacent intraday returns. Features and labels must explicitly define whether a horizon is allowed to cross a session boundary.
+Direct cross-index comparisons use the common history beginning `2020-07-23`.
 
-Primary phase-1 target family: **same-session horizons only**. Cross-session behavior is a later extension.
+Project-local chronology:
 
-## 4. Frequency and physical-horizon contract
+- development: `2020-07-23` through `2022-12-30`;
+- iteration/calibration: calendar `2023`;
+- validation: calendar `2024`;
+- consumed historical confirmation: calendar `2025`.
 
-Primary frequency: **5m**.  
-Robustness frequency: **1m**.  
-Diagnostic-only frequency: **3s**.
+All supplied history remains previously consumed material. `2025` is not fresh OOS.
 
-No new DataHub-style wall-clock OHLC product will be created locally.
+## 7. What the first result table must contain
 
-Predeclared future horizons (trading minutes):
+For every baseline and horizon, separately for STAR50 / CSI1000 and up-reversal / down-reversal:
 
-- `h = 30m`
-- `h = 60m`
-- `h = 120m`
-- `h = 240m` only where the same-session contract is valid; otherwise omit rather than bridge silently.
+- signal/event count;
+- gross next-bar-open event return: mean and median;
+- win rate;
+- return quantiles and tail loss;
+- probability of touching the frozen causal anchor;
+- bars-to-anchor conditional on a hit;
+- yearly stability;
+- event clustering concentration;
+- performance by volatility bucket;
+- performance by shock concentration;
+- performance by prior-leg efficiency;
+- performance by failed-break vs accepted-break context.
 
-Predeclared trailing state lookbacks:
+The purpose is not to maximize a single Sharpe number. The purpose is to discover whether a reproducible reversal mechanism exists and where it breaks.
 
-- `L = 60m`
-- `L = 120m`
-- `L = 240m`
+## 8. Failure atlas
 
-These are a coarse scientific grid, not a fine optimizer. No one-minute threshold sweep is allowed in phase 1.
+Every materially losing or unstable event family should be assigned to an observable failure bucket when possible.
 
-## 5. Direction-independent state target and continuation target
+Initial buckets:
 
-The project will not define regime using the PnL of a complex strategy.
+1. **accepted breakout** — price leaves the old range and does not return;
+2. **persistent efficient leg** — stretch becomes larger after entry;
+3. **isolated shock without rejection**;
+4. **volatility regime expansion**;
+5. **session-edge / overnight contamination**;
+6. **event clustering** — many signals are effectively one market episode;
+7. **direction asymmetry** — long reversals and short reversals behave differently;
+8. **grid sensitivity** — 5m and matched 1m disagree;
+9. **cost fragility** — gross edge too small to survive plausible friction.
 
-Two complementary future targets are preregistered.
+A failure bucket may later map naturally to a trend-side strength. That mapping is explicitly deferred until this repository has measured the failure itself.
 
-### 5.1 Future path efficiency target
+## 9. Iteration discipline
 
-For future subreturns inside horizon `h`:
+The research loop is:
 
-`future_efficiency = abs(P[t+h] - P[t]) / sum(abs(delta P))`
+1. run MR0 and REV0 unchanged;
+2. produce complete baseline and failure atlas;
+3. run MR1 to test the single hypothesis "rejection confirmation matters";
+4. change **one mechanism at a time**;
+5. keep failed iterations in the attempt ledger;
+6. prefer structural fixes over a growing list of event exceptions;
+7. only after a stable reversal policy exists, compare its failure surface with the external trend research.
 
-or the log-price equivalent.
+No fine threshold grid is permitted before the baseline/failure report exists.
 
-Purpose: measure whether the future path is directionally efficient or oscillatory. This target does **not** decide bullish/bearish direction.
+## 10. Early robustness budget
 
-### 5.2 Continuation / reversal target relative to the current leg
+After the unchanged baseline is recorded, only the following coarse perturbations are allowed in the first robustness pass:
 
-Define a trailing direction signal using only past data:
+- stretch threshold: `1.5 / 2.0 / 2.5`;
+- leg efficiency: `0.50 / 0.60 / 0.70`;
+- leg displacement: `1.0 / 1.5 / 2.0 ATR`;
+- fixed diagnostic holding: `30 / 60 / 120 trading minutes`;
+- 5m primary vs matched 1m.
 
-`d_t(Ls) = sign(log(P[t]) - log(P[t-Ls]))`
+This is a sensitivity surface, not a winner search. Every cell is retained.
 
-with preregistered signal lookbacks:
+## 11. Evidence and execution guards
 
-- `Ls = 15m`
-- `Ls = 30m`
-- `Ls = 60m`
+- `amount` is CNY transaction amount for the index source, not share volume or turnover.
+- No OFI, order-book depth, signed trades, IV, or news are available; do not synthesize them.
+- Price/feature normalization must be causal.
+- Signals at close `t` cannot fill before next tradable bar.
+- Random time shuffles are not valid train/test splits.
+- Overlapping event horizons are dependent observations.
+- 2026 data are outside the supplied package and must not be opened from other repositories.
+- No production registration or live trading authority is implied.
 
-Then define:
+## 12. Phase-1 completion
 
-`continuation_return(t,h,Ls) = d_t(Ls) * (log(P[t+h]) - log(P[t]))`
+Phase 1 is complete only when the repository has:
 
-Interpretation:
+1. exact strategy whitepaper and causal timing;
+2. implemented MR0/MR1/REV0 feature + signal code;
+3. synthetic tests including prefix invariance and failed-break behavior;
+4. two-index 5m/1m data/session audit;
+5. baseline result tables and plots;
+6. failure atlas;
+7. coarse robustness surface;
+8. 2025 consumed historical confirmation only after earlier iterations are frozen;
+9. `RESULT_CARD.md` plus full attempt ledger.
 
-- `> 0`: continuation of the current leg;
-- `< 0`: reversal relative to the current leg;
-- near zero: ambiguous / transition.
-
-For comparability across volatility regimes, the primary analysis also reports a volatility-normalized form using a **past-only** scale estimator. Future volatility must not enter the feature normalization at decision time.
-
-Near-zero prior legs are not forced into Trend or Reversion. They form an explicit weak-direction / transition stratum.
-
-## 6. Initial feature families
-
-All features must be point-in-time and past-only.
-
-### B0 — mandatory baseline controls
-
-- time-of-day / session segment;
-- past realized volatility level;
-- short/long volatility ratio;
-- recent absolute-return level;
-- index identity when pooled analyses are used.
-
-### F1 — persistence / anti-persistence
-
-- rolling lag-1 return autocorrelation;
-- coarse variance-ratio measures;
-- path efficiency ratio;
-- signed streak / bar-direction continuity where causally defined.
-
-### F2 — shock concentration and morphology
-
-- max absolute return / sum absolute returns;
-- max squared return / sum squared returns;
-- number/share of bars responsible for 50% and 80% of absolute displacement;
-- large-body ratio, close-location value, wick rejection;
-- gap-like/session-opening features only in explicitly separate analyses.
-
-### F3 — breakout acceptance / rejection
-
-- close relative to lagged rolling high/low;
-- distance outside prior range;
-- intrabar break followed by close back inside prior range;
-- persistence after break over already-closed bars only.
-
-### F4 — amount interactions
-
-- rolling robust z/rank of log `amount`;
-- amount x close-location / breakout acceptance;
-- amount x rejection / shock concentration.
-
-`amount` is never renamed or interpreted as share volume/turnover.
-
-## 7. Candidate and search budget
-
-Phase 1 is deliberately small.
-
-Permitted model ladder:
-
-1. conditional bin / quantile tables;
-2. additive linear/logistic or ridge model;
-3. one shallow nonlinear benchmark (e.g. depth-limited tree ensemble) **only after** the first two are frozen and reported.
-
-Not permitted in phase 1:
-
-- deep learning;
-- HMM/change-point family sweep;
-- fine threshold optimization;
-- feature selection by full-sample Sharpe;
-- separate ad-hoc rule patches for specific years/events.
-
-Model-family budget: maximum **3** families above.  
-Feature-family ablations: `B0`, `B0+F1`, `B0+F2`, `B0+F3`, `B0+F4`, `B0+F1+F2+F3+F4`.  
-Primary frequency/horizon grid is frozen by Sections 4–5.
-
-Every attempted specification must be logged; failed attempts remain in the repository.
-
-## 8. Primary evaluation metrics
-
-### State/behavior prediction
-
-For continuous targets:
-
-- Spearman rank IC;
-- conditional mean by predicted-score quintile/decile;
-- monotonicity of continuation/reversal outcome across score buckets;
-- cross-year and cross-index sign stability.
-
-For optional discretized Trend / Reversion / Transition labels:
-
-- balanced accuracy;
-- macro F1;
-- one-vs-rest AUC;
-- calibration / Brier score;
-- confusion matrix by volatility bucket and index.
-
-Thresholds used to create discrete labels must be estimated on fit/calibration data only.
-
-### Incremental-value requirement
-
-Every richer specification must be compared against `B0` volatility/session controls.
-
-A research family is not promoted because its standalone score looks significant. It must show incremental and reasonably stable improvement over `B0`.
-
-## 9. Secondary policy differential
-
-Only after the behavioral targets show stable structure, evaluate two transparent diagnostic policies sharing the same direction signal:
-
-- Trend control: follow `d_t`;
-- Reversion control: take `-d_t`.
-
-The regime gate is evaluated by whether it improves the **difference** between these two controls in the predicted regime, not by inventing a separate direction signal for each.
-
-These are index-direction diagnostics, not directly tradable A-share cash strategies.
-
-Costs are reported only when a concrete execution carrier is specified; until then, gross index-direction results must be labelled as diagnostic.
-
-## 10. Purge, overlap, and dependence
-
-- labels extending `h` into the future require at least `h` purge at fold boundaries;
-- overlapping horizons are dependent observations and must not be treated as IID sample-size inflation;
-- standard errors / resampling must use temporal blocks at least as long as the effective label horizon;
-- normalization, quantiles, and thresholds are fitted inside the allowed fit/calibration region only.
-
-No random train/test shuffle is permitted.
-
-## 11. Failure / stop conditions
-
-Stop or narrow the research if any of the following occurs:
-
-1. `F1–F4` fail to improve materially over volatility/session baseline `B0` across years;
-2. effect signs flip repeatedly between STAR50 and CSI1000 without an interpretable calibration explanation;
-3. a result appears only on 1m but disappears at matched 5m physical horizons and is consistent with microstructure noise;
-4. performance depends on one narrow threshold or one isolated event cluster;
-5. 2025 confirmation materially contradicts the frozen 2020–2024 result;
-6. the apparent regime advantage exists only when the same return information is reused as both feature and target in a temporally invalid way.
-
-A failed result is a research result and must be retained.
-
-## 12. Literature role
-
-The initial mechanism prior is motivated by the repository's literature map, especially:
-
-- `R-A1` — time-series momentum and horizon dependence;
-- `R-M1/R-M2` — variance-ratio / mean-reversion evidence;
-- `R-M3/R-M5` — liquidity-driven reversal vs information/news continuation;
-- `R-C5` — market-state dependence of momentum sign in China;
-- `R-S1/R-S2/R-S3` — multiple testing / backtest-overfitting controls.
-
-This protocol does **not** claim that the current AI session has read the privately supplied PDF full texts. It uses the repository framework and bibliographic metadata plus publicly visible abstracts/official summaries for phase-0 design.
-
-## 13. Phase-1 acceptance criteria
-
-Phase 1 is complete only when the repository contains:
-
-1. a causal feature/target whitepaper with exact formulas and observation timing;
-2. unit tests for synthetic monotone, oscillatory, isolated-shock, distributed-trend and failed-breakout paths;
-3. a data audit for both indices/frequencies/session filters;
-4. preregistered attempt ledger entries;
-5. baseline `B0` and feature-family ablation results for 2020–2024;
-6. only after freeze, the 2025 consumed historical confirmation;
-7. a RESULT_CARD stating failures, limitations, and whether phase 2 is justified.
-
-No strategy promotion or production registration is authorized by this protocol.
+The next phase will be determined by what actually fails, not by a pre-written Trend-vs-Reversion arbitration architecture.
