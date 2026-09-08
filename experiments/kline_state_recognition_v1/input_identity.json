@@ -1,0 +1,27 @@
+{
+  "2026_excluded": true,
+  "code_commit": "43b0cfcc49b745ac407e1b6446b3e3fee5f6c739",
+  "data_role": "consumed_development_material",
+  "market_manifest_path": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab/data/manifest.json",
+  "market_manifest_sha256": "431daf9637b7ebf02dd95d8e80d3178717ba2b4ff01e56abc2f8bbef4f31064e",
+  "market_ranges": {
+    "000688.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "market_rows": 63456,
+      "recognition_eligible_rows": 39258,
+      "start": "2020-07-23",
+      "state_rows": 63456
+    },
+    "000852.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "market_rows": 128290,
+      "recognition_eligible_rows": 79756,
+      "start": "2015-01-05",
+      "state_rows": 128290
+    }
+  },
+  "protocol_path": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab/docs/research/KLINE_STATE_RECOGNITION_V1_PROTOCOL.md",
+  "protocol_sha256": "cc62e82a2998aea37e430f9284423ac310d1783f56555b60482a075455eaea11"
+}

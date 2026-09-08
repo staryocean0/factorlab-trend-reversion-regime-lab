@@ -1,0 +1,61 @@
+{
+  "assets": {
+    "000688.SH": {
+      "balanced_accuracy_4state": 0.3807682159465866,
+      "conditional_accuracy_when_online_concrete": 0.7036265621171282,
+      "eligible_year_balanced_accuracy_median": 0.38305451761238296,
+      "eligible_year_balanced_accuracy_min": 0.34881353132460147,
+      "eligible_year_count": 6,
+      "exact_accuracy_including_abstention": 0.36053738464435936,
+      "false_transitions_per_day": 0.9556913674560733,
+      "macro_f1_4state": 0.47323510555617243,
+      "matched_transition_count": 15,
+      "median_detection_delay_bars": 0.0,
+      "median_detection_delay_minutes": 0.0,
+      "min_state_support": 3065,
+      "n_scored": 15929,
+      "online_concrete_coverage": 0.512398769539833,
+      "online_transition_count": 1266,
+      "oracle_transition_count": 1011,
+      "transition_f1": 0.013175230566534914,
+      "transition_precision": 0.011848341232227487,
+      "transition_recall": 0.01483679525222552
+    },
+    "000852.SH": {
+      "balanced_accuracy_4state": 0.37426530900305865,
+      "conditional_accuracy_when_online_concrete": 0.7372130029552171,
+      "eligible_year_balanced_accuracy_median": 0.3702375639211875,
+      "eligible_year_balanced_accuracy_min": 0.32434513998340975,
+      "eligible_year_count": 11,
+      "exact_accuracy_including_abstention": 0.3841506751954513,
+      "false_transitions_per_day": 0.8206766917293233,
+      "macro_f1_4state": 0.4739366384704012,
+      "matched_transition_count": 13,
+      "median_detection_delay_bars": 0.0,
+      "median_detection_delay_minutes": 0.0,
+      "min_state_support": 6056,
+      "n_scored": 33768,
+      "online_concrete_coverage": 0.5210850509357972,
+      "online_transition_count": 2196,
+      "oracle_transition_count": 1998,
+      "transition_f1": 0.006199332379589889,
+      "transition_precision": 0.005919854280510018,
+      "transition_recall": 0.0065065065065065065
+    }
+  },
+  "capability": {
+    "failures": [
+      "000852.SH: balanced_accuracy < 0.55",
+      "000852.SH: transition_F1 < 0.40",
+      "000852.SH: concrete coverage < 0.60",
+      "000688.SH: balanced_accuracy < 0.55",
+      "000688.SH: transition_F1 < 0.40",
+      "000688.SH: concrete coverage < 0.60"
+    ],
+    "level": "Level 2",
+    "reason": "end-to-end recognizer scored but Level-3 gates failed"
+  },
+  "level_5_available_in_v1": false,
+  "primary_claim_boundary": "K-line state recognition only; not profitability or production routing",
+  "status": "complete_historical_recognition_score"
+}

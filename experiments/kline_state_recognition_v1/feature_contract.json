@@ -1,0 +1,45 @@
+{
+  "clock": "5m",
+  "concrete_states": [
+    "UpTrend",
+    "DownTrend",
+    "Range",
+    "Shock"
+  ],
+  "forbidden_online_inputs": [
+    "future_return",
+    "forward_return",
+    "pnl",
+    "strategy_result",
+    "oracle_state",
+    "oracle_centered_features",
+    "2026_data",
+    "UK_alert"
+  ],
+  "online_prefix_only": true,
+  "oracle_radius_bars": 6,
+  "primary_window_bars": 12,
+  "recognition_eligibility_required": true,
+  "reference_history_finite_values": 480,
+  "schema": "kline_state_recognition_v1_feature_contract@1.0",
+  "scoring_implementation": "regime_lab.kline_state_evaluation.score_recognition_strict",
+  "short_window_bars": 6,
+  "states": [
+    "UpTrend",
+    "DownTrend",
+    "Range",
+    "Shock",
+    "Uncertain"
+  ],
+  "thresholds": {
+    "bdci_range": 40.0,
+    "bdci_trend": 60.0,
+    "dii_trend_abs": 1.25,
+    "range_efficiency": 0.2,
+    "shock_abs_return_rank": 0.995,
+    "shock_vol_rank": 0.9,
+    "trend_efficiency": 0.3
+  },
+  "transition_confirm_bars": 2,
+  "transition_tolerance_bars": 3
+}
