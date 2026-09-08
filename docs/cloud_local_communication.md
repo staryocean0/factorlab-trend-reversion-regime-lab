@@ -12,7 +12,7 @@
 
 ## SF-20260908-001 — 恢复非英国 Unsafe/Recovering 状态池并执行频段适配 v1
 
-**状态：OPEN — protocol/core frozen; exact state-pool artifact missing from current GitHub surface**
+**状态：OPEN — protocol/core/inference/formal runner frozen; exact state-pool artifact still missing**
 
 ### 任务来源
 
@@ -31,7 +31,7 @@
 
 `5477340e66c124df7a4691328f796e83f1802255`
 
-### 云端已完成
+### 线程2已完成
 
 1. 新建独立研究分支，不修改冻结的 v0.15 IM replay 线。
 2. 新建 `CONTINUE_HERE.md`，恢复跨线程任务语义并标记旧探索结果为 consumed evidence。
@@ -50,20 +50,88 @@
    - state change closes/reopens routed turnover;
    - break-even friction uses actual measured turnover.
 
-### 云端执行限制（真实记录）
+线程2 GitHub handoff HEAD：
 
-尝试在当前 cloud shell clone 本 public research branch：
+`c318710d244cb5f10b10caef5f8b5c339f98b639`
+
+### 线程3继续完成
+
+线程3明确从线程2 handoff 继续，不回到线程1，也不写其他仓库。
+
+新增：
+
+1. `src/regime_lab/state_frequency_inference.py`
+   - year/month/AM-PM/15m 固定季节性 strata；
+   - matched strata 内两状态按较小样本量等质量加权；
+   - raw/matched `Unsafe - Recovering` break-even friction curve；
+   - 固定 short=`1/2/3/5m`、long=`10/15/30m` cost-survival summary；
+   - trading-day block bootstrap；
+   - 同一 bootstrap day multiplicity 同时作用于七个 horizon，保留跨 horizon 日级依赖；
+   - 七个 `Delta_B(h)` 使用 Holm family-wise correction。
+2. `tests/test_state_frequency_inference.py`
+   - one-state stratum 不进入 matched contrast；
+   - matched state mass equalization；
+   - `Unsafe - Recovering` contrast 方向；
+   - frozen short/long horizon set；
+   - bootstrap deterministic seed / Holm guardrail；
+   - bootstrap replicate lower bound。
+3. `scripts/run_state_frequency_adaptation_v1.py`
+   - 必须显式提供 state-pool path、SHA256、source revision；
+   - 只接受 CSV/Parquet；
+   - PIT schema/timestamp/duplicate/2026 继续 fail closed；
+   - 冻结两资产缺失时 fail closed；
+   - state surface 若含 `future/forward/target/outcome/pnl/gross_edge/net_edge/...` 等未来或 tested-outcome 字段直接拒绝；
+   - verified `load_market_data(..., '1m', ...)` 读取市场数据；
+   - 固定两 family × 七 horizon，一次性 replay；
+   - 生成协议要求的 `RESULT_CARD.md / summary.json / input_identity.json / state_pool_audit.json / frequency_curve.csv / seasonality_matched_curve.csv / cost_survival.csv / uncertainty.csv / execution_receipt.json`；
+   - runner 不自行挑选有利 adjudication，结果完成后仍需按 frozen protocol 五选一。
+4. 更新 `CONTINUE_HERE.md`，把 active continuation 推进到 executable-harness gate。
+
+线程3 GitHub 写入序列：
+
+```text
+6854af21ecb28da82ccb9dbe2595c06748fa23a6  add frozen state-frequency inference helpers
+a7266861be109fd2792055ca30208959b3bae139  add inference guardrail tests
+1b448c13b3390e6a2fb2390fa579f8b0c4aec1ac  add fail-closed formal state-frequency replay runner
+eaa097b9e560526cccb46ced68b7daae9ed26d3d  advance thread-3 continuation to executable state-frequency gate
+```
+
+### 状态池恢复搜索
+
+线程3再次检查：
+
+- 当前 branch recursive tree；
+- 本仓库 Issue；
+- 本仓库 commit search；
+- 可恢复的跨线程上下文。
+
+仍未得到 exact prior-thread state-pool 的：
+
+```text
+artifact path / immutable git identity
+SHA256
+state-generation source revision
+```
+
+因此不得从价格、未来收益或本次频率结果重建 `Unsafe/Recovering`。
+
+### 当前 cloud shell 执行限制（真实记录）
+
+线程2已记录一次 clone DNS 失败。线程3在新增 runner 后再次尝试：
 
 ```text
 git clone --depth 1 --branch research/state-frequency-adaptation-v1 \
-  https://github.com/staryocean0/factorlab-trend-reversion-regime-lab.git /tmp/regime-lab
+  https://github.com/staryocean0/factorlab-trend-reversion-regime-lab.git \
+  /tmp/regime-lab-thread3
 
 exit = 128
 fatal: unable to access 'https://github.com/staryocean0/factorlab-trend-reversion-regime-lab.git/':
 Could not resolve host: github.com
 ```
 
-因此当前记录**不声称**整仓 `python -m pytest -q` 已在 cloud shell 通过，也没有启动 GitHub Actions。
+因此当前记录仍然**不声称**整仓 `python -m pytest -q` 已在 cloud shell 通过，也没有启动 GitHub Actions。
+
+线程3对新增 inference helper 做了独立 Python synthetic compile/exercise，覆盖 matched summary、contrast、cost survival、day-block bootstrap 与 deterministic seed；这不是整仓 pytest 的替代品。
 
 ### 当前缺少的最小输入
 
@@ -83,11 +151,20 @@ source_revision        # 或 artifact identity
 
 1. 拉取本分支最新提交；
 2. 运行 `python scripts/validate_seed.py` 与 `python -m pytest -q`，保存真实退出码；
-3. 核对状态池 schema、hash、时区、重复键、`state_available_at <= market_time_shanghai`、无 2026、无 UK 依赖；
-4. **不要修改 frozen protocol**；
-5. 在固定 `1/2/3/5/10/15/30m` 网格跑一次正式 replay；
+3. 恢复 exact state-pool artifact，不做重算/改标签；
+4. 运行示例（实际 path/hash/revision 以原 artifact 为准）：
+
+```text
+python scripts/run_state_frequency_adaptation_v1.py \
+  --state-pool <EXACT_STATE_POOL.csv_or_parquet> \
+  --state-pool-sha256 <EXACT_SHA256> \
+  --source-revision <EXACT_SOURCE_REVISION>
+```
+
+5. **不要修改 frozen protocol**；
 6. 结果写入 `experiments/state_frequency_adaptation_v1/`，包含协议要求的全部输出；
-7. 反馈 commit、命令/exit code、input/output hashes、正式 adjudication，并明确“云端独立复核尚未发生”。
+7. 根据固定输出选择恰好一个 frozen adjudication；
+8. 反馈 commit、命令/exit code、input/output hashes、正式 adjudication，并明确“云端独立复核尚未发生”。
 
 ### 禁止项
 
@@ -97,4 +174,5 @@ source_revision        # 或 artifact identity
 - 不打开 2026；
 - 不做 UK 预警验证；
 - 不改其他仓库；
-- 不做 production/live trading。
+- 不做 production/live trading；
+- 不用 GitHub Actions 代替缺失 state-pool 或代替默认研究算力。
