@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from regime_lab.kline_state_evaluation import score_recognition_strict
 from regime_lab.kline_state_recognition import (
     RecognitionConfig,
     build_causal_features,
@@ -13,7 +14,6 @@ from regime_lab.kline_state_recognition import (
     compare_transition_events,
     confirmed_states_and_events,
     prepare_market_frame,
-    score_recognition,
 )
 
 
@@ -125,8 +125,12 @@ def test_missing_late_morning_bar_is_not_disguised_as_lunch_bridge():
     missing = pd.Timestamp("2025-01-02 11:30", tz="Asia/Shanghai")
     market = market.loc[market["market_time_shanghai"].ne(missing)].copy()
     prepared = prepare_market_frame(market)
-    before_lunch = prepared.loc[prepared["market_time_shanghai"].eq(pd.Timestamp("2025-01-02 11:25", tz="Asia/Shanghai"))].iloc[0]
-    after_lunch = prepared.loc[prepared["market_time_shanghai"].eq(pd.Timestamp("2025-01-02 13:00", tz="Asia/Shanghai"))].iloc[0]
+    before_lunch = prepared.loc[
+        prepared["market_time_shanghai"].eq(pd.Timestamp("2025-01-02 11:25", tz="Asia/Shanghai"))
+    ].iloc[0]
+    after_lunch = prepared.loc[
+        prepared["market_time_shanghai"].eq(pd.Timestamp("2025-01-02 13:00", tz="Asia/Shanghai"))
+    ].iloc[0]
     assert before_lunch["contiguous_run_id"] != after_lunch["contiguous_run_id"]
 
 
@@ -205,7 +209,7 @@ def test_empty_online_event_table_is_fail_safe():
     assert metrics["transition_recall"] == 0.0
 
 
-def test_abstention_counts_as_recognition_miss():
+def test_abstention_counts_as_recognition_miss_and_missed_class_f1_is_zero():
     times = pd.date_range("2025-01-02 09:30", periods=8, freq="5min", tz="Asia/Shanghai")
     oracle = ["UpTrend", "DownTrend", "Range", "Shock"] * 2
     online = ["UpTrend", "DownTrend", "Range", "Uncertain"] * 2
@@ -219,10 +223,11 @@ def test_abstention_counts_as_recognition_miss():
             "online_state": online,
         }
     )
-    summary, _, per_state, _, _ = score_recognition(frame)
+    summary, _, per_state, _, _ = score_recognition_strict(frame)
     assert summary["online_concrete_coverage"] == pytest.approx(0.75)
     assert summary["exact_accuracy_including_abstention"] == pytest.approx(0.75)
     assert summary["balanced_accuracy_4state"] == pytest.approx(0.75)
+    assert summary["macro_f1_4state"] == pytest.approx(0.75)
     shock = per_state.loc[per_state["state"].eq("Shock")].iloc[0]
     assert shock["recall"] == 0.0
     assert shock["f1"] == 0.0
@@ -241,6 +246,6 @@ def test_ineligible_warmup_row_does_not_count_as_recognition_miss():
             "recognition_eligible": [False, True, True, True, True],
         }
     )
-    summary, _, _, _, _ = score_recognition(frame)
+    summary, _, _, _, _ = score_recognition_strict(frame)
     assert summary["n_scored"] == 4
     assert summary["exact_accuracy_including_abstention"] == 1.0
