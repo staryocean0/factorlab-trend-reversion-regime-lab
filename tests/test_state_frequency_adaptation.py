@@ -28,12 +28,13 @@ def _market(*, start="2025-01-02 09:30", end="2025-01-02 10:00", slope=1.0):
 
 
 def _states(times, state="Unsafe"):
+    values = list(pd.DatetimeIndex(times))
     return pd.DataFrame(
         {
             "symbol": "000852.SH",
-            "market_time_shanghai": times,
+            "market_time_shanghai": list(values),
             "state": state,
-            "state_available_at": times,
+            "state_available_at": list(values),
         }
     )
 
@@ -77,7 +78,6 @@ def test_missing_physical_minute_is_not_bridged_by_row_position():
     market = market.loc[market["market_time_shanghai"].ne(missing_time)].copy()
     states = _states(pd.date_range("2025-01-02 09:30", "2025-01-02 10:00", freq="1min", tz="Asia/Shanghai"))
     obs = build_frequency_observations(market, states, horizon=5, family="trend")
-    # Decisions needing 09:40 as t-h, t or t+h must be excluded rather than repaired.
     forbidden = {
         pd.Timestamp("2025-01-02 09:35", tz="Asia/Shanghai"),
         pd.Timestamp("2025-01-02 09:40", tz="Asia/Shanghai"),
