@@ -1,169 +1,187 @@
-# Continue here — K-line transition recognition v2
+# Continue here — K-line independent judge v3
 
 Date: 2026-09-08
 
 This is the active handoff for the user's chart-recognition research line:
 
 ```text
-K-line chart -> causal features -> market state -> state-transition recognition -> recognition accuracy
+K-line chart -> causal features -> market state -> state-transition recognition -> independent recognition validation
 ```
 
 The current question is chart/state recognition quality, not strategy P&L or optimal frequency.
 
-## Active branch
+## Active branch and immutable baselines
 
 ```text
-branch = research/kline-transition-recognition-v2
-base = research/kline-state-recognition-v1
-v1 formal result commit = cd9353c87101ae5965b71b4f48685f417b5595e2
-v2 formal result commit = f5531a47a7de1cb89f0a1190694f56e1c5136a87
-current branch head after one-shot workflow cleanup = 573a0722db9a2f8ed1cb50554878f0af8d309d9c
+branch = research/kline-independent-judge-v3
+base = research/kline-transition-recognition-v2
+v1 result commit = cd9353c87101ae5965b71b4f48685f417b5595e2
+v2 result commit = f5531a47a7de1cb89f0a1190694f56e1c5136a87
+v3 result commit = c6487eab13fca2cd79a0c1c30fbc41c4943eede5
 ```
 
-V1 remains immutable as the Level-2 baseline. Earlier state-frequency and reversal/IM lines remain separate and untouched.
+V1/V2 remain immutable development evidence. Earlier state-frequency and reversal/IM research lines remain separate and untouched.
 
-## V1 baseline
+## Why v3 exists
 
-V1 used a prefix-only 60-minute online recognizer and a centered `+/-6` five-minute-bar offline judge, but scored both at the same center timestamp.
+V2 obtained near-99% point-state agreement after aligning the centered v1 oracle to the time its future six bars were actually observable. That established strong causal/time-axis consistency, but the recognizer and oracle still used closely related state formulas and nearly the same K-line segment.
 
-Formal V1 result:
+Therefore v3 was preregistered before its first replay to use a structurally different algorithmic judge.
+
+Protocol:
+
+`docs/research/KLINE_INDEPENDENT_JUDGE_V3_PROTOCOL.md`
+
+## Frozen v3 independent judge
+
+The recognizer under test is unchanged from v1/v2. V3 changes only the offline answer key.
+
+Independent judge:
 
 ```text
-CSI1000 balanced accuracy = 0.3743
-CSI1000 coverage = 0.5211
-CSI1000 transition F1 = 0.0062
-
-STAR50 balanced accuracy = 0.3808
-STAR50 coverage = 0.5124
-STAR50 transition F1 = 0.0132
+clock = 5m
+centered picture = 17 bars / +/-8 bars / 80 trading minutes
+availability lag = +8 eligible bars
+strict-prior reference = 480 finite observations
+transition confirmation = 2 consecutive judge labels
+transition match tolerance = +/-3 eligible bars
 ```
 
-When V1 emitted a concrete state, conditional accuracy was about 70–74%, but it abstained frequently and transition timing appeared catastrophically weak.
+Judge features are deliberately different from the recognizer:
 
-## V2 diagnosis and frozen design
+- correlation of log close with bar ordinal (`linear_r`);
+- endpoint displacement relative to full local high-low channel;
+- terminal close location inside that channel;
+- local turning-point density;
+- centered median and maximum `log(high/low)`;
+- strict-prior ranks of those OHLC-range quantities.
 
-Inspection of the immutable V1 transition table showed many same-destination online/oracle transitions separated by about exactly six eligible 5-minute bars. This is structurally expected because a centered judge label at `t` uses data through `t+6 bars` and is not actually knowable at its retrospective center timestamp.
+Forbidden judge inputs include BDCI, DII, signed efficiency, realized volatility, v1/v2 oracle fields, online state, future return/P&L, 2026 and UK-derived inputs.
 
-V2 was preregistered before its first replay in:
+## Formal v3 execution
 
-`docs/research/KLINE_TRANSITION_RECOGNITION_V2_PROTOCOL.md`
+A one-shot GitHub-hosted run was used only because the ordinary execution shell cannot directly access the repository payload. It was deleted immediately after success.
 
-V2 changed no raw feature formulas or numerical state thresholds.
-
-It added exactly two frozen changes:
-
-1. causal persistence decoder using the already-frozen two-consecutive-bar confirmation rule; once a concrete state is confirmed, raw `Uncertain` keeps that stable state until another concrete state confirms;
-2. offline oracle labels/events are scored six **eligible** bars later, at the time their centered-window information is actually available.
-
-Transition tolerance remained `+/-3` eligible bars. No threshold sweep or widening occurred.
-
-## Formal v2 execution
-
-A one-shot GitHub-hosted run was used because the ordinary cloud shell cannot clone/download the repository payload due DNS/network isolation. The workflow was deleted immediately after the successful run.
-
-Formal execution passed:
+Formal run facts:
 
 ```text
-immutable data package validation = PASS
-52 Parquet partitions = hash/row/symbol/date validated
-full repository pytest = PASS
-formal v2 replay = PASS
-result bundle commit = f5531a47a7de1cb89f0a1190694f56e1c5136a87
+immutable market package validation = PASS
+52 Parquet partitions hash/row/symbol/date validated
+full repository pytest = 86 passed, 1 warning
+formal independent-judge replay = PASS
+result bundle commit = c6487eab13fca2cd79a0c1c30fbc41c4943eede5
 ```
 
-Outputs live under:
+Outputs:
 
-`experiments/kline_transition_recognition_v2/`
+`experiments/kline_independent_judge_v3/`
 
-## Formal v2 primary result
-
-The frozen internal maturity rubric awards **Level 4** under availability-aligned scoring.
+## Formal independent point-state result
 
 ### CSI1000 / 000852.SH
 
 ```text
-n_scored = 44,502
-balanced_accuracy = 0.9940
-macro_F1 = 0.9948
-concrete_coverage = 0.9998
-exact_accuracy = 0.9955
-transition_F1 = 0.7795
-transition_precision = 0.6416
-transition_recall = 0.9930
-median delay vs oracle availability = 0 bars / 0 minutes
-median delay vs structural center = +6 bars / +30 minutes
-false transitions/day = 0.2959
+n_scored = 20,543
+balanced_accuracy = 0.7576
+macro_F1 = 0.7532
+concrete_coverage = 0.9210
+conditional_accuracy_when_concrete = 0.7940
+exact_accuracy_including_abstention = 0.7313
+yearly balanced_accuracy median = 0.7503
+yearly balanced_accuracy min = 0.7113
+```
+
+Per-state F1:
+
+```text
+UpTrend = 0.8563
+DownTrend = 0.8279
+Range = 0.5652
+Shock = 0.7632
 ```
 
 ### STAR50 / 000688.SH
 
 ```text
-n_scored = 22,100
-balanced_accuracy = 0.9907
-macro_F1 = 0.9917
-concrete_coverage = 1.0000
-exact_accuracy = 0.9931
-transition_F1 = 0.7202
-transition_precision = 0.5671
-transition_recall = 0.9863
-median delay vs oracle availability = 0 bars / 0 minutes
-median delay vs structural center = +6 bars / +30 minutes
-false transitions/day = 0.4186
+n_scored = 9,351
+balanced_accuracy = 0.7559
+macro_F1 = 0.7339
+concrete_coverage = 0.9402
+conditional_accuracy_when_concrete = 0.7572
+exact_accuracy_including_abstention = 0.7119
+yearly balanced_accuracy median = 0.7516
+yearly balanced_accuracy min = 0.7174
 ```
 
-All frozen Level-4 gates passed.
-
-## Critical interpretation — do not overclaim the 99% score
-
-The ~99% availability-aligned point-state score is **not** evidence that the system has independent human-like visual recognition accuracy of 99%.
-
-After shifting the centered judge by its six-bar availability lag, the online 12-bar causal window and the judge's centered 12-return window cover almost the same K-line segment and use the same semantic thresholds. Therefore the availability-aligned score is primarily a strong **causal implementation / time-axis consistency** result.
-
-The most informative secondary diagnostic for ordinary same-center chart reading is the persistence decoder without the six-bar alignment:
+Per-state F1:
 
 ```text
-CSI1000 same-center decoded balanced_accuracy = 0.6597
-CSI1000 same-center decoded coverage = 0.8888
-CSI1000 same-center decoded macro_F1 = 0.6895
-
-STAR50 same-center decoded balanced_accuracy = 0.6678
-STAR50 same-center decoded coverage = 0.9153
-STAR50 same-center decoded macro_F1 = 0.6798
+UpTrend = 0.7961
+DownTrend = 0.8517
+Range = 0.6070
+Shock = 0.6807
 ```
 
-This is a real improvement over V1's raw 0.37–0.38 balanced accuracy and shows that treating market state as persistent rather than erasing it on every ambiguous bar materially improves recognition.
+## Formal independent transition result
 
-Availability alignment **without** the persistence decoder remained much weaker:
+The independent point-state result is robust, but transition agreement remains weak.
+
+### CSI1000
 
 ```text
-CSI1000 aligned-raw balanced_accuracy = 0.4730
-STAR50 aligned-raw balanced_accuracy = 0.4443
+judge transitions scored = 875
+online transitions = 2,196
+matched = 298
+transition precision = 0.1357
+transition recall = 0.3406
+transition F1 = 0.1941
+false transitions/day = 0.7135
+median delay vs judge availability = -1 bar / -5 minutes
 ```
 
-So the persistence state machine contributes real value; the near-perfect final point score additionally reflects the shared-window/shared-rule alignment.
+### STAR50
 
-## Remaining weakness
+```text
+judge transitions scored = 409
+online transitions = 1,266
+matched = 135
+transition precision = 0.1066
+transition recall = 0.3301
+transition F1 = 0.1612
+false transitions/day = 0.8640
+median delay vs judge availability = -1 bar / -5 minutes
+```
 
-Transition recall is now very high, but precision is only about 64% on CSI1000 and 57% on STAR50. The system therefore detects almost all scoreable structural changes but still emits too many extra transitions.
+The frozen v3 adjudication is:
 
-Also, the offline judge is not independent of the recognizer: it shares state semantics and closely related formulas. This prevents any Level-5 or human-like recognition claim.
+`weak_independent_algorithmic_agreement`
+
+This label is caused only by transition F1 failing the preregistered useful threshold of 0.30 on both assets. The point-state metrics themselves exceed the strong v3 accuracy/F1/coverage thresholds.
+
+## Plain-language interpretation
+
+The most defensible current statement is:
+
+> The system has a real, reasonably strong ability to recognize ongoing K-line states across a structurally different chart description: roughly 75–76% balanced four-state agreement, ~92–94% concrete coverage, stable across years. This is much more credible than interpreting the v2 99% as human-like accuracy.
+
+But:
+
+> The system still changes its mind far too often. Independent transition precision is only ~11–14%, so many online state changes are not recognized as genuine changes by the orthogonal geometry judge.
+
+`Range` remains the weakest point-state class, especially recall. Trend-state recognition is substantially stronger.
 
 ## Next scientifically meaningful step
 
-Do **not** tune V2 until the 99% number gets even higher.
+Do not tune the independent v3 judge after seeing these results.
 
-The next step should be a separately preregistered orthogonal/independent visual benchmark that does not reuse the recognizer's state formulas as the answer key. Preferred evidence order:
+The next research should target the **online transition policy**, not ordinary point-state classification:
 
-1. independent human/external chart annotations if available;
-2. otherwise an orthogonal offline geometry/change-point judge built from distinct formulas and frozen before replay;
-3. keep V1/V2 scores as development evidence and never relabel them fresh OOS.
-
-The next benchmark should focus especially on:
-
-- false transition reduction;
-- trend <-> range changes;
-- shock entry/exit;
-- whether same-center decoded ~66–67% accuracy survives an independent answer key.
+1. reduce false transitions without changing the frozen raw state classifier;
+2. require transition evidence beyond two consecutive labels, using preregistered causal change evidence;
+3. specifically study trend <-> range transitions and shock entry/exit;
+4. evaluate against the frozen independent v3 judge, preserving v3 as the answer key;
+5. avoid optimizing only aggregate transition F1; report precision/recall/delay and per-transition-type results;
+6. Level 5 still requires fresh held-out data or independent human/external annotation.
 
 ## Scope boundary
 
@@ -172,5 +190,5 @@ The next benchmark should focus especially on:
 - no UK alert validation;
 - no production/live trading;
 - no mutation of other repositories;
-- no post-result V2 threshold/tolerance search;
-- V1 and V2 historical results remain immutable development evidence.
+- no post-result v3 judge tuning;
+- V1/V2/V3 historical results remain immutable development evidence.
