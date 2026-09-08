@@ -105,10 +105,10 @@ def test_online_features_are_prefix_only_when_future_bars_change():
     cutoff = 35
     columns = [
         "signed_efficiency_6",
-        "signed_efficiency_24",
-        "bdci_24",
-        "dii_24",
-        "realized_volatility_24",
+        "signed_efficiency_12",
+        "bdci_12",
+        "dii_12",
+        "realized_volatility_12",
         "body_to_range_ratio_6",
         "wick_imbalance_6",
         "close_location_value_6",
@@ -118,6 +118,16 @@ def test_online_features_are_prefix_only_when_future_bars_change():
         after.loc[:cutoff, columns],
         check_dtype=False,
     )
+
+
+def test_missing_late_morning_bar_is_not_disguised_as_lunch_bridge():
+    market = _one_day_market()
+    missing = pd.Timestamp("2025-01-02 11:30", tz="Asia/Shanghai")
+    market = market.loc[market["market_time_shanghai"].ne(missing)].copy()
+    prepared = prepare_market_frame(market)
+    before_lunch = prepared.loc[prepared["market_time_shanghai"].eq(pd.Timestamp("2025-01-02 11:25", tz="Asia/Shanghai"))].iloc[0]
+    after_lunch = prepared.loc[prepared["market_time_shanghai"].eq(pd.Timestamp("2025-01-02 13:00", tz="Asia/Shanghai"))].iloc[0]
+    assert before_lunch["contiguous_run_id"] != after_lunch["contiguous_run_id"]
 
 
 def test_2026_market_rows_fail_closed():
@@ -186,6 +196,15 @@ def test_zero_matches_produce_zero_transition_f1_not_nan():
     assert metrics["transition_f1"] == 0.0
 
 
+def test_empty_online_event_table_is_fail_safe():
+    online = pd.DataFrame()
+    oracle = pd.DataFrame([_event("oracle", 10, "UpTrend")])
+    _, metrics = compare_transition_events(online, oracle, tolerance_bars=3)
+    assert metrics["online_transition_count"] == 0
+    assert metrics["oracle_transition_count"] == 1
+    assert metrics["transition_recall"] == 0.0
+
+
 def test_abstention_counts_as_recognition_miss():
     times = pd.date_range("2025-01-02 09:30", periods=8, freq="5min", tz="Asia/Shanghai")
     oracle = ["UpTrend", "DownTrend", "Range", "Shock"] * 2
@@ -207,3 +226,21 @@ def test_abstention_counts_as_recognition_miss():
     shock = per_state.loc[per_state["state"].eq("Shock")].iloc[0]
     assert shock["recall"] == 0.0
     assert shock["f1"] == 0.0
+
+
+def test_ineligible_warmup_row_does_not_count_as_recognition_miss():
+    times = pd.date_range("2025-01-02 09:30", periods=5, freq="5min", tz="Asia/Shanghai")
+    frame = pd.DataFrame(
+        {
+            "symbol": "000852.SH",
+            "trading_day": "2025-01-02",
+            "market_time_shanghai": times,
+            "bar_ordinal_day": np.arange(len(times)),
+            "oracle_state": ["Shock", "UpTrend", "DownTrend", "Range", "Shock"],
+            "online_state": ["Uncertain", "UpTrend", "DownTrend", "Range", "Shock"],
+            "recognition_eligible": [False, True, True, True, True],
+        }
+    )
+    summary, _, _, _, _ = score_recognition(frame)
+    assert summary["n_scored"] == 4
+    assert summary["exact_accuracy_including_abstention"] == 1.0
