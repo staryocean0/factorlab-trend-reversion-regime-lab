@@ -14,13 +14,13 @@ from pathlib import Path
 
 import pandas as pd
 
+from regime_lab.kline_state_evaluation import score_recognition_strict
 from regime_lab.kline_state_recognition import (
     ALL_STATES,
     CONCRETE_STATES,
     RecognitionConfig,
     assess_capability_level,
     build_state_timeseries,
-    score_recognition,
 )
 from regime_lab.market_data import ROOT, load_market_data
 
@@ -207,7 +207,7 @@ def main() -> int:
         states = build_state_timeseries(market, config=config)
         if states.empty:
             raise RuntimeError(f"state timeseries is empty for {symbol}")
-        summary, confusion, per_state, yearly, transitions = score_recognition(states, config=config)
+        summary, confusion, per_state, yearly, transitions = score_recognition_strict(states, config=config)
         if not summary:
             raise RuntimeError(f"no concrete oracle scoring rows for {symbol}")
 
@@ -280,6 +280,7 @@ def main() -> int:
         "reference_history_finite_values": config.reference_history,
         "oracle_radius_bars": config.oracle_radius,
         "recognition_eligibility_required": True,
+        "scoring_implementation": "regime_lab.kline_state_evaluation.score_recognition_strict",
         "thresholds": {
             "bdci_trend": config.bdci_trend_threshold,
             "bdci_range": config.bdci_range_threshold,
