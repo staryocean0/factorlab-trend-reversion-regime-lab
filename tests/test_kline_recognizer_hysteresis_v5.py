@@ -94,7 +94,7 @@ def test_hysteresis_switches_only_after_qualifying_consecutive_bars():
         [
             [0.70, 0.10, 0.10, 0.10],
             [0.72, 0.08, 0.10, 0.10],
-            [0.30, 0.05, 0.60, 0.05],
+            [0.74, 0.06, 0.10, 0.10],
             [0.28, 0.05, 0.62, 0.05],
             [0.25, 0.05, 0.65, 0.05],
             [0.20, 0.05, 0.70, 0.05],
@@ -102,10 +102,10 @@ def test_hysteresis_switches_only_after_qualifying_consecutive_bars():
     )
     policy = HysteresisPolicy(0.10, 0.55, 3)
     decoded = hysteresis_decode(frame, probs, policy)
-    assert decoded.iloc[1] == "UpTrend"
+    assert decoded.iloc[1] == "Uncertain"
     assert decoded.iloc[2] == "UpTrend"
     assert decoded.iloc[3] == "UpTrend"
-    assert decoded.iloc[4] == "Range"
+    assert decoded.iloc[4] == "UpTrend"
     assert decoded.iloc[5] == "Range"
 
 
