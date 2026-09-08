@@ -1,106 +1,168 @@
-# Continue here — State-conditioned frequency adaptation v1
+# Continue here — K-line state recognition v1
 
 Date: 2026-09-08
 
-This entry is the active handoff for the cross-thread task on **CSI1000 (000852.SH) / STAR50 (000688.SH) strategy-frequency adaptation under `Unsafe` / `Recovering` states**. It is intentionally separate from the frozen reversal execution line (`v0.15` IM hedge-release replay), which remains unchanged.
-
-## Recovered cross-thread state
-
-The previous conversation had already moved past the initial question "does volatility rise?" and into the narrower hypothesis:
-
-> higher-volatility / `Unsafe` conditions may enlarge the fee/friction budget enough for shorter physical horizons to become economically viable, even though shorter horizons are normally more vulnerable to costs.
-
-The following are **consumed exploratory handoff facts from the prior conversation, not independently reproduced by this branch yet**:
-
-- 1-minute theoretical one-sided friction capacity increased from `Recovering` to `Unsafe`:
-  - STAR50: approximately `3.10 -> 5.50 bp`;
-  - CSI1000: approximately `2.71 -> 4.77 bp`;
-  - uplift ratio approximately `1.76–1.78x`.
-- A simple fixed frequency grid `1/2/3/5/10/15/30 min` with transparent trend/reversal controls did **not** establish that higher frequency is stably more profitable.
-
-Therefore v1 does not repeat the false implication "higher volatility => shortest horizon wins". The next question is whether the **state-conditioned economic viability curve** shifts toward shorter horizons after fixed costs, without selecting a winning strategy from the same outcomes.
-
-The old conversational labels `RD1 / SA1 / SA2` are not present in repository evidence and are not treated as authoritative stage IDs here. Repository commits, frozen protocol, hashes and result cards are the source of truth.
-
-## Active branch and parent
+This is the active handoff for the user's explicit next research priority:
 
 ```text
-branch = research/state-frequency-adaptation-v1
-parent = 5477340e66c124df7a4691328f796e83f1802255
+K-line chart -> features -> market state -> state-transition recognition -> recognition accuracy
 ```
 
-The parent contains the complete prior trend/reversion research tree through the v0.14.2 3-second execution-clock bridge plus already-preregistered v0.15 IM documents. This branch must not modify the v0.15 protocol/data contract/quote manifest.
+The immediate question is **how well the system can recognize K-line structure**, not which strategy/frequency is most profitable.
+
+## Active branch
+
+```text
+branch = research/kline-state-recognition-v1
+base = research/state-frequency-adaptation-v1
+```
+
+The earlier state-frequency branch is preserved unchanged as a separate line. Its missing `Unsafe/Recovering` state-pool gate is not bypassed or reconstructed here. Frozen v0.15 reversal/IM material also remains untouched.
+
+## Plain-language objective
+
+Build a measurable chart-reading system that can:
+
+1. look only at K-lines already closed;
+2. measure transparent chart properties;
+3. say whether the current shape is `UpTrend`, `DownTrend`, `Range`, `Shock`, or `Uncertain`;
+4. detect when the state changes;
+5. compare those answers with a separate offline chart-shape judge;
+6. report an honest Level 2/3/4 result instead of a trading P&L result.
+
+Level 5 is deliberately unavailable in v1 because it requires fresh held-out data or independent human/external chart annotations.
 
 ## Frozen protocol
 
-Read and execute:
+Read first:
 
-`docs/research/STATE_FREQUENCY_ADAPTATION_V1_PROTOCOL.md`
+`docs/research/KLINE_STATE_RECOGNITION_V1_PROTOCOL.md`
 
-The protocol is results-blind with respect to any new state-by-frequency replay. UK/英国预警验证 is explicitly out of scope for this stage.
+The protocol was finalized **before any real historical recognition score was observed**. During preflight review, the original 24-bar design was shortened to a 12 x 5m (60 trading minute) primary chart window and an explicit `recognition_eligible` gate was added. This avoided structurally penalizing timestamps where the recognizer or centered judge physically lacked enough bars. This was a results-blind design correction, not a response to empirical recognition performance.
 
-## Thread-3 continuation progress
-
-Thread 3 resumed from the thread-2 GitHub handoff instead of starting a new research line. The executable harness is now complete through the pre-input stage:
-
-- existing fail-closed measurement core:
-  - `src/regime_lab/state_frequency_adaptation.py`
-- added frozen inference/statistics helpers:
-  - `src/regime_lab/state_frequency_inference.py`
-- added inference guardrail tests:
-  - `tests/test_state_frequency_inference.py`
-- added formal replay runner:
-  - `scripts/run_state_frequency_adaptation_v1.py`
-
-The inference layer freezes:
-
-- year/month/AM-PM/15-minute seasonality strata;
-- equalized state mass inside matched strata;
-- fixed short set `1/2/3/5m` and long set `10/15/30m`;
-- trading-day block bootstrap with the same resampled day multiplicities across all seven horizons inside each asset/family;
-- Holm family-wise correction across the seven `Delta_B(h)` contrasts;
-- no best-of family selection.
-
-The formal runner requires explicit `state-pool path + SHA256 + source revision`, rejects future/tested-outcome surface columns, validates PIT timing, and writes the protocol output bundle under `experiments/state_frequency_adaptation_v1/`.
-
-No empirical state-frequency outcome has been generated yet.
-
-## Hard input gate — still active
-
-The exact state pool used by the prior conversation is still not identifiable from the accessible GitHub tree, issues, commit history, or recovered cross-thread context. Before empirical replay, require an immutable state-pool identity with at least:
+Frozen primary design:
 
 ```text
-symbol
-market_time_shanghai
-state                 # Unsafe or Recovering
-state_available_at
-source_revision / artifact hash
+clock = 5m
+short window = 6 bars / 30m
+primary online window = 12 bars / 60m
+centered offline judge = +/- 6 bars
+strict-prior shock reference = 480 finite observations
+transition confirmation = 2 consecutive eligible bars
+transition match tolerance = +/- 3 eligible bars / 15m
 ```
 
-`state_available_at` must be no later than the decision timestamp. No state may be reconstructed from future returns or from the frequency-test outcomes.
+Frozen concrete states:
 
-If the state-pool artifact is unavailable, remain at the executable-harness gate; do not manufacture replacement labels.
+```text
+UpTrend
+DownTrend
+Range
+Shock
+```
+
+`Uncertain` is a real abstention. On an eligible row, `Uncertain` against a concrete judge state counts as a recognition miss.
+
+## Implemented files
+
+- causal chart/state core:
+  - `src/regime_lab/kline_state_recognition.py`
+- strict separated evaluator:
+  - `src/regime_lab/kline_state_evaluation.py`
+- formal historical runner:
+  - `scripts/run_kline_state_recognition_v1.py`
+- guardrail tests:
+  - `tests/test_kline_state_recognition.py`
+
+The recognizer uses only past/present K-line information. The centered offline judge may inspect a fixed local future radius **only for evaluation** and its fields are forbidden from online inputs.
+
+The strict evaluator explicitly assigns F1=0 when a supported concrete class is completely missed, so failed classes cannot disappear from macro-F1 because precision is undefined.
+
+## Capability rubric
+
+### Level 2
+
+End-to-end recognition/scoring exists but at least one Level-3 gate fails.
+
+### Level 3 — useful historical recognition
+
+Both CSI1000 and STAR50 separately require:
+
+```text
+balanced_accuracy >= 0.55
+transition_F1 >= 0.40
+concrete coverage >= 0.60
+every concrete state support >= 100
+```
+
+### Level 4 — strong historical recognition
+
+Both assets separately require:
+
+```text
+balanced_accuracy >= 0.70
+transition_F1 >= 0.60
+concrete coverage >= 0.75
+>= 3 eligible yearly slices
+yearly median balanced_accuracy >= 0.60
+no eligible year balanced_accuracy < 0.50
+```
+
+### Level 5
+
+Not awardable by this consumed-history v1. Requires independent/fresh evidence.
 
 ## Current validation status
 
-Synthetic inference-helper preflight has been exercised outside the repository clone for deterministic matching/contrast/cost-survival/bootstrap logic. The current cloud shell still cannot clone GitHub because DNS resolution fails, so this handoff does **not** claim full repository `python -m pytest -q` success and does not use GitHub Actions as substitute compute.
+Synthetic/preflight checks have covered:
 
-## Scope constraints
+- four-state rule behavior;
+- missing rank context -> abstain;
+- future K-line changes do not alter earlier causal features;
+- missing late-morning bars are not disguised as the lunch break;
+- 2026 fails closed;
+- two-bar transition confirmation;
+- destination-specific transition matching;
+- zero transition matches -> F1=0;
+- empty transition side is safe;
+- eligible abstention counts as a miss;
+- physically ineligible warm-up rows are excluded from the exam;
+- fully missed supported class -> per-state F1=0 and remains in macro-F1.
 
-- supplied history is consumed development material, not fresh OOS;
-- 2026 remains excluded;
-- no UK validation in this stage;
-- no production registration or live orders;
-- no new winner selected by maximizing total P&L;
-- no mutation of other FactorLab repositories;
-- do not use GitHub Actions as default research compute.
+A local synthetic reconstruction reached `ALL_CHECKS_PASS` after the strict missed-class F1 correction.
 
-## Next executable evidence
+The current shell still cannot clone GitHub because DNS resolution fails, so this handoff does **not** claim that full repository `python -m pytest -q` has run in a real clone. GitHub Actions were not used as substitute compute.
 
-1. restore the exact prior-thread state-pool artifact without altering it;
-2. verify artifact SHA256/source revision and point-in-time availability;
-3. run `python scripts/validate_seed.py` and `python -m pytest -q` in a real clone;
-4. execute `scripts/run_state_frequency_adaptation_v1.py` once on the frozen `1/2/3/5/10/15/30m` grid;
-5. persist raw/matched curves, cost survival, day-block uncertainty, hashes and execution receipt;
-6. choose exactly one of the five frozen protocol adjudications only after reading those fixed outputs;
-7. preserve the null result if shorter horizons do not become robustly viable.
+## What is still missing
+
+The **real historical recognition score** has not yet been generated, because this execution surface cannot access the repository Parquet payloads in a runnable clone.
+
+Therefore do not yet claim that the project has achieved Level 2, 3, or 4 empirically. The honest state is:
+
+> recognition exam built + synthetic guardrails passed; real CSI1000/STAR50 historical score pending data-capable execution.
+
+## Next data-capable execution
+
+From a real clone of this branch:
+
+```text
+python scripts/validate_seed.py
+python -m pytest -q
+python scripts/run_kline_state_recognition_v1.py
+```
+
+Required outputs are written only under:
+
+`experiments/kline_state_recognition_v1/`
+
+The key human-readable result is `RESULT_CARD.md`; it will state the achieved Level and the gates that failed if it does not advance.
+
+## Scope boundary
+
+- this is chart/state recognition, not a profitability test;
+- no 2026;
+- no UK alert validation;
+- no production/live trading;
+- no mutation of other repositories;
+- no threshold/model/frequency search after seeing v1 results;
+- if v1 is weak, preserve it and preregister v2 rather than tuning v1 until it passes.
