@@ -24,8 +24,33 @@ jobs:
           python-version: '3.11'
       - name: Install
         run: python -m pip install -e .
-      - name: Validate seed
-        run: python scripts/validate_seed.py
+      - name: Validate immutable market package
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import pyarrow.parquet as pq
+
+          root = Path('.').resolve()
+          manifest = json.loads((root / 'data/manifest.json').read_text())
+          counts = {}
+          for item in manifest['files']:
+              path = root / item['path']
+              with path.open('rb') as handle:
+                  actual = hashlib.file_digest(handle, 'sha256').hexdigest()
+              assert actual == item['sha256'], item['path']
+              pf = pq.ParquetFile(path)
+              assert pf.metadata.num_rows == item['rows'], item['path']
+              frame = pf.read(columns=['symbol', 'trading_day']).to_pandas()
+              assert set(frame['symbol']) == {item['symbol']}, item['path']
+              assert frame['trading_day'].min() == item['first_day'], item['path']
+              assert frame['trading_day'].max() == item['last_day'], item['path']
+              assert item['last_day'] <= '2025-12-31', item['path']
+              key = f"{item['symbol']}:{item['frequency']}"
+              counts[key] = counts.get(key, 0) + len(frame)
+          print(json.dumps({'status':'passed','partitions':len(manifest['files']),'rows':counts}, ensure_ascii=False))
+          PY
       - name: Run full test suite
         run: python -m pytest -q
       - name: Run frozen recognition exam
