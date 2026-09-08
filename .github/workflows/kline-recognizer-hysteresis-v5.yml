@@ -1,3 +1,4 @@
+# one-shot execution revision 2
 name: kline-recognizer-hysteresis-v5-once
 
 on:
