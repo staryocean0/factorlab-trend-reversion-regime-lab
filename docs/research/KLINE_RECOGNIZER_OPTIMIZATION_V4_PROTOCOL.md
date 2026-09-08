@@ -102,9 +102,11 @@ Select one single recognizer configuration on the 2023-2024 validation set using
 
 Do not select on total P&L or pooled-only accuracy.
 
+After selection, the winning family/hyperparameters/confirmation length are locked. That selected model may then be refit once on all eligible labeled data through 2024-12-31 (development + validation combined) before the 2025 holdout is evaluated. No configuration choice may be revisited after that refit.
+
 ## 8. Final holdout reporting
 
-After selecting exactly one configuration, lock it and run once on 2025.
+After selecting exactly one configuration and performing the allowed through-2024 refit, run once on 2025.
 
 Report for each asset:
 
