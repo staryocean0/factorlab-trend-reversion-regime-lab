@@ -1,0 +1,28 @@
+{
+  "code_commit": "64c1330c4b2682aad3b2df7f2dfa7f77d454956b",
+  "command": "scripts/run_kline_recognizer_optimization_v4.py --code-commit 64c1330c4b2682aad3b2df7f2dfa7f77d454956b",
+  "cwd": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab",
+  "exit_code": 0,
+  "finished_at_utc": "2026-09-08T11:56:29.495143+00:00",
+  "output_sha256": {
+    "RESULT_CARD.md": "62f88fca3dd1db4987df7946e1f286f7fc8c5b4160b45fcafc22083da80b4665",
+    "candidate_validation.csv": "c6f15be5c5bbddf9cd49ab7d86eeca07354d02af4e769ae67d6c8f2e57b7aab8",
+    "holdout_metrics.csv": "73b3e4e41fee1b0d6af978a0c42774b65cd3a3b86c433c9b0beed543b632bd51",
+    "input_identity.json": "1f4c779f65a379fbd314b87ae873d68ffb92798c2fe10d8e311dd794545aa5e4",
+    "per_state_metrics.csv": "e76cc9304aa45a8747006adb73ab741b14d0ef4158733d1e426c15e84c461c8b",
+    "selected_model.json": "dc205a033eb6e8f45d87b6d8a290912a92e2b6d8445c936374668a63bd8f04ee",
+    "summary.json": "4f3ef95996da5f305c60f699a6b6b8de7d5615a0005b656e4e91aeadbdc1dac2",
+    "transition_events.csv": "b08f1b1128308b1391aaf022af87d726a6d51b21abadb3df9a8692670c5e5906"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "protocol_sha256": "3c8a26aecd902be2e1048101ca847c98a995f5ec547c4cad3a0055d93727f4d8",
+  "python": "3.11.16",
+  "schema": "kline_recognizer_optimization_v4_execution_receipt@1.0",
+  "started_at_utc": "2026-09-08T11:53:32.588695+00:00"
+}
