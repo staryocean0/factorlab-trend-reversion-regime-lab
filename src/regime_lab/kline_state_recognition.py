@@ -17,6 +17,16 @@ import pandas as pd
 
 CONCRETE_STATES = ("UpTrend", "DownTrend", "Range", "Shock")
 ALL_STATES = (*CONCRETE_STATES, "Uncertain")
+EVENT_COLUMNS = (
+    "source",
+    "symbol",
+    "trading_day",
+    "from_state",
+    "to_state",
+    "change_start_time",
+    "event_time",
+    "bar_ordinal_day",
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,7 +95,7 @@ def _lunch_bridge(previous: pd.Timestamp, current: pd.Timestamp) -> bool:
         return False
     p = previous.hour * 60 + previous.minute
     c = current.hour * 60 + current.minute
-    return 11 * 60 + 20 <= p <= 11 * 60 + 30 and 13 * 60 <= c <= 13 * 60 + 10
+    return p == 11 * 60 + 30 and c in {13 * 60, 13 * 60 + 5}
 
 
 def prepare_market_frame(market: pd.DataFrame) -> pd.DataFrame:
@@ -187,8 +197,7 @@ def _bdci(returns: pd.Series, window: int) -> pd.Series:
     switched = pair_valid & sign.ne(previous)
     opportunities = pair_valid.astype(float).rolling(window - 1, min_periods=window - 1).sum()
     switches = switched.astype(float).rolling(window - 1, min_periods=window - 1).sum()
-    score = 100.0 * (1.0 - switches / opportunities.where(opportunities > 0))
-    return score
+    return 100.0 * (1.0 - switches / opportunities.where(opportunities > 0))
 
 
 def _dii(returns: pd.Series, efficiency: pd.Series, window: int) -> pd.Series:
@@ -379,8 +388,7 @@ def _window_geometry(log_close: np.ndarray) -> tuple[float, float, float, float]
     energy = math.sqrt(float(np.square(returns).sum()))
     impulse = net / energy if energy > 0 else 0.0
     dii = impulse * (0.5 + 0.5 * min(abs(efficiency), 1.0))
-    rv = energy
-    return efficiency, bdci, dii, rv
+    return efficiency, bdci, dii, energy
 
 
 def build_visual_oracle(
@@ -426,9 +434,6 @@ def build_visual_oracle(
             history=cfg.reference_history,
         ).to_numpy()
 
-    # The centered oracle has no separate short history.  Its local direction
-    # vote uses the centered efficiency for both short/primary votes plus DII;
-    # future-inclusive fields remain evaluation-only.
     out["oracle_state"] = [
         classify_state(
             efficiency_short=float(e) if pd.notna(e) else math.nan,
@@ -521,7 +526,15 @@ def confirmed_states_and_events(
                 pending_count = 0
                 pending_start = None
             confirmed.at[idx] = stable if stable is not None else "Uncertain"
-    return confirmed, pd.DataFrame(events)
+    return confirmed, pd.DataFrame(events, columns=EVENT_COLUMNS)
+
+
+def _safe_f1(precision: float, recall: float) -> float:
+    if not math.isfinite(precision) or not math.isfinite(recall):
+        return math.nan
+    if precision + recall == 0.0:
+        return 0.0
+    return 2.0 * precision * recall / (precision + recall)
 
 
 def compare_transition_events(
@@ -531,8 +544,8 @@ def compare_transition_events(
     tolerance_bars: int = 3,
 ) -> tuple[pd.DataFrame, dict[str, float | int]]:
     """One-to-one nearest matching by asset/day/destination state."""
-    online = online_events.copy().reset_index(drop=True)
-    oracle = oracle_events.copy().reset_index(drop=True)
+    online = online_events.reindex(columns=EVENT_COLUMNS).copy().reset_index(drop=True)
+    oracle = oracle_events.reindex(columns=EVENT_COLUMNS).copy().reset_index(drop=True)
     online["matched"] = False
     oracle["matched"] = False
     online["match_id"] = pd.NA
@@ -578,7 +591,7 @@ def compare_transition_events(
     fn = int((~oracle["matched"]).sum()) if not oracle.empty else 0
     precision = tp / (tp + fp) if tp + fp else math.nan
     recall = tp / (tp + fn) if tp + fn else math.nan
-    f1 = 2 * precision * recall / (precision + recall) if precision + recall and math.isfinite(precision) and math.isfinite(recall) else math.nan
+    f1 = _safe_f1(float(precision), float(recall))
     matched = pd.DataFrame(matches)
     metrics: dict[str, float | int] = {
         "online_transition_count": int(len(online)),
@@ -626,7 +639,7 @@ def _classification_tables(
         support = int((y_true == state).sum())
         precision = tp / (tp + fp) if tp + fp else math.nan
         recall = tp / (tp + fn) if tp + fn else math.nan
-        f1 = 2 * precision * recall / (precision + recall) if precision + recall and math.isfinite(precision) and math.isfinite(recall) else math.nan
+        f1 = _safe_f1(float(precision), float(recall))
         if math.isfinite(recall):
             recalls.append(recall)
         if math.isfinite(f1):
