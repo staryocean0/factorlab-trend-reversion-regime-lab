@@ -1,0 +1,32 @@
+{
+  "2025_is_fresh_oos": false,
+  "2025_used_for_selection": false,
+  "best_point_eligible_aggregate": {
+    "max_false_transitions_per_day": 2.0950413223140494,
+    "mean_false_transitions_per_day": 1.9566115702479339,
+    "min_balanced_accuracy": 0.7739355167381246,
+    "min_macro_f1": 0.7800117165696421,
+    "min_transition_f1": 0.11764705882352942
+  },
+  "best_point_eligible_candidate": {
+    "beta": 2.0,
+    "eta": 2.0
+  },
+  "best_point_eligible_candidate_id": "markov_eta2_beta2",
+  "candidate_count": 12,
+  "diagnostic_2025_selected": null,
+  "diagnostic_2025_v5": null,
+  "diagnostic_adjudication": null,
+  "markov_promoted_pre2025": false,
+  "selected_candidate": null,
+  "selected_candidate_id": null,
+  "selected_pre2025_aggregate": null,
+  "status": "complete_markov_filter_v7_tuning",
+  "v5_pre2025_baseline_aggregate": {
+    "max_false_transitions_per_day": 1.2396694214876034,
+    "mean_false_transitions_per_day": 1.1549586776859504,
+    "min_balanced_accuracy": 0.7536614040741304,
+    "min_macro_f1": 0.7562810194148302,
+    "min_transition_f1": 0.17902813299232734
+  }
+}

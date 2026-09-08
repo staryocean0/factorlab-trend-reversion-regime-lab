@@ -1,0 +1,15 @@
+{
+  "active_baseline": "v5_hysteresis",
+  "best_pre2025_markov": {
+    "beta": 2.0,
+    "eta": 2.0
+  },
+  "best_pre2025_markov_aggregate": {
+    "max_false_transitions_per_day": 2.0950413223140494,
+    "mean_false_transitions_per_day": 1.9566115702479339,
+    "min_balanced_accuracy": 0.7739355167381246,
+    "min_macro_f1": 0.7800117165696421,
+    "min_transition_f1": 0.11764705882352942
+  },
+  "markov_promoted": false
+}
