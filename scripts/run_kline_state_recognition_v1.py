@@ -224,7 +224,8 @@ def main() -> int:
             "start": start,
             "end": end,
             "market_rows": int(len(market)),
-            "eligible_state_rows": int(len(states)),
+            "state_rows": int(len(states)),
+            "recognition_eligible_rows": int(states["recognition_eligible"].sum()),
         }
 
         export_columns = [
@@ -232,23 +233,25 @@ def main() -> int:
             "trading_day",
             "market_time_shanghai",
             "bar_ordinal_day",
+            "recognition_eligible",
             "online_state",
             "oracle_state",
             "volatility_rank_prior480",
             "abs_return_rank_prior480",
             "signed_efficiency_6",
-            "signed_efficiency_24",
-            "bdci_24",
-            "dii_24",
-            "realized_volatility_24",
+            "signed_efficiency_12",
+            "bdci_12",
+            "dii_12",
+            "realized_volatility_12",
             "body_to_range_ratio_6",
             "wick_imbalance_6",
             "close_location_value_6",
-            "oracle_signed_efficiency_24",
-            "oracle_bdci_24",
-            "oracle_dii_24",
-            "oracle_realized_volatility_24",
+            "oracle_signed_efficiency_12",
+            "oracle_bdci_12",
+            "oracle_dii_12",
+            "oracle_realized_volatility_12",
             "oracle_volatility_rank_prior480",
+            "oracle_abs_return_rank_prior480",
         ]
         state_parts.append(states[export_columns].copy())
         confusion_parts.append(_confusion_long(symbol, confusion))
@@ -276,6 +279,7 @@ def main() -> int:
         "primary_window_bars": config.primary_window,
         "reference_history_finite_values": config.reference_history,
         "oracle_radius_bars": config.oracle_radius,
+        "recognition_eligibility_required": True,
         "thresholds": {
             "bdci_trend": config.bdci_trend_threshold,
             "bdci_range": config.bdci_range_threshold,
