@@ -23,8 +23,13 @@ from regime_lab.kline_markov_filter_v7 import (
     score_markov_period_from_probabilities,
     select_markov_candidate,
 )
-from regime_lab.kline_recognizer_hysteresis_v5 import HysteresisPolicy, linear_probabilities, score_policy_period
-from regime_lab.kline_recognizer_optimization_v4 import V4_LINEAR_CONFIG, fit_model, serialize_model
+from regime_lab.kline_recognizer_hysteresis_v5 import (
+    HysteresisPolicy,
+    V4_LINEAR_CONFIG,
+    linear_probabilities,
+    score_policy_period,
+)
+from regime_lab.kline_recognizer_optimization_v4 import fit_model, serialize_model
 from regime_lab.kline_state_recognition import RecognitionConfig, build_state_timeseries
 from regime_lab.market_data import ROOT, load_market_data
 
