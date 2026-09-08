@@ -1,0 +1,16 @@
+{
+  "000688.SH": {
+    "oracle_availability_lag_bars": 6,
+    "oracle_center_events_total": 1011,
+    "oracle_events_excluded_unavailable_same_day": 283,
+    "oracle_events_scored": 728,
+    "transition_tolerance_bars": 3
+  },
+  "000852.SH": {
+    "oracle_availability_lag_bars": 6,
+    "oracle_center_events_total": 1998,
+    "oracle_events_excluded_unavailable_same_day": 579,
+    "oracle_events_scored": 1419,
+    "transition_tolerance_bars": 3
+  }
+}
