@@ -1,6 +1,6 @@
 """Causal K-line state recognition and offline visual-reference scoring.
 
-The online recognizer is strictly prefix-only.  The centered visual oracle is
+The online recognizer is strictly prefix-only. The centered visual oracle is
 allowed to inspect a fixed local future radius, but only for evaluation; oracle
 fields must never become recognizer inputs.
 """
@@ -32,9 +32,9 @@ EVENT_COLUMNS = (
 @dataclass(frozen=True, slots=True)
 class RecognitionConfig:
     short_window: int = 6
-    primary_window: int = 24
+    primary_window: int = 12
     reference_history: int = 480
-    oracle_radius: int = 12
+    oracle_radius: int = 6
     bdci_trend_threshold: float = 60.0
     bdci_range_threshold: float = 40.0
     trend_efficiency_threshold: float = 0.30
@@ -418,10 +418,14 @@ def build_visual_oracle(
             oracle_dii[global_i] = dii
             oracle_rv[global_i] = rv
 
-    out["oracle_signed_efficiency_24"] = oracle_eff
-    out["oracle_bdci_24"] = oracle_bdci
-    out["oracle_dii_24"] = oracle_dii
-    out["oracle_realized_volatility_24"] = oracle_rv
+    oracle_eff_col = f"oracle_signed_efficiency_{cfg.primary_window}"
+    oracle_bdci_col = f"oracle_bdci_{cfg.primary_window}"
+    oracle_dii_col = f"oracle_dii_{cfg.primary_window}"
+    oracle_rv_col = f"oracle_realized_volatility_{cfg.primary_window}"
+    out[oracle_eff_col] = oracle_eff
+    out[oracle_bdci_col] = oracle_bdci
+    out[oracle_dii_col] = oracle_dii
+    out[oracle_rv_col] = oracle_rv
     out["oracle_volatility_rank_prior480"] = np.nan
     out["oracle_abs_return_rank_prior480"] = out["abs_return_rank_prior480"]
 
@@ -429,7 +433,7 @@ def build_visual_oracle(
     for _, indices in out.groupby("symbol", sort=False).groups.items():
         loc = list(indices)
         out.loc[loc, "oracle_volatility_rank_prior480"] = _causal_rank_against_reference(
-            out.loc[loc, "oracle_realized_volatility_24"],
+            out.loc[loc, oracle_rv_col],
             out.loc[loc, rv_ref],
             history=cfg.reference_history,
         ).to_numpy()
@@ -445,14 +449,32 @@ def build_visual_oracle(
             config=cfg,
         )
         for e, b, d, v, a in zip(
-            out["oracle_signed_efficiency_24"],
-            out["oracle_bdci_24"],
-            out["oracle_dii_24"],
+            out[oracle_eff_col],
+            out[oracle_bdci_col],
+            out[oracle_dii_col],
             out["oracle_volatility_rank_prior480"],
             out["oracle_abs_return_rank_prior480"],
             strict=False,
         )
     ]
+
+    required_cols = [
+        f"signed_efficiency_{cfg.short_window}",
+        f"signed_efficiency_{cfg.primary_window}",
+        f"bdci_{cfg.primary_window}",
+        f"dii_{cfg.primary_window}",
+        f"realized_volatility_{cfg.primary_window}",
+        "volatility_rank_prior480",
+        "abs_return_rank_prior480",
+        oracle_eff_col,
+        oracle_bdci_col,
+        oracle_dii_col,
+        oracle_rv_col,
+        "oracle_volatility_rank_prior480",
+        "oracle_abs_return_rank_prior480",
+    ]
+    finite = out[required_cols].apply(pd.to_numeric, errors="coerce").notna().all(axis=1)
+    out["recognition_eligible"] = finite.astype(bool)
     return out
 
 
@@ -617,7 +639,11 @@ def compare_transition_events(
 def _classification_tables(
     frame: pd.DataFrame,
 ) -> tuple[dict[str, float | int], pd.DataFrame, pd.DataFrame]:
-    scored = frame.loc[frame["oracle_state"].isin(CONCRETE_STATES)].copy()
+    if "recognition_eligible" in frame.columns:
+        eligible = frame["recognition_eligible"].fillna(False).astype(bool)
+    else:
+        eligible = pd.Series(True, index=frame.index)
+    scored = frame.loc[eligible & frame["oracle_state"].isin(CONCRETE_STATES)].copy()
     if scored.empty:
         return {}, pd.DataFrame(), pd.DataFrame()
     y_true = scored["oracle_state"].astype(str)
@@ -676,20 +702,24 @@ def score_recognition(
     frame = state_timeseries.copy()
     point_summary, confusion, per_state = _classification_tables(frame)
 
+    if "recognition_eligible" in frame.columns:
+        transition_frame = frame.loc[frame["recognition_eligible"].fillna(False)].copy()
+    else:
+        transition_frame = frame.copy()
     online_confirmed, online_events = confirmed_states_and_events(
-        frame, label_column="online_state", source="online", config=cfg
+        transition_frame, label_column="online_state", source="online", config=cfg
     )
     oracle_confirmed, oracle_events = confirmed_states_and_events(
-        frame, label_column="oracle_state", source="oracle", config=cfg
+        transition_frame, label_column="oracle_state", source="oracle", config=cfg
     )
-    frame["online_confirmed_state"] = online_confirmed
-    frame["oracle_confirmed_state"] = oracle_confirmed
+    transition_frame["online_confirmed_state"] = online_confirmed
+    transition_frame["oracle_confirmed_state"] = oracle_confirmed
     transition_table, transition_summary = compare_transition_events(
         online_events,
         oracle_events,
         tolerance_bars=cfg.transition_tolerance_bars,
     )
-    days = max(1, frame[["symbol", "trading_day"]].drop_duplicates().shape[0])
+    days = max(1, transition_frame[["symbol", "trading_day"]].drop_duplicates().shape[0])
     transition_summary["false_transitions_per_day"] = (
         float((transition_table["event_role"].eq("online") & ~transition_table["matched"]).sum()) / days
         if not transition_table.empty
