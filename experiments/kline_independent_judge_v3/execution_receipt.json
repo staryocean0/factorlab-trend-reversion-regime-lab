@@ -1,0 +1,30 @@
+{
+  "code_commit": "599af65838ba4d9df43704190da5760d7d17daff",
+  "command": "scripts/run_kline_independent_judge_v3.py --code-commit 599af65838ba4d9df43704190da5760d7d17daff",
+  "cwd": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab",
+  "exit_code": 0,
+  "finished_at_utc": "2026-09-08T11:32:59.096365+00:00",
+  "output_sha256": {
+    "RESULT_CARD.md": "de0ebb3da30161675f5af5ef64e52fffbb0eb2b1145da4103d28042212f00195",
+    "availability_audit.json": "3d0dddaa3e1fbc5ed2ef9f6162a3c2c0b3657136ba5703df95b5f06909aa234c",
+    "confusion_matrix.csv": "d18fd950515e54cab1dd6303f28bc8f0f1274ea1ed5a7ce6e9b442877d3d7a1d",
+    "input_identity.json": "94e0fb4d9349bb0d99b6728df22a6868b1843d3326c307c2d51ed546f4e657e5",
+    "judge_contract.json": "aa3d253e73ab6fd2d37ab596eda24d447e7ce880dd3f7570b4ffa32d145b5410",
+    "judge_timeseries.csv": "3d50001c419946fd24a12f7de0fcaa40d30f72ca655cad9b861150b19ec206b6",
+    "per_state_metrics.csv": "a9664bbdb0e11fcebafbf25048f1cfab9eec3063c997fe622953e05492877b83",
+    "summary.json": "975c4e3841b96dc2dd1594ed81a914d8fc06ad4bc773854cd711eb4093106d7b",
+    "transition_events.csv": "4b1eca1fb529487a50fc055db8f9b72463ebd509adddfadc54078deadc441ff8",
+    "yearly_metrics.csv": "91a51fea36eb12e83b8197d902f6cd84cc1fdb87cfbbcbda691d80aa559c4585"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "protocol_sha256": "97877d7d6ccb867171b0b0756099caab362db01261ddb27f3fc9743555214f37",
+  "python": "3.11.16",
+  "schema": "kline_independent_judge_v3_execution_receipt@1.0",
+  "started_at_utc": "2026-09-08T11:30:32.106203+00:00"
+}

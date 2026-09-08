@@ -1,0 +1,25 @@
+{
+  "2026_excluded": true,
+  "code_commit": "599af65838ba4d9df43704190da5760d7d17daff",
+  "data_role": "consumed_development_material",
+  "market_manifest_sha256": "431daf9637b7ebf02dd95d8e80d3178717ba2b4ff01e56abc2f8bbef4f31064e",
+  "market_ranges": {
+    "000688.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "market_rows": 63456,
+      "start": "2020-07-23",
+      "state_rows": 63456
+    },
+    "000852.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "market_rows": 128290,
+      "start": "2015-01-05",
+      "state_rows": 128290
+    }
+  },
+  "protocol_sha256": "97877d7d6ccb867171b0b0756099caab362db01261ddb27f3fc9743555214f37",
+  "v2_result_commit": "f5531a47a7de1cb89f0a1190694f56e1c5136a87",
+  "v2_summary_sha256": "366a77341b1dfa382a30763d3d1c51da051fe9466110cc215031746dcfa5acd0"
+}

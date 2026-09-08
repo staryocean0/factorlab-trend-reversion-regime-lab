@@ -1,0 +1,16 @@
+{
+  "000688.SH": {
+    "judge_availability_lag_bars": 8,
+    "judge_center_events_total": 630,
+    "judge_events_excluded_unavailable_same_day": 221,
+    "judge_events_scored": 409,
+    "transition_tolerance_bars": 3
+  },
+  "000852.SH": {
+    "judge_availability_lag_bars": 8,
+    "judge_center_events_total": 1331,
+    "judge_events_excluded_unavailable_same_day": 456,
+    "judge_events_scored": 875,
+    "transition_tolerance_bars": 3
+  }
+}

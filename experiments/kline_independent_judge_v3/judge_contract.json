@@ -1,0 +1,40 @@
+{
+  "centered_window_bars": 17,
+  "clock": "5m",
+  "features": [
+    "linear_r",
+    "channel_displacement",
+    "terminal_channel_location",
+    "turning_point_density",
+    "centered_median_log_range",
+    "centered_max_log_range",
+    "strict_prior_range_ranks"
+  ],
+  "forbidden": [
+    "BDCI",
+    "DII",
+    "signed_efficiency",
+    "realized_volatility",
+    "online_state_as_judge_input",
+    "v1_or_v2_oracle",
+    "forward_return",
+    "PnL",
+    "2026",
+    "UK_alert"
+  ],
+  "radius_bars": 8,
+  "reference_history": 480,
+  "schema": "kline_independent_judge_v3_contract@1.0",
+  "thresholds": {
+    "range_max_abs_channel_displacement": 0.3,
+    "range_max_abs_linear_r": 0.4,
+    "range_min_turning_density": 0.35,
+    "shock_max_range_rank": 0.995,
+    "shock_median_range_rank": 0.95,
+    "trend_abs_channel_displacement": 0.4,
+    "trend_abs_linear_r": 0.7,
+    "trend_max_turning_density": 0.45,
+    "trend_terminal_location_down": 0.3,
+    "trend_terminal_location_up": 0.7
+  }
+}
