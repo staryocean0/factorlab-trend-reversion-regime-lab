@@ -1,0 +1,28 @@
+{
+  "code_commit": "d1ba1e544e3e4a01423081130d005d34744ba7c0",
+  "command": "scripts/run_kline_recognizer_hysteresis_v5.py --code-commit d1ba1e544e3e4a01423081130d005d34744ba7c0",
+  "cwd": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab",
+  "exit_code": 0,
+  "finished_at_utc": "2026-09-08T12:28:48.560131+00:00",
+  "output_sha256": {
+    "RESULT_CARD.md": "cbdf66f42e2e881081b6cf1dc286160a5edae21f0840377065a022dd98a34f3f",
+    "candidate_cv.csv": "967bf4f73c2b4a603a5ed8f1d4a6152f6861f32ddd27f679570b6a5c856fd235",
+    "diagnostic_2025.csv": "3f273ab31355cd3e318d4cfe5096c74c280bf02f86d69d7ec41650c82dedc744",
+    "input_identity.json": "48c8228ebe0d38a5f866a1d215eedae0304c397ed10d6390ee644202099d7ea2",
+    "per_state_2025.csv": "76bc9b6771e32119b2ec87347b961fd2e0f38f5335237e7a15512985d186a7c1",
+    "selected_recognizer.json": "0f4961a59e4946e893ae6cbbef1ac262950046c48a16937630b9c793b982e623",
+    "summary.json": "0857841d699470a0b334d856bea81f51dada2119713b276d415fa0a097eb5f0e",
+    "transition_events_2025.csv": "99d609a1e9264e7cc309d69d25a093b6b2f6e51d4441d1d7018510039a513963"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "protocol_sha256": "d1b6aff2f9142224a96a083b6052ab441c8ba3aabaf81849c024acbdd63c40de",
+  "python": "3.11.16",
+  "schema": "kline_recognizer_hysteresis_v5_execution_receipt@1.0",
+  "started_at_utc": "2026-09-08T12:13:05.226717+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "2026_excluded": true,
+  "code_commit": "d1ba1e544e3e4a01423081130d005d34744ba7c0",
+  "diagnostic_2025": [
+    "2025-01-01",
+    "2025-12-31"
+  ],
+  "folds": [
+    [
+      "fold_2022",
+      "2021-12-31",
+      "2022-01-01",
+      "2022-12-31"
+    ],
+    [
+      "fold_2023",
+      "2022-12-31",
+      "2023-01-01",
+      "2023-12-31"
+    ],
+    [
+      "fold_2024",
+      "2023-12-31",
+      "2024-01-01",
+      "2024-12-31"
+    ]
+  ],
+  "market_manifest_sha256": "431daf9637b7ebf02dd95d8e80d3178717ba2b4ff01e56abc2f8bbef4f31064e",
+  "market_ranges": {
+    "000688.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "rows": 63456,
+      "start": "2020-07-23"
+    },
+    "000852.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "rows": 128290,
+      "start": "2015-01-05"
+    }
+  },
+  "protocol_sha256": "d1b6aff2f9142224a96a083b6052ab441c8ba3aabaf81849c024acbdd63c40de",
+  "v4_result_commit": "40e1a35bf134fd7eb9191a4537a9a2eea7f58a9c",
+  "v4_result_sha256": "4f3ef95996da5f305c60f699a6b6b8de7d5615a0005b656e4e91aeadbdc1dac2"
+}
