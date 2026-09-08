@@ -31,7 +31,7 @@ parent = 5477340e66c124df7a4691328f796e83f1802255
 
 The parent contains the complete prior trend/reversion research tree through the v0.14.2 3-second execution-clock bridge plus already-preregistered v0.15 IM documents. This branch must not modify the v0.15 protocol/data contract/quote manifest.
 
-## Current frozen action
+## Frozen protocol
 
 Read and execute:
 
@@ -39,9 +39,35 @@ Read and execute:
 
 The protocol is results-blind with respect to any new state-by-frequency replay. UK/英国预警验证 is explicitly out of scope for this stage.
 
-## Hard input gate
+## Thread-3 continuation progress
 
-The state pool used by the other conversation is not currently identifiable from the accessible GitHub default-branch artifacts. Before empirical replay, require an immutable state-pool identity with at least:
+Thread 3 resumed from the thread-2 GitHub handoff instead of starting a new research line. The executable harness is now complete through the pre-input stage:
+
+- existing fail-closed measurement core:
+  - `src/regime_lab/state_frequency_adaptation.py`
+- added frozen inference/statistics helpers:
+  - `src/regime_lab/state_frequency_inference.py`
+- added inference guardrail tests:
+  - `tests/test_state_frequency_inference.py`
+- added formal replay runner:
+  - `scripts/run_state_frequency_adaptation_v1.py`
+
+The inference layer freezes:
+
+- year/month/AM-PM/15-minute seasonality strata;
+- equalized state mass inside matched strata;
+- fixed short set `1/2/3/5m` and long set `10/15/30m`;
+- trading-day block bootstrap with the same resampled day multiplicities across all seven horizons inside each asset/family;
+- Holm family-wise correction across the seven `Delta_B(h)` contrasts;
+- no best-of family selection.
+
+The formal runner requires explicit `state-pool path + SHA256 + source revision`, rejects future/tested-outcome surface columns, validates PIT timing, and writes the protocol output bundle under `experiments/state_frequency_adaptation_v1/`.
+
+No empirical state-frequency outcome has been generated yet.
+
+## Hard input gate — still active
+
+The exact state pool used by the prior conversation is still not identifiable from the accessible GitHub tree, issues, commit history, or recovered cross-thread context. Before empirical replay, require an immutable state-pool identity with at least:
 
 ```text
 symbol
@@ -53,7 +79,11 @@ source_revision / artifact hash
 
 `state_available_at` must be no later than the decision timestamp. No state may be reconstructed from future returns or from the frequency-test outcomes.
 
-If the state-pool artifact is unavailable, stop at the frozen protocol + executable harness gate and record the minimal missing input; do not manufacture replacement labels.
+If the state-pool artifact is unavailable, remain at the executable-harness gate; do not manufacture replacement labels.
+
+## Current validation status
+
+Synthetic inference-helper preflight has been exercised outside the repository clone for deterministic matching/contrast/cost-survival/bootstrap logic. The current cloud shell still cannot clone GitHub because DNS resolution fails, so this handoff does **not** claim full repository `python -m pytest -q` success and does not use GitHub Actions as substitute compute.
 
 ## Scope constraints
 
@@ -65,10 +95,12 @@ If the state-pool artifact is unavailable, stop at the frozen protocol + executa
 - no mutation of other FactorLab repositories;
 - do not use GitHub Actions as default research compute.
 
-## Intended next evidence
+## Next executable evidence
 
-1. validate the state-pool identity and point-in-time availability;
-2. run the fixed `1/2/3/5/10/15/30m` frequency grid for the two fixed sign-based control families;
-3. persist gross edge, turnover, break-even one-way friction budget and fixed-cost survival by state;
-4. test whether `Unsafe` expands the viable short-horizon set relative to `Recovering`;
-5. preserve the null result if shorter horizons do not become robustly viable.
+1. restore the exact prior-thread state-pool artifact without altering it;
+2. verify artifact SHA256/source revision and point-in-time availability;
+3. run `python scripts/validate_seed.py` and `python -m pytest -q` in a real clone;
+4. execute `scripts/run_state_frequency_adaptation_v1.py` once on the frozen `1/2/3/5/10/15/30m` grid;
+5. persist raw/matched curves, cost survival, day-block uncertainty, hashes and execution receipt;
+6. choose exactly one of the five frozen protocol adjudications only after reading those fixed outputs;
+7. preserve the null result if shorter horizons do not become robustly viable.
