@@ -52,6 +52,7 @@ A. **Rule baseline**
 B. **Regularized multinomial linear classifier**
 - standardized causal features;
 - L2-regularized softmax;
+- class-balanced training loss using inverse training-class frequency weights normalized to mean 1;
 - regularization candidates `C in {0.1, 1.0, 10.0}`.
 
 C. **Diagonal Gaussian discriminant classifier**
@@ -130,7 +131,7 @@ V4 is considered a recognizer improvement only if, on 2025 for both assets separ
 - transition F1 >= 0.25;
 - false transitions/day <= 0.70;
 
-AND neither asset falls below the frozen v3 point-state balanced-accuracy benchmark by more than 0.03.
+AND on the same 2025 holdout neither asset falls below the frozen v3 recognizer's balanced accuracy by more than 0.03. The v3 baseline is re-scored on the identical 2025 rows only for fair comparison; it is not retuned.
 
 A failure is preserved; do not reopen the candidate menu after 2025 is seen.
 
