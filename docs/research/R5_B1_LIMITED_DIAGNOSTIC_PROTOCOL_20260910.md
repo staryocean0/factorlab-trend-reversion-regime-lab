@@ -33,7 +33,9 @@ Frozen source runner provenance:
 - source data SHA256: `bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48`
 - expected source rows: `70114`
 
-Before diagnostic execution, the current repository's yearly `data/market/5m/000852.SH/{2015..2020}.parquet` must be shown row-for-row equivalent on the four required fields (`symbol`, `trading_day`, `close`, `bar_end_shanghai`) to the frozen source data. If that identity check fails, the diagnostic is invalid and must stop before reading diagnostic outcomes.
+Before diagnostic execution, the current repository's yearly `data/market/5m/000852.SH/{2015..2020}.parquet` must be shown row-for-row equivalent on the four semantic fields (`symbol`, `trading_day`, `close`, bar-end timestamp) to the frozen source data. The current repository stores the bar-end field as `timestamp`; the frozen source names the same semantic field `bar_end_shanghai`. The only allowed schema adapter is therefore `timestamp -> bar_end_shanghai`. After this rename, parsed timestamps, prices, symbols, and trading days must be row-for-row equal. If that identity check fails, the diagnostic is invalid and must stop before reading diagnostic outcomes.
+
+The first attempted execution on 2026-09-10 stopped before any diagnostic outcome because it requested the nonexistent current-column name `bar_end_shanghai`. This alias rule is frozen after observing only that schema error and before any B1 diagnostic result was produced.
 
 ## Question 1 — breadth across validation days
 
@@ -67,7 +69,7 @@ These cutoffs are frozen before this diagnostic is run. No date removal or favor
 
 ## Question 2 — anti-persistence monotonic shape
 
-Create five anti-persistence bins using **TRAIN-only quintile edges** from rows eligible for the frozen B target. Apply those edges unchanged to VALIDATION.
+Create five anti-persistence bins using **TRAIN-only quintile edges** from rows eligible for the frozen B target. Apply those edges unchanged to VALIDATION. The four internal TRAIN quintile cutpoints are fixed; the lowest and highest bins have open outer tails so VALIDATION observations outside the TRAIN minimum/maximum are retained rather than selectively dropped.
 
 Within each VALIDATION bin, fit the descriptive empirical relation:
 
