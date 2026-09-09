@@ -1,0 +1,36 @@
+{
+  "champion_sha256": "db1519e9dd85801899a20d0a2846c93a577990108daa752833efafbb3f86e11a",
+  "code_commit": "990322493be0c19e4dd44770748c074539f6f48b",
+  "contribution_ledger_sha256": "bdd25113b6da76befd1eef770080253f9d0035cc1c0fb9a4b033ac2b26e7ded8",
+  "finished_at_utc": "2026-09-09T02:37:52.063706+00:00",
+  "market_ranges": {
+    "000688.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "rows": 63456,
+      "start": "2020-07-23"
+    },
+    "000852.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "rows": 128290,
+      "start": "2015-01-05"
+    }
+  },
+  "outputs": {
+    "RESULT_CARD.md": "de85890a462667a5bc7b23b22b8825c10d6edb91754207651491277320d6bd0e",
+    "candidate_cv.csv": "7000240596627875c105a54632a209d1d3124b777dcbf550f902b1199b1f4c0a",
+    "selected_recognizer.json": "ae4f1a685e49cbaef6decd06907d259dbd58462066dd3c5c060badbb0994d17d",
+    "summary.json": "a3d3be75fe7c6cb4864b50793a6fcfb80754e323aa0c44404a254589041f7478"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "protocol_sha256": "2ed8b50049e56a6b4e103fc9efd550fee8748afe1cefe1209427e9f38b7c2ff0",
+  "python": "3.11.16",
+  "started_at_utc": "2026-09-09T02:33:04.717877+00:00",
+  "status": "success"
+}

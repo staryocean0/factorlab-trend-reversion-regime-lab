@@ -1,0 +1,169 @@
+{
+  "2025_is_fresh_oos": false,
+  "2025_safety_veto": {
+    "failures": [],
+    "veto": false
+  },
+  "2025_used_for_candidate_selection": false,
+  "candidate_count": 6,
+  "champion_before_run": {
+    "as_of": "2026-09-09",
+    "authority_narrative": "docs/research/KLINE_RECOGNIZER_AUTHORITY.md",
+    "champion_branch": "research/kline-recognizer-hysteresis-v5",
+    "champion_result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
+    "champion_result_dir": "experiments/kline_recognizer_hysteresis_v5",
+    "champion_version": "v5_probability_hysteresis",
+    "classifier": {
+      "C": 1.0,
+      "family": "pooled_multinomial_linear"
+    },
+    "consumed_2025_diagnostic": {
+      "000688.SH": {
+        "balanced_accuracy": 0.7706466652565183,
+        "false_transitions_per_day": 1.045267489711934,
+        "macro_f1": 0.7752394001302585,
+        "transition_f1": 0.19125683060109286
+      },
+      "000852.SH": {
+        "balanced_accuracy": 0.8148213880353834,
+        "false_transitions_per_day": 1.168724279835391,
+        "macro_f1": 0.8073204261787088,
+        "transition_f1": 0.20297029702970296
+      }
+    },
+    "contribution_ledger": "experiments/kline_recognizer_contributions.json",
+    "failed_challengers": [
+      {
+        "promotion": false,
+        "version": "v6_transition_policy"
+      },
+      {
+        "promotion": false,
+        "version": "v7_markov_filter"
+      },
+      {
+        "promotion": false,
+        "version": "v8_switch_gate"
+      },
+      {
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v9_temporal_context"
+      }
+    ],
+    "fresh_oos_claim": false,
+    "pre2025_worst_cell": {
+      "max_false_transitions_per_day": 1.2396694214876034,
+      "min_balanced_accuracy": 0.7536614040741304,
+      "min_macro_f1": 0.7562810194148302,
+      "min_transition_f1": 0.17902813299232734
+    },
+    "production_ready": false,
+    "promotion_rule": "Only a complete challenger that passes its preregistered pre-diagnostic gate may replace this champion. A failed challenger may contribute reusable components, but contribution retention never changes the champion until an integrated challenger itself passes promotion.",
+    "schema": "kline_recognizer_champion@1.1",
+    "switch_policy": {
+      "confirmation_bars": 4,
+      "min_new_probability": 0.45,
+      "switch_margin": 0.05
+    }
+  },
+  "champion_pre2025_aggregate": {
+    "max_false_transitions_per_day": 1.2396694214876034,
+    "mean_false_transitions_per_day": 1.1549586776859504,
+    "min_balanced_accuracy": 0.7536614040741304,
+    "min_macro_f1": 0.7562810194148302,
+    "min_transition_f1": 0.17902813299232734
+  },
+  "champion_registry_mutated_by_runner": false,
+  "contribution_source_ids": [
+    "v9_temporal_context_h3",
+    "v9_temporal_context_h6"
+  ],
+  "diagnostic_2025_challenger": {
+    "000688.SH": {
+      "balanced_accuracy_4state": 0.7892740156432709,
+      "conditional_accuracy_when_online_concrete": 0.8092144122858831,
+      "exact_accuracy_including_abstention": 0.7928240740740741,
+      "false_transitions_per_day": 1.0164609053497942,
+      "judge_transition_count": 77,
+      "macro_f1_4state": 0.7907867772954409,
+      "matched_transition_count": 40,
+      "median_delay_vs_availability_bars": -1.0,
+      "median_delay_vs_availability_minutes": -5.0,
+      "n_scored": 1728,
+      "online_concrete_coverage": 0.9797453703703703,
+      "online_transition_count": 287,
+      "transition_f1": 0.21978021978021978,
+      "transition_precision": 0.13937282229965156,
+      "transition_recall": 0.5194805194805194
+    },
+    "000852.SH": {
+      "balanced_accuracy_4state": 0.8142904553683235,
+      "conditional_accuracy_when_online_concrete": 0.8225988700564971,
+      "exact_accuracy_including_abstention": 0.8,
+      "false_transitions_per_day": 1.0905349794238683,
+      "judge_transition_count": 79,
+      "macro_f1_4state": 0.8105197657575427,
+      "matched_transition_count": 45,
+      "median_delay_vs_availability_bars": -1.0,
+      "median_delay_vs_availability_minutes": -5.0,
+      "n_scored": 1820,
+      "online_concrete_coverage": 0.9725274725274725,
+      "online_transition_count": 310,
+      "transition_f1": 0.23136246786632392,
+      "transition_precision": 0.14516129032258066,
+      "transition_recall": 0.569620253164557
+    }
+  },
+  "diagnostic_2025_champion": {
+    "000688.SH": {
+      "balanced_accuracy_4state": 0.7706466652565183,
+      "conditional_accuracy_when_online_concrete": 0.7978533094812165,
+      "exact_accuracy_including_abstention": 0.7743055555555556,
+      "false_transitions_per_day": 1.045267489711934,
+      "judge_transition_count": 77,
+      "macro_f1_4state": 0.7752394001302585,
+      "matched_transition_count": 35,
+      "median_delay_vs_availability_bars": -1.0,
+      "median_delay_vs_availability_minutes": -5.0,
+      "n_scored": 1728,
+      "online_concrete_coverage": 0.9704861111111112,
+      "online_transition_count": 289,
+      "transition_f1": 0.19125683060109286,
+      "transition_precision": 0.12110726643598616,
+      "transition_recall": 0.45454545454545453
+    },
+    "000852.SH": {
+      "balanced_accuracy_4state": 0.8148213880353834,
+      "conditional_accuracy_when_online_concrete": 0.8181818181818182,
+      "exact_accuracy_including_abstention": 0.7961538461538461,
+      "false_transitions_per_day": 1.168724279835391,
+      "judge_transition_count": 79,
+      "macro_f1_4state": 0.8073204261787088,
+      "matched_transition_count": 41,
+      "median_delay_vs_availability_bars": -1.0,
+      "median_delay_vs_availability_minutes": -5.0,
+      "n_scored": 1820,
+      "online_concrete_coverage": 0.9730769230769231,
+      "online_transition_count": 325,
+      "transition_f1": 0.20297029702970296,
+      "transition_precision": 0.12615384615384614,
+      "transition_recall": 0.5189873417721519
+    }
+  },
+  "eligible_for_champion_update": true,
+  "selected_candidate": {
+    "alpha": 0.3,
+    "auxiliary_C": 0.1,
+    "horizon": 6
+  },
+  "selected_candidate_id": "blend_h6_a0.30",
+  "selected_pre2025_aggregate": {
+    "max_false_transitions_per_day": 1.2066115702479339,
+    "mean_false_transitions_per_day": 1.103305785123967,
+    "min_balanced_accuracy": 0.7553851080081395,
+    "min_macro_f1": 0.7591912321042829,
+    "min_transition_f1": 0.19843342036553524
+  },
+  "status": "complete_temporal_blend_v10"
+}
