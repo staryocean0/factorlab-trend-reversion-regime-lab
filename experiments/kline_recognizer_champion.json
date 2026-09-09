@@ -1,5 +1,5 @@
 {
-  "schema": "kline_recognizer_champion@1.2",
+  "schema": "kline_recognizer_champion@1.3",
   "as_of": "2026-09-09",
   "champion_version": "v10_temporal_blend",
   "champion_branch": "research/kline-recognizer-temporal-blend-v10",
@@ -64,12 +64,14 @@
     }
   },
   "challenger_history": [
-    {"version": "v6_transition_policy", "promotion": false},
-    {"version": "v7_markov_filter", "promotion": false},
-    {"version": "v8_switch_gate", "promotion": false},
-    {"version": "v9_temporal_context", "promotion": false, "contribution_retained": true},
-    {"version": "v10_temporal_blend", "promotion": true, "source_contribution": "v9_temporal_context_h6"}
+    {"version": "v6_transition_policy", "promotion": false, "contribution_retained": true, "contribution_id": "v6_soft_transition_asymmetry"},
+    {"version": "v7_markov_filter", "promotion": false, "contribution_retained": true, "contribution_id": "v7_persistence_prior_point_state_signal"},
+    {"version": "v8_switch_gate", "promotion": false, "contribution_retained": true, "contribution_id": "v8_rare_switch_confidence_signal"},
+    {"version": "v9_temporal_context", "promotion": false, "contribution_retained": true, "contribution_id": "v9_temporal_context_h6"},
+    {"version": "v10_temporal_blend", "promotion": true, "source_contribution": "v9_temporal_context_h6"},
+    {"version": "v11_temporal_blend_refinement", "promotion": false, "contribution_retained": true, "contribution_id": "v11_higher_temporal_weight_diminishing_returns"}
   ],
+  "historical_contribution_audit": "docs/research/KLINE_RECOGNIZER_HISTORICAL_CONTRIBUTION_AUDIT_V6_V9.md",
   "authority_narrative": "docs/research/KLINE_RECOGNIZER_AUTHORITY.md",
   "contribution_ledger": "experiments/kline_recognizer_contributions.json",
   "promotion_rule": "Only a complete challenger that passes its preregistered pre-diagnostic gate and any frozen safety veto may replace this champion. Failed challengers may contribute reusable components, but a contribution changes the champion only through a later integrated challenger that itself passes promotion.",
