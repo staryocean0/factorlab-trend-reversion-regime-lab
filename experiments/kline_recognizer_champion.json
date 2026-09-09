@@ -1,5 +1,5 @@
 {
-  "schema": "kline_recognizer_champion@1.0",
+  "schema": "kline_recognizer_champion@1.1",
   "as_of": "2026-09-09",
   "champion_version": "v5_probability_hysteresis",
   "champion_branch": "research/kline-recognizer-hysteresis-v5",
@@ -35,20 +35,14 @@
     }
   },
   "failed_challengers": [
-    {
-      "version": "v6_transition_policy",
-      "promotion": false
-    },
-    {
-      "version": "v7_markov_filter",
-      "promotion": false
-    },
-    {
-      "version": "v8_switch_gate",
-      "promotion": false
-    }
+    {"version": "v6_transition_policy", "promotion": false},
+    {"version": "v7_markov_filter", "promotion": false},
+    {"version": "v8_switch_gate", "promotion": false},
+    {"version": "v9_temporal_context", "promotion": false, "contribution_retained": true}
   ],
-  "promotion_rule": "Only a challenger that passes its preregistered pre-diagnostic gate may replace this champion record. Failure leaves the champion unchanged.",
+  "authority_narrative": "docs/research/KLINE_RECOGNIZER_AUTHORITY.md",
+  "contribution_ledger": "experiments/kline_recognizer_contributions.json",
+  "promotion_rule": "Only a complete challenger that passes its preregistered pre-diagnostic gate may replace this champion. A failed challenger may contribute reusable components, but contribution retention never changes the champion until an integrated challenger itself passes promotion.",
   "fresh_oos_claim": false,
   "production_ready": false
 }
