@@ -1,0 +1,92 @@
+{
+  "2025_is_fresh_oos": false,
+  "2025_used_for_selection": false,
+  "best_point_eligible_candidate": null,
+  "candidate_count": 18,
+  "diagnostic_2025_selected": null,
+  "diagnostic_2025_v5": null,
+  "diagnostic_adjudication": null,
+  "fold_model_audit": {
+    "fold_2022": {
+      "gate_models": {
+        "0.1": {
+          "optimizer_iterations": 74,
+          "optimizer_loss": 0.4568999048264951,
+          "positive_rate": 0.01440492747864097
+        },
+        "1.0": {
+          "optimizer_iterations": 103,
+          "optimizer_loss": 0.45385949146585963,
+          "positive_rate": 0.01440492747864097
+        },
+        "10.0": {
+          "optimizer_iterations": 125,
+          "optimizer_loss": 0.4534908408505766,
+          "positive_rate": 0.01440492747864097
+        }
+      },
+      "switch_positive_rate": 0.01440492747864097,
+      "switch_positive_rows": 145,
+      "switch_training_rows": 10066,
+      "train_end": "2021-12-31"
+    },
+    "fold_2023": {
+      "gate_models": {
+        "0.1": {
+          "optimizer_iterations": 82,
+          "optimizer_loss": 0.45655577160786975,
+          "positive_rate": 0.014990681468276477
+        },
+        "1.0": {
+          "optimizer_iterations": 114,
+          "optimizer_loss": 0.4536371884272342,
+          "positive_rate": 0.014990681468276477
+        },
+        "10.0": {
+          "optimizer_iterations": 121,
+          "optimizer_loss": 0.4532856506419946,
+          "positive_rate": 0.014990681468276477
+        }
+      },
+      "switch_positive_rate": 0.014990681468276477,
+      "switch_positive_rows": 185,
+      "switch_training_rows": 12341,
+      "train_end": "2022-12-31"
+    },
+    "fold_2024": {
+      "gate_models": {
+        "0.1": {
+          "optimizer_iterations": 92,
+          "optimizer_loss": 0.47651561968684375,
+          "positive_rate": 0.015251135362299193
+        },
+        "1.0": {
+          "optimizer_iterations": 105,
+          "optimizer_loss": 0.4742678055112981,
+          "positive_rate": 0.015251135362299193
+        },
+        "10.0": {
+          "optimizer_iterations": 101,
+          "optimizer_loss": 0.47400378464826626,
+          "positive_rate": 0.015251135362299193
+        }
+      },
+      "switch_positive_rate": 0.015251135362299193,
+      "switch_positive_rows": 225,
+      "switch_training_rows": 14753,
+      "train_end": "2023-12-31"
+    }
+  },
+  "promoted_over_v5_pre2025": false,
+  "selected_aggregate": null,
+  "selected_candidate": null,
+  "selected_candidate_id": null,
+  "status": "complete_switch_gate_v8",
+  "v5_cross_validation_aggregate": {
+    "max_false_transitions_per_day": 1.2396694214876034,
+    "mean_false_transitions_per_day": 1.1549586776859504,
+    "min_balanced_accuracy": 0.7536614040741304,
+    "min_macro_f1": 0.7562810194148302,
+    "min_transition_f1": 0.17902813299232734
+  }
+}

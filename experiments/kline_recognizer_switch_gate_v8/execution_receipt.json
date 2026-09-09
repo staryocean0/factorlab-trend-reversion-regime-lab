@@ -1,0 +1,25 @@
+{
+  "code_commit": "84ade1ec805abf4380a10c7104c583d9bfee81b3",
+  "command": "scripts/run_kline_switch_gate_v8.py --code-commit 84ade1ec805abf4380a10c7104c583d9bfee81b3",
+  "cwd": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab",
+  "exit_code": 0,
+  "finished_at_utc": "2026-09-09T00:50:07.637314+00:00",
+  "output_sha256": {
+    "RESULT_CARD.md": "cefdf87f6159de12d133b625acd1268685fadb686d57627d0ea3afccacafb8b9",
+    "candidate_cv.csv": "e279044f79cf56e5b2167163adceecebe7135adf125276476bd966d254bf2042",
+    "input_identity.json": "4ad2718e85f7fb3ec2419ad4b07ee65be43636a2dcb0bf19605668c74d3c1317",
+    "selected_recognizer.json": "f635b4bdf7bac02535702bbb57d74d128bdf056bf6352d6c537d78810e3cdc03",
+    "summary.json": "544beacf60b14eea469f4fb870c80a3a5ccdc481cd92c4fc3d31ed12b6e4124e"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "protocol_sha256": "4489688c93e7c79840e99d8f6ed61715b4bafb06ce260b94c00704cf7d01b491",
+  "python": "3.11.16",
+  "schema": "kline_recognizer_switch_gate_v8_execution_receipt@1.0",
+  "started_at_utc": "2026-09-09T00:35:52.921980+00:00"
+}
