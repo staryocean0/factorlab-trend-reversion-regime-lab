@@ -1,48 +1,78 @@
 {
-  "schema": "kline_recognizer_champion@1.1",
+  "schema": "kline_recognizer_champion@1.2",
   "as_of": "2026-09-09",
-  "champion_version": "v5_probability_hysteresis",
-  "champion_branch": "research/kline-recognizer-hysteresis-v5",
-  "champion_result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
-  "champion_result_dir": "experiments/kline_recognizer_hysteresis_v5",
+  "champion_version": "v10_temporal_blend",
+  "champion_branch": "research/kline-recognizer-temporal-blend-v10",
+  "champion_result_commit": "723404633fccb0a52181d2090cadbca3114dcc67",
+  "champion_result_dir": "experiments/kline_recognizer_temporal_blend_v10",
   "classifier": {
-    "family": "pooled_multinomial_linear",
-    "C": 1.0
+    "primary": {
+      "family": "pooled_multinomial_linear",
+      "C": 1.0,
+      "feature_surface": "12_current_causal_kline_features"
+    },
+    "temporal_auxiliary": {
+      "family": "temporal_context_linear",
+      "horizon_bars": 6,
+      "C": 0.1,
+      "feature_surface": "current_previous_trailing_mean_and_displacement_of_same_12_features"
+    },
+    "blend": {
+      "method": "log_probability_blend",
+      "alpha": 0.3,
+      "primary_weight": 0.7,
+      "temporal_weight": 0.3,
+      "fallback_when_temporal_unavailable": "primary_only"
+    }
   },
   "switch_policy": {
     "switch_margin": 0.05,
     "min_new_probability": 0.45,
-    "confirmation_bars": 4
+    "confirmation_bars": 4,
+    "inherited_from": "v5_probability_hysteresis"
   },
   "pre2025_worst_cell": {
-    "min_balanced_accuracy": 0.7536614040741304,
-    "min_macro_f1": 0.7562810194148302,
-    "min_transition_f1": 0.17902813299232734,
-    "max_false_transitions_per_day": 1.2396694214876034
+    "min_balanced_accuracy": 0.7553851080081395,
+    "min_macro_f1": 0.7591912321042829,
+    "min_transition_f1": 0.19843342036553524,
+    "max_false_transitions_per_day": 1.2066115702479339
   },
   "consumed_2025_diagnostic": {
     "000852.SH": {
-      "balanced_accuracy": 0.8148213880353834,
-      "macro_f1": 0.8073204261787088,
-      "transition_f1": 0.20297029702970296,
-      "false_transitions_per_day": 1.168724279835391
+      "balanced_accuracy": 0.8142904553683235,
+      "macro_f1": 0.8105197657575427,
+      "transition_f1": 0.23136246786632392,
+      "false_transitions_per_day": 1.0905349794238683
     },
     "000688.SH": {
-      "balanced_accuracy": 0.7706466652565183,
-      "macro_f1": 0.7752394001302585,
-      "transition_f1": 0.19125683060109286,
-      "false_transitions_per_day": 1.045267489711934
+      "balanced_accuracy": 0.7892740156432709,
+      "macro_f1": 0.7907867772954409,
+      "transition_f1": 0.21978021978021978,
+      "false_transitions_per_day": 1.0164609053497942
     }
   },
-  "failed_challengers": [
+  "previous_champion": {
+    "version": "v5_probability_hysteresis",
+    "branch": "research/kline-recognizer-hysteresis-v5",
+    "result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
+    "result_dir": "experiments/kline_recognizer_hysteresis_v5",
+    "pre2025_worst_cell": {
+      "min_balanced_accuracy": 0.7536614040741304,
+      "min_macro_f1": 0.7562810194148302,
+      "min_transition_f1": 0.17902813299232734,
+      "max_false_transitions_per_day": 1.2396694214876034
+    }
+  },
+  "challenger_history": [
     {"version": "v6_transition_policy", "promotion": false},
     {"version": "v7_markov_filter", "promotion": false},
     {"version": "v8_switch_gate", "promotion": false},
-    {"version": "v9_temporal_context", "promotion": false, "contribution_retained": true}
+    {"version": "v9_temporal_context", "promotion": false, "contribution_retained": true},
+    {"version": "v10_temporal_blend", "promotion": true, "source_contribution": "v9_temporal_context_h6"}
   ],
   "authority_narrative": "docs/research/KLINE_RECOGNIZER_AUTHORITY.md",
   "contribution_ledger": "experiments/kline_recognizer_contributions.json",
-  "promotion_rule": "Only a complete challenger that passes its preregistered pre-diagnostic gate may replace this champion. A failed challenger may contribute reusable components, but contribution retention never changes the champion until an integrated challenger itself passes promotion.",
+  "promotion_rule": "Only a complete challenger that passes its preregistered pre-diagnostic gate and any frozen safety veto may replace this champion. Failed challengers may contribute reusable components, but a contribution changes the champion only through a later integrated challenger that itself passes promotion.",
   "fresh_oos_claim": false,
   "production_ready": false
 }
