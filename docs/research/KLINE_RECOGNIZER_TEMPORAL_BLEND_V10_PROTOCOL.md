@@ -26,13 +26,15 @@ V10 keeps two recognizer-internal probability heads:
 
 The temporal head is auxiliary only. It may not replace the primary head.
 
-For each bar, combine class probabilities using a log-probability blend:
+For bars where both heads are finite, combine class probabilities using a log-probability blend:
 
 `log p_blend(k) = (1-alpha) * log p_primary(k) + alpha * log p_temporal(k)`
 
 then normalize across the four states.
 
-This preserves the v5 classifier as the dominant evidence source whenever `alpha < 0.5`.
+When the temporal head is unavailable because the causal temporal window is not yet valid (for example at the start of a day or after a gap), v10 must fall back exactly to the primary v5 probabilities. If the primary head is unavailable, v10 remains unavailable; the auxiliary head may not create a prediction without the primary head.
+
+This preserves the v5 classifier as the dominant evidence source whenever `alpha < 0.5` and prevents auxiliary-context warmup from reducing champion coverage.
 
 The final decoded state uses the exact frozen v5 hysteresis policy:
 - switch margin `0.05`;
@@ -95,8 +97,15 @@ If no candidate qualifies, v5 remains champion and v10 is archived as not promot
 Only after a pre-2025 candidate qualifies:
 - refit primary and temporal heads through 2024;
 - run 2025 diagnostic once;
-- 2025 cannot select alpha, horizon, C, feature surface or decoder;
-- if the candidate materially degrades either asset versus v5 on balanced accuracy, macro F1, transition F1 or false transitions/day, mark a safety veto and do not update champion.
+- 2025 cannot select alpha, horizon, C, feature surface or decoder.
+
+A safety veto is triggered on either asset if any condition holds versus the same-period v5 diagnostic:
+- balanced accuracy is lower by more than `0.01`;
+- macro F1 is lower by more than `0.01`;
+- transition F1 is lower by more than `0.01`;
+- false transitions/day is higher by more than `0.05`.
+
+If any safety veto triggers, v10 is not eligible for champion update even if the pre-2025 promotion gate passed.
 
 2025 is already-consumed development evidence and is not fresh OOS.
 
