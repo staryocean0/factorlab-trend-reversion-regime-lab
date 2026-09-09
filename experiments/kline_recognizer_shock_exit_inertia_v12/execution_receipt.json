@@ -1,0 +1,35 @@
+{
+  "champion_sha256": "08f32082f2c980b1e30cda501f2ae68e867da0f33702aaacc1a77f6e7a5bcefc",
+  "code_commit": "d2232de1f882c02f2e272740aa968c9b7b4edb35",
+  "contribution_ledger_sha256": "629be6f9c03e1ab3a7fc4ab9d5ae4c742868399797a21db4fabcaaf5ee1eb401",
+  "finished_at_utc": "2026-09-09T07:45:34.505191+00:00",
+  "market_ranges": {
+    "000688.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "rows": 63456,
+      "start": "2020-07-23"
+    },
+    "000852.SH": {
+      "end": "2025-12-31",
+      "frequency": "5m",
+      "rows": 128290,
+      "start": "2015-01-05"
+    }
+  },
+  "outputs": {
+    "RESULT_CARD.md": "2c05eadf7aedde698e8e9938df610b54ae151c2946e804353f01ed717d08368f",
+    "candidate_cv.csv": "3a38a739bfe77ceaaaea240ff5c0d51e7cb91f08c69f51a6c895059bcd4a2ad9",
+    "summary.json": "5b37d43791804e1d1e3861621f89825bb7c60f537344548574ddd18c10fa32db"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "protocol_sha256": "aaff39fda02992e2f3a555619a8bab85a7a973c6c06a4ceb85ffb2d2aa72a6b4",
+  "python": "3.11.16",
+  "started_at_utc": "2026-09-09T07:41:46.871353+00:00",
+  "status": "success"
+}
