@@ -1,0 +1,54 @@
+{
+  "schema": "kline_recognizer_champion@1.0",
+  "as_of": "2026-09-09",
+  "champion_version": "v5_probability_hysteresis",
+  "champion_branch": "research/kline-recognizer-hysteresis-v5",
+  "champion_result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
+  "champion_result_dir": "experiments/kline_recognizer_hysteresis_v5",
+  "classifier": {
+    "family": "pooled_multinomial_linear",
+    "C": 1.0
+  },
+  "switch_policy": {
+    "switch_margin": 0.05,
+    "min_new_probability": 0.45,
+    "confirmation_bars": 4
+  },
+  "pre2025_worst_cell": {
+    "min_balanced_accuracy": 0.7536614040741304,
+    "min_macro_f1": 0.7562810194148302,
+    "min_transition_f1": 0.17902813299232734,
+    "max_false_transitions_per_day": 1.2396694214876034
+  },
+  "consumed_2025_diagnostic": {
+    "000852.SH": {
+      "balanced_accuracy": 0.8148213880353834,
+      "macro_f1": 0.8073204261787088,
+      "transition_f1": 0.20297029702970296,
+      "false_transitions_per_day": 1.168724279835391
+    },
+    "000688.SH": {
+      "balanced_accuracy": 0.7706466652565183,
+      "macro_f1": 0.7752394001302585,
+      "transition_f1": 0.19125683060109286,
+      "false_transitions_per_day": 1.045267489711934
+    }
+  },
+  "failed_challengers": [
+    {
+      "version": "v6_transition_policy",
+      "promotion": false
+    },
+    {
+      "version": "v7_markov_filter",
+      "promotion": false
+    },
+    {
+      "version": "v8_switch_gate",
+      "promotion": false
+    }
+  ],
+  "promotion_rule": "Only a challenger that passes its preregistered pre-diagnostic gate may replace this champion record. Failure leaves the champion unchanged.",
+  "fresh_oos_claim": false,
+  "production_ready": false
+}
