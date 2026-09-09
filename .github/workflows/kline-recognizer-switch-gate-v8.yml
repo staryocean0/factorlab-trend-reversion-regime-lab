@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/kline-recognizer-switch-gate-v8.yml
 
+# rerun 2 after pandas tuple-index fix
 permissions:
   contents: write
 
