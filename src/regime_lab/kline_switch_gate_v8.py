@@ -130,7 +130,7 @@ def build_switch_feature_frame(
             out.loc[idx, f"p_prev_{state}"] = series.shift(1).to_numpy()
             out.loc[idx, f"p_mean3_{state}"] = series.rolling(3, min_periods=3).mean().to_numpy()
 
-    prob_values = probabilities.loc[:, CLASS_NAMES].to_numpy(float)
+    prob_values = probabilities.loc[:, list(CLASS_NAMES)].to_numpy(float)
     sorted_probs = np.sort(prob_values, axis=1)
     out["top_second_margin"] = sorted_probs[:, -1] - sorted_probs[:, -2]
     proposed_ids = np.argmax(np.where(np.isfinite(prob_values), prob_values, -np.inf), axis=1)
@@ -191,7 +191,7 @@ def build_switch_training_rows(
             now_time = pd.Timestamp(frame.at[idx, "market_time_shanghai"])
             if now_time - prev_time != pd.Timedelta(minutes=5):
                 continue
-            values = switch_features.loc[idx, SWITCH_FEATURE_COLUMNS].to_numpy(dtype=float)
+            values = switch_features.loc[idx, list(SWITCH_FEATURE_COLUMNS)].to_numpy(dtype=float)
             if not np.isfinite(values).all():
                 continue
             prev_label = str(frame.at[prev_idx, "independent_judge_available_state"])
@@ -261,7 +261,7 @@ def switch_gate_probabilities(
     scale = np.asarray(model["scale"], dtype=float)
     weights = np.asarray(model["weights"], dtype=float)
     out = pd.Series(np.nan, index=switch_features.index, dtype=float)
-    values = switch_features.loc[:, SWITCH_FEATURE_COLUMNS].to_numpy(float)
+    values = switch_features.loc[:, list(SWITCH_FEATURE_COLUMNS)].to_numpy(float)
     finite = np.isfinite(values).all(axis=1)
     if finite.any():
         Z = (values[finite] - mean) / scale
@@ -286,7 +286,7 @@ def switch_gate_decode(
         switch_pending: str | None = None
         switch_count = 0
         for idx in ordered.index:
-            probs = state_probabilities.loc[idx, CLASS_NAMES].to_numpy(float)
+            probs = state_probabilities.loc[idx, list(CLASS_NAMES)].to_numpy(float)
             if not np.isfinite(probs).all():
                 if current is not None:
                     decoded.at[idx] = current
