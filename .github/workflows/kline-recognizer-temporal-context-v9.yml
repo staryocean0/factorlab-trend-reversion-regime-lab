@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/kline-recognizer-temporal-context-v9.yml
 
+# rerun 2 after numerical optimizer convergence-budget fix
 permissions:
   contents: write
 
