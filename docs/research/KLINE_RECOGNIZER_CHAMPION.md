@@ -11,6 +11,7 @@ Research governance is intentionally split:
 
 Canonical governance narrative: `docs/research/KLINE_RECOGNIZER_AUTHORITY.md`.
 Canonical contribution ledger: `experiments/kline_recognizer_contributions.json`.
+Historical contribution audit: `docs/research/KLINE_RECOGNIZER_HISTORICAL_CONTRIBUTION_AUDIT_V6_V9.md`.
 
 ## Current champion
 
@@ -55,18 +56,19 @@ Its pre-2025 worst-cell metrics were:
 
 ## Challenger and contribution lineage
 
-- v6 type-specific transition policy: **not promoted**.
-- v7 causal Markov persistence filter: **not promoted**.
-- v8 learned switch gate: **not promoted**.
+- v6 type-specific transition policy: **not promoted**; soft transition-asymmetry / Shock-exit-inertia contribution retained.
+- v7 causal Markov persistence filter: **not promoted**; low-weight persistence-prior point-state contribution retained.
+- v8 learned switch gate: **not promoted**; rare-event switch-confidence contribution retained; hard gating rejected.
 - v9 temporal-context primary classifier: **not promoted as a complete recognizer**, but its temporal-context signal was retained as a contribution.
 - v10 temporal blend: **promoted** after integrating the v9 six-bar temporal contribution back into v5 at 30% weight while preserving the v5 decoder.
+- v11 temporal-blend refinement: **not promoted**. Best candidate `alpha=0.45` improved all four pre-2025 aggregate metrics modestly but did not meet the frozen material-improvement threshold; diminishing-returns evidence retained as a contribution.
 
-This is the canonical example of the contribution rule: a failed version may still contain a useful component; that component can be integrated into the champion in a new challenger; only the integrated challenger may become the new champion after passing promotion.
+This is the canonical contribution rule: a failed version may still contain a useful component; that component can be integrated into the champion in a new challenger; only the integrated challenger may become the new champion after passing promotion.
 
 ## Promotion invariant
 
 1. The champion remains unchanged when a challenger fails.
-2. A failed challenger may still contribute a validated component to the contribution ledger.
+2. A failed challenger must be audited for reusable positive and negative contributions before its knowledge is considered closed.
 3. A retained contribution never changes the champion by itself.
 4. To replace the champion, a later integrated challenger must pass its own frozen promotion gate and any frozen safety veto as a complete recognizer.
 5. The prior champion must remain explicitly preserved as historical authority after promotion.
@@ -74,4 +76,4 @@ This is the canonical example of the contribution rule: a failed version may sti
 7. Consumed 2025 evidence cannot be used to select or rescue a challenger.
 8. Unless a later protocol explicitly opens new untouched evidence, no claim of fresh OOS or production readiness is made.
 
-Current status: **v10 temporal blend is the champion; v5 is the preserved previous champion.**
+Current status: **v10 temporal blend is the champion; v5 is the preserved previous champion; v11 is not promoted.**
