@@ -1,0 +1,81 @@
+name: import-r1-r2-from-star50
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-r1-r2-from-star50.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Fetch exact STAR50 R1/R2 package
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/staryocean0/factorlab-star50-filter-lab.git /tmp/star50-src
+          SRC=/tmp/star50-src/docs/archive/misrouted_rmr_from_overnight_20260909
+          test -f "$SRC/raw/scripts/run_rmr_stage1_common_probe.py"
+          test -f "$SRC/raw/scripts/run_rmr_R1_reusable_dev_validation.py"
+          test -f "$SRC/raw/scripts/certify_rmr_R1_three_role.py"
+          mkdir -p docs/archive/rmr_migrated_from_star50_20260909
+          cp -a "$SRC/." docs/archive/rmr_migrated_from_star50_20260909/
+          mkdir -p scripts/rmr_parent_state_legacy tests/rmr_parent_state_legacy
+          cp "$SRC/raw/scripts/run_rmr_stage1_common_probe.py" scripts/rmr_parent_state_legacy/
+          cp "$SRC/raw/scripts/run_rmr_R1_reusable_dev_validation.py" scripts/rmr_parent_state_legacy/
+          cp "$SRC/raw/scripts/certify_rmr_R1_three_role.py" scripts/rmr_parent_state_legacy/
+          if test -f "$SRC/raw/tests/test_reusable_three_role_blackbox.py"; then
+            cp "$SRC/raw/tests/test_reusable_three_role_blackbox.py" tests/rmr_parent_state_legacy/
+          fi
+          cp /tmp/star50-src/docs/research/migrated_rmr_findings_20260909.md docs/archive/rmr_migrated_from_star50_20260909/STAR50_MIGRATED_RMR_FINDINGS.md
+          cp /tmp/star50-src/docs/research/rmr_signal_source_map_20260909.md docs/archive/rmr_migrated_from_star50_20260909/STAR50_RMR_SIGNAL_SOURCE_MAP.md
+      - name: Write migration authority note
+        run: |
+          cat > docs/research/R1_R2_MIGRATION_NOTE_20260909.md <<'EOF'
+          # R1/R2 migration into Trend–Reversion Regime Lab
+
+          Date: 2026-09-09.
+
+          ## Placement correction
+
+          R1/R2 broad reversal research was first executed after `factorlab-overnight-open-lab` was mistakenly repurposed into a broad reversal / mean-reversion program. During cleanup, that package was temporarily migrated into `factorlab-star50-filter-lab`. That placement was also incorrect because STAR50's bounded role is causal volatility/risk-state research.
+
+          This commit moves the complete preserved R1/R2 package into `factorlab-trend-reversion-regime-lab`, where trend/reversion regime and reversal/mean-reversion research belongs.
+
+          ## Mechanism identities
+
+          - **R1**: intact parent trend + lower-scale counter-move recovery. The parent trend supplies the normal-state anchor; the lower-scale move is tested as a temporary pullback rather than a parent-state reversal.
+          - **R2**: intact parent range + boundary overshoot / re-entry. The parent range supplies the normal-state anchor; the boundary break is tested as failed acceptance and re-entry rather than a true breakout.
+
+          ## Preserved evidence and runnable entries
+
+          Full source package: `docs/archive/rmr_migrated_from_star50_20260909/`
+
+          Preserved runnable entries:
+          - `scripts/rmr_parent_state_legacy/run_rmr_stage1_common_probe.py`
+          - `scripts/rmr_parent_state_legacy/run_rmr_R1_reusable_dev_validation.py`
+          - `scripts/rmr_parent_state_legacy/certify_rmr_R1_three_role.py`
+
+          These are migrated research artifacts, not newly validated against this repository's current data contract. Migration does not inherit or reopen any BLACKBOX authority and does not create production or trading authority.
+
+          `production_authority=false`.
+          EOF
+      - name: Commit migrated package
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/archive/rmr_migrated_from_star50_20260909 docs/research/R1_R2_MIGRATION_NOTE_20260909.md scripts/rmr_parent_state_legacy tests/rmr_parent_state_legacy || true
+          if git diff --cached --quiet; then
+            echo "No migration changes to commit"
+          else
+            git commit -m "research: migrate R1/R2 tools out of STAR50 [skip ci]"
+            git push origin HEAD:main
+          fi
