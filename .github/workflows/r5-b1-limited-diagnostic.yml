@@ -37,7 +37,7 @@ jobs:
           test "$(git -C "$FROZEN" hash-object scripts/run_broad_rmr_R5_multiscale_serial_dependence.py)" = "cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a"
           test "$(sha256sum "$FROZEN/data/development/5m_offset_0.parquet" | awk '{print $1}')" = "bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48"
 
-      - name: Apply the frozen current-schema alias only
+      - name: Apply audited Shanghai wall-clock identity adapter
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -53,7 +53,10 @@ jobs:
               missing = required.difference(df.columns)
               if missing:
                   raise RuntimeError(f'{p}: missing current schema fields {sorted(missing)}')
-              out = df[['symbol', 'trading_day', 'close', 'timestamp']].rename(columns={'timestamp': 'bar_end_shanghai'})
+              wall = df['timestamp'].astype(str).str.slice(0, 19)
+              ts = pd.to_datetime(wall, errors='raise').dt.tz_localize('Asia/Shanghai').dt.tz_convert('UTC')
+              out = df[['symbol', 'trading_day', 'close']].copy()
+              out['bar_end_shanghai'] = ts
               out.to_parquet(dst / f'{year}.parquet', index=False)
           PY
 
