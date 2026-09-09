@@ -1,0 +1,41 @@
+{
+  "schema": "kline_recognizer_promotion_log@1.0",
+  "as_of": "2026-09-09",
+  "promotions": [
+    {
+      "sequence": 1,
+      "version": "v5_probability_hysteresis",
+      "result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
+      "role": "previous_champion",
+      "pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.7536614040741304,
+        "min_macro_f1": 0.7562810194148302,
+        "min_transition_f1": 0.17902813299232734,
+        "max_false_transitions_per_day": 1.2396694214876034
+      }
+    },
+    {
+      "sequence": 2,
+      "version": "v10_temporal_blend",
+      "result_commit": "723404633fccb0a52181d2090cadbca3114dcc67",
+      "role": "current_champion",
+      "replaced": "v5_probability_hysteresis",
+      "source_contributions": ["v9_temporal_context_h6"],
+      "selected_configuration": {
+        "primary": "v5 pooled multinomial linear C=1.0",
+        "temporal_horizon_bars": 6,
+        "temporal_C": 0.1,
+        "blend_alpha": 0.3,
+        "decoder": "unchanged v5 hysteresis"
+      },
+      "pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.7553851080081395,
+        "min_macro_f1": 0.7591912321042829,
+        "min_transition_f1": 0.19843342036553524,
+        "max_false_transitions_per_day": 1.2066115702479339
+      },
+      "2025_safety_veto": false,
+      "fresh_oos_claim": false
+    }
+  ]
+}
