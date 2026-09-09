@@ -1,0 +1,108 @@
+name: r5-b1-limited-diagnostic
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/r5-b1-limited-diagnostic.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install analysis dependencies
+        run: python -m pip install --quiet numpy pandas pyarrow
+
+      - name: Materialize exact historical frozen R5 source
+        run: |
+          set -euo pipefail
+          FROZEN=/tmp/two-wave-r5-frozen
+          git init "$FROZEN"
+          git -C "$FROZEN" remote add origin https://github.com/staryocean0/factorlab-two-wave-strategy-lab.git
+          git -C "$FROZEN" fetch --depth 1 origin cf8397c12a9defa243dc272224dedebe6ccd3251
+          git -C "$FROZEN" checkout --detach FETCH_HEAD
+          test "$(git -C "$FROZEN" rev-parse HEAD)" = "cf8397c12a9defa243dc272224dedebe6ccd3251"
+          test "$(git -C "$FROZEN" hash-object scripts/run_broad_rmr_R5_multiscale_serial_dependence.py)" = "cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a"
+          test "$(sha256sum "$FROZEN/data/development/5m_offset_0.parquet" | awk '{print $1}')" = "bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48"
+
+      - name: Run data-identity gate and frozen limited diagnostic
+        run: |
+          set -euo pipefail
+          python research/rmr_r5_b1/run_limited_diagnostic.py \
+            --current-data-root data/market/5m/000852.SH \
+            --frozen-root /tmp/two-wave-r5-frozen \
+            --output research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json
+
+      - name: Write compact research review
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json')
+          r = json.loads(p.read_text())
+          b = r['daily_breadth']
+          s = r['anti_persistence_monotonic_shape']
+          lines = [
+              '# R5-B1 limited diagnostic result',
+              '',
+              'Date: 2026-09-10',
+              '',
+              f"Adjudication: `{r['adjudication']}`",
+              '',
+              '## Data identity',
+              '',
+              f"Current 2015-2020 partitions row-for-row equivalent to frozen R5 source: **{r['current_data_identity']['equivalent']}**.",
+              f"Rows: {r['current_data_identity']['current_rows']:,}.",
+              '',
+              '## Diagnostic 1 — breadth across validation days',
+              '',
+              f"Supported: **{b['supported']}**.",
+              f"Positive days: {b['positive_days']}/{b['validation_days']} ({b['positive_day_fraction']:.2%}).",
+              f"2019 total SSE gain: {b['year_total_SSE_gain']['2019']:.12g}.",
+              f"2020 total SSE gain: {b['year_total_SSE_gain']['2020']:.12g}.",
+              f"Top 10% positive-day concentration: {b['positive_gain_top10pct_concentration']:.2%}.",
+              '',
+              '## Diagnostic 2 — anti-persistence monotonic shape',
+              '',
+              f"Supported: **{s['supported']}**.",
+              f"Adjacent non-increasing slope steps: {s.get('adjacent_nonincreasing_steps')} / 4.",
+              f"Spearman(anti-persistence, empirical slope): {s.get('spearman_anti_vs_slope')}.",
+              f"Strongest quintile more negative than weakest: {s.get('strongest_more_negative_than_weakest')}.",
+              '',
+              'Validation pooled slopes by TRAIN-frozen anti-persistence quintile:',
+              '',
+          ]
+          for x in s.get('bins', []):
+              lines.append(f"- Q{x['quintile']}: n={x['VALIDATION_n']}, median anti={x['VALIDATION_median_anti_persistence']:.8g}, slope={x['VALIDATION_pooled']['slope']:.8g}")
+          lines += [
+              '',
+              '## Authority',
+              '',
+              '- TRAIN/VALIDATION reusable evidence only.',
+              '- BLACKBOX not read or allocated.',
+              '- No PnL/Sharpe or trading mapping.',
+              '- `production_authority=false`.',
+          ]
+          Path('docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md').write_text('\n'.join(lines) + '\n')
+          PY
+
+      - name: Commit receipt and review
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md
+          git commit -m "research: adjudicate frozen R5-B1 limited diagnostic [skip ci]"
+          git push origin HEAD:main
