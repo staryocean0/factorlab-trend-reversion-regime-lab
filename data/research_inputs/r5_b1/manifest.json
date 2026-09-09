@@ -1,0 +1,18 @@
+{
+  "BLACKBOX_read": false,
+  "current_market_partition_equivalence": "not_established_and_not_required_for_exact_frozen_reproduction",
+  "date_range": "2015-01-05..2020-12-31",
+  "post_2020_read": false,
+  "production_authority": false,
+  "research_identity": "R5_multiscale_serial_dependence_state_v1",
+  "rows": 70114,
+  "runner_git_blob": "cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a",
+  "runner_source_path": "scripts/run_broad_rmr_R5_multiscale_serial_dependence.py",
+  "schema_id": "trend_reversion_r5_b1_frozen_input@1.0",
+  "sha256": "bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48",
+  "source_commit": "cf8397c12a9defa243dc272224dedebe6ccd3251",
+  "source_path": "data/development/5m_offset_0.parquet",
+  "source_repository": "staryocean0/factorlab-two-wave-strategy-lab",
+  "symbol": "000852.SH",
+  "target_path": "data/research_inputs/r5_b1/5m_offset_0.parquet"
+}

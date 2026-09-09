@@ -1,0 +1,182 @@
+{
+  "BLACKBOX_read": false,
+  "PnL_read": false,
+  "TRAIN_rows": 41685,
+  "VALIDATION_rows": 21428,
+  "adjudication": "R5_B1_limited_diagnostic_not_supported_close_B1",
+  "anti_persistence_monotonic_shape": {
+    "TRAIN_internal_quintile_edges": [
+      -0.044479274928781065,
+      -0.02649760936829296,
+      -0.013349274866922818,
+      0.010495083617251707
+    ],
+    "adjacent_nonincreasing_steps": 3,
+    "bins": [
+      {
+        "TRAIN_n": 8337,
+        "VALIDATION_2019": {
+          "intercept": 0.05601179355221072,
+          "n": 4276,
+          "slope": 0.1086742380736107
+        },
+        "VALIDATION_2020": {
+          "intercept": 0.0432125869703473,
+          "n": 2902,
+          "slope": 0.06425870066247213
+        },
+        "VALIDATION_median_anti_persistence": -0.06362719714949655,
+        "VALIDATION_n": 7178,
+        "VALIDATION_pooled": {
+          "intercept": 0.050906669646061144,
+          "n": 7178,
+          "slope": 0.09047803178900385
+        },
+        "edge_high": -0.044479274928781065,
+        "edge_low": null,
+        "quintile": 1
+      },
+      {
+        "TRAIN_n": 8337,
+        "VALIDATION_2019": {
+          "intercept": 0.0176049259153283,
+          "n": 1543,
+          "slope": 0.08828302279749896
+        },
+        "VALIDATION_2020": {
+          "intercept": 0.019574740124382574,
+          "n": 3284,
+          "slope": 0.10268531223823321
+        },
+        "VALIDATION_median_anti_persistence": -0.03481546368512975,
+        "VALIDATION_n": 4827,
+        "VALIDATION_pooled": {
+          "intercept": 0.019002884241019185,
+          "n": 4827,
+          "slope": 0.09804542716738222
+        },
+        "edge_high": -0.02649760936829296,
+        "edge_low": -0.044479274928781065,
+        "quintile": 2
+      },
+      {
+        "TRAIN_n": 8337,
+        "VALIDATION_2019": {
+          "intercept": -0.0015615135137573787,
+          "n": 1834,
+          "slope": 0.1067692052670289
+        },
+        "VALIDATION_2020": {
+          "intercept": 0.003057466870591543,
+          "n": 1731,
+          "slope": 0.0742974088882815
+        },
+        "VALIDATION_median_anti_persistence": -0.019861612787351126,
+        "VALIDATION_n": 3565,
+        "VALIDATION_pooled": {
+          "intercept": 0.0007299000206748057,
+          "n": 3565,
+          "slope": 0.09138214390018552
+        },
+        "edge_high": -0.013349274866922818,
+        "edge_low": -0.02649760936829296,
+        "quintile": 3
+      },
+      {
+        "TRAIN_n": 8337,
+        "VALIDATION_2019": {
+          "intercept": -0.02857523298880516,
+          "n": 2229,
+          "slope": 0.036819908755433894
+        },
+        "VALIDATION_2020": {
+          "intercept": -0.02071927678071847,
+          "n": 1586,
+          "slope": 0.06739926362512239
+        },
+        "VALIDATION_median_anti_persistence": -0.0034426677721894803,
+        "VALIDATION_n": 3815,
+        "VALIDATION_pooled": {
+          "intercept": -0.025187682487426352,
+          "n": 3815,
+          "slope": 0.05126874955134343
+        },
+        "edge_high": 0.010495083617251707,
+        "edge_low": -0.013349274866922818,
+        "quintile": 4
+      },
+      {
+        "TRAIN_n": 8337,
+        "VALIDATION_2019": {
+          "intercept": -0.03369016613503385,
+          "n": 854,
+          "slope": -0.03479712783318563
+        },
+        "VALIDATION_2020": {
+          "intercept": 0.018794318038291544,
+          "n": 1189,
+          "slope": 0.02466746853242493
+        },
+        "VALIDATION_median_anti_persistence": 0.017364183894331937,
+        "VALIDATION_n": 2043,
+        "VALIDATION_pooled": {
+          "intercept": -0.0023368599642604585,
+          "n": 2043,
+          "slope": -0.002442742619965633
+        },
+        "edge_high": null,
+        "edge_low": 0.010495083617251707,
+        "quintile": 5
+      }
+    ],
+    "spearman_anti_vs_slope": -0.7,
+    "status": "evaluated",
+    "strongest_more_negative_than_weakest": true,
+    "supported": false
+  },
+  "current_market_partition_equivalence": "not_established_and_not_used_for_diagnostic",
+  "daily_breadth": {
+    "TRAIN_coefficients": {
+      "B0": [
+        0.005567078395256155,
+        0.03487451881755519
+      ],
+      "B1": [
+        0.004947147092300985,
+        0.01303609638446463,
+        -1.069228621037033
+      ]
+    },
+    "day_gain_quantiles": {
+      "0.1": -0.34947875134073786,
+      "0.25": -0.08229303058119691,
+      "0.5": 0.01745108167101069,
+      "0.75": 0.1883411094234819,
+      "0.9": 0.5272973756039614
+    },
+    "negative_days": 220,
+    "pooled_total_SSE_gain": 33.03459816266016,
+    "positive_day_fraction": 0.5482546201232033,
+    "positive_days": 267,
+    "positive_gain_top10pct_concentration": 0.46115893560107163,
+    "positive_gain_top10pct_day_count": 27,
+    "supported": true,
+    "validation_days": 487,
+    "year_total_SSE_gain": {
+      "2019": 26.57447276238195,
+      "2020": 6.460125400278206
+    },
+    "zero_days": 0
+  },
+  "input_mode": "exact_historical_frozen_input_migrated_to_owner_repository",
+  "post_2020_rows_read": false,
+  "production_authority": false,
+  "research_identity": "R5_multiscale_serial_dependence_state_v1_B1_limited_diagnostic",
+  "schema_id": "factorlab_r5_b1_exact_frozen_input_limited_diagnostic_receipt@1.0",
+  "source_data_sha256": "bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48",
+  "source_historical_commit": "cf8397c12a9defa243dc272224dedebe6ccd3251",
+  "source_max_day": "2020-12-31",
+  "source_min_day": "2015-01-05",
+  "source_rows": 70114,
+  "source_runner_git_blob": "cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a"
+}
