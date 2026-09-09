@@ -1,0 +1,125 @@
+# K-line recognizer learned switch gate v8 — protocol
+
+Date frozen: 2026-09-09
+
+Goal: improve the same recognizer A by learning whether a proposed state change should be accepted. This is an internal recognizer head, not a new evaluator.
+
+## Fixed components
+
+- base state classifier: v4-selected multinomial linear classifier, `C=1.0`;
+- causal feature surface: unchanged from v4/v5;
+- frozen benchmark labels: v3 independent judge at declared information-availability time;
+- promoted baseline: v5 universal hysteresis;
+- v6 and v7 remain failed research branches and are not promoted.
+
+## Architecture
+
+Recognizer A has two internal heads:
+
+1. state head: produces four causal state probabilities at each bar;
+2. switch head: estimates whether a proposed change away from the current decoded state is credible.
+
+The switch head may use only causal information available at the current bar:
+- current four state probabilities;
+- previous-bar four state probabilities;
+- 3-bar trailing mean of four state probabilities;
+- current top-vs-second probability margin;
+- current proposed-state probability minus current-state probability;
+- current decoded-state age in bars, capped at 20;
+- the existing 12 frozen causal K-line features from v4.
+
+No future bars, centered geometry, judge features, P&L, strategy outcomes, 2025 selection data, or new chart feature family.
+
+## Switch target
+
+Training target is derived only from frozen v3 available labels within the training period:
+
+- `switch_target=1` when the current concrete judge-available state differs from the immediately previous eligible concrete judge-available state within the same trading day and contiguous run;
+- otherwise `0`.
+
+Do not create overnight or gap transitions. Rows without two consecutive concrete labels are excluded from switch-head fitting.
+
+## Switch-head model
+
+Use one pooled L2-regularized binary logistic regression across both assets.
+
+Frozen regularization candidates:
+- `C_gate in {0.1, 1.0, 10.0}`.
+
+Class-balanced sample weights are required because true transitions are rare.
+
+## Online decoder
+
+At each eligible bar:
+
+1. state head produces four probabilities;
+2. proposed state is the current argmax;
+3. if no current decoded state exists, initialize after the proposed state has appeared for `init_confirm` bars;
+4. if proposed state equals current state, keep current state and reset pending switch;
+5. if proposed state differs, compute switch probability from the frozen switch-head feature surface;
+6. only if switch probability >= threshold does the proposed state count toward confirmation;
+7. accept the new state after `switch_confirm` consecutive qualifying bars for the same proposed state;
+8. otherwise keep current state.
+
+Daily reset is required. No backward smoothing or future information.
+
+## Frozen candidate menu
+
+Exactly 18 switch-gate candidates:
+
+- `C_gate in {0.1, 1.0, 10.0}`;
+- switch threshold in `{0.35, 0.50, 0.65}`;
+- switch confirmation in `{1, 2}`;
+- `init_confirm=2` fixed.
+
+Add unchanged v5 as baseline for comparison only.
+
+No post-result expansion.
+
+## Rolling selection
+
+- train through 2021 -> validate 2022;
+- train through 2022 -> validate 2023;
+- train through 2023 -> validate 2024.
+
+Both assets scored separately.
+
+Point-state floors across every fold x asset:
+- balanced accuracy >= 0.75;
+- macro F1 >= 0.72.
+
+A switch-gate candidate may be promoted over v5 only if pre-2025 aggregate satisfies:
+- minimum transition F1 >= v5 minimum transition F1;
+- maximum false transitions/day <= v5 maximum false transitions/day;
+- and at least one material improvement:
+  - minimum transition F1 improves by >= 0.01, or
+  - maximum false transitions/day falls by >= 0.05.
+
+Among promotable candidates select lexicographically:
+1. highest minimum transition F1;
+2. lowest maximum false transitions/day;
+3. highest minimum balanced accuracy;
+4. highest minimum macro F1;
+5. smaller switch confirmation;
+6. higher switch threshold;
+7. smaller C_gate.
+
+If none is promotable, v5 remains active.
+
+## 2025 diagnostic
+
+Only after selection is frozen, refit both heads through 2024 and compare the selected v8 candidate, if any, with v5 on 2025.
+
+2025 is already-consumed development evidence, not fresh OOS.
+
+Useful 2025 diagnostic requires both assets separately:
+- transition F1 >= v5;
+- false transitions/day <= v5;
+- balanced accuracy >= 0.75;
+- macro F1 >= 0.72.
+
+Strong target remains:
+- transition F1 >= 0.30;
+- false transitions/day <= 0.80.
+
+Failure does not permit reopening the candidate menu.
