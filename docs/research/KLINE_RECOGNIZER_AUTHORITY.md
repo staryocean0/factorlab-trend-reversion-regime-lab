@@ -120,6 +120,22 @@ V10 passed the frozen pre-2025 promotion gate and the frozen 2025 safety veto. T
 
 This example is now part of the authoritative research method: a failed full version can still create a contribution that later produces a winner.
 
+## V11 local refinement result
+
+V11 tested only higher six-bar temporal blend weights `0.35/0.40/0.45` against champion v10.
+
+Outcome: **not promoted**.
+
+Best v11 candidate: `alpha=0.45`.
+
+Pre-2025 worst-cell comparison:
+- balanced accuracy: v10 `0.7554` -> v11 `0.7576`;
+- macro F1: v10 `0.7592` -> v11 `0.7618`;
+- transition F1: v10 `0.1984` -> v11 `0.2011`;
+- max false transitions/day: v10 `1.2066` -> v11 `1.1653`.
+
+All four metrics moved in the favorable direction, but the improvement did not meet the frozen material-improvement threshold. Therefore v10 remains champion and v11 is retained only as evidence that the temporal-weight axis still has small positive effect but is entering diminishing returns. The alpha grid must not be expanded after seeing this result.
+
 ## Current authority state
 
 Current champion: **v10 temporal blend**.
@@ -142,6 +158,17 @@ Historical lineage after v5:
 - v8: not promoted; rare-event switch-confidence contribution retained;
 - v9: not promoted as a complete recognizer; temporal-context contribution retained;
 - v10: v9 contribution integration succeeded and was promoted;
-- v11: local refinement challenger; no authority change unless its own promotion gate passes after this historical audit.
+- v11: not promoted; higher temporal-weight near-miss contribution retained.
+
+## Next integration order
+
+Do not combine the audited v6/v7/v8 contributions at once.
+
+Starting from champion v10, the next challenger should test **one retained contribution only** so attribution remains clear.
+
+Priority order:
+1. v6 soft Shock-exit inertia — simplest and most directly tied to false-switch control;
+2. v7 low-weight persistence prior — potentially useful for point-state accuracy but higher interaction risk;
+3. v8 rare-event switch-confidence signal — most complex and should be attempted only as a soft rare-event-aware auxiliary.
 
 Previous champion v5 remains preserved in the champion registry under `previous_champion` with its immutable result commit and metrics.
