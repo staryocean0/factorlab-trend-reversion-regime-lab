@@ -37,35 +37,46 @@ jobs:
           test "$(git -C "$FROZEN" hash-object scripts/run_broad_rmr_R5_multiscale_serial_dependence.py)" = "cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a"
           test "$(sha256sum "$FROZEN/data/development/5m_offset_0.parquet" | awk '{print $1}')" = "bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48"
 
-      - name: Apply audited Shanghai wall-clock identity adapter
+      - name: Stage exact frozen R5 input and runner under current ownership
         run: |
           set -euo pipefail
+          mkdir -p data/research_inputs/r5_b1 research/rmr_r5_b1/frozen_source
+          cp /tmp/two-wave-r5-frozen/data/development/5m_offset_0.parquet data/research_inputs/r5_b1/5m_offset_0.parquet
+          cp /tmp/two-wave-r5-frozen/scripts/run_broad_rmr_R5_multiscale_serial_dependence.py research/rmr_r5_b1/frozen_source/run_broad_rmr_R5_multiscale_serial_dependence.py
           python - <<'PY'
+          import hashlib, json
           from pathlib import Path
-          import pandas as pd
-          src = Path('data/market/5m/000852.SH')
-          dst = Path('/tmp/current-r5-canonical')
-          dst.mkdir(parents=True, exist_ok=True)
-          for year in range(2015, 2021):
-              p = src / f'{year}.parquet'
-              df = pd.read_parquet(p)
-              required = {'symbol', 'trading_day', 'close', 'timestamp'}
-              missing = required.difference(df.columns)
-              if missing:
-                  raise RuntimeError(f'{p}: missing current schema fields {sorted(missing)}')
-              wall = df['timestamp'].astype(str).str.slice(0, 19)
-              ts = pd.to_datetime(wall, errors='raise').dt.tz_localize('Asia/Shanghai').dt.tz_convert('UTC')
-              out = df[['symbol', 'trading_day', 'close']].copy()
-              out['bar_end_shanghai'] = ts
-              out.to_parquet(dst / f'{year}.parquet', index=False)
+          p = Path('data/research_inputs/r5_b1/5m_offset_0.parquet')
+          h = hashlib.sha256(p.read_bytes()).hexdigest()
+          if h != 'bea21fa9dd9532e21605511e07561b33d5569f86f69f5a487507531593b14c48':
+              raise SystemExit('staged data SHA mismatch')
+          manifest = {
+              'schema_id': 'trend_reversion_r5_b1_frozen_input@1.0',
+              'research_identity': 'R5_multiscale_serial_dependence_state_v1',
+              'source_repository': 'staryocean0/factorlab-two-wave-strategy-lab',
+              'source_commit': 'cf8397c12a9defa243dc272224dedebe6ccd3251',
+              'source_path': 'data/development/5m_offset_0.parquet',
+              'target_path': 'data/research_inputs/r5_b1/5m_offset_0.parquet',
+              'sha256': h,
+              'rows': 70114,
+              'symbol': '000852.SH',
+              'date_range': '2015-01-05..2020-12-31',
+              'runner_source_path': 'scripts/run_broad_rmr_R5_multiscale_serial_dependence.py',
+              'runner_git_blob': 'cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a',
+              'current_market_partition_equivalence': 'not_established_and_not_required_for_exact_frozen_reproduction',
+              'BLACKBOX_read': False,
+              'post_2020_read': False,
+              'production_authority': False,
+          }
+          Path('data/research_inputs/r5_b1/manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
           PY
 
-      - name: Run data-identity gate and frozen limited diagnostic
+      - name: Execute the preregistered R5-B1 limited diagnostic
         run: |
           set -euo pipefail
-          python research/rmr_r5_b1/run_limited_diagnostic.py \
-            --current-data-root /tmp/current-r5-canonical \
-            --frozen-root /tmp/two-wave-r5-frozen \
+          python research/rmr_r5_b1/run_exact_frozen_input_diagnostic.py \
+            --data data/research_inputs/r5_b1/5m_offset_0.parquet \
+            --frozen-runner research/rmr_r5_b1/frozen_source/run_broad_rmr_R5_multiscale_serial_dependence.py \
             --output research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json
 
       - name: Write compact research review
@@ -73,8 +84,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          p = Path('research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json')
-          r = json.loads(p.read_text())
+          r = json.loads(Path('research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json').read_text())
           b = r['daily_breadth']
           s = r['anti_persistence_monotonic_shape']
           lines = [
@@ -84,10 +94,11 @@ jobs:
               '',
               f"Adjudication: `{r['adjudication']}`",
               '',
-              '## Data identity',
+              '## Exact input identity',
               '',
-              f"Current 2015-2020 partitions row-for-row equivalent to frozen R5 source: **{r['current_data_identity']['equivalent']}**.",
-              f"Rows: {r['current_data_identity']['current_rows']:,}.",
+              f"Frozen source SHA256: `{r['source_data_sha256']}`.",
+              f"Rows: {r['source_rows']:,}; dates: {r['source_min_day']}..{r['source_max_day']}.",
+              'Current annual market partitions were not used; their exact equivalence to the frozen R5 single-file source remains unestablished.',
               '',
               '## Diagnostic 1 — breadth across validation days',
               '',
@@ -121,11 +132,11 @@ jobs:
           Path('docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md').write_text('\n'.join(lines) + '\n')
           PY
 
-      - name: Commit receipt and review
+      - name: Commit migrated input, receipt and review
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md
-          git commit -m "research: adjudicate frozen R5-B1 limited diagnostic [skip ci]"
+          git add data/research_inputs/r5_b1 research/rmr_r5_b1/frozen_source research/rmr_r5_b1/outputs/limited_diagnostic_receipt.json docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md
+          git commit -m "research: migrate frozen R5 input and adjudicate B1 diagnostic [skip ci]"
           git push origin HEAD:main
