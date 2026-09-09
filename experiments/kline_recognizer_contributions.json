@@ -1,8 +1,79 @@
 {
-  "schema": "kline_recognizer_contributions@1.1",
+  "schema": "kline_recognizer_contributions@1.2",
   "as_of": "2026-09-09",
-  "authority_rule": "A retained contribution is not the champion. It may be integrated into a later challenger, which must independently pass the champion promotion gate before the champion registry changes.",
+  "authority_rule": "A retained contribution is not the champion. It may be integrated into a later challenger, which must independently pass the champion promotion gate before the champion registry changes. Failed complete versions must be audited for reusable positive and negative contributions rather than discarded wholesale.",
   "contributions": [
+    {
+      "contribution_id": "v6_soft_transition_asymmetry",
+      "source_version": "v6_transition_policy",
+      "source_result_dir": "experiments/kline_recognizer_transition_policy_v6",
+      "status": "retained_for_possible_soft_integration",
+      "type": "positive_partial_contribution",
+      "finding": "Transition directions are not equivalent. In particular, making Shock exit more persistent repeatedly reduced false transitions and improved transition F1, but hard extra confirmation bars sacrificed point-state accuracy.",
+      "representative_pre2025_comparison": {
+        "less_sticky_shock_exit": {
+          "min_balanced_accuracy": 0.7589890849397956,
+          "min_transition_f1": 0.14485981308411214,
+          "max_false_transitions_per_day": 1.4338842975206612
+        },
+        "more_sticky_shock_exit": {
+          "min_balanced_accuracy": 0.7361152989397501,
+          "min_transition_f1": 0.15816326530612246,
+          "max_false_transitions_per_day": 1.21900826446281
+        }
+      },
+      "integration_note": "If revisited, use only as a soft state-dependent inertia/prior, especially around Shock exit. Do not reinstate hard typed confirmation counts."
+    },
+    {
+      "contribution_id": "v7_persistence_prior_point_state_signal",
+      "source_version": "v7_markov_filter",
+      "source_result_dir": "experiments/kline_recognizer_markov_filter_v7",
+      "status": "retained_for_possible_low_weight_integration",
+      "type": "positive_partial_contribution",
+      "finding": "Previous-state / persistence information carries useful current-state classification signal. The best point-eligible Markov candidate materially improved point-state metrics but failed badly as the final state decoder.",
+      "best_point_eligible_candidate": "markov_eta2_beta2",
+      "pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.7739355167381246,
+        "min_macro_f1": 0.7800117165696421,
+        "min_transition_f1": 0.11764705882352942,
+        "max_false_transitions_per_day": 2.0950413223140494
+      },
+      "champion_at_time_reference": {
+        "version": "v5_probability_hysteresis",
+        "min_balanced_accuracy": 0.7536614040741304,
+        "min_macro_f1": 0.7562810194148302,
+        "min_transition_f1": 0.17902813299232734,
+        "max_false_transitions_per_day": 1.2396694214876034
+      },
+      "integration_note": "The persistence prior may be useful only as a weak auxiliary probability/feature. Direct Markov-forward posterior argmax remains rejected as a final decoder."
+    },
+    {
+      "contribution_id": "v8_rare_switch_confidence_signal",
+      "source_version": "v8_switch_gate",
+      "source_result_dir": "experiments/kline_recognizer_switch_gate_v8",
+      "status": "retained_structural_and_soft_signal_evidence",
+      "type": "positive_partial_contribution",
+      "finding": "True state switches are an extreme rare-event problem (~1.44%-1.53% positive training rows). A learned switch-confidence gate can strongly suppress churn, but hard vetoing destroys point-state recognition.",
+      "switch_positive_rate_range": {
+        "min": 0.01440492747864097,
+        "max": 0.015251135362299193
+      },
+      "representative_churn_suppression": [
+        {
+          "candidate": "gate_C0.1_thr0.50_confirm2",
+          "min_balanced_accuracy": 0.4799675675735652,
+          "min_transition_f1": 0.06896551724137931,
+          "max_false_transitions_per_day": 0.756198347107438
+        },
+        {
+          "candidate": "gate_C0.1_thr0.65_confirm2",
+          "min_balanced_accuracy": 0.43944370566269275,
+          "min_transition_f1": 0.08,
+          "max_false_transitions_per_day": 0.47520661157024796
+        }
+      ],
+      "integration_note": "Any future switch-confidence use must be soft and rare-event-aware (for example a small penalty, confidence weight, calibration feature, or ranking signal). Hard allow/deny gating remains rejected."
+    },
     {
       "contribution_id": "v9_temporal_context_h3",
       "source_version": "v9_temporal_context",
@@ -75,7 +146,7 @@
       "source_version": "v6_v7_v8",
       "status": "retained_negative_evidence",
       "type": "negative_design_contribution",
-      "finding": "Three different post-classification transition mechanisms failed to beat v5: manual typed confirmation, Markov persistence filtering, and learned switch gating. Do not continue stacking postprocessors on the same state classifier without new evidence."
+      "finding": "Three direct post-classification mechanisms failed as final decoders: hard typed confirmation, direct Markov-forward argmax, and hard learned switch gating. Their useful local signals must only be revisited as low-weight/soft inputs in a new challenger, one contribution at a time."
     }
   ]
 }
