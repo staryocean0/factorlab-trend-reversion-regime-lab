@@ -1,0 +1,184 @@
+{
+  "2025_is_fresh_oos": false,
+  "2025_safety_veto": {
+    "failures": [],
+    "veto": false
+  },
+  "2025_used_for_candidate_selection": false,
+  "best_point_noninferior_aggregate": null,
+  "best_point_noninferior_candidate": null,
+  "candidate_count": 6,
+  "champion_before_run": {
+    "as_of": "2026-09-09",
+    "champion_branch": "research/kline-recognizer-hysteresis-v5",
+    "champion_result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
+    "champion_result_dir": "experiments/kline_recognizer_hysteresis_v5",
+    "champion_version": "v5_probability_hysteresis",
+    "classifier": {
+      "C": 1.0,
+      "family": "pooled_multinomial_linear"
+    },
+    "consumed_2025_diagnostic": {
+      "000688.SH": {
+        "balanced_accuracy": 0.7706466652565183,
+        "false_transitions_per_day": 1.045267489711934,
+        "macro_f1": 0.7752394001302585,
+        "transition_f1": 0.19125683060109286
+      },
+      "000852.SH": {
+        "balanced_accuracy": 0.8148213880353834,
+        "false_transitions_per_day": 1.168724279835391,
+        "macro_f1": 0.8073204261787088,
+        "transition_f1": 0.20297029702970296
+      }
+    },
+    "failed_challengers": [
+      {
+        "promotion": false,
+        "version": "v6_transition_policy"
+      },
+      {
+        "promotion": false,
+        "version": "v7_markov_filter"
+      },
+      {
+        "promotion": false,
+        "version": "v8_switch_gate"
+      }
+    ],
+    "fresh_oos_claim": false,
+    "pre2025_worst_cell": {
+      "max_false_transitions_per_day": 1.2396694214876034,
+      "min_balanced_accuracy": 0.7536614040741304,
+      "min_macro_f1": 0.7562810194148302,
+      "min_transition_f1": 0.17902813299232734
+    },
+    "production_ready": false,
+    "promotion_rule": "Only a challenger that passes its preregistered pre-diagnostic gate may replace this champion record. Failure leaves the champion unchanged.",
+    "schema": "kline_recognizer_champion@1.0",
+    "switch_policy": {
+      "confirmation_bars": 4,
+      "min_new_probability": 0.45,
+      "switch_margin": 0.05
+    }
+  },
+  "champion_pre2025_aggregate": {
+    "max_false_transitions_per_day": 1.2396694214876034,
+    "mean_false_transitions_per_day": 1.1549586776859504,
+    "min_balanced_accuracy": 0.7536614040741304,
+    "min_macro_f1": 0.7562810194148302,
+    "min_transition_f1": 0.17902813299232734
+  },
+  "champion_registry_mutated_by_runner": false,
+  "diagnostic_2025_challenger": null,
+  "diagnostic_2025_champion": null,
+  "eligible_for_champion_update": false,
+  "fold_model_audit": {
+    "temporal_h3_C0.1": {
+      "fold_2022": {
+        "optimizer_iterations": 93,
+        "optimizer_loss": 0.3238580482988307,
+        "train_end": "2021-12-31"
+      },
+      "fold_2023": {
+        "optimizer_iterations": 97,
+        "optimizer_loss": 0.32497370216407595,
+        "train_end": "2022-12-31"
+      },
+      "fold_2024": {
+        "optimizer_iterations": 98,
+        "optimizer_loss": 0.32993946709571953,
+        "train_end": "2023-12-31"
+      }
+    },
+    "temporal_h3_C1": {
+      "fold_2022": {
+        "optimizer_iterations": 161,
+        "optimizer_loss": 0.29420712166863405,
+        "train_end": "2021-12-31"
+      },
+      "fold_2023": {
+        "optimizer_iterations": 164,
+        "optimizer_loss": 0.29576806848357456,
+        "train_end": "2022-12-31"
+      },
+      "fold_2024": {
+        "optimizer_iterations": 138,
+        "optimizer_loss": 0.3023111714165002,
+        "train_end": "2023-12-31"
+      }
+    },
+    "temporal_h3_C10": {
+      "fold_2022": {
+        "optimizer_iterations": 207,
+        "optimizer_loss": 0.2840370068473846,
+        "train_end": "2021-12-31"
+      },
+      "fold_2023": {
+        "optimizer_iterations": 173,
+        "optimizer_loss": 0.28701134050065585,
+        "train_end": "2022-12-31"
+      },
+      "fold_2024": {
+        "optimizer_iterations": 163,
+        "optimizer_loss": 0.29449760631548044,
+        "train_end": "2023-12-31"
+      }
+    },
+    "temporal_h6_C0.1": {
+      "fold_2022": {
+        "optimizer_iterations": 90,
+        "optimizer_loss": 0.2520821609373483,
+        "train_end": "2021-12-31"
+      },
+      "fold_2023": {
+        "optimizer_iterations": 88,
+        "optimizer_loss": 0.254987287515866,
+        "train_end": "2022-12-31"
+      },
+      "fold_2024": {
+        "optimizer_iterations": 94,
+        "optimizer_loss": 0.26084806283553985,
+        "train_end": "2023-12-31"
+      }
+    },
+    "temporal_h6_C1": {
+      "fold_2022": {
+        "optimizer_iterations": 186,
+        "optimizer_loss": 0.22020098138539515,
+        "train_end": "2021-12-31"
+      },
+      "fold_2023": {
+        "optimizer_iterations": 222,
+        "optimizer_loss": 0.22259806756236566,
+        "train_end": "2022-12-31"
+      },
+      "fold_2024": {
+        "optimizer_iterations": 223,
+        "optimizer_loss": 0.2309730056272793,
+        "train_end": "2023-12-31"
+      }
+    },
+    "temporal_h6_C10": {
+      "fold_2022": {
+        "optimizer_iterations": 464,
+        "optimizer_loss": 0.2045258622603704,
+        "train_end": "2021-12-31"
+      },
+      "fold_2023": {
+        "optimizer_iterations": 464,
+        "optimizer_loss": 0.20848184751716087,
+        "train_end": "2022-12-31"
+      },
+      "fold_2024": {
+        "optimizer_iterations": 484,
+        "optimizer_loss": 0.2185702343906824,
+        "train_end": "2023-12-31"
+      }
+    }
+  },
+  "pre2025_selected_aggregate": null,
+  "pre2025_selected_candidate": null,
+  "pre2025_selected_candidate_id": null,
+  "status": "complete_temporal_context_v9"
+}

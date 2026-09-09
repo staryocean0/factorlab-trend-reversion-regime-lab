@@ -1,0 +1,24 @@
+{
+  "code_commit": "80f1c4b438751f6c8b296fb79ab76c36497d3d2b",
+  "command": "scripts/run_kline_temporal_context_v9.py --code-commit 80f1c4b438751f6c8b296fb79ab76c36497d3d2b",
+  "cwd": "/home/runner/work/factorlab-trend-reversion-regime-lab/factorlab-trend-reversion-regime-lab",
+  "exit_code": 0,
+  "finished_at_utc": "2026-09-09T01:32:06.641230+00:00",
+  "output_sha256": {
+    "RESULT_CARD.md": "4331af7dc335e91f40cdb75c6b3575766451ba4a81c3b0d72f2cb53585226014",
+    "candidate_cv.csv": "8681474d3206f98c16e79b4b53b7f1366b73fb43fc00381f40f69d1e8428210c",
+    "input_identity.json": "e49eab0be444f9cf92f147bfb6d6fc72d8d7ed9929fa5a39993fcba9ef9b3c92",
+    "summary.json": "167d5a72521fdc9f16037cffaa0801c2d9ff2fc979677f3fe2e90b69fdf911b9"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "21.0.0",
+    "scipy": "1.17.1"
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "protocol_sha256": "f8b108c843fd22c93afc5b0bca6c6f13ebd1b05b04b42bbf6efa83af78afe94f",
+  "python": "3.11.16",
+  "schema": "kline_recognizer_temporal_context_v9_execution_receipt@1.0",
+  "started_at_utc": "2026-09-09T01:25:02.995156+00:00"
+}
