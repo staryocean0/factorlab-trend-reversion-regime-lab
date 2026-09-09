@@ -1,0 +1,74 @@
+{
+  "schema": "kline_recognizer_contributions@1.0",
+  "as_of": "2026-09-09",
+  "authority_rule": "A retained contribution is not the champion. It may be integrated into a later challenger, which must independently pass the champion promotion gate before the champion registry changes.",
+  "contributions": [
+    {
+      "contribution_id": "v9_temporal_context_h3",
+      "source_version": "v9_temporal_context",
+      "source_result_dir": "experiments/kline_recognizer_temporal_context_v9",
+      "status": "retained_for_integration",
+      "type": "positive_partial_contribution",
+      "finding": "Three-bar causal temporal context improves transition recognition and reduces false transitions, but slightly degrades point-state accuracy.",
+      "pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.7353200206559921,
+        "min_macro_f1": 0.739514479170309,
+        "min_transition_f1": 0.2028169014084507,
+        "max_false_transitions_per_day": 1.0743801652892562
+      },
+      "champion_reference": {
+        "version": "v5_probability_hysteresis",
+        "min_balanced_accuracy": 0.7536614040741304,
+        "min_macro_f1": 0.7562810194148302,
+        "min_transition_f1": 0.17902813299232734,
+        "max_false_transitions_per_day": 1.2396694214876034
+      },
+      "benefits_vs_champion": {
+        "transition_f1_delta": 0.02378876841612337,
+        "max_false_transitions_per_day_delta": -0.1652892561983472
+      },
+      "costs_vs_champion": {
+        "balanced_accuracy_delta": -0.018341383418138286,
+        "macro_f1_delta": -0.01676654084452119
+      },
+      "integration_target": "Blend a small temporal-dynamics signal into the v5 state classifier while preserving the v5 decoder and point-state floor."
+    },
+    {
+      "contribution_id": "v9_temporal_context_h6",
+      "source_version": "v9_temporal_context",
+      "source_result_dir": "experiments/kline_recognizer_temporal_context_v9",
+      "status": "retained_as_upper-bound_signal",
+      "type": "positive_partial_contribution",
+      "finding": "Six-bar causal temporal context strongly improves transition F1 and false-transition control, demonstrating that temporal information is informative, but the direct replacement classifier sacrifices too much point-state accuracy.",
+      "pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.6576909866794467,
+        "min_macro_f1": 0.669024476178746,
+        "min_transition_f1": 0.24812030075187969,
+        "max_false_transitions_per_day": 0.7272727272727273
+      },
+      "champion_reference": {
+        "version": "v5_probability_hysteresis",
+        "min_balanced_accuracy": 0.7536614040741304,
+        "min_macro_f1": 0.7562810194148302,
+        "min_transition_f1": 0.17902813299232734,
+        "max_false_transitions_per_day": 1.2396694214876034
+      },
+      "benefits_vs_champion": {
+        "transition_f1_delta": 0.06909216775955235,
+        "max_false_transitions_per_day_delta": -0.5123966942148761
+      },
+      "costs_vs_champion": {
+        "balanced_accuracy_delta": -0.09597041739468372,
+        "macro_f1_delta": -0.08725654383608419
+      },
+      "integration_target": "Use as evidence that temporal context should influence the v5 classifier only weakly or selectively, not replace current-state evidence."
+    },
+    {
+      "contribution_id": "postprocessor_family_negative_evidence_v6_v8",
+      "source_version": "v6_v7_v8",
+      "status": "retained_negative_evidence",
+      "type": "negative_design_contribution",
+      "finding": "Three different post-classification transition mechanisms failed to beat v5: manual typed confirmation, Markov persistence filtering, and learned switch gating. Do not continue stacking postprocessors on the same state classifier without new evidence."
+    }
+  ]
+}
