@@ -1,0 +1,145 @@
+{
+  "2025_is_fresh_oos": false,
+  "2025_safety_veto": {
+    "failures": [],
+    "veto": false
+  },
+  "2025_used_for_candidate_selection": false,
+  "best_local_aggregate": {
+    "max_false_transitions_per_day": 1.2314049586776858,
+    "mean_false_transitions_per_day": 1.1232782369146006,
+    "min_balanced_accuracy": 0.757364329757302,
+    "min_macro_f1": 0.7613888660028136,
+    "min_transition_f1": 0.19895287958115182
+  },
+  "best_local_candidate": {
+    "rho": 0.05,
+    "transition_eta": 2.0
+  },
+  "candidate_count": 3,
+  "champion_before_run": {
+    "as_of": "2026-09-09",
+    "authority_narrative": "docs/research/KLINE_RECOGNIZER_AUTHORITY.md",
+    "challenger_history": [
+      {
+        "contribution_id": "v6_soft_transition_asymmetry",
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v6_transition_policy"
+      },
+      {
+        "contribution_id": "v7_persistence_prior_point_state_signal",
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v7_markov_filter"
+      },
+      {
+        "contribution_id": "v8_rare_switch_confidence_signal",
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v8_switch_gate"
+      },
+      {
+        "contribution_id": "v9_temporal_context_h6",
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v9_temporal_context"
+      },
+      {
+        "promotion": true,
+        "source_contribution": "v9_temporal_context_h6",
+        "version": "v10_temporal_blend"
+      },
+      {
+        "contribution_id": "v11_higher_temporal_weight_diminishing_returns",
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v11_temporal_blend_refinement"
+      },
+      {
+        "contribution_id": "v12_soft_shock_exit_inertia_revalidation",
+        "contribution_retained": true,
+        "promotion": false,
+        "version": "v12_shock_exit_inertia"
+      }
+    ],
+    "champion_branch": "research/kline-recognizer-temporal-blend-v10",
+    "champion_result_commit": "723404633fccb0a52181d2090cadbca3114dcc67",
+    "champion_result_dir": "experiments/kline_recognizer_temporal_blend_v10",
+    "champion_version": "v10_temporal_blend",
+    "classifier": {
+      "blend": {
+        "alpha": 0.3,
+        "fallback_when_temporal_unavailable": "primary_only",
+        "method": "log_probability_blend",
+        "primary_weight": 0.7,
+        "temporal_weight": 0.3
+      },
+      "primary": {
+        "C": 1.0,
+        "family": "pooled_multinomial_linear",
+        "feature_surface": "12_current_causal_kline_features"
+      },
+      "temporal_auxiliary": {
+        "C": 0.1,
+        "family": "temporal_context_linear",
+        "feature_surface": "current_previous_trailing_mean_and_displacement_of_same_12_features",
+        "horizon_bars": 6
+      }
+    },
+    "consumed_2025_diagnostic": {
+      "000688.SH": {
+        "balanced_accuracy": 0.7892740156432709,
+        "false_transitions_per_day": 1.0164609053497942,
+        "macro_f1": 0.7907867772954409,
+        "transition_f1": 0.21978021978021978
+      },
+      "000852.SH": {
+        "balanced_accuracy": 0.8142904553683235,
+        "false_transitions_per_day": 1.0905349794238683,
+        "macro_f1": 0.8105197657575427,
+        "transition_f1": 0.23136246786632392
+      }
+    },
+    "contribution_ledger": "experiments/kline_recognizer_contributions.json",
+    "fresh_oos_claim": false,
+    "historical_contribution_audit": "docs/research/KLINE_RECOGNIZER_HISTORICAL_CONTRIBUTION_AUDIT_V6_V9.md",
+    "pre2025_worst_cell": {
+      "max_false_transitions_per_day": 1.2066115702479339,
+      "min_balanced_accuracy": 0.7553851080081395,
+      "min_macro_f1": 0.7591912321042829,
+      "min_transition_f1": 0.19843342036553524
+    },
+    "previous_champion": {
+      "branch": "research/kline-recognizer-hysteresis-v5",
+      "pre2025_worst_cell": {
+        "max_false_transitions_per_day": 1.2396694214876034,
+        "min_balanced_accuracy": 0.7536614040741304,
+        "min_macro_f1": 0.7562810194148302,
+        "min_transition_f1": 0.17902813299232734
+      },
+      "result_commit": "e4ddffd3c190ba18739587aabf73844b3daa2230",
+      "result_dir": "experiments/kline_recognizer_hysteresis_v5",
+      "version": "v5_probability_hysteresis"
+    },
+    "production_ready": false,
+    "promotion_rule": "Only a complete challenger that passes its preregistered pre-diagnostic gate and any frozen safety veto may replace this champion. Failed challengers may contribute reusable components, but a contribution changes the champion only through a later integrated challenger that itself passes promotion.",
+    "schema": "kline_recognizer_champion@1.4",
+    "switch_policy": {
+      "confirmation_bars": 4,
+      "inherited_from": "v5_probability_hysteresis",
+      "min_new_probability": 0.45,
+      "switch_margin": 0.05
+    }
+  },
+  "champion_registry_mutated_by_runner": false,
+  "contribution_ledger_mutated_by_runner": false,
+  "diagnostic_2025_challenger": null,
+  "diagnostic_2025_champion": null,
+  "eligible_for_champion_update": false,
+  "selected_candidate": null,
+  "selected_candidate_id": null,
+  "selected_pre2025_aggregate": null,
+  "source_contribution": "v7_persistence_prior_point_state_signal",
+  "status": "complete_persistence_prior_v13"
+}
