@@ -24,13 +24,13 @@ jobs:
           SRC=/tmp/star50-src/docs/archive/misrouted_rmr_from_overnight_20260909
           test -f "$SRC/raw/scripts/run_rmr_stage1_common_probe.py"
           test -f "$SRC/raw/scripts/run_rmr_R1_reusable_dev_validation.py"
-          test -f "$SRC/raw/scripts/certify_rmr_R1_three_role.py"
+          test -f "$SRC/raw/scripts/certify_rmr_R1_reusable_blackbox.py"
           mkdir -p docs/archive/rmr_migrated_from_star50_20260909
           cp -a "$SRC/." docs/archive/rmr_migrated_from_star50_20260909/
           mkdir -p scripts/rmr_parent_state_legacy tests/rmr_parent_state_legacy
           cp "$SRC/raw/scripts/run_rmr_stage1_common_probe.py" scripts/rmr_parent_state_legacy/
           cp "$SRC/raw/scripts/run_rmr_R1_reusable_dev_validation.py" scripts/rmr_parent_state_legacy/
-          cp "$SRC/raw/scripts/certify_rmr_R1_three_role.py" scripts/rmr_parent_state_legacy/
+          cp "$SRC/raw/scripts/certify_rmr_R1_reusable_blackbox.py" scripts/rmr_parent_state_legacy/
           if test -f "$SRC/raw/tests/test_reusable_three_role_blackbox.py"; then
             cp "$SRC/raw/tests/test_reusable_three_role_blackbox.py" tests/rmr_parent_state_legacy/
           fi
@@ -61,7 +61,7 @@ jobs:
           Preserved runnable entries:
           - `scripts/rmr_parent_state_legacy/run_rmr_stage1_common_probe.py`
           - `scripts/rmr_parent_state_legacy/run_rmr_R1_reusable_dev_validation.py`
-          - `scripts/rmr_parent_state_legacy/certify_rmr_R1_three_role.py`
+          - `scripts/rmr_parent_state_legacy/certify_rmr_R1_reusable_blackbox.py`
 
           These are migrated research artifacts, not newly validated against this repository's current data contract. Migration does not inherit or reopen any BLACKBOX authority and does not create production or trading authority.
 
