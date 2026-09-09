@@ -38,6 +38,7 @@ jobs:
           cp /tmp/star50-src/docs/research/rmr_signal_source_map_20260909.md docs/archive/rmr_migrated_from_star50_20260909/STAR50_RMR_SIGNAL_SOURCE_MAP.md
       - name: Write migration authority note
         run: |
+          mkdir -p docs/research
           cat > docs/research/R1_R2_MIGRATION_NOTE_20260909.md <<'EOF'
           # R1/R2 migration into Trend–Reversion Regime Lab
 
