@@ -202,7 +202,7 @@ def fit_temporal_linear(
         np.zeros(k * (d + 1), dtype=float),
         method="L-BFGS-B",
         jac=True,
-        options={"maxiter": 300, "ftol": 1e-10, "gtol": 1e-7},
+        options={"maxiter": 800, "ftol": 1e-8, "gtol": 1e-6},
     )
     if not result.success:
         raise RuntimeError(f"v9 linear optimizer failed: {result.message}")
