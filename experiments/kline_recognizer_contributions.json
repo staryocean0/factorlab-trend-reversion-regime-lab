@@ -1,5 +1,5 @@
 {
-  "schema": "kline_recognizer_contributions@1.2",
+  "schema": "kline_recognizer_contributions@1.3",
   "as_of": "2026-09-09",
   "authority_rule": "A retained contribution is not the champion. It may be integrated into a later challenger, which must independently pass the champion promotion gate before the champion registry changes. Failed complete versions must be audited for reusable positive and negative contributions rather than discarded wholesale.",
   "contributions": [
@@ -140,6 +140,29 @@
           "false_transitions_per_day": 1.0164609053497942
         }
       }
+    },
+    {
+      "contribution_id": "v11_higher_temporal_weight_diminishing_returns",
+      "source_version": "v11_temporal_blend_refinement",
+      "source_result_dir": "experiments/kline_recognizer_temporal_blend_v11",
+      "status": "retained_near_miss_contribution",
+      "type": "positive_partial_contribution",
+      "finding": "Increasing the six-bar temporal blend above the v10 alpha=0.30 level continued to improve all four pre-2025 aggregate metrics, but none of the frozen alpha values produced a material enough improvement to replace v10. The temporal-weight contribution is therefore still positive but in a diminishing-returns region.",
+      "best_candidate": "v11_h6_a0.45",
+      "best_pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.757559143765297,
+        "min_macro_f1": 0.7617585587906525,
+        "min_transition_f1": 0.20105820105820105,
+        "max_false_transitions_per_day": 1.165289256198347
+      },
+      "champion_reference": {
+        "version": "v10_temporal_blend",
+        "min_balanced_accuracy": 0.7553851080081395,
+        "min_macro_f1": 0.7591912321042829,
+        "min_transition_f1": 0.19843342036553524,
+        "max_false_transitions_per_day": 1.2066115702479339
+      },
+      "integration_note": "Do not expand the alpha grid after seeing v11. Retain only the evidence that higher temporal weight still has small positive effect and that the present architecture is approaching a local plateau."
     },
     {
       "contribution_id": "postprocessor_family_negative_evidence_v6_v8",
