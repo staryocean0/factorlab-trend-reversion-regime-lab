@@ -1,5 +1,5 @@
 {
-  "schema": "kline_recognizer_champion@1.3",
+  "schema": "kline_recognizer_champion@1.4",
   "as_of": "2026-09-09",
   "champion_version": "v10_temporal_blend",
   "champion_branch": "research/kline-recognizer-temporal-blend-v10",
@@ -69,7 +69,8 @@
     {"version": "v8_switch_gate", "promotion": false, "contribution_retained": true, "contribution_id": "v8_rare_switch_confidence_signal"},
     {"version": "v9_temporal_context", "promotion": false, "contribution_retained": true, "contribution_id": "v9_temporal_context_h6"},
     {"version": "v10_temporal_blend", "promotion": true, "source_contribution": "v9_temporal_context_h6"},
-    {"version": "v11_temporal_blend_refinement", "promotion": false, "contribution_retained": true, "contribution_id": "v11_higher_temporal_weight_diminishing_returns"}
+    {"version": "v11_temporal_blend_refinement", "promotion": false, "contribution_retained": true, "contribution_id": "v11_higher_temporal_weight_diminishing_returns"},
+    {"version": "v12_shock_exit_inertia", "promotion": false, "contribution_retained": true, "contribution_id": "v12_soft_shock_exit_inertia_revalidation"}
   ],
   "historical_contribution_audit": "docs/research/KLINE_RECOGNIZER_HISTORICAL_CONTRIBUTION_AUDIT_V6_V9.md",
   "authority_narrative": "docs/research/KLINE_RECOGNIZER_AUTHORITY.md",
