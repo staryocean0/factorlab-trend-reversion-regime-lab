@@ -1,0 +1,55 @@
+{
+  "schema": "broad_rmr_two_wave_branch_migration@1.0",
+  "date": "2026-09-09",
+  "source_repository": "staryocean0/factorlab-two-wave-strategy-lab",
+  "source_branch": "codex/two-wave-phase1-20260905",
+  "source_head_commit": "cf8397c12a9defa243dc272224dedebe6ccd3251",
+  "target_repository": "staryocean0/factorlab-trend-reversion-regime-lab",
+  "m0_boundary": {
+    "owner_bucket": "factorlab-two-wave-strategy-lab",
+    "operational_baseline": "v0.4.3",
+    "morphology_status": "morphology_replication_not_yet_accepted",
+    "later_capability_status": "v0.6.17 interval_valued_session_aware_path_information_bounds"
+  },
+  "rmr_evidence": {
+    "R1": {
+      "decision": "R1_STAGE1_v1_evidence_insufficient_event_measurement_too_sparse",
+      "supply": {"build": 9, "2019": 5, "2020": 3},
+      "source_blob": "dcddce6c2eb4425fb53eaa6a3bf8f33893dbdd14",
+      "interpretation": "measurement_supply_failure_not_mechanism_rejection"
+    },
+    "R2": {
+      "decision": "R2_STAGE1_v1_evidence_insufficient_sparse_and_chronologically_unstable",
+      "supply": {"build": 37, "2019": 11, "2020": 10},
+      "source_blob": "dcddce6c2eb4425fb53eaa6a3bf8f33893dbdd14"
+    },
+    "R3": {
+      "decision": "R3_STAGE1_v1_closed_predeclared_deterioration_direction_falsified",
+      "supply": {"build": 744, "2019": 172, "2020": 144},
+      "translation_decay_coefficient": -0.04937,
+      "quality_decay_coefficient": -0.12734,
+      "required_direction": ">0",
+      "source_blob": "dcddce6c2eb4425fb53eaa6a3bf8f33893dbdd14"
+    },
+    "R4": {
+      "decision": "no_qualified_candidates",
+      "source_blob": "d63c220ef184ecb1761f7e65ad6d453b709ab9b3",
+      "closed_components": ["path_inefficiency", "lower_scale_event_density", "parent_amplitude_extremity"]
+    },
+    "R5": {
+      "decision": "R5_partial_support_keep_researching_on_TRAIN_VALIDATION",
+      "source_blob": "db56843e4e33bb4e98470f59432bc5d95a485ec7",
+      "B1": {
+        "status": "small_chronologically_consistent_incremental_support",
+        "interaction_coefficient": -1.0692286210,
+        "validation_mse_B0": 1.0116532665,
+        "validation_mse_B1": 1.0101116108,
+        "relative_improvement_fraction": 0.001524
+      },
+      "B2": "not_better_than_B1",
+      "C": "mechanism_not_supported"
+    }
+  },
+  "fresh_oos": false,
+  "production_authority": false
+}
