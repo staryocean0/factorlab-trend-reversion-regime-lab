@@ -1,5 +1,5 @@
 {
-  "schema": "kline_recognizer_contributions@1.0",
+  "schema": "kline_recognizer_contributions@1.1",
   "as_of": "2026-09-09",
   "authority_rule": "A retained contribution is not the champion. It may be integrated into a later challenger, which must independently pass the champion promotion gate before the champion registry changes.",
   "contributions": [
@@ -7,61 +7,68 @@
       "contribution_id": "v9_temporal_context_h3",
       "source_version": "v9_temporal_context",
       "source_result_dir": "experiments/kline_recognizer_temporal_context_v9",
-      "status": "retained_for_integration",
+      "status": "retained_alternative_temporal_signal",
       "type": "positive_partial_contribution",
-      "finding": "Three-bar causal temporal context improves transition recognition and reduces false transitions, but slightly degrades point-state accuracy.",
+      "finding": "Three-bar causal temporal context improves transition recognition and reduces false transitions, but slightly degrades point-state accuracy when used as the full primary classifier.",
       "pre2025_worst_cell": {
         "min_balanced_accuracy": 0.7353200206559921,
         "min_macro_f1": 0.739514479170309,
         "min_transition_f1": 0.2028169014084507,
         "max_false_transitions_per_day": 1.0743801652892562
       },
-      "champion_reference": {
-        "version": "v5_probability_hysteresis",
-        "min_balanced_accuracy": 0.7536614040741304,
-        "min_macro_f1": 0.7562810194148302,
-        "min_transition_f1": 0.17902813299232734,
-        "max_false_transitions_per_day": 1.2396694214876034
-      },
-      "benefits_vs_champion": {
-        "transition_f1_delta": 0.02378876841612337,
-        "max_false_transitions_per_day_delta": -0.1652892561983472
-      },
-      "costs_vs_champion": {
-        "balanced_accuracy_delta": -0.018341383418138286,
-        "macro_f1_delta": -0.01676654084452119
-      },
-      "integration_target": "Blend a small temporal-dynamics signal into the v5 state classifier while preserving the v5 decoder and point-state floor."
+      "original_champion_reference": "v5_probability_hysteresis",
+      "integration_note": "Not selected by v10, but retained as an alternate short temporal signal for future research if a new protocol has a specific reason to revisit it."
     },
     {
       "contribution_id": "v9_temporal_context_h6",
       "source_version": "v9_temporal_context",
       "source_result_dir": "experiments/kline_recognizer_temporal_context_v9",
-      "status": "retained_as_upper-bound_signal",
+      "status": "successfully_integrated_into_champion_v10",
       "type": "positive_partial_contribution",
-      "finding": "Six-bar causal temporal context strongly improves transition F1 and false-transition control, demonstrating that temporal information is informative, but the direct replacement classifier sacrifices too much point-state accuracy.",
-      "pre2025_worst_cell": {
+      "finding": "Six-bar causal temporal context carries strong transition information but is too dominant when used as a standalone primary classifier. A small blend into v5 preserves point-state floors while improving transition behavior.",
+      "standalone_pre2025_worst_cell": {
         "min_balanced_accuracy": 0.6576909866794467,
         "min_macro_f1": 0.669024476178746,
         "min_transition_f1": 0.24812030075187969,
         "max_false_transitions_per_day": 0.7272727272727273
       },
-      "champion_reference": {
-        "version": "v5_probability_hysteresis",
-        "min_balanced_accuracy": 0.7536614040741304,
-        "min_macro_f1": 0.7562810194148302,
-        "min_transition_f1": 0.17902813299232734,
-        "max_false_transitions_per_day": 1.2396694214876034
+      "integration": {
+        "integrated_version": "v10_temporal_blend",
+        "integrated_result_commit": "723404633fccb0a52181d2090cadbca3114dcc67",
+        "blend_alpha": 0.3,
+        "auxiliary_C": 0.1,
+        "decoder": "unchanged_v5_hysteresis",
+        "promotion_eligible": true
+      }
+    },
+    {
+      "contribution_id": "v10_controlled_temporal_blend",
+      "source_version": "v10_temporal_blend",
+      "source_result_dir": "experiments/kline_recognizer_temporal_blend_v10",
+      "source_result_commit": "723404633fccb0a52181d2090cadbca3114dcc67",
+      "status": "promoted_with_champion",
+      "type": "successful_integration_contribution",
+      "finding": "A 30% six-bar temporal auxiliary log-probability blend into the v5 primary head preserves the champion point-state floor and improves transition F1 and false-transition control. This validates the contribution-extraction research loop.",
+      "pre2025_worst_cell": {
+        "min_balanced_accuracy": 0.7553851080081395,
+        "min_macro_f1": 0.7591912321042829,
+        "min_transition_f1": 0.19843342036553524,
+        "max_false_transitions_per_day": 1.2066115702479339
       },
-      "benefits_vs_champion": {
-        "transition_f1_delta": 0.06909216775955235,
-        "max_false_transitions_per_day_delta": -0.5123966942148761
-      },
-      "costs_vs_champion": {
-        "balanced_accuracy_delta": -0.09597041739468372,
-        "macro_f1_delta": -0.08725654383608419
-      },
-      "integration_target": "Use as evidence that temporal context should influence the v5 classifier only weakly or selectively, not replace current-state evidence."
+      "2025_consumed_diagnostic": {
+        "000852.SH": {
+          "balanced_accuracy": 0.8142904553683235,
+          "macro_f1": 0.8105197657575427,
+          "transition_f1": 0.23136246786632392,
+          "false_transitions_per_day": 1.0905349794238683
+        },
+        "000688.SH": {
+          "balanced_accuracy": 0.7892740156432709,
+          "macro_f1": 0.7907867772954409,
+          "transition_f1": 0.21978021978021978,
+          "false_transitions_per_day": 1.0164609053497942
+        }
+      }
     },
     {
       "contribution_id": "postprocessor_family_negative_evidence_v6_v8",
