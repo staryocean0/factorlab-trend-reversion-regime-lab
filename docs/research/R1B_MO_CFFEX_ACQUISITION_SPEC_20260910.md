@@ -21,7 +21,15 @@ For the R1_B primary execution identity, the purchase/request target is:
 
 > **CFFEX Level-2 historical snapshot data for CSI1000 index options (`MO`)**
 
-Level-2 is the conservative first-choice acquisition because this research requires executable best bid/ask and size at inherited causal entry/exit clocks. Level-1 may replace Level-2 only if the official field specification or delivered sample is inspected **before option outcomes** and demonstrably contains timestamped `bid1`, `ask1`, `bid1_size`, and `ask1_size` with stable semantics.
+Level-2 is now the evidence-backed first-choice acquisition. CFFEX's own Level-2 market-information authorization guide describes five-level bid/ask prices and five-level bid/ask sizes, together with last price, volume, open interest and related market fields, and states that Level-2 is distributed as 500 ms snapshots. That official product-family evidence confirms the top-of-book price/size capability required by the frozen schema.
+
+Official Level-2 field-capability guide:
+
+- https://www.cffex.com.cn/u/cms/www/202201/20211342wucd.pdf
+
+This does **not** waive delivery-level admission. The actual historical files and dictionary must still prove timestamp, missing/zero quote, trading-status, contract-master, version and correction semantics before any R1_B event-conditioned option outcome is inspected.
+
+Level-1 may replace Level-2 only if the official historical field specification or delivered sample is inspected **before option outcomes** and demonstrably contains timestamped `bid1`, `ask1`, `bid1_size`, and `ask1_size` with stable semantics.
 
 The one-minute and five-minute historical databases are not substitutes for the primary study because bar OHLC does not preserve executable spread.
 
@@ -42,7 +50,7 @@ and under product pricing:
 - `价目表（境内）`;
 - `价目表（境外）`.
 
-No price or fee value is copied into this repository until the actual applicable official document is obtained and archived by checksum/provenance reference.
+The repository's one-off official-material acquisition task is permitted to preserve the applicable public CFFEX material together with source URL, byte size and SHA-256. A price or fee value is not promoted into the research contract merely because a public pricing document was downloaded; applicability/effective period must still be interpreted explicitly.
 
 ## 2. Instrument scope
 
@@ -143,7 +151,7 @@ No midpoint, last price, close price, theoretical price, or implied-volatility r
 
 Authorized now:
 
-- obtain the official application form, product-content document, and applicable price list;
+- obtain and preserve the official application form, product-content document, applicable price list and provenance manifest;
 - request a non-outcome-conditioned MO Level-2 sample for schema verification if CFFEX/vendor permits;
 - verify Level-1 field content before deciding whether Level-1 is an acceptable cheaper/lighter substitute;
 - prepare local storage, checksum inventory, canonical field adapter, and admission receipt plumbing;
@@ -167,7 +175,7 @@ If the official service cannot split prospective delivery at acquisition time, p
 
 ## 9. Current state
 
-`CFFEX_MO_LEVEL2_ACQUISITION_SPEC_FROZEN_DATA_NOT_ACQUIRED`
+`CFFEX_MO_LEVEL2_FIELD_CAPABILITY_CONFIRMED_HISTORICAL_DELIVERY_NOT_ACQUIRED`
 
 Admission protocol: `docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json`.
 
