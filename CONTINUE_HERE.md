@@ -86,19 +86,61 @@ A CSI1000 `IM` futures mapping remains linear and would mostly change basis/cost
 
 A long directional CSI1000 `MO` option is a materially different convex payoff object and can, in principle, map a right-tail restoration impulse while bounding downside. This is theory only; option premium/theta/volatility/spread can invalidate it.
 
+## Data-admission gate completed — 2026-09-10
+
+The repository has now completed the **admission infrastructure**, not the empirical option test.
+
+Current facts:
+
+- current repository inventory contains no MO historical intraday best-bid/best-ask tape;
+- account-wide GitHub code search found no reusable MO `bid1/ask1` tape in another current bucket;
+- CFFEX official historical Level-1 / Level-2 data is the preferred acquisition target;
+- AKShare/Sina current MO bid/ask interfaces and historical daily data are not a substitute for historical intraday executable quotes;
+- Tushare `opt_mins` documents minute OHLC/volume/amount/OI, not historical best bid/ask, so it is not admitted for the primary execution identity.
+
+Frozen files:
+
+- `docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json`
+- `docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`
+- `docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json`
+- `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+- `research/r1b_mo_data_admission/validate_mo_quote_source.py`
+- `tests/test_r1b_mo_data_admission.py`
+
+The admission-gate CI passed on run `34422130207`.
+
+The data-role boundary was frozen **before any event-conditioned MO option outcome was inspected**:
+
+- 2022-07-22 through 2026-09-10: reusable instrument-development evidence only;
+- from 2026-09-11 onward: prospective instrument-validation evidence, provided the observation was genuinely generated after the freeze and paired post-freeze underlying data are separately admitted.
+
+This freeze creates no new BLACKBOX allocation.
+
 ## Exact next authorized action
 
 **Do not run an option return study yet.**
 
-The current repository does not contain an MO intraday best-bid/best-ask tape. The next authorized action is data admission only:
+Acquire a provenance-stable CSI1000 MO intraday quote source and pass it through the frozen admission gate.
 
-1. obtain a provenance-stable CSI1000 MO intraday quote source;
-2. require contract code, call/put, strike, expiry, timestamp, bid1/ask1 and sizes, volume, open interest and trading-status fields where available;
-3. freeze exchange-calendar and timestamp normalization;
-4. freeze historically applicable exchange/broker fee treatment;
-5. checksum and inventory the source before event-conditioned option outcomes are opened;
-6. preserve pre-freeze historical MO observations as reusable instrument-development evidence, not fresh mechanism BLACKBOX;
-7. reserve prospective post-freeze observations for a clean validation boundary.
+Preferred acquisition target:
+
+1. CFFEX official historical Level-1 or Level-2 MO snapshots;
+2. alternatively, a licensed vendor feed only if field-level provenance is traceable to CFFEX and the source contract is documented.
+
+Minimum admitted data fields remain:
+
+- contract code, call/put, strike, expiry;
+- exchange-local timestamp;
+- bid1/ask1 and sizes;
+- last price, volume, open interest, trading status;
+- stable source/license provenance and checksum inventory;
+- historically applicable exchange and broker fee contract frozen before outcomes.
+
+Once files are obtained, populate `R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json` without changing the frozen protocol and run:
+
+`research/r1b_mo_data_admission/validate_mo_quote_source.py`
+
+Only a PASS admission receipt can unlock a separate pre-execution freeze. A PASS still does **not** itself authorize PnL or production.
 
 The primary R1_B option mapping may not substitute midpoint/last price for missing bid/ask after outcomes are seen and may not search strike, expiry/DTE, horizon, probability threshold, timing, stop, target, scale or time-of-day.
 
@@ -115,8 +157,10 @@ The `kline-recognizer` v1-v13 research branches in this repository are mis-scope
 1. `CONTINUE_HERE.md`
 2. `docs/research/R1_R2_MIGRATION_NOTE_20260909.md`
 3. `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
-4. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
-5. `docs/DATA.md`
-6. `docs/RESEARCH_GOVERNANCE.md`
+4. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+5. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
+6. `docs/DATA.md`
+7. `docs/RESEARCH_GOVERNANCE.md`
 
+`BLACKBOX_query_count=3`.
 `production_authority=false`.
