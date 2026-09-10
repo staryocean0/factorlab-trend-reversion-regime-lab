@@ -99,12 +99,13 @@ Current facts:
 - China Investment Information Services Limited (CIIS) provides a concrete official-distribution route and states its CFFEX historical Level-2 Snapshot product is official data directly provided by CFFEX;
 - CIIS publicly identifies `20221206_Sample_CFF_Snapshot.xlsx` and currently lists the CFFEX Level-2 Snapshot product as available from 2010-04-16;
 - the 2022 CIIS product manual documents CFFEX `Snapshot.csv` fields including `SecurityID`, `DateTime`, `LastPrice`, `Volume`, `OpenInterest`, `BidPrice[5]`, `BidVolume[5]`, `AskPrice[5]`, and `AskVolume[5]`;
-- the actual public Snapshot XLSX bytes have **not** yet been retrieved in this research session, so there is no sample checksum/row-count/file-level admission receipt;
+- the current CIIS sample page was re-checked on 2026-09-10 and still explicitly lists `20221206_Sample_CFF_Snapshot.xlsx`, but the listed live href and all same-path www/non-www HTTP/HTTPS variants return 404;
+- an exact-URL Internet Archive CDX lookup returned no captures, so no sample XLSX bytes, checksum, row count or workbook-level mapping were recovered; the acquisition state is `CIIS_PUBLIC_SAMPLE_LISTING_CONFIRMED_LINK_DEAD_EXTERNAL_DELIVERY_REQUIRED`;
 - one-minute/five-minute OHLC, last-price-only, midpoint-only, AKShare historical daily data, and Tushare minute OHLC cannot substitute for the primary executable quote tape.
 
 Current source-level state:
 
-`CFFEX_LEVEL2_CORE_FIELD_CAPABILITY_CONFIRMED_CIIS_OFFICIAL_ROUTE_IDENTIFIED_DELIVERY_NOT_YET_ADMITTED`
+`CFFEX_LEVEL2_CORE_FIELD_CAPABILITY_CONFIRMED_CIIS_PUBLIC_SAMPLE_LISTED_LINK_DEAD_EXTERNAL_DELIVERY_REQUIRED`
 
 Frozen / implemented files:
 
@@ -161,7 +162,7 @@ Do not use 15 RMB as a complete historical all-in cost merely because it is the 
 
 The next source action is now concrete rather than open-ended discovery:
 
-1. obtain the public/non-event-conditioned CIIS CFFEX Snapshot sample `20221206_Sample_CFF_Snapshot.xlsx` or a current equivalent sample;
+1. obtain a current equivalent non-event-conditioned CIIS/CFFEX Snapshot sample or proceed to the official full delivery; the currently listed `20221206_Sample_CFF_Snapshot.xlsx` link has already been re-checked and returns 404; do not repeat blind retrieval of that same dead URL;
 2. preserve its raw bytes and record SHA-256, byte size, workbook/sheet structure and row count;
 3. inspect only source schema/semantics — do **not** join sample rows to R1_B events;
 4. resolve the physical delivered mapping for level-1 bid/ask and sizes, MO `SecurityID`, contract master/expiry, zero/missing quotes and trading status;
@@ -196,11 +197,12 @@ The `kline-recognizer` v1-v13 research branches in this repository are mis-scope
 3. `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
 4. `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
 5. `docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
-6. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
-7. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
-8. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
-9. `docs/DATA.md`
-10. `docs/RESEARCH_GOVERNANCE.md`
+6. `docs/research/R1B_MO_CIIS_SAMPLE_ACQUISITION_RESULT_20260910.md`
+7. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+8. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
+9. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
+10. `docs/DATA.md`
+11. `docs/RESEARCH_GOVERNANCE.md`
 
 `BLACKBOX_query_count=3`.
 `production_authority=false`.

@@ -147,3 +147,14 @@ Until a source passes the complete gate, the scientific state remains:
 `R1B_MO_CONVEX_PAYOFF_THEORY_ACCEPTED_DATA_ADMISSION_REQUIRED`
 
 No BLACKBOX allocation changes. `BLACKBOX_query_count=3`.
+
+
+## 2026-09-10 public-sample retrieval update
+
+The current CIIS public sample page was re-checked from a GitHub-hosted runner. It still lists `20221206_Sample_CFF_Snapshot.xlsx`, but the listed live href returns HTTP 404. Same-path www/non-www HTTP/HTTPS variants also return 404. An exact-URL Internet Archive CDX lookup returned no captures.
+
+Frozen receipt: `research/r1b_mo_data_admission/source_samples/ciis_cffex_snapshot_20221206/sample_acquisition_receipt.json`.
+
+Decision: `CIIS_PUBLIC_SAMPLE_LISTING_CONFIRMED_LINK_DEAD_EXTERNAL_DELIVERY_REQUIRED`.
+
+No sample bytes were acquired and no admission status was upgraded. The next source action is a current equivalent non-event-conditioned sample or official full delivery from CIIS/CFFEX.
