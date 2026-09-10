@@ -1,0 +1,29 @@
+{
+  "mapping_version": 1,
+  "source_contract_code": "SecurityID",
+  "source_timestamp": "DateTime",
+  "timestamp_format": "%Y%m%d%H%M%S%f",
+  "source_bid1": "",
+  "source_bid1_size": "",
+  "source_ask1": "",
+  "source_ask1_size": "",
+  "source_last_price": "LastPrice",
+  "source_volume": "Volume",
+  "source_open_interest": "OpenInterest",
+  "source_trading_status": "",
+  "trading_status_mapping": {},
+  "zero_quote_semantics": "",
+  "source_timezone": "Asia/Shanghai",
+  "master_contract_code": "",
+  "master_expiry": "",
+  "status": "INTENTIONALLY_UNRESOLVED_UNTIL_ACTUAL_SAMPLE_OR_DELIVERY_DICTIONARY_IS_INSPECTED",
+  "notes": [
+    "The CIIS historical product manual documents SecurityID, DateTime, LastPrice, Volume, OpenInterest and five-level BidPrice/BidVolume/AskPrice/AskVolume arrays for CFFEX Snapshot.",
+    "Do not guess how the five-level arrays are physically expanded into delivered CSV/XLSX columns. Fill source_bid1/source_bid1_size/source_ask1/source_ask1_size only after inspecting the actual non-event-conditioned sample or delivery dictionary.",
+    "Do not invent a trading-status field or zero-quote semantics. The adapter fails closed until both are explicitly documented.",
+    "Do not infer expiry from calendar heuristics. Supply an authoritative contract master or delivered expiry field mapping.",
+    "Completing this mapping enables canonicalization only; it does not create a data-admission PASS or authorize option outcomes."
+  ],
+  "blackbox_query_count": 3,
+  "production_authority": false
+}
