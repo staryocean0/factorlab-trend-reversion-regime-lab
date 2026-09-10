@@ -25,12 +25,16 @@ jobs:
           PAGE='https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/index.shtml'
           OUT='research/r1b_mo_data_admission/source_samples/ciis_cffex_snapshot_20221206'
           mkdir -p "$OUT"
-          curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 120 \
+          # CIIS currently presents an incomplete/untrusted certificate chain to the hosted runner.
+          # This bypass is permitted ONLY for non-event-conditioned schema discovery. The receipt
+          # records transport_tls_verified=false and the sample cannot be admitted on this basis.
+          curl -k -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 120 \
             -A 'Mozilla/5.0 FactorLabResearch/1.0' "$PAGE" -o /tmp/ciis_sample_page.html
           python - <<'PY'
           from html.parser import HTMLParser
           from urllib.parse import urljoin
           from pathlib import Path
+          import re
 
           page = 'https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/index.shtml'
           target = '20221206_Sample_CFF_Snapshot.xlsx'
@@ -46,17 +50,16 @@ jobs:
           p=P(); p.feed(html)
           matches=[h for h in p.hrefs if target.lower() in h.lower()]
           if not matches:
-              # fallback for JS/text-embedded URLs
-              import re
               matches=re.findall(r'''[^\"'<>\s]*20221206_Sample_CFF_Snapshot\.xlsx[^\"'<>\s]*''', html, flags=re.I)
           if not matches:
+              Path('/tmp/ciis_sample_page_excerpt.txt').write_text(html[:20000], encoding='utf-8')
               raise SystemExit('Snapshot sample href not found on CIIS sample page')
           resolved=urljoin(page, matches[0])
           Path('/tmp/ciis_snapshot_url.txt').write_text(resolved, encoding='utf-8')
           print(resolved)
           PY
           URL="$(cat /tmp/ciis_snapshot_url.txt)"
-          curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 180 \
+          curl -k -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 180 \
             -A 'Mozilla/5.0 FactorLabResearch/1.0' "$URL" \
             -o "$OUT/20221206_Sample_CFF_Snapshot.xlsx"
           test -s "$OUT/20221206_Sample_CFF_Snapshot.xlsx"
@@ -108,13 +111,15 @@ jobs:
               'workbook_sheet_count':len(wb.sheetnames),
               'sheet_names':wb.sheetnames,
               'token_hits_first_50_rows':token_hits,
+              'transport_tls_verified':False,
+              'transport_caveat':'CIIS HTTPS certificate chain did not validate on GitHub hosted runner; curl -k used for schema discovery only',
               'event_join_performed':False,
               'pnl_or_return_test_performed':False,
               'blackbox_query_count_before':3,
               'blackbox_query_count_after':3,
               'production_authority':False,
               'acquired_at_utc':datetime.now(timezone.utc).isoformat(),
-              'admission_decision':'ACQUIRED_SCHEMA_INSPECTED_NOT_YET_ADMITTED'
+              'admission_decision':'ACQUIRED_UNVERIFIED_TRANSPORT_SCHEMA_ONLY_NOT_ADMITTED'
           }
           (root/'sample_acquisition_receipt.json').write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
           (root/'sample_schema_preview.json').write_text(json.dumps({'sheets':sheets},indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
