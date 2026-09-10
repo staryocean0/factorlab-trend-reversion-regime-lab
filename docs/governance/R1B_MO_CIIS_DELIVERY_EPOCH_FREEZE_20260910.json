@@ -1,0 +1,44 @@
+{
+  "freeze_id": "rmr_R1B_MO_ciis_delivery_epoch_freeze_v1",
+  "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "frozen_at": "2026-09-10",
+  "purpose": "Prevent silent schema drift across the historical MO quote-delivery window before any event-conditioned option outcome is inspected.",
+  "source_family": "CIIS official distribution of CFFEX historical Level-2 data",
+  "evidence": {
+    "current_ciis_document_index": "https://www.ciis.com.hk/hongkong/en/productsandservices/documentdownloads/index.shtml",
+    "current_manual_index_version_observed": "v20260819",
+    "current_order_form_version_observed": "v20260820",
+    "accessible_2026_manual": "https://www.ciis.com.hk/hongkong/en/uploadfiles/202605/20/2026052016504182474392.pdf",
+    "documented_format_transition_date": "2024-07-08",
+    "documented_transition": "The 2026 CIIS manual states that legacy CFFEX Snapshot delivery naming/layout is no longer provided from 2024-07-08 onward and points to the newer StockTick/current standardized delivery convention."
+  },
+  "epochs": [
+    {
+      "epoch_id": "LEGACY_CFFEX_SNAPSHOT",
+      "start": "2022-07-22",
+      "end": "2024-07-07",
+      "physical_layout_status": "UNRESOLVED_UNTIL_DELIVERY_OR_PERIOD_DICTIONARY_INSPECTED",
+      "mapping_rule": "Use a source-specific mapping proven from the delivered legacy files/dictionary. Do not infer array expansion from bracket notation alone."
+    },
+    {
+      "epoch_id": "POST_TRANSITION_CFFEX_DELIVERY",
+      "start": "2024-07-08",
+      "end": "2026-09-10",
+      "physical_layout_status": "UNRESOLVED_UNTIL_DELIVERY_OR_PERIOD_DICTIONARY_INSPECTED",
+      "mapping_rule": "Use a separate source-specific mapping proven from the post-transition files/dictionary. Do not assume column identity with the legacy Snapshot layout."
+    },
+    {
+      "epoch_id": "PROSPECTIVE_POST_FREEZE",
+      "start": "2026-09-11",
+      "end": null,
+      "physical_layout_status": "VALIDATE_AS_OBSERVED",
+      "mapping_rule": "Inventory separately under the existing prospective data-role freeze and validate any subsequent format changes before canonicalization."
+    }
+  ],
+  "canonicalization_rule": "Each physical epoch must independently map and validate contract_code, timestamp, bid1, bid1_size, ask1, ask1_size, last_price, volume, open_interest, trading_status, and contract-master expiry before concatenation into the common canonical schema.",
+  "cross_epoch_rule": "No concatenation is allowed until both historical epochs have source-specific PASS-level schema/provenance checks. A PASS for one epoch cannot waive unresolved fields in another epoch.",
+  "event_join_rule": "No R1_B event timestamps may be joined to either epoch during schema discovery or admission.",
+  "outcome_authority": false,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}
