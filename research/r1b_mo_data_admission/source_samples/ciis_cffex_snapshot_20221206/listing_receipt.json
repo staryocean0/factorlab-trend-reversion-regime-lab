@@ -1,0 +1,10 @@
+{
+  "source_page": "https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/index.shtml",
+  "target_filename": "20221206_Sample_CFF_Snapshot.xlsx",
+  "page_sha256": "00ca631904528cded898ecd6ef19c1336e35139a86bba86086ef8b73f87b5d25",
+  "target_listed_on_current_page": true,
+  "listed_href": "20221206_Sample_CFF_Snapshot.xlsx",
+  "resolved_live_url": "https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/20221206_Sample_CFF_Snapshot.xlsx",
+  "source_page_tls_verified": false,
+  "source_page_tls_caveat": "curl -k required because CIIS certificate chain did not validate on GitHub hosted runner"
+}

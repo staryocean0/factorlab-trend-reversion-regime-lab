@@ -1,0 +1,19 @@
+{
+  "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "scope": "non_event_conditioned_source_sample_acquisition_and_schema_inspection_only",
+  "source_provider": "China Investment Information Services Limited (CIIS)",
+  "target_filename": "20221206_Sample_CFF_Snapshot.xlsx",
+  "current_official_listing_confirmed": true,
+  "current_live_url": "https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/20221206_Sample_CFF_Snapshot.xlsx",
+  "current_live_status": "curl_rc=0;http_status=404",
+  "acquisition_route": "none",
+  "event_join_performed": false,
+  "pnl_or_return_test_performed": false,
+  "blackbox_query_count_before": 3,
+  "blackbox_query_count_after": 3,
+  "production_authority": false,
+  "acquired_at_utc": "2026-09-10T07:02:50.883877+00:00",
+  "file_acquired": false,
+  "official_live_bytes": false,
+  "admission_decision": "CURRENT_PUBLIC_LISTING_CONFIRMED_SAMPLE_BYTES_UNAVAILABLE_NOT_ADMITTED"
+}

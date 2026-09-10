@@ -1,0 +1,950 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>          
+	<head>       
+		<meta charset="UTF-8">
+		<title>China Investment Information Services Limited -- Sample Data</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="keywords" content="Market data
+SSE data
+CSI data
+CIIS data
+Cloud Services
+Cloud Service
+China Financial Futures Exchange
+CFFEX
+Dalian Commodity Exchange
+DCE
+Zhengzhou Commodity Exchange
+ZCE
+China Investment Information Platform
+CIIP
+InfoNet
+Non-display
+Data licensing
+Virtual Machine with Internet and Market Data
+Cloud Computing
+Rental of Virtual Machine
+SSE Level 1
+Shanghai Level 1
+SSE Level 2
+Shanghai Level 2
+China Investment
+A shares information
+A shares data
+A shares market data
+A share information
+A share data
+A share market data
+SSE A shares
+Shanghai A shares
+SSE A share
+Shanghai A share
+SSE Index
+Shanghai-Hong Kong Stock Connect
+Shanghai-London Stock Connect
+Shanghai Hong Kong Stock Connect
+Shanghai London Stock Connect
+Stock Connect
+North bound Trading
+North bound Shanghai
+North bound SH
+North bound capital
+STAR Market
+China Market
+Qualified Foreign Institutional Investor
+QFII
+">
+<meta name="keywords" content="">
+<meta name="keywords" content="">
+ 
+<!-- Favicons --> 
+<link rel="shortcut icon" href="/hongkong/en/favicon.ico">
+<!-- IOS / Android 主屏图标 -->
+<link href="/hongkong/en/static/img/webappicon/apple-touch-icon.png" rel="apple-touch-icon" />
+<link href="/hongkong/en/static/img/webappicon/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+<link href="/hongkong/en/static/img/webappicon/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+<link href="/hongkong/en/static/img/webappicon/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+<link href="/hongkong/en/static/img/webappicon/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+<link href="/hongkong/en/static/img/webappicon/icon-hires.png" rel="icon" sizes="192x192" />
+<link href="/hongkong/en/static/img/webappicon/icon-normal.png" rel="icon" sizes="128x128" />
+
+<link rel="stylesheet" href="/hongkong/en/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="/hongkong/en/static/css/idangerous.swiper.css">
+<link rel="stylesheet" href="/hongkong/en/static/css/public.css">
+<link rel="stylesheet" href="/hongkong/en/static/css/page.css">
+<link rel="stylesheet" href="/hongkong/en/static/css/hk-en.css">
+<link rel="stylesheet" href="/hongkong/en/static/css/calendar-mobile.css">
+
+<script src="/hongkong/en/static/js/lib/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/idangerous.swiper.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/jquery.jcryption-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="/hongkong/en/static/js/lib/calendar.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/calendar-mobile.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/alert_message.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/home.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/pagination.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/lib/viewer.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/eventData.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/control.js" type="text/javascript" charset="utf-8"></script>
+<script src="/hongkong/en/static/js/scroll-disable.js" type="text/javascript" charset="utf-8"></script>
+
+
+	</head>
+	<body> 
+    	<!--登录开始-->
+            <div class="login_box hidden-xs">
+			<div class="login_container" style="width:650px">
+				<h2 class="fs-20 ta-c c-be3232">Account Login</h2>
+				<span class="login_close" id="js_btnClose">×</span>
+				<div class="login_container_box">
+                	<span id="loginInfo"style="color:red;position: absolute;top: 55px;"></span>
+					<p>
+						<!--<label for="" class="fs-16">用户名：</label> -->
+                        <label for="" class="fs-16">Username：</label>
+						<input type="text" name="" id="username" value="" placeholder=""/>
+					</p>
+					<p>
+						<!--<label for="" class="fs-16">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>-->
+                        <label for="" class="fs-16">Password：</label>
+						<input type="password" name="" id="password" value="" placeholder=""/> <span><a style="color:red" href="/hongkong/en/home/public/password/password1/index.shtml">Forgot / reset password</a></span>
+					</p>
+					<p>
+						<!--<label for="" class="fs-16">验证码：</label>-->
+                        <label for="" class="fs-16">Code：</label>
+						<input class="codeInput" type="text" name="" id="code" value="" placeholder=""/>
+                        <img id="validCodeImg" src="/hongkong/member/validateCode.do">
+						<!--<span style="color:red" onclick="refreshImg()">看不清，换一张</span>-->
+                        <a href="javascript:void(0)" style="color:red" onclick="refreshImg()">Click refresh</a>
+                        
+					</p>
+					<p class="login_codeTip">
+						<label for="" class="fs-16"></label>
+						<!--<span class="c-be3232">输入右图中的字符，不区分大小写</span>-->										<span class="c-be3232">Enter character on the right</span>
+      
+                        
+					</p>
+					<p>
+						<label for="" class="fs-16"></label>
+						<!--<span class="btn_login" id="js_btnLogin">登&nbsp;&nbsp;录</span>-->									<span class="btn_login" id="js_btnLogin">Login</span>
+					</p>
+				</div>
+			</div>
+			
+		</div>
+        		<div class="login_box_mobile">
+			<div class="container">
+				<p class="js_btnClose_loginBoxMobile btn_close">×</p>
+				<h3 class="ta-c c-be3232 mt-20">Account Login</h3>
+				<form class="form-inline row">
+				  <div class="form-group col-xs-12">
+				    <div class="input-group">
+				      <div class="input-group-addon">Username</div>
+				      <input type="text" class="form-control" id="username_mobile" placeholder="">
+				    </div>
+				  </div>
+				  <div class="form-group col-xs-12">
+				    <div class="input-group">
+				      <div class="input-group-addon">Password</div>
+				      <input type="password" class="form-control" id="password_mobile" placeholder="">
+				    </div>
+				  </div>
+				  <div class="form-group col-xs-12">
+				    <div class="input-group">
+				      <div class="input-group-addon">Code</div>
+				      <input type="text" class="form-control" id="code_mobile" placeholder="">
+				      <div class="input-group-addon js_codeImgMobile code_mobile" >
+					      	<img id="validMobileCodeImg" src="/hongkong/member/validateCode.do" style="width: 80px;">
+				      </div>
+				      <div class="input-group-addon" onclick="refreshMobileImg()">Click refresh</div>
+				    </div>
+				  </div>
+				</form>
+				<div class="p-r over-h">
+					<p id="loginInfoMobile" class="login_info_mobile"></p>
+					<button type="button" class="btn w-100p btn_login_mobile js_btnLoginMobile white-a">Login</button>
+                    
+					<p class="mt-10" ><a style="color:red" href="/hongkong/en/home/public/password/password1/index.shtml">Forgot / reset password</a></p>
+				</div>
+				 
+			</div>
+		</div>
+        <!--登录结束-->
+        
+        
+        <!--头部开始-->
+<!-- Global site tag (gtag.js) - Google Analytics -->     
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KZ5485C3YB"></script>   
+<script>           
+  window.dataLayer = window.dataLayer || [];     
+  function gtag(){dataLayer.push(arguments);}                 
+  gtag('js', new Date());            
+  gtag('config', 'G-KZ5485C3YB');                  
+</script>           
+<div class="header_pc">  
+			<div class="hidden-xs col-xs-12 header_con header_con_new z-index-99">
+				<!--PC端menu开始--> 
+				<div class="header_top_right">      
+                  <div class="fl"> 
+                    <ul class="fl">   
+                      <li class="fl">
+                        <a href="#" id="user" title="user login" class="user-white"></a>
+                        <span class="loginAfter"><span></span><b class="c2 ml-10" id="" class="js_logout" onclick="logout()" style="cursor: pointer;">Logout</b></span>
+                      </li>
+                      <li class="fl p-r">
+                       	<input type="text" id="keyword" placeholder="Search">
+                        <i class="search-white"><a style="width: 22px;height: 22px;display: inline-block;" href="javascript:void(0)" title="Search"></a></i>
+                      </li>
+
+                    </ul> 
+                  </div>
+                  <div class="lan_sel">
+                    <span><a href="#" title="简" target="_blank">简</a></span>
+                    <span><a href="#" title="繁" target="_blank">繁</a></span>
+                    <span><a class="lan_sel_active" title="En"  href="#" >En</a></span>
+                  </div>
+    			</div>
+                <div class="fl p-a">  
+                  <!-- <a href="/hongkong/en/home/index.shtml" id="logo" title="Home" class="logo-white" ></a>
+                     <style>.ciis-30{display:none;}</style> -->
+                    <a href="/hongkong/en/home/index.shtml" title="Home"> 
+                  	<img src="/hongkong/en/static/img/icon/logo-goldbreakpoint.png" class="responsive-logo ciis-30" style="height: 40px;" />
+               <!--     <span class="ciis-30" style="position: relative;top:10px;font-size: 32px;color:#99775a;">|</span>
+                    <img src="../static/img/icon/30logo.png" class="responsive-logo ciis-30" style="height: 40px;position: relative;top:5px;right:10px;" /> -->
+                    </a>
+                    <style>.logo-gold{display:none;}</style>
+                    <!-- <a href="/hongkong/en/home/index.shtml" id="logo" title="Home" class="logo-gold" ></a>
+                    -->
+                </div>			
+				<div class="fr" style="line-height: 110px;"> 
+					
+					<ul class="fl menu_pc">
+                  
+                        		<li class="">
+                   <a href="javascript:void(0);">Market Data Licensing</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/productsandservices/whatdoweprovide/index.shtml" title="License Information">License Information</a>                        </li>
+            			<li>
+<a href="/hongkong/en/productsandservices/applicationprocedures/index.shtml" title="Application Procedures">Application Procedures</a>                        </li>
+            			<li>
+<a href="/hongkong/en/productsandservices/clientlist/index.shtml" title="Vendor List">Vendor List</a>                        </li>
+            			<li>
+<a href="/hongkong/en/productsandservices/clientnotices/index.shtml" title="Client Notices">Client Notices</a>                        </li>
+            			<li>
+<a href="/hongkong/en/productsandservices/documentdownloads/index.shtml" title="Document Downloads">Document Downloads</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+                   <a href="javascript:void(0);">iData</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/idata/idataintro/index.shtml" title="Introduction">Introduction</a>                        </li>
+            			<li>
+<a href="/hongkong/en/idata/idatafeesandapplication/index.shtml" title="Application and Fee">Application and Fee</a>                        </li>
+            			<li>
+<a href="/hongkong/en/idata/demo/index.shtml" title="iData Demo">iData Demo</a>                        </li>
+            			<li>
+<a href="/hongkong/en/idata/csifundamentaldata/index.shtml" title="CSI Fundamental Data">CSI Fundamental Data</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+                   <a href="javascript:void(0);">Historical Data</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/historicaldata1/his_introduction/index.shtml" title="Introduction">Introduction</a>                        </li>
+            			<li>
+<a href="/hongkong/en/historicaldata1/sampledata/index.shtml" title="Sample Data">Sample Data</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+                   <a href="javascript:void(0);">Cloud Services</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/cloudservices/introduction/index.shtml" title="Background">Background</a>                        </li>
+            			<li>
+<a href="/hongkong/en/cloudservices/services/index.shtml" title="Services">Services</a>                        </li>
+            			<li>
+<a href="/hongkong/en/cloudservices/feesandapplication/index.shtml" title="Fees and Application">Fees and Application</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+                   <a href="javascript:void(0);">CIIP</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/ciip/whatisciip/index.shtml" title="CIIP Introduction">CIIP Introduction</a>                        </li>
+            			<li>
+<a href="/hongkong/en/ciip/ourpartners/index.shtml" title="Our Partners">Our Partners</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+                   <a href="javascript:void(0);">About Us</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/aboutus/whoarewe/index.shtml" title="Who We Are">Who We Are</a>                        </li>
+            			<li>
+<a href="/hongkong/en/aboutus/milestones/index.shtml" title="Milestones">Milestones</a>                        </li>
+            			<li>
+<a href="/hongkong/en/aboutus/contactus/index.shtml" title="Contact Us">Contact Us</a>                        </li>
+            			<li>
+<a href="/hongkong/en/aboutus/careeropportunities/index.shtml" title="Career Opportunities">Career Opportunities</a>                        </li>
+            			<li>
+<a href="/hongkong/en/aboutus/transactioncalendar/index.shtml" title="Trading Calendar">Trading Calendar</a>                        </li>
+            			<li>
+<a href="/hongkong/en/aboutus/recruitmentstatement/index.shtml" title="Recruitment Statement">Recruitment Statement</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+                   <a href="javascript:void(0);">News</a>
+                                      
+          			<ul class="menu_pc_tit2">
+            			<li>
+<a href="/hongkong/en/news/newest/index.shtml" title="Latest News">Latest News</a>                        </li>
+            			<li>
+<a href="/hongkong/en/news/relevant/index.shtml" title="Industry News">Industry News</a>                        </li>
+            			<li>
+<a href="/hongkong/en/news/newsletter/index.shtml" title="Newsletter">Newsletter</a>                        </li>
+          			</ul>
+               
+      		</li>
+    		<li class="">
+            	<a href="/hongkong/en/events/index.shtml" title="Events">Events</a>
+               
+      		</li>
+</ul>
+					
+				</div>
+				
+			
+            </div>
+            
+            
+			
+			
+		</div>
+		<!--PC端header结束-->
+		<!--mobile端的header-->
+		<div class="header_mobile visible-xs">
+			<div class="header_mobile_top">
+				<div class="header_mobile_logo z-index-99 p-a fl">
+					<a href="/hongkong/en/home/index.shtml">
+						<!-- <img src="../static/img/icon/logo-blackbreakpoint.png" /> -->
+                        <img src="/hongkong/en/static/img/icon/logo-goldbreakpoint.png" class="responsive-logo ciis-30" style="height: 30px;" />
+                   <!-- <span class="ciis-30" style="position: relative;top:6px;font-size: 24px;color:#99775a;">|</span>-->
+                   <!-- <img src="../static/img/icon/30logo.png" class="responsive-logo ciis-30" style="height: 28px;position: relative;top:3px;right:10px;" />-->
+					</a>
+				</div>
+                	
+				<div class="fr">
+                	<span id="mobileUser" title="User" onclick="mobileLoginBoxShow()" class="user-white"></span>
+					<span id="menu_mobile" class="menu_mobile"></span>
+				</div>
+			</div>
+		</div>
+		<!--mobile端menu开始-->
+		<div id="menu_mobile" class="z-index-10 menuwrapper_mobile">
+				<div class="searchInput-mobile">
+					<i class="icon-search-mobile"></i>
+					<input id="searchInput-mobile" placeholder="Search" />
+				</div>
+
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">Market Data Licensing</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/productsandservices/whatdoweprovide/index.shtml" title="License Information">License Information</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/productsandservices/applicationprocedures/index.shtml" title="Application Procedures">Application Procedures</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/productsandservices/clientlist/index.shtml" title="Vendor List">Vendor List</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/productsandservices/clientnotices/index.shtml" title="Client Notices">Client Notices</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/productsandservices/documentdownloads/index.shtml" title="Document Downloads">Document Downloads</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">iData</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/idata/idataintro/index.shtml" title="Introduction">Introduction</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/idata/idatafeesandapplication/index.shtml" title="Application and Fee">Application and Fee</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/idata/demo/index.shtml" title="iData Demo">iData Demo</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/idata/csifundamentaldata/index.shtml" title="CSI Fundamental Data">CSI Fundamental Data</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">Historical Data</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/historicaldata1/his_introduction/index.shtml" title="Introduction">Introduction</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/historicaldata1/sampledata/index.shtml" title="Sample Data">Sample Data</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">Cloud Services</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/cloudservices/introduction/index.shtml" title="Background">Background</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/cloudservices/services/index.shtml" title="Services">Services</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/cloudservices/feesandapplication/index.shtml" title="Fees and Application">Fees and Application</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">CIIP</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/ciip/whatisciip/index.shtml" title="CIIP Introduction">CIIP Introduction</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/ciip/ourpartners/index.shtml" title="Our Partners">Our Partners</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">About Us</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/aboutus/whoarewe/index.shtml" title="Who We Are">Who We Are</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/aboutus/milestones/index.shtml" title="Milestones">Milestones</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/aboutus/contactus/index.shtml" title="Contact Us">Contact Us</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/aboutus/careeropportunities/index.shtml" title="Career Opportunities">Career Opportunities</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/aboutus/transactioncalendar/index.shtml" title="Trading Calendar">Trading Calendar</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/aboutus/recruitmentstatement/index.shtml" title="Recruitment Statement">Recruitment Statement</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+                    <p>
+                   		<a href="javascript:void(0);">News</a>
+                        <i class="mMenu_more js_mMenuMore"></i>
+                    </p>
+          			<ul class="submenu-mobile">
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/news/newest/index.shtml" title="Latest News">Latest News</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/news/relevant/index.shtml" title="Industry News">Industry News</a>                        </li>
+            			<li class = 'mtit_2'>
+<a href="/hongkong/en/news/newsletter/index.shtml" title="Newsletter">Newsletter</a>                        </li>
+          			</ul>
+                    
+      		</li>
+    		<li class = 'mtit_1'>
+            	<p>
+            	<a href="/hongkong/en/events/index.shtml" title="Events">Events</a>
+                </p>
+                    
+      		</li>
+     </ul>
+     <div class="lan_sel_mobile">
+       <a href="#">简</a>
+       <a href="#">繁</a>
+       <a href="#">EN</a>
+     </div>
+</div>
+		<!--mobile端menu结束-->
+        
+		<!--mobile端的header结束-->
+        
+        
+        
+      
+
+        <!--头部结束-->   
+<!--页面大图开始-->
+		<div class="page-banner">
+        <div class="hidden-xs">
+			<img src="/hongkong/en/uploadfiles/202604/02/2026040209324640376443.png"/>   </div>
+            
+          <div class="visible-xs">
+			<img src="/hongkong/en/uploadfiles/202604/02/2026040209325869713573.png"/>  </div> 
+                      
+			<div class="page-banner-tit">
+				<h1>Sample Data</h1>
+			
+			</div>
+         
+		</div>
+<!--页面大图结束-->
+
+<!--内容区开始-->
+		<div class="container">
+  <!--当前位置开始--> 
+          <div class="crumbs">
+            <p class=""><a class="c-9b9b9b" href ="/hongkong/en/index.shtml">Home</a><span class="c-9b9b9b crumbs_right">></span> 
+                <a  href ="http://www.ciis.com.hk/hongkong/en/historicaldata1/his_introduction/index.shtml">Historical Data</a><span class="c-9b9b9b crumbs_right">></span> 
+              <a style="color:#535353;" href ="http://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/index.shtml">Sample Data</a>
+
+
+              <!-- <a href="/hongkong/en/historicaldata1/index.shtml">Historical Data</a><span class="c-9b9b9b crumbs_right">></span> <a href="/hongkong/en/historicaldata1/sampledata/index.shtml">Sample Data</a>  -->
+
+            </p>   
+          </div>
+
+
+  <!--当前位置结束-->
+
+
+<!--内容开始-->
+      
+      <!-- 第一区块儿  开始 -->
+
+             <div class="page_tit_fcn">
+				<h1 class="fb border-b-d2 pb-15"></h1>
+			</div>
+                               
+            <div class="row mt-20">
+				
+				<div class="col-sm-12">
+					<p class="ti-2 pr-15"> <p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="https://www.ciis.com.hk/hongkong/en/historicaldata1/his_introduction/index.shtml"><span style="color:#0066cc;">Introduction</span></a></span></p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:18px;"><u><strong><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-family: opensans !important;">New Format</span></span></strong></u></span></p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><span style="color: rgb(51, 51, 51); font-family: opensans; background-color: rgb(255, 255, 255);">SSE Level-1&nbsp;</span></span></p>
+
+<ul>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060516493148998292.xlsx" target="_blank" title="20230601_Sample_SH1_Day.xlsx"><span style="color:#0066cc;">20230601_Sample_SH1_Day.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060516513671633841.xlsx" target="_blank" title="20230601_Sample_SH1_FpTradeSnap.xlsx"><span style="color:#0066cc;">20230601_Sample_SH1_FpTradeSnap.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060516534657693260.xlsx" target="_blank" title="20230601_Sample_SH1_Minute.xlsx"><span style="color:#0066cc;">20230601_Sample_SH1_Minute.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060516593845069029.xlsx" target="_blank" title="20230601_Sample_SH1_Snapshot.xlsx"><span style="color:#0066cc;">20230601_Sample_SH1_Snapshot.xlsx</span></a></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><span style="color: rgb(51, 51, 51); font-family: opensans; background-color: rgb(255, 255, 255);">SSE Level-2</span></span></p>
+
+<ul>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215104378609415.xlsx" target="_blank" title="20221206_Sample_SH2_BondTick.xlsx"><span style="color:#0066cc;">20221206_Sample_SH2_BondTick.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202407/15/2024071511313875274524.xlsx" target="_blank" title="20240704_Sample_StockTick.xlsx"><span style="color:#0066cc;">20240704_Sample_StockTick.xlsx</span></a>&nbsp;[New Format]</span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215110641430073.xlsx" target="_blank" title="20221206_Sample_SH2_Entrust.xlsx"><span style="color:#0066cc;">20221206_Sample_SH2_Entrust.xlsx</span></a>&nbsp;[Old Format till 30 June 2024]</span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517433938239521.xlsx" target="_blank" title="20230601_Sample_SH2_FpTradeSnap.xlsx"><span style="color:#0066cc;">20230601_Sample_SH2_FpTradeSnap.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517440334098826.xlsx" target="_blank" title="20230601_Sample_SH2_FpTradeTick.xlsx"><span style="color:#0066cc;">20230601_Sample_SH2_FpTradeTick.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517443079629172.xlsx" target="_blank" title="20230601_Sample_SH2_Minute.xlsx"><span style="color:#0066cc;">20230601_Sample_SH2_Minute.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517445386351321.xlsx" target="_blank" title="20230601_Sample_SH2_Snapshot.xlsx"><span style="color:#0066cc;">20230601_Sample_SH2_Snapshot.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215121315447639.xlsx" target="_blank" title="20221206_Sample_SH2_Tick.xlsx"><span style="color:#0066cc;">20221206_Sample_SH2_Tick.xlsx</span></a>&nbsp;</span><span style="color: rgb(51, 51, 51); font-family: opensans; font-size: 16px; background-color: rgb(255, 255, 255);">[Old Format till 30 June 2024]</span></li>
+	<li style="box-sizing: border-box; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size: 16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517424750515731.xlsx" target="_blank" title="20230601_Sample_SH2_Day.xlsx"><span style="color: rgb(0, 102, 204);">20230601_Sample_SH2_Day.xlsx</span></a></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;">China Indices</span></p>
+
+<ul>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215160480149779.xlsx" target="_blank" title="20221206_Sample_CSI_Day.xlsx"><span style="color:#0066cc;">20221206_Sample_CSI_Day.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215161381307990.xlsx" target="_blank" title="20221206_Sample_CSI_Minute.xlsx"><span style="color:#0066cc;">20221206_Sample_CSI_Minute.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215162311585701.xlsx" target="_blank" title="20221206_Sample_CSI_Snapshot.xlsx"><span style="color:#0066cc;">20221206_Sample_CSI_Snapshot.xlsx</span></a></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><span style="color: rgb(51, 51, 51); font-family: opensans; background-color: rgb(255, 255, 255);">SSE Stock Options</span></span></p>
+
+<ul>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517453540597553.xlsx" target="_blank" title="20230601_Sample_SHO_Day.xlsx"><span style="color:#0066cc;">20230601_Sample_SHO_Day.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202306/05/2023060517455350793865.xlsx" target="_blank" title="20230601_Sample_SHO_Minute.xlsx"><span style="color:#0066cc;">20230601_Sample_SHO_Minute.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215281623831096.xlsx" target="_blank" title="20221206_Sample_SHO_Snapshot.xlsx"><span style="color:#0066cc;">20221206_Sample_SHO_Snapshot.xlsx</span></a></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><span style="color: rgb(51, 51, 51); font-family: opensans; background-color: rgb(255, 255, 255);">SSE Fixed Income</span></span></p>
+
+<ul>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215323849868356.xlsx" target="_blank" title="20221206_Sample_SHFI_Day.xlsx"><span style="color:#0066cc;">20221206_Sample_SHFI_Day.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215325555912541.xlsx" target="_blank" title="20221206_Sample_SHFI_Minute.xlsx"><span style="color:#0066cc;">20221206_Sample_SHFI_Minute.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215331015720190.xlsx" target="_blank" title="20221206_Sample_SHFI_snapshot.xlsx"><span style="color:#0066cc;">20221206_Sample_SHFI_snapshot.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215332159242670.xlsx" target="_blank" title="20221206_Sample_SHFI_Tick.xlsx"><span style="color:#0066cc;">20221206_Sample_SHFI_Tick.xlsx</span></a></span></li>
+</ul>
+
+<div>&nbsp;</div>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><span style="color: rgb(51, 51, 51); font-family: opensans; background-color: rgb(255, 255, 255);">CFFEX&nbsp;Level-2</span></span></p>
+
+<ul>
+	<li style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215371978680367.xlsx" target="_blank" title="20221206_Sample_CFF_Day.xlsx"><span style="color:#0066cc;">20221206_Sample_CFF_Day.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215373193353423.xlsx" target="_blank" title="20221206_Sample_CFF_Minute.xlsx"><span style="color:#0066cc;">20221206_Sample_CFF_Minute.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202212/12/2022121215374452718660.xlsx" target="_blank" title="20221206_Sample_CFF_Snapshot.xlsx"><span style="color:#0066cc;">20221206_Sample_CFF_Snapshot.xlsx</span></a></span></li>
+	<li style="box-sizing: border-box; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:16px;"><a href="/hongkong/en/uploadfiles/202606/23/2026062306170411332519.xlsx" target="_blank" title="20171229_Sample_CFF_Tick.xlsx"><span style="color:#0066cc;">20171229_Sample_CFF_Snapshot.xlsx</span></a></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; margin: 0px 0px 0px 50px; list-style: square; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<hr />
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-size:18px;"><strong><u><span style="color: rgb(51, 51, 51); font-family: opensans; background-color: rgb(255, 255, 255);">Old Format</span></u></strong></span></p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;">SSE Level-1 Historical Data (excluding Stock Options)</span></span></p>
+
+<ul style="box-sizing: border-box; margin: 0px 0px 10px; padding-right: 0px; padding-left: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="https://www.ciis.com.hk/hongkong/en/uploadfiles/202009/02/2020090213232541532690.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Level-1 snapshot sample 127350</span></a></span></span></li>
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="https://www.ciis.com.hk/hongkong/en/uploadfiles/202009/02/2020090213240823784175.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Level-1 snapshot sample 601398</span></a></span></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px 0px 0px 24pt; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;">SSE Level-2 Intra-Day Snapshot Historical Data (excluding Stock Options)</span></span></p>
+
+<ul style="box-sizing: border-box; margin: 0px 0px 10px; padding-right: 0px; padding-left: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="https://www.ciis.com.hk/hongkong/en/uploadfiles/202009/02/2020090213250126602556.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Level-2 snapshot sample 127350</span></a></span></span></li>
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="https://www.ciis.com.hk/hongkong/en/uploadfiles/202009/02/2020090213260371843594.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Level-2 snapshot sample 601398</span></a></span></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px 0px 0px 24pt; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;">SSE Level-2 Historical Tick Data (excluding Stock Options)</span></span></p>
+
+<ul style="box-sizing: border-box; margin: 0px 0px 10px; padding-right: 0px; padding-left: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="/hongkong/en/uploadfiles/202102/03/2021020318015079149901.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Level-2 tick sample_127350</span></a></span></span></li>
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="/hongkong/en/uploadfiles/202102/03/2021020318021140364627.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Level-2 tick sample_601398</span></a></span></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px 0px 0px 24pt; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;">SSE Stock Options Intra-Day Snapshot Historical Data</span></span></p>
+
+<ul style="box-sizing: border-box; margin: 0px 0px 10px; padding-right: 0px; padding-left: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="https://www.ciis.com.hk/hongkong/en/uploadfiles/202009/02/2020090213284160820860.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">SSE Stock Option snapshot sample 10002237</span></a></span></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px 0px 0px 24pt; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;">China Indices Intra-Day Snapshot Historical Data</span></span></p>
+
+<ul style="box-sizing: border-box; margin: 0px 0px 10px; padding-right: 0px; padding-left: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">
+	<li class="li_style" style="box-sizing: border-box; margin: 0px 0px 0px 50px; padding: 0px; list-style: square;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: arial; list-style: none;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; font-size: 16px; font-family: opensans !important;"><a class="blue-a" href-data="https://www.ciis.com.hk/hongkong/en/uploadfiles/202009/02/2020090213204413872256.xlsx" style="box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(51, 122, 183); background-color: transparent; text-decoration-line: underline; cursor: pointer;"><span style="color:#006699;">China Indices snapshot sample 000932</span></a></span></span></li>
+</ul>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+
+<p style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: opensans; list-style: none; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);">&nbsp;</p>
+</p><!-- ti-2 pr-15 -->
+				</div>
+			</div>
+        
+      <!--第一区块儿  结束-->
+      
+      
+        
+      <!-- 第二区块儿  开始 
+      
+            
+        <div class="infoPlatform mb-15 p-r ">
+				<div class="infoPlatform_map ">
+                </div> 
+
+               
+               
+                
+               
+            </div>    
+    	
+      -->       
+      <!-- 第二区块儿  结束 
+      <div class="page_tit_fcn">
+				<h1 class="fb border-b-d2 pb-15">CIIP的市场数据包括:</h1>
+	      </div>
+      
+      <div>
+<p>&nbsp;</p>
+
+<h4 class="fb"><span style="font-size:20px;">To Overseas Vendors:</span></h4>
+
+<ul>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">Shanghai Stock Exchange (SSE): Level-1 and Level-2 data, stock option data</span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">China Securities Index (CSI): China Indices data and fundamental (indices created by SSE and CSI)</span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">Dalian Commodity Exchange (DCE): Level-1 and Level-2 data</span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">Zhengzhou Commodity Exchange (ZCE): Level-1 and Level-2 data</span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">China Financial Futures Exchange (CFFEX): Level-1 and Level-2 data</span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">Shenzhen Stock Exchange (SZSE): Level-1 data<sup>1</sup></span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">Shanghai Futures Exchange (SHFE) and Shanghai International Energy Exchange (INE): Level-1 data<sup>1</sup></span></span></li>
+	<li><span style="font-family:arial;"><span style="font-size:16px;">Beijing Stock Exchange (BSE): Level-1 data<sup>1</sup></span></span></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h4 class="fb"><span style="font-size:20px;">To Mainland China Vendors:</span></h4>
+
+<ul>
+	<li><span style="font-size:16px;">Deutsche B&ouml;rse and STOXX Indices, Spot Market Germany, Eurex futures and options real time data</span></li>
+	<li><span style="font-size:16px;">EURONEXT Cash Market, Derivatives, and Indices real time data<sup>2</sup></span></li>
+	<li><span style="font-size:16px;">Kazakhstan Stock Exchange real time data</span></li>
+	<li><span style="font-size:16px;">Hang Seng Index<sup><span style="font-family:times new roman,serif;">1</span></sup></span></li>
+	<li><span style="font-size:16px;">Moscow Exchange real time data</span></li>
+	<li><span style="font-size:16px;">Johannesburg Stock Exchange real time data<sup>2</sup></span></li>
+	<li><span style="font-size:16px;">Singapore Exchange real time data</span></li>
+	<li><span style="font-size:16px;">Pakistan Stock Exchange real time data</span></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><span style="font-size:16px;"><span style="font-family:仿宋_gb2312;"><em>Note: 1. CIIS acts as technical agent only; &nbsp;2. CIIS acts as sales agent only</em></span></span></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+      </div>
+      -->
+      
+      
+       
+      
+      
+
+            
+
+<!--内容结束-->
+
+
+
+        </div>
+        <div class="w-100p dis-table mb-f40 mobile-mb-0" >
+		<p class="application_buttom_tip m-0 page-footer-padding">For more information, please contact us at <a class="blue-a" href="mailto: hd@ciis.com.hk">hd@ciis.com.hk</a>
+		</div>
+<!--内容区结束-->
+		<!--底部信息开始-->
+		<div class="footer">
+			<div class="footer_list">
+				<div class="container mt-20">
+					<div class="row">
+                     
+                 
+                      
+                      
+						<div class="col-sm-8"> 
+							<div class="row"> 
+								<dl class="col-sm-3">
+                                
+                                                         
+									<dt><a href="/hongkong/en/aboutus/whoarewe/index.shtml" class="c4 fs-16">About Us</a><span class="fr js_footerlistMore footerlist-more visible-xs"></span></dt>
+							
+                                      
+                                    <dd>
+										<a href="/hongkong/en/aboutus/whoarewe/index.shtml">Who We Are</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/aboutus/milestones/index.shtml">Milestones</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/aboutus/contactus/index.shtml">Contact Us</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/aboutus/careeropportunities/index.shtml">Career Opportunities</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/aboutus/transactioncalendar/index.shtml">Trading Calendar</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/aboutus/recruitmentstatement/index.shtml">Recruitment Statement</a>
+									</dd>
+								</dl> 
+                                
+                                 
+                                
+								<dl class="col-sm-3 col-sm-offset-1 ciip-menu">
+									<dt><a href="/hongkong/en/ciip/whatisciip/index.shtml" class="c4 fs-16">CIIP</a><span class="fr js_footerlistMore footerlist-more visible-xs"></span></dt>
+                                    
+                                    <dd>
+										<a href="/hongkong/en/ciip/whatisciip/index.shtml">CIIP Introduction</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/ciip/ourpartners/index.shtml">Our Partners</a>
+									</dd>
+								</dl>
+                                
+                                
+								<dl class="col-sm-3 col-sm-offset-1">
+									<dt><a href="/hongkong/en/productsandservices/whatdoweprovide/index.shtml" class="c4 fs-16">Market Data Licensing</a><span class="fr js_footerlistMore footerlist-more visible-xs"></span></dt>
+									
+                                    
+                                    <dd>
+										<a href="/hongkong/en/productsandservices/whatdoweprovide/index.shtml">License Information</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/productsandservices/applicationprocedures/index.shtml">Application Procedures</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/productsandservices/clientlist/index.shtml">Vendor List</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/productsandservices/clientnotices/index.shtml">Client Notices</a>
+									</dd>
+                                    <dd>
+										<a href="/hongkong/en/productsandservices/documentdownloads/index.shtml">Document Downloads</a>
+									</dd>
+                                
+								</dl>
+							</div>
+						</div>
+                        
+                        
+                        
+						<div class="col-sm-4 footer_list_table">
+							<table border="0">
+								<tr>
+									<td>
+										<a href="/hongkong/en/news/index.shtml">News</a>
+									</td>
+									<td>
+										<a href="/hongkong/en/aboutus/transactioncalendar/index.shtml">Trading Calendar</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<!-- <a href=""></a> -->
+                                        <a href="/hongkong/en/events/index.shtml">Events</a>
+									</td>
+									<td>
+										<a href="/hongkong/en/aboutus/contactus/index.shtml">Contact Us</a>
+									</td>
+								</tr>
+     
+                              	</table>
+                             
+                            <div style="display: flex; align-items: flex-start; gap: 20px; margin-top: 20px;">
+                                <div>
+                                    <a target="_blank" style="display: inline-block;width: 150px;">
+                                        <img style="width:100%;" src="/hongkong/sc/static/img/SSEAppQRCodeCN.png" />
+                                        <p style="color:white;text-align: center;">SSE APP download</p>
+                                    </a>
+                                </div>
+
+                                <div>
+                                    <div style="color:white;margin-bottom: 10px;font-size:0.875em;">Follow us</div>
+                                    <a target="_blank" style="display: inline-block; width: 30px; margin-right: 10px;" href="https://www.linkedin.com/company/china-investment-information-services-limited/">
+                                        <img style="width:100%;" src="/hongkong/en/static/img/icon/Linkedin2.png" />
+                                    </a>
+
+                                    <div style="color:white;margin-top: 20px;font-size:0.875em;">Follow Shanghai Stock Exchange <br> HK Representative Office</div>
+                                    <div style="margin-top: 10px;">
+                                        <a target="_blank" style="display: inline-block; width: 30px; margin-right: 10px;" href="https://www.facebook.com/people/Shanghai-Stock-Exchange-HK-Representative-Office/61565010718714/">
+                                            <img style="width:100%;" src="/hongkong/en/static/img/icon/Facebook2.png" />
+                                        </a>
+                                        <a target="_blank" style="display: inline-block; width: 30px;" href="https://x.com/SSEHKRO/">
+                                            <img style="width:100%;" src="/hongkong/en/static/img/icon/X2.png" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+						</div>                
+                        
+					</div>
+				</div>
+                
+                
+
+			</div>
+			<div class="footer_info bc1 over-h">
+				<div class="container">
+					<div class="fl">
+						<p> 
+                        	<span><a href="/hongkong/en/home/disclaimer/index.shtml">Disclaimer</a></span>
+                            <span><a href="/hongkong/en/home/hyperlinkpolicy/index.shtml">Hyperlink policy</a></span>
+							<span><a href="/hongkong/en/home/sitemap/index.shtml">Sitemap</a></span>
+							<span><a href="/hongkong/en/home/privacypolicy/index.shtml">Privacy policy</a></span>
+						</p> 
+					</div>
+                    <div class="fr copyInfo hidden-xs">
+                        <span class="c-aaa">&copy;2018 - 2026 China Investment Information Services Limited. All Rights Reserved.</span>
+                    </div>
+                    <div class="fr copyInfo visible-xs">
+                                <span class="c-aaa" style="font-size:10px;">&copy;2018 - 2025 China Investment Information Services Limited. <br />All Rights Reserved.</span>
+                    </div>
+
+					
+				</div>
+			</div>
+
+		</div>
+		<!--底部信息结束-->
+<script type="text/javascript">
+	$(function () {
+		$('p.fb-mb').each(function () {
+			var dObj = $(this)[0];
+			if (dObj.scrollHeight > dObj.clientHeight + 3) {
+				$(this).addClass('ellipsis');
+			} 
+		});
+		$('.menu_pc>li').on('mouseenter', function () {
+			var li_width = $(this).width();
+			var ele = $(this).find('.menu_pc_tit2');
+			var ele_width = -((ele.width() - li_width) / 2);
+			ele.css('margin-left', ele_width).show();
+		}).on('mouseleave', function () {
+			$(this).find('.menu_pc_tit2').hide()
+		})
+	})
+
+</script> 
+	</body>
+</html>
+
