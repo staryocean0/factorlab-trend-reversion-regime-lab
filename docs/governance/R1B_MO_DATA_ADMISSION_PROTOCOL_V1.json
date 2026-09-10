@@ -1,0 +1,148 @@
+{
+  "protocol_id": "rmr_R1B_MO_data_admission_v1",
+  "created_at": "2026-09-10",
+  "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "authorized_scope": "data_admission_only",
+  "empirical_option_outcome_test_authorized": false,
+  "production_authority": false,
+  "blackbox_query_count": 3,
+  "blackbox_query_4_authorized": false,
+  "underlying": "CSI1000 000852.SH",
+  "instrument_family": "CFFEX CSI1000 index options MO",
+  "primary_candidate_identity": "R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT",
+  "source_priority": [
+    {
+      "rank": 1,
+      "source": "CFFEX official historical Level-1 or Level-2 data product",
+      "status": "preferred",
+      "reason": "official historical snapshot provenance and best-bid/best-ask capability"
+    },
+    {
+      "rank": 2,
+      "source": "licensed vendor feed with field-level provenance traceable to CFFEX",
+      "status": "conditionally_admissible",
+      "reason": "allowed only when source lineage, timestamp semantics and quote fields are documented and checksummed"
+    },
+    {
+      "rank": 99,
+      "source": "daily OHLC, minute OHLC, last-price-only, midpoint-only or scraped delayed snapshots without stable history",
+      "status": "not_admissible_for_primary_result",
+      "reason": "cannot measure executable spread at the inherited causal entry and exit clocks"
+    }
+  ],
+  "required_canonical_columns": [
+    "contract_code",
+    "option_type",
+    "strike",
+    "expiry",
+    "timestamp",
+    "bid1",
+    "bid1_size",
+    "ask1",
+    "ask1_size",
+    "last_price",
+    "volume",
+    "open_interest",
+    "trading_status"
+  ],
+  "canonical_semantics": {
+    "contract_code": "CFFEX MO contract identity, e.g. MOYYMM-C-STRIKE or MOYYMM-P-STRIKE",
+    "option_type": "C or P only",
+    "strike": "index points, strictly positive",
+    "expiry": "contract expiry date; must not precede quote timestamp date",
+    "timestamp": "exchange-local quote timestamp normalized to Asia/Shanghai without future interpolation",
+    "bid1": "best bid in index points; zero allowed only when source explicitly encodes no valid bid",
+    "bid1_size": "best bid size in contracts; non-negative",
+    "ask1": "best ask in index points; zero allowed only when source explicitly encodes no valid ask",
+    "ask1_size": "best ask size in contracts; non-negative",
+    "last_price": "diagnostic only; never substitute for bid1/ask1 in the primary mapping",
+    "volume": "source-defined cumulative or interval volume; semantics must be declared in manifest",
+    "open_interest": "contracts; non-negative",
+    "trading_status": "raw or normalized exchange/vendor status; mapping must be declared in manifest"
+  },
+  "timestamp_contract": {
+    "source_timezone_required": true,
+    "normalized_timezone": "Asia/Shanghai",
+    "exchange_local_semantics_required": true,
+    "continuous_session": [
+      "09:30:00-11:30:00",
+      "13:00:00-15:00:00"
+    ],
+    "auction_rows_may_be_preserved": true,
+    "auction_rows_may_be_primary_execution_quotes": false,
+    "duplicate_key": [
+      "contract_code",
+      "timestamp"
+    ]
+  },
+  "quote_validity_contract": {
+    "negative_price_forbidden": true,
+    "negative_size_forbidden": true,
+    "crossed_positive_quote_forbidden": true,
+    "primary_entry_requires_positive_ask_and_positive_ask_size": true,
+    "primary_exit_requires_positive_bid_and_positive_bid_size": true,
+    "midpoint_substitution_forbidden": true,
+    "last_price_substitution_forbidden": true,
+    "missing_quote_interpolation_forbidden": true,
+    "zero_quote_semantics_must_be_declared": true,
+    "trading_status_mapping_must_be_declared": true
+  },
+  "file_inventory_contract": {
+    "sha256_required": true,
+    "size_bytes_required": true,
+    "row_count_required": true,
+    "relative_paths_only": true,
+    "all_declared_files_must_exist": true,
+    "undeclared_quote_files_forbidden": true
+  },
+  "source_manifest_required_fields": [
+    "manifest_version",
+    "source_name",
+    "source_type",
+    "source_provenance_reference",
+    "license_or_purchase_reference",
+    "acquired_at",
+    "quote_level",
+    "contains_best_bid_ask",
+    "source_timezone",
+    "timestamp_is_exchange_local",
+    "volume_semantics",
+    "zero_quote_semantics",
+    "trading_status_mapping",
+    "historical_window_start",
+    "historical_window_end",
+    "historical_data_role",
+    "prospective_validation_boundary",
+    "files",
+    "fee_contract"
+  ],
+  "data_role_contract": {
+    "pre_freeze_historical_mo": "reusable_instrument_development_evidence",
+    "fresh_mechanism_blackbox": false,
+    "prospective_validation_boundary_required": true,
+    "prospective_boundary_rule": "must be frozen before any event-conditioned option outcome is inspected"
+  },
+  "fee_contract": {
+    "status_must_equal": "frozen",
+    "exchange_fee_source_required": true,
+    "broker_fee_source_required": true,
+    "effective_periods_required": true,
+    "fee_numbers_may_not_be_backfilled_after_outcome_inspection": true
+  },
+  "explicit_prohibitions": [
+    "no option PnL or premium-return study before PASS admission receipt",
+    "no strike search around ATM",
+    "no expiry or DTE search",
+    "no implied-volatility filter search",
+    "no probability-threshold or sizing rescue",
+    "no entry-delay search",
+    "no alternative S2/S3 exit search",
+    "no hold-horizon search",
+    "no stop or target search",
+    "no favorable year, regime or time-of-day filtering",
+    "no midpoint or last-price replacement for executable bid/ask",
+    "no IM futures cost rescue",
+    "no BLACKBOX query #4"
+  ],
+  "admission_decision_rule": "PASS only when manifest contract, file checksums, canonical schema, timestamp semantics, quote integrity and frozen fee contract all pass. Otherwise FAIL with no empirical option outcomes opened."
+}
