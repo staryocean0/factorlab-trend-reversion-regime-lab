@@ -1,0 +1,35 @@
+{
+  "manifest_version": 1,
+  "source_name": null,
+  "source_type": null,
+  "source_provenance_reference": null,
+  "license_or_purchase_reference": null,
+  "acquired_at": null,
+  "quote_level": null,
+  "contains_best_bid_ask": true,
+  "source_timezone": "Asia/Shanghai",
+  "timestamp_is_exchange_local": true,
+  "volume_semantics": null,
+  "zero_quote_semantics": null,
+  "trading_status_mapping": {},
+  "historical_window_start": null,
+  "historical_window_end": null,
+  "historical_data_role": "reusable_instrument_development_evidence",
+  "prospective_validation_boundary": null,
+  "files": [
+    {
+      "path": "REPLACE_WITH_RELATIVE_QUOTE_FILE.parquet",
+      "sha256": null,
+      "size_bytes": null,
+      "row_count": null
+    }
+  ],
+  "fee_contract": {
+    "status": "pending",
+    "exchange_fee_source": null,
+    "broker_fee_source": null,
+    "frozen_as_of": null,
+    "effective_periods": []
+  },
+  "notes": "Template only. Do not change status to frozen or fill fee values after inspecting event-conditioned option outcomes. A populated manifest must pass validate_mo_quote_source.py before any R1_B option outcome study is authorized."
+}
