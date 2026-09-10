@@ -29,35 +29,49 @@ Rule source:
 
 - https://www.cffex.com.cn/cn/ssxz/20221214/43100.html
 
-### 2022 launch-level corroboration
+### 2022 launch-level evidence — provenance strengthened 2026-09-10
 
-Multiple CFFEX member notices reproducing the CSI1000 option launch terms identify the exchange baseline at launch as:
+CFFEX's own exchange-rule index lists the historical rule item titled:
 
-- MO trading fee: RMB 15 per contract;
-- exercise/assignment fee: RMB 2 per contract;
-- option order-declaration fee temporarily not charged.
+`关于中证1000股指期货和股指期权合约上市交易有关事项的通知`
 
-Examples that explicitly distinguish the exchange fee from the broker/customer fee include:
+Official rule-index source:
 
-- CICC Wealth Futures launch notice: https://www.ciccwmf.cn/gsgg/73874.jhtml
-- Zhejiang New Century Futures reproduction of the exchange launch notice: https://www.zjncf.com.cn/customer/info/4197.html
+- https://www.cffex.com.cn/cn/jysgz.html
 
-These are useful corroborating evidence but do **not** replace a complete official CFFEX effective-period history for the frozen research contract.
+Multiple CFFEX-member reproductions identify that launch notice as **中金所发〔2022〕41号** and explicitly distinguish the exchange baseline from customer/broker fees. The strongest currently indexed reproduction states:
+
+- MO exchange trading fee: RMB 15 per contract;
+- MO exchange exercise/assignment fee: RMB 2 per contract;
+- MO exchange declaration/order fee: temporarily not charged.
+
+Examples:
+
+- CICC Wealth Futures: https://www.ciccwmf.cn/gsgg/73874.jhtml
+- Jin Xin Futures, explicitly citing `中金所发〔2022〕41号`: https://www.jinxinqh.com/article/4739
+- Zhejiang New Century Futures reproduction retained as corroboration: https://www.zjncf.com.cn/customer/info/4197.html
+
+Important distinction: other member notices sometimes publish **their own customer fee** (for example a multiple of the exchange fee) in the same launch context. Such customer numbers are not exchange-level evidence and must not be imported into this account's fee contract.
+
+This strengthens launch-date provenance, but it still does **not** replace retrieval of the original CFFEX notice body or another official CFFEX effective-period history sufficient to prove continuity.
 
 ## 2. Why the exchange fee is not yet marked `frozen`
 
-The evidence strongly supports 15 RMB/contract trading and 2 RMB/contract exercise at launch and in the July-2024 CFFEX fee table.
+The evidence now strongly supports the following two anchor points:
+
+- launch, 2022-07-22: member reproductions of CFFEX notice `中金所发〔2022〕41号` report 15 RMB/contract trading, 2 RMB/contract exercise/assignment, declaration fee temporarily not charged;
+- July 2024 official CFFEX fee table: 15 RMB/contract trading and 2 RMB/contract exercise/assignment for CSI index options including MO.
 
 However, this research covers observations from 2022-07-22 onward. Before marking the exchange fee history frozen, one of the following must be obtained:
 
-1. an official CFFEX historical notice/archive proving the effective periods and any changes from 2022-07-22 through the historical study end; or
-2. an official CFFEX statement/fee history sufficient to prove that the same standard applied continuously over the relevant period.
+1. the original official CFFEX `中金所发〔2022〕41号` notice plus official notices/fee tables sufficient to establish every effective period through the historical study end; or
+2. an official CFFEX fee-history statement sufficient to prove that the same standard applied continuously over the relevant period.
 
-Absence of a search result for a fee-change notice is not evidence that no change occurred.
+Absence of a search result for a fee-change notice is not evidence that no change occurred. The fact that a current fee table matches the launch-level member reproductions is strong continuity evidence, but not a complete effective-period proof by itself.
 
 Therefore:
 
-`exchange_fee_history_status = strong_partial_evidence_not_full_effective_period_chain`
+`exchange_fee_history_status = launch_notice_identity_strengthened_current_official_anchor_present_full_effective_period_chain_not_proven`
 
 ## 3. Broker/customer fee layer
 
@@ -102,7 +116,7 @@ For the current proposed R1_B mapping, bid/ask spread is handled directly by ask
 
 Authorized:
 
-- continue collecting official CFFEX fee history;
+- continue collecting original official CFFEX fee history;
 - obtain the actual historical broker commission schedule;
 - freeze those numbers before option outcomes;
 - retain a conservative sensitivity schedule only if preregistered before outcomes.
@@ -117,7 +131,7 @@ Not authorized:
 
 Current state:
 
-`R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_PARTIAL_BROKER_UNRESOLVED`
+`R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_STRONG_PARTIAL_BROKER_UNRESOLVED`
 
 `BLACKBOX_query_count=3`.
 `production_authority=false`.
