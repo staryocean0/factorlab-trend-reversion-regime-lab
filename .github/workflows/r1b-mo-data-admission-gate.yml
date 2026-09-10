@@ -7,8 +7,10 @@ on:
     paths:
       - 'research/r1b_mo_data_admission/**'
       - 'tests/test_r1b_mo_data_admission.py'
+      - 'tests/test_r1b_mo_cffex_adapter.py'
       - 'docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json'
       - 'docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json'
+      - 'docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json'
       - '.github/workflows/r1b-mo-data-admission-gate.yml'
 
 permissions:
@@ -24,5 +26,5 @@ jobs:
           python-version: '3.11'
       - name: Install package
         run: python -m pip install -e .
-      - name: Run MO admission gate tests
-        run: python -m pytest -q tests/test_r1b_mo_data_admission.py
+      - name: Run MO admission gate and source-adapter tests
+        run: python -m pytest -q tests/test_r1b_mo_data_admission.py tests/test_r1b_mo_cffex_adapter.py
