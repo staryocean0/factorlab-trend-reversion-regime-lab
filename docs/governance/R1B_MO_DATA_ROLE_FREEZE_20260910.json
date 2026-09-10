@@ -1,0 +1,30 @@
+{
+  "freeze_id": "rmr_R1B_MO_data_role_freeze_20260910",
+  "frozen_on": "2026-09-10",
+  "timezone": "Asia/Shanghai",
+  "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "option_outcomes_inspected_before_freeze": false,
+  "repository_mo_bid_ask_tape_present_before_freeze": false,
+  "historical_instrument_development_window": {
+    "start": "2022-07-22",
+    "end": "2026-09-10T23:59:59+08:00",
+    "role": "reusable_instrument_development_evidence",
+    "fresh_mechanism_blackbox": false,
+    "decisive_prospective_validation": false
+  },
+  "prospective_validation_window": {
+    "start": "2026-09-11T00:00:00+08:00",
+    "end": null,
+    "role": "prospective_instrument_validation_evidence",
+    "condition": "only observations genuinely generated after this freeze qualify; later acquisition date does not turn pre-freeze history into prospective evidence"
+  },
+  "underlying_data_note": "The current repository underlying index package ends in 2025. Prospective MO validation therefore also requires separately admitted post-freeze CSI1000 underlying observations before any prospective paired test can run.",
+  "blackbox_query_count": 3,
+  "blackbox_query_4_authorized": false,
+  "production_authority": false,
+  "forbidden_relabeling": [
+    "do not call 2022-2026-09-10 MO history fresh OOS merely because it is acquired later",
+    "do not consume prospective observations for strike/DTE/horizon/timing selection",
+    "do not inspect event-conditioned option outcomes before a PASS data admission receipt and separate execution freeze"
+  ]
+}
