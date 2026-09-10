@@ -86,30 +86,47 @@ A CSI1000 `IM` futures mapping remains linear and would mostly change basis/cost
 
 A long directional CSI1000 `MO` option is a materially different convex payoff object and can, in principle, map a right-tail restoration impulse while bounding downside. This is theory only; option premium/theta/volatility/spread can invalidate it.
 
-## Data-admission gate completed — 2026-09-10
+## Data-admission infrastructure and source discovery — 2026-09-10
 
-The repository has completed the **admission infrastructure**, not the empirical option test.
+The repository has completed the **admission infrastructure and official-source capability review**, not the empirical option test.
 
 Current facts:
 
 - current repository inventory contains no MO historical intraday best-bid/best-ask tape;
-- account-wide GitHub code search found no reusable MO `bid1/ask1` tape in another current bucket;
-- CFFEX official historical data service is the preferred acquisition source;
-- the frozen acquisition target is **CFFEX MO Level-2 historical snapshots**, with Level-1 acceptable only if an official field specification or delivered sample proves it contains timestamped `bid1`, `ask1`, `bid1_size`, and `ask1_size`;
+- account-wide GitHub code search was re-run with multiple field/name variants and found no reusable MO quote tape in another current bucket;
+- CFFEX's own Level-2 documentation confirms five-level bid prices, ask prices, bid sizes and ask sizes, plus last price, volume and open interest, with snapshot distribution twice per second / 500 ms;
+- CFFEX official historical Level-2 Snapshot remains the target source family;
+- China Investment Information Services Limited (CIIS) provides a concrete official-distribution route and states its CFFEX historical Level-2 Snapshot product is official data directly provided by CFFEX;
+- CIIS publicly identifies `20221206_Sample_CFF_Snapshot.xlsx` and currently lists the CFFEX Level-2 Snapshot product as available from 2010-04-16;
+- the 2022 CIIS product manual documents CFFEX `Snapshot.csv` fields including `SecurityID`, `DateTime`, `LastPrice`, `Volume`, `OpenInterest`, `BidPrice[5]`, `BidVolume[5]`, `AskPrice[5]`, and `AskVolume[5]`;
+- the actual public Snapshot XLSX bytes have **not** yet been retrieved in this research session, so there is no sample checksum/row-count/file-level admission receipt;
 - one-minute/five-minute OHLC, last-price-only, midpoint-only, AKShare historical daily data, and Tushare minute OHLC cannot substitute for the primary executable quote tape.
 
-Frozen files:
+Current source-level state:
+
+`CFFEX_LEVEL2_CORE_FIELD_CAPABILITY_CONFIRMED_CIIS_OFFICIAL_ROUTE_IDENTIFIED_DELIVERY_NOT_YET_ADMITTED`
+
+Frozen / implemented files:
 
 - `docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json`
 - `docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`
 - `docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json`
+- `docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json`
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
 - `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
+- `docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
 - `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
+- `research/r1b_mo_data_admission/adapt_cffex_snapshot.py`
 - `tests/test_r1b_mo_data_admission.py`
+- `tests/test_r1b_mo_cffex_adapter.py`
 
-The admission-gate CI passed on run `34422130207`.
+Admission infrastructure CI:
+
+- original admission-gate CI run `34422130207`: PASS;
+- source-adapter + admission-gate CI run `34424261376`: PASS.
+
+The adapter is deliberately fail-closed. It requires actual delivered/source-dictionary mappings for unresolved fields and returns `ADAPTED_NOT_ADMITTED`, never an admission PASS. The current mapping template intentionally leaves physical bid/ask-array expansion, trading-status mapping, zero-quote semantics and contract-master expiry mapping unresolved until a real non-event-conditioned sample or delivery dictionary is inspected.
 
 The data-role boundary was frozen **before any event-conditioned MO option outcome was inspected**:
 
@@ -125,16 +142,16 @@ The fee layer remains deliberately fail-closed.
 Established evidence:
 
 - CFFEX's July-2024 official fee table supports the shared CSI index-option exchange baseline of RMB 15/contract trading fee and RMB 2/contract exercise/assignment fee;
-- multiple 2022 CFFEX-member reproductions of the MO launch notice report the same MO exchange baseline at launch.
+- CFFEX's rule index identifies the 2022 MO launch notice, while multiple CFFEX-member reproductions identify it as `中金所发〔2022〕41号` and report the same 15/2 exchange baseline at launch, with declaration/order fee temporarily not charged.
 
 Not yet closed:
 
-- a complete official-CFFEX effective-period chain proving the applicable exchange fee schedule over the entire historical study window;
+- the original official CFFEX launch-notice body or another complete official-CFFEX effective-period chain proving the applicable exchange fee schedule across the entire historical study window;
 - the actual broker/customer historical commission schedule.
 
 Therefore:
 
-`R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_PARTIAL_BROKER_UNRESOLVED`
+`R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_STRONG_PARTIAL_BROKER_UNRESOLVED`
 
 Do not use 15 RMB as a complete historical all-in cost merely because it is the exchange baseline. Do not invent a broker markup.
 
@@ -142,30 +159,23 @@ Do not use 15 RMB as a complete historical all-in cost merely because it is the 
 
 **Do not run an option return study yet.**
 
-The next external dependency is to obtain the MO quote package specified in:
+The next source action is now concrete rather than open-ended discovery:
 
-`docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
+1. obtain the public/non-event-conditioned CIIS CFFEX Snapshot sample `20221206_Sample_CFF_Snapshot.xlsx` or a current equivalent sample;
+2. preserve its raw bytes and record SHA-256, byte size, workbook/sheet structure and row count;
+3. inspect only source schema/semantics — do **not** join sample rows to R1_B events;
+4. resolve the physical delivered mapping for level-1 bid/ask and sizes, MO `SecurityID`, contract master/expiry, zero/missing quotes and trading status;
+5. fill a source-specific copy of `R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json` without changing the frozen protocol;
+6. run `adapt_cffex_snapshot.py` on the non-event-conditioned source sample; its success still means only `ADAPTED_NOT_ADMITTED`;
+7. acquire the full CFFEX MO Level-2 historical Snapshot package for all listed MO contracts from 2022-07-22 through 2026-09-10, with separately inventoried post-2026-09-11 prospective observations;
+8. populate an actual-source manifest and freeze the complete fee contract;
+9. run `validate_mo_quote_source.py` and retain PASS/FAIL receipt.
 
-Preferred request:
+CIIS currently lists the applicable historical-data documents and contact route; see:
 
-- CFFEX CSI1000 index option (`MO`);
-- all listed MO contracts, not event-selected contracts;
-- Level-2 historical snapshots;
-- 2022-07-22 through 2026-09-10 as reusable historical instrument-development data;
-- separate post-2026-09-11 prospective observations;
-- contract identity, timestamp, bid1/ask1 + sizes, last, volume, OI, trading-status semantics, source dictionary/version.
+`docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
 
 In parallel, obtain the actual historical broker commission schedule and complete the official exchange fee effective-period chain.
-
-Once quote files are obtained:
-
-1. preserve raw bytes;
-2. checksum/inventory without joining R1_B events;
-3. map source fields deterministically to the frozen canonical schema;
-4. populate an actual-source manifest from `R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`;
-5. freeze the fee contract;
-6. run `research/r1b_mo_data_admission/validate_mo_quote_source.py`;
-7. keep the PASS/FAIL receipt.
 
 Only a PASS admission receipt can unlock a **separate pre-execution freeze**. A PASS still does **not** itself authorize PnL, BLACKBOX #4, or production.
 
@@ -185,11 +195,12 @@ The `kline-recognizer` v1-v13 research branches in this repository are mis-scope
 2. `docs/research/R1_R2_MIGRATION_NOTE_20260909.md`
 3. `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
 4. `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
-5. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
-6. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
-7. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
-8. `docs/DATA.md`
-9. `docs/RESEARCH_GOVERNANCE.md`
+5. `docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
+6. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+7. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
+8. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
+9. `docs/DATA.md`
+10. `docs/RESEARCH_GOVERNANCE.md`
 
 `BLACKBOX_query_count=3`.
 `production_authority=false`.
