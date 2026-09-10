@@ -1,0 +1,139 @@
+name: acquire-ciis-cffex-snapshot-sample
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/acquire-ciis-cffex-snapshot-sample.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Fetch official CIIS sample page and Snapshot workbook
+        shell: bash
+        run: |
+          set -euo pipefail
+          PAGE='https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/index.shtml'
+          OUT='research/r1b_mo_data_admission/source_samples/ciis_cffex_snapshot_20221206'
+          mkdir -p "$OUT"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 120 \
+            -A 'Mozilla/5.0 FactorLabResearch/1.0' "$PAGE" -o /tmp/ciis_sample_page.html
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from urllib.parse import urljoin
+          from pathlib import Path
+
+          page = 'https://www.ciis.com.hk/hongkong/en/historicaldata1/sampledata/index.shtml'
+          target = '20221206_Sample_CFF_Snapshot.xlsx'
+          html = Path('/tmp/ciis_sample_page.html').read_text(encoding='utf-8', errors='replace')
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.hrefs=[]
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() == 'a':
+                      d = dict(attrs)
+                      if d.get('href'): self.hrefs.append(d['href'])
+          p=P(); p.feed(html)
+          matches=[h for h in p.hrefs if target.lower() in h.lower()]
+          if not matches:
+              # fallback for JS/text-embedded URLs
+              import re
+              matches=re.findall(r'''[^\"'<>\s]*20221206_Sample_CFF_Snapshot\.xlsx[^\"'<>\s]*''', html, flags=re.I)
+          if not matches:
+              raise SystemExit('Snapshot sample href not found on CIIS sample page')
+          resolved=urljoin(page, matches[0])
+          Path('/tmp/ciis_snapshot_url.txt').write_text(resolved, encoding='utf-8')
+          print(resolved)
+          PY
+          URL="$(cat /tmp/ciis_snapshot_url.txt)"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 180 \
+            -A 'Mozilla/5.0 FactorLabResearch/1.0' "$URL" \
+            -o "$OUT/20221206_Sample_CFF_Snapshot.xlsx"
+          test -s "$OUT/20221206_Sample_CFF_Snapshot.xlsx"
+          printf '%s\n' "$PAGE" > "$OUT/source_page_url.txt"
+          printf '%s\n' "$URL" > "$OUT/resolved_download_url.txt"
+
+      - name: Inspect raw bytes and workbook schema only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet openpyxl
+          python - <<'PY'
+          import hashlib, json, zipfile
+          from pathlib import Path
+          from datetime import datetime, timezone
+          import openpyxl
+
+          root=Path('research/r1b_mo_data_admission/source_samples/ciis_cffex_snapshot_20221206')
+          xlsx=root/'20221206_Sample_CFF_Snapshot.xlsx'
+          raw=xlsx.read_bytes()
+          if not zipfile.is_zipfile(xlsx):
+              raise SystemExit('Downloaded file is not a valid XLSX/ZIP container')
+          wb=openpyxl.load_workbook(xlsx, read_only=True, data_only=True)
+          sheets=[]
+          required_tokens=['SecurityID','DateTime','LastPrice','Volume','OpenInterest','BidPrice','BidVolume','AskPrice','AskVolume']
+          token_hits={t:[] for t in required_tokens}
+          for ws in wb.worksheets:
+              preview=[]
+              for r_idx,row in enumerate(ws.iter_rows(values_only=True), start=1):
+                  vals=[None if v is None else str(v) for v in row]
+                  if r_idx <= 12:
+                      preview.append({'row':r_idx,'values':vals[:80]})
+                  joined=' | '.join(v or '' for v in vals)
+                  for t in required_tokens:
+                      if t.lower() in joined.lower(): token_hits[t].append({'sheet':ws.title,'row':r_idx})
+                  if r_idx >= 50:
+                      break
+              sheets.append({'title':ws.title,'max_row':ws.max_row,'max_column':ws.max_column,'preview_first_12_rows':preview})
+          receipt={
+              'research_identity':'rmr_R1B_MO_convex_impulse_mapping_v1',
+              'scope':'non_event_conditioned_source_sample_acquisition_and_schema_inspection_only',
+              'source_provider':'China Investment Information Services Limited (CIIS)',
+              'source_page':(root/'source_page_url.txt').read_text().strip(),
+              'resolved_download_url':(root/'resolved_download_url.txt').read_text().strip(),
+              'file_name':xlsx.name,
+              'sha256':hashlib.sha256(raw).hexdigest(),
+              'byte_size':len(raw),
+              'zip_container_valid':True,
+              'workbook_sheet_count':len(wb.sheetnames),
+              'sheet_names':wb.sheetnames,
+              'token_hits_first_50_rows':token_hits,
+              'event_join_performed':False,
+              'pnl_or_return_test_performed':False,
+              'blackbox_query_count_before':3,
+              'blackbox_query_count_after':3,
+              'production_authority':False,
+              'acquired_at_utc':datetime.now(timezone.utc).isoformat(),
+              'admission_decision':'ACQUIRED_SCHEMA_INSPECTED_NOT_YET_ADMITTED'
+          }
+          (root/'sample_acquisition_receipt.json').write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          (root/'sample_schema_preview.json').write_text(json.dumps({'sheets':sheets},indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+          print(json.dumps(receipt,indent=2,ensure_ascii=False))
+          PY
+
+      - name: Commit immutable sample receipt and raw public sample
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/r1b_mo_data_admission/source_samples/ciis_cffex_snapshot_20221206
+          git commit -m 'data: preserve CIIS CFFEX Snapshot public sample [skip ci]'
+          git push origin HEAD:main
+
+      - name: Upload acquisition evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ciis-cffex-snapshot-sample-20221206
+          path: research/r1b_mo_data_admission/source_samples/ciis_cffex_snapshot_20221206/
+          if-no-files-found: error
