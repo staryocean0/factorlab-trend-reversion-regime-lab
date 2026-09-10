@@ -101,11 +101,13 @@ Current facts:
 - the 2022 CIIS product manual documents CFFEX `Snapshot.csv` fields including `SecurityID`, `DateTime`, `LastPrice`, `Volume`, `OpenInterest`, `BidPrice[5]`, `BidVolume[5]`, `AskPrice[5]`, and `AskVolume[5]`;
 - the current CIIS sample page was re-checked on 2026-09-10 and still explicitly lists `20221206_Sample_CFF_Snapshot.xlsx`, but the listed live href and all same-path www/non-www HTTP/HTTPS variants return 404;
 - an exact-URL Internet Archive CDX lookup returned no captures, so no sample XLSX bytes, checksum, row count or workbook-level mapping were recovered; the acquisition state is `CIIS_PUBLIC_SAMPLE_LISTING_CONFIRMED_LINK_DEAD_EXTERNAL_DELIVERY_REQUIRED`;
+- current CIIS pages also confirm the official CFFEX Level-2 historical product remains active, list `Historical_Data_Product_Manual_v4_20260819.pdf`, `Historical Data Order Form (Form HD) (v20260820).xlsx`, and `hd@ciis.com.hk` as the current order/contact route;
+- a 2026 CIIS product manual documents a CFFEX historical delivery-format transition effective 2024-07-08, so the requested 2022-07-22 through 2026-09-10 MO history must be admitted as at least two physical schema epochs rather than assumed to have one invariant CSV layout;
 - one-minute/five-minute OHLC, last-price-only, midpoint-only, AKShare historical daily data, and Tushare minute OHLC cannot substitute for the primary executable quote tape.
 
 Current source-level state:
 
-`CFFEX_LEVEL2_CORE_FIELD_CAPABILITY_CONFIRMED_CIIS_PUBLIC_SAMPLE_LISTED_LINK_DEAD_EXTERNAL_DELIVERY_REQUIRED`
+`PUBLIC_SAMPLE_RECOVERY_EXHAUSTED_CURRENT_OFFICIAL_ORDER_ROUTE_CONFIRMED_EXTERNAL_DELIVERY_REQUIRED`
 
 Frozen / implemented files:
 
@@ -113,9 +115,11 @@ Frozen / implemented files:
 - `docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`
 - `docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json`
 - `docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json`
+- `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
 - `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
 - `docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
+- `docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`
 - `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
 - `research/r1b_mo_data_admission/adapt_cffex_snapshot.py`
@@ -128,6 +132,8 @@ Admission infrastructure CI:
 - source-adapter + admission-gate CI run `34424261376`: PASS.
 
 The adapter is deliberately fail-closed. It requires actual delivered/source-dictionary mappings for unresolved fields and returns `ADAPTED_NOT_ADMITTED`, never an admission PASS. The current mapping template intentionally leaves physical bid/ask-array expansion, trading-status mapping, zero-quote semantics and contract-master expiry mapping unresolved until a real non-event-conditioned sample or delivery dictionary is inspected.
+
+The 2024-07-08 delivery-format transition is now frozen explicitly: legacy and post-transition physical files require separate source-specific mappings and independent schema/provenance checks before canonical concatenation. A schema PASS for one epoch cannot waive unresolved fields in the other.
 
 The data-role boundary was frozen **before any event-conditioned MO option outcome was inspected**:
 
@@ -160,21 +166,25 @@ Do not use 15 RMB as a complete historical all-in cost merely because it is the 
 
 **Do not run an option return study yet.**
 
-The next source action is now concrete rather than open-ended discovery:
+The public-sample recovery route is exhausted. Current CIIS pages confirm that the official CFFEX Level-2 historical product and order channel remain active. Tracking issue: **#7**.
 
-1. obtain a current equivalent non-event-conditioned CIIS/CFFEX Snapshot sample or proceed to the official full delivery; the currently listed `20221206_Sample_CFF_Snapshot.xlsx` link has already been re-checked and returns 404; do not repeat blind retrieval of that same dead URL;
-2. preserve its raw bytes and record SHA-256, byte size, workbook/sheet structure and row count;
+The next source action is:
+
+1. obtain non-event-conditioned samples for both physical delivery epochs, or proceed to the official full delivery; do not repeat blind retrieval of the dead `20221206_Sample_CFF_Snapshot.xlsx` URL;
+2. preserve raw bytes and record SHA-256, byte size, workbook/file structure and row count;
 3. inspect only source schema/semantics — do **not** join sample rows to R1_B events;
-4. resolve the physical delivered mapping for level-1 bid/ask and sizes, MO `SecurityID`, contract master/expiry, zero/missing quotes and trading status;
-5. fill a source-specific copy of `R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json` without changing the frozen protocol;
-6. run `adapt_cffex_snapshot.py` on the non-event-conditioned source sample; its success still means only `ADAPTED_NOT_ADMITTED`;
-7. acquire the full CFFEX MO Level-2 historical Snapshot package for all listed MO contracts from 2022-07-22 through 2026-09-10, with separately inventoried post-2026-09-11 prospective observations;
-8. populate an actual-source manifest and freeze the complete fee contract;
+4. resolve a separate physical mapping for `LEGACY_CFFEX_SNAPSHOT` (2022-07-22..2024-07-07) and `POST_TRANSITION_CFFEX_DELIVERY` (2024-07-08..2026-09-10), including level-1 bid/ask and sizes, MO `SecurityID`, contract master/expiry, zero/missing quotes and trading status;
+5. fill source-specific mappings without changing the frozen canonical protocol;
+6. run `adapt_cffex_snapshot.py`, or a period-aware successor only if the delivered post-transition format requires it; adapter success still means only `ADAPTED_NOT_ADMITTED`;
+7. acquire/inventory the full CFFEX MO Level-2 historical package for all listed MO contracts through 2026-09-10, with post-2026-09-11 prospective observations separately inventoried;
+8. populate the actual-source manifest and freeze the complete fee contract;
 9. run `validate_mo_quote_source.py` and retain PASS/FAIL receipt.
 
-CIIS currently lists the applicable historical-data documents and contact route; see:
+Read the current route and epoch freeze before external acquisition:
 
-`docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
+- `docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`
+- `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
+- GitHub issue `#7`.
 
 In parallel, obtain the actual historical broker commission schedule and complete the official exchange fee effective-period chain.
 
@@ -196,13 +206,14 @@ The `kline-recognizer` v1-v13 research branches in this repository are mis-scope
 2. `docs/research/R1_R2_MIGRATION_NOTE_20260909.md`
 3. `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
 4. `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
-5. `docs/research/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md`
-6. `docs/research/R1B_MO_CIIS_SAMPLE_ACQUISITION_RESULT_20260910.md`
-7. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
-8. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
-9. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
-10. `docs/DATA.md`
-11. `docs/RESEARCH_GOVERNANCE.md`
+5. `docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`
+6. `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
+7. `docs/research/R1B_MO_CIIS_SAMPLE_ACQUISITION_RESULT_20260910.md`
+8. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+9. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
+10. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
+11. `docs/DATA.md`
+12. `docs/RESEARCH_GOVERNANCE.md`
 
 `BLACKBOX_query_count=3`.
 `production_authority=false`.
