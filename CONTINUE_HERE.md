@@ -88,15 +88,15 @@ A long directional CSI1000 `MO` option is a materially different convex payoff o
 
 ## Data-admission gate completed — 2026-09-10
 
-The repository has now completed the **admission infrastructure**, not the empirical option test.
+The repository has completed the **admission infrastructure**, not the empirical option test.
 
 Current facts:
 
 - current repository inventory contains no MO historical intraday best-bid/best-ask tape;
 - account-wide GitHub code search found no reusable MO `bid1/ask1` tape in another current bucket;
-- CFFEX official historical Level-1 / Level-2 data is the preferred acquisition target;
-- AKShare/Sina current MO bid/ask interfaces and historical daily data are not a substitute for historical intraday executable quotes;
-- Tushare `opt_mins` documents minute OHLC/volume/amount/OI, not historical best bid/ask, so it is not admitted for the primary execution identity.
+- CFFEX official historical data service is the preferred acquisition source;
+- the frozen acquisition target is **CFFEX MO Level-2 historical snapshots**, with Level-1 acceptable only if an official field specification or delivered sample proves it contains timestamped `bid1`, `ask1`, `bid1_size`, and `ask1_size`;
+- one-minute/five-minute OHLC, last-price-only, midpoint-only, AKShare historical daily data, and Tushare minute OHLC cannot substitute for the primary executable quote tape.
 
 Frozen files:
 
@@ -104,6 +104,8 @@ Frozen files:
 - `docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`
 - `docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json`
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+- `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
+- `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
 - `tests/test_r1b_mo_data_admission.py`
 
@@ -116,31 +118,56 @@ The data-role boundary was frozen **before any event-conditioned MO option outco
 
 This freeze creates no new BLACKBOX allocation.
 
+## Fee-contract status
+
+The fee layer remains deliberately fail-closed.
+
+Established evidence:
+
+- CFFEX's July-2024 official fee table supports the shared CSI index-option exchange baseline of RMB 15/contract trading fee and RMB 2/contract exercise/assignment fee;
+- multiple 2022 CFFEX-member reproductions of the MO launch notice report the same MO exchange baseline at launch.
+
+Not yet closed:
+
+- a complete official-CFFEX effective-period chain proving the applicable exchange fee schedule over the entire historical study window;
+- the actual broker/customer historical commission schedule.
+
+Therefore:
+
+`R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_PARTIAL_BROKER_UNRESOLVED`
+
+Do not use 15 RMB as a complete historical all-in cost merely because it is the exchange baseline. Do not invent a broker markup.
+
 ## Exact next authorized action
 
 **Do not run an option return study yet.**
 
-Acquire a provenance-stable CSI1000 MO intraday quote source and pass it through the frozen admission gate.
+The next external dependency is to obtain the MO quote package specified in:
 
-Preferred acquisition target:
+`docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
 
-1. CFFEX official historical Level-1 or Level-2 MO snapshots;
-2. alternatively, a licensed vendor feed only if field-level provenance is traceable to CFFEX and the source contract is documented.
+Preferred request:
 
-Minimum admitted data fields remain:
+- CFFEX CSI1000 index option (`MO`);
+- all listed MO contracts, not event-selected contracts;
+- Level-2 historical snapshots;
+- 2022-07-22 through 2026-09-10 as reusable historical instrument-development data;
+- separate post-2026-09-11 prospective observations;
+- contract identity, timestamp, bid1/ask1 + sizes, last, volume, OI, trading-status semantics, source dictionary/version.
 
-- contract code, call/put, strike, expiry;
-- exchange-local timestamp;
-- bid1/ask1 and sizes;
-- last price, volume, open interest, trading status;
-- stable source/license provenance and checksum inventory;
-- historically applicable exchange and broker fee contract frozen before outcomes.
+In parallel, obtain the actual historical broker commission schedule and complete the official exchange fee effective-period chain.
 
-Once files are obtained, populate `R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json` without changing the frozen protocol and run:
+Once quote files are obtained:
 
-`research/r1b_mo_data_admission/validate_mo_quote_source.py`
+1. preserve raw bytes;
+2. checksum/inventory without joining R1_B events;
+3. map source fields deterministically to the frozen canonical schema;
+4. populate an actual-source manifest from `R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`;
+5. freeze the fee contract;
+6. run `research/r1b_mo_data_admission/validate_mo_quote_source.py`;
+7. keep the PASS/FAIL receipt.
 
-Only a PASS admission receipt can unlock a separate pre-execution freeze. A PASS still does **not** itself authorize PnL or production.
+Only a PASS admission receipt can unlock a **separate pre-execution freeze**. A PASS still does **not** itself authorize PnL, BLACKBOX #4, or production.
 
 The primary R1_B option mapping may not substitute midpoint/last price for missing bid/ask after outcomes are seen and may not search strike, expiry/DTE, horizon, probability threshold, timing, stop, target, scale or time-of-day.
 
@@ -157,10 +184,12 @@ The `kline-recognizer` v1-v13 research branches in this repository are mis-scope
 1. `CONTINUE_HERE.md`
 2. `docs/research/R1_R2_MIGRATION_NOTE_20260909.md`
 3. `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
-4. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
-5. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
-6. `docs/DATA.md`
-7. `docs/RESEARCH_GOVERNANCE.md`
+4. `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
+5. `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
+6. `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
+7. `docs/research/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md`
+8. `docs/DATA.md`
+9. `docs/RESEARCH_GOVERNANCE.md`
 
 `BLACKBOX_query_count=3`.
 `production_authority=false`.
