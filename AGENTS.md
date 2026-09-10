@@ -10,6 +10,34 @@ This repository is the current FactorLab bucket for **real reversal / mean-rever
 - **R2**: intact parent range + boundary overshoot / failed acceptance / re-entry.
 - Historical MR0/MR1/REV0, robust re-entry, first-passage, clock/stability/execution studies may be mined for mechanisms, failures and contributions.
 
+## Current frontier
+
+R1 and R2 are already certified mechanism identities; do not restart their broad discovery or reinterpret failed linear economic translations as unfinished tuning.
+
+The current active frontier is the independent payoff-object theory:
+
+`rmr_R1B_MO_convex_impulse_mapping_v1`
+
+It is **approved for data admission only**. No event-conditioned MO option outcome or PnL test is authorized yet.
+
+Before any such empirical option test:
+
+1. obtain the CFFEX MO historical quote package defined in `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`;
+2. preserve raw bytes and provenance;
+3. map to the frozen canonical bid/ask schema;
+4. freeze the complete exchange + broker historical fee contract;
+5. pass `research/r1b_mo_data_admission/validate_mo_quote_source.py`;
+6. only then create a separate pre-execution freeze.
+
+The preferred acquisition target is CFFEX **MO Level-2 historical snapshots**. Level-1 is acceptable only if official field documentation or a delivered pre-outcome sample proves timestamped best bid/ask and sizes are present. OHLC/minute bars, last price, or midpoint are not executable substitutes.
+
+The data-role boundary is already frozen:
+
+- through 2026-09-10: reusable instrument-development evidence;
+- from 2026-09-11: prospective instrument-validation evidence, only for observations genuinely generated after the freeze.
+
+`BLACKBOX_query_count=3`. No query #4 is authorized.
+
 ## Cross-bucket boundary
 
 Do not develop a generic `Range / UpTrend / DownTrend` causal state recognizer here; that belongs to `factorlab-two-wave-strategy-lab`.
