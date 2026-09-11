@@ -50,9 +50,12 @@ jobs:
       - name: Run exact-clock transport or record explicit data blocker
         shell: bash
         run: |
-          set -uo pipefail
-          PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py
-          rc=$?
+          set -euo pipefail
+          if PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py; then
+            rc=0
+          else
+            rc=$?
+          fi
           if [[ "$rc" != 0 && "$rc" != 2 ]]; then exit "$rc"; fi
           python - <<'PY'
           import json
