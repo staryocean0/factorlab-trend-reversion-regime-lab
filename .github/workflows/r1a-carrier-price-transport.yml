@@ -1,0 +1,88 @@
+name: r1a-carrier-price-transport
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/r1a-carrier-price-transport-v1]
+    paths:
+      - '.github/workflows/r1a-carrier-price-transport.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: r1a-carrier-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  carrier-admission-and-transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          sparse-checkout: |
+            pyproject.toml
+            src
+            shared
+            research/r1a_carrier_transport
+            tests/test_r1a_carrier_transport.py
+            docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json
+            docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv
+            docs/ops/evidence/r1a_carrier_transport_20260912
+            data/manifest.json
+            data/market/1m
+            data/r1a_carrier_prices
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run synthetic carrier boundary tests
+        run: PYTHONPATH=src:. python -m pytest -q tests/test_r1a_carrier_transport.py
+      - name: Audit accessible source inventories without strategy outcomes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
+        run: PYTHONPATH=src:. python research/r1a_carrier_transport/probe_sources.py --output docs/ops/evidence/r1a_carrier_transport_20260912/source_inventory_receipt.json
+      - name: Run exact-clock transport or record explicit data blocker
+        shell: bash
+        run: |
+          set -uo pipefail
+          PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py
+          rc=$?
+          if [[ "$rc" != 0 && "$rc" != 2 ]]; then exit "$rc"; fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('docs/ops/evidence/r1a_carrier_transport_20260912/transport_receipt.json')
+          x = json.loads(p.read_text())
+          assert x['decision'] in {'BLOCKED_CARRIER_DATA_NOT_ADMITTED', 'PARTIAL_CARRIER_TRANSPORT', 'CARRIER_TRANSPORT_COMPLETE_DESCRIPTIVE'}
+          assert x['BLACKBOX_query_count'] == 3 and x['production_authority'] is False
+          if x['decision'] == 'BLOCKED_CARRIER_DATA_NOT_ADMITTED':
+              assert x['ETF_outcomes_read'] is False
+          print('DATA/RESEARCH STATUS:', x['decision'])
+          print('Workflow success is engineering success, NOT an ETF alpha PASS.')
+          PY
+      - name: Persist public-safe receipts on the research branch
+        if: github.ref == 'refs/heads/research/r1a-carrier-price-transport-v1'
+        env:
+          RESEARCH_BRANCH: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse docs/ops/evidence/r1a_carrier_transport_20260912
+          if ! git diff --cached --quiet; then
+            git commit -m 'research: record R1_A carrier data boundary and verified clock anchors [skip ci]'
+            git push origin "HEAD:$RESEARCH_BRANCH"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r1a-carrier-receipts-${{ github.run_id }}
+          path: docs/ops/evidence/r1a_carrier_transport_20260912
+          if-no-files-found: error
