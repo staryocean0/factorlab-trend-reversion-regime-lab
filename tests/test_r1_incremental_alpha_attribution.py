@@ -1,10 +1,11 @@
+import json
 import math
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 from research.r1_incremental_alpha_attribution.core import (
-    FEATURES,
     match_events,
     paired_outcomes,
     path_attribution,
@@ -95,7 +96,6 @@ def test_incremental_summary_support_flag_uses_all_frozen_conditions():
                     "incremental_return": 0.001,
                 })
     outcomes = pd.DataFrame(rows)
-    # Add empty-compatible rows for other frozen horizons through the summarizer's normal loop.
     meta = {
         "R1_A": {"eligible_events": 60, "matched_events": 60, "coverage": 1.0, "unique_controls": 50, "median_match_distance": 0.2, "p90_match_distance": 0.5},
         "R1_B": {"eligible_events": 1, "matched_events": 0, "coverage": 0.0, "unique_controls": 0, "median_match_distance": None, "p90_match_distance": None},
@@ -104,3 +104,18 @@ def test_incremental_summary_support_flag_uses_all_frozen_conditions():
     assert summary["R1_A"]["30"]["strong_incremental_support"] is True
     assert summary["R1_A"]["30"]["positive_annual_incremental_mean_years"] == 5
     assert summary["R1_B"]["30"]["strong_incremental_support"] is False
+
+
+def test_decisive_receipt_preserves_incremental_adjudication():
+    repo = Path(__file__).resolve().parents[1]
+    path = repo / "docs/ops/evidence/r1_incremental_alpha_20260911/attribution_receipt.json"
+    receipt = json.loads(path.read_text(encoding="utf-8"))
+    assert receipt["decision"] == "R1_INCREMENTAL_ATTRIBUTION_COMPLETE_NO_HORIZON_SELECTED"
+    csi = receipt["incremental_summary"]["000852.SH"]
+    star = receipt["incremental_summary"]["000688.SH"]
+    assert csi["R1_A"]["15"]["strong_incremental_support"] is True
+    assert csi["R1_A"]["30"]["strong_incremental_support"] is True
+    assert all(csi["R1_B"][str(h)]["strong_incremental_support"] is False for h in (1, 5, 15, 30, 60, 120, 240))
+    assert all(star["R1_B"][str(h)]["strong_incremental_support"] is False for h in (1, 5, 15, 30, 60, 120, 240))
+    assert receipt["common_strong_incremental_horizons"] == {"R1_A": [], "R1_B": []}
+    assert receipt["horizon_selected"] is False
