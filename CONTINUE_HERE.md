@@ -2,152 +2,164 @@
 
 ## Current authority
 
-This repository owns reversal / mean-reversion strategy research.
-
-Certified mechanism identities remain:
+Certified mechanisms remain:
 
 - **R1** — `rmr_cross_scale_pullback_parent_integrity_v2`;
 - **R2** — `rmr_range_boundary_parent_integrity_v2`.
 
-Reusable BLACKBOX query count remains exactly **3**: R1 PASS, R5-C FAIL, R2 PASS. No query #4 is authorized.
+Reusable `BLACKBOX_query_count=3` exactly: R1 PASS, R5-C FAIL, R2 PASS. No query #4 is authorized.
 
 `production_authority=false`.
 
-## Price-layer validation is now complete
+## Price-layer result
 
-The missing layer between mechanism certification and instrument implementation has been filled by the frozen study:
+The frozen pure cash-index study established:
 
-`INDEX_PRICE_VALIDITY_FREEZE@1.0`
+`R1_PRICE_EDGE_SUPPORTED_R2_DIRECT_DIRECTIONAL_PRICE_EDGE_NOT_SUPPORTED`
 
-Decision:
-
-`PRICE_LAYER_VALIDITY_COMPLETED_NO_HORIZON_SELECTED`
-
-The study uses only cash-index 1-minute close prices, next-observed-1m-close entry after causal confirmation, synthetic LONG/SHORT signed gross returns, zero primary transaction cost, and the predeclared horizons `1/5/15/30/60/120/240` observed bars. Every horizon is reported; no best horizon was selected.
-
-Read:
+See:
 
 - `docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json`
 - `docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md`
 - `docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json`
-- `docs/ops/evidence/index_price_validity_20260911/price_response_ledger.csv`
 
-### R1 — price-direction information supported
+That result did **not** select a holding horizon and did not test ETF/futures/options execution.
 
-On CSI1000 `000852.SH` reusable VALIDATION 2021–2025:
+## Latest decisive study — matched-parent incremental attribution
 
-- **R1_A** has robust positive signed price response from 1 through 120 bars under the frozen horizon-local consistency flags; 240 bars is not robust.
-- **R1_B** has a delayed positive response. The strongest descriptive points in the predeclared term structure are:
-  - 120 bars: mean `+11.03bp`, median `+4.49bp`, positive annual mean in `4/5` years, LONG `+11.55bp`, SHORT `+10.53bp`;
-  - 240 bars: mean `+23.43bp`, median `+9.97bp`, positive annual mean in `4/5` years, LONG `+33.27bp`, SHORT `+13.77bp`.
+The next frozen study asked whether R1 events add future return beyond an otherwise similar intact parent trend.
 
-On STAR50 `000688.SH` 2021–2025 cross-index transport using the same frozen thresholds:
+Freeze:
 
-- **R1_A** transports most clearly at 1, 5 and 30 bars;
-- **R1_B** transports at the delayed 120/240-bar part of the term structure:
-  - 120 bars: mean `+5.60bp`, median `+1.38bp`, positive annual mean in `4/5` years, LONG `+11.50bp`, SHORT `+0.70bp`;
-  - 240 bars: mean `+18.19bp`, median `+1.69bp`, positive annual mean in `4/5` years, LONG `+25.55bp`, SHORT `+12.10bp`.
+`docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json`
 
-This establishes a **price-layer directional edge** for R1. It does not establish an executable ETF/futures/options strategy and does not authorize selecting 120 or 240 bars as a trading horizon after seeing this table.
+Matching was frozen before paired outcomes:
 
-### R2 — direct directional price translation not supported
+- same symbol / R1 cell / year / parent direction / 30-minute clock bucket;
+- nearest neighbor on causal parent drift, parent efficiency, parent age and 30m/240m local-vol ratio;
+- no return or outcome information in matching;
+- no post-result matching relaxation;
+- all `1/5/15/30/60/120/240` horizons reported;
+- no horizon winner selected.
 
-For CSI1000, R2_A and R2_B pooled signed means are negative across all seven frozen horizons and become more adverse at longer horizons.
+Execution run: GitHub Actions `34618319618` — **SUCCESS** after frozen tests passed.
 
-STAR50 transport does not repair the result: R2_A remains negative across all horizons; R2_B has a few isolated positive pooled means but fails the frozen consistency conditions and is not robust.
+Read:
 
-Therefore the current evidence supports:
+- `docs/research/R1_INCREMENTAL_ALPHA_ATTRIBUTION_20260911.md`
+- `docs/ops/evidence/r1_incremental_alpha_20260911/attribution_receipt.json`
+- `docs/research/R1_INCREMENTAL_ALPHA_PROGRAM_DECISION_20260911.md`
 
-`R1_PRICE_EDGE_SUPPORTED_R2_DIRECT_DIRECTIONAL_PRICE_EDGE_NOT_SUPPORTED`
+### R1_A — lead incremental-alpha lane
 
-Do not route R2 into ETF/options merely because its restoration-probability mechanism is certified. The probability mechanism and direct directional-price payoff are different objects.
+CSI1000 `000852.SH`, 2021–2025:
 
-## What the earlier option results mean now
+- matching coverage: **1296/1296 = 100%**;
+- 15 bars: event `+4.80bp`, matched parent control `+0.95bp`, incremental `+3.85bp`, bootstrap 95% CI `[+0.80,+6.88]bp`, positive annual incremental mean `4/5`, LONG `+3.96bp`, SHORT `+3.73bp`;
+- 30 bars: event `+6.80bp`, control `+0.72bp`, incremental `+6.07bp`, bootstrap 95% CI `[+1.38,+10.66]bp`, positive annual incremental mean `5/5`, LONG `+5.47bp`, SHORT `+6.65bp`.
 
-The following option identities remain closed and their failures remain valid **instrument/payoff-mapping failures**:
+These are the only CSI1000 R1_A horizons satisfying every preregistered strong-incremental condition.
 
-- `rmr_R1B_MO_convex_impulse_mapping_v1` / single long ATM MO;
-- `rmr_R1B_MO_ratio_backspread_v1` / 1x2 adjacent-OTM ratio backspread.
+**Do not select 15 or 30 bars as a trading holding period.** They are locations where the fixed horizon surface shows pullback-specific information.
 
-They must not be interpreted as evidence that R1 lacks cash-index directional information. The price-layer study now shows the opposite for R1, especially delayed R1_B.
+STAR50 `000688.SH` has positive R1_A incremental means at short horizons, but confidence intervals and annual/side stability do not satisfy the full strong rule. Treat it as supportive transport only.
 
-Do not rescue the closed option identities by changing strike, DTE, ratio, width, exit, horizon, fee, year, side or filters.
+Current classification:
+
+`R1_A_CSI1000_PULLBACK_SPECIFIC_INCREMENTAL_ALPHA_SUPPORTED_TRANSPORT_NOT_YET_STRONG`
+
+### R1_B — reinterpretation
+
+R1_B's large delayed raw index returns do **not** survive matched-parent attribution.
+
+CSI1000:
+
+- 30 bars: event `+6.17bp`, control `+7.63bp`, incremental `-1.45bp`;
+- 120 bars: event `+11.03bp`, control `+17.91bp`, incremental `-6.87bp`;
+- 240 bars: event `+23.43bp`, control `+34.63bp`, incremental `-11.20bp`.
+
+STAR50 also has no strong R1_B incremental horizon.
+
+Current classification:
+
+`R1_B_RAW_DIRECTIONAL_EDGE_REINTERPRETED_AS_PARENT_TREND_CONTINUATION_NOT_DISTINCT_PULLBACK_ALPHA`
+
+The certified R1_B restoration-probability mechanism remains valid. The conclusion is narrower: R1_B confirmation is not supported as an incremental directional entry advantage over comparable intact parent-trend exposure.
+
+Therefore do not reopen R1_B option, horizon, probability or timing rescue using its raw 120/240-bar returns.
+
+## Current frontier
+
+The lead empirical lane is now **R1_A carrier transport**, not R1_B and not R2.
+
+Correct hierarchy:
+
+`certified R1 mechanism -> R1_A pullback-specific CSI1000 incremental alpha -> carrier price transport -> executable implementation`
+
+The next empirical study should replay the unchanged R1_A causal event timestamps/directions on corresponding ETF or other index-tracking carrier prices.
+
+Carrier transport rules:
+
+- do not refit the R1 signal;
+- do not choose 15/30 bars as a winner from the index result;
+- report the same full frozen horizon surface;
+- synthetic SHORT is allowed for price-transport research and must be labelled non-executable where borrow/shorting is unavailable;
+- execution costs, T+1, borrow, futures basis and inventory come only **after** price transport.
+
+No admitted ETF minute-price package is currently in this repository, so ETF transport has not yet been executed.
 
 ## Closed — do not restart or retune
 
 Still closed under their own definitions:
 
-- R1 immediate structural economic-translation v1/v2/v3 family;
+- R1 immediate structural economic translation v1/v2/v3;
 - R2 `rmr_R2_range_reentry_economic_translation_v1`;
-- unified parent-normal-state router;
-- R1_B `rmr_R1B_temporal_impulse_completion_v1`;
-- both R1_B MO option payoff identities above;
-- probability-threshold / probability-sizing rescue;
-- broad automatic R8/R9 generation;
-- R3/R4 and other closed Stage-1 lanes;
-- R5-B1 and R5-C closed identities.
+- unified router;
+- `rmr_R1B_temporal_impulse_completion_v1`;
+- R1_B single-long ATM MO identity;
+- R1_B 1x2 adjacent-OTM MO backspread;
+- probability-threshold / sizing rescue;
+- R3/R4, R5-B1, R5-C and broad automatic R8/R9 lanes.
 
-The new price-layer result does not reopen those definitions. It answers a different, more basic question.
+The matched-parent result does not reopen those identities.
 
-## Current frontier
+## Data
 
-The current research frontier is **R1 instrument transport after price-edge validation**, not another option structure.
-
-The correct hierarchy is now:
-
-`certified R1 mechanism -> supported cash-index directional edge -> ETF/index-carrier transport -> executable implementation`
-
-The repository currently contains verified 1m cash-index data for:
+Verified cash-index 1m data:
 
 - `000852.SH`: 2015-01-05 .. 2025-12-31;
 - `000688.SH`: 2020-07-23 .. 2025-12-31.
 
-No ETF minute-price package is currently admitted in this repository. Therefore **ETF price transport has not yet been tested**.
+Loaded through `src/regime_lab/market_data.py` with manifest/hash checks.
 
-A later ETF study should first admit a clearly identified CSI1000 ETF and STAR50 ETF price series, then replay the same causal event timestamps / directions and the same full predeclared horizon table without selecting a winner from the index results. ETF short returns may be synthetic for signal-transport research and must be labeled non-executable where shorting/borrow is unavailable.
-
-Until such ETF data are admitted, the index-level conclusion above is the active empirical result.
-
-## Data state
-
-Verified cash-index market data are under `data/market/` and loaded through `src/regime_lab/market_data.py`, with manifest/hash checks.
-
-The separate `data/r1b_research/` cloud package remains valid for reproducing the already-closed MO studies. The admitted MO quote route and fee contract remain archived research infrastructure, not the current frontier.
+The separate `data/r1b_research/` MO package remains valid only for reproduction of already-closed option work.
 
 ## Governance boundary
 
 Not authorized:
 
-- selecting a preferred 1/5/15/30/60/120/240 horizon from the price-validity table and declaring it a strategy;
+- selecting 15 or 30 bars and declaring an execution rule;
 - post-result stop/target/time-of-day/regime/probability tuning;
-- reopening R2 directional execution against the adverse term structure;
-- opening another R1_B option v3/v4 from the observed option surface;
+- treating R1_B raw delayed return as distinct alpha after matched-parent failure;
+- reopening R2 directional execution;
+- another R1_B option v3/v4;
 - BLACKBOX query #4;
 - production promotion.
 
 Authorized next work:
 
-- preserve/reproduce the frozen index price-validity result;
-- obtain and admit ETF minute-price data for an R1 transport study;
-- freeze any ETF transport/execution contract before reading its corresponding outcomes.
-
-## Bucket boundary
-
-Generic Range / UpTrend / DownTrend state recognition belongs to `factorlab-two-wave-strategy-lab`.
-Unsafe / Recovering / HighVol risk-state switching belongs to `factorlab-star50-filter-lab`.
-
-Legacy, mis-scoped and closed evidence remains under `docs/archive/` and Git history.
+- preserve/reproduce matched-parent attribution;
+- locate/admit ETF or carrier minute-price data;
+- freeze carrier transport before reading carrier outcomes.
 
 ## Read first
 
 1. `CONTINUE_HERE.md`
-2. `docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md`
-3. `docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json`
-4. `docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json`
-5. `docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md`
-6. `docs/research/R1B_MO_RATIO_BACKSPREAD_OUTCOME_STUDY_20260911.md`
-7. `docs/RESEARCH_GOVERNANCE.md`
-8. `docs/DATA.md`
+2. `docs/research/R1_INCREMENTAL_ALPHA_PROGRAM_DECISION_20260911.md`
+3. `docs/research/R1_INCREMENTAL_ALPHA_ATTRIBUTION_20260911.md`
+4. `docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json`
+5. `docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md`
+6. `docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md`
 
 `BLACKBOX_query_count=3`.
 `production_authority=false`.
