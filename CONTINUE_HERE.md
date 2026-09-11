@@ -1,93 +1,84 @@
 # Continue here — reversal / mean-reversion research
 
-## Current state: actual ETF data delivered and independently replayed in cloud
+## Latest completed work
 
-Data/computation acceptance:
+**`ENDPOINT_DIAGNOSTIC_COMPLETE_DESCRIPTIVE`**
 
-`PUBLIC_CSV_DELIVERY_VERIFIED_SECONDARY_RAW_REPLAY_REPRODUCED`
+Both fixed ETFs now have all seven horizon-specific observed-endpoint price diagnostics measured in the cloud. This is not a full-path admission PASS, significance certificate or live strategy.
 
-Research state remains **`PARTIAL_CARRIER_TRANSPORT`**. Data-delivery acceptance is not an alpha PASS.
+The earlier full-path protocol remains **`PARTIAL_CARRIER_TRANSPORT` under its own unchanged definition**. Do not use that historical label to imply the new endpoint diagnostic is still waiting for local data or that 512100 has never had any ETF returns measured.
 
-User delivery: `9abe7046e50b5eeb6299848eccf6039f7af55647`.
-Cloud acceptance run: `34628912555`, job `103360673794` — SUCCESS.
+Read first:
 
-The public pack is `data/r1a_carrier_prices/cloud_pack_v1/`. It contains **12 actual CSVs: 10 annual OHLCV files plus 2 corporate-action tables**, not twelve annual files plus two action files. Total: **583,943 price rows; 39,317,068 CSV bytes**. Each file was read, hash/size/row-checked and reconciled with the original private-export manifest in a fresh GitHub Actions checkout with NO `private/` directory or local DataHub.
-
-There is no outstanding routine local-model data-transfer task for this historical pack. Cloud computations must use the public manifests, not ask the user to resend already delivered files.
-
-## Read first
-
-1. `docs/ops/evidence/r1a_cloud_raw_replay_9abe704/REPORT.md`
-2. `docs/ops/evidence/r1a_cloud_raw_replay_9abe704/acceptance_receipt.json`
-3. `data/r1a_carrier_prices/cloud_pack_v1/README.md`
-4. `docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json`
+1. `docs/research/R1A_ENDPOINT_METHOD_REVIEW_20260912.md`
+2. `docs/ops/evidence/r1a_endpoint_diagnostic_20260912/REPORT.md`
+3. `docs/ops/evidence/r1a_endpoint_diagnostic_20260912/endpoint_receipt.json`
+4. `docs/governance/R1A_ENDPOINT_PRICE_DIAGNOSTIC_FREEZE@1.0.json`
 5. `PROMPT.md`
 
-Historical stages are preserved: pre-delivery blocker in `r1a_carrier_transport_20260912/`; local replay in `r1a_carrier_transport_20260912_local/`; public-ledger-only audit in `r1a_carrier_cloud_audit_20260912/`; local source audit in `r1a_carrier_source_audit_20260912/`. Do not treat their older availability statements as the current data state.
+Decisive Actions run `34630965766`, job `103367406954`: SUCCESS. Separate freeze commit `6687f9fa7000e02b03a0d5a7a4a65d9a63359116` preceded new endpoint outcomes. The prior index/588000 outcomes and old coverage had already been seen and are disclosed in the freeze.
 
-## Secondary carrier: 588000.SH
+## What changed, and what did not
 
-The cloud now regenerates ETF returns from the delivered canonical minute OHLCV, not merely from an already calculated return ledger.
+Terminal paired returns use four prices: event entry/exit and original control entry/exit. Interior nontrading/missing observations do not enter that algebra. Complete-path MFE/MAE or path exits are different estimands and were not computed here.
 
-- Same **1,791/1,802** complete event/control pairs.
-- All seven horizons; **12,537** regenerated return rows.
-- Regenerated coverage CSV and return CSV are byte-identical to the retained local files.
-- **2,128** nested summary values reconciled; maximum numerical difference in the compared ledgers was zero.
+The new diagnostic checks source RECORD coverage >=95% in each year, then positive-volume EXACT endpoint pair coverage >=80% pooled and in every event year, separately for each fixed horizon. Zero-volume rows count only as source records and are NEVER valid return endpoints. This is a separate sampling contract, not the original positive-volume annual gate being relabeled PASS.
 
-This verifies computational reproduction. It is not a second independent statistical sample, new alpha certification or executable-profitability result. The earlier descriptive return table is unchanged.
+All original R1_A pairs, directions, carriers, timestamp alignment and horizons `1/5/15/30/60/120/240` are unchanged. No fills, nearest quotes, year removal, ETF replacement, refitting or control rematching. Corporate-action crossings remain excluded using the unchanged delivered action tables.
 
-## Primary carrier: 512100.SH
+Endpoint eligibility uses future exit availability, so it is a retrospective conditional sample, not a tradable entry filter. Per-horizon samples can differ. Same-sample index comparators and full/eligible/excluded index composition are reported explicitly.
 
-The actual data are present. The original data requirements are not satisfied, so primary returns remain **unopened**.
+## Primary: CSI1000 / 512100.SH
 
-2021 index clock: 58,320 expected minutes; 58,320 present; 0 missing; **3,220 recorded zero-volume**; **55,100 positive-volume**. Positive-volume coverage remains **94.478738% < 95%**. The local audit reports zero deduplication losses for this year; upstream partitions were not re-exported in this cloud acceptance run.
+All seven endpoint gates passed. Pooled coverage is 97.15%-98.07%; worst individual year/horizon coverage is 85.48%. No 2021 deletion.
 
-The cloud also evaluated ONLY availability under the existing complete event-and-control 240-bar path rule, without measuring returns:
+| h | included / 1296 | ETF event bp | ETF control bp | ETF increment bp | same-sample index increment bp |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 1271 | +0.344 | +1.206 | -0.861 | -0.449 |
+| 5 | 1268 | +1.926 | +0.942 | +0.984 | +1.112 |
+| 15 | 1268 | +5.007 | +0.638 | +4.368 | +3.894 |
+| 30 | 1259 | +7.739 | +0.665 | +7.074 | +6.527 |
+| 60 | 1261 | +6.901 | -0.076 | +6.976 | +7.198 |
+| 120 | 1265 | +7.236 | +0.209 | +7.026 | +6.697 |
+| 240 | 1261 | +5.371 | +1.240 | +4.131 | +4.397 |
 
-| Event year | Complete-pair availability |
-|---|---:|
-| 2021 | 4.8387% |
-| 2022 | 39.4822% |
-| 2023 | 76.4045% |
-| 2024 | 89.0374% |
-| 2025 | 98.7952% |
-| Pooled | 846/1,296 = 65.2778% |
+15/30-bar increments are positive in 4/5 and 5/5 years, with positive LONG and synthetic SHORT increments. They are descriptive locations in a fixed surface, NOT selected holding periods. Longer-horizon annual/side stability is weaker; 1-bar increment is negative and 240-bar SHORT increment is negative.
 
-This also fails the unchanged 80% common-pair gate. Therefore the issue is not merely a 0.52-percentage-point shortfall at the annual gate. Do not lower 95%, drop 2021, fill zero-volume records, choose only shorter horizons or substitute another ETF to force this v1 study through.
+Selection caveat: at h30, full-original-pair index increment +6.074bp becomes +6.527bp in the eligible subset; about +0.453bp is an observable composition shift. The ETF adds approximately +0.547bp relative to that same-sample index. Excluded ETF outcomes remain unknown; high coverage does not prove missingness is random.
 
-Separate missingness exists in 2022: 240 absent index-clock minutes plus 336 recorded zero-volume minutes. The annual/monthly coverage ledger distinguishes those categories rather than calling everything missing data.
+The all-seven-endpoint common intersection is 1192/1296 overall but only 60.22% in 2021. Its separate common-sample gate FAILS and its ETF outcomes were NOT opened. Do not claim all primary horizon rows are the same cohort.
 
-## Source interpretation boundary
+## Secondary: STAR50 / 588000.SH
 
-**Recorded volume=0 is not independently verified exchange no-trade.** The delivered local source audit itself leaves exchange-no-print versus vendor-placeholder semantics UNKNOWN. Its label `TRUE_ZERO_VOLUME_ON_INDEX_CLOCK` means the source rows contain zero, not that every exchange print was independently checked.
+All seven endpoint gates passed with 1801-1802/1802 pairs. ETF increments at 15/30 bars are +3.118/+3.963bp versus index +2.128/+2.195bp. Both sides are positive there, but annual increment means are positive only 3/5 years.
 
-Upstream time-label and corporate-action source references/hashes have been delivered in the local source audit. This acceptance independently verifies canonical CSV availability, observed coverage and reproduction; it does not claim to have fetched those upstream source snapshots or re-exported the entire DataHub.
+The common-endpoint sensitivity passes with 1799/1802 pairs; 15/30-bar ETF increments on that common sample are +3.024/+3.813bp. This is related secondary transport, not independent confirmation. No fresh OOS or execution result exists.
 
-Next work belongs in the cloud using the delivered pack: diagnose these observation/measurement semantics without opening the blocked primary return table. Any later alternative estimand/sampling protocol must be separately justified and frozen, preserving the v1 insufficient-coverage result rather than silently editing it.
+## Current research frontier
 
-## Commands — no local DataHub
+The fixed R1_A signal's short-horizon conditional price response and matched-parent increment are visible in ETF prices. The next unresolved layer is **dependence and observation-selection robustness before execution economics**, not another data-transfer cycle or a redesigned signal.
+
+Any further inference must separately freeze treatment of overlapping return windows, reused controls, calendar clustering, historical research reuse and the multiple-horizon surface. Do not casually call the current means statistically established, causally identified, all-event alpha or net profits. Do not select a preferred horizon from these tables.
+
+No new uncertainty test, MFE/MAE, stops/targets, costs, borrow/T+1 mechanics, futures or options were opened in this diagnostic.
+
+## Data and reproduction
+
+`data/r1a_carrier_prices/cloud_pack_v1/` contains the actual public data: 10 annual OHLCV CSVs and 2 action CSVs, 583,943 price rows. No private/ directory or DataHub is needed. Do not request routine local re-delivery.
 
 ```bash
+PYTHONPATH=src:. python research/r1a_carrier_transport/endpoint_diagnostic.py --output /tmp/r1a-endpoint-new
 PYTHONPATH=src:. python -m pytest -q tests/test_r1a_*.py
-PYTHONPATH=src:. python research/r1a_carrier_transport/verify_cloud_replay.py --output /tmp/r1a-cloud-acceptance-new
 ```
 
-The acceptance command requires a fresh output directory and no private directory. It replays the delivered v1 pack and tests agreement with the retained local results.
+Use fresh output directories. Old `transport.py` and `verify_cloud_replay.py` remain unchanged and reproduce the original full-path partial result. New endpoint evidence has its own directory.
 
-Direct frozen runner:
+Canonical source semantics are inherited. Recorded volume=0 versus independently confirmed exchange no-trade remains unresolved; do not invent upstream proof.
 
-```bash
-PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py \
-  --manifest-dir data/r1a_carrier_prices/cloud_pack_v1 \
-  --output /tmp/r1a-public-replay-new
-```
+## Preserved authority and history
 
-Exit code 2 is expected for PARTIAL_CARRIER_TRANSPORT, not an engineering crash or alpha rejection. Use new output directories; never overwrite historical receipts.
+R1/R2 mechanism certification remains. R1_B does not acquire standalone entry alpha from its delayed raw returns. R2 directional execution and all previously closed structural/temporal/MO identities remain closed.
 
-## Unchanged authority
-
-R1/R2 mechanism certifications remain. R1_A is the lead historical incremental-price research lane; R1_B does not acquire distinct entry alpha merely from its delayed raw returns; R2 direct directional translation remains unsupported. Previous structural, temporal and option identities stay closed.
-
-Fixed maps: `000852.SH -> 512100.SH`, `000688.SH -> 588000.SH`. Original pairs/directions and full `1/5/15/30/60/120/240` index-observation-bar surface remain fixed. Synthetic SHORT and zero-cost price changes are not executable shorting or net profits.
+Retain prior index validity, matched attribution, pre-delivery, local replay, public-ledger audit, source audit and cloud-raw replay evidence. The old full-path insufficiency is not rewritten.
 
 `BLACKBOX_query_count=3`; no query #4; `production_authority=false`; `fresh_oos=false`.

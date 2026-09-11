@@ -20,6 +20,7 @@ on:
       - 'docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json'
       - 'docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json'
       - 'docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json'
+      - 'docs/governance/R1A_ENDPOINT_PRICE_DIAGNOSTIC_FREEZE@1.0.json'
       - 'docs/ops/evidence/r1b_mo_outcome_20260911/**'
       - 'docs/ops/evidence/r1_incremental_alpha_20260911/**'
       - 'docs/ops/evidence/r1a_carrier_transport_20260912/**'
@@ -27,6 +28,7 @@ on:
       - 'docs/ops/evidence/r1a_carrier_cloud_audit_20260912/**'
       - 'docs/ops/evidence/r1a_carrier_source_audit_20260912/**'
       - 'docs/ops/evidence/r1a_cloud_raw_replay_9abe704/**'
+      - 'docs/ops/evidence/r1a_endpoint_diagnostic_20260912/**'
       - 'data/r1a_carrier_prices/**'
       - 'data/manifest.json'
       - 'data/market/1m/**'
@@ -57,6 +59,7 @@ jobs:
             docs/ops/evidence/r1a_carrier_transport_20260912_local
             docs/ops/evidence/r1a_carrier_cloud_audit_20260912
             docs/ops/evidence/r1a_carrier_source_audit_20260912
+            docs/ops/evidence/r1a_endpoint_diagnostic_20260912
             data/manifest.json
             data/market/1m
             data/r1a_carrier_prices
@@ -69,5 +72,26 @@ jobs:
         run: python -m pip install -e .
       - name: Run MO, price-attribution and actual-carrier regression tests
         run: PYTHONPATH=src:. python -m pytest -q tests/test_r1b_mo_*.py tests/test_index_price_validity.py tests/test_r1_incremental_alpha_attribution.py tests/test_r1a_*.py
-      - name: Reproduce admitted ETF from public CSV bytes
+      - name: Reproduce original full-path ETF result from public CSV bytes
         run: PYTHONPATH=src:. python research/r1a_carrier_transport/verify_cloud_replay.py --output "$RUNNER_TEMP/r1a-public-csv-replay"
+      - name: Reproduce separate endpoint diagnostic and reconcile frozen outputs
+        env:
+          PYTHONPATH: src:.
+        run: |
+          python research/r1a_carrier_transport/endpoint_diagnostic.py --output "$RUNNER_TEMP/r1a-endpoint-replay"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from research.r1a_carrier_transport.endpoint_diagnostic import sha
+          from research.r1a_carrier_transport.audit_public_delivery import compare_json
+          old = Path('docs/ops/evidence/r1a_endpoint_diagnostic_20260912')
+          new = Path(os.environ['RUNNER_TEMP'])/'r1a-endpoint-replay'
+          a = json.loads((old/'endpoint_receipt.json').read_text())
+          b = json.loads((new/'endpoint_receipt.json').read_text())
+          assert a['decision'] == b['decision']
+          assert a['freeze_sha256'] == b['freeze_sha256']
+          compare_json(b['carriers'], a['carriers'])
+          for spec in a['evidence_files']:
+              assert sha(new/spec['path']) == spec['sha256'], spec['path']
+          print('Endpoint evidence reproduced; this is not new empirical certification.')
+          PY
