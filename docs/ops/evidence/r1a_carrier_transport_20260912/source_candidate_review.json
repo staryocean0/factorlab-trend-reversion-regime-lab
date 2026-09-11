@@ -1,0 +1,22 @@
+{
+  "schema_id": "factorlab_carrier_source_candidate_review@1.0",
+  "review_date": "2026-09-12",
+  "trigger": "Initial cloud source inventory found ETF-named data paths in factorlab-overnight-open-lab.",
+  "repository": "staryocean0/factorlab-overnight-open-lab",
+  "manifest_path": "data/offshore_etf_dev_2015_2025/manifest.json",
+  "manifest_git_blob_sha1": "bbe081b9939cadc9be73d3bb9fd4f58270272077",
+  "data_path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+  "declared_symbols": ["ASHS", "ASHR", "FXI", "MCHI", "SPY"],
+  "declared_frequency": "daily",
+  "declared_provider": "Yahoo Finance chart v8",
+  "declared_rows": 13830,
+  "declared_bytes": 186252,
+  "declared_sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+  "decision": "INELIGIBLE_WRONG_SYMBOLS_AND_FREQUENCY",
+  "reason": "This is not 512100.SH/588000.SH 1-minute data. Daily overseas ETF prices cannot replace the exact domestic index-clock carrier transport.",
+  "raw_price_bytes_read": false,
+  "ETF_strategy_outcomes_read": false,
+  "general_data_absence_proven": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false
+}
