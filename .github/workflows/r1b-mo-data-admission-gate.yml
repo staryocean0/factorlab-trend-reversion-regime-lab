@@ -11,6 +11,8 @@ on:
       - 'research/r1b_mo_backspread/**'
       - 'tests/test_r1b_mo_*.py'
       - 'docs/governance/R1B_MO_*.json'
+      - 'docs/ops/evidence/r1b_mo_outcome_20260911/**'
+      - 'data/r1b_research/**'
       - 'pyproject.toml'
       - '.github/workflows/r1b-mo-data-admission-gate.yml'
 
@@ -30,6 +32,8 @@ jobs:
             research
             tests
             docs/governance
+            docs/ops/evidence/r1b_mo_outcome_20260911
+            data/r1b_research
           sparse-checkout-cone-mode: false
       - uses: actions/setup-python@v5
         with:
