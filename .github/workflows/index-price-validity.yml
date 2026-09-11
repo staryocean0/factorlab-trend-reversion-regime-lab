@@ -1,0 +1,52 @@
+name: index-price-validity
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/index-price-validity-v1]
+    paths:
+      - '.github/workflows/index-price-validity.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  frozen-price-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/index-price-validity-v1
+          sparse-checkout: |
+            pyproject.toml
+            src
+            shared
+            research/index_price_validity
+            tests/test_index_price_validity.py
+            docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json
+            docs/research
+            docs/ops/evidence
+            data/manifest.json
+            data/market/1m
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run frozen price-layer tests
+        run: PYTHONPATH=src:. python -m pytest -q tests/test_index_price_validity.py
+      - name: Execute frozen two-index price study
+        run: PYTHONPATH=src:. python research/index_price_validity/run_study.py
+      - name: Commit decisive price-layer evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json \
+            docs/ops/evidence/index_price_validity_20260911/price_response_ledger.csv \
+            docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md
+          git commit -m 'research: record frozen two-index price-validity study [skip ci]'
+          git push origin HEAD:research/index-price-validity-v1
