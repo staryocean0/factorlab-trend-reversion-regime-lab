@@ -1,0 +1,210 @@
+{
+  "schema_id": "factorlab_r1a_public_delivery_audit@1.0",
+  "decision": "PUBLIC_LEDGER_AUDIT_PASS_RAW_ETF_REPLAY_NOT_PERFORMED",
+  "delivery_commit": "b656b4b8cda266800b33a374d5a5c98360c51837",
+  "audit_code_commit": "e96bcbc740782f5b0539cf58088c50bf920b7905",
+  "local_receipt_sha256": "c59263e38c310909d240ab9a3930dd1dd8d01350fd3edd2f08dbca9869c97730",
+  "verified_public_files": [
+    {
+      "path": "docs/ops/evidence/r1a_carrier_transport_20260912_local/588000.SH_coverage.csv",
+      "sha256": "3c37332c9f48ca27f33883c92f74ddd5cecd5d21b1dc5a14e94753e90a939de5",
+      "bytes": 128248
+    },
+    {
+      "path": "docs/ops/evidence/r1a_carrier_transport_20260912_local/588000.SH_transport.csv",
+      "sha256": "d69183eb3e7bc5ffcdccb55158a666e17ce2e84ed9c01fed7b478f3427d5ab75",
+      "bytes": 3447986
+    },
+    {
+      "path": "docs/ops/evidence/r1a_carrier_transport_20260912/frozen_index_clock_anchors.csv",
+      "sha256": "2b82ccf2a0a1b58d3b43f1354217033fcaf55d01f81f099862f7a7206d4ac8b0",
+      "bytes": 4657643
+    }
+  ],
+  "ledger_checks": {
+    "frozen_pairs": 1802,
+    "complete_pairs": 1791,
+    "ledger_rows": 12537,
+    "all_horizons_preserved": true,
+    "maximum_algebra_errors": {
+      "etf_incremental": 0.0,
+      "index_incremental_same_sample": 0.0,
+      "event_tracking_residual": 0.0,
+      "incremental_tracking_residual": 0.0
+    }
+  },
+  "summary_leaves_verified": 2128,
+  "index_recomputed_from_verified_minute_bytes": true,
+  "index_maximum_errors": {
+    "index_event_same_sample": 0.0,
+    "index_control_same_sample": 0.0
+  },
+  "raw_ETF_prices_read": false,
+  "raw_ETF_replay_independently_reproduced": false,
+  "raw_files_missing_in_this_checkout": [
+    "data/r1a_carrier_prices/private/512100_2021.csv",
+    "data/r1a_carrier_prices/private/512100_2022.csv",
+    "data/r1a_carrier_prices/private/512100_2023.csv",
+    "data/r1a_carrier_prices/private/512100_2024.csv",
+    "data/r1a_carrier_prices/private/512100_2025.csv",
+    "data/r1a_carrier_prices/private/512100_actions.csv",
+    "data/r1a_carrier_prices/private/588000_2021.csv",
+    "data/r1a_carrier_prices/private/588000_2022.csv",
+    "data/r1a_carrier_prices/private/588000_2023.csv",
+    "data/r1a_carrier_prices/private/588000_2024.csv",
+    "data/r1a_carrier_prices/private/588000_2025.csv",
+    "data/r1a_carrier_prices/private/588000_actions.csv"
+  ],
+  "manifests": {
+    "512100.SH": {
+      "sha256": "c18e9601f4b7470c00830071d0f753138e1479b4ff01a38894c6ae2ff5e0287f",
+      "declared_price_rows": 291851
+    },
+    "588000.SH": {
+      "sha256": "f451b9490bb8d5c21263cb10133bae4d47b7fd1ae88d4fe291b72b2b46d9f8b5",
+      "declared_price_rows": 292092
+    }
+  },
+  "primary_minute_coverage": {
+    "2021": 0.9447873799725651,
+    "2022": 0.9900826446280991,
+    "2023": 0.9987603305785124,
+    "2024": 0.9991907713498622,
+    "2025": 0.999965706447188
+  },
+  "coverage_gate_unchanged": 0.95,
+  "secondary_common_pair_coverage": {
+    "pooled": 0.9938956714761377,
+    "2021": 0.9880952380952381,
+    "2022": 0.9951100244498777,
+    "2023": 1.0,
+    "2024": 0.9885321100917431,
+    "2025": 1.0
+  },
+  "seven_horizon_summary": [
+    {
+      "horizon": 1,
+      "n": 1791,
+      "ETF_event_bp": 0.06685141552441964,
+      "index_event_bp": 0.3501405882415558,
+      "ETF_increment_bp": 0.5569526846015925,
+      "index_increment_bp": 0.5017380536294108,
+      "event_tracking_residual_bp": -0.28328917271713616,
+      "increment_tracking_residual_bp": 0.05521463097218169,
+      "correlation": 0.8406882006176228,
+      "event_median_bp": 0.0,
+      "event_positive_fraction": 0.3389168062534897,
+      "LONG_increment_bp": 1.4528255591043349,
+      "SHORT_increment_bp": -0.2780356256145557,
+      "positive_increment_years": 4
+    },
+    {
+      "horizon": 5,
+      "n": 1791,
+      "ETF_event_bp": 1.6428633769489072,
+      "index_event_bp": 1.2850967940025753,
+      "ETF_increment_bp": 1.7841072313179491,
+      "index_increment_bp": 1.179209040599249,
+      "event_tracking_residual_bp": 0.35776658294633196,
+      "increment_tracking_residual_bp": 0.6048981907187002,
+      "correlation": 0.9424058678487686,
+      "event_median_bp": 0.0,
+      "event_positive_fraction": 0.4517029592406477,
+      "LONG_increment_bp": 2.8750304143163032,
+      "SHORT_increment_bp": 0.7673244588146295,
+      "positive_increment_years": 4
+    },
+    {
+      "horizon": 15,
+      "n": 1791,
+      "ETF_event_bp": 3.600355756012132,
+      "index_event_bp": 3.0107356333310316,
+      "ETF_increment_bp": 3.0189952329560086,
+      "index_increment_bp": 2.074169050137982,
+      "event_tracking_residual_bp": 0.5896201226811005,
+      "increment_tracking_residual_bp": 0.9448261828180263,
+      "correlation": 0.9581548787267388,
+      "event_median_bp": 0.0,
+      "event_positive_fraction": 0.48408710217755446,
+      "LONG_increment_bp": 4.925987147032041,
+      "SHORT_increment_bp": 1.2416047110987356,
+      "positive_increment_years": 3
+    },
+    {
+      "horizon": 30,
+      "n": 1791,
+      "ETF_event_bp": 5.159976374640312,
+      "index_event_bp": 3.908094066745503,
+      "ETF_increment_bp": 3.7267576801798254,
+      "index_increment_bp": 2.0150819879414477,
+      "event_tracking_residual_bp": 1.2518823078948096,
+      "increment_tracking_residual_bp": 1.7116756922383778,
+      "correlation": 0.9710705365986297,
+      "event_median_bp": 0.0,
+      "event_positive_fraction": 0.4796203238414294,
+      "LONG_increment_bp": 4.676552872323715,
+      "SHORT_increment_bp": 2.8415116758515406,
+      "positive_increment_years": 3
+    },
+    {
+      "horizon": 60,
+      "n": 1791,
+      "ETF_event_bp": 3.758780243645384,
+      "index_event_bp": 2.3230602363746207,
+      "ETF_increment_bp": 1.617870180581897,
+      "index_increment_bp": -0.44226167690123985,
+      "event_tracking_residual_bp": 1.4357200072707634,
+      "increment_tracking_residual_bp": 2.060131857483136,
+      "correlation": 0.983934582618974,
+      "event_median_bp": 0.0,
+      "event_positive_fraction": 0.48743718592964824,
+      "LONG_increment_bp": 10.081693717136702,
+      "SHORT_increment_bp": -6.27074204766336,
+      "positive_increment_years": 3
+    },
+    {
+      "horizon": 120,
+      "n": 1791,
+      "ETF_event_bp": 2.315679947883665,
+      "index_event_bp": 0.7316827235989126,
+      "ETF_increment_bp": 1.604990785694889,
+      "index_increment_bp": -0.2843526332493366,
+      "event_tracking_residual_bp": 1.5839972242847526,
+      "increment_tracking_residual_bp": 1.8893434189442255,
+      "correlation": 0.9863929519588035,
+      "event_median_bp": 0.0,
+      "event_positive_fraction": 0.47292015633724177,
+      "LONG_increment_bp": 23.646819347177658,
+      "SHORT_increment_bp": -18.938849426949243,
+      "positive_increment_years": 2
+    },
+    {
+      "horizon": 240,
+      "n": 1791,
+      "ETF_event_bp": 6.0178210209128356,
+      "index_event_bp": 3.004602054762565,
+      "ETF_increment_bp": 4.763387332277879,
+      "index_increment_bp": 1.2171684695023388,
+      "event_tracking_residual_bp": 3.013218966150273,
+      "increment_tracking_residual_bp": 3.5462188627755387,
+      "correlation": 0.9877149199402055,
+      "event_median_bp": -6.381620931716903,
+      "event_positive_fraction": 0.4723618090452261,
+      "LONG_increment_bp": 44.48446914481231,
+      "SHORT_increment_bp": -32.25820348328819,
+      "positive_increment_years": 2
+    }
+  ],
+  "research_state": "PARTIAL_CARRIER_TRANSPORT",
+  "horizon_selected": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "source_audit_remaining": [
+    "Raw source-to-canonical verification requires private bytes; hashes in a manifest are not the bytes themselves.",
+    "Exporter interprets Z-suffixed strings as Shanghai wall-clock under its source claim; upstream dictionary/provenance is not independently verified by this public-ledger audit.",
+    "Exporter drops duplicate timestamps keeping the last row without a before/after duplicate-count receipt; occurrence or nonoccurrence in this delivery cannot be established here.",
+    "Corporate-action completeness is asserted in local manifests; this audit does not independently establish the complete source ledger."
+  ],
+  "interpretation": "Arithmetic and retained evidence audit only. No new significance, causal, independent-OOS, horizon-selection or execution-profitability claim."
+}
