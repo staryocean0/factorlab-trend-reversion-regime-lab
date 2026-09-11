@@ -1,0 +1,318 @@
+{
+  "schema_id": "factorlab_r1a_cloud_raw_replay_acceptance@1.0",
+  "decision": "PUBLIC_CSV_DELIVERY_VERIFIED_SECONDARY_RAW_REPLAY_REPRODUCED",
+  "delivery_commit": "9abe7046e50b5eeb6299848eccf6039f7af55647",
+  "verification_code_commit": "c276616dc345b75fb840e42cb7b5f19402d5d5a1",
+  "github_run_id": "34628912555",
+  "freeze_sha256": "7c3b08847a873132df36c97b4c8c8e84c251c4b9c56568260ffbbb90ce99142b",
+  "private_directory_present": false,
+  "DataHub_used": false,
+  "actual_csv_files_verified": 12,
+  "annual_price_csv_count": 10,
+  "corporate_action_csv_count": 2,
+  "total_csv_bytes": 39317068,
+  "total_price_rows": 583943,
+  "verified_files": [
+    {
+      "carrier": "512100.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2021.csv",
+      "sha256": "7851849f7383098bc40c1c560c4d85019711c0015eb935ddb72e6cfbe7f32f28",
+      "bytes": 3877710,
+      "rows": 58563
+    },
+    {
+      "carrier": "512100.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2022.csv",
+      "sha256": "553a98c25ac9a314938045f7ff43af5568d2541c96fe74b660a1ea799f715c2b",
+      "bytes": 3890222,
+      "rows": 58081
+    },
+    {
+      "carrier": "512100.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2023.csv",
+      "sha256": "4ac0423567734a62d75f69a87bbde09bd9f83aad60f9b9f11fd11496d61aaca8",
+      "bytes": 3915761,
+      "rows": 58322
+    },
+    {
+      "carrier": "512100.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2024.csv",
+      "sha256": "796aed5c67a4ec9d04ae2c7dddad192bd7fbced963529b71fbd8a66d8206ad31",
+      "bytes": 3920054,
+      "rows": 58322
+    },
+    {
+      "carrier": "512100.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2025.csv",
+      "sha256": "d600155e41f23b63d64d73c035f919f68bcd7ed3b93f48e401f310f312fdea73",
+      "bytes": 3930936,
+      "rows": 58563
+    },
+    {
+      "carrier": "512100.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_actions.csv",
+      "sha256": "3009689c6651da784e1da23b92645def7d272936c4ea407c7c3cbe74c5052825",
+      "bytes": 161,
+      "rows": 1
+    },
+    {
+      "carrier": "588000.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2021.csv",
+      "sha256": "fa443856d1b788a26c4156d7f78eddf64444c63b8592b262315cce39e2a3ffd1",
+      "bytes": 3935527,
+      "rows": 58563
+    },
+    {
+      "carrier": "588000.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2022.csv",
+      "sha256": "e34b32ddfe3a323aa94da6c3d5259335ebe8d8f76935f232a1b4daf3f99bf1af",
+      "bytes": 3935489,
+      "rows": 58322
+    },
+    {
+      "carrier": "588000.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2023.csv",
+      "sha256": "10d6ee31bd30007b2643fad95bcfe7678f55a7772b3633c8c8256f16fdc8c23b",
+      "bytes": 3960464,
+      "rows": 58322
+    },
+    {
+      "carrier": "588000.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2024.csv",
+      "sha256": "08b7b47dd54dd41e52112f547202bffa88bb7103b3c21be2011804a59edf2494",
+      "bytes": 3966452,
+      "rows": 58322
+    },
+    {
+      "carrier": "588000.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2025.csv",
+      "sha256": "08839ca0242ddd57a3b84305abb9670ca1b8055d2bd33ce59768bd84af97b14a",
+      "bytes": 3984249,
+      "rows": 58563
+    },
+    {
+      "carrier": "588000.SH",
+      "path": "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_actions.csv",
+      "sha256": "3e0ea91b3250fe460aa14646596ae6f56518ffecc94c68d131819c398075920a",
+      "bytes": 43,
+      "rows": 0
+    }
+  ],
+  "annual_observation_coverage": {
+    "512100.SH": {
+      "2021": {
+        "expected_minutes": 58320,
+        "present_minutes": 58320,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 3220,
+        "positive_volume_minutes": 55100,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.9447873799725651,
+        "missing_by_date": {}
+      },
+      "2022": {
+        "expected_minutes": 58080,
+        "present_minutes": 57840,
+        "missing_minutes": 240,
+        "recorded_zero_volume_minutes": 336,
+        "positive_volume_minutes": 57504,
+        "invalid_present_minutes": 0,
+        "record_coverage": 0.9958677685950413,
+        "positive_volume_coverage": 0.9900826446280991,
+        "missing_by_date": {
+          "2022-09-02": 240
+        }
+      },
+      "2023": {
+        "expected_minutes": 58080,
+        "present_minutes": 58080,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 72,
+        "positive_volume_minutes": 58008,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.9987603305785124,
+        "missing_by_date": {}
+      },
+      "2024": {
+        "expected_minutes": 58080,
+        "present_minutes": 58080,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 47,
+        "positive_volume_minutes": 58033,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.9991907713498622,
+        "missing_by_date": {}
+      },
+      "2025": {
+        "expected_minutes": 58320,
+        "present_minutes": 58320,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 2,
+        "positive_volume_minutes": 58318,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.999965706447188,
+        "missing_by_date": {}
+      }
+    },
+    "588000.SH": {
+      "2021": {
+        "expected_minutes": 58320,
+        "present_minutes": 58320,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 1,
+        "positive_volume_minutes": 58319,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.9999828532235939,
+        "missing_by_date": {}
+      },
+      "2022": {
+        "expected_minutes": 58080,
+        "present_minutes": 58080,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 2,
+        "positive_volume_minutes": 58078,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.999965564738292,
+        "missing_by_date": {}
+      },
+      "2023": {
+        "expected_minutes": 58080,
+        "present_minutes": 58080,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 0,
+        "positive_volume_minutes": 58080,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 1.0,
+        "missing_by_date": {}
+      },
+      "2024": {
+        "expected_minutes": 58080,
+        "present_minutes": 58080,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 30,
+        "positive_volume_minutes": 58050,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 0.9994834710743802,
+        "missing_by_date": {}
+      },
+      "2025": {
+        "expected_minutes": 58320,
+        "present_minutes": 58320,
+        "missing_minutes": 0,
+        "recorded_zero_volume_minutes": 0,
+        "positive_volume_minutes": 58320,
+        "invalid_present_minutes": 0,
+        "record_coverage": 1.0,
+        "positive_volume_coverage": 1.0,
+        "missing_by_date": {}
+      }
+    }
+  },
+  "primary_frozen_pair_path_availability_ONLY": {
+    "frozen_pairs": 1296,
+    "complete_pairs": 846,
+    "coverage": {
+      "pooled": 0.6527777777777778,
+      "2021": 0.04838709677419355,
+      "2022": 0.3948220064724919,
+      "2023": 0.7640449438202247,
+      "2024": 0.8903743315508021,
+      "2025": 0.9879518072289156
+    },
+    "reasons": {
+      "complete_common_path": 846,
+      "event_missing_or_zero_volume_minute;control_missing_or_zero_volume_minute": 232,
+      "control_missing_or_zero_volume_minute": 121,
+      "event_missing_or_zero_volume_minute": 95,
+      "event_corporate_action_crossing;control_corporate_action_crossing": 1,
+      "event_corporate_action_crossing": 1
+    },
+    "minimum_coverage_pass": false
+  },
+  "primary_outcomes_read": false,
+  "secondary_raw_canonical_ETF_prices_replayed": true,
+  "secondary_complete_pairs": 1791,
+  "reconciliation": {
+    "588000.SH_coverage.csv": {
+      "rows": 1802,
+      "maximum_absolute_errors": {},
+      "byte_identical": true
+    },
+    "588000.SH_transport.csv": {
+      "rows": 12537,
+      "maximum_absolute_errors": {
+        "horizon": 0.0,
+        "etf_event": 0.0,
+        "etf_control": 0.0,
+        "etf_incremental": 0.0,
+        "index_event_same_sample": 0.0,
+        "index_control_same_sample": 0.0,
+        "index_incremental_same_sample": 0.0,
+        "event_tracking_residual": 0.0,
+        "incremental_tracking_residual": 0.0,
+        "etf_close_MFE": 0.0,
+        "etf_close_MAE": 0.0
+      },
+      "byte_identical": true
+    }
+  },
+  "summary_leaves_reconciled": 2128,
+  "research_state": "PARTIAL_CARRIER_TRANSPORT",
+  "upstream_DataHub_raw_to_canonical_reexport_performed": false,
+  "exchange_no_trade_independently_verified": false,
+  "source_limitations": [
+    "Zero-volume means the delivered source records volume=0; exchange no-trade versus vendor placeholder is not independently established.",
+    "Delivered canonical OHLCV is now cloud-readable and replayed; upstream dictionary/corporate-action source snapshots remain referenced by the local audit rather than re-downloaded here."
+  ],
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "horizon_selected": false,
+  "signal_refitted": false,
+  "control_rematched": false,
+  "evidence_files": [
+    {
+      "path": "512100_frozen_path_availability_ONLY.csv",
+      "sha256": "e10e4dd510fc19f3289e1477127d53fedd38b5b75703d52b98d4429f6010307d",
+      "bytes": 109002
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "293d221587fe7bbb4b46a6cde19e1849fc5cf3b50728dfdc6e67dd5f5a430e98",
+      "bytes": 2689
+    },
+    {
+      "path": "monthly_observation_coverage.csv",
+      "sha256": "2cbd65f0b97806b0c06d83bf32cbfb15fa9e74c679326e4db6ec43306406f102",
+      "bytes": 7671
+    },
+    {
+      "path": "replay/588000.SH_coverage.csv",
+      "sha256": "3c37332c9f48ca27f33883c92f74ddd5cecd5d21b1dc5a14e94753e90a939de5",
+      "bytes": 128248
+    },
+    {
+      "path": "replay/588000.SH_transport.csv",
+      "sha256": "d69183eb3e7bc5ffcdccb55158a666e17ce2e84ed9c01fed7b478f3427d5ab75",
+      "bytes": 3447986
+    },
+    {
+      "path": "replay/frozen_index_clock_anchors.csv",
+      "sha256": "2b82ccf2a0a1b58d3b43f1354217033fcaf55d01f81f099862f7a7206d4ac8b0",
+      "bytes": 4657643
+    },
+    {
+      "path": "replay/transport_receipt.json",
+      "sha256": "0020f36ea291cb579041351869cd4babcdc671cb4b43e3db1d04c9a2482a49f2",
+      "bytes": 136688
+    }
+  ]
+}
