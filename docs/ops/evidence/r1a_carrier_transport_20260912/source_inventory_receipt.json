@@ -1,0 +1,111 @@
+{
+  "schema_id": "factorlab_carrier_source_inventory@1.0",
+  "observed_at_utc": "2026-09-11T16:24:43.922263+00:00",
+  "requested_window": {
+    "start": "2021-01-01",
+    "end": "2025-12-31"
+  },
+  "repositories": [
+    {
+      "repository": "factorlab-trend-reversion-regime-lab",
+      "url": "https://api.github.com/repos/staryocean0/factorlab-trend-reversion-regime-lab/git/trees/main?recursive=1",
+      "tree_sha": "6981bd8d6ce33001e2a9c25f7cdfb7bbd5519826",
+      "http_status": 200,
+      "truncated": false,
+      "data_blob_count": 385,
+      "candidate_paths": [],
+      "status": "NO_ETF_NAMED_DATA_BLOBS",
+      "limitation": "Default-branch path inventory only; not a claim about local disks, private repositories, artifacts, every branch or unlabeled binary files.",
+      "response_sha256": "07a1e20011642dabebe30627f31ca0c13e13ac371c44c50dee9c3048f1878517"
+    },
+    {
+      "repository": "factorlab-two-wave-strategy-lab",
+      "url": "https://api.github.com/repos/staryocean0/factorlab-two-wave-strategy-lab/git/trees/main?recursive=1",
+      "tree_sha": "36f68abaadb622ccfee48eb298811a045b161b98",
+      "http_status": 200,
+      "truncated": false,
+      "data_blob_count": 16,
+      "candidate_paths": [],
+      "status": "NO_ETF_NAMED_DATA_BLOBS",
+      "limitation": "Default-branch path inventory only; not a claim about local disks, private repositories, artifacts, every branch or unlabeled binary files.",
+      "response_sha256": "7c84f10f0da75a9ffa2b91e0930a709b4796b09dd4148753acdc4c197e1257bf"
+    },
+    {
+      "repository": "factorlab-star50-filter-lab",
+      "url": "https://api.github.com/repos/staryocean0/factorlab-star50-filter-lab/git/trees/main?recursive=1",
+      "tree_sha": "ef7fedc0345c0e895b278a3f5448f85c132d5b98",
+      "http_status": 200,
+      "truncated": false,
+      "data_blob_count": 94,
+      "candidate_paths": [],
+      "status": "NO_ETF_NAMED_DATA_BLOBS",
+      "limitation": "Default-branch path inventory only; not a claim about local disks, private repositories, artifacts, every branch or unlabeled binary files.",
+      "response_sha256": "587ef82cdce80cd7ba42640dd62ca34902c337672a0033c2d7e748708c03230a"
+    },
+    {
+      "repository": "factorlab-overnight-open-lab",
+      "url": "https://api.github.com/repos/staryocean0/factorlab-overnight-open-lab/git/trees/main?recursive=1",
+      "tree_sha": "266fc0f5c5b643ba5a19016185b0602431b3c4d8",
+      "http_status": 200,
+      "truncated": false,
+      "data_blob_count": 42,
+      "candidate_paths": [
+        {
+          "path": "data/offshore_etf_dev_2015_2025/manifest.json",
+          "bytes": 920,
+          "blob_sha1": "bbe081b9939cadc9be73d3bb9fd4f58270272077"
+        },
+        {
+          "path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+          "bytes": 186252,
+          "blob_sha1": "7176364fff322fe10425cfd2a20cc5605fa3be58"
+        }
+      ],
+      "status": "CANDIDATE_PATHS_REQUIRE_ADMISSION",
+      "limitation": "Default-branch path inventory only; not a claim about local disks, private repositories, artifacts, every branch or unlabeled binary files.",
+      "response_sha256": "6a3903fee244ab07bb61a8eea8b7c9e0fde869f4c0f58a963c9f3f338d4de497"
+    },
+    {
+      "repository": "factorlab-multifactor-stock-lab",
+      "url": "https://api.github.com/repos/staryocean0/factorlab-multifactor-stock-lab/git/trees/main?recursive=1",
+      "tree_sha": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+      "http_status": 200,
+      "truncated": false,
+      "data_blob_count": 137,
+      "candidate_paths": [],
+      "status": "NO_ETF_NAMED_DATA_BLOBS",
+      "limitation": "Default-branch path inventory only; not a claim about local disks, private repositories, artifacts, every branch or unlabeled binary files.",
+      "response_sha256": "a77d1c3518dca0ad77981a429f91ee41c96087d6cc95e69d79ca12b7bcebdb21"
+    }
+  ],
+  "public_probes": [
+    {
+      "source": "Eastmoney_bounded_historical_kline_capability_probe",
+      "carrier": "512100.SH",
+      "url": "https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.512100&klt=1&fqt=0&beg=20210101&end=20251231&lmt=8000&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61",
+      "docs": "https://akshare.akfamily.xyz/data/fund/fund_public.html",
+      "documented_1m_limit": "fund_etf_hist_min_em returns recent five trading days only; a historical date argument is not proof of historical coverage",
+      "status": "PROBE_UNAVAILABLE_NOT_DATA_ABSENCE_PROOF",
+      "error_type": "RemoteDisconnected"
+    },
+    {
+      "source": "Eastmoney_bounded_historical_kline_capability_probe",
+      "carrier": "588000.SH",
+      "url": "https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.588000&klt=1&fqt=0&beg=20210101&end=20251231&lmt=8000&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61",
+      "docs": "https://akshare.akfamily.xyz/data/fund/fund_public.html",
+      "documented_1m_limit": "fund_etf_hist_min_em returns recent five trading days only; a historical date argument is not proof of historical coverage",
+      "status": "PROBE_UNAVAILABLE_NOT_DATA_ABSENCE_PROOF",
+      "error_type": "RemoteDisconnected"
+    }
+  ],
+  "licensed_route": {
+    "source": "Tushare_etf_mins",
+    "docs": "https://tushare.pro/document/2?doc_id=387",
+    "documented_capability": "More than ten years; 1/5/15/30/60min; at most 8000 rows per request; separate permission applies",
+    "status": "NOT_ATTEMPTED_AUTH_NOT_CONFIGURED"
+  },
+  "ETF_strategy_outcomes_read": false,
+  "raw_provider_data_committed": false,
+  "production_authority": false,
+  "BLACKBOX_query_count": 3
+}
