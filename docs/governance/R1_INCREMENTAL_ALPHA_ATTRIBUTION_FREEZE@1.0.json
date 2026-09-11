@@ -1,0 +1,118 @@
+{
+  "schema_id": "factorlab_R1_incremental_alpha_attribution_freeze@1.0",
+  "session_date": "2026-09-11",
+  "research_identity": "rmr_R1_incremental_alpha_attribution_v1",
+  "status": "FROZEN_BEFORE_MATCHED_CONTROL_OUTCOMES",
+  "question": "Does an R1 pullback-confirmation event add future signed cash-index return beyond an otherwise similar intact parent-trend state, and where in the subsequent price path does that incremental return accrue?",
+  "scope": {
+    "families": ["R1_A", "R1_B"],
+    "symbols": ["000852.SH", "000688.SH"],
+    "frequency": "1m",
+    "primary_window": {"start": "2021-01-01", "end": "2025-12-31"},
+    "000852_role": "primary reusable index-price attribution",
+    "000688_role": "cross-index transport attribution",
+    "horizons_observed_bars": [1, 5, 15, 30, 60, 120, 240],
+    "cost_bps": 0.0,
+    "synthetic_short_allowed": true,
+    "production_authority": false,
+    "BLACKBOX_query_count": 3,
+    "BLACKBOX_query_4_authorized": false
+  },
+  "event_definition": {
+    "source": "research/index_price_validity/core.py::generate_events",
+    "entry": "next observed 1m close after causal R1 confirmation",
+    "direction": "frozen higher-scale parent direction",
+    "thresholds": "unchanged certified R1 S1/S2/S3 thresholds already used by INDEX_PRICE_VALIDITY_FREEZE@1.0",
+    "no_refit": true,
+    "no_probability_filter": true
+  },
+  "matched_control_definition": {
+    "purpose": "estimate generic intact-parent directional continuation without the current R1 confirmation event",
+    "control_clock": "any observed 1m entry index in the same 2021-2025 window with a causally available same-scale parent pair at index-1 and at least 240 future observed bars",
+    "parent_scale": {"R1_A": "S2", "R1_B": "S3"},
+    "exact_match": [
+      "symbol",
+      "cell",
+      "calendar_year",
+      "parent_direction",
+      "30_minute_clock_bucket"
+    ],
+    "distance_features": [
+      "parent_abs_drift",
+      "parent_efficiency",
+      "log1p_parent_age_bars",
+      "local_vol_30_over_240"
+    ],
+    "feature_timing": "all control features use information available no later than entry_idx-1",
+    "standardization": "within symbol+cell+calendar_year, median/MAD on the eligible control pool; MAD scaled by 1.4826, fallback to standard deviation, then 1.0 if degenerate",
+    "distance": "Euclidean distance on standardized distance_features",
+    "replacement": true,
+    "tie_break": "smallest control entry_idx",
+    "treatment_exclusion": "a control entry cannot itself equal an R1 event entry for the same cell and cannot occur within the previous 240 observed bars after a same-cell R1 event entry",
+    "future_event_exclusion": false,
+    "relaxation_if_no_exact_stratum_candidate": "none; event remains unmatched",
+    "outcome_information_used_in_matching": false
+  },
+  "primary_attribution_outputs": {
+    "paired_incremental_return": "event signed simple return minus matched-control signed simple return at each frozen horizon",
+    "report": [
+      "matched_event_count",
+      "match_coverage",
+      "unique_control_count",
+      "median_and_p90_match_distance",
+      "event_mean_median_win_rate",
+      "control_mean_median_win_rate",
+      "incremental_mean_median_positive_fraction",
+      "incremental_annual_mean_2021_2025",
+      "incremental_LONG_mean",
+      "incremental_SHORT_mean"
+    ],
+    "uncertainty": {
+      "method": "event-day cluster bootstrap of paired incremental mean",
+      "replicates": 2000,
+      "seed": 20260911,
+      "interval": "2.5% and 97.5% percentiles"
+    },
+    "strong_incremental_support_flag": {
+      "match_coverage_min": 0.80,
+      "pooled_incremental_mean_gt_0": true,
+      "bootstrap_95pct_lower_gt_0": true,
+      "positive_annual_incremental_mean_min_4_of_5": true,
+      "both_LONG_and_SHORT_incremental_mean_gt_0_when_each_side_n_ge_30": true
+    },
+    "note": "The support flag is horizon-local and does not authorize horizon selection. All horizons must be reported."
+  },
+  "price_path_attribution": {
+    "additive_measure": "signed log return in basis points",
+    "segments_observed_bars": [[0,1],[1,5],[5,15],[15,30],[30,60],[60,120],[120,240]],
+    "report_event_control_and_incremental_segment_means": true,
+    "h240_session_decomposition": [
+      "entry_to_entry_day_last_observation",
+      "overnight_entry_day_last_to_next_day_first_observation",
+      "next_day_first_observation_to_h240_exit"
+    ],
+    "h240_extrema_timing": [
+      "bars_to_MFE",
+      "bars_to_MAE",
+      "fraction_MFE_by_30",
+      "fraction_MFE_by_60",
+      "fraction_MFE_by_120"
+    ]
+  },
+  "prohibited": [
+    "selecting a best horizon from this study",
+    "changing matching variables after seeing incremental returns",
+    "changing the 30-minute clock bucket after seeing results",
+    "adding severity, probability, year, regime, side, or time-of-day filters",
+    "cost optimization",
+    "ETF/futures/options mapping in this attribution study",
+    "stop/target search",
+    "BLACKBOX access",
+    "production promotion"
+  ],
+  "interpretation_contract": {
+    "if_R1_incremental_supported": "treat R1 as pullback-specific incremental price alpha beyond generic parent continuation; next work may study carrier transport without reopening signal discovery",
+    "if_raw_R1_positive_but_incremental_not_supported": "reinterpret the prior price edge primarily as parent-trend continuation rather than distinct pullback alpha",
+    "R2": "out of scope; prior direct directional price evidence remains unsupported"
+  }
+}
