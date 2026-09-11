@@ -4,61 +4,58 @@ Read `CONTINUE_HERE.md` and `PROMPT.md` before making changes.
 
 ## Authority
 
-- R1 and R2 are certified mechanism identities. Do not restart broad discovery.
-- Their closed economic translations remain closed.
-- R1_B temporal impulse completion remains closed.
-- R1_B single-long ATM MO remains closed.
-- R1_B 1x2 adjacent-OTM MO ratio backspread remains closed.
-- Current state: `CERTIFIED_R1_R2_MECHANISMS_NO_AUTHORIZED_EMPIRICAL_PAYOFF_CANDIDATE`.
-- Post-backspread decision: `R1B_LISTED_DIRECTIONAL_OPTION_PAYOFF_PROGRAM_CLOSED_NO_NEW_EMPIRICAL_IDENTITY`.
+- R1 and R2 remain certified mechanism identities.
 - `BLACKBOX_query_count=3`; no query #4.
 - `production_authority=false`.
+- The frozen pure cash-index price-validity study is complete.
+- Current empirical state: `R1_PRICE_EDGE_SUPPORTED_R2_DIRECT_DIRECTIONAL_PRICE_EDGE_NOT_SUPPORTED`.
 
-## Latest closed identity
+## Price-layer result
 
-`rmr_R1B_MO_ratio_backspread_v1`
+The current authoritative price study is:
 
-Frozen candidate:
+- freeze: `docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json`;
+- report: `docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md`;
+- receipt: `docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json`.
 
-`R1B_MO_1x2_ADJACENT_OTM_RATIO_BACKSPREAD_SAME_CAUSAL_EXIT`
+It uses synthetic cash-index LONG/SHORT signed gross returns, next-observed-1m-close entry and all frozen horizons `1/5/15/30/60/120/240`. No best horizon was selected.
 
-The study changed the payoff object without changing the certified R1_B event clock: short one deterministic ATM directional MO option and buy two immediately adjacent OTM options, same type/expiry, synchronized executable quotes only.
+Key interpretation:
 
-Result:
+- R1_A has a reproducible short/medium-horizon positive cash-index response.
+- R1_B has a delayed response; 120/240-bar positive price response transports from CSI1000 to STAR50, with both LONG and SHORT mean returns positive in both indices.
+- R2_A/R2_B do not show a robust direct directional cash-index price edge.
 
-- 385 joinable events;
-- 360 completed synchronized packages;
-- 93.51% coverage;
-- pooled mean -376.61 CNY;
-- annual mean negative in 2023, 2024 and 2025;
-- only 2/12 voting quarters positive;
-- decision `FAIL_IDENTITY_CLOSED`.
+This is signal/price validity only. It is not an executable instrument or production result.
 
-Do not rescue it by changing ratio, width, strike distance, DTE, exit, horizon, filters or fees.
+## Closed identities remain closed
 
-## Current research frontier
+Do not use the new index result to reopen old definitions:
 
-There is no open empirical payoff identity.
+- R1 structural economic translations v1/v2/v3;
+- R2 `rmr_R2_range_reentry_economic_translation_v1`;
+- R1_B temporal impulse completion;
+- R1_B single-long ATM MO;
+- R1_B 1x2 adjacent-OTM MO ratio backspread;
+- other archived closed lanes.
 
-Allowed work is results-blind theory work that is genuinely independent of already observed option outcomes. A new empirical lane requires a new economic mechanism/use-case that determines the payoff object before outcome inspection and a new freeze before execution.
+The two option failures remain specific payoff-mapping failures. Do not search strike, DTE, ratio, width, exit, horizon, year, side or filters to rescue them.
 
-Do not turn the failed option surface into a search grid for:
+## Current frontier
 
-- another strike / delta / DTE;
-- another backspread ratio or width;
-- debit/credit verticals selected after the fact;
-- calendars/diagonals without a separately justified volatility-term-structure mechanism;
-- probability filters, year filters, side filters or timing filters.
+The correct research hierarchy is now:
 
-## Data
+`R1 certified mechanism -> cash-index price edge supported -> ETF/index-carrier transport -> executable implementation`
 
-Cloud historical research is self-contained under `data/r1b_research/` for the joinable 2022-07-22..2025-12-31 window.
+The repository has verified 1m data for `000852.SH` and `000688.SH`, but no admitted ETF minute-price package. ETF price transport is therefore not yet tested.
 
-The admitted DataHub MO route and 14 CNY/contract/leg fee contract remain valid research infrastructure. 2026 MO quotes must not be event-joined until a separately admitted 2026 underlying 1m package exists.
+If ETF data are added, freeze the ETF identity/data mapping before reading the corresponding results and replay the causal event directions across the full predeclared horizon set. Do not choose a horizon from the completed index table first.
+
+Do not route R2 into ETF/options as a direct directional strategy under current evidence.
 
 ## Bucket boundary
 
 Generic range/up/down state recognition belongs to `factorlab-two-wave-strategy-lab`.
 Unsafe/Recovering/HighVol risk-state work belongs to `factorlab-star50-filter-lab`.
 
-Closed/mis-scoped evidence belongs under `docs/archive/` or Git history, not as a reason to restart an old lane.
+Preserve closed/mis-scoped evidence under `docs/archive/` or Git history.
