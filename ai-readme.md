@@ -1,6 +1,12 @@
 # AI entry
 
-Start at [PROMPT.md](PROMPT.md), then [RESEARCH_FRAMEWORK.md](RESEARCH_FRAMEWORK.md).
-This is an independent seed, not a migrated old strategy. Full PDFs are delivered
-separately by the owner and are forbidden in this public repository. Data and
-infrastructure hashes are checked by `scripts/validate_seed.py`.
+Read in this order:
+
+1. `CONTINUE_HERE.md`
+2. `PROMPT.md`
+3. `AGENTS.md`
+
+The active frontier is R1_B -> CSI1000 `MO` instrument-data admission. Do not restart the legacy seed framework or closed R5-B1 work; those are archived evidence.
+
+`BLACKBOX_query_count=3`.
+`production_authority=false`.

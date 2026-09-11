@@ -1,30 +1,52 @@
 # FactorLab Trend–Reversion Regime Lab
 
-## Current bucket authority: reversal / mean-reversion strategies
+This repository is the current FactorLab bucket for **reversal / mean-reversion strategy research**.
 
-This repository is the **real reversal / mean-reversion strategy bucket** for the current FactorLab split.
+## Current authority
 
-Current canonical strategy family:
+Certified mechanism identities:
 
 - **R1** — intact parent trend + lower-scale counter-move recovery;
-- **R2** — intact parent range + boundary overshoot / failed acceptance / re-entry;
-- preserved earlier MR/REV work (`MR0`, `MR1`, `REV0`, robust re-entry, first-passage, clock/stability/execution studies) remains research lineage for these strategy questions.
+- **R2** — intact parent range + boundary overshoot / failed acceptance / re-entry.
 
-Start with:
+The current active frontier is:
+
+`rmr_R1B_MO_convex_impulse_mapping_v1`
+
+Status:
+
+`R1B_MO_CONVEX_PAYOFF_THEORY_ACCEPTED_DATA_ADMISSION_REQUIRED`
+
+The long-directional CSI1000 option (`MO`) payoff theory is approved **for data admission only**. No event-conditioned MO option PnL or parameter search is authorized yet.
+
+Start here:
 
 1. [`CONTINUE_HERE.md`](CONTINUE_HERE.md)
-2. [`docs/research/R1_R2_MIGRATION_NOTE_20260909.md`](docs/research/R1_R2_MIGRATION_NOTE_20260909.md)
-3. preserved package under `docs/archive/rmr_migrated_from_star50_20260909/`
-4. runnable legacy entries under `scripts/rmr_parent_state_legacy/`
+2. [`PROMPT.md`](PROMPT.md) — local execution-agent handoff
+3. [`docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`](docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md)
+4. [`docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`](docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md)
+5. [`docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`](docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json)
+6. GitHub issue **#7**
+
+## Current engineering gate
+
+The public CIIS sample recovery path is exhausted, but the official CIIS/CFFEX Level-2 delivery route remains active. The 2022-07-22..2026-09-10 acquisition window crosses a documented 2024-07-08 delivery-format transition, so legacy and post-transition files are mapped and validated as separate physical epochs before canonical concatenation.
+
+Active code is under:
+
+`research/r1b_mo_data_admission/`
+
+CI run `34450248565` passed the admission/adapter test suite after the multi-epoch adapter was added.
 
 ## Explicit bucket boundary
 
 This repository is **not** the current home for:
 
-- generic causal classification of K-line state into range / uptrend / downtrend — that belongs to `factorlab-two-wave-strategy-lab`;
-- STAR50 / CSI1000 bottom-layer volatility, Unsafe/Recovering, HighVol or risk-state switching research — that belongs to `factorlab-star50-filter-lab`;
-- the mis-scoped `kline-recognizer` v1-v13 lineage that was developed on research branches here. That lineage is preserved as historical Git evidence and its authority/result package is migrated to the Two-Wave bucket as supporting state-classification research. It does **not** define this repository's current authority.
+- generic Range / UpTrend / DownTrend causal classification — see `factorlab-two-wave-strategy-lab`;
+- Unsafe / Recovering / HighVol bottom-layer risk-state research — see `factorlab-star50-filter-lab`.
 
-The original broad trend-vs-reversion seed framework remains in `RESEARCH_FRAMEWORK.md` as historical background; it no longer overrides the bucket split above.
+Mis-scoped or closed work is preserved under `docs/archive/` and Git history, not kept on the active research surface.
 
-`production_authority=false`. No live trading or production authority is granted by this repository.
+`BLACKBOX_query_count=3`.
+
+`production_authority=false`.
