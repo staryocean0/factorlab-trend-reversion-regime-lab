@@ -9,6 +9,7 @@ dist/
 *.xlsx
 data/r1b_mo_acquisition/raw/
 data/r1b_mo_admission/datahub/
+data/r1a_carrier_prices/private/
 docs/ops/evidence/**/datahub_export_*/
 docs/ops/evidence/**/datahub_canonical_*.csv
 docs/ops/evidence/**/*.parquet
