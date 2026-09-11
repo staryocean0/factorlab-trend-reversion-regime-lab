@@ -18,6 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            pyproject.toml
+            src
+            shared
+            research
+            tests/test_r1b_mo_backspread.py
+            docs/governance/R1B_MO_BACKSPREAD_PRE_EXECUTION_FREEZE@1.0.json
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
