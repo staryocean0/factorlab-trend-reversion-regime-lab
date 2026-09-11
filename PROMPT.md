@@ -1,91 +1,71 @@
 # 本地执行模型接管提示
 
-你接管的是 `staryocean0/factorlab-trend-reversion-regime-lab`。不要重新设计、重跑或调参救援已经关闭的研究身份。先读 `CONTINUE_HERE.md`。
+你接管 `staryocean0/factorlab-trend-reversion-regime-lab`。先读 `CONTINUE_HERE.md`，不要重新打开已经关闭的研究身份。
 
 ## 当前 authority
 
-- R1 / R2 是 certified mechanism；机制认证仍有效。
-- `BLACKBOX_query_count=3`；禁止 query #4。
+- R1 / R2 仍是 certified mechanisms；
+- `BLACKBOX_query_count=3`，禁止 query #4；
 - `production_authority=false`。
-- 纯指数价格层验证已经完成，当前状态：
 
-`R1_PRICE_EDGE_SUPPORTED_R2_DIRECT_DIRECTIONAL_PRICE_EDGE_NOT_SUPPORTED`
+已经完成两层价格研究：
 
-## 已完成的价格层验证
+1. 纯 cash-index price validity；
+2. R1 matched-parent incremental-alpha attribution。
 
-冻结合同：`docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json`
+最新正式解释：
 
-结果：`docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md`
+`R1_A_CSI1000_PULLBACK_SPECIFIC_INCREMENTAL_ALPHA_SUPPORTED_TRANSPORT_NOT_YET_STRONG`
 
-Receipt：`docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json`
+`R1_B_RAW_DIRECTIONAL_EDGE_REINTERPRETED_AS_PARENT_TREND_CONTINUATION_NOT_DISTINCT_PULLBACK_ALPHA`
 
-研究只问一个问题：信号确认以后，现金指数价格是否沿信号方向移动。
+## 关键结果
 
-固定定义：
+R1_A / CSI1000：
 
-- entry = causal event confirmation 后下一条 1m close；
-- LONG/SHORT 都用 synthetic signed cash-index return；
-- primary cost = 0；
-- horizons = `1/5/15/30/60/120/240` observed bars；
-- 所有 horizon 全报，禁止挑赢家；
-- LONG/SHORT 分开报告；
-- MFE/MAE 和年度稳定性同时报告。
+- 15 bars：event `+4.80bp`，matched parent control `+0.95bp`，incremental `+3.85bp`，bootstrap 95% CI `[+0.80,+6.88]bp`，4/5 年增量均值为正，LONG/SHORT 都正；
+- 30 bars：event `+6.80bp`，control `+0.72bp`，incremental `+6.07bp`，CI `[+1.38,+10.66]bp`，5/5 年为正，LONG/SHORT 都正。
 
-主要结论：
+这不等于选定 15/30 为交易持有期；只是 frozen horizon surface 中 pullback-specific information 最明确的位置。
 
-- CSI1000 R1_A：1–120 bars 多个 horizon 有一致正 price edge；
-- CSI1000 R1_B：延迟 edge 明确，120 bars mean `+11.03bp`，240 bars `+23.43bp`；
-- STAR50 R1_B transport：120 bars `+5.60bp`，240 bars `+18.19bp`；
-- 上述 R1_B 120/240 在两个指数都达到 4/5 年正均值，且 LONG/SHORT 两侧均值都为正；
-- R2_A/R2_B 没有形成稳定直接方向 price edge，CSI1000 随 horizon 拉长反而更加不利。
+R1_A / STAR50：短 horizon 增量均值方向一致，但没有通过完整 strong-incremental 条件，所以只是 supportive transport。
 
-这证明 R1 在**价格层**有信息，但不等于已经得到可执行策略，也不授权从结果中选 120/240 作为持有期。
+R1_B：不要再把 120/240 raw return 当作 pullback-specific alpha。CSI1000 240 bars event `+23.43bp`，matched control `+34.63bp`，incremental `-11.20bp`。它更像 parent-trend continuation 的状态标记，不是新增 entry alpha。
 
-## 已关闭身份仍然关闭
+## 当前任务方向
 
-不要因为新价格层结果重新打开：
+下一层只做 **R1_A carrier price transport**。
+
+顺序：
+
+`R1 mechanism -> R1_A incremental index alpha -> ETF/index carrier price transport -> execution economics`
+
+如果找到 ETF / carrier 分钟数据：
+
+1. 先记录 instrument identity、数据来源、时间范围、复权/时间戳规则；
+2. outcome 前冻结 transport contract；
+3. 原样 replay 已冻结的 R1_A causal event timestamps/directions；
+4. 全报 `1/5/15/30/60/120/240`，禁止先选 15/30；
+5. 先做 zero-cost carrier price transport；
+6. synthetic SHORT 可以用于 signal transport，但必须注明非实际可执行；
+7. 只有 transport 成立后才单独研究 spread/fee/T+1/borrow/futures basis/inventory。
+
+## 仍然关闭
 
 - R1 structural economic translations v1/v2/v3；
-- R2 `rmr_R2_range_reentry_economic_translation_v1`；
-- `rmr_R1B_temporal_impulse_completion_v1`；
-- R1_B 单 long ATM MO；
-- R1_B 1x2 adjacent-OTM ratio backspread；
-- 其他 archived closed lanes。
+- R2 direct directional economic identity；
+- R1_B temporal impulse completion；
+- R1_B ATM option / 1x2 backspread；
+- probability/time-of-day/regime/horizon rescue；
+- R3/R4/R5-B1/R5-C 等历史关闭 lanes。
 
-两个 MO 失败现在应理解为**具体 option payoff mapping 失败**，不是 R1 price signal 失败。
-
-禁止基于已看到的 option outcomes 搜 strike / DTE / ratio / width / exit / horizon / year / side / regime。
-
-## 当前下一层
-
-研究顺序改为：
-
-`R1 mechanism -> cash-index price validity -> ETF/index-carrier transport -> executable implementation`
-
-当前仓库已有：
-
-- `000852.SH` 1m：2015-01-05 .. 2025-12-31；
-- `000688.SH` 1m：2020-07-23 .. 2025-12-31。
-
-当前仓库**没有 admitted ETF minute-price package**，所以 ETF transport 尚未执行。
-
-如果拿到 ETF 数据：
-
-1. 先记录 ETF identity、数据来源、时间范围、时间戳/复权规则并冻结；
-2. 不用 index 结果挑 horizon；
-3. 原样 replay causal event timestamps/directions；
-4. 同样报告完整 `1/5/15/30/60/120/240` signed return term structure；
-5. ETF SHORT 可以作为 signal-transport synthetic return，但必须明确标注非实际可执行 short（除非另有真实借券/库存机制）；
-6. 先回答 ETF 是否复制 index edge，再单独讨论交易成本/T+1/借券/期指/期权实现。
-
-不要把 R2 直接推进 ETF/options directional execution；当前 price-layer evidence 不支持。
+不要用最新结果去救这些身份。
 
 ## 工程纪律
 
-- empirical identity 必须先冻结后读结果；
-- synthetic/fail-closed tests 先于真实回放；
+- empirical study 一律先 freeze 后 outcome；
+- synthetic tests 先于真实回放；
 - 不覆盖失败证据；
 - 一次性 workflow 完成后删除；
-- 当前 authority 入口是 `CONTINUE_HERE.md`；
-- 不提交账号、凭据、非公开链接或本地原始 DataHub lake；
-- 不为了“继续研究”从已见结果中挑参数。
+- 不提交凭据、账号、非公开链接或本地原始 DataHub lake；
+- 当前 authority 入口是 `CONTINUE_HERE.md`。
