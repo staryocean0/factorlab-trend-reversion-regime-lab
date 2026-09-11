@@ -1,0 +1,52 @@
+{
+  "receipt_id": "rmr_R1B_MO_acquisition_session_20260911",
+  "status": "REAL_SOURCE_BYTES_PARTIAL_LEGACY_SAMPLE_ACQUIRED_POST_EPOCH_UNRESOLVED",
+  "legacy_epoch_mapping_status": "SCHEMA_MAPPED_SAMPLE_ONLY_ADAPTED_NOT_ADMITTED",
+  "post_transition_epoch_mapping_status": "UNRESOLVED_NO_MO_POST_20240708_SAMPLE",
+  "public_sample_recovery": {
+    "old_href_status": "404",
+    "current_uploadfiles_href_status": "200",
+    "sample_sha256": "b0aa832d5ca875cc017f97baf3fa83e2762548d6835c58591e4736fa0df1021b",
+    "sample_mo_rows": 1621,
+    "sample_total_rows": 2999,
+    "sample_observation_date": "2022-12-06"
+  },
+  "artifacts_local_only": [
+    {
+      "path": "samples/20221206_Sample_CFF_Snapshot.xlsx",
+      "sha256": "b0aa832d5ca875cc017f97baf3fa83e2762548d6835c58591e4736fa0df1021b",
+      "size_bytes": 628017
+    },
+    {
+      "path": "samples/20171229_Sample_CFF_Snapshot.xlsx",
+      "sha256": "034164c76f9f53ab0bb7d4c507f57eded6b421df4cbb68b90a557a129173da42",
+      "size_bytes": 32182871
+    },
+    {
+      "path": "ciis_historical_data_product_manual_v4_20260819.pdf",
+      "sha256": "7df1736c902004cee25b5010cde01fe64b37a7fa000d028742f19d71de6cc707",
+      "size_bytes": 783243
+    },
+    {
+      "path": "ciis_historical_data_order_form_v20260820.xlsx",
+      "sha256": "43a749f3802d6669c7707ca7581fb38d245de92bec7233af296f0279f15da192",
+      "size_bytes": 32634
+    },
+    {
+      "path": "cffex_mo_launch_notice_20220718.html",
+      "sha256": "3d8390a900616a50a074beb2d3fe6c690f18becf0bc12ec7ab8bc98400f947b0",
+      "size_bytes": 47579
+    },
+    {
+      "path": "cffex_fee_table_20240701.html",
+      "sha256": "1f98c956202d4a8034b6f7b087c082b068b8386154de1621ca84bd921b09241c",
+      "size_bytes": 117601
+    }
+  ],
+  "fee_contract_status": "PENDING_EXCHANGE_CHAIN_PARTIAL_BROKER_UNRESOLVED",
+  "admission_validator_status": "NOT_RUN_FULL_PACKAGE",
+  "empirical_option_outcome_test_authorized": false,
+  "blackbox_query_count": 3,
+  "production_authority": false,
+  "unique_blocker": "USER_MUST_ORDER_FULL_DUAL_EPOCH_CIIS_DELIVERY_AND_SUPPLY_BROKER_FEE_HISTORY"
+}

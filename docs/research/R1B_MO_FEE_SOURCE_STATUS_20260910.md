@@ -29,17 +29,25 @@ Rule source:
 
 - https://www.cffex.com.cn/cn/ssxz/20221214/43100.html
 
-### 2022 launch-level evidence — provenance strengthened 2026-09-10
+### 2022 launch-level evidence — official notice body retrieved 2026-09-11
 
-CFFEX's own exchange-rule index lists the historical rule item titled:
+CFFEX official notice (business notice page, 2022-07-18):
+
+- http://www.cffex.com.cn/cn/ywtz/20220718/28904.html
+
+The notice body states, under “六、相关费用”:
+
+- MO option trading fee: **RMB 15 per contract**;
+- exercise/assignment fee: **RMB 2 per contract**;
+- MO option declaration/order fee: **not charged for now**.
+
+Local archive SHA-256: `3d8390a900616a50a074beb2d3fe6c690f18becf0bc12ec7ab8bc98400f947b0`.
+
+CFFEX's exchange-rule index still lists the same item as:
 
 `关于中证1000股指期货和股指期权合约上市交易有关事项的通知`
 
-Official rule-index source:
-
-- https://www.cffex.com.cn/cn/jysgz.html
-
-Multiple CFFEX-member reproductions identify that launch notice as **中金所发〔2022〕41号** and explicitly distinguish the exchange baseline from customer/broker fees. The strongest currently indexed reproduction states:
+Member reproductions identify it as **中金所发〔2022〕41号** and distinguish exchange baseline from customer/broker fees. Corroboration example:
 
 - MO exchange trading fee: RMB 15 per contract;
 - MO exchange exercise/assignment fee: RMB 2 per contract;

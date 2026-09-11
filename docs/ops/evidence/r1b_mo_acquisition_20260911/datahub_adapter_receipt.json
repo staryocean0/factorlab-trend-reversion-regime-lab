@@ -1,0 +1,20 @@
+{
+  "adapter_id": "rmr_R1B_MO_datahub_trade_activity_adapter_v1",
+  "status": "ADAPTED_NOT_ADMITTED",
+  "quote_path": "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_export_2022-12/mo_quotes_2022-12.parquet",
+  "contract_master_path": "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_export_2022-12/contract_master.csv",
+  "mapping_path": "docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json",
+  "output_path": "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_canonical_2022-12.csv",
+  "source_rows": 329376,
+  "mo_rows": 328706,
+  "output_rows": 328706,
+  "errors": [],
+  "warnings": [
+    "dropped serving-filter invalid bid/ask rows=670",
+    "rows include preopen/postclose session_phase; primary execution must exclude them downstream"
+  ],
+  "admission_receipt_created": false,
+  "empirical_option_outcome_test_authorized": false,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

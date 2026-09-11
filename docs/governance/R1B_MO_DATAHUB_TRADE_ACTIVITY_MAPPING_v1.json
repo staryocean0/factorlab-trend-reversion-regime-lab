@@ -1,0 +1,39 @@
+{
+  "mapping_version": 1,
+  "source_family": "DataHub derivative_trade_activity_cn_cffex_3s v5_20260830",
+  "source_rank": 2,
+  "evidence": {
+    "product_id": "cffex_index_option_trade_activity_3s",
+    "dataset_version": "derivative_trade_activity_cn_cffex_3s_20191223_20260825_v5_20260830",
+    "consumer_contract": "factorlab_cffex_mo_synchronized_l1_ask_bid.v1",
+    "handoff": "/home/starryocean/桌面/量化/unified_datahub/evidence/datahub_storage_tiering_20260830/mo_ask_bid_v5/factorlab_handoff.json",
+    "note": "L1 top-of-book in 3s trade-activity buckets derived from baidu 500ms lineage; not a CIIS/CFFEX Level-2 snapshot byte layout."
+  },
+  "source_contract_code": "contract_symbol",
+  "source_timestamp": "last_source_observed_at",
+  "timestamp_format": "ISO8601_UTC_TO_ASIA_SHANGHAI",
+  "source_bid1": "bid_price_1",
+  "source_bid1_size": "bid_volume_1",
+  "source_ask1": "ask_price_1",
+  "source_ask1_size": "ask_volume_1",
+  "source_last_price": "last_price",
+  "source_volume": "trade_volume",
+  "source_open_interest": "open_interest_last",
+  "source_trading_status": "session_phase",
+  "trading_status_mapping": {
+    "continuous_am": "TRADING",
+    "continuous_pm": "TRADING",
+    "preopen": "AUCTION_OR_NONCONTINUOUS",
+    "postclose": "AUCTION_OR_NONCONTINUOUS"
+  },
+  "zero_quote_semantics": "Non-serving rows with null/nonpositive bid/ask or TDX-only rows are excluded upstream; remaining invalid bid/ask fail closed in the adapter serving filter.",
+  "volume_semantics": "trade_volume is the 3s bucket trade volume in contracts.",
+  "open_interest_semantics": "open_interest_last is the last open interest observed in the bucket.",
+  "quote_timestamp_semantics": "last_source_observed_at is the quote observation time; bucket_end is the DataHub available_at gate and must be <= query time.",
+  "source_timezone": "Asia/Shanghai",
+  "master_contract_code": "contract_symbol",
+  "master_expiry": "expiry_date",
+  "status": "SCHEMA_MAPPED_DATAHUB_PINNED_NOT_ADMITTED",
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

@@ -1,0 +1,10 @@
+{
+  "export_id": "rmr_R1B_MO_export_datahub_mo_month_v1",
+  "trading_month": "2022-12",
+  "quote_parquet": "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_export_2022-12/mo_quotes_2022-12.parquet",
+  "contract_master_csv": "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_export_2022-12/contract_master.csv",
+  "quote_rows": 329376,
+  "master_rows": 3204,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

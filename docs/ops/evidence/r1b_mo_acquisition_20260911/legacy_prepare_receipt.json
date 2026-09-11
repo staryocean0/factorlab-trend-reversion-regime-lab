@@ -1,0 +1,17 @@
+{
+  "prepare_id": "rmr_R1B_MO_prepare_ciis_legacy_cff_snapshot_v1",
+  "source_xlsx": "/home/starryocean/桌面/量化/factorlab-trend-reversion-regime-lab/data/r1b_mo_acquisition/raw/samples/20221206_Sample_CFF_Snapshot.xlsx",
+  "snapshot_csv": "/home/starryocean/桌面/量化/factorlab-trend-reversion-regime-lab/docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_snapshot_mo_only.csv",
+  "contract_master_csv": "/home/starryocean/桌面/量化/factorlab-trend-reversion-regime-lab/docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_contract_master.csv",
+  "source_rows": 3000,
+  "mo_rows": 1621,
+  "contract_master_rows": 218,
+  "sample_date": "2022-12-06",
+  "derived_quote_status_counts": {
+    "EXECUTABLE": 1621
+  },
+  "column_count": 41,
+  "empirical_option_outcome_test_authorized": false,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

@@ -52,30 +52,40 @@ Read:
 
 ## Data-admission state
 
-No MO historical intraday best-bid/best-ask tape is admitted.
+No MO historical intraday best-bid/best-ask tape is **admitted**. Legacy-epoch schema mapping on a public CIIS sample and pinned DataHub MO trade-activity L1 mapping are both complete at `ADAPTED_NOT_ADMITTED` only.
 
 Confirmed:
 
 - CFFEX Level-2 provides the necessary bid/ask depth, sizes, last price, volume and open interest capability;
 - CIIS is a current official distribution route for CFFEX historical Level-2 Snapshot;
-- the old public sample `20221206_Sample_CFF_Snapshot.xlsx` is still listed but its live link is 404; same-path variants and exact-URL Internet Archive recovery are exhausted;
-- current CIIS pages still list the active historical-data product, current manual/order form and `hd@ciis.com.hk` contact;
+- the old `.../sampledata/20221206_Sample_CFF_Snapshot.xlsx` href is still 404, but the current Sample Data page serves the same workbook from `.../uploadfiles/202212/12/2022121215374452718660.xlsx` (SHA-256 `b0aa832d…`, 628,017 bytes, 1,621 MO rows on 2022-12-06);
+- current CIIS manual (v4 2026-08-19), order form (v20260820) and `hd@ciis.com.hk` contact route are live;
 - a current CIIS manual documents a CFFEX delivery-format transition effective **2024-07-08**.
 
 Therefore the acquisition window is frozen as two physical delivery epochs:
 
-1. `LEGACY_CFFEX_SNAPSHOT`: 2022-07-22 .. 2024-07-07
-2. `POST_TRANSITION_CFFEX_DELIVERY`: 2024-07-08 .. 2026-09-10
+1. `LEGACY_CFFEX_SNAPSHOT`: 2022-07-22 .. 2024-07-07 — **schema mapped on public sample only** (`docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json`);
+2. `POST_TRANSITION_CFFEX_DELIVERY`: 2024-07-08 .. 2026-09-10 — **still unresolved** (no MO-bearing post-transition sample acquired).
 
 Each epoch requires an independent source-specific mapping and schema/provenance check. One epoch cannot waive unresolved fields in the other; canonical concatenation is forbidden until both pass.
 
+**DataHub rank-2 route (parallel, not CIIS substitute):**
+
+- product `cffex_index_option_trade_activity_3s`, dataset_version `derivative_trade_activity_cn_cffex_3s_20191223_20260825_v5_20260830`;
+- MO L1 bid/ask coverage **2022-07-22 .. 2026-08-25** (tail gap to frozen window end 2026-09-10);
+- binding `docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`, mapping `docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`;
+- adapter `adapt_datahub_mo_trade_activity.py`; 2022-12 export/adapt receipt shows **328,706** canonical rows at `ADAPTED_NOT_ADMITTED`;
+- route doc: `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`.
+
 Current source state:
 
-`PUBLIC_SAMPLE_RECOVERY_EXHAUSTED_CURRENT_OFFICIAL_ORDER_ROUTE_CONFIRMED_EXTERNAL_DELIVERY_REQUIRED`
+`LEGACY_AND_DATAHUB_SCHEMA_MAPPED_NOT_ADMITTED_POST_EPOCH_FEE_AND_FULL_DELIVERY_REQUIRED`
 
-The failed public-sample recovery evidence is archived under:
+Session receipt: `docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json`.
 
-`docs/archive/ciis_public_sample_recovery_20260910/`
+Order package for the user-only external step: `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`.
+
+Historical dead-link recovery evidence remains under `docs/archive/ciis_public_sample_recovery_20260910/`.
 
 Tracking issue: **#7 — R1B MO: acquire and admit official CIIS/CFFEX Level-2 delivery**.
 
@@ -87,6 +97,9 @@ Governance:
 - `docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`
 - `docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json`
 - `docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json`
+- `docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json`
+- `docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`
+- `docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`
 - `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
 
 Research/source docs:
@@ -94,13 +107,19 @@ Research/source docs:
 - `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
 - `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
 - `docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`
+- `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
 - `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
+- `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`
+- `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260911.md`
 
 Code:
 
 - `research/r1b_mo_data_admission/adapt_cffex_snapshot.py`
 - `research/r1b_mo_data_admission/adapt_cffex_snapshot_epochs.py`
+- `research/r1b_mo_data_admission/prepare_ciis_legacy_cff_snapshot.py`
+- `research/r1b_mo_data_admission/adapt_datahub_mo_trade_activity.py`
+- `research/r1b_mo_data_admission/export_datahub_mo_month.py`
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
 
 Tests:
@@ -108,8 +127,10 @@ Tests:
 - `tests/test_r1b_mo_data_admission.py`
 - `tests/test_r1b_mo_cffex_adapter.py`
 - `tests/test_r1b_mo_cffex_epoch_adapter.py`
+- `tests/test_r1b_mo_prepare_legacy_cff_snapshot.py`
+- `tests/test_r1b_mo_datahub_adapter.py`
 
-CI run `34450248565`: **PASS** after the multi-epoch adapter/test addition.
+Local pytest on 2026-09-11: **17 passed**.
 
 Adapters deliberately fail closed. Successful canonicalization means only `ADAPTED_NOT_ADMITTED` or `MULTI_EPOCH_ADAPTED_NOT_ADMITTED`; it does not create empirical authority.
 
@@ -136,14 +157,15 @@ Do not treat RMB 15 as historical all-in cost. Do not invent broker markup.
 
 **Do not run an option return study yet.**
 
-1. Obtain non-event-conditioned samples for both delivery epochs or the official full delivery for all listed MO contracts.
-2. Preserve raw bytes; record SHA-256, byte size, file/workbook structure, row count and source/version metadata.
-3. Inspect only source schema/semantics; do not join to R1_B events.
-4. Resolve, separately per epoch: contract code, timestamp, bid1/bid1_size/ask1/ask1_size, last price, volume, open interest, trading status, zero/missing quote semantics and authoritative expiry/master mapping.
-5. Fill source-specific mappings without changing the frozen canonical protocol.
-6. Run the single-epoch and multi-epoch adapters. Success remains not admitted.
-7. Populate an actual-source manifest and freeze the complete fee contract.
-8. Run `validate_mo_quote_source.py` and retain PASS/FAIL receipt.
+User-only external step: email **hd@ciis.com.hk** using `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md` to order full dual-epoch MO Level-2 Snapshot history and request a post-2024-07-08 era sample if available. Also supply the account's historical broker commission schedule; do not substitute another broker's public rate card.
+
+After delivery:
+
+1. Preserve raw bytes per epoch; record SHA-256, byte size, row count and package/version metadata.
+2. Complete post-transition mapping independently; do not infer from legacy layout.
+3. Replace provisional third-Friday expiry on the public sample with authoritative contract master from delivery.
+4. Populate an actual-source manifest; freeze the complete fee contract.
+5. Run multi-epoch adapter then `validate_mo_quote_source.py`; retain PASS/FAIL receipt.
 
 Only a complete admission PASS can unlock a **separate pre-execution freeze**. PASS still does not authorize PnL, BLACKBOX #4 or production.
 

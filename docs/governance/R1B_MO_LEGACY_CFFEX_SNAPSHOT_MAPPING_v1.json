@@ -1,0 +1,42 @@
+{
+  "mapping_version": 1,
+  "epoch_id": "LEGACY_CFFEX_SNAPSHOT",
+  "source_family": "CIIS official CFFEX Level-2 Snapshot historical delivery (legacy positional XLSX/CSV)",
+  "evidence": {
+    "ciis_manual_section": "6.6.1 Snapshot",
+    "ciis_manual_sha256": "7df1736c902004cee25b5010cde01fe64b37a7fa000d028742f19d71de6cc707",
+    "sample_workbook": "20221206_Sample_CFF_Snapshot.xlsx",
+    "sample_download_url": "https://www.ciis.com.hk/hongkong/en/uploadfiles/202212/12/2022121215374452718660.xlsx",
+    "sample_sha256": "b0aa832d5ca875cc017f97baf3fa83e2762548d6835c58591e4736fa0df1021b",
+    "sample_observation_date": "2022-12-06",
+    "note": "The delivered public sample workbook has no header row; columns are positional per manual 6.6.1."
+  },
+  "source_contract_code": "SecurityID",
+  "source_timestamp": "DateTime",
+  "timestamp_format": "%Y%m%d%H%M%S%f",
+  "source_bid1": "BidPrice1",
+  "source_bid1_size": "BidVolume1",
+  "source_ask1": "AskPrice1",
+  "source_ask1_size": "AskVolume1",
+  "source_last_price": "LastPrice",
+  "source_volume": "Volume",
+  "source_open_interest": "OpenInterest",
+  "source_trading_status": "DerivedQuoteStatus",
+  "trading_status_mapping": {
+    "EXECUTABLE": "TRADING",
+    "NO_QUOTE": "NO_QUOTE",
+    "ONE_SIDED": "ONE_SIDED",
+    "AUCTION_OR_NONCONTINUOUS": "AUCTION_OR_NONCONTINUOUS"
+  },
+  "zero_quote_semantics": "BidPrice1 and AskPrice1 equal to 0.0 with zero BidVolume1/AskVolume1 encode no two-sided executable quote in this legacy snapshot layout.",
+  "derived_trading_status_rule": "Native CFF snapshot 6.6.1 has no TradingPhase/InstrumentStatus column. DerivedQuoteStatus is computed only from exchange-local DateTime session windows (09:30-11:30, 13:00-15:00) and top-of-book zeros; it is not a native exchange status feed.",
+  "volume_semantics": "Volume is the exchange snapshot cumulative day volume field (contracts) as documented in CIIS manual 6.6.1.",
+  "open_interest_semantics": "OpenInterest is contracts outstanding at snapshot time per CIIS manual 6.6.1.",
+  "source_timezone": "Asia/Shanghai",
+  "master_contract_code": "contract_code",
+  "master_expiry": "expiry",
+  "master_expiry_rule": "Provisional contract-month third-Friday mapping used only for schema verification on the public sample; full admission requires an authoritative exchange contract master or delivered expiry field.",
+  "status": "SCHEMA_MAPPED_SAMPLE_ONLY_NOT_ADMITTED",
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

@@ -1,0 +1,17 @@
+{
+  "adapter_id": "rmr_R1B_MO_cffex_snapshot_adapter_v1",
+  "status": "ADAPTED_NOT_ADMITTED",
+  "snapshot_path": "/home/starryocean/桌面/量化/factorlab-trend-reversion-regime-lab/docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_snapshot_mo_only.csv",
+  "contract_master_path": "/home/starryocean/桌面/量化/factorlab-trend-reversion-regime-lab/docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_contract_master.csv",
+  "mapping_path": "docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json",
+  "output_path": "/home/starryocean/桌面/量化/factorlab-trend-reversion-regime-lab/docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_canonical.csv",
+  "source_rows": 1621,
+  "mo_rows": 1621,
+  "output_rows": 1621,
+  "errors": [],
+  "warnings": [],
+  "admission_receipt_created": false,
+  "empirical_option_outcome_test_authorized": false,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

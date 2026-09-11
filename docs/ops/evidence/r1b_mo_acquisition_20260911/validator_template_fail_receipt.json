@@ -1,0 +1,24 @@
+{
+  "blackbox_query_count": 3,
+  "data_dir": "docs/ops/evidence/r1b_mo_acquisition_20260911/prepared",
+  "empirical_option_outcome_test_authorized": false,
+  "errors": [
+    "prospective_validation_boundary must be frozen and non-empty",
+    "zero_quote_semantics must be explicitly declared",
+    "trading_status_mapping must be a non-empty object",
+    "fee_contract.status must equal frozen",
+    "fee_contract.exchange_fee_source is required",
+    "fee_contract.broker_fee_source is required",
+    "fee_contract.frozen_as_of is required",
+    "fee_contract.effective_periods is required",
+    "declared file missing: REPLACE_WITH_RELATIVE_QUOTE_FILE.parquet",
+    "undeclared quote files present: ['legacy_canonical.csv', 'legacy_contract_master.csv', 'legacy_snapshot_mo_only.csv']"
+  ],
+  "files_checked": 0,
+  "manifest_path": "docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json",
+  "production_authority": false,
+  "protocol_id": "rmr_R1B_MO_data_admission_v1",
+  "rows_checked": 0,
+  "status": "FAIL",
+  "warnings": []
+}
