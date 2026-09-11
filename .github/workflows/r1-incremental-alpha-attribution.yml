@@ -5,6 +5,9 @@ on:
   push:
     branches: [research/r1-incremental-alpha-attribution-v1]
     paths:
+      - 'research/r1_incremental_alpha_attribution/**'
+      - 'tests/test_r1_incremental_alpha_attribution.py'
+      - 'docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json'
       - '.github/workflows/r1-incremental-alpha-attribution.yml'
 
 permissions:
