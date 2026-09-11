@@ -1,0 +1,63 @@
+{
+  "schema_id": "factorlab_r1a_endpoint_robustness_freeze@1.0",
+  "identity": "rmr_R1A_fixed_endpoint_dependence_selection_robustness_v1",
+  "frozen_on": "2026-09-12",
+  "status": "FROZEN_BEFORE_NEW_ROBUSTNESS_CALCULATIONS",
+  "baseline_commit": "02c4873e78eac0fe1a7a3810866e8f21ed9263c9",
+  "known_before_freeze": "All 14 endpoint means, side/year descriptions, availability and prior index/option research have already been observed. This is retrospective uncertainty/sensitivity analysis of a fixed historical table, NOT prospective preregistration or a new validation sample.",
+  "inputs": {
+    "endpoint_receipt_path": "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/endpoint_receipt.json",
+    "endpoint_receipt_git_blob_sha1": "89f188522ddd657c8957ec2b85f8d0b57892143b",
+    "matched_pairs_path": "docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv",
+    "matched_pairs_git_blob_sha1": "95191091d1a26c360c3efb5ae2d5be9cf194211d",
+    "index_manifest_git_blob_sha1": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "ledgers": "Verify all existing endpoint CSV hashes against the pinned receipt before any calculation. No ETF source re-export, fill, sampling amendment or new event search."
+  },
+  "carriers": {"000852.SH": "512100.SH", "000688.SH": "588000.SH"},
+  "horizons": [1, 5, 15, 30, 60, 120, 240],
+  "estimand": "Mean ETF event-minus-original-matched-control signed simple return conditional on each already-frozen horizon's four observed endpoints. Not causal or unconditional all-event alpha.",
+  "dependence": {
+    "primary": {"block_trading_days": 20, "origin_shift_days": 0},
+    "all_prespecified_specs": [[20, 0], [20, 10], [5, 0], [5, 2]],
+    "calendar": "Zero-based ordered unique CSI1000 trading dates in 2021-2025, obtained from hash-verified index data. Block id=floor((day_index+origin_shift)/block_length).",
+    "exposures": "For every pair and horizon include ALL calendar blocks touched by the event entry-to-exit interval OR control entry-to-exit interval, inclusive. Reversed event/control roles share the SAME block universe. A pair can touch more than two blocks.",
+    "adjacency": "A_ij=1 when pair i and pair j share any exposure block; A_ii=1. Shared multiple blocks are counted once, not repeatedly. This includes overlapping paths, reused controls, same-day shocks and cross-role overlap within the declared blocks.",
+    "variance": "u_i=delta_i-mean(delta); V_graph=(n/(n-1))*(G/(G-1))*sum_ij(A_ij*u_i*u_j)/n^2, G=number of occupied exposure blocks. This is an explicitly adapted calendar-exposure dependency-graph sandwich, not a claim that a standard dyadic theorem automatically applies to this sample.",
+    "safeguards": "Report raw graph variance, IID variance, graph degree, block incidence, exact-control reuse and effective incidence concentration. If n<30, G<30, or V_graph<=0/nonfinite, label inference UNQUANTIFIED for that spec. Otherwise use max(V_graph,V_IID), never smaller uncertainty than IID. Do not tune blocks after inspecting results.",
+    "calibration": "Approximate Student-t reference with df=min(G-1,n-1), explicitly a small-sample heuristic, not exact finite-sample inference. Assumes enough effective calendar units and negligible remaining dependence between nonadjacent exposure sets. Sensitivity does not prove these assumptions.",
+    "report": "Unchanged mean, IID SE, graph SE, used SE, 95% pointwise interval and all fixed adjusted intervals for every carrier/horizon/spec. No best variance specification."
+  },
+  "multiplicity": {
+    "alpha": 0.05,
+    "primary_family": "14 two-sided mean-increment contrasts: two carriers times seven horizons, primary 20-day/origin-zero specification. Bonferroni critical t(1-alpha/(2*14),df).",
+    "sensitivity_family": "All 56 carrier/horizon/specification contrasts also get Bonferroni intervals with family_size=56. A cross-spec positive robustness flag requires strictly positive lower bounds in ALL four 56-family intervals; missing/invalid inference does not pass.",
+    "limits": "These corrections cover only this displayed fixed family and rely on valid marginal calibration. They DO NOT correct unknown earlier strategy searches, repeated reuse of 2021-2025, source error or selection bias. No fresh-OOS/statistical certification or production permission results."
+  },
+  "influence_sensitivity": {
+    "leave_one_exposure_year_out": "Report five deletions, removing any pair whose event OR control entry-to-exit interval touches the omitted calendar year. Descriptive only; never drop a bad year from the primary result.",
+    "control_equal_weight": "Within each existing eligible cell, weight each pair inversely to the reuse count of its exact control_entry_idx, making each distinct control contribute equal total weight. Influence diagnostic, not a new estimator selected for profitability or a sizing rule.",
+    "nonoverlapping_clock_subset": "For each carrier/horizon, sort ALL frozen pairs by event_entry_idx, control_entry_idx, pair_id, BEFORE consulting returns or endpoint eligibility. Greedily retain a pair only if neither of its inclusive index-bar intervals overlaps any previously retained interval in either role. Then intersect with that horizon's existing observed sample. Report retained IDs/counts and all means; no significance or independence claim for this auxiliary subset.",
+    "sides_years": "Report all original side/year mean signs and all sensitivity outcomes, never select one."
+  },
+  "missing_outcome_sensitivity": {
+    "denominator": "All original 1296/1802 pairs remain the target reference. Excluded ETF outcomes remain unmeasured. Index full/eligible/excluded means come from the already-frozen endpoint composition receipt, reconciled to eligible ledger.",
+    "direct_tipping": "For N original, n observed, m=N-n: missing ETF paired-return mean required to make the all-pair mean zero is -sum(observed ETF increments)/m. Algebraic threshold, NOT an estimate of missing outcomes.",
+    "residual_scenario": "Let I_all be full-pair index mean and r_obs=mean(observed ETF increment - observed index increment). Assume ONLY FOR SENSITIVITY that missing ETF-minus-index residual mean is r_obs+gamma. Then theta_scenario(gamma)=I_all+r_obs+(m/N)*gamma. No individual missing price or return is manufactured.",
+    "gamma_grid_bp": [-100, -50, -25, -10, -5, 0, 5, 10, 25, 50, 100],
+    "groups": "Report pooled and each event year. No data-driven plausible range, no MAR/MCAR assumption, no all-event confidence interval, no claimed identified sign without assumptions. m=0 has no missing-outcome tipping point.",
+    "no_common_primary": "Do not open CSI1000's failed seven-endpoint common cohort. These are existing horizon-specific samples and algebraic missingness scenarios only."
+  },
+  "engineering": "Frozen-input guards and synthetic tests run before real inference. New immutable output directory, machine receipt, complete CSVs and generated report. No overwrite of old protocol, ledgers, source data or failed identities.",
+  "method_references": [
+    "https://arxiv.org/abs/1312.3398",
+    "https://arxiv.org/abs/1903.01059",
+    "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm",
+    "https://journals.sagepub.com/doi/10.1177/1536867X1701700311"
+  ],
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "signal_refit": false,
+  "holding_period_selected": false,
+  "closed_identities_reopened": false
+}
