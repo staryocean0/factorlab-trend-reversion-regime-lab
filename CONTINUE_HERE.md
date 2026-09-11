@@ -1,19 +1,19 @@
 # Continue here — reversal / mean-reversion bucket
 
-## Authority
+## Current authority
 
 This repository owns real reversal / mean-reversion strategy research.
 
-Certified mechanism identities:
+Certified mechanism identities remain:
 
 - **R1** — `rmr_cross_scale_pullback_parent_integrity_v2`;
 - **R2** — `rmr_range_boundary_parent_integrity_v2`.
 
-Reusable BLACKBOX query count is exactly **3**: R1 PASS, R5-C FAIL, R2 PASS. No query #4 is authorized.
+Reusable BLACKBOX query count remains exactly **3**: R1 PASS, R5-C FAIL, R2 PASS. No query #4 is authorized.
 
 `production_authority=false`.
 
-## Closed — do not restart
+## Closed — do not restart or retune
 
 The following are closed under their frozen definitions:
 
@@ -21,165 +21,160 @@ The following are closed under their frozen definitions:
 - R2 `rmr_R2_range_reentry_economic_translation_v1`;
 - unified parent-normal-state router;
 - R1_B `rmr_R1B_temporal_impulse_completion_v1`;
-- R1_B MO `rmr_R1B_MO_convex_impulse_mapping_v1` / `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT`;
-- probability threshold/sizing rescue;
-- simple horizon/delay/stop/target/cost/scale rescue;
+- R1_B MO single-long identity `rmr_R1B_MO_convex_impulse_mapping_v1` / `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT`;
+- R1_B MO financed-tail identity `rmr_R1B_MO_ratio_backspread_v1` / `R1B_MO_1x2_ADJACENT_OTM_RATIO_BACKSPREAD_SAME_CAUSAL_EXIT`;
+- probability-threshold / probability-sizing rescue;
+- simple horizon / delay / stop / target / cost / scale rescue;
 - broad automatic R8/R9 generation;
 - R3/R4 and other closed Stage-1 lanes;
 - R5-B1 limited diagnostic.
 
-R5-B1 final decision: `R5_B1_limited_diagnostic_not_supported_close_B1`. Its frozen runner/input/result package is archived under `docs/archive/r5_b1_closed_20260910/`.
+The scientific distinction remains:
 
-The key scientific distinction remains: **certified restoration probability is not the same as a certified trading payoff.**
+> certified restoration probability is not the same thing as a certified trading payoff.
 
-## Current frontier
+## Latest decisive result — R1_B MO 1x2 adjacent-OTM backspread
 
-There is **no open payoff-object identity**.
+The user authorized the next cloud research stage. A genuinely different payoff object was frozen **before** opening its outcomes:
 
-The MO candidate `rmr_R1B_MO_convex_impulse_mapping_v1` / `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT` was executed on the frozen mapping and closed:
+`R1B_MO_1x2_ADJACENT_OTM_RATIO_BACKSPREAD_SAME_CAUSAL_EXIT`
 
-`R1B_MO_OUTCOME_STUDY_FAIL_IDENTITY_CLOSED`
+Mapping:
 
-All three sealed gates failed. Do not retune this candidate. A later instrument identity needs a new freeze and a new user checkpoint.
+- same certified R1_B events and parent direction;
+- same next-1m-close underlying entry;
+- same causal S2 completion / S3 failure exit;
+- same 1200-bar safety horizon and deterministic expiry rule;
+- short 1 deterministic ATM directional MO option;
+- long 2 immediately adjacent OTM options of the same type/expiry;
+- both contracts must be executable at the same quote timestamp;
+- entry short at bid / long at ask; exit short at ask / long at bid;
+- 14 CNY per contract per leg, 84 CNY total fees for a completed 1x2 package;
+- no ratio, spread-width, strike-distance, DTE, horizon, exit, filter or fee search.
+
+Results-blind preflight Actions run `34612801045`: **PASS, 5/5 tests**.
+
+Frozen historical outcome Actions run `34612892387`, job `103307532666`: the outcome step itself completed successfully. The workflow's final status was failure only because sparse checkout prevented `git add` of generated evidence; the aggregate adjudication was recovered exactly from the immutable job log without rerunning the empirical study.
+
+Decisive result:
+
+`R1B_MO_RATIO_BACKSPREAD_FAIL_IDENTITY_CLOSED`
+
+- joinable R1_B events: **385**;
+- completed synchronized backspreads: **360**;
+- joint-fill coverage: **93.51%** — PASS versus 80% gate;
+- pooled mean net: **-376.61 CNY** — FAIL;
+- descriptive median: **-884.00 CNY**;
+- descriptive win rate: **22.22%**;
+- annual mean 2023: **-408.57 CNY**;
+- annual mean 2024: **-131.43 CNY**;
+- annual mean 2025: **-484.82 CNY**;
+- positive voting years: **0/3** — FAIL versus >=2;
+- positive quarters 2023Q1..2025Q4: **2/12** — FAIL versus >=6.
+
+Only 2024Q1 and 2024Q3 were positive. The large 2024Q3 right tail does not support a reusable identity.
 
 Read:
 
-- `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
-- `docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json`
-- `docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md`
-- `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
-- `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
+- `docs/research/R1B_MO_RATIO_BACKSPREAD_THEORY_FREEZE_20260911.md`
+- `docs/governance/R1B_MO_BACKSPREAD_PRE_EXECUTION_FREEZE@1.0.json`
+- `docs/research/R1B_MO_RATIO_BACKSPREAD_OUTCOME_STUDY_20260911.md`
+- `docs/ops/evidence/r1b_mo_backspread_20260911/outcome_receipt.json`
 
-## Data-admission state
+Do **not** rescue this identity by changing ratio, OTM distance, DTE, calendar structure, exit, horizon, filters, side or fees.
 
-MO historical intraday best-bid/best-ask tape is **admitted** on the DataHub primary route. Validator **PASS** receipt: `docs/ops/evidence/r1b_mo_admission_20260911/admission_validator_receipt.json` (**46,365,986** canonical rows, **50** monthly files, window **2022-07-22 .. 2026-08-25**). This admits instrument quotes only; it does **not** authorize option outcomes, BLACKBOX #4, or production.
+## Program-level payoff review
 
-Confirmed:
+After two separately frozen directional-convex payoff objects failed — single long ATM and 1x2 adjacent-OTM backspread — a post-result theory review found no additional nearby listed-MO structure that can currently be specified independently of the already observed option outcomes.
 
-- CFFEX Level-2 provides the necessary bid/ask depth, sizes, last price, volume and open interest capability;
-- CIIS is a current official distribution route for CFFEX historical Level-2 Snapshot;
-- the old `.../sampledata/20221206_Sample_CFF_Snapshot.xlsx` href is still 404, but the current Sample Data page serves the same workbook from `.../uploadfiles/202212/12/2022121215374452718660.xlsx` (SHA-256 `b0aa832d…`, 628,017 bytes, 1,621 MO rows on 2022-12-06);
-- current CIIS manual (v4 2026-08-19), order form (v20260820) and `hd@ciis.com.hk` contact route are live;
-- a current CIIS manual documents a CFFEX delivery-format transition effective **2024-07-08**.
+Decision:
 
-Therefore the acquisition window is frozen as two physical delivery epochs:
+`R1B_LISTED_DIRECTIONAL_OPTION_PAYOFF_PROGRAM_CLOSED_NO_NEW_EMPIRICAL_IDENTITY`
 
-1. `LEGACY_CFFEX_SNAPSHOT`: 2022-07-22 .. 2024-07-07 — **schema mapped on public sample only** (`docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json`);
-2. `POST_TRANSITION_CFFEX_DELIVERY`: 2024-07-08 .. 2026-09-10 — **still unresolved** (no MO-bearing post-transition sample acquired).
+Read:
 
-Each epoch requires an independent source-specific mapping and schema/provenance check. One epoch cannot waive unresolved fields in the other; canonical concatenation is forbidden until both pass.
+- `docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md`
 
-**DataHub primary route (user decision 2026-09-11):**
+This does **not** claim every conceivable option strategy is unprofitable. It means no R1_B option v3/v4 is presently authorized because another strike, ratio, width, DTE, vertical, calendar or volatility structure would require a new independent mechanism/theory rather than outcome-conditioned rescue.
 
-- product `cffex_index_option_trade_activity_3s`, dataset_version `derivative_trade_activity_cn_cffex_3s_20191223_20260825_v5_20260830`;
-- MO L1 bid/ask effective window **2022-07-22 .. 2026-08-25**; user waived the nominal tail to 2026-09-10;
-- binding/mapping/routing: `R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`, `R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`, `R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`;
-- adapter `adapt_datahub_mo_trade_activity.py`; bounded 2022-12 adapt receipt: **328,706** rows at `ADAPTED_NOT_ADMITTED`;
-- route doc: `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`.
+## Current frontier
 
-**CIIS/CFFEX official Level-2 order is optional** (`docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`) — only for later official byte-layout provenance, not a current blocker.
+**There is no open empirical payoff identity.**
 
-Current source state:
+The R1 and R2 mechanism certifications remain valid, but the tested economic translations are closed. The current correct state is therefore:
 
-`DATAHUB_PRIMARY_MO_BID_ASK_ADMITTED_FEE_FROZEN_14_CNY_OUTCOME_FAIL_IDENTITY_CLOSED`
+`CERTIFIED_R1_R2_MECHANISMS_NO_AUTHORIZED_EMPIRICAL_PAYOFF_CANDIDATE`
 
-Session receipt: `docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json`.
+A future empirical program may open only when a genuinely independent theory or economic use-case determines the payoff object before its corresponding outcomes are read. Examples could include a separately justified volatility-risk-premium mechanism, a real account-level hedge/inventory problem, or a newly admitted instrument whose contractual payoff directly matches restoration. Such a restart requires a new freeze and explicit authority; it may not use the failed option outcomes to choose parameters.
 
-Order package for the user-only external step: `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`.
+No BLACKBOX query #4 is scheduled.
 
-Historical dead-link recovery evidence remains under `docs/archive/ciis_public_sample_recovery_20260910/`.
+## Data state — cloud execution is available
 
-Tracking issue: **#7 — R1B MO: acquire and admit official CIIS/CFFEX Level-2 delivery**.
+Historical MO intraday best-bid/best-ask data are admitted on the DataHub primary route. Admission validator PASS receipt:
 
-## Active infrastructure
+`docs/ops/evidence/r1b_mo_admission_20260911/admission_validator_receipt.json`
 
-Governance:
+Primary admitted inventory contains **46,365,986** canonical rows across **50** monthly files over **2022-07-22 .. 2026-08-25**.
 
-- `docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json`
-- `docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json`
-- `docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json`
-- `docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json`
-- `docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json`
-- `docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`
-- `docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`
-- `docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`
-- `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`
-- `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
-- `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
+Cloud-ready research CSV pack is committed under:
 
-Research/source docs:
+`data/r1b_research/`
 
-- `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
-- `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
-- `docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`
-- `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`
-- `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md`
-- `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
-- `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`
-- `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260911.md`
-- `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260911.md`
-- `docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md`
-- `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
+It contains:
 
-Code:
+- `underlying_1m/`: CSI1000 `000852.SH` 1m through 2025-12-31;
+- `contract_master.csv`;
+- `mo_quotes/`: cloud-readable slim MO L1 quote files through 2025-12-31.
 
-- `research/r1b_mo_data_admission/adapt_cffex_snapshot.py`
-- `research/r1b_mo_data_admission/adapt_cffex_snapshot_epochs.py`
-- `research/r1b_mo_data_admission/prepare_ciis_legacy_cff_snapshot.py`
-- `research/r1b_mo_data_admission/adapt_datahub_mo_trade_activity.py`
-- `research/r1b_mo_data_admission/export_datahub_mo_month.py`
-- `research/r1b_mo_data_admission/materialize_datahub_mo_admission_bundle.py`
-- `research/r1b_mo_data_admission/validate_mo_quote_source.py`
-- `research/r1b_mo_pre_execution/validate_pre_execution_freeze.py`
-- `research/r1b_mo_pre_execution/selection.py`
-- `research/r1b_mo_outcome/run_outcome_study.py`
+Therefore historical 2022-07-22..2025-12-31 option research can execute entirely in GitHub/cloud runners without the local DataHub lake.
 
-Tests:
+2026 MO quotes are not currently event-joinable because no separately admitted 2026 underlying 1m package is in the cloud research pack. Do not fabricate 2026 events from option quotes alone.
 
-- `tests/test_r1b_mo_data_admission.py`
-- `tests/test_r1b_mo_cffex_adapter.py`
-- `tests/test_r1b_mo_cffex_epoch_adapter.py`
-- `tests/test_r1b_mo_prepare_legacy_cff_snapshot.py`
-- `tests/test_r1b_mo_datahub_adapter.py`
-- `tests/test_r1b_mo_pre_execution_freeze.py`
-- `tests/test_r1b_mo_outcome_study.py`
-
-Local pytest on 2026-09-11 after the outcome closeout: see `tests/test_r1b_mo_outcome_study.py` plus the existing R1B MO suite.
-
-Adapters deliberately fail closed. Successful canonicalization means only `ADAPTED_NOT_ADMITTED` or `MULTI_EPOCH_ADAPTED_NOT_ADMITTED`; it does not create empirical authority.
-
-## Data-role freeze
-
-Frozen before any event-conditioned MO outcome was inspected:
-
-- 2022-07-22 through 2026-09-10: reusable instrument-development evidence;
-- from 2026-09-11 onward: prospective instrument-validation evidence only for observations genuinely generated after the freeze, with paired post-freeze underlying data separately admitted.
-
-No BLACKBOX allocation is created by this freeze.
-
-## Fee-contract state
-
-Current state:
+Active all-in fee authority is:
 
 `R1B_MO_FEE_CONTRACT_FROZEN_USER_14_CNY_PER_LEG`
 
-User froze all-in MO trading fee at **RMB 14 per contract per open leg** and **RMB 14 per contract per close leg** over **2022-07-22 .. 2026-08-25**. Machine contract: `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`. Spread is not double-counted in fees.
+Machine contract: `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`.
 
-Historical exchange-only evidence at RMB 15/contract remains archived context in `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md` and is not the active fee authority.
+CIIS/CFFEX official Level-2 acquisition remains optional provenance strengthening, not a current historical-computation blocker.
 
 ## Exact next authorized action
 
-**This identity is closed.** Do not retune strikes, DTE, horizon, S2/S3, fees, or year filters. Do not open BLACKBOX query #4. Do not grant production authority.
+Do not launch another empirical R1_B option structure automatically.
 
-A later instrument identity requires a new, separately frozen payoff object and a new user checkpoint.
+Authorized now:
 
-Cloud-ready research CSV pack is in Git: `data/r1b_research/`. Raw DataHub lake remains local-only at `data/r1b_mo_admission/datahub/`.
+- preserve and audit the two closed option identities;
+- maintain the admitted cloud research pack and provenance;
+- conduct results-blind theory work only if it is genuinely independent of the observed option payoffs;
+- formulate a new freeze only when such a theory exists.
 
-For a local execution agent, use `PROMPT.md` verbatim.
+Not authorized:
+
+- ratio/strike/DTE/vertical/calendar search around the failed option outcomes;
+- R2 timing rescue against its adverse markout surface;
+- probability filtering/sizing rescue;
+- BLACKBOX query #4;
+- production promotion.
 
 ## Bucket boundary
 
-Generic Range/UpTrend/DownTrend state recognition belongs to `factorlab-two-wave-strategy-lab`.
-Unsafe/Recovering/HighVol risk-state switching belongs to `factorlab-star50-filter-lab`.
+Generic Range / UpTrend / DownTrend state recognition belongs to `factorlab-two-wave-strategy-lab`.
+Unsafe / Recovering / HighVol risk-state switching belongs to `factorlab-star50-filter-lab`.
 
-Legacy/mis-scoped/closed evidence is archived under `docs/archive/` and remains in Git history; it is not active authority.
+Legacy, mis-scoped and closed evidence remains under `docs/archive/` and Git history.
+
+## Read first
+
+1. `CONTINUE_HERE.md`
+2. `docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md`
+3. `docs/research/R1B_MO_RATIO_BACKSPREAD_OUTCOME_STUDY_20260911.md`
+4. `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
+5. `docs/ops/evidence/r1b_mo_backspread_20260911/outcome_receipt.json`
+6. `docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json`
+7. `docs/RESEARCH_GOVERNANCE.md`
+8. `docs/DATA.md`
+
+`BLACKBOX_query_count=3`.
+`production_authority=false`.
