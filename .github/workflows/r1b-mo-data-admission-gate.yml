@@ -1,4 +1,4 @@
-name: r1b-mo-data-admission-gate
+name: research-regression-gate
 
 on:
   workflow_dispatch:
@@ -9,8 +9,11 @@ on:
       - 'research/r1b_mo_pre_execution/**'
       - 'research/r1b_mo_outcome/**'
       - 'research/r1b_mo_backspread/**'
+      - 'research/index_price_validity/**'
       - 'tests/test_r1b_mo_*.py'
+      - 'tests/test_index_price_validity.py'
       - 'docs/governance/R1B_MO_*.json'
+      - 'docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json'
       - 'docs/ops/evidence/r1b_mo_outcome_20260911/**'
       - 'data/r1b_research/**'
       - 'pyproject.toml'
@@ -20,7 +23,7 @@ permissions:
   contents: read
 
 jobs:
-  admission-gate-tests:
+  research-regression-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,5 +43,5 @@ jobs:
           python-version: '3.11'
       - name: Install package
         run: python -m pip install -e .
-      - name: Run MO admission and closed-payoff reproducibility tests
-        run: python -m pytest -q tests/test_r1b_mo_*.py
+      - name: Run MO and index-price research regression tests
+        run: python -m pytest -q tests/test_r1b_mo_*.py tests/test_index_price_validity.py
