@@ -6,9 +6,9 @@ Candidate: `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT`
 
 Machine contract: `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
 
-Status: **FROZEN_RESULT_FREE**
+Status: **OUTCOME_STUDY_FAIL_IDENTITY_CLOSED**
 
-Empirical option outcome test authorized: **no**
+Empirical option outcome test authorized: **yes — executed 2026-09-11; identity closed**
 
 `BLACKBOX_query_count=3`  
 `production_authority=false`
@@ -17,7 +17,7 @@ Empirical option outcome test authorized: **no**
 
 DataHub MO L1 bid/ask is admitted. That admission only certifies instrument quotes. This freeze writes the single mapping that may later be tested, including the ATM distance-tie rule that the 2026-09-10 theory review left open.
 
-It does **not** run or authorize an event-conditioned MO PnL study.
+The later authorized outcome study is now closed under this same mapping. See `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`.
 
 ## Inherited causal object
 
@@ -67,6 +67,15 @@ These gates apply only after a later, explicit outcome-run authorization:
 
 A failed gate closes the identity. Post-result retuning is forbidden.
 
+## Outcome closeout
+
+The authorized frozen study is complete. Decision: **FAIL_IDENTITY_CLOSED**.
+
+Report: `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`  
+Receipt: `docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json`
+
+All three sealed gates failed. Post-result retuning, BLACKBOX query #4, and production remain forbidden.
+
 ## Next legal action
 
-Wait for a separate user authorization to run this exact frozen outcome study. Do not start event-quote joins, strike/DTE search, or production work from this freeze.
+Identity closed. Do not retune this candidate. A later instrument identity needs a new freeze.

@@ -5,9 +5,23 @@
   "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
   "candidate_id": "R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT",
   "parent_closed_identity": "rmr_R1B_temporal_impulse_completion_v1",
-  "status": "FROZEN_RESULT_FREE",
-  "empirical_option_outcome_test_authorized": false,
-  "outcome_runner_authorized": false,
+  "status": "OUTCOME_STUDY_FAIL_IDENTITY_CLOSED",
+  "empirical_option_outcome_test_authorized": true,
+  "outcome_runner_authorized": true,
+  "outcome_authorization": {
+    "authorized_on": "2026-09-11",
+    "authority": "user_explicit_run_frozen_outcome_study",
+    "verbatim_instruction": "按这份冻结合同跑 outcome study",
+    "mapping_and_gates_unchanged": true
+  },
+  "outcome_closeout": {
+    "executed_on": "2026-09-11",
+    "receipt": "docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json",
+    "ledger": "docs/ops/evidence/r1b_mo_outcome_20260911/event_ledger.csv",
+    "report": "docs/research/R1B_MO_OUTCOME_STUDY_20260911.md",
+    "decision": "FAIL_IDENTITY_CLOSED",
+    "threshold_retune_after_results": false
+  },
   "blackbox_query_count": 3,
   "blackbox_query_4_authorized": false,
   "production_authority": false,
@@ -161,6 +175,6 @@
     "no BLACKBOX query #4",
     "no production authority"
   ],
-  "next_legal_action": "wait_for_separate_user_authorization_to_run_the_frozen_outcome_study",
+  "next_legal_action": "identity_closed_no_retune_no_blackbox_query_4",
   "required_validator": "research/r1b_mo_pre_execution/validate_pre_execution_freeze.py"
 }

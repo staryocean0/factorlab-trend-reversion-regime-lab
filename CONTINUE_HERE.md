@@ -21,6 +21,7 @@ The following are closed under their frozen definitions:
 - R2 `rmr_R2_range_reentry_economic_translation_v1`;
 - unified parent-normal-state router;
 - R1_B `rmr_R1B_temporal_impulse_completion_v1`;
+- R1_B MO `rmr_R1B_MO_convex_impulse_mapping_v1` / `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT`;
 - probability threshold/sizing rescue;
 - simple horizon/delay/stop/target/cost/scale rescue;
 - broad automatic R8/R9 generation;
@@ -33,24 +34,21 @@ The key scientific distinction remains: **certified restoration probability is n
 
 ## Current frontier
 
-The only active payoff-object identity is:
+There is **no open payoff-object identity**.
 
-`rmr_R1B_MO_convex_impulse_mapping_v1`
+The MO candidate `rmr_R1B_MO_convex_impulse_mapping_v1` / `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT` was executed on the frozen mapping and closed:
 
-Decision:
+`R1B_MO_OUTCOME_STUDY_FAIL_IDENTITY_CLOSED`
 
-`R1B_MO_PRE_EXECUTION_FROZEN_OUTCOME_TEST_NOT_AUTHORIZED`
-
-Why: the closed causal linear R1_B payoff retained a delayed positive right tail but failed the preregistered median-net gate. A long directional CSI1000 `MO` option is materially different because it is convex and bounded-loss; an `IM` mapping remains linear and is not promoted as a rescue.
-
-Instrument quotes are admitted and the mapping is now frozen. **No event-conditioned MO option outcome/PnL test is authorized.**
+All three sealed gates failed. Do not retune this candidate. A later instrument identity needs a new freeze and a new user checkpoint.
 
 Read:
 
-- `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
+- `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
+- `docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json`
 - `docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md`
 - `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
-- `docs/archive/rmr_migrated_from_star50_20260909/`
+- `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
 
 ## Data-admission state
 
@@ -83,7 +81,7 @@ Each epoch requires an independent source-specific mapping and schema/provenance
 
 Current source state:
 
-`DATAHUB_PRIMARY_MO_BID_ASK_ADMITTED_FEE_FROZEN_14_CNY_PRE_EXECUTION_FROZEN`
+`DATAHUB_PRIMARY_MO_BID_ASK_ADMITTED_FEE_FROZEN_14_CNY_OUTCOME_FAIL_IDENTITY_CLOSED`
 
 Session receipt: `docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json`.
 
@@ -121,6 +119,7 @@ Research/source docs:
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260911.md`
 - `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260911.md`
 - `docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md`
+- `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
 
 Code:
 
@@ -133,6 +132,7 @@ Code:
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
 - `research/r1b_mo_pre_execution/validate_pre_execution_freeze.py`
 - `research/r1b_mo_pre_execution/selection.py`
+- `research/r1b_mo_outcome/run_outcome_study.py`
 
 Tests:
 
@@ -142,8 +142,9 @@ Tests:
 - `tests/test_r1b_mo_prepare_legacy_cff_snapshot.py`
 - `tests/test_r1b_mo_datahub_adapter.py`
 - `tests/test_r1b_mo_pre_execution_freeze.py`
+- `tests/test_r1b_mo_outcome_study.py`
 
-Local pytest on 2026-09-11: **24 passed**.
+Local pytest on 2026-09-11 after the outcome closeout: see `tests/test_r1b_mo_outcome_study.py` plus the existing R1B MO suite.
 
 Adapters deliberately fail closed. Successful canonicalization means only `ADAPTED_NOT_ADMITTED` or `MULTI_EPOCH_ADAPTED_NOT_ADMITTED`; it does not create empirical authority.
 
@@ -168,15 +169,11 @@ Historical exchange-only evidence at RMB 15/contract remains archived context in
 
 ## Exact next authorized action
 
-**Do not run an option return study yet.**
+**This identity is closed.** Do not retune strikes, DTE, horizon, S2/S3, fees, or year filters. Do not open BLACKBOX query #4. Do not grant production authority.
 
-Pre-execution freeze is complete. The next legal step is a **separate user authorization** to run `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT` exactly as frozen.
+A later instrument identity requires a new, separately frozen payoff object and a new user checkpoint.
 
-Joinable paired window is **2022-07-22 .. 2025-12-31** because admitted 000852.SH 1m ends 2025-12-31. 2026 MO quotes remain unjoinable until that underlying is separately admitted.
-
-Local quote bundle (not in Git): `data/r1b_mo_admission/datahub/`.
-
-This freeze does not authorize PnL, BLACKBOX #4, or production.
+Cloud-ready research CSV pack is in Git: `data/r1b_research/`. Raw DataHub lake remains local-only at `data/r1b_mo_admission/datahub/`.
 
 For a local execution agent, use `PROMPT.md` verbatim.
 

@@ -9,24 +9,23 @@
 3. 先读：
    - `CONTINUE_HERE.md`
    - `AGENTS.md`
-   - `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
-   - `docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md`
-   - `docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md`
-   - `docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json`
-   - `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
+   - `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
+   - `docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json`
+   - `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
    - GitHub issue #7
 
 ## 不可改变的 authority
 
 - R1 / R2 已经是 certified mechanism，不重新发现。
-- 关闭的线性经济翻译、unified router、R1_B temporal impulse completion、R5-B1 不允许通过调参救活。
-- 当前唯一 active identity：`rmr_R1B_MO_convex_impulse_mapping_v1`。
-- 当前决策：`R1B_MO_PRE_EXECUTION_FROZEN_OUTCOME_TEST_NOT_AUTHORIZED`。
+- 关闭的线性经济翻译、unified router、R1_B temporal impulse completion、R1_B MO convex mapping、R5-B1 不允许通过调参救活。
+- `rmr_R1B_MO_convex_impulse_mapping_v1` 已按冻结合同跑完 outcome study，裁决为 `R1B_MO_OUTCOME_STUDY_FAIL_IDENTITY_CLOSED`。
 - `BLACKBOX_query_count=3`，禁止 query #4。
 - `production_authority=false`。
-- 数据准入与 pre-execution freeze 已完成。在用户另行授权之前，**禁止**任何 R1_B 事件条件化的 MO 收益、PnL、strike/DTE/horizon 搜索。
+- 禁止对已关闭候选做 strike/DTE/horizon/阈值/年份筛选救援。新的工具身份必须另写冻结合同并等用户新检查点。
 
 ## 你的执行任务
+
+当前任务已完成：冻结合同 outcome study 已跑完并关闭身份。下面 A–D 只是历史准入说明，不要重做，也不要据此重开 PnL。
 
 ### A. 以本地 DataHub 为主路径完成 MO 准入
 
@@ -122,7 +121,7 @@ CIIS/CFFEX 官方 Level-2 订单仅为**可选**官方 provenance 补充（`docs
 
 `REAL_SOURCE_BYTES_ACQUIRED -> PER_EPOCH_SCHEMA_MAPPED -> CANONICALIZED_NOT_ADMITTED -> FEE_CONTRACT_FROZEN -> VALIDATOR_PASS/FAIL_RECEIPT`
 
-Pre-execution freeze 已写入 `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`。在用户点名授权运行该冻结 mapping 之前，不要做事件-报价 join，也不要运行 MO PnL。
+Outcome study 已执行，身份关闭：`docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`。不要重跑或调参该候选。
 
 结束时汇报：
 - 实际取得的数据/文档及 checksum；

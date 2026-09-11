@@ -12,7 +12,9 @@ on:
       - 'tests/test_r1b_mo_prepare_legacy_cff_snapshot.py'
       - 'tests/test_r1b_mo_datahub_adapter.py'
       - 'tests/test_r1b_mo_pre_execution_freeze.py'
+      - 'tests/test_r1b_mo_outcome_study.py'
       - 'research/r1b_mo_pre_execution/**'
+      - 'research/r1b_mo_outcome/**'
       - 'docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json'
       - 'docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json'
       - 'docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json'
@@ -38,4 +40,4 @@ jobs:
       - name: Install package
         run: python -m pip install -e .
       - name: Run MO admission gate and source-adapter tests
-        run: python -m pytest -q tests/test_r1b_mo_data_admission.py tests/test_r1b_mo_cffex_adapter.py tests/test_r1b_mo_cffex_epoch_adapter.py tests/test_r1b_mo_prepare_legacy_cff_snapshot.py tests/test_r1b_mo_datahub_adapter.py tests/test_r1b_mo_pre_execution_freeze.py
+        run: python -m pytest -q tests/test_r1b_mo_data_admission.py tests/test_r1b_mo_cffex_adapter.py tests/test_r1b_mo_cffex_epoch_adapter.py tests/test_r1b_mo_prepare_legacy_cff_snapshot.py tests/test_r1b_mo_datahub_adapter.py tests/test_r1b_mo_pre_execution_freeze.py tests/test_r1b_mo_outcome_study.py

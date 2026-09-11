@@ -58,9 +58,21 @@ def validate_freeze(freeze_path: Path, repo_root: Path) -> FreezeReceipt:
     _require(not missing, errors, f"freeze missing keys: {missing}")
 
     _require(payload.get("candidate_id") == "R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT", errors, "candidate_id mismatch")
-    _require(payload.get("status") == "FROZEN_RESULT_FREE", errors, "status must remain FROZEN_RESULT_FREE")
-    _require(payload.get("empirical_option_outcome_test_authorized") is False, errors, "outcome test must stay unauthorized")
-    _require(payload.get("outcome_runner_authorized") is False, errors, "outcome runner must stay unauthorized")
+    allowed_status = {
+        "FROZEN_RESULT_FREE",
+        "OUTCOME_STUDY_AUTHORIZED",
+        "OUTCOME_STUDY_EXECUTED",
+        "OUTCOME_STUDY_FAIL_IDENTITY_CLOSED",
+    }
+    _require(payload.get("status") in allowed_status, errors, "status is not a legal freeze/outcome state")
+    authorized = payload.get("empirical_option_outcome_test_authorized") is True
+    runner_ok = payload.get("outcome_runner_authorized") is True
+    if payload.get("status") == "FROZEN_RESULT_FREE":
+        _require(authorized is False, errors, "outcome test must stay unauthorized while result-free")
+        _require(runner_ok is False, errors, "outcome runner must stay unauthorized while result-free")
+    else:
+        _require(authorized, errors, "authorized outcome states must set empirical_option_outcome_test_authorized")
+        _require(runner_ok, errors, "authorized outcome states must set outcome_runner_authorized")
     _require(payload.get("production_authority") is False, errors, "production_authority must be false")
     _require(payload.get("blackbox_query_4_authorized") is False, errors, "query #4 must stay closed")
 
@@ -89,10 +101,11 @@ def validate_freeze(freeze_path: Path, repo_root: Path) -> FreezeReceipt:
     _require(gates.get("apply_only_after_separate_outcome_authorization") is True, errors, "gates must stay sealed")
     _require(gates.get("annual_mean_net_positive_min_years") == 2, errors, "annual gate drift")
 
-    for pattern in FORBIDDEN_OUTCOME_GLOBS:
-        hits = sorted(path for path in repo_root.glob(pattern) if path.is_file())
-        if hits:
-            errors.append(f"forbidden outcome artifact present: {[str(path) for path in hits[:5]]}")
+    if not authorized:
+        for pattern in FORBIDDEN_OUTCOME_GLOBS:
+            hits = sorted(path for path in repo_root.glob(pattern) if path.is_file())
+            if hits:
+                errors.append(f"forbidden outcome artifact present: {[str(path) for path in hits[:5]]}")
 
     return FreezeReceipt(
         validator_id="rmr_R1B_MO_pre_execution_freeze_validator_v1",
@@ -100,8 +113,8 @@ def validate_freeze(freeze_path: Path, repo_root: Path) -> FreezeReceipt:
         freeze_path=str(freeze_path),
         errors=errors,
         warnings=warnings,
-        empirical_option_outcome_test_authorized=False,
-        outcome_runner_authorized=False,
+        empirical_option_outcome_test_authorized=authorized,
+        outcome_runner_authorized=runner_ok,
     )
 
 

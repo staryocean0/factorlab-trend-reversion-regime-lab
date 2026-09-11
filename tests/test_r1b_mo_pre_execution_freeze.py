@@ -55,9 +55,9 @@ def test_completed_net_uses_ask_entry_bid_exit_and_14_plus_14():
     assert completed_net_cny(10.0, 13.0, 14.0, 14.0, 100.0) == 272.0
 
 
-def test_freeze_contract_is_complete_and_result_free():
+def test_freeze_contract_mapping_stays_sealed_after_outcome_authorization():
     receipt = validate_freeze(REPO / "docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json", REPO)
     assert receipt.status == "PASS"
-    assert receipt.empirical_option_outcome_test_authorized is False
-    assert receipt.outcome_runner_authorized is False
+    assert receipt.empirical_option_outcome_test_authorized is True
+    assert receipt.outcome_runner_authorized is True
     assert receipt.errors == []

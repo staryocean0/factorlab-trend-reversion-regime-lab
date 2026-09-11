@@ -4,8 +4,8 @@
   "freeze_path": "docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json",
   "errors": [],
   "warnings": [],
-  "empirical_option_outcome_test_authorized": false,
-  "outcome_runner_authorized": false,
+  "empirical_option_outcome_test_authorized": true,
+  "outcome_runner_authorized": true,
   "blackbox_query_count": 3,
   "production_authority": false
 }

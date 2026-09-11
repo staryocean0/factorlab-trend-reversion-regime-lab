@@ -1,0 +1,2651 @@
+{
+  "schema": "r1b_research_csv_pack@1.0",
+  "joinable_quote_window": {
+    "start": "2022-07-22",
+    "end": "2025-12-31"
+  },
+  "underlying": {
+    "symbol": "000852.SH",
+    "frequency": "1m",
+    "start": "2015-01-05",
+    "end": "2025-12-31"
+  },
+  "year_2026_mo_omitted": "unjoinable_without_admitted_2026_1m",
+  "max_file_bytes": 83886080,
+  "files": [
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2015.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2015",
+      "rows": 58560,
+      "sha256": "c498f618ea314e3d58b8c5d304daf8c693a20757ed4d3d80628f2332ecfc5f0b",
+      "size_bytes": 4394074
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2016.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2016",
+      "rows": 58241,
+      "sha256": "3805a13d25096de08405fd24927a2f7c6974b4af92603db8932c4e35bf47b186",
+      "size_bytes": 4286950
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2017.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2017",
+      "rows": 58560,
+      "sha256": "6b49c269c1a9e4059d97a56c11d202adc771b606549643efccf19e50774b9512",
+      "size_bytes": 4310161
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2018.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2018",
+      "rows": 58320,
+      "sha256": "71a880f09851e7a8e8c174a63c037cfac960d05ee736d906b1c257d872bbc20a",
+      "size_bytes": 4292520
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2019.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2019",
+      "rows": 58560,
+      "sha256": "a1217401c85d903ec4d274deaa4ef820e073f9907f3c721f24183cbef1be88d8",
+      "size_bytes": 4309924
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2020.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2020",
+      "rows": 58320,
+      "sha256": "572f1b392573ad459e2eb784d255d518ac91d1068d5807d9aaddf8e98a9f0c86",
+      "size_bytes": 4292689
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2021.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2021",
+      "rows": 58320,
+      "sha256": "d378538aedaa4bf5370b3dcee9121bc8411823fd88a3da48a83c08156a8dccfd",
+      "size_bytes": 4292540
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2022.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2022",
+      "rows": 58080,
+      "sha256": "c9d93a26c27d7e02003992501197c782b7d86f9069f7de7e0ec3f8fb5d215615",
+      "size_bytes": 4274730
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2023.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2023",
+      "rows": 58080,
+      "sha256": "fe5d33c17e35a602645926abb83dc591769090f4845a717a7fe1e89a71444c45",
+      "size_bytes": 4274926
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2024.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2024",
+      "rows": 58080,
+      "sha256": "6ca0fdbc1e7be6534e2fefc5dfc5d5ce3180aed511bc72a18f491f16db803b88",
+      "size_bytes": 4274741
+    },
+    {
+      "path": "data/r1b_research/underlying_1m/000852.SH_1m_2025.csv",
+      "kind": "underlying_1m",
+      "symbol": "000852.SH",
+      "year": "2025",
+      "rows": 58320,
+      "sha256": "c506c12c440ebf4a69e59967d729e0866457b4c1ba6d77c679d615be92cb51c9",
+      "size_bytes": 4292457
+    },
+    {
+      "path": "data/r1b_research/contract_master.csv",
+      "kind": "contract_master",
+      "rows": 2599,
+      "sha256": "9dddd61ade1341bb99722c5820c44b45006fb812940eaaa2d6913cd9a7fe968e",
+      "size_bytes": 88406
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2022-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2022-07",
+      "rows": 65634,
+      "sha256": "271f725069b752447f84ab25bd9f2b15a36f4e9c614756112fdfee3bf89efd3a",
+      "size_bytes": 5542757
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2022-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2022-08",
+      "rows": 360993,
+      "sha256": "c983ac0bf5c78e95b77d3a0ed8a834d80c33ba002d3268de41abf15132ec9d45",
+      "size_bytes": 30388023
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2022-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2022-09",
+      "rows": 422085,
+      "sha256": "a34d80714315fcb2e4cb1b8e0c42e1d83d9bfcfcdbb1c6de66be67ec32fe4ca7",
+      "size_bytes": 35567623
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2022-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2022-10",
+      "rows": 421149,
+      "sha256": "d8b4cd6a36ccde1f6c1010087893e603ba335860182f3bb0b6561ee82b011381",
+      "size_bytes": 35467662
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2022-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2022-11",
+      "rows": 443304,
+      "sha256": "845b74ba4e3733a1ed47cbd95b085b9b54e7b7a8385d64636d9ecdfc4f4f782d",
+      "size_bytes": 37342977
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2022-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2022-12",
+      "rows": 328706,
+      "sha256": "cb6b6fc1deecb164774949f56ff92fa5688073bd1702cc65c6dd8a15ea79e857",
+      "size_bytes": 27667678
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-01",
+      "rows": 230362,
+      "sha256": "6744893845eca6a79aea0ab0a63fae2c51462a1b187d3eecb5ce247d94843ca3",
+      "size_bytes": 19364731
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-02",
+      "rows": 338090,
+      "sha256": "3e2f7bf46615f4a00cf0d6562741994345fa34a567c9e2ac4e63bfd07f9ecd8b",
+      "size_bytes": 28448147
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-03",
+      "rows": 367589,
+      "sha256": "83bd9118aaacc8ff32b503d0821d7f85c20186f495c21a7ec08cecaac2e538d7",
+      "size_bytes": 30955666
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-04",
+      "rows": 348485,
+      "sha256": "f85edc572e1d88bd17106b29e1482cc5680f8c3eb6eac7fc607d748c5b440e76",
+      "size_bytes": 29331055
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-05",
+      "rows": 351249,
+      "sha256": "0acd2b92004f187ca524ad142356976ae31cb5d8869d3d81b003d826a215c1c8",
+      "size_bytes": 29513550
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-06",
+      "rows": 335246,
+      "sha256": "b2f1ce0742e8c9443a914bab8065a1ba01a403349e5cdfcb5793bf3f40a94e1d",
+      "size_bytes": 28184157
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-07",
+      "rows": 340431,
+      "sha256": "694b3540231a0e0af5764b9ecef42cd27fdfd141f764b69c76c1d87f067aca11",
+      "size_bytes": 28625464
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-08",
+      "rows": 525850,
+      "sha256": "6cc4fcea23a8e80b5087e36bbc62c35ce05bb7858ef5f8e70359ac37917b880a",
+      "size_bytes": 44222215
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-09",
+      "rows": 403757,
+      "sha256": "97d488137bc016657fd895e7366302deb8ee1f354922c7e4df2e6a7f28598cbc",
+      "size_bytes": 33931583
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-10",
+      "rows": 368099,
+      "sha256": "fa0327cdd5f1f08f4e8d54fea6d4c9faf11999bf7fb3f29ef5212e77d37a2507",
+      "size_bytes": 30942538
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-11",
+      "rows": 475825,
+      "sha256": "590f144771523840f424905ee43d4898428e0040de2e7fd94c5bdeb9e4912e37",
+      "size_bytes": 39991846
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2023-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2023-12",
+      "rows": 514765,
+      "sha256": "34fcb23874f1c7a948de4ef0b59e6d1c1f92aaa124cb78f197890224a656554b",
+      "size_bytes": 43254089
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-01",
+      "rows": 912668,
+      "sha256": "98928498b1bd31ed0401389028945b6bafceeb21d8f5dc4d6c3e028c0cd80d52",
+      "size_bytes": 76772978
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-02",
+      "rows": 959252,
+      "sha256": "82f74e10490090ca82cbf868a184a3433a133fbc0200ec6cac5f94e5dac2e10c",
+      "size_bytes": 80758242
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-03",
+      "rows": 836909,
+      "sha256": "0eebd4c40cbce2ce7761f712b058dfb66dbdc86867edef77a4c461229cf6ea18",
+      "size_bytes": 70564895
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-04",
+      "rows": 863180,
+      "sha256": "c63fdd491d1b52ac08ad1d5c2b0b7e8f99bb10105ae14b82e8e6188cbc9b22eb",
+      "size_bytes": 72692986
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-05",
+      "rows": 643922,
+      "sha256": "9c0f4f22df635203d3aa3f38f6108d4473f4e49f675fdd1c2c0f302ea67339f1",
+      "size_bytes": 54264951
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-06",
+      "rows": 746564,
+      "sha256": "97ace8eee27cdb540ecd0807c19f585f678b795a43aa7de2ccc10b91e0e1a484",
+      "size_bytes": 62842728
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 44032,
+      "sha256": "f798003394e620b197ca51a9fb5a2301ec0c0f31ed6f795dd2d77cc86aa4574c",
+      "size_bytes": 3709105
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 34541,
+      "sha256": "32ac32e781e39c83a7f345f225772e4b43b936389a79e9804b8965aa0e56c57f",
+      "size_bytes": 2904977
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 35375,
+      "sha256": "f593b4a1dfa823cad1c3cbba590d4054213f0d33c253b3ce021b4d3e6bd79761",
+      "size_bytes": 2974197
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 48361,
+      "sha256": "8677707734de817a1472f9c4c6e49cfa88c5d4ce4f750e93b6638ce6fc7977d9",
+      "size_bytes": 4068105
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 50302,
+      "sha256": "65902871157f02bb66b238855df00d745d2619a8f60ddfa337ea16880a20c09c",
+      "size_bytes": 4231515
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 46813,
+      "sha256": "075084aac2c17df03504e92eaac1d082ce95464e4204ca960b303161c1c1c364",
+      "size_bytes": 3938349
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 63975,
+      "sha256": "ae15d89975328f9193db4d5660d39525073e48bfcbd3c4a879cd7d7de892b49d",
+      "size_bytes": 5378024
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 41030,
+      "sha256": "896077ac846dcb533dfe341c06d5c5c57d25086bb31a91e5bd078a97fead1c35",
+      "size_bytes": 3446685
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 50478,
+      "sha256": "5a069514967d4dccf62316eebc04b96f60561722b7ec9894be0e9014895fe5d4",
+      "size_bytes": 4244972
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 36985,
+      "sha256": "59aa2bfda298cd10766542af573f88b65dc8234816c4779272a141a66310d32d",
+      "size_bytes": 3108361
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 38230,
+      "sha256": "a35f0c6480d9087f3c0c7f53d1f76d443747df4b1524fa0836ffe06da843e119",
+      "size_bytes": 3211323
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 41733,
+      "sha256": "a0c365b360220e56a8cce80283f4786948316c880bf2906fee418b3471650b1c",
+      "size_bytes": 3502553
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 40188,
+      "sha256": "6dc6aa15e1bbf72c626d6f7f7a5875fe4f08f8dc7eb1a603732982eb93a55e80",
+      "size_bytes": 3371947
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 58139,
+      "sha256": "1b5dfadb334463f2795e0a146779ba6c88f4a793eeb7f4749d019b77a33b55eb",
+      "size_bytes": 4878570
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 50349,
+      "sha256": "54a60c1c35c10c4a00cbdb49338bc492dc322c4aea06b0d05a0200e182d67bcc",
+      "size_bytes": 4234992
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 29125,
+      "sha256": "247bf4a709e5a8219b02f083004c4cdb72fb1add046973aea5d403713c934193",
+      "size_bytes": 2457997
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 36093,
+      "sha256": "ebf524e4657d5c440344cb9c0217b9d67f40e86e552bfee4e140f1c6c6b5e557",
+      "size_bytes": 3045505
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 46747,
+      "sha256": "ccbe04236b0e22686a03331bdc9f54bf780085175a936f6e6273ebe7ad15463c",
+      "size_bytes": 3946972
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 43537,
+      "sha256": "ab5cca1618d302d607abe7a1445844a5627570cb707d171f857f70a08c960e6f",
+      "size_bytes": 3673116
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 42638,
+      "sha256": "b0ae9d0b6a8173b4d21773e9621c5ea39bd5fd538b6aea0b79250e221814c350",
+      "size_bytes": 3595409
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 27263,
+      "sha256": "2b1096bd12cff7c8470474a2ff61a7b9d9b30475365ff4c18f43f0ad7b10735b",
+      "size_bytes": 2296840
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 35780,
+      "sha256": "2829a7192022f5a94801c68d8c152320588ccd7aecf575254ed240c386b5aba8",
+      "size_bytes": 3011096
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-07-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-07",
+      "rows": 60122,
+      "sha256": "06e61ceda40afd5eeff18d08073eceff027bad4459830dd9f01a35c4d23749b4",
+      "size_bytes": 5060910
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-08",
+      "rows": 883620,
+      "sha256": "4cc262fa54a1e303b23214003e61e7297a3a85098f9f35f0cf97844409631aad",
+      "size_bytes": 74306893
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-09",
+      "rows": 986342,
+      "sha256": "aa46282e9dd15e3834402804cd28c8044c020e9517605cca1d1f5f067f4dee50",
+      "size_bytes": 82996871
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 66588,
+      "sha256": "f3507f531adab9b4eac308af3a931bb5be8fd1e3aa95824b2c913ce6c7087571",
+      "size_bytes": 5624688
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 96014,
+      "sha256": "1de48699ccf16d6eab47b4a2604a790a5fb627275bc00ccd9173198fa3511ea1",
+      "size_bytes": 8095502
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 80934,
+      "sha256": "fabf3a853b72493aff7eb03d9ee80b5fc3954bfdd8b414395b970283704dbb58",
+      "size_bytes": 6815443
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 85810,
+      "sha256": "78d470ae58d38088a3a199228e3bd8661ca073f7e967d7deabc07b9ce0affeaf",
+      "size_bytes": 7217798
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 80934,
+      "sha256": "5f9a4a442a924f7315faab2d32efa0d5678ff874b9bfddb8ff935f98b3223664",
+      "size_bytes": 6800730
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 71171,
+      "sha256": "384e65a9a9098777f217fd8c7fdb86b39f47dce6942e3158ca9106c34e1cd7cb",
+      "size_bytes": 5972432
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 67637,
+      "sha256": "26bf9836f0fad18821282d327ad0862d9eb538bc61408145755c7804a21e1c6a",
+      "size_bytes": 5671932
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 65590,
+      "sha256": "2bdcaad50d5837db3c071828b347036804a4e3e34ad44fbd63805488a9da721b",
+      "size_bytes": 5505214
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 93375,
+      "sha256": "ee80e82d32ecb2f87c70e2ab2a3b33c86c992bb3d964831560e5a70b312e8f2d",
+      "size_bytes": 7856961
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 64808,
+      "sha256": "b5e80b87bc7cef95f30b3d29ac455d296f799de7c73a4d311ef40de2f819a773",
+      "size_bytes": 5483015
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 53886,
+      "sha256": "682c2111fb6480837dc38c43ad13ab8424bdd17a2f0669144527f23a6b9dc821",
+      "size_bytes": 4553457
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 59229,
+      "sha256": "e22b8cfbf7643eca8fae4381ce3a03cc9c783d15c859f4fc596ea408bf9e157b",
+      "size_bytes": 5002364
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 49194,
+      "sha256": "b9c9b5cdbc3aace5190c643ec4dd3fc2888b068440a60b2899c3cc9c77677306",
+      "size_bytes": 4151587
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 59936,
+      "sha256": "9e665ae9af77c82a8fa41b967771b2b9506b280d835435a8b40654a0fd66bc57",
+      "size_bytes": 5057810
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 45502,
+      "sha256": "d0cd8e41d924f4aeb882fba14eedb9a411f9e52761526c5d28ab254a08fa24ef",
+      "size_bytes": 3843599
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 52804,
+      "sha256": "348091363b4e44059bd08a969b9b0fe143081f1dc01b4d2143639844c5370bc8",
+      "size_bytes": 4461057
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 49561,
+      "sha256": "b053a7a64ea09d4aa89aac54f8d15ba439589ce54a3610dfdaa000faaabfb273",
+      "size_bytes": 4185727
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-10-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-10",
+      "rows": 67023,
+      "sha256": "a19d8328bda438662ee64bd32e1b1e8f447e5169075554e233d532ec07d5cc92",
+      "size_bytes": 5664770
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 62959,
+      "sha256": "61ac93ad351b5b862957ef494732a379733a2d9babc0731f617aa41f903788a9",
+      "size_bytes": 5318798
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 48694,
+      "sha256": "ea854a50f7dba87d12bec0a6909c4a30c761f03f0e3c5dc861f15cafb00cdc77",
+      "size_bytes": 4116173
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 76843,
+      "sha256": "d24c7abeede8df0388dda75268c7925d27da32fb95ac22a58f43621ce04cc1da",
+      "size_bytes": 6494767
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 70492,
+      "sha256": "860dabf0bf07b11a1b3a927f69022721e04f9baf97dabafbcfab685073de0dda",
+      "size_bytes": 5951818
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 65162,
+      "sha256": "8ee08aa4a15766014d7a1367b40ddcd6e28817fe854fda0bae850d58a7294a73",
+      "size_bytes": 5494685
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 72329,
+      "sha256": "1908392ce515ff33dfc22089b21d97f953c7bb790bbed2748b3368a1db16d0d6",
+      "size_bytes": 6102823
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 65487,
+      "sha256": "685bafd96402183dad40d8219be671ff82e1baea47b84a3de4924b518d660c96",
+      "size_bytes": 5512216
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 70719,
+      "sha256": "3caecff74a2af36319b5bf662675fb839b8ccd42c36a9cd42c83cf2602dfe578",
+      "size_bytes": 5948662
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 65541,
+      "sha256": "8065392bc6142b8237a665cddfa7931d141067881584748d3c3188f3834de669",
+      "size_bytes": 5511784
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 64920,
+      "sha256": "b0e3c53015b53437f69e1b7652339ebb1b183b758b328cdad1b20cef74caba52",
+      "size_bytes": 5465804
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 69054,
+      "sha256": "b4aa87b98cbbb4b0aea7031cf0d73f8585084d79333acf246611a03d9b94c4a8",
+      "size_bytes": 5818860
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 60140,
+      "sha256": "cc5ac647a5c361fd23c10fe2da5feb1ea5fd9876132a7566d1b4e7ab05182847",
+      "size_bytes": 5084170
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 53216,
+      "sha256": "db8d9552dba5b0c94ac070d4101898882a0e280cbff6fc61c4075f4b5132d171",
+      "size_bytes": 4500450
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 50734,
+      "sha256": "bfe40641e5e325a49a1468b1ed8bd7c3fd5404f38e04366838cf0ffbade5b9a6",
+      "size_bytes": 4292190
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 42529,
+      "sha256": "1a935ba76f15efd7e5ad5373b2a418c3368991e1f98af64c264415d065d56fcd",
+      "size_bytes": 3598041
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 49921,
+      "sha256": "f84f361f9bf7cdb1492d607a493eaa6c50e0143379550016980eb52e7449c43e",
+      "size_bytes": 4219478
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 51786,
+      "sha256": "478ee8c9324e12980fcb5f5ff29c1bdcf8adaa123b237ca22f0933e263413b42",
+      "size_bytes": 4377975
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 45561,
+      "sha256": "5f1dbd4cd748188405051b50357d7c584f22c85ee06ea3dfc372499efe751659",
+      "size_bytes": 3850709
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 59605,
+      "sha256": "206593233b2f1e28216e40f6a3b5c17e834f26f4e5efd88ac74843e7ad4aa1b8",
+      "size_bytes": 5032624
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 46480,
+      "sha256": "673e8548295a8fca4c9bc57680fc5bc2ca69bef29b4b75d1c9d96427bb61085c",
+      "size_bytes": 3924833
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-11-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-11",
+      "rows": 62538,
+      "sha256": "48fce1d184dd75c4a1822121293cfb0ca848d0f91bd600aea9012cf13f6e90d7",
+      "size_bytes": 5278838
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 52479,
+      "sha256": "810e6ed5a21c8877e2e98df37b7e576983ca4f677bb80ce1fdfc654421794ffb",
+      "size_bytes": 4428997
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 45395,
+      "sha256": "6a09bfe85d6215810b5dd30168c4a42206d40754dca63e76a4afc4802ba1569a",
+      "size_bytes": 3830826
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 49580,
+      "sha256": "62d9c43bc9b6abb75234eb6040e2c1fe2f4c05de3217cee93e2e62f0ff5576dc",
+      "size_bytes": 4186739
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 44257,
+      "sha256": "28a18ec055d1b4f43ad694a43a587c06de6f90575c4d7afcbae73a1a0f74b997",
+      "size_bytes": 3735163
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 54690,
+      "sha256": "3ea810bb5fcd45fe6b3b1062871aefd7f3c66e0fa869d4ba9d4aa2387615a7b4",
+      "size_bytes": 4611738
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 46423,
+      "sha256": "560cbbe33aeb6e82af1492cf05671ca5a691d0277f130ef2bd1ef4f300ec1133",
+      "size_bytes": 3914589
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 63866,
+      "sha256": "80d0d69d27cb84c9a034a5a90aa3b36eff9832556cb999eaddf902cb4c95c472",
+      "size_bytes": 5378009
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 47077,
+      "sha256": "05ed374152a4e6ac1a2ec7a39a96bcb3a04e1eccc047bb06bf0b37ba6991d367",
+      "size_bytes": 3965281
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 49874,
+      "sha256": "9df13c7e79b184b46512ea0dc5fe1a4f00ed2d909a56bad6c2899c0f0c6b9387",
+      "size_bytes": 4202295
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 57880,
+      "sha256": "dc18a33e5bc59ea472cff430fe351da1f9023d567eed6d01c2fddd6b22cce849",
+      "size_bytes": 4874336
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 48105,
+      "sha256": "b5b37b98fb0522f6cd41ac38dc646278d147413ec5f491bbcd021d80b31fb3ca",
+      "size_bytes": 4043238
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 63058,
+      "sha256": "f9f65b2ead91f1c1db5e6e5eba4a6f95d40b02352beba49718a4cb7189d79757",
+      "size_bytes": 5307827
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 54356,
+      "sha256": "f5be04fe618dc3494e068a59812e13e573b0cbf35c529e17e66d44c5d895cbfd",
+      "size_bytes": 4574532
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 58329,
+      "sha256": "63337be020e675e62ffa2545c6ade030545227d98053b79f33f74d51ca073281",
+      "size_bytes": 4911728
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 54563,
+      "sha256": "f768f45638fbee998d74231bb41e6d9760d15eeebcaba6f9d57573b94614f938",
+      "size_bytes": 4601382
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 47772,
+      "sha256": "78c42392ef2c6edb6d1b809ac193e15f4541bfdfaa84e3aba4221f966fe7c4fe",
+      "size_bytes": 4035916
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 45533,
+      "sha256": "7d8b8a35676717051cab0521d28fe0b6894af96cbfdc275396628d9e21c36487",
+      "size_bytes": 3852034
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 44667,
+      "sha256": "0d734cc22e5e5ae99a6c1aa3944c836dcd69b5de880fcd339c0e78f3088f25fa",
+      "size_bytes": 3773805
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 35886,
+      "sha256": "f1dcb180a5e578475d8ec5fb9a7379be8eb5bd8318de60920052d319c4d5e307",
+      "size_bytes": 3032985
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 43234,
+      "sha256": "80c9270061a039bfce9d09ca77bce8272453dabe68f36a6bbbdbb675061103ce",
+      "size_bytes": 3650313
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 37896,
+      "sha256": "1595f4176ab6b3f7b33de7ae7fc1690c022ba282d08db4c0b6c986e544d9dfd5",
+      "size_bytes": 3199885
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2024-12-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2024-12",
+      "rows": 56314,
+      "sha256": "2285ba1c316858796bd1bf7b2e85783717546d79d2cb896f2440a4ae24777c3c",
+      "size_bytes": 4752871
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 67283,
+      "sha256": "72c433589825283148f0238bc7ade5ba445605e5fce71ce278be253f68976a17",
+      "size_bytes": 5672680
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 71141,
+      "sha256": "bdf6fc0c59f44cb8562fdf5ce3687ba34016a40a2188e5cc24ca9f8646e08694",
+      "size_bytes": 5998508
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 61092,
+      "sha256": "a3ef9b3d5795aa44822466957fb593c0dc88375a250b151cf1fb125f9d7511ab",
+      "size_bytes": 5148838
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 54946,
+      "sha256": "7122cb20ef7a6ef843ceab07e9248820cfde63926b63060cf5a9a76f264f6fb2",
+      "size_bytes": 4623610
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 74032,
+      "sha256": "2bd859bf0e6bd8168e671fbf18d7791548e5091b9670a2107e55d525d54dcbb2",
+      "size_bytes": 6230392
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 46610,
+      "sha256": "ed7accabbfef51bc81b2a924b75ab4acb23ef4d74b118ff24d3275e968877cd1",
+      "size_bytes": 3920698
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 56521,
+      "sha256": "ea43fbdd4ba5d80fb6b606e7bc25c3e0d38ab5fdb2b3f490faddfe7b94536939",
+      "size_bytes": 4754727
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 58590,
+      "sha256": "f932ac9d1f496c0564046ec1b1f9e5ad0e1d485067a7ed0565dc29e5c34c85df",
+      "size_bytes": 4929549
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 79830,
+      "sha256": "80e92c154512c634810089e8aefb715453091dfb11efd29f7585a0b058f915f7",
+      "size_bytes": 6710423
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 54857,
+      "sha256": "1b9717585f7ce6dcecc9b8dfb8878b7437f081d03806245d3ae92ebed133f357",
+      "size_bytes": 4613825
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 69556,
+      "sha256": "1de6ac0cbb82b1104d61d475def776ff43cad1ff72922e9e2c821bec9cf33a12",
+      "size_bytes": 5848485
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 64051,
+      "sha256": "252a6261af041fddc0901aeb8c6d97e05169dfff3b85da534b5066a89592420e",
+      "size_bytes": 5400627
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 46813,
+      "sha256": "48e40028a250ad48ffbf9ac33b1fb3718b301ed4403771f3050d2a27b0ba45d9",
+      "size_bytes": 3958109
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 42573,
+      "sha256": "73fd6c9a561c281c826b5d3f716efdedc02e7a37505ea0acf48e71b48125cba9",
+      "size_bytes": 3595403
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 40656,
+      "sha256": "e5e932eb94f235312e748212d49424d1528da12610796d41ca025a4e5f2131b4",
+      "size_bytes": 3434005
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 58731,
+      "sha256": "30d73646a58e431f4e1ce578b6ebf7398c224ac182d62086309739f4d3d8edc4",
+      "size_bytes": 4954282
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 49004,
+      "sha256": "80341f26645f7c4414f9bd79a183a5a550e719765bd38f7ec3438a2184cd1e03",
+      "size_bytes": 4133835
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-01-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-01",
+      "rows": 44722,
+      "sha256": "228f055685d3df58096f088606ca8944d66a80ef8b270ddfb419e78858e92ecf",
+      "size_bytes": 3775222
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 46846,
+      "sha256": "c0fc27c9801f174b9be444b9acff95e13dbe3f05fe5e45ee2ac02fd82a8157bf",
+      "size_bytes": 3942674
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 58246,
+      "sha256": "a0a24db19ef693b19f03db12bf994c959a52bc28744d022bf01189e6f26b901a",
+      "size_bytes": 4900563
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 78567,
+      "sha256": "974f0128f777eb576e85b300071f811ffb26ae54aa8e4ce773564bd4858ba9a6",
+      "size_bytes": 6616260
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 52162,
+      "sha256": "45dbcc568913f3888a44f7eec7ce557d9e0afcf7a132ce2d948e634e758195f8",
+      "size_bytes": 4395937
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 45362,
+      "sha256": "7fa82ef09b644ba8381461bbfd89f37822be2f02a0965f5ff4b85dcce98cb289",
+      "size_bytes": 3816255
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 59211,
+      "sha256": "cec942ea1ed2b184cd523613848b4be06191eac0b5138550465c201344d22f4d",
+      "size_bytes": 4982916
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 57462,
+      "sha256": "813e0dbf7c67d1bccb4e3a6b671e16ed8d7430efb79118e67c8cfc16b0cb8fa5",
+      "size_bytes": 4837793
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 52493,
+      "sha256": "1833edbd729597de722b171c01e94843d5f9246b5cb79236eef02605737c7fc7",
+      "size_bytes": 4413773
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 54595,
+      "sha256": "a3d7f583d46cf832b79c621e92a72c35d5598c3df0334cf08f42077c76cf33a3",
+      "size_bytes": 4590419
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 62641,
+      "sha256": "7b0c241b8253cee34411d00680c1326807318074ac0e9a26ac9d6044658c85fb",
+      "size_bytes": 5263622
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 62192,
+      "sha256": "dfc72eb01a174e1b73afa1774aba904ad1c72e0ec712b1b7bb3a3f99ef4d7d8f",
+      "size_bytes": 5225699
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 60352,
+      "sha256": "c406157bb339dedc7d16c0c3deece6bb5218d369b2dc0aee0beaf4b80c99e4a7",
+      "size_bytes": 5076516
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 73227,
+      "sha256": "15a72c95c9f2ffadfd8a608d4bcda8890c2473295082d1d3021dcb3fcad258c4",
+      "size_bytes": 6166722
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 49586,
+      "sha256": "59e929fd198b23b9dd51e07f5d30d4fa3a4f5076dc24bfba0880dad8f4b51318",
+      "size_bytes": 4182647
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 51420,
+      "sha256": "98fa24e822ee3f4f255deaa186c352cd20b694fabc3453ed59d2129b18d5ad88",
+      "size_bytes": 4336578
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 54860,
+      "sha256": "d1085857785eb6c9a5089f6eba194f033930725fc965f5bb9efb5241a78a797d",
+      "size_bytes": 4630634
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 57090,
+      "sha256": "a7ad16194edef19e28579a8d524d13c2bbb2cc102507441e3c17c76590bae9f3",
+      "size_bytes": 4818813
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-02-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-02",
+      "rows": 64390,
+      "sha256": "e353fd28ceae10bb082a974b9dee230299747a0cfe6fc4f8f02b27ea85996fc8",
+      "size_bytes": 5432567
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 57784,
+      "sha256": "7bc7fd23cecb2f00d0476eeee067ed6fdacc39c0a11223cd1a657fd96a0200f2",
+      "size_bytes": 4869198
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 49666,
+      "sha256": "c39b5e69ff567593967418cf4c60feacab4f3b0022ec08dcc5621842c8799e1d",
+      "size_bytes": 4187055
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 49843,
+      "sha256": "96e12f3c1ff6c044cb07ea85b1dc1ae734aa265ebe049dfdf0e328d757c0790a",
+      "size_bytes": 4201606
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 64924,
+      "sha256": "539a74e5a9f667b559822f29817e6e74c1dee6fa94a4fb85da7c499e678d3eac",
+      "size_bytes": 5470154
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 56063,
+      "sha256": "86ebb639dcaa620613eaf99ee29f152d21820e98b2985a89ae4e8a6d46da0b89",
+      "size_bytes": 4721826
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 48230,
+      "sha256": "2e90abc0c5542c0b30ad5373c841cd90d7ad3fcc2958e086dccf83144340db2a",
+      "size_bytes": 4061096
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 54117,
+      "sha256": "611fc8c8481ab5c747749cd5a9b2597fc0a512061086aa9658cb7771ffdaa0de",
+      "size_bytes": 4557500
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 61536,
+      "sha256": "da895d160348b2b11ddd18edacd7ad206b8ffb7a301862bcf8113a717452d0e5",
+      "size_bytes": 5182991
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 66052,
+      "sha256": "2cf11dde538cf9aee5f3ace721839fa947c31c4b7bc8912f060226b97438e80e",
+      "size_bytes": 5561075
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 66975,
+      "sha256": "ec81406209b3836cc8beda756be7775e35fd8c4088999137bc27f100e3421f49",
+      "size_bytes": 5638811
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 49905,
+      "sha256": "4716ffbcbf2a40e5870d689b81213208cf36c987815d5a6b8ad51276b53a27a1",
+      "size_bytes": 4202272
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 54392,
+      "sha256": "468ebdcbd20a8db77bc78231c9fc6978151c7cf7763104be7962494d6c667c1e",
+      "size_bytes": 4576091
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 58093,
+      "sha256": "8f14674a4a16666dd1fe27767ac98bca3d34eb46a4ab88a5e13b6c7f2a948289",
+      "size_bytes": 4879530
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 55233,
+      "sha256": "ea94f1e6729c4e05806c46deee452f808fbd75e0310c0d13adbabd69826a0d4c",
+      "size_bytes": 4642524
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 71666,
+      "sha256": "a763bfb1242e1f7f279ca5f7437db9df491e63d3d5edc69f67814e50f3a798f2",
+      "size_bytes": 6033536
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 53947,
+      "sha256": "c77f0edf19618976e5c10aa312bb277803c203401770b64427bd4923d151eba6",
+      "size_bytes": 4548660
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 46513,
+      "sha256": "b891b0267b930104ed4b24a9877d9040248c8503e7539dbb3757f1deaf352322",
+      "size_bytes": 3921148
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 39871,
+      "sha256": "09ca4a702dcdab7aea313b3b0c7c2da58ddda01bf7a5a243f9c6ae96eba52957",
+      "size_bytes": 3359524
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 48091,
+      "sha256": "50a02cd8dd67fc114b06e272d3455cb3db2e06bcae90c54aee485b1cfb552bf3",
+      "size_bytes": 4050129
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 46465,
+      "sha256": "140612214a67e5101e49eee4f0c3ab2b0e6bb67166fe329e119ca50ce0f31064",
+      "size_bytes": 3919722
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-03-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-03",
+      "rows": 58023,
+      "sha256": "5806b4b69e9ce1e50b1748be3489abc619f542f56d0c955cae475893ae515bb7",
+      "size_bytes": 4891882
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 43243,
+      "sha256": "f505f21d243d70c683b3eb8378d82fa4be4bcc5f0b07ffaade8fe60f1adf516f",
+      "size_bytes": 3640123
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 39953,
+      "sha256": "81dafe6d1937874b5dfce06d8033274096e1ca9f18a643b8851b5a8d18e51f5a",
+      "size_bytes": 3361451
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 58051,
+      "sha256": "3e1012358fe05ac390ffcdc06532b77f8b5a18b422b9618235e47aadac2eb79b",
+      "size_bytes": 4887803
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 87628,
+      "sha256": "f37ec76d2993bf00357ec75406a3b88fb15dab68d9b8f4bb645957f9a0d8efdd",
+      "size_bytes": 7377659
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 97022,
+      "sha256": "9cb2a63fb19dfa0cc7581d6f200ea4bcfd7605d9057795630d7d6b76e06bdd15",
+      "size_bytes": 8172012
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 102791,
+      "sha256": "e11e8848a8555b530aa1a1e15efb1072e6ec623965821deb552fca3ec3299d75",
+      "size_bytes": 8653697
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 84560,
+      "sha256": "5a87baa26d4ed5edd1a3e5ecf6c23f9c8b33937af3025beba529fd7b1658b0ea",
+      "size_bytes": 7110344
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 77260,
+      "sha256": "f4fbd9e2e7a2703fad6b40e7c6e88c4cde12b59a534251f366d232ed67f4f50a",
+      "size_bytes": 6499155
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 61133,
+      "sha256": "b977a96e7841f4a1ca9c3f66cc3442c80bca52a291580c1cda4cd3cdb612c0b0",
+      "size_bytes": 5137024
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 52753,
+      "sha256": "291d0cf419f2a047ad1a988bb04b3024d35d3c279d8802bc3d1a143fa5a7ddca",
+      "size_bytes": 4429390
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 69172,
+      "sha256": "d014c1bf22a376b20ebf1e46e3a8bfcc43a250b83124659656d94f79432fb6fb",
+      "size_bytes": 5812832
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 60127,
+      "sha256": "5c1773804019ff57988ed7133b1de14fc4a303f33563af43b5f86306336c62fa",
+      "size_bytes": 5052685
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 59090,
+      "sha256": "9cece6c52fb7b94cc0fc574448361adf8581bb9a82170dcef1c3d3ece391272f",
+      "size_bytes": 4972872
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 47900,
+      "sha256": "e1950d79ddd8273f7c7fe4558c13fbb2352988d1d84516a25ae47de4213d4b44",
+      "size_bytes": 4038532
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 42785,
+      "sha256": "9d376b3f2f91169d5de9cc6375f0050147a57e0149fdd08ee3e1b91bc11e63a5",
+      "size_bytes": 3609530
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 48812,
+      "sha256": "68c267b19b9eaa22cf012e833a38bb502f23da49bd2635e113e599c9cd6f7177",
+      "size_bytes": 4119290
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 47327,
+      "sha256": "55f470195135236200ddf74261408e2b077307900219d8eaf6a0380a1ab9642c",
+      "size_bytes": 3994537
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 48441,
+      "sha256": "f2fc88991cdd084d2c8a2aa3d6985fe3c9aa2bcded94cfd44b787ba38e3b1b41",
+      "size_bytes": 4083227
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 40734,
+      "sha256": "00a55f7e5ccf5a03fcd1e23c2bd83fbc580e0936d8da7399502c8d1cc0ba6e92",
+      "size_bytes": 3432315
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 37357,
+      "sha256": "cad08571011981482a114e07e983757e4341d4f3fda1ce18b83be87c41f53562",
+      "size_bytes": 3146969
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-04-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-04",
+      "rows": 42608,
+      "sha256": "9bfaef58b7ff279dd5d6809e7dbea8b35bc6497e38ae9b40f7563d4407bf4180",
+      "size_bytes": 3590100
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-05",
+      "rows": 897329,
+      "sha256": "58e2340436b9f6bfae3b8d71df9b189872cc539c2e49e83f0a671babbaabdaaf",
+      "size_bytes": 75567077
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-06",
+      "rows": 886377,
+      "sha256": "21c9a54a59333976953bab048b4588c87edbd4c5a4cc117ac336859726961183",
+      "size_bytes": 74608961
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 45582,
+      "sha256": "7147beb91fd41ce43eef0310def06b29aac58f8aef958a07eb9a8ddaf4ff583c",
+      "size_bytes": 3840651
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 43115,
+      "sha256": "1a62ce7a09ab4273eaa381c292253de0ebdf05ef2eb58b4207e085218fcb03a3",
+      "size_bytes": 3634314
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 42561,
+      "sha256": "dc1534abc0522df2b0274eadb012157de3799696111a40fd33717c4436f23744",
+      "size_bytes": 3581750
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 59911,
+      "sha256": "467406f18b1513d5b3133104d170b86d700189a53440432f93e6897e3bb3b941",
+      "size_bytes": 5044875
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 35517,
+      "sha256": "a065b9329ad57e02ca8ad0d94e368547831de9d101b3c16821b6fbeaf3627cc1",
+      "size_bytes": 2986381
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 59914,
+      "sha256": "8df67ea51b8ec807b6ea837085b4f962a50f81b1999eefb5ab086be1f66f95f6",
+      "size_bytes": 5043542
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 48360,
+      "sha256": "e1d62be744682759c0aa4b4ed5592ef2349cf795e4fc4d8a26c9c6b41e084956",
+      "size_bytes": 4070482
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 45900,
+      "sha256": "6d5241c270174f3f483de01b5fa7807692cecb99ca469c5262114f5be8b17bfd",
+      "size_bytes": 3862258
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 69763,
+      "sha256": "b33d44c3cada7dc4e35282a5433f890f3d1c5057587303faeed71b2a34cf995a",
+      "size_bytes": 5871898
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 39995,
+      "sha256": "ac36e8c08afd661d6b36595a439caa164356e6855c3cd8da2aebb0e7cc76e6f6",
+      "size_bytes": 3360960
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 58151,
+      "sha256": "f833d4385eb4b1fc30e5a76f51931085fa66b943e3a386aebf20135e53e08f47",
+      "size_bytes": 4891331
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 53878,
+      "sha256": "ebc90ffda544104a0cd86306ee6c9e41d167b22f631ba81cfab7ba1f449748ca",
+      "size_bytes": 4530333
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 58140,
+      "sha256": "4068f321e139a10cab989d1a9e39efbda64998a33b9b8d6650d31b3a024cc72b",
+      "size_bytes": 4893116
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 52370,
+      "sha256": "697293ff9b81535bb2adcd1558e13fef461519ed3796d709aa15130648eb38e8",
+      "size_bytes": 4411656
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 46855,
+      "sha256": "8caed51a643d6c3de5ecf0583084e828e9a07f3f08c0e216e20ea16b46da6e46",
+      "size_bytes": 3960770
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 50338,
+      "sha256": "0325ef474dc9861762bac61c52849ebb00585d483a9e717a9e437417c17cc4ce",
+      "size_bytes": 4252524
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 60186,
+      "sha256": "60e94f98606f3337813e71cdb4027b7e143073ef91c1b280d8c25e37af83d7ca",
+      "size_bytes": 5081678
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 54038,
+      "sha256": "a6a9d053f71364e198ac8cbd69ce1120bcc4598b4aecec15b1c006b734590c12",
+      "size_bytes": 4566516
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 45642,
+      "sha256": "c3217352f4210a77370df53e5ee6f7639906a834f1e8b936736b09f097c62231",
+      "size_bytes": 3861473
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 49053,
+      "sha256": "f51f0ff6240ba3ccd4ffb2059a4412efd8350d51e2f7c7e54a4e959ca40c0a03",
+      "size_bytes": 4143187
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 48404,
+      "sha256": "025aadc6cf506578c6ca4925b01d69d9be42a20a19722fbc25154ec4a49b94fb",
+      "size_bytes": 4087877
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 60632,
+      "sha256": "1f40324e7e9c8d10cfad3766d6b8c9b04c91e704f2b6650b7097f0e0cbddbc6c",
+      "size_bytes": 5123114
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-07-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-07",
+      "rows": 64493,
+      "sha256": "10c3687b6f5d4e3818cda30e568c02801f344939d052c128abb6db3eb11949a2",
+      "size_bytes": 5440956
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 55322,
+      "sha256": "d4595293c3be260531058b2f0e7312603f8f38f8a99fdfc62953c427f1546158",
+      "size_bytes": 4667559
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 51070,
+      "sha256": "676a77fc94e1cc43b4c03655254d791afc592aeac219c5745bdf34e97bd75179",
+      "size_bytes": 4305527
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 46029,
+      "sha256": "3dc961e062dc79e6cc219301f9b0b8fdbd00b863433ba262f0fe40793f87da12",
+      "size_bytes": 3877273
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 59950,
+      "sha256": "b72722a9291506b0faedfecce5ac73d3ac49c32eaafc3b0b8637f1fd0152ccda",
+      "size_bytes": 5054770
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 57060,
+      "sha256": "4a3c0b8ef1a2f8566da5e522a7612bce0f77edbf336abd7e3758fd275602bbc0",
+      "size_bytes": 4811385
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 51730,
+      "sha256": "7821bebeb5dee43062067d7003b987c663011ff8c67fdffda875c633079d5e9f",
+      "size_bytes": 4363109
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 71249,
+      "sha256": "a2f3bbe046cb6c09e9f1e81681a7c2034859e6af774a7815fb8e35e5db5ffc8f",
+      "size_bytes": 6004838
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 58923,
+      "sha256": "9a8e9da4be5ac7693c30323e9eaab40468af1e6fa4bdc6e45a351a43c3706115",
+      "size_bytes": 4968921
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 84381,
+      "sha256": "f715af828966794f2df0d6a4fd83aa75780c6f10e544f4e0f1240ddedb2b2e64",
+      "size_bytes": 7116674
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 81984,
+      "sha256": "cf103564377094329dfdaa03293260bc1554a7f133bdb622fa0f63182a0c3754",
+      "size_bytes": 6913626
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 80025,
+      "sha256": "4154255273af5219c959898a20f22ebdc68ee8f40364b9b683bfdc413102ac55",
+      "size_bytes": 6757009
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 88755,
+      "sha256": "85ae0f0c28b4ba93d899c00cc29d825d03e118593c9b6836fd3f14fed5fbb67b",
+      "size_bytes": 7532225
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 72410,
+      "sha256": "d613071cb447bb0ef8e4c2ef97099f178007f63fc4ab62cb5849ee2335a9a0d3",
+      "size_bytes": 6143339
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 75326,
+      "sha256": "f0ea7300e852db48e74f3926db4eeb194b10cf6b98c2ec1b8140ec6c0d4c0289",
+      "size_bytes": 6387147
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 82658,
+      "sha256": "296e706d63eabb66a9ef491865e0fa55d51fc9642ea7990e624ced3aff795e40",
+      "size_bytes": 7008084
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 79128,
+      "sha256": "6ddbfad434aa1faf0d1819064126f1dea71483dd0594dfb15bb92471a169639b",
+      "size_bytes": 6710296
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 90393,
+      "sha256": "34781e7824ae1394b83ee52d57781d30d7d13270b60e505b36a4ba50f6c30ada",
+      "size_bytes": 7663068
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 75758,
+      "sha256": "7c1beb475d61822274674641677d6be121e05205d2da8cb35bc85d1def7fd0f1",
+      "size_bytes": 6425529
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 93549,
+      "sha256": "967948bd232a11410e59aca1f9a256c32939e789048431b519aad107040962b0",
+      "size_bytes": 7924891
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 100057,
+      "sha256": "6220589cade78bd152fdfdccae2233d139fb06b793e08d38d2a802c64e0aa060",
+      "size_bytes": 8472805
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-08-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-08",
+      "rows": 86672,
+      "sha256": "f83bfe02af4aa780a4fae06204ac010ac70b5b618dfb9a5bcec0804a1af9f6fa",
+      "size_bytes": 7344835
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 70392,
+      "sha256": "6f02627c73aa6af2d9e957aec9984ce030eeed3a6b68b904fbeab12fc8bd2190",
+      "size_bytes": 5961364
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 95186,
+      "sha256": "60a41f75f97b8aa3068c7a0a5b673b375e9ab8a00b12eacea2d02e1aed09bacb",
+      "size_bytes": 8050101
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 91107,
+      "sha256": "0f8e4a9f9e08735750761e5182fe7a48dbd2bc42de08491d2805e553972b3cd5",
+      "size_bytes": 7699677
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 103594,
+      "sha256": "2596eea4b668cce19b257bc8da994ac3f02bb99f0d464eae2eb8565fb28bb5a2",
+      "size_bytes": 8756379
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 89375,
+      "sha256": "ef00f09ad7d859e31454330f1a81e4d3e1e735748a1235f5231152b1bcf51c5d",
+      "size_bytes": 7546320
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 68574,
+      "sha256": "da1aaac2ed65be4070f03a9b28dd98bf75a5fac68fe7dca22abc39e9dc0b1225",
+      "size_bytes": 5789125
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 71570,
+      "sha256": "5800e532b501e4f2a3d252f256674f0434be7b3cd35f1844801c744ca817a76f",
+      "size_bytes": 6036976
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 70935,
+      "sha256": "177d4ccd338475c31c65715e55c6eb29180c7a4652fd586f51418caaaf285df4",
+      "size_bytes": 5982701
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 89663,
+      "sha256": "c5efe28f7ae27a5c069f4a5f27c72c9d0447f2953b2aee3ad58f2e22f91d6ba9",
+      "size_bytes": 7562207
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 80221,
+      "sha256": "c904922184e2e91b17dfd7685123ddffc321fbdd2ba8d47d6fe1a3dc0a510134",
+      "size_bytes": 6768673
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 59426,
+      "sha256": "f503e44b924f12ee2c4557ac484c10f764160611970e4f991d30f96d00fee202",
+      "size_bytes": 5006820
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 76054,
+      "sha256": "3327b8611c7d37f69d4500e4cf64055a95be13b61c01bb790a6fa8d0bd14b9fb",
+      "size_bytes": 6410859
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 85977,
+      "sha256": "d5f3c1f170279eee5a72fbbf0567fc328080d983ef5ee81cebfacf00524f1896",
+      "size_bytes": 7254996
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 121526,
+      "sha256": "eb05e70aa60bfb28484de58bb1f6c249eeafa92259b1fc8380499bd92952e020",
+      "size_bytes": 10250361
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 93675,
+      "sha256": "c0a94f3897577a6d5e041f66b6c49c5881e5adb661334195bfd4e45ea6713f14",
+      "size_bytes": 7910163
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 59690,
+      "sha256": "4c159e0b9dbb980c8c93e6c48d7f400f9aa7fc52ab57eaeb072782d90f87188f",
+      "size_bytes": 5059357
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 92181,
+      "sha256": "2ca2a5bf89c885f787963b2d463084dab89626468daff2dcb6e4bfdfe0584bfd",
+      "size_bytes": 7801172
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 77960,
+      "sha256": "18ce6a08c6ce105ae3a2e7e162692cf3e4fb3c2492b8ab4b73b874285a63706c",
+      "size_bytes": 6591860
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 62456,
+      "sha256": "079cab1c139ae86ff69fee181070e6505ab75ead5b579d7f85c1db253486f908",
+      "size_bytes": 5284389
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 67099,
+      "sha256": "de453b7be61bad55ec7d0507d7f3ba31b8493ac7df2bd9627133e1db00805bf7",
+      "size_bytes": 5674597
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 70778,
+      "sha256": "9b1e636ee212a6f707ea422e9e57a12b8631db24c43d00612e82eaac6faad3ca",
+      "size_bytes": 5980735
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-09-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-09",
+      "rows": 64687,
+      "sha256": "13c60652086e989315cc85e57c79544970eb010fa140357da60efdc93b2c0508",
+      "size_bytes": 5464055
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 69114,
+      "sha256": "c96936266bf7c4e6c894c78fd5823be131180a8425c251c2e4876f0948671451",
+      "size_bytes": 5818937
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 70329,
+      "sha256": "d92493f11753e6ad9c93651662c148f0e4c29f566f6a461caf5d29aa80c367ec",
+      "size_bytes": 5929767
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 92257,
+      "sha256": "7894f5264cfbb2344b9463a046b3e78d35ce1e487d927eacb871ff7c1186685f",
+      "size_bytes": 7775068
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 98052,
+      "sha256": "55251368550b2b102caeeb2c2be91445754e6ae7b7d64fe20caf2ac7637856a1",
+      "size_bytes": 8262092
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 84634,
+      "sha256": "9aa1b460827fb4a534a9182e7395cf1bfa89c29f1e49ace45387d06d39f44ac7",
+      "size_bytes": 7123438
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 74379,
+      "sha256": "f62b94885ee5956d649c97b8f7d1b1ca147064948d489a5ae816dcc6ffcf1bea",
+      "size_bytes": 6262377
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 90349,
+      "sha256": "39f42ffea6bef5a8b53a7da4b9a2847a0631e2c4180b6736d5fbf45352ae684f",
+      "size_bytes": 7623133
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 63343,
+      "sha256": "df9101918868023d24611c30cb7f8e9b7d57ca086f3f3cccf5e7cbba6255aadf",
+      "size_bytes": 5361261
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 60392,
+      "sha256": "7466ca13c9c83fe97ee2260400a3df15e52b413680dd39daa9f228b31f97288c",
+      "size_bytes": 5108724
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 49969,
+      "sha256": "4d54df1738b42a1068c141605178d96ad84d01fee3073bdbbed0684ddd483f47",
+      "size_bytes": 4224261
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 68038,
+      "sha256": "b8bae02b0560ea07482eb117c207645a546f87ab8b78cf6418620269c06f29d1",
+      "size_bytes": 5753444
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 61421,
+      "sha256": "e8d2c5fb311c25e96153b494b2539da748566ee11a328677ce7149df00b1bbc4",
+      "size_bytes": 5194043
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 64977,
+      "sha256": "f5f6af67e191c73f0b3fc9e073716315f7dda032bd3956169af6451af67e4108",
+      "size_bytes": 5488762
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 61017,
+      "sha256": "5867b33128bdbca127d22d5e336fad4d7a5a6d43da4188fb37e6594db09b42d0",
+      "size_bytes": 5158615
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 56838,
+      "sha256": "616e20870fcf576679e8f19e00d9f652ecb352dc1f928e724da61207c82e66a0",
+      "size_bytes": 4803691
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 69038,
+      "sha256": "d03acbed421299f48cf93f4e17fb09a03e9367a3ca16549b120f0da7d12851d3",
+      "size_bytes": 5835050
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-10-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-10",
+      "rows": 65182,
+      "sha256": "82609af6fabf557b658eee53325ffdef0342912f927ea148190e745e343e0d1b",
+      "size_bytes": 5510101
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 62689,
+      "sha256": "651fd24212d9a50e00f6feb5c7ac54579163ce440e05db042f4d5788c406a2ff",
+      "size_bytes": 5295640
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 67982,
+      "sha256": "a65dfe845293875c42e211918704793dd0c1c602f9b7652df333e153a0c0eed3",
+      "size_bytes": 5742103
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 66632,
+      "sha256": "2c40faa45b2d39a217cd6b65c46dc445a971a2ba8d512f36044bc5a5e913648b",
+      "size_bytes": 5621201
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-06.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 59954,
+      "sha256": "eee6ddf3e57293ef2bff784490ea6bcf574cd987108c10dd7ec27d898d6ab53e",
+      "size_bytes": 5057679
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-07.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 55772,
+      "sha256": "4082323d5c5bc2077c9bc5f96c1d7cbe642ae9f330e57147a346f95c216bfd97",
+      "size_bytes": 4705815
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 56527,
+      "sha256": "18150274ec8f8903eae8475ddfcf7364c30f57c3143a5d5a2c46596626ab6b7d",
+      "size_bytes": 4765890
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 55475,
+      "sha256": "d903bfbfb25814d48b993e21b814b9d30548a5c15cd6e8a18e6b5fbf46cd56b5",
+      "size_bytes": 4677689
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 68387,
+      "sha256": "d0255395aa2e1b91bac7b12344ec662b6f3a7812725b395718f1d97188471e27",
+      "size_bytes": 5765887
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-13.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 67852,
+      "sha256": "e92c851cd17cca00c498ba83353a447fe51c503791ef4ff93627915b5131b222",
+      "size_bytes": 5720648
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-14.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 56377,
+      "sha256": "006dcb4e117ae9b389cdfef0b6f4ad8bcf3352b056473ecc70d6e844e455bb57",
+      "size_bytes": 4753315
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 61032,
+      "sha256": "5128c60bf02c57761a09f5e040820e1d7b0ca4f8ce020241b8c7a19f4bdba8a9",
+      "size_bytes": 5138814
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 68842,
+      "sha256": "0b49d9ada6144af44ca34ee5fdc0133257dd32ffdac096afd865368a66ba721d",
+      "size_bytes": 5792896
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 74895,
+      "sha256": "4fd702840fe82adfe89e475e0cde105ed2115ac8abc9abd2438dfb5dc27aa0a6",
+      "size_bytes": 6308770
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-20.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 68289,
+      "sha256": "76f0cf4a9f68455841adac5ec4fbf2aad2f71ee76963eb305874687bb3e52845",
+      "size_bytes": 5748941
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-21.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 105853,
+      "sha256": "21e5026c6241360b5d9c893b5664144d7c909f71fdac67cd4b5b33f68ac015c9",
+      "size_bytes": 8919211
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 61489,
+      "sha256": "dda10227c362a15ff9fd33aaaa782b5b627307f7e1be2ea7485443e94606babd",
+      "size_bytes": 5195608
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 59800,
+      "sha256": "477639923a1d53f7eec1b349da2228295f9c095c0793f6b618d9087ca4595f02",
+      "size_bytes": 5046131
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 48076,
+      "sha256": "852bac3214ea045fb2a92792c079748de313b21518884005f229bc0ca1881b2e",
+      "size_bytes": 4055720
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-27.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 49658,
+      "sha256": "bef82bb8d2da0624b75f0882e7d34f933e345c445e86c2053a5299c6e6f1469d",
+      "size_bytes": 4191992
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-11-28.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-11",
+      "rows": 48170,
+      "sha256": "307b59af60c6e35b82f6293cbe7c6d96ba0877ff454f7ed8d5ed3454d2069074",
+      "size_bytes": 4064265
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-01.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 45999,
+      "sha256": "9dc4d213609983c3040c09785ae05c5e9c42efac779d4f760e7ccf4cfa19d06f",
+      "size_bytes": 3881025
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-02.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 38904,
+      "sha256": "f3fe8665edce5219c6cd03fe55bc1ced34aafad19b78ed0a5a70ad2666ee697f",
+      "size_bytes": 3283800
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-03.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 49989,
+      "sha256": "96f7c2a03b555b378a984e35c4dbbf2141a0984f9692f879cdf41d076f9b958c",
+      "size_bytes": 4220538
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-04.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 48067,
+      "sha256": "d8a5445f4222c67b90a673baf20eb5bb6b9a9a114dff8679d046fb1d2555712c",
+      "size_bytes": 4058184
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-05.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 59917,
+      "sha256": "b1fa5f0d38f53852370a67d355a6913d0c0239473c0038b401d95bcea6e0ba32",
+      "size_bytes": 5054885
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-08.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 61210,
+      "sha256": "b700d40874bc6806584e4ca14ebe11581cef8457e4ea1e7628ea805fd4c28641",
+      "size_bytes": 5157360
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-09.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 46223,
+      "sha256": "11419b81831f2adde4cb1c66d2007723bead1fefd46a5d1f6aadf2ccba289561",
+      "size_bytes": 3896244
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-10.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 55322,
+      "sha256": "803016a0d6cf3630f13178e5e9344dd4e1346cda214d0417eb63bfe7290d44ed",
+      "size_bytes": 4661200
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-11.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 54786,
+      "sha256": "293de9c9a7eb11594cae60febccb41eeb9bb14f42b32ba04f8b95eb3dc1d7e13",
+      "size_bytes": 4619624
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-12.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 60714,
+      "sha256": "86131c99fa0ac2482b014bcdf4b5ca49900bad78d2ad88b75302f36ea3bd66ed",
+      "size_bytes": 5115156
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-15.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 55751,
+      "sha256": "8c75965bb6acd42637cf662cdec238176fff343f3560488d6d6689d367a0cbb0",
+      "size_bytes": 4694766
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-16.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 80571,
+      "sha256": "8617830159ea9730b6a19000860f69e4dff1b256a679105c5d769b60fb10c2f8",
+      "size_bytes": 6791207
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-17.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 78358,
+      "sha256": "f4ae2025793e6f0c4f0b1c64dd2278a94eec0ed95fc07eb3c196db8881dcaf15",
+      "size_bytes": 6598725
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-18.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 64855,
+      "sha256": "ed711446d1ef3ac12dcc9a80e9ddf31492eadee08aabfd85bfed2ace30c804a1",
+      "size_bytes": 5459118
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-19.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 62793,
+      "sha256": "05f46c9b6e266048f791bf4384e0f697dd172b91e59b60e6085503cd60e3b6e8",
+      "size_bytes": 5283643
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-22.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 45014,
+      "sha256": "9a4d5ec0ba04468f922d9af348ff08ea8cbed54c1042bdcbf7ba62645e72585a",
+      "size_bytes": 3801949
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-23.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 42279,
+      "sha256": "a466817bcfc1e5302bfbad61c3a5064e0e7ffd847f5b480608dc0870f126e6e6",
+      "size_bytes": 3575505
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-24.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 60852,
+      "sha256": "55c32119ac179247435d7217aace8f0ce6a461f26757c1aa58ddd966e3d53fb6",
+      "size_bytes": 5143919
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-25.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 61861,
+      "sha256": "2e38efdbd0e040c910f2f598fd4a28096faf3480e946f255f1c7ddfa94a50046",
+      "size_bytes": 5230336
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-26.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 74268,
+      "sha256": "32298f9c30f74e8a0abfac12c03857a33412926fb052c2e4c7af0da95a730309",
+      "size_bytes": 6280234
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-29.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 54407,
+      "sha256": "f8684688ed81f09bcbbe97601cabb14922f90c8c8c4b795f8bd2a7433717f8ee",
+      "size_bytes": 4600771
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-30.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 52987,
+      "sha256": "ef96946598fce48120a43162cc30157e52177f2cc07e48a0a16e5d619d5c5770",
+      "size_bytes": 4480006
+    },
+    {
+      "path": "data/r1b_research/mo_quotes/mo_2025-12-31.csv",
+      "kind": "mo_l1_quote",
+      "month": "2025-12",
+      "rows": 54361,
+      "sha256": "9bc0bc74d01c1cf2b613a1620a839a578903a8eb466c7f39d3e7055286641a29",
+      "size_bytes": 4597472
+    }
+  ]
+}
