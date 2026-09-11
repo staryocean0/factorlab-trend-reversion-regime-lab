@@ -1,0 +1,129 @@
+{
+  "freeze_id": "rmr_R1B_MO_ratio_backspread_pre_execution_freeze_v1",
+  "frozen_on": "2026-09-11",
+  "timezone": "Asia/Shanghai",
+  "research_identity": "rmr_R1B_MO_ratio_backspread_v1",
+  "candidate_id": "R1B_MO_1x2_ADJACENT_OTM_RATIO_BACKSPREAD_SAME_CAUSAL_EXIT",
+  "motivation": "The closed single-long ATM MO identity had deeply negative typical-event economics while retaining a sparse positive right tail. This identity changes the payoff object rather than retuning event, strike distance, DTE, horizon, or exit: sell one frozen ATM directional option and buy two immediately adjacent OTM options of the same type/expiry, preserving net tail convexity while financing part of premium bleed.",
+  "parent_mechanism": "R1_B certified S2-inside-S3 parent-trend restoration",
+  "closed_parent_payoff_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "user_checkpoint": {
+    "authorized_on": "2026-09-11",
+    "authority": "user_explicit_continue_cloud_research_next_stage",
+    "instruction": "直接在云端从这个仓库往下一阶段研究"
+  },
+  "fresh_oos": false,
+  "blackbox_query_count": 3,
+  "blackbox_query_4_authorized": false,
+  "production_authority": false,
+  "data_binding": {
+    "underlying": "data/r1b_research/underlying_1m",
+    "underlying_symbol": "000852.SH",
+    "underlying_end": "2025-12-31",
+    "quotes": "data/r1b_research/mo_quotes",
+    "contract_master": "data/r1b_research/contract_master.csv",
+    "joinable_window_start": "2022-07-22",
+    "joinable_window_end": "2025-12-31",
+    "year_2022_status": "partial_listing_year_report_only_no_gate_vote",
+    "gate_years": [2023, 2024, 2025]
+  },
+  "inherited_event_clock": {
+    "event_engine": "certified_R1_B_S2_inside_S3_no_refit",
+    "pairing": "PAIR_B",
+    "lower_scale": "S2",
+    "parent_scale": "S3",
+    "S2_threshold": 0.006891654009228464,
+    "S3_threshold": 0.013783308018456928,
+    "direction": "frozen_R1B_parent_direction",
+    "underlying_entry": "next_observed_1m_close_after_certified_R1B_confirmation",
+    "success_exit": "first_subsequent_parent_aligned_S2_wave_confirmation_close",
+    "failure_exit": "first_crossing_close_of_original_R1B_S3_structural_failure_boundary",
+    "horizon_bars": 1200,
+    "event_refit_forbidden": true,
+    "alternative_exit_forbidden": true,
+    "horizon_search_forbidden": true
+  },
+  "instrument_mapping": {
+    "underlying": "CSI1000",
+    "option_family": "CFFEX_MO",
+    "upward_parent_option_type": "C",
+    "downward_parent_option_type": "P",
+    "multiplier_cny_per_index_point": 100,
+    "expiry_rule": "identical to closed ATM-long freeze: earliest expiry strictly after inherited 1200-bar horizon date",
+    "short_leg_strike_rule": "same deterministic ATM strike as the closed ATM-long freeze, including the existing OTM tie rule",
+    "long_leg_strike_rule": "immediately adjacent listed OTM strike beyond the short leg within the same option type and expiry: next higher strike for calls, next lower strike for puts",
+    "ratio": "short 1 ATM : long 2 adjacent OTM",
+    "no_strike_width_search": true,
+    "no_ratio_search": true,
+    "no_dte_search": true,
+    "entry_execution": {
+      "clock": "first common quote timestamp at or after underlying entry where both legs are TRADING and executable",
+      "short_atm": "sell 1 at bid1, require bid1>0 and bid1_size>=1",
+      "long_otm": "buy 2 at ask1, require ask1>0 and ask1_size>=2",
+      "must_precede_inherited_exit": true,
+      "legging_across_timestamps_forbidden": true,
+      "midpoint_or_last_price_forbidden": true
+    },
+    "exit_execution": {
+      "clock": "first common quote timestamp at or after inherited causal exit where both legs are TRADING and executable",
+      "short_atm": "buy back 1 at ask1, require ask1>0 and ask1_size>=1",
+      "long_otm": "sell 2 at bid1, require bid1>0 and bid1_size>=2",
+      "legging_across_timestamps_forbidden": true,
+      "midpoint_or_last_price_forbidden": true
+    }
+  },
+  "fee_contract": {
+    "source": "docs/governance/R1B_MO_FEE_CONTRACT@1.0.json",
+    "fee_cny_per_contract_per_leg": 14,
+    "entry_contract_executions": 3,
+    "exit_contract_executions": 3,
+    "total_completed_event_fee_cny": 84,
+    "spread_not_double_counted": true
+  },
+  "primary_payoff": {
+    "unit": "CNY per one 1x2 spread package",
+    "formula": "((short_entry_bid - short_exit_ask) + 2*(long_exit_bid - long_entry_ask))*100 - 84",
+    "completed_joint_fill_events_only": true,
+    "incomplete_events_excluded_from_economic_gates_but_counted": true
+  },
+  "viability_gates": {
+    "all_must_pass": true,
+    "joint_fill_coverage_min_fraction": 0.80,
+    "pooled_mean_net_cny_must_be_positive": true,
+    "annual_mean_net_positive_min_years": 2,
+    "annual_mean_net_year_set": [2023, 2024, 2025],
+    "quarterly_mean_net_positive_min_quarters": 6,
+    "quarterly_mean_net_quarter_set": "2023Q1..2025Q4",
+    "threshold_retune_after_results_forbidden": true,
+    "failure_closes_identity": true
+  },
+  "secondary_outputs": [
+    "entry_net_debit_cny_before_fees",
+    "exit_value_cny_before_fees",
+    "short_atm_strike",
+    "long_otm_strike",
+    "spread_width_points",
+    "holding_bars",
+    "exit_class",
+    "spot_move",
+    "year",
+    "quarter"
+  ],
+  "explicit_prohibitions": [
+    "no reuse or retune of the closed single-long ATM identity",
+    "no strike search beyond the single adjacent OTM rule",
+    "no spread-width search",
+    "no ratio search",
+    "no expiry or DTE search",
+    "no entry-delay search",
+    "no alternative event clock, success exit, failure exit, stop, target, or hold horizon",
+    "no probability filters or sizing",
+    "no year, regime, side, or time-of-day filtering",
+    "no midpoint or last-price substitution",
+    "no fee retune",
+    "no BLACKBOX query #4",
+    "no production authority"
+  ],
+  "account_economics_boundary": "A PASS would establish only an instrument-payoff research candidate. Short-leg margin, broker spread-margin treatment, portfolio concurrency and production capital usage require a later separate account-level audit.",
+  "next_action": "implement results-blind runner and tests, then execute exactly once on the frozen joinable historical window"
+}
