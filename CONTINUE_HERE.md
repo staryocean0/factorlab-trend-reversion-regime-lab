@@ -39,15 +39,17 @@ The only active payoff-object identity is:
 
 Decision:
 
-`R1B_MO_CONVEX_PAYOFF_THEORY_ACCEPTED_DATA_ADMISSION_REQUIRED`
+`R1B_MO_PRE_EXECUTION_FROZEN_OUTCOME_TEST_NOT_AUTHORIZED`
 
 Why: the closed causal linear R1_B payoff retained a delayed positive right tail but failed the preregistered median-net gate. A long directional CSI1000 `MO` option is materially different because it is convex and bounded-loss; an `IM` mapping remains linear and is not promoted as a rescue.
 
-This is theory only. **No event-conditioned MO option outcome/PnL test is authorized.**
+Instrument quotes are admitted and the mapping is now frozen. **No event-conditioned MO option outcome/PnL test is authorized.**
 
 Read:
 
 - `docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md`
+- `docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md`
+- `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
 - `docs/archive/rmr_migrated_from_star50_20260909/`
 
 ## Data-admission state
@@ -81,7 +83,7 @@ Each epoch requires an independent source-specific mapping and schema/provenance
 
 Current source state:
 
-`DATAHUB_PRIMARY_MO_BID_ASK_ADMITTED_FEE_FROZEN_14_CNY`
+`DATAHUB_PRIMARY_MO_BID_ASK_ADMITTED_FEE_FROZEN_14_CNY_PRE_EXECUTION_FROZEN`
 
 Session receipt: `docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json`.
 
@@ -104,6 +106,7 @@ Governance:
 - `docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`
 - `docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`
 - `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`
+- `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
 - `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
 
 Research/source docs:
@@ -117,6 +120,7 @@ Research/source docs:
 - `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260911.md`
 - `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260911.md`
+- `docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md`
 
 Code:
 
@@ -127,6 +131,8 @@ Code:
 - `research/r1b_mo_data_admission/export_datahub_mo_month.py`
 - `research/r1b_mo_data_admission/materialize_datahub_mo_admission_bundle.py`
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
+- `research/r1b_mo_pre_execution/validate_pre_execution_freeze.py`
+- `research/r1b_mo_pre_execution/selection.py`
 
 Tests:
 
@@ -135,8 +141,9 @@ Tests:
 - `tests/test_r1b_mo_cffex_epoch_adapter.py`
 - `tests/test_r1b_mo_prepare_legacy_cff_snapshot.py`
 - `tests/test_r1b_mo_datahub_adapter.py`
+- `tests/test_r1b_mo_pre_execution_freeze.py`
 
-Local pytest on 2026-09-11: **17 passed**.
+Local pytest on 2026-09-11: **24 passed**.
 
 Adapters deliberately fail closed. Successful canonicalization means only `ADAPTED_NOT_ADMITTED` or `MULTI_EPOCH_ADAPTED_NOT_ADMITTED`; it does not create empirical authority.
 
@@ -163,13 +170,13 @@ Historical exchange-only evidence at RMB 15/contract remains archived context in
 
 **Do not run an option return study yet.**
 
-Admission PASS is complete for the DataHub primary route. The next legal step is a **separate pre-execution freeze** before any event-conditioned MO outcome inspection.
+Pre-execution freeze is complete. The next legal step is a **separate user authorization** to run `R1B_MO_ATM_DIRECTIONAL_LONG_SAME_CAUSAL_EXIT` exactly as frozen.
 
-Local bundle (not in Git): `data/r1b_mo_admission/datahub/` — manifest + 50 monthly canonical CSVs.
+Joinable paired window is **2022-07-22 .. 2025-12-31** because admitted 000852.SH 1m ends 2025-12-31. 2026 MO quotes remain unjoinable until that underlying is separately admitted.
 
-Optional: CIIS/CFFEX official Level-2 order remains available for official byte-layout provenance only.
+Local quote bundle (not in Git): `data/r1b_mo_admission/datahub/`.
 
-PASS does not authorize PnL, BLACKBOX #4, or production.
+This freeze does not authorize PnL, BLACKBOX #4, or production.
 
 For a local execution agent, use `PROMPT.md` verbatim.
 

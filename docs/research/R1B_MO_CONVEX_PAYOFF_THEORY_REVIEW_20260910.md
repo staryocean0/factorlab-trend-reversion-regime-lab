@@ -2,7 +2,9 @@
 
 Identity under review: `rmr_R1B_MO_convex_impulse_mapping_v1`
 
-Status: **APPROVED FOR DATA ADMISSION ONLY / EMPIRICAL OUTCOME TEST NOT YET AUTHORIZED**
+Status: **THEORY ACCEPTED; SUPERSEDED FOR NEXT ACTION BY PRE-EXECUTION FREEZE 2026-09-11**
+
+Current machine freeze: `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`. Empirical outcome test remains unauthorized.
 
 Production authority: `false`
 

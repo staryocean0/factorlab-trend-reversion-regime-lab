@@ -21,10 +21,10 @@
 - R1 / R2 已经是 certified mechanism，不重新发现。
 - 关闭的线性经济翻译、unified router、R1_B temporal impulse completion、R5-B1 不允许通过调参救活。
 - 当前唯一 active identity：`rmr_R1B_MO_convex_impulse_mapping_v1`。
-- 当前决策：`R1B_MO_CONVEX_PAYOFF_THEORY_ACCEPTED_DATA_ADMISSION_REQUIRED`。
+- 当前决策：`R1B_MO_PRE_EXECUTION_FROZEN_OUTCOME_TEST_NOT_AUTHORIZED`。
 - `BLACKBOX_query_count=3`，禁止 query #4。
 - `production_authority=false`。
-- 现在只允许做 **MO instrument-data acquisition / schema admission / fee-contract completion**；尚不允许任何 R1_B 事件条件化的 MO 收益、PnL、strike/DTE/horizon 搜索。
+- 数据准入与 pre-execution freeze 已完成。在用户另行授权之前，**禁止**任何 R1_B 事件条件化的 MO 收益、PnL、strike/DTE/horizon 搜索。
 
 ## 你的执行任务
 
@@ -122,7 +122,7 @@ CIIS/CFFEX 官方 Level-2 订单仅为**可选**官方 provenance 补充（`docs
 
 `REAL_SOURCE_BYTES_ACQUIRED -> PER_EPOCH_SCHEMA_MAPPED -> CANONICALIZED_NOT_ADMITTED -> FEE_CONTRACT_FROZEN -> VALIDATOR_PASS/FAIL_RECEIPT`
 
-只有完整 admission PASS 才能提出一个**单独的 pre-execution freeze**。即使 PASS，也不要直接运行 MO PnL。
+Pre-execution freeze 已写入 `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`。在用户点名授权运行该冻结 mapping 之前，不要做事件-报价 join，也不要运行 MO PnL。
 
 结束时汇报：
 - 实际取得的数据/文档及 checksum；

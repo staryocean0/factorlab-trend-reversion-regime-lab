@@ -44,6 +44,6 @@ Frozen: RMB **14 / contract / open leg** and RMB **14 / contract / close leg** (
 
 ## Next step
 
-Separate **pre-execution freeze** before any event-conditioned MO outcome inspection.
+Pre-execution freeze is now written at `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`. Wait for a separate user authorization before any event-conditioned MO outcome inspection.
 
 `BLACKBOX_query_count=3`

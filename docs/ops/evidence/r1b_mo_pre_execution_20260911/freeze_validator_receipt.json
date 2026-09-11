@@ -1,0 +1,11 @@
+{
+  "validator_id": "rmr_R1B_MO_pre_execution_freeze_validator_v1",
+  "status": "PASS",
+  "freeze_path": "docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json",
+  "errors": [],
+  "warnings": [],
+  "empirical_option_outcome_test_authorized": false,
+  "outcome_runner_authorized": false,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

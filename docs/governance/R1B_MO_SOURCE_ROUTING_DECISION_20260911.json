@@ -28,6 +28,7 @@
     }
   },
   "fee_contract": "docs/governance/R1B_MO_FEE_CONTRACT@1.0.json",
+  "pre_execution_freeze": "docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json",
   "empirical_option_outcome_test_authorized": false,
   "production_authority": false,
   "blackbox_query_count": 3
