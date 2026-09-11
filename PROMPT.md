@@ -7,85 +7,85 @@
 - R1 / R2 是 certified mechanism；机制认证仍有效。
 - `BLACKBOX_query_count=3`；禁止 query #4。
 - `production_authority=false`。
-- 当前没有已授权的 empirical payoff candidate。
+- 纯指数价格层验证已经完成，当前状态：
 
-已经关闭：
+`R1_PRICE_EDGE_SUPPORTED_R2_DIRECT_DIRECTIONAL_PRICE_EDGE_NOT_SUPPORTED`
 
-- R1/R2 已测试的 index-level economic translations；
-- unified router；
+## 已完成的价格层验证
+
+冻结合同：`docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json`
+
+结果：`docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md`
+
+Receipt：`docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json`
+
+研究只问一个问题：信号确认以后，现金指数价格是否沿信号方向移动。
+
+固定定义：
+
+- entry = causal event confirmation 后下一条 1m close；
+- LONG/SHORT 都用 synthetic signed cash-index return；
+- primary cost = 0；
+- horizons = `1/5/15/30/60/120/240` observed bars；
+- 所有 horizon 全报，禁止挑赢家；
+- LONG/SHORT 分开报告；
+- MFE/MAE 和年度稳定性同时报告。
+
+主要结论：
+
+- CSI1000 R1_A：1–120 bars 多个 horizon 有一致正 price edge；
+- CSI1000 R1_B：延迟 edge 明确，120 bars mean `+11.03bp`，240 bars `+23.43bp`；
+- STAR50 R1_B transport：120 bars `+5.60bp`，240 bars `+18.19bp`；
+- 上述 R1_B 120/240 在两个指数都达到 4/5 年正均值，且 LONG/SHORT 两侧均值都为正；
+- R2_A/R2_B 没有形成稳定直接方向 price edge，CSI1000 随 horizon 拉长反而更加不利。
+
+这证明 R1 在**价格层**有信息，但不等于已经得到可执行策略，也不授权从结果中选 120/240 作为持有期。
+
+## 已关闭身份仍然关闭
+
+不要因为新价格层结果重新打开：
+
+- R1 structural economic translations v1/v2/v3；
+- R2 `rmr_R2_range_reentry_economic_translation_v1`；
 - `rmr_R1B_temporal_impulse_completion_v1`；
-- R1_B 单 long ATM MO：`rmr_R1B_MO_convex_impulse_mapping_v1`；
-- R1_B 1x2 adjacent-OTM ratio backspread：`rmr_R1B_MO_ratio_backspread_v1`；
-- R5-B1 以及其他已归档 Stage-1 lanes。
+- R1_B 单 long ATM MO；
+- R1_B 1x2 adjacent-OTM ratio backspread；
+- 其他 archived closed lanes。
 
-最新 program state：
+两个 MO 失败现在应理解为**具体 option payoff mapping 失败**，不是 R1 price signal 失败。
 
-`CERTIFIED_R1_R2_MECHANISMS_NO_AUTHORIZED_EMPIRICAL_PAYOFF_CANDIDATE`
+禁止基于已看到的 option outcomes 搜 strike / DTE / ratio / width / exit / horizon / year / side / regime。
 
-最新 payoff review：
+## 当前下一层
 
-`R1B_LISTED_DIRECTIONAL_OPTION_PAYOFF_PROGRAM_CLOSED_NO_NEW_EMPIRICAL_IDENTITY`
+研究顺序改为：
 
-## 最新结果
+`R1 mechanism -> cash-index price validity -> ETF/index-carrier transport -> executable implementation`
 
-1x2 backspread 在任何 outcome 打开前已冻结：同一 R1_B event/clock/exit，short 1 deterministic ATM，long 2 immediately adjacent OTM，同 expiry，同一 quote timestamp 同步成交，14 CNY/contract/leg，completed package 总 fee 84 CNY。
+当前仓库已有：
 
-结果：
+- `000852.SH` 1m：2015-01-05 .. 2025-12-31；
+- `000688.SH` 1m：2020-07-23 .. 2025-12-31。
 
-- joinable 385；completed 360；coverage 93.51%；
-- pooled mean -376.61 CNY；
-- median -884 CNY；
-- win rate 22.22%；
-- 2023/2024/2025 年均值全部为负；
-- 2023Q1..2025Q4 仅 2/12 quarters 为正；
-- `FAIL_IDENTITY_CLOSED`。
+当前仓库**没有 admitted ETF minute-price package**，所以 ETF transport 尚未执行。
 
-见：
+如果拿到 ETF 数据：
 
-- `docs/research/R1B_MO_RATIO_BACKSPREAD_OUTCOME_STUDY_20260911.md`
-- `docs/ops/evidence/r1b_mo_backspread_20260911/outcome_receipt.json`
-- `docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md`
+1. 先记录 ETF identity、数据来源、时间范围、时间戳/复权规则并冻结；
+2. 不用 index 结果挑 horizon；
+3. 原样 replay causal event timestamps/directions；
+4. 同样报告完整 `1/5/15/30/60/120/240` signed return term structure；
+5. ETF SHORT 可以作为 signal-transport synthetic return，但必须明确标注非实际可执行 short（除非另有真实借券/库存机制）；
+6. 先回答 ETF 是否复制 index edge，再单独讨论交易成本/T+1/借券/期指/期权实现。
 
-不要尝试 1x3、2x3、更多 OTM、vertical、calendar、另一 DTE 或其他从已见 payoff surface 选出来的变体。
-
-## 数据
-
-云端历史研究数据已经自给：`data/r1b_research/`。
-
-包含：
-
-- CSI1000 `000852.SH` 1m，至 2025-12-31；
-- `contract_master.csv`；
-- joinable 2022-07-22..2025-12-31 MO L1 bid/ask/status CSV。
-
-DataHub 主 MO quote route 已 admission PASS；active fee contract 为 14 CNY/contract/leg。
-
-2026 MO 不得自动构造 event，因为云端没有 separately admitted 的 2026 underlying 1m。
-
-## 接下来允许做什么
-
-可以：
-
-- 审计与复现已关闭研究；
-- 维护数据、provenance、tests、receipts；
-- 做真正独立、results-blind 的 payoff/mechanism theory review；
-- 若存在全新经济机制或真实账户 use-case，可先写 theory review，再在**任何对应 outcome 读取前**冻结新的 machine contract。
-
-不可以：
-
-- 用已看到的 option outcomes 搜 strike、ratio、width、DTE、exit、horizon、year、side、regime、time-of-day；
-- 把 R2 adverse markout 重新包装成 timing rescue；
-- probability filter/sizing rescue；
-- BLACKBOX query #4；
-- production promotion。
-
-如果没有独立理论，不要为了“继续研究”硬造 v3/v4；正确动作是维持 `no empirical candidate`。
+不要把 R2 直接推进 ETF/options directional execution；当前 price-layer evidence 不支持。
 
 ## 工程纪律
 
-- 所有新 empirical identity 必须先冻结、后看 outcome；
+- empirical identity 必须先冻结后读结果；
 - synthetic/fail-closed tests 先于真实回放；
-- 失败必须保留，不覆盖历史证据；
-- 一次性 workflow 完成后清理；
-- `CONTINUE_HERE.md` 是当前 authority 入口；
-- 不提交账号、凭据、非公开下载链接或本地原始 DataHub lake。
+- 不覆盖失败证据；
+- 一次性 workflow 完成后删除；
+- 当前 authority 入口是 `CONTINUE_HERE.md`；
+- 不提交账号、凭据、非公开链接或本地原始 DataHub lake；
+- 不为了“继续研究”从已见结果中挑参数。
