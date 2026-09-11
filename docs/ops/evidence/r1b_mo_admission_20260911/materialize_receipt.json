@@ -1,0 +1,15 @@
+{
+  "materialize_id": "rmr_R1B_MO_materialize_datahub_admission_bundle_v1",
+  "trading_months": 50,
+  "canonical_files": 50,
+  "total_output_rows": 46365986,
+  "manifest_path": "data/r1b_mo_admission/datahub/manifest.json",
+  "validator_status": "PASS",
+  "validator_receipt_path": "docs/ops/evidence/r1b_mo_admission_20260911/admission_validator_receipt.json",
+  "historical_window": "2022-07-22 .. 2026-08-25",
+  "fee_contract": "docs/governance/R1B_MO_FEE_CONTRACT@1.0.json",
+  "month_failures": [],
+  "blackbox_query_count": 3,
+  "production_authority": false,
+  "empirical_option_outcome_test_authorized": false
+}

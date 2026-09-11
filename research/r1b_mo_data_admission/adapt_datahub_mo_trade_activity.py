@@ -22,6 +22,7 @@ from research.r1b_mo_data_admission.adapt_cffex_snapshot import (
     _require_columns,
     _validate_mapping,
 )
+from research.r1b_mo_data_admission.prepare_ciis_legacy_cff_snapshot import mo_expiry_from_contract_code
 
 SERVING_SOURCE_KIND = "baidu_cffex_500ms_derived_trade_activity_3s"
 NON_EXECUTABLE_SESSIONS = {"preopen", "postclose"}
@@ -120,11 +121,16 @@ def adapt_datahub_quotes(
         master_slice = master[[master_key, expiry_key]].copy()
         if master_slice[master_key].duplicated().any():
             raise MappingError("contract master contains duplicate contract identifiers")
-        expiry_map = master_slice.set_index(master_key)[expiry_key]
+        expiry_map = master_slice.set_index(master_key)[expiry_key].replace("", pd.NA)
         expiries = contract_code.map(expiry_map)
-        if expiries.isna().any():
-            missing_codes = sorted(contract_code[expiries.isna()].unique().tolist())[:10]
-            raise MappingError(f"contract master missing expiry for MO contracts: {missing_codes}")
+        missing_expiry = expiries.isna()
+        if missing_expiry.any():
+            filled = contract_code.loc[missing_expiry].map(mo_expiry_from_contract_code)
+            if filled.isna().any():
+                missing_codes = sorted(contract_code[missing_expiry].unique().tolist())[:10]
+                raise MappingError(f"contract master missing expiry for MO contracts: {missing_codes}")
+            expiries.loc[missing_expiry] = filled.values
+            warnings.append(f"filled expiry from MO third-Friday rule rows={int(missing_expiry.sum())}")
         expiries = pd.to_datetime(expiries, errors="coerce")
         if expiries.isna().any():
             raise MappingError(f"contract master expiry parse failed rows={int(expiries.isna().sum())}")
@@ -179,7 +185,7 @@ def adapt_datahub_quotes(
                 "option_type": option_type.values,
                 "strike": strike.values,
                 "expiry": expiries.dt.strftime("%Y-%m-%d").values,
-                "timestamp": timestamps.dt.strftime("%Y-%m-%d %H:%M:%S.%f").str.rstrip("0").str.rstrip(".").values,
+                "timestamp": timestamps.dt.strftime("%Y-%m-%d %H:%M:%S.%f").values,
                 "bid1": bid1.values,
                 "bid1_size": bid1_size.values,
                 "ask1": ask1.values,

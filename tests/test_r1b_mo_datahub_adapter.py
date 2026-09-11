@@ -65,7 +65,7 @@ def test_datahub_adapter_maps_mo_l1_rows_without_admission_authority(tmp_path: P
     assert receipt.output_rows == 1
     assert receipt.empirical_option_outcome_test_authorized is False
     assert output.loc[0, "contract_code"] == "MO2302-C-6500"
-    assert output.loc[0, "timestamp"].startswith("2022-12-06 09:32:49")
+    assert output.loc[0, "timestamp"] == "2022-12-06 09:32:49.400000"
     assert output.loc[0, "trading_status"] == "TRADING"
 
 

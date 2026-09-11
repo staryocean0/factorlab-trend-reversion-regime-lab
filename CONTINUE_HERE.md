@@ -52,7 +52,7 @@ Read:
 
 ## Data-admission state
 
-No MO historical intraday best-bid/best-ask tape is **admitted** yet. **Primary source route is local pinned DataHub MO L1** (`docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`). Legacy CIIS public-sample mapping remains auxiliary schema evidence only at `ADAPTED_NOT_ADMITTED`.
+MO historical intraday best-bid/best-ask tape is **admitted** on the DataHub primary route. Validator **PASS** receipt: `docs/ops/evidence/r1b_mo_admission_20260911/admission_validator_receipt.json` (**46,365,986** canonical rows, **50** monthly files, window **2022-07-22 .. 2026-08-25**). This admits instrument quotes only; it does **not** authorize option outcomes, BLACKBOX #4, or production.
 
 Confirmed:
 
@@ -81,7 +81,7 @@ Each epoch requires an independent source-specific mapping and schema/provenance
 
 Current source state:
 
-`DATAHUB_PRIMARY_SCHEMA_MAPPED_FEE_FROZEN_TAIL_WAIVED_ADMISSION_MANIFEST_REQUIRED`
+`DATAHUB_PRIMARY_MO_BID_ASK_ADMITTED_FEE_FROZEN_14_CNY`
 
 Session receipt: `docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json`.
 
@@ -125,6 +125,7 @@ Code:
 - `research/r1b_mo_data_admission/prepare_ciis_legacy_cff_snapshot.py`
 - `research/r1b_mo_data_admission/adapt_datahub_mo_trade_activity.py`
 - `research/r1b_mo_data_admission/export_datahub_mo_month.py`
+- `research/r1b_mo_data_admission/materialize_datahub_mo_admission_bundle.py`
 - `research/r1b_mo_data_admission/validate_mo_quote_source.py`
 
 Tests:
@@ -162,15 +163,13 @@ Historical exchange-only evidence at RMB 15/contract remains archived context in
 
 **Do not run an option return study yet.**
 
-Local next step only:
+Admission PASS is complete for the DataHub primary route. The next legal step is a **separate pre-execution freeze** before any event-conditioned MO outcome inspection.
 
-1. Materialize or bind the full DataHub MO window through **2026-08-25** under the pinned dataset_version.
-2. Populate a complete source manifest with frozen fee contract and file inventory.
-3. Run `validate_mo_quote_source.py`; retain PASS/FAIL receipt.
+Local bundle (not in Git): `data/r1b_mo_admission/datahub/` — manifest + 50 monthly canonical CSVs.
 
-Optional external step (not required now): CIIS/CFFEX official Level-2 order via `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md` if official byte-layout provenance is desired later.
+Optional: CIIS/CFFEX official Level-2 order remains available for official byte-layout provenance only.
 
-Only a complete admission PASS can unlock a **separate pre-execution freeze**. PASS still does not authorize PnL, BLACKBOX #4 or production.
+PASS does not authorize PnL, BLACKBOX #4, or production.
 
 For a local execution agent, use `PROMPT.md` verbatim.
 

@@ -1,0 +1,13 @@
+{
+  "protocol_id": "rmr_R1B_MO_data_admission_v1",
+  "status": "PASS",
+  "data_dir": "data/r1b_mo_admission/datahub/quotes",
+  "manifest_path": "data/r1b_mo_admission/datahub/manifest.json",
+  "rows_checked": 46365986,
+  "files_checked": 50,
+  "errors": [],
+  "warnings": [],
+  "empirical_option_outcome_test_authorized": false,
+  "blackbox_query_count": 3,
+  "production_authority": false
+}

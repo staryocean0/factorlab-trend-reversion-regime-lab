@@ -25,7 +25,8 @@
     "continuous_am": "TRADING",
     "continuous_pm": "TRADING",
     "preopen": "AUCTION_OR_NONCONTINUOUS",
-    "postclose": "AUCTION_OR_NONCONTINUOUS"
+    "postclose": "AUCTION_OR_NONCONTINUOUS",
+    "lunch_or_break": "AUCTION_OR_NONCONTINUOUS"
   },
   "zero_quote_semantics": "Non-serving rows with null/nonpositive bid/ask or TDX-only rows are excluded upstream; remaining invalid bid/ask fail closed in the adapter serving filter.",
   "volume_semantics": "trade_volume is the 3s bucket trade volume in contracts.",

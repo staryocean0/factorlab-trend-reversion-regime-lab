@@ -8,6 +8,7 @@ dist/
 *.pdf
 *.xlsx
 data/r1b_mo_acquisition/raw/
+data/r1b_mo_admission/datahub/
 docs/ops/evidence/**/datahub_export_*/
 docs/ops/evidence/**/datahub_canonical_*.csv
 docs/ops/evidence/**/*.parquet

@@ -9,6 +9,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from research.r1b_mo_data_admission.prepare_ciis_legacy_cff_snapshot import mo_expiry_from_contract_code
+
 DEFAULT_BINDING = Path("docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json")
 
 
@@ -36,6 +38,12 @@ def export_month(binding_path: Path, trading_month: str, out_dir: Path) -> Expor
     identity = pd.read_parquet(ds["contract_identity_path"])
     mo_identity = identity.loc[identity["product_root"].astype(str) == "MO"].copy()
     master = mo_identity[["contract_symbol", "expiry_date"]].drop_duplicates("contract_symbol")
+    empty_expiry = master["expiry_date"].isna() | (master["expiry_date"].astype(str).str.strip() == "")
+    if empty_expiry.any():
+        master = master.copy()
+        master.loc[empty_expiry, "expiry_date"] = master.loc[empty_expiry, "contract_symbol"].map(
+            mo_expiry_from_contract_code
+        )
 
     out_dir.mkdir(parents=True, exist_ok=True)
     quote_out = out_dir / f"mo_quotes_{trading_month}.parquet"
