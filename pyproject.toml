@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "factorlab-trend-reversion-regime-lab"
 version = "0.1.0"
-description = "Independent CSI1000 and STAR50 trend/reversion research seed"
+description = "FactorLab reversal/mean-reversion research and MO data-admission lab"
 requires-python = ">=3.11,<3.14"
 dependencies = ["numpy>=2,<3", "pandas>=2.2,<3", "pyarrow>=19,<22", "scipy>=1.15,<2", "matplotlib>=3.9,<4", "pytest>=8.3,<9"]
 
