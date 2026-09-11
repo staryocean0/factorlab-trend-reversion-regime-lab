@@ -1,0 +1,67 @@
+{
+  "schema_id": "factorlab_r1a_endpoint_price_diagnostic_freeze@1.0",
+  "identity": "rmr_R1A_observed_endpoint_ETF_transport_diagnostic_v1",
+  "status": "FROZEN_BEFORE_NEW_ENDPOINT_OUTCOMES",
+  "frozen_on": "2026-09-12",
+  "baseline_commit": "d9670e1e26faca084530f5ab017e055dcec7cee6",
+  "authorization": "User explicitly asked to continue cloud methodology/observation review after full-path vs endpoint distinction. This authorizes a separate diagnostic, not retroactive amendment of the original v1 PASS/FAIL gates.",
+  "known_before_freeze": {
+    "prior_index_and_588000_outcomes_seen": true,
+    "512100_ETF_outcomes_seen": false,
+    "512100_2021_record_coverage": 1.0,
+    "512100_2021_positive_volume_coverage": 0.9447873799725651,
+    "512100_v1_full_path_pair_coverage": 0.6527777777777778,
+    "method_chosen_after_observation_coverage_review": true,
+    "fresh_independent_test": false
+  },
+  "methodological_decision": {
+    "derivation": "A horizon terminal return d*(P[t+h]/P[t]-1) depends on entry and exit prices only. The paired increment requires four endpoints, not all 482 path prices. Requiring every intermediate bar to trade selects a different full-path-observable population and is necessary for complete minute-path extrema, not for the algebra of terminal returns.",
+    "old_protocol": "R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0 remains byte-for-byte unchanged. Its primary insufficient-coverage decision and PARTIAL_CARRIER_TRANSPORT history remain valid.",
+    "new_target": "Descriptive paired ETF terminal returns conditional on both original event and control having positive-volume, valid prices at their exact fixed entry and horizon-exit timestamps. Not all-event alpha, causal treatment effect, execution PnL or a replacement full-path admission.",
+    "future_availability_conditioning": "Eligibility uses exit availability and therefore is retrospective, not a causal tradable entry rule. Missingness may be informative. No MCAR/MAR assumption, weighting or imputation is asserted.",
+    "separate_path_estimand": "Do not compute MFE/MAE, stops, targets or intrapath risk on this endpoint sample. Original full-path evidence stays separate."
+  },
+  "inputs": {
+    "pack": "data/r1a_carrier_prices/cloud_pack_v1",
+    "checklist_git_blob_sha1": "c9d9f7579c90ba9a6bcd7e470ca7bd7256af8d15",
+    "matched_pairs_path": "docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv",
+    "matched_pairs_git_blob_sha1": "95191091d1a26c360c3efb5ae2d5be9cf194211d",
+    "index_manifest_git_blob_sha1": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "old_freeze_sha256": "7c3b08847a873132df36c97b4c8c8e84c251c4b9c56568260ffbbb90ce99142b",
+    "carriers": {"000852.SH": "512100.SH", "000688.SH": "588000.SH"},
+    "expected_pairs": {"000852.SH": 1296, "000688.SH": 1802},
+    "window": {"start": "2021-01-01", "end": "2025-12-31"},
+    "horizons": [1, 5, 15, 30, 60, 120, 240]
+  },
+  "data_integrity": {
+    "reuse": "Check pinned checklist, manifests and every CSV SHA256/size/rows; validate canonical OHLCV identity, duplicates, time labels and action-ledger schema. Do not claim fresh upstream exchange verification.",
+    "minimum_record_coverage_each_year": 0.95,
+    "record_coverage_definition": "Fraction of index-clock timestamps with an actual delivered valid-OHLCV row, including zero-volume rows as records only, not as usable return endpoints.",
+    "positive_volume_coverage": "Always report independently; do not label zero-volume minutes as traded or change their values.",
+    "source_caveats": "Delivered canonical time and corporate-action provenance is inherited and documented. Source-recorded volume=0 vs actual exchange no-trade remains unresolved."
+  },
+  "sampling": {
+    "primary": "For each predeclared horizon separately, retain an original pair iff event-entry, event-exit, control-entry and control-exit are exact-timestamp finite positive prices with source volume>0. Both event and control must also avoid a split/distribution crossing over that horizon.",
+    "all_original_pairs_remain_denominator": true,
+    "minimum_pair_coverage_pooled_and_each_event_year": 0.80,
+    "gate_failure": "Report counts/reasons for every horizon. Suppress that horizon's ETF outcomes if its fixed coverage test fails; do not tune gates. Outcome release is determined from availability before computing returns, not from returns.",
+    "alignment": "Original index observation clock and frozen entry indices; never use ETF row offsets, nearest-price joins, clock shifts, fills or interpolation.",
+    "common_endpoint_sensitivity": "Intersect all seven endpoint-eligible pair sets. If the same 80% pooled/per-year coverage gate passes, report all seven horizons on this identical common sample. Otherwise report insufficient common-sample coverage, no common-sample ETF outcome table.",
+    "composition_audit": "For each horizon compute index-only returns on all original pairs, eligible pairs and excluded pairs, and all matching features/year/side composition. This diagnoses observable selection only and cannot identify unobserved ETF returns or remove bias.",
+    "corporate_actions": "Exclude crossing when entry_day < ex_date <= horizon_exit_day for either leg, using unchanged delivered action tables.",
+    "prohibited": ["no removal of 2021", "no replacement ETF", "no signal refit", "no rematching", "no new regime/year/side/clock filter", "no selected holding period"]
+  },
+  "measurements": {
+    "primary_cost_bp": 0,
+    "short": "synthetic signed price return, not actual borrow or execution",
+    "reports": ["all seven horizons, including unavailable cells", "ETF event/control/increment mean median positive fraction zero fraction standard deviation quantiles", "same-sample index event/control/increment", "ETF-minus-index event and incremental residuals", "event-return correlation", "every year and LONG/SHORT", "per-horizon coverage and explicit endpoint/action exclusions", "common-endpoint sensitivity if its gate passes", "index-only full/eligible/excluded comparisons", "matching-feature composition without rematching"],
+    "new_significance_test": false,
+    "new_certified_alpha_pass": false,
+    "formal_causal_inference": false,
+    "production_authority": false,
+    "fresh_oos": false,
+    "BLACKBOX_query_count": 3,
+    "blackbox_query_4_authorized": false
+  },
+  "execution": "Publish this freeze before new endpoint outcomes; run synthetic and integration boundary tests first. Persist new endpoint evidence in a separate directory. Do not edit the original transport runner, v1 freeze, raw CSVs or prior decisive receipts. Update current handoff to distinguish endpoint measurement from old complete-path state."
+}
