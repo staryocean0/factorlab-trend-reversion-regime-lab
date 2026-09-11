@@ -1,132 +1,91 @@
 # 本地执行模型接管提示
 
-你现在接管仓库 `staryocean0/factorlab-trend-reversion-regime-lab` 的本地工作副本。不要重新设计前面的研究，不要重跑已经关闭的机制，不要向用户重复询问已经冻结的数学/数据工程决策。直接从 `main` 当前 authority 继续执行。
+你接管的是 `staryocean0/factorlab-trend-reversion-regime-lab`。不要重新设计、重跑或调参救援已经关闭的研究身份。先读 `CONTINUE_HERE.md`。
 
-## 先做
+## 当前 authority
 
-1. `git status`，确保了解本地未提交改动；不要覆盖用户本地工作。
-2. `git fetch`，在安全前提下同步 `main`；只允许 fast-forward，不要强制覆盖。
-3. 先读：
-   - `CONTINUE_HERE.md`
-   - `AGENTS.md`
-   - `docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`
-   - `docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json`
-   - `docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json`
-   - GitHub issue #7
-
-## 不可改变的 authority
-
-- R1 / R2 已经是 certified mechanism，不重新发现。
-- 关闭的线性经济翻译、unified router、R1_B temporal impulse completion、R1_B MO convex mapping、R5-B1 不允许通过调参救活。
-- `rmr_R1B_MO_convex_impulse_mapping_v1` 已按冻结合同跑完 outcome study，裁决为 `R1B_MO_OUTCOME_STUDY_FAIL_IDENTITY_CLOSED`。
-- `BLACKBOX_query_count=3`，禁止 query #4。
+- R1 / R2 是 certified mechanism；机制认证仍有效。
+- `BLACKBOX_query_count=3`；禁止 query #4。
 - `production_authority=false`。
-- 禁止对已关闭候选做 strike/DTE/horizon/阈值/年份筛选救援。新的工具身份必须另写冻结合同并等用户新检查点。
+- 当前没有已授权的 empirical payoff candidate。
 
-## 你的执行任务
+已经关闭：
 
-当前任务已完成：冻结合同 outcome study 已跑完并关闭身份。下面 A–D 只是历史准入说明，不要重做，也不要据此重开 PnL。
+- R1/R2 已测试的 index-level economic translations；
+- unified router；
+- `rmr_R1B_temporal_impulse_completion_v1`；
+- R1_B 单 long ATM MO：`rmr_R1B_MO_convex_impulse_mapping_v1`；
+- R1_B 1x2 adjacent-OTM ratio backspread：`rmr_R1B_MO_ratio_backspread_v1`；
+- R5-B1 以及其他已归档 Stage-1 lanes。
 
-### A. 以本地 DataHub 为主路径完成 MO 准入
+最新 program state：
 
-**主路径（用户已确认）**：本地 pinned DataHub MO L1 trade-activity（`docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`）。有效 quote 窗口 **2022-07-22 .. 2026-08-25**；用户对 2026-08-26..2026-09-10 尾部已明确忽略。
+`CERTIFIED_R1_R2_MECHANISMS_NO_AUTHORIZED_EMPIRICAL_PAYOFF_CANDIDATE`
 
-**Fee 已冻结**：开/平各 **14 元/张/腿**（`docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`）。
+最新 payoff review：
 
-CIIS/CFFEX 官方 Level-2 订单仅为**可选**官方 provenance 补充（`docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`），不是当前 blocker。
+`R1B_LISTED_DIRECTIONAL_OPTION_PAYOFF_PROGRAM_CLOSED_NO_NEW_EMPIRICAL_IDENTITY`
 
-本地任务：
-- 绑定/物化完整 DataHub MO 窗口；
-- 填充 manifest + 跑 `validate_mo_quote_source.py`；
-- 不要把 R1_B event timestamps 混入数据请求或事后筛选 quote。
+## 最新结果
 
-### B. 严格按两个 delivery epoch 处理
+1x2 backspread 在任何 outcome 打开前已冻结：同一 R1_B event/clock/exit，short 1 deterministic ATM，long 2 immediately adjacent OTM，同 expiry，同一 quote timestamp 同步成交，14 CNY/contract/leg，completed package 总 fee 84 CNY。
 
-研究窗口跨过已冻结的物理格式切换：
+结果：
 
-1. `LEGACY_CFFEX_SNAPSHOT`: 2022-07-22 .. 2024-07-07
-2. `POST_TRANSITION_CFFEX_DELIVERY`: 2024-07-08 .. 2026-09-10
+- joinable 385；completed 360；coverage 93.51%；
+- pooled mean -376.61 CNY；
+- median -884 CNY；
+- win rate 22.22%；
+- 2023/2024/2025 年均值全部为负；
+- 2023Q1..2025Q4 仅 2/12 quarters 为正；
+- `FAIL_IDENTITY_CLOSED`。
 
-两个 epoch 必须分别：
-- 保存原始 bytes；
-- SHA-256；
-- byte size / row count / file structure；
-- 独立 source-specific mapping；
-- 独立 schema/provenance check。
+见：
 
-不能因为一个 epoch 映射成功就推断另一个 epoch；两个都过关前禁止 canonical concatenation。
+- `docs/research/R1B_MO_RATIO_BACKSPREAD_OUTCOME_STUDY_20260911.md`
+- `docs/ops/evidence/r1b_mo_backspread_20260911/outcome_receipt.json`
+- `docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md`
 
-### C. 必须实际解决的字段语义
+不要尝试 1x3、2x3、更多 OTM、vertical、calendar、另一 DTE 或其他从已见 payoff surface 选出来的变体。
 
-对每个 epoch，从真实 sample / delivery dictionary 中确定，不允许猜：
-- contract code / `SecurityID`；
-- timestamp 格式、精度、时区；
-- bid1 / bid1_size / ask1 / ask1_size 的物理列映射；
-- last price；
-- volume；
-- open interest；
-- trading/quote status；
-- zero / missing quote semantics；
-- contract master / expiry / last trading date；
-- correction / republication / version semantics。
+## 数据
 
-### D. 使用现有 fail-closed 基础设施
+云端历史研究数据已经自给：`data/r1b_research/`。
 
-现有代码：
-- `research/r1b_mo_data_admission/adapt_cffex_snapshot.py`
-- `research/r1b_mo_data_admission/adapt_cffex_snapshot_epochs.py`
-- `research/r1b_mo_data_admission/validate_mo_quote_source.py`
+包含：
 
-原则：
-- adapter 成功最多是 `ADAPTED_NOT_ADMITTED` / `MULTI_EPOCH_ADAPTED_NOT_ADMITTED`；
-- unresolved mapping、跨 epoch 日期泄漏、unknown status 等必须 FAIL_CLOSED；
-- 不允许 midpoint / last price 替代缺失 bid/ask；
-- 不允许为了通过 validator 修改策略定义。
+- CSI1000 `000852.SH` 1m，至 2025-12-31；
+- `contract_master.csv`；
+- joinable 2022-07-22..2025-12-31 MO L1 bid/ask/status CSV。
 
-先运行完整测试。新增代码必须补 synthetic / fail-closed tests。
+DataHub 主 MO quote route 已 admission PASS；active fee contract 为 14 CNY/contract/leg。
 
-### E. fee contract 并行推进
+2026 MO 不得自动构造 event，因为云端没有 separately admitted 的 2026 underlying 1m。
 
-继续补齐：
-- CFFEX 官方 exchange fee 的完整 effective-period chain；
-- broker/customer 历史 commission schedule（只有真实来源才可写入）。
+## 接下来允许做什么
 
-不能：
-- 把 RMB 15/contract 当成完整历史 all-in fee；
-- 假设 broker markup=0；
-- 用别家券商客户费率替代本账户费率。
+可以：
 
-如果 broker 历史费率确实无法获得，明确保持 `pending`，不要用保守假设偷偷替代 admission requirement。
+- 审计与复现已关闭研究；
+- 维护数据、provenance、tests、receipts；
+- 做真正独立、results-blind 的 payoff/mechanism theory review；
+- 若存在全新经济机制或真实账户 use-case，可先写 theory review，再在**任何对应 outcome 读取前**冻结新的 machine contract。
 
-## 数据与仓库卫生
+不可以：
 
-- 大型/付费/非公开原始交付默认不要提交到 public Git；本地原样保存，仓库只提交 public-safe manifest、checksums、schema mapping、receipt、代码和必要公开材料。
-- 不提交账号、订单号、发票、个人联系方式、cookie/token、非公开下载链接。
-- 临时下载脚本、一次性 workflow、探测日志完成使命后删除；决定性 receipt 留存。
-- 关闭的研究线放 archive，不重新放回 active `research/`。
-- 每完成一个阶段，同步 `CONTINUE_HERE.md` 与 issue #7，使下一位执行者可以无上下文接管。
+- 用已看到的 option outcomes 搜 strike、ratio、width、DTE、exit、horizon、year、side、regime、time-of-day；
+- 把 R2 adverse markout 重新包装成 timing rescue；
+- probability filter/sizing rescue；
+- BLACKBOX query #4；
+- production promotion。
 
-## 决策权限
+如果没有独立理论，不要为了“继续研究”硬造 v3/v4；正确动作是维持 `no empirical candidate`。
 
-用户已授权你自行做剩余的数学、统计、数据工程、软件工程决策。不要因为存在多个合理实现就停下来询问用户；选择最保守、可复现、fail-closed 的方案执行，并在 receipt 中记录理由。
+## 工程纪律
 
-只有真正涉及以下情况才停下等待用户：
-- 需要用户付款/签署/登录/提供账号权限；
-- 需要用户提供只有其本人拥有的 broker 历史佣金材料；
-- 会产生不可逆的外部商业行为。
-
-## 完成标准
-
-你应尽可能推进到下列最远状态：
-
-`REAL_SOURCE_BYTES_ACQUIRED -> PER_EPOCH_SCHEMA_MAPPED -> CANONICALIZED_NOT_ADMITTED -> FEE_CONTRACT_FROZEN -> VALIDATOR_PASS/FAIL_RECEIPT`
-
-Outcome study 已执行，身份关闭：`docs/research/R1B_MO_OUTCOME_STUDY_20260911.md`。不要重跑或调参该候选。
-
-结束时汇报：
-- 实际取得的数据/文档及 checksum；
-- 两个 epoch 的 mapping 状态；
-- 测试和 validator 结果；
-- fee-contract 状态；
-- commit SHA；
-- 唯一剩余 blocker（如有）。
+- 所有新 empirical identity 必须先冻结、后看 outcome；
+- synthetic/fail-closed tests 先于真实回放；
+- 失败必须保留，不覆盖历史证据；
+- 一次性 workflow 完成后清理；
+- `CONTINUE_HERE.md` 是当前 authority 入口；
+- 不提交账号、凭据、非公开下载链接或本地原始 DataHub lake。
