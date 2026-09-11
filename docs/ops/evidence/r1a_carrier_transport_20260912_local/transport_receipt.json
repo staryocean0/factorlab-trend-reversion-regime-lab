@@ -1,0 +1,3416 @@
+{
+  "schema_id": "factorlab_r1a_carrier_transport_receipt@1.0",
+  "freeze_sha256": "7c3b08847a873132df36c97b4c8c8e84c251c4b9c56568260ffbbb90ce99142b",
+  "code_commit": "659c32f1216a84bf9d9da14bf017c92a9383db05",
+  "matched_pairs_sha256": "e4f5977919077e39935adfd5f7f0db0ff41c640de60470c757bf754c457da23c",
+  "input_index_manifest_sha256": "431daf9637b7ebf02dd95d8e80d3178717ba2b4ff01e56abc2f8bbef4f31064e",
+  "carriers": {
+    "512100.SH": {
+      "index": "000852.SH",
+      "frozen_pairs": 1296,
+      "index_rows_verified": 641441,
+      "ETF_outcomes_read": false,
+      "status": "BLOCKED_CARRIER_DATA_NOT_ADMITTED",
+      "reason": "INSUFFICIENT_CARRIER_MINUTE_COVERAGE {\"2021\": 0.9447873799725651, \"2022\": 0.9900826446280991, \"2023\": 0.9987603305785124, \"2024\": 0.9991907713498622, \"2025\": 0.999965706447188}"
+    },
+    "588000.SH": {
+      "index": "000688.SH",
+      "frozen_pairs": 1802,
+      "index_rows_verified": 317280,
+      "ETF_outcomes_read": true,
+      "admission": {
+        "status": "PASS_DATA_ADMISSION_ONLY",
+        "manifest_sha256": "f451b9490bb8d5c21263cb10133bae4d47b7fd1ae88d4fe291b72b2b46d9f8b5",
+        "source": "DataHub_local_lake_raw_canonical_1m",
+        "source_reference": "unified_datahub lake partition bars_cn_a_1m_raw_canonical_4ceca170a851/instrument_type=etf; bar_align=session_end_label_v2; wall-clock Z suffix decoded as Asia/Shanghai",
+        "files": [
+          {
+            "path": "data/r1a_carrier_prices/private/588000_2021.csv",
+            "sha256": "fa443856d1b788a26c4156d7f78eddf64444c63b8592b262315cce39e2a3ffd1",
+            "bytes": 3935527,
+            "rows": 58563
+          },
+          {
+            "path": "data/r1a_carrier_prices/private/588000_2022.csv",
+            "sha256": "e34b32ddfe3a323aa94da6c3d5259335ebe8d8f76935f232a1b4daf3f99bf1af",
+            "bytes": 3935489,
+            "rows": 58322
+          },
+          {
+            "path": "data/r1a_carrier_prices/private/588000_2023.csv",
+            "sha256": "10d6ee31bd30007b2643fad95bcfe7678f55a7772b3633c8c8256f16fdc8c23b",
+            "bytes": 3960464,
+            "rows": 58322
+          },
+          {
+            "path": "data/r1a_carrier_prices/private/588000_2024.csv",
+            "sha256": "08b7b47dd54dd41e52112f547202bffa88bb7103b3c21be2011804a59edf2494",
+            "bytes": 3966452,
+            "rows": 58322
+          },
+          {
+            "path": "data/r1a_carrier_prices/private/588000_2025.csv",
+            "sha256": "08839ca0242ddd57a3b84305abb9670ca1b8055d2bd33ce59768bd84af97b14a",
+            "bytes": 3984249,
+            "rows": 58563
+          }
+        ],
+        "corporate_actions": {
+          "path": "data/r1a_carrier_prices/private/588000_actions.csv",
+          "sha256": "3e0ea91b3250fe460aa14646596ae6f56518ffecc94c68d131819c398075920a",
+          "bytes": 43,
+          "rows": 0
+        },
+        "minute_coverage_by_year": {
+          "2021": 0.9999828532235939,
+          "2022": 0.999965564738292,
+          "2023": 1.0,
+          "2024": 0.9994834710743802,
+          "2025": 1.0
+        },
+        "zero_volume_rows": 33
+      },
+      "common_sample": {
+        "frozen_pairs": 1802,
+        "complete_pairs": 1791,
+        "coverage": {
+          "pooled": 0.9938956714761377,
+          "2021": 0.9880952380952381,
+          "2022": 0.9951100244498777,
+          "2023": 1.0,
+          "2024": 0.9885321100917431,
+          "2025": 1.0
+        },
+        "reasons": {
+          "complete_common_path": 1791,
+          "event_missing_or_zero_volume_minute": 9,
+          "control_missing_or_zero_volume_minute": 1,
+          "event_missing_or_zero_volume_minute;control_missing_or_zero_volume_minute": 1
+        },
+        "minimum_coverage_pass": true
+      },
+      "status": "TRANSPORT_MEASURED_DESCRIPTIVE_ONLY",
+      "summary": {
+        "1": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 0.06685141552441964,
+              "median_bp": 0.0,
+              "positive_fraction": 0.3389168062534897,
+              "std_bp": 16.01349245773729
+            },
+            "etf_control": {
+              "mean_bp": -0.4901012690771728,
+              "median_bp": 0.0,
+              "positive_fraction": 0.3243997766610832,
+              "std_bp": 12.745699779944161
+            },
+            "etf_incremental": {
+              "mean_bp": 0.5569526846015925,
+              "median_bp": 0.0,
+              "positive_fraction": 0.44500279173646007,
+              "std_bp": 20.29278817336638
+            },
+            "index_event_same_sample": {
+              "mean_bp": 0.3501405882415558,
+              "median_bp": 0.4784765307253025,
+              "positive_fraction": 0.5181462869905081,
+              "std_bp": 14.588774017644731
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": 0.5017380536294108,
+              "median_bp": 0.4111966699293923,
+              "positive_fraction": 0.5153545505304299,
+              "std_bp": 18.086811781214532
+            },
+            "event_tracking_residual": {
+              "mean_bp": -0.28328917271713616,
+              "median_bp": -0.5200355600076811,
+              "positive_fraction": 0.4723618090452261,
+              "std_bp": 8.744471559984753
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 0.05521463097218169,
+              "median_bp": -0.15782742062153687,
+              "positive_fraction": 0.4935790061418202,
+              "std_bp": 11.97943282991926
+            },
+            "etf_close_MFE": {
+              "mean_bp": 5.10230193513385,
+              "median_bp": 0.0,
+              "positive_fraction": 0.3389168062534897,
+              "std_bp": 10.609535395797243
+            },
+            "etf_close_MAE": {
+              "mean_bp": -5.03545051960943,
+              "median_bp": 0.0,
+              "positive_fraction": 0.0,
+              "std_bp": 9.616908105955185
+            },
+            "event_price_return_correlation": 0.8406882006176228
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 0.6240256528160982,
+                "median_bp": 0.0,
+                "positive_fraction": 0.35532407407407407,
+                "std_bp": 15.51736266806639
+              },
+              "etf_control": {
+                "mean_bp": -0.8287999062882364,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3148148148148148,
+                "std_bp": 11.816867419381193
+              },
+              "etf_incremental": {
+                "mean_bp": 1.4528255591043349,
+                "median_bp": 0.0,
+                "positive_fraction": 0.45023148148148145,
+                "std_bp": 19.61077520009563
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.6106218643652784,
+                "median_bp": 0.2947550298149082,
+                "positive_fraction": 0.5104166666666666,
+                "std_bp": 13.236221796527587
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 1.0659315996430452,
+                "median_bp": 0.6323061026952681,
+                "positive_fraction": 0.5173611111111112,
+                "std_bp": 16.932269847054748
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.013403788450819859,
+                "median_bp": -0.20338990664281464,
+                "positive_fraction": 0.48726851851851855,
+                "std_bp": 9.290348192144513
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.3868939594612895,
+                "median_bp": -0.1534491630683643,
+                "positive_fraction": 0.49074074074074076,
+                "std_bp": 12.256511633220747
+              },
+              "etf_close_MFE": {
+                "mean_bp": 5.389887904399102,
+                "median_bp": 0.0,
+                "positive_fraction": 0.35532407407407407,
+                "std_bp": 10.311559987033071
+              },
+              "etf_close_MAE": {
+                "mean_bp": -4.7658622515830045,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 9.115116466531845
+              },
+              "event_price_return_correlation": 0.8025549669542903
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": -0.45245661146588273,
+                "median_bp": 0.0,
+                "positive_fraction": 0.32362459546925565,
+                "std_bp": 16.44546040346793
+              },
+              "etf_control": {
+                "mean_bp": -0.17442098585132707,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3333333333333333,
+                "std_bp": 13.546597179235324
+              },
+              "etf_incremental": {
+                "mean_bp": -0.2780356256145557,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4401294498381877,
+                "std_bp": 20.873840205383576
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.1073619231165328,
+                "median_bp": 0.7302148292032129,
+                "positive_fraction": 0.5253505933117584,
+                "std_bp": 15.741258028622616
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -0.024112241684267968,
+                "median_bp": 0.26346907148644405,
+                "positive_fraction": 0.5134843581445523,
+                "std_bp": 19.08514660736585
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.5598185345824156,
+                "median_bp": -0.7086669973777049,
+                "positive_fraction": 0.45846817691477887,
+                "std_bp": 8.193384316867546
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": -0.25392338393028774,
+                "median_bp": -0.21017993584226957,
+                "positive_fraction": 0.4962243797195254,
+                "std_bp": 11.706827955110363
+              },
+              "etf_close_MFE": {
+                "mean_bp": 4.834260643391478,
+                "median_bp": 0.0,
+                "positive_fraction": 0.32362459546925565,
+                "std_bp": 10.873068298226604
+              },
+              "etf_close_MAE": {
+                "mean_bp": -5.28671725485736,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 10.055586275714614
+              },
+              "event_price_return_correlation": 0.8712962681725801
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": 0.47502900914112856,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3704819277108434,
+                "std_bp": 10.260634159745258
+              },
+              "etf_control": {
+                "mean_bp": 0.14114143671391527,
+                "median_bp": 0.0,
+                "positive_fraction": 0.35843373493975905,
+                "std_bp": 10.113044797642614
+              },
+              "etf_incremental": {
+                "mean_bp": 0.33388757242721334,
+                "median_bp": 0.0,
+                "positive_fraction": 0.42771084337349397,
+                "std_bp": 15.8316348558489
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.9645483926558825,
+                "median_bp": 0.8543333814448051,
+                "positive_fraction": 0.5451807228915663,
+                "std_bp": 10.507127192671941
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.9522766505433851,
+                "median_bp": 0.5172459161845167,
+                "positive_fraction": 0.5240963855421686,
+                "std_bp": 15.361565866689737
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.48951938351475394,
+                "median_bp": -0.48706069564641297,
+                "positive_fraction": 0.463855421686747,
+                "std_bp": 6.581574495415129
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": -0.6183890781161718,
+                "median_bp": -1.3672863715635808,
+                "positive_fraction": 0.4608433734939759,
+                "std_bp": 9.782836616726241
+              },
+              "etf_close_MFE": {
+                "mean_bp": 3.968904064676997,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3704819277108434,
+                "std_bp": 6.425545536339814
+              },
+              "etf_close_MAE": {
+                "mean_bp": -3.4938750555358684,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 6.021566914165701
+              },
+              "event_price_return_correlation": 0.7993857294960462
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 0.2541227528244369,
+                "median_bp": 0.0,
+                "positive_fraction": 0.33906633906633904,
+                "std_bp": 14.663263126875629
+              },
+              "etf_control": {
+                "mean_bp": -0.4967619836419567,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3071253071253071,
+                "std_bp": 12.282246456954999
+              },
+              "etf_incremental": {
+                "mean_bp": 0.7508847364663936,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4742014742014742,
+                "std_bp": 18.897805346588527
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.655330892060209,
+                "median_bp": 0.9542591767930375,
+                "positive_fraction": 0.5405405405405406,
+                "std_bp": 12.343236110981906
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.9922066196650746,
+                "median_bp": 0.6804025223394738,
+                "positive_fraction": 0.5184275184275184,
+                "std_bp": 16.61422814857609
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.40120813923577214,
+                "median_bp": -1.2404969076174055,
+                "positive_fraction": 0.44471744471744473,
+                "std_bp": 8.14193902609169
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": -0.24132188319868103,
+                "median_bp": -0.05847181984486305,
+                "positive_fraction": 0.4987714987714988,
+                "std_bp": 11.351232407745432
+              },
+              "etf_close_MFE": {
+                "mean_bp": 5.16169312215746,
+                "median_bp": 0.0,
+                "positive_fraction": 0.33906633906633904,
+                "std_bp": 9.007842516334264
+              },
+              "etf_close_MAE": {
+                "mean_bp": -4.9075703693330235,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 9.121804332758474
+              },
+              "event_price_return_correlation": 0.8317367460269361
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -1.704246351028209,
+                "median_bp": 0.0,
+                "positive_fraction": 0.24680851063829787,
+                "std_bp": 9.771880674118995
+              },
+              "etf_control": {
+                "mean_bp": 0.7214350982443933,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3276595744680851,
+                "std_bp": 10.986632508034326
+              },
+              "etf_incremental": {
+                "mean_bp": -2.425681449272602,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3446808510638298,
+                "std_bp": 15.476624167502667
+              },
+              "index_event_same_sample": {
+                "mean_bp": -1.373350444603915,
+                "median_bp": -1.2541329380910682,
+                "positive_fraction": 0.4,
+                "std_bp": 9.634262309935222
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -1.964992336935868,
+                "median_bp": -1.075741364304772,
+                "positive_fraction": 0.43829787234042555,
+                "std_bp": 13.073471557891798
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.33089590642429384,
+                "median_bp": -0.6744262475699703,
+                "positive_fraction": 0.4851063829787234,
+                "std_bp": 8.006796378925918
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": -0.46068911233673443,
+                "median_bp": -0.8736113608642793,
+                "positive_fraction": 0.4723404255319149,
+                "std_bp": 12.715195156936977
+              },
+              "etf_close_MFE": {
+                "mean_bp": 2.8678747289730238,
+                "median_bp": 0.0,
+                "positive_fraction": 0.24680851063829787,
+                "std_bp": 5.400459191729691
+              },
+              "etf_close_MAE": {
+                "mean_bp": -4.572121080001232,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 6.332468035561004
+              },
+              "event_price_return_correlation": 0.6596210972188316
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 0.6822121368795742,
+                "median_bp": 0.0,
+                "positive_fraction": 0.31322505800464034,
+                "std_bp": 22.855496610533343
+              },
+              "etf_control": {
+                "mean_bp": -1.27765176541865,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3062645011600928,
+                "std_bp": 15.633851802733332
+              },
+              "etf_incremental": {
+                "mean_bp": 1.9598639022982243,
+                "median_bp": 0.0,
+                "positive_fraction": 0.43155452436194897,
+                "std_bp": 26.826943839602343
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.5183724346014665,
+                "median_bp": 0.40792461553085246,
+                "positive_fraction": 0.5127610208816705,
+                "std_bp": 20.501160128905678
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.9179968667036446,
+                "median_bp": -0.027656108517737366,
+                "positive_fraction": 0.4988399071925754,
+                "std_bp": 23.65506727574772
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.16383970227810768,
+                "median_bp": -0.10826945722963721,
+                "positive_fraction": 0.4965197215777262,
+                "std_bp": 12.099981471818278
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.0418670355945798,
+                "median_bp": 0.402805096180181,
+                "positive_fraction": 0.505800464037123,
+                "std_bp": 15.111400980365168
+              },
+              "etf_close_MFE": {
+                "mean_bp": 7.008578792904497,
+                "median_bp": 0.0,
+                "positive_fraction": 0.31322505800464034,
+                "std_bp": 16.672372536136656
+              },
+              "etf_close_MAE": {
+                "mean_bp": -6.326366656024922,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 12.479104173267753
+              },
+              "event_price_return_correlation": 0.8496826554388892
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": -0.09052395008713025,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3963730569948187,
+                "std_bp": 15.119918398932427
+              },
+              "etf_control": {
+                "mean_bp": -0.8842423309739746,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3316062176165803,
+                "std_bp": 12.579949553244637
+              },
+              "etf_incremental": {
+                "mean_bp": 0.7937183808868445,
+                "median_bp": 0.03084839771738679,
+                "positive_fraction": 0.5051813471502591,
+                "std_bp": 19.010520597938118
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.3613235473550683,
+                "median_bp": 1.214211920645969,
+                "positive_fraction": 0.5492227979274611,
+                "std_bp": 14.277691910455315
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.6340555997327555,
+                "median_bp": 1.9161025558966926,
+                "positive_fraction": 0.5699481865284974,
+                "std_bp": 17.0485264667525
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.4518474974421986,
+                "median_bp": -0.2991140651925628,
+                "positive_fraction": 0.4740932642487047,
+                "std_bp": 6.695234019181952
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.159662781154089,
+                "median_bp": 0.4225462913320932,
+                "positive_fraction": 0.5155440414507773,
+                "std_bp": 9.61936651245267
+              },
+              "etf_close_MFE": {
+                "mean_bp": 5.246345840889579,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3963730569948187,
+                "std_bp": 8.053192921880493
+              },
+              "etf_close_MAE": {
+                "mean_bp": -5.336869790976709,
+                "median_bp": 0.0,
+                "positive_fraction": 0.0,
+                "std_bp": 10.380745969863122
+              },
+              "event_price_return_correlation": 0.8978198153308149
+            }
+          }
+        },
+        "5": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 1.6428633769489072,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4517029592406477,
+              "std_bp": 29.51413537307963
+            },
+            "etf_control": {
+              "mean_bp": -0.1412438543690421,
+              "median_bp": 0.0,
+              "positive_fraction": 0.40703517587939697,
+              "std_bp": 26.81450146519094
+            },
+            "etf_incremental": {
+              "mean_bp": 1.7841072313179491,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4852037967615857,
+              "std_bp": 38.929137958976504
+            },
+            "index_event_same_sample": {
+              "mean_bp": 1.2850967940025753,
+              "median_bp": 2.227732362172219,
+              "positive_fraction": 0.5382467895030709,
+              "std_bp": 29.81406576792275
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": 1.179209040599249,
+              "median_bp": 0.684310455876247,
+              "positive_fraction": 0.509212730318258,
+              "std_bp": 38.452766325827376
+            },
+            "event_tracking_residual": {
+              "mean_bp": 0.35776658294633196,
+              "median_bp": 0.3583124914885438,
+              "positive_fraction": 0.5147962032384142,
+              "std_bp": 10.072154772208675
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 0.6048981907187002,
+              "median_bp": 0.6215721814029074,
+              "positive_fraction": 0.5287548855388051,
+              "std_bp": 12.796601157282891
+            },
+            "etf_close_MFE": {
+              "mean_bp": 15.965167071674326,
+              "median_bp": 10.183299389001643,
+              "positive_fraction": 0.6711334450027917,
+              "std_bp": 20.73246937516141
+            },
+            "etf_close_MAE": {
+              "mean_bp": -14.421427693075328,
+              "median_bp": -9.30232558139732,
+              "positive_fraction": 0.0,
+              "std_bp": 20.472093877620935
+            },
+            "event_price_return_correlation": 0.9424058678487686
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 1.7165973036167872,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4398148148148148,
+                "std_bp": 30.6438265845502
+              },
+              "etf_control": {
+                "mean_bp": -1.1584331106995156,
+                "median_bp": 0.0,
+                "positive_fraction": 0.38657407407407407,
+                "std_bp": 25.438681664011263
+              },
+              "etf_incremental": {
+                "mean_bp": 2.8750304143163032,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48726851851851855,
+                "std_bp": 39.816343806928415
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.8609526678379094,
+                "median_bp": 0.7667286009893637,
+                "positive_fraction": 0.5115740740740741,
+                "std_bp": 31.0712664763417
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 1.682151065627325,
+                "median_bp": 0.5809398318090686,
+                "positive_fraction": 0.5081018518518519,
+                "std_bp": 39.428104172085234
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.8556446357788778,
+                "median_bp": 1.0165846311821491,
+                "positive_fraction": 0.5405092592592593,
+                "std_bp": 10.345214507784267
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.1928793486889777,
+                "median_bp": 0.8825054945849065,
+                "positive_fraction": 0.5347222222222222,
+                "std_bp": 12.960709428352434
+              },
+              "etf_close_MFE": {
+                "mean_bp": 16.52861758738562,
+                "median_bp": 10.050261407804628,
+                "positive_fraction": 0.6597222222222222,
+                "std_bp": 22.62542549548185
+              },
+              "etf_close_MAE": {
+                "mean_bp": -14.3695681516833,
+                "median_bp": -9.1701073840178,
+                "positive_fraction": 0.0,
+                "std_bp": 19.98404744210153
+              },
+              "event_price_return_correlation": 0.9438945545628262
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": 1.57414049384098,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4627831715210356,
+                "std_bp": 28.420645862767405
+              },
+              "etf_control": {
+                "mean_bp": 0.8068160350263506,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4261057173678533,
+                "std_bp": 28.002847806808834
+              },
+              "etf_incremental": {
+                "mean_bp": 0.7673244588146295,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48327939590075514,
+                "std_bp": 38.055475989513425
+              },
+              "index_event_same_sample": {
+                "mean_bp": 1.680415591204594,
+                "median_bp": 3.5648082133188375,
+                "positive_fraction": 0.5631067961165048,
+                "std_bp": 28.58691271709565
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.710447541543955,
+                "median_bp": 0.6863560422121218,
+                "positive_fraction": 0.5102481121898598,
+                "std_bp": 37.51482268939261
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.10627509736361374,
+                "median_bp": -0.21571170532030948,
+                "positive_fraction": 0.49083063646170444,
+                "std_bp": 9.788036775432815
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.05687691727067446,
+                "median_bp": 0.35289549470629566,
+                "positive_fraction": 0.52319309600863,
+                "std_bp": 12.61708092155682
+              },
+              "etf_close_MFE": {
+                "mean_bp": 15.440009309457972,
+                "median_bp": 10.559662090813271,
+                "positive_fraction": 0.6817691477885652,
+                "std_bp": 18.782089547483345
+              },
+              "etf_close_MAE": {
+                "mean_bp": -14.469762799615472,
+                "median_bp": -9.433962264149276,
+                "positive_fraction": 0.0,
+                "std_bp": 20.916605910576568
+              },
+              "event_price_return_correlation": 0.941056671460058
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": 2.3048912023146806,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4759036144578313,
+                "std_bp": 21.270118962883814
+              },
+              "etf_control": {
+                "mean_bp": 1.142608551200553,
+                "median_bp": 0.0,
+                "positive_fraction": 0.45180722891566266,
+                "std_bp": 22.572623108808866
+              },
+              "etf_incremental": {
+                "mean_bp": 1.1622826511141275,
+                "median_bp": -0.009624955208953345,
+                "positive_fraction": 0.44879518072289154,
+                "std_bp": 30.871990113806458
+              },
+              "index_event_same_sample": {
+                "mean_bp": 1.453169039863116,
+                "median_bp": 1.8374873697152294,
+                "positive_fraction": 0.5240963855421686,
+                "std_bp": 22.658000112128605
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.3737190668898952,
+                "median_bp": -1.8277461725968447,
+                "positive_fraction": 0.4608433734939759,
+                "std_bp": 32.581145681217556
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.8517221624515648,
+                "median_bp": 1.7784799844816623,
+                "positive_fraction": 0.5662650602409639,
+                "std_bp": 8.1682073052371
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.7885635842242325,
+                "median_bp": 0.8920291561609339,
+                "positive_fraction": 0.5451807228915663,
+                "std_bp": 11.213483869537603
+              },
+              "etf_close_MFE": {
+                "mean_bp": 13.345885123127374,
+                "median_bp": 7.43771021419648,
+                "positive_fraction": 0.6927710843373494,
+                "std_bp": 14.997220389188902
+              },
+              "etf_close_MAE": {
+                "mean_bp": -10.430787797399939,
+                "median_bp": -6.835269993164528,
+                "positive_fraction": 0.0,
+                "std_bp": 12.62280377771958
+              },
+              "event_price_return_correlation": 0.9327783362311207
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 3.6080894994850365,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4643734643734644,
+                "std_bp": 25.062255654483256
+              },
+              "etf_control": {
+                "mean_bp": -0.8192416578052738,
+                "median_bp": 0.0,
+                "positive_fraction": 0.43734643734643736,
+                "std_bp": 29.83735401791872
+              },
+              "etf_incremental": {
+                "mean_bp": 4.42733115729031,
+                "median_bp": 0.11737327989425062,
+                "positive_fraction": 0.5184275184275184,
+                "std_bp": 38.488636040716486
+              },
+              "index_event_same_sample": {
+                "mean_bp": 3.318374396261954,
+                "median_bp": 2.970195940115161,
+                "positive_fraction": 0.5552825552825553,
+                "std_bp": 25.454178221518713
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 4.127499234339175,
+                "median_bp": 0.933687360404889,
+                "positive_fraction": 0.5061425061425061,
+                "std_bp": 38.33752912671851
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.2897151032230824,
+                "median_bp": 0.008091467424975463,
+                "positive_fraction": 0.5036855036855037,
+                "std_bp": 8.742951050925928
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.29983192295113503,
+                "median_bp": 0.5177521492727433,
+                "positive_fraction": 0.5233415233415234,
+                "std_bp": 12.269256124102537
+              },
+              "etf_close_MFE": {
+                "mean_bp": 15.811169173315962,
+                "median_bp": 9.920634920634885,
+                "positive_fraction": 0.683046683046683,
+                "std_bp": 17.3758896751533
+              },
+              "etf_close_MAE": {
+                "mean_bp": -12.63773356177531,
+                "median_bp": -8.984725965857088,
+                "positive_fraction": 0.0,
+                "std_bp": 15.748357169226134
+              },
+              "event_price_return_correlation": 0.9402093498093506
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -2.2214888118598357,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3617021276595745,
+                "std_bp": 19.71164704221618
+              },
+              "etf_control": {
+                "mean_bp": -1.1011169455488048,
+                "median_bp": 0.0,
+                "positive_fraction": 0.33191489361702126,
+                "std_bp": 18.56837318616724
+              },
+              "etf_incremental": {
+                "mean_bp": -1.1203718663110307,
+                "median_bp": 0.0,
+                "positive_fraction": 0.425531914893617,
+                "std_bp": 25.65140461601309
+              },
+              "index_event_same_sample": {
+                "mean_bp": -2.367380959675629,
+                "median_bp": -0.7773405237343489,
+                "positive_fraction": 0.4978723404255319,
+                "std_bp": 20.966389434544126
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -1.3262045065098587,
+                "median_bp": 0.17333675632169587,
+                "positive_fraction": 0.502127659574468,
+                "std_bp": 24.349345326387972
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.1458921478157936,
+                "median_bp": 0.30526168708466805,
+                "positive_fraction": 0.5063829787234042,
+                "std_bp": 9.40998312464314
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.20583264019882813,
+                "median_bp": -0.018961975680742427,
+                "positive_fraction": 0.4978723404255319,
+                "std_bp": 12.267307848112836
+              },
+              "etf_close_MFE": {
+                "mean_bp": 9.480946606028088,
+                "median_bp": 9.33706816059754,
+                "positive_fraction": 0.5914893617021276,
+                "std_bp": 10.177955236055087
+              },
+              "etf_close_MAE": {
+                "mean_bp": -12.084183338878804,
+                "median_bp": -9.64320154291154,
+                "positive_fraction": 0.0,
+                "std_bp": 14.836738893482233
+              },
+              "event_price_return_correlation": 0.8947771865638675
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 2.5000594510661664,
+                "median_bp": 0.0,
+                "positive_fraction": 0.43155452436194897,
+                "std_bp": 36.85429350243651
+              },
+              "etf_control": {
+                "mean_bp": -0.2693552014434076,
+                "median_bp": 0.0,
+                "positive_fraction": 0.3480278422273782,
+                "std_bp": 32.239523071141754
+              },
+              "etf_incremental": {
+                "mean_bp": 2.7694146525095737,
+                "median_bp": 0.016373525972834813,
+                "positive_fraction": 0.5011600928074246,
+                "std_bp": 48.085731427057404
+              },
+              "index_event_same_sample": {
+                "mean_bp": 1.8802291333041115,
+                "median_bp": 2.765413890279955,
+                "positive_fraction": 0.531322505800464,
+                "std_bp": 37.05256356434567
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 1.3048043082998098,
+                "median_bp": 0.3375234806246574,
+                "positive_fraction": 0.5127610208816705,
+                "std_bp": 46.729360884090255
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.6198303177620547,
+                "median_bp": 0.5543824315790147,
+                "positive_fraction": 0.5174013921113689,
+                "std_bp": 14.064745082691616
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.464610344209764,
+                "median_bp": 1.4718019454795783,
+                "positive_fraction": 0.5498839907192575,
+                "std_bp": 16.479405502559896
+              },
+              "etf_close_MFE": {
+                "mean_bp": 20.754607098961603,
+                "median_bp": 12.80409731113985,
+                "positive_fraction": 0.665893271461717,
+                "std_bp": 30.109305636548434
+              },
+              "etf_close_MAE": {
+                "mean_bp": -18.030065308312174,
+                "median_bp": -12.690355329949554,
+                "positive_fraction": 0.0,
+                "std_bp": 23.834095692520116
+              },
+              "event_price_return_correlation": 0.9275829098387196
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": 0.3968296633009137,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4948186528497409,
+                "std_bp": 34.946770582994105
+              },
+              "etf_control": {
+                "mean_bp": 0.19681903258882433,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4481865284974093,
+                "std_bp": 24.210728593560752
+              },
+              "etf_incremental": {
+                "mean_bp": 0.20001063071208938,
+                "median_bp": 0.002563823829904166,
+                "positive_fraction": 0.5,
+                "std_bp": 40.63402977334348
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.5557865974485575,
+                "median_bp": 4.44828630170091,
+                "positive_fraction": 0.5647668393782384,
+                "std_bp": 34.43214183198984
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.1484038219750377,
+                "median_bp": 2.466354822950878,
+                "positive_fraction": 0.5544041450777202,
+                "std_bp": 39.80054834289142
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.15895693414764378,
+                "median_bp": -0.20794871661455883,
+                "positive_fraction": 0.4844559585492228,
+                "std_bp": 7.57317740499297
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.05160680873705166,
+                "median_bp": 0.32371882606740954,
+                "positive_fraction": 0.5155440414507773,
+                "std_bp": 9.834506172065563
+              },
+              "etf_close_MFE": {
+                "mean_bp": 16.980249738035702,
+                "median_bp": 10.351268391842193,
+                "positive_fraction": 0.694300518134715,
+                "std_bp": 18.684223148063577
+              },
+              "etf_close_MAE": {
+                "mean_bp": -17.128126055439157,
+                "median_bp": -8.9767764186377,
+                "positive_fraction": 0.0,
+                "std_bp": 27.120346329789456
+              },
+              "event_price_return_correlation": 0.9762783407500827
+            }
+          }
+        },
+        "15": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 3.600355756012132,
+              "median_bp": 0.0,
+              "positive_fraction": 0.48408710217755446,
+              "std_bp": 55.27422390676413
+            },
+            "etf_control": {
+              "mean_bp": 0.5813605230561237,
+              "median_bp": 0.0,
+              "positive_fraction": 0.44779452819653826,
+              "std_bp": 38.79158928792514
+            },
+            "etf_incremental": {
+              "mean_bp": 3.0189952329560086,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4768285873813512,
+              "std_bp": 62.932614939333895
+            },
+            "index_event_same_sample": {
+              "mean_bp": 3.0107356333310316,
+              "median_bp": 2.9082858000606393,
+              "positive_fraction": 0.5276381909547738,
+              "std_bp": 56.82410495762512
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": 2.074169050137982,
+              "median_bp": -0.9643929502400894,
+              "positive_fraction": 0.4885538805136795,
+              "std_bp": 63.817820876085285
+            },
+            "event_tracking_residual": {
+              "mean_bp": 0.5896201226811005,
+              "median_bp": 0.5127651571212866,
+              "positive_fraction": 0.5175879396984925,
+              "std_bp": 16.286973591684564
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 0.9448261828180263,
+              "median_bp": 0.7865898930481396,
+              "positive_fraction": 0.5293132328308208,
+              "std_bp": 18.540685386971955
+            },
+            "etf_close_MFE": {
+              "mean_bp": 31.796826215376633,
+              "median_bp": 20.283975659229903,
+              "positive_fraction": 0.7973199329983249,
+              "std_bp": 44.62387856971052
+            },
+            "etf_close_MAE": {
+              "mean_bp": -27.879716507014994,
+              "median_bp": -18.348623853211564,
+              "positive_fraction": 0.0,
+              "std_bp": 34.17672082267892
+            },
+            "event_price_return_correlation": 0.9581548787267388
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 4.165476049589439,
+                "median_bp": 0.0,
+                "positive_fraction": 0.44907407407407407,
+                "std_bp": 56.81918015246107
+              },
+              "etf_control": {
+                "mean_bp": -0.7605110974426018,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4097222222222222,
+                "std_bp": 33.30297416397122
+              },
+              "etf_incremental": {
+                "mean_bp": 4.925987147032041,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4861111111111111,
+                "std_bp": 61.62125569837673
+              },
+              "index_event_same_sample": {
+                "mean_bp": 3.604988519270276,
+                "median_bp": -0.42883854244890607,
+                "positive_fraction": 0.4930555555555556,
+                "std_bp": 60.411805336283464
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 4.173957513855054,
+                "median_bp": 0.062319776336083876,
+                "positive_fraction": 0.5,
+                "std_bp": 63.43102876240421
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.560487530319163,
+                "median_bp": 0.7261867144947587,
+                "positive_fraction": 0.53125,
+                "std_bp": 17.31268848495016
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.7520296331769867,
+                "median_bp": 0.4063789518427008,
+                "positive_fraction": 0.5138888888888888,
+                "std_bp": 19.46915579169084
+              },
+              "etf_close_MFE": {
+                "mean_bp": 32.09810423675054,
+                "median_bp": 19.32368953645569,
+                "positive_fraction": 0.7800925925925926,
+                "std_bp": 48.44213331221292
+              },
+              "etf_close_MAE": {
+                "mean_bp": -27.477979362312734,
+                "median_bp": -19.240130525637888,
+                "positive_fraction": 0.0,
+                "std_bp": 30.865745916629905
+              },
+              "event_price_return_correlation": 0.9582202313916031
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": 3.0736416959789143,
+                "median_bp": 7.183908045975684,
+                "positive_fraction": 0.5167206040992449,
+                "std_bp": 53.7889841267996
+              },
+              "etf_control": {
+                "mean_bp": 1.8320369848801785,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48327939590075514,
+                "std_bp": 43.247567396690506
+              },
+              "etf_incremental": {
+                "mean_bp": 1.2416047110987356,
+                "median_bp": 0.0,
+                "positive_fraction": 0.46817691477885653,
+                "std_bp": 64.07963699906456
+              },
+              "index_event_same_sample": {
+                "mean_bp": 2.4568688658536777,
+                "median_bp": 5.499259433062731,
+                "positive_fraction": 0.5598705501618123,
+                "std_bp": 53.25711823445465
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 0.117084656770614,
+                "median_bp": -1.6894537113043562,
+                "positive_fraction": 0.4778856526429342,
+                "std_bp": 64.11433926854012
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.6167728301252364,
+                "median_bp": 0.178739768172953,
+                "positive_fraction": 0.5048543689320388,
+                "std_bp": 15.269004489507624
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.1245200543281215,
+                "median_bp": 1.058411665697534,
+                "positive_fraction": 0.5436893203883495,
+                "std_bp": 17.6294493982061
+              },
+              "etf_close_MFE": {
+                "mean_bp": 31.51602339933882,
+                "median_bp": 21.36752136752129,
+                "positive_fraction": 0.8133764832793959,
+                "std_bp": 40.742205755775935
+              },
+              "etf_close_MAE": {
+                "mean_bp": -28.25415112732001,
+                "median_bp": -15.710919088767206,
+                "positive_fraction": 0.0,
+                "std_bp": 36.992916737668445
+              },
+              "event_price_return_correlation": 0.9593563055583385
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": 4.621609579307537,
+                "median_bp": 6.1050083804092825,
+                "positive_fraction": 0.5060240963855421,
+                "std_bp": 39.3719914020884
+              },
+              "etf_control": {
+                "mean_bp": 0.518371334861385,
+                "median_bp": 0.0,
+                "positive_fraction": 0.45481927710843373,
+                "std_bp": 34.176393554112295
+              },
+              "etf_incremental": {
+                "mean_bp": 4.103238244446152,
+                "median_bp": 0.0069040033745526586,
+                "positive_fraction": 0.5060240963855421,
+                "std_bp": 50.89933250025653
+              },
+              "index_event_same_sample": {
+                "mean_bp": 4.16298560920135,
+                "median_bp": 3.848978653210322,
+                "positive_fraction": 0.5271084337349398,
+                "std_bp": 41.75948301076901
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 3.9832276407766476,
+                "median_bp": 2.3715141110225435,
+                "positive_fraction": 0.5301204819277109,
+                "std_bp": 52.528523782494425
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.45862397010618755,
+                "median_bp": 0.3479467806510872,
+                "positive_fraction": 0.5090361445783133,
+                "std_bp": 9.532699819010622
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.12001060366950499,
+                "median_bp": 0.8810425898453378,
+                "positive_fraction": 0.5210843373493976,
+                "std_bp": 12.90119223162984
+              },
+              "etf_close_MFE": {
+                "mean_bp": 27.202001113905617,
+                "median_bp": 20.277122964750262,
+                "positive_fraction": 0.8343373493975904,
+                "std_bp": 27.61133620759021
+              },
+              "etf_close_MAE": {
+                "mean_bp": -21.022148148104947,
+                "median_bp": -14.030373716794053,
+                "positive_fraction": 0.0,
+                "std_bp": 22.392390302115412
+              },
+              "event_price_return_correlation": 0.974098457521575
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 4.1633251065368135,
+                "median_bp": 8.695652173913437,
+                "positive_fraction": 0.5331695331695332,
+                "std_bp": 45.14959927692554
+              },
+              "etf_control": {
+                "mean_bp": -3.8818392582526524,
+                "median_bp": 0.0,
+                "positive_fraction": 0.42997542997543,
+                "std_bp": 43.78899437014668
+              },
+              "etf_incremental": {
+                "mean_bp": 8.045164364789466,
+                "median_bp": 0.3484067648984457,
+                "positive_fraction": 0.5061425061425061,
+                "std_bp": 60.23887687813083
+              },
+              "index_event_same_sample": {
+                "mean_bp": 4.457831504876112,
+                "median_bp": 8.014796547473058,
+                "positive_fraction": 0.5749385749385749,
+                "std_bp": 47.53564084023326
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 7.756077767775195,
+                "median_bp": 0.45695165242998215,
+                "positive_fraction": 0.5061425061425061,
+                "std_bp": 61.40411932240926
+              },
+              "event_tracking_residual": {
+                "mean_bp": -0.29450639833929837,
+                "median_bp": -0.9317462381064345,
+                "positive_fraction": 0.4692874692874693,
+                "std_bp": 10.885012749092002
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.2890865970142714,
+                "median_bp": -0.0011527668308808359,
+                "positive_fraction": 0.4987714987714988,
+                "std_bp": 14.369587046839973
+              },
+              "etf_close_MFE": {
+                "mean_bp": 30.326844630418883,
+                "median_bp": 23.023791250958993,
+                "positive_fraction": 0.8034398034398035,
+                "std_bp": 29.82379525945363
+              },
+              "etf_close_MAE": {
+                "mean_bp": -25.47896819259194,
+                "median_bp": -17.969451931716396,
+                "positive_fraction": 0.0,
+                "std_bp": 27.912791495639087
+              },
+              "event_price_return_correlation": 0.9737234384497395
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -4.229118992966445,
+                "median_bp": 0.0,
+                "positive_fraction": 0.40425531914893614,
+                "std_bp": 34.467139540850596
+              },
+              "etf_control": {
+                "mean_bp": 2.1202460386353743,
+                "median_bp": 0.0,
+                "positive_fraction": 0.451063829787234,
+                "std_bp": 28.73858949293617
+              },
+              "etf_incremental": {
+                "mean_bp": -6.3493650316018195,
+                "median_bp": -6.91916029962103,
+                "positive_fraction": 0.39574468085106385,
+                "std_bp": 42.6238584025176
+              },
+              "index_event_same_sample": {
+                "mean_bp": -5.431075129656857,
+                "median_bp": -0.4957120904169887,
+                "positive_fraction": 0.4978723404255319,
+                "std_bp": 35.877311714072704
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -8.159231319835891,
+                "median_bp": -3.3167256110744336,
+                "positive_fraction": 0.43829787234042555,
+                "std_bp": 42.85099592963097
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.2019561366904112,
+                "median_bp": 1.9225497587971319,
+                "positive_fraction": 0.5531914893617021,
+                "std_bp": 9.302958891028977
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.8098662882340706,
+                "median_bp": 2.6258708688109422,
+                "positive_fraction": 0.574468085106383,
+                "std_bp": 13.137488444926989
+              },
+              "etf_close_MFE": {
+                "mean_bp": 18.308450954714644,
+                "median_bp": 11.29943502824915,
+                "positive_fraction": 0.7361702127659574,
+                "std_bp": 18.689688508859224
+              },
+              "etf_close_MAE": {
+                "mean_bp": -23.131732441439112,
+                "median_bp": -18.13236627379866,
+                "positive_fraction": 0.0,
+                "std_bp": 25.00166831255142
+              },
+              "event_price_return_correlation": 0.9658105862957813
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 11.439576958698071,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4895591647331787,
+                "std_bp": 79.44704300760436
+              },
+              "etf_control": {
+                "mean_bp": 2.5518035426454744,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4385150812064965,
+                "std_bp": 44.20476357377974
+              },
+              "etf_incremental": {
+                "mean_bp": 8.887773416052594,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4802784222737819,
+                "std_bp": 81.5034108718392
+              },
+              "index_event_same_sample": {
+                "mean_bp": 9.971599785410508,
+                "median_bp": 3.516273312892393,
+                "positive_fraction": 0.5406032482598608,
+                "std_bp": 81.02145256251646
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 6.564504101204546,
+                "median_bp": -1.5693000413730118,
+                "positive_fraction": 0.4802784222737819,
+                "std_bp": 81.8980227582612
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.4679771732875606,
+                "median_bp": 1.1732959574461965,
+                "positive_fraction": 0.5475638051044084,
+                "std_bp": 28.37364873553902
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.3232693148480474,
+                "median_bp": 1.5107175877815404,
+                "positive_fraction": 0.5661252900232019,
+                "std_bp": 29.9488959328468
+              },
+              "etf_close_MFE": {
+                "mean_bp": 44.83720998357515,
+                "median_bp": 25.445292620864812,
+                "positive_fraction": 0.7958236658932715,
+                "std_bp": 73.54320965490767
+              },
+              "etf_close_MAE": {
+                "mean_bp": -33.46886318081598,
+                "median_bp": -24.154589371980784,
+                "positive_fraction": 0.0,
+                "std_bp": 41.27701426077185
+              },
+              "event_price_return_correlation": 0.9376576202433714
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": -1.8580964909963984,
+                "median_bp": 0.0,
+                "positive_fraction": 0.45595854922279794,
+                "std_bp": 52.77716015891385
+              },
+              "etf_control": {
+                "mean_bp": 2.2045099631317484,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4689119170984456,
+                "std_bp": 35.235433196250575
+              },
+              "etf_incremental": {
+                "mean_bp": -4.062606454128147,
+                "median_bp": -0.004437415579428006,
+                "positive_fraction": 0.46632124352331605,
+                "std_bp": 60.24064562702997
+              },
+              "index_event_same_sample": {
+                "mean_bp": -2.139062117839678,
+                "median_bp": -0.9366719495240705,
+                "positive_fraction": 0.48186528497409326,
+                "std_bp": 53.468599104938974
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -4.3424879971060895,
+                "median_bp": -1.3446392664495654,
+                "positive_fraction": 0.4740932642487047,
+                "std_bp": 61.45241655953821
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.28096562684327936,
+                "median_bp": 0.38173680461550674,
+                "positive_fraction": 0.5207253886010362,
+                "std_bp": 8.607175695109776
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.27988154297794265,
+                "median_bp": 0.013479347615863446,
+                "positive_fraction": 0.5,
+                "std_bp": 11.112433196700394
+              },
+              "etf_close_MFE": {
+                "mean_bp": 30.95000554420616,
+                "median_bp": 19.81202616482769,
+                "positive_fraction": 0.7979274611398963,
+                "std_bp": 32.74457323299748
+              },
+              "etf_close_MAE": {
+                "mean_bp": -32.95917582859642,
+                "median_bp": -19.212739098016797,
+                "positive_fraction": 0.0,
+                "std_bp": 41.98728362216116
+              },
+              "event_price_return_correlation": 0.9869582829628699
+            }
+          }
+        },
+        "30": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 5.159976374640312,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4796203238414294,
+              "std_bp": 75.63733770021385
+            },
+            "etf_control": {
+              "mean_bp": 1.4332186944604877,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4617532104969291,
+              "std_bp": 52.725667224627244
+            },
+            "etf_incremental": {
+              "mean_bp": 3.7267576801798254,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4835287548855388,
+              "std_bp": 86.23530446918855
+            },
+            "index_event_same_sample": {
+              "mean_bp": 3.908094066745503,
+              "median_bp": 2.4511078264621844,
+              "positive_fraction": 0.5164712451144612,
+              "std_bp": 74.62442964569092
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": 2.0150819879414477,
+              "median_bp": -1.3467723799243103,
+              "positive_fraction": 0.486320491345617,
+              "std_bp": 85.44449173378696
+            },
+            "event_tracking_residual": {
+              "mean_bp": 1.2518823078948096,
+              "median_bp": 0.7810128668517269,
+              "positive_fraction": 0.5304299274148521,
+              "std_bp": 18.099848477537847
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 1.7116756922383778,
+              "median_bp": 0.9440040193497978,
+              "positive_fraction": 0.5321049692908989,
+              "std_bp": 20.18359150283978
+            },
+            "etf_close_MFE": {
+              "mean_bp": 47.0869921492009,
+              "median_bp": 29.70297029702973,
+              "positive_fraction": 0.8436627582356225,
+              "std_bp": 63.86698604310165
+            },
+            "etf_close_MAE": {
+              "mean_bp": -40.22173245232638,
+              "median_bp": -27.223230490018846,
+              "positive_fraction": 0.0,
+              "std_bp": 47.22875012542665
+            },
+            "event_price_return_correlation": 0.9710705365986297
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 6.168079898494727,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4525462962962963,
+                "std_bp": 72.33374322712287
+              },
+              "etf_control": {
+                "mean_bp": 1.491527026171012,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4236111111111111,
+                "std_bp": 45.49335597629971
+              },
+              "etf_incremental": {
+                "mean_bp": 4.676552872323715,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48842592592592593,
+                "std_bp": 80.08558601015334
+              },
+              "index_event_same_sample": {
+                "mean_bp": 4.5172010522744745,
+                "median_bp": -3.195276274325365,
+                "positive_fraction": 0.4826388888888889,
+                "std_bp": 71.83103336280185
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 2.6527981997395944,
+                "median_bp": -1.128197500657735,
+                "positive_fraction": 0.48842592592592593,
+                "std_bp": 79.64977767157808
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.6508788462202517,
+                "median_bp": 0.6899556802741902,
+                "positive_fraction": 0.5243055555555556,
+                "std_bp": 20.457034114258576
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.0237546725841202,
+                "median_bp": 0.7634358250063755,
+                "positive_fraction": 0.5254629629629629,
+                "std_bp": 22.186582823356076
+              },
+              "etf_close_MFE": {
+                "mean_bp": 47.7667508524194,
+                "median_bp": 28.34540755520365,
+                "positive_fraction": 0.8263888888888888,
+                "std_bp": 69.13337052371914
+              },
+              "etf_close_MAE": {
+                "mean_bp": -38.87997356207384,
+                "median_bp": -28.667044084882964,
+                "positive_fraction": 0.0,
+                "std_bp": 40.102384107486166
+              },
+              "event_price_return_correlation": 0.959752403674255
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": 4.220384740756588,
+                "median_bp": 6.8681318681307335,
+                "positive_fraction": 0.5048543689320388,
+                "std_bp": 78.57984071694423
+              },
+              "etf_control": {
+                "mean_bp": 1.378873064905047,
+                "median_bp": 0.0,
+                "positive_fraction": 0.49730312837108953,
+                "std_bp": 58.66910735308965
+              },
+              "etf_incremental": {
+                "mean_bp": 2.8415116758515406,
+                "median_bp": 0.0,
+                "positive_fraction": 0.47896440129449835,
+                "std_bp": 91.58721217240605
+              },
+              "index_event_same_sample": {
+                "mean_bp": 3.340382701592287,
+                "median_bp": 5.534134724426432,
+                "positive_fraction": 0.5480043149946062,
+                "std_bp": 77.13262660209081
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 1.4207057128674463,
+                "median_bp": -1.5415425168552321,
+                "positive_fraction": 0.4843581445523193,
+                "std_bp": 90.50793468122225
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.8800020391643004,
+                "median_bp": 0.8503976842344496,
+                "positive_fraction": 0.5361380798274002,
+                "std_bp": 15.575904830214846
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.420805962984094,
+                "median_bp": 1.4805723960908956,
+                "positive_fraction": 0.5382955771305286,
+                "std_bp": 18.113601558191654
+              },
+              "etf_close_MFE": {
+                "mean_bp": 46.453430639405035,
+                "median_bp": 30.376670716888434,
+                "positive_fraction": 0.8597626752966558,
+                "std_bp": 58.52632682035112
+              },
+              "etf_close_MAE": {
+                "mean_bp": -41.4723038451831,
+                "median_bp": -25.48853016142605,
+                "positive_fraction": 0.0,
+                "std_bp": 52.984626959513896
+              },
+              "event_price_return_correlation": 0.9801590806630098
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": 7.0555351950697025,
+                "median_bp": 6.745424713780479,
+                "positive_fraction": 0.5090361445783133,
+                "std_bp": 54.680407667203355
+              },
+              "etf_control": {
+                "mean_bp": -0.45754191772194774,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4759036144578313,
+                "std_bp": 50.33502608345761
+              },
+              "etf_incremental": {
+                "mean_bp": 7.51307711279165,
+                "median_bp": 0.05289631730132083,
+                "positive_fraction": 0.5120481927710844,
+                "std_bp": 70.94052258587267
+              },
+              "index_event_same_sample": {
+                "mean_bp": 7.0468947486466025,
+                "median_bp": 6.3147923824247165,
+                "positive_fraction": 0.536144578313253,
+                "std_bp": 58.041300402834636
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 7.346230234094241,
+                "median_bp": 0.7317129813178003,
+                "positive_fraction": 0.5090361445783133,
+                "std_bp": 74.52744417715779
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.008640446423099477,
+                "median_bp": -0.024604970442765328,
+                "positive_fraction": 0.49698795180722893,
+                "std_bp": 10.360236458209378
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.16684687869740827,
+                "median_bp": 0.6125534000767097,
+                "positive_fraction": 0.5180722891566265,
+                "std_bp": 13.894647899006868
+              },
+              "etf_close_MFE": {
+                "mean_bp": 40.15303823875844,
+                "median_bp": 30.459970607009666,
+                "positive_fraction": 0.8765060240963856,
+                "std_bp": 42.541388768954356
+              },
+              "etf_close_MAE": {
+                "mean_bp": -32.385632621557704,
+                "median_bp": -23.25593972925699,
+                "positive_fraction": 0.0,
+                "std_bp": 33.17213904395638
+              },
+              "event_price_return_correlation": 0.9848696734510459
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 7.053795389486954,
+                "median_bp": 8.0385852090048,
+                "positive_fraction": 0.5110565110565111,
+                "std_bp": 61.88861845127191
+              },
+              "etf_control": {
+                "mean_bp": -7.691442009297465,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4275184275184275,
+                "std_bp": 61.829912894376896
+              },
+              "etf_incremental": {
+                "mean_bp": 14.745237398784418,
+                "median_bp": 7.872804769089026,
+                "positive_fraction": 0.5454545454545454,
+                "std_bp": 82.38043078829263
+              },
+              "index_event_same_sample": {
+                "mean_bp": 6.2999132506985696,
+                "median_bp": 5.115991884979687,
+                "positive_fraction": 0.538083538083538,
+                "std_bp": 64.35273530874049
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 13.915847475422355,
+                "median_bp": 6.142335701044832,
+                "positive_fraction": 0.547911547911548,
+                "std_bp": 83.56111756817096
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.7538821387883835,
+                "median_bp": 1.2574491166195134,
+                "positive_fraction": 0.5454545454545454,
+                "std_bp": 11.158809064395287
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.829389923362063,
+                "median_bp": 0.8179035102673371,
+                "positive_fraction": 0.5257985257985258,
+                "std_bp": 15.00507149575435
+              },
+              "etf_close_MFE": {
+                "mean_bp": 43.28121744143801,
+                "median_bp": 33.755274261603184,
+                "positive_fraction": 0.8427518427518428,
+                "std_bp": 42.20319841135836
+              },
+              "etf_close_MAE": {
+                "mean_bp": -36.534193130374604,
+                "median_bp": -27.173913043476716,
+                "positive_fraction": 0.0,
+                "std_bp": 37.77953072401752
+              },
+              "event_price_return_correlation": 0.9851297998992714
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -4.091434823448813,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4127659574468085,
+                "std_bp": 46.04948335618931
+              },
+              "etf_control": {
+                "mean_bp": 1.001536026031846,
+                "median_bp": 0.0,
+                "positive_fraction": 0.43829787234042555,
+                "std_bp": 36.662934533522424
+              },
+              "etf_incremental": {
+                "mean_bp": -5.0929708494806585,
+                "median_bp": -5.156075808250282,
+                "positive_fraction": 0.3872340425531915,
+                "std_bp": 52.67081143379109
+              },
+              "index_event_same_sample": {
+                "mean_bp": -5.4818580786662245,
+                "median_bp": -5.11413826770224,
+                "positive_fraction": 0.4425531914893617,
+                "std_bp": 48.77172933550831
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -6.249480362747131,
+                "median_bp": -3.034928202352294,
+                "positive_fraction": 0.4340425531914894,
+                "std_bp": 54.87646452728339
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.390423255217411,
+                "median_bp": 1.4194797157096595,
+                "positive_fraction": 0.5531914893617021,
+                "std_bp": 11.021533405900067
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.1565095132664724,
+                "median_bp": -0.1794002999067068,
+                "positive_fraction": 0.4808510638297872,
+                "std_bp": 14.685604437401357
+              },
+              "etf_close_MFE": {
+                "mean_bp": 27.19298706664949,
+                "median_bp": 20.57613168724326,
+                "positive_fraction": 0.7702127659574468,
+                "std_bp": 30.646264617691827
+              },
+              "etf_close_MAE": {
+                "mean_bp": -32.39688109098271,
+                "median_bp": -22.39641657334812,
+                "positive_fraction": 0.0,
+                "std_bp": 33.26989581805671
+              },
+              "event_price_return_correlation": 0.9746064120516631
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 11.213919138086217,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4709976798143852,
+                "std_bp": 107.25025530948874
+              },
+              "etf_control": {
+                "mean_bp": 5.0981082256755625,
+                "median_bp": 0.0,
+                "positive_fraction": 0.46867749419953597,
+                "std_bp": 54.549269161553056
+              },
+              "etf_incremental": {
+                "mean_bp": 6.115810912410653,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4756380510440835,
+                "std_bp": 113.36719135906195
+              },
+              "index_event_same_sample": {
+                "mean_bp": 7.495264862581885,
+                "median_bp": 2.862127242000412,
+                "positive_fraction": 0.5127610208816705,
+                "std_bp": 100.79132952516859
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 1.1809852168721053,
+                "median_bp": -4.1971143286878565,
+                "positive_fraction": 0.45707656612529,
+                "std_bp": 107.42843498581409
+              },
+              "event_tracking_residual": {
+                "mean_bp": 3.7186542755043313,
+                "median_bp": 2.27309827085187,
+                "positive_fraction": 0.5730858468677494,
+                "std_bp": 31.885212055879794
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 4.934825695538548,
+                "median_bp": 2.4077148223800027,
+                "positive_fraction": 0.5823665893271461,
+                "std_bp": 32.948529357521586
+              },
+              "etf_close_MFE": {
+                "mean_bp": 68.31098212482621,
+                "median_bp": 35.04672897196359,
+                "positive_fraction": 0.8491879350348028,
+                "std_bp": 103.39921737381466
+              },
+              "etf_close_MAE": {
+                "mean_bp": -49.18266524305267,
+                "median_bp": -35.49245785270605,
+                "positive_fraction": 0.0,
+                "std_bp": 57.80840812630773
+              },
+              "event_price_return_correlation": 0.954904790879379
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": 0.40537127899425035,
+                "median_bp": 0.0,
+                "positive_fraction": 0.47150259067357514,
+                "std_bp": 75.34931343399273
+              },
+              "etf_control": {
+                "mean_bp": 8.851217318297504,
+                "median_bp": 0.0,
+                "positive_fraction": 0.49222797927461137,
+                "std_bp": 48.85626574883283
+              },
+              "etf_incremental": {
+                "mean_bp": -8.445846039303255,
+                "median_bp": -1.4485543519804356,
+                "positive_fraction": 0.46113989637305697,
+                "std_bp": 81.4789014226644
+              },
+              "index_event_same_sample": {
+                "mean_bp": 0.39777258204657046,
+                "median_bp": 2.9680787429836597,
+                "positive_fraction": 0.5259067357512953,
+                "std_bp": 75.42106638964997
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -9.155604308392114,
+                "median_bp": -4.021133643238861,
+                "positive_fraction": 0.46632124352331605,
+                "std_bp": 81.69774268471917
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.007598696947679904,
+                "median_bp": -0.45677469694249684,
+                "positive_fraction": 0.48186528497409326,
+                "std_bp": 8.79483207499037
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.7097582690888611,
+                "median_bp": 0.5872673772999715,
+                "positive_fraction": 0.5259067357512953,
+                "std_bp": 11.296208926851033
+              },
+              "etf_close_MFE": {
+                "mean_bp": 45.477081577261735,
+                "median_bp": 31.75415423086192,
+                "positive_fraction": 0.8549222797927462,
+                "std_bp": 46.67728107450378
+              },
+              "etf_close_MAE": {
+                "mean_bp": -45.60798034082973,
+                "median_bp": -28.598691384952303,
+                "positive_fraction": 0.0,
+                "std_bp": 57.1818789672098
+              },
+              "event_price_return_correlation": 0.9931950610846975
+            }
+          }
+        },
+        "60": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 3.758780243645384,
+              "median_bp": 0.0,
+              "positive_fraction": 0.48743718592964824,
+              "std_bp": 110.41874243543214
+            },
+            "etf_control": {
+              "mean_bp": 2.1409100630634876,
+              "median_bp": 0.0,
+              "positive_fraction": 0.45505304299274146,
+              "std_bp": 79.86321315880095
+            },
+            "etf_incremental": {
+              "mean_bp": 1.617870180581897,
+              "median_bp": 0.0,
+              "positive_fraction": 0.4935790061418202,
+              "std_bp": 127.66817872104663
+            },
+            "index_event_same_sample": {
+              "mean_bp": 2.3230602363746207,
+              "median_bp": 0.6032151366774929,
+              "positive_fraction": 0.5047459519821329,
+              "std_bp": 109.1736409643807
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": -0.44226167690123985,
+              "median_bp": -1.6225167118621986,
+              "positive_fraction": 0.48576214405360135,
+              "std_bp": 126.93766673852028
+            },
+            "event_tracking_residual": {
+              "mean_bp": 1.4357200072707634,
+              "median_bp": 1.0669548998221146,
+              "positive_fraction": 0.5404801786711334,
+              "std_bp": 19.720080710562087
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 2.060131857483136,
+              "median_bp": 1.4978838455825816,
+              "positive_fraction": 0.536571747627024,
+              "std_bp": 22.036697394029318
+            },
+            "etf_close_MFE": {
+              "mean_bp": 68.06193923205691,
+              "median_bp": 44.01408450704136,
+              "positive_fraction": 0.8793969849246231,
+              "std_bp": 85.81014600656394
+            },
+            "etf_close_MAE": {
+              "mean_bp": -61.480345294905234,
+              "median_bp": -41.32231404958664,
+              "positive_fraction": 0.0,
+              "std_bp": 76.12294073168603
+            },
+            "event_price_return_correlation": 0.983934582618974
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 10.376642080539922,
+                "median_bp": 0.0,
+                "positive_fraction": 0.47800925925925924,
+                "std_bp": 106.28560854427558
+              },
+              "etf_control": {
+                "mean_bp": 0.2949483634032212,
+                "median_bp": -9.35891641528519,
+                "positive_fraction": 0.4027777777777778,
+                "std_bp": 63.24961751539503
+              },
+              "etf_incremental": {
+                "mean_bp": 10.081693717136702,
+                "median_bp": 0.4938204907845023,
+                "positive_fraction": 0.5081018518518519,
+                "std_bp": 118.60245685135799
+              },
+              "index_event_same_sample": {
+                "mean_bp": 8.239268424925818,
+                "median_bp": -0.6854466872785459,
+                "positive_fraction": 0.49421296296296297,
+                "std_bp": 105.74172576574414
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 7.363684816004873,
+                "median_bp": 0.5119025149052936,
+                "positive_fraction": 0.5069444444444444,
+                "std_bp": 118.14635918512946
+              },
+              "event_tracking_residual": {
+                "mean_bp": 2.1373736556141045,
+                "median_bp": 0.8997429483342811,
+                "positive_fraction": 0.5393518518518519,
+                "std_bp": 20.631257594818432
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.7180089011318276,
+                "median_bp": 1.109736304081288,
+                "positive_fraction": 0.5300925925925926,
+                "std_bp": 22.645350781577452
+              },
+              "etf_close_MFE": {
+                "mean_bp": 69.64472068997114,
+                "median_bp": 43.352601156070314,
+                "positive_fraction": 0.8634259259259259,
+                "std_bp": 91.16872786397988
+              },
+              "etf_close_MAE": {
+                "mean_bp": -56.510561851739894,
+                "median_bp": -42.26840961200629,
+                "positive_fraction": 0.0,
+                "std_bp": 64.93743489389757
+              },
+              "event_price_return_correlation": 0.981076623590763
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": -2.409323992683506,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4962243797195254,
+                "std_bp": 113.7902937843119
+              },
+              "etf_control": {
+                "mean_bp": 3.8614180549798527,
+                "median_bp": 7.077140835103357,
+                "positive_fraction": 0.5037756202804746,
+                "std_bp": 92.67162262385402
+              },
+              "etf_incremental": {
+                "mean_bp": -6.27074204766336,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48004314994606256,
+                "std_bp": 135.09646697754638
+              },
+              "index_event_same_sample": {
+                "mean_bp": -3.191075551012903,
+                "median_bp": 3.573162798795604,
+                "positive_fraction": 0.5145631067961165,
+                "std_bp": 111.99687727954446
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -7.717706951842861,
+                "median_bp": -3.2585571780696654,
+                "positive_fraction": 0.46601941747572817,
+                "std_bp": 134.20740182163166
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.7817515583293968,
+                "median_bp": 1.1856585494518512,
+                "positive_fraction": 0.5415318230852212,
+                "std_bp": 18.807620387541693
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.4469649041795014,
+                "median_bp": 1.7271744299551806,
+                "positive_fraction": 0.5426105717367853,
+                "std_bp": 21.435695779808476
+              },
+              "etf_close_MFE": {
+                "mean_bp": 66.58672544603978,
+                "median_bp": 44.24778761061954,
+                "positive_fraction": 0.8942826321467098,
+                "std_bp": 80.46717058607493
+              },
+              "etf_close_MAE": {
+                "mean_bp": -66.1123764652341,
+                "median_bp": -39.92015968063978,
+                "positive_fraction": 0.0,
+                "std_bp": 84.97544691598817
+              },
+              "event_price_return_correlation": 0.9862481988316403
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": 4.932881528810372,
+                "median_bp": 0.0,
+                "positive_fraction": 0.49096385542168675,
+                "std_bp": 76.22050323269258
+              },
+              "etf_control": {
+                "mean_bp": 1.2201972866256234,
+                "median_bp": -3.3512064343160786,
+                "positive_fraction": 0.4457831325301205,
+                "std_bp": 68.34753366881215
+              },
+              "etf_incremental": {
+                "mean_bp": 3.7126842421847486,
+                "median_bp": 0.6531558369199386,
+                "positive_fraction": 0.5150602409638554,
+                "std_bp": 93.14807150884515
+              },
+              "index_event_same_sample": {
+                "mean_bp": 3.6205748690862487,
+                "median_bp": 0.1697143633100362,
+                "positive_fraction": 0.5030120481927711,
+                "std_bp": 80.02634276500469
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 2.104053995171983,
+                "median_bp": 0.21001786475849382,
+                "positive_fraction": 0.5,
+                "std_bp": 97.73829995026684
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.3123066597241233,
+                "median_bp": 1.6895667497207612,
+                "positive_fraction": 0.5783132530120482,
+                "std_bp": 11.467192462496675
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.6086302470127656,
+                "median_bp": 1.466836848617037,
+                "positive_fraction": 0.5451807228915663,
+                "std_bp": 15.299328860819463
+              },
+              "etf_close_MFE": {
+                "mean_bp": 57.46742111975396,
+                "median_bp": 42.592064684997545,
+                "positive_fraction": 0.9186746987951807,
+                "std_bp": 57.3798429375524
+              },
+              "etf_close_MAE": {
+                "mean_bp": -47.82334731664976,
+                "median_bp": -35.00298940476654,
+                "positive_fraction": 0.0,
+                "std_bp": 47.172306795969426
+              },
+              "event_price_return_correlation": 0.9904082919068682
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 6.615644448974011,
+                "median_bp": 8.928571428570287,
+                "positive_fraction": 0.5184275184275184,
+                "std_bp": 89.99096344382454
+              },
+              "etf_control": {
+                "mean_bp": -17.94593659576794,
+                "median_bp": -9.319664492080104,
+                "positive_fraction": 0.3882063882063882,
+                "std_bp": 80.20131902235673
+              },
+              "etf_incremental": {
+                "mean_bp": 24.56158104474195,
+                "median_bp": 9.622306517136359,
+                "positive_fraction": 0.5601965601965602,
+                "std_bp": 116.35015549543942
+              },
+              "index_event_same_sample": {
+                "mean_bp": 5.281600299719534,
+                "median_bp": 5.748671778658121,
+                "positive_fraction": 0.5282555282555282,
+                "std_bp": 94.01635827181964
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 22.766135284797567,
+                "median_bp": 7.782873508501709,
+                "positive_fraction": 0.5601965601965602,
+                "std_bp": 119.75840142614196
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.3340441492544777,
+                "median_bp": 1.1856585494518512,
+                "positive_fraction": 0.5528255528255528,
+                "std_bp": 12.5563708551079
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.7954457599443827,
+                "median_bp": 0.9977612255362978,
+                "positive_fraction": 0.5110565110565111,
+                "std_bp": 15.715959761852037
+              },
+              "etf_close_MFE": {
+                "mean_bp": 62.805538788900385,
+                "median_bp": 46.64179104477695,
+                "positive_fraction": 0.8771498771498771,
+                "std_bp": 58.68714937540842
+              },
+              "etf_close_MAE": {
+                "mean_bp": -54.65198155467546,
+                "median_bp": -38.461538461538325,
+                "positive_fraction": 0.0,
+                "std_bp": 59.96454162260459
+              },
+              "event_price_return_correlation": 0.9916401752442818
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -9.257437495720213,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4553191489361702,
+                "std_bp": 69.255806856794
+              },
+              "etf_control": {
+                "mean_bp": -3.4137903754844245,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4553191489361702,
+                "std_bp": 56.25458121542196
+              },
+              "etf_incremental": {
+                "mean_bp": -5.84364712023579,
+                "median_bp": 0.0,
+                "positive_fraction": 0.46382978723404256,
+                "std_bp": 70.15015684503899
+              },
+              "index_event_same_sample": {
+                "mean_bp": -11.6824470121588,
+                "median_bp": -2.9007578229811593,
+                "positive_fraction": 0.48936170212765956,
+                "std_bp": 72.49836778721055
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -8.472459322284012,
+                "median_bp": -3.468075364601031,
+                "positive_fraction": 0.4553191489361702,
+                "std_bp": 74.26384888471107
+              },
+              "event_tracking_residual": {
+                "mean_bp": 2.4250095164385863,
+                "median_bp": 1.9881490026318893,
+                "positive_fraction": 0.5446808510638298,
+                "std_bp": 11.78670076382409
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.628812202048221,
+                "median_bp": 2.299021552449876,
+                "positive_fraction": 0.5531914893617021,
+                "std_bp": 15.658756990183182
+              },
+              "etf_close_MFE": {
+                "mean_bp": 38.3715633860275,
+                "median_bp": 29.52755905511917,
+                "positive_fraction": 0.825531914893617,
+                "std_bp": 39.595593890296776
+              },
+              "etf_close_MAE": {
+                "mean_bp": -49.32954844029435,
+                "median_bp": -33.67003367003463,
+                "positive_fraction": 0.0,
+                "std_bp": 56.340507714505456
+              },
+              "event_price_return_correlation": 0.9872123254173403
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 12.187702947917579,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4918793503480278,
+                "std_bp": 157.89251723738096
+              },
+              "etf_control": {
+                "mean_bp": 11.987473882708038,
+                "median_bp": 0.0,
+                "positive_fraction": 0.494199535962877,
+                "std_bp": 81.43761159184554
+              },
+              "etf_incremental": {
+                "mean_bp": 0.20022906520954253,
+                "median_bp": -0.17919045012693147,
+                "positive_fraction": 0.46635730858468677,
+                "std_bp": 169.20958294090016
+              },
+              "index_event_same_sample": {
+                "mean_bp": 10.253874475325425,
+                "median_bp": 4.057508419329503,
+                "positive_fraction": 0.5127610208816705,
+                "std_bp": 149.8690675987834
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -3.338059164687761,
+                "median_bp": -5.061430397818034,
+                "positive_fraction": 0.45707656612529,
+                "std_bp": 161.55259874575637
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.9338284725921562,
+                "median_bp": 0.3912678466555519,
+                "positive_fraction": 0.5104408352668214,
+                "std_bp": 34.51426772902055
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 3.5382882298973035,
+                "median_bp": 2.343574865363296,
+                "positive_fraction": 0.5568445475638051,
+                "std_bp": 36.39245769943515
+              },
+              "etf_close_MFE": {
+                "mean_bp": 96.58053352395399,
+                "median_bp": 53.36179295624133,
+                "positive_fraction": 0.8700696055684455,
+                "std_bp": 132.4968720910333
+              },
+              "etf_close_MAE": {
+                "mean_bp": -79.60335085792676,
+                "median_bp": -47.303689687794304,
+                "positive_fraction": 0.0,
+                "std_bp": 106.45353477514509
+              },
+              "event_price_return_correlation": 0.9761896377892259
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": -1.7505458574787829,
+                "median_bp": 0.0,
+                "positive_fraction": 0.46632124352331605,
+                "std_bp": 109.80040721815658
+              },
+              "etf_control": {
+                "mean_bp": 16.499741225534265,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4896373056994819,
+                "std_bp": 93.28746282747626
+              },
+              "etf_incremental": {
+                "mean_bp": -18.25028708301305,
+                "median_bp": -9.065596874612837,
+                "positive_fraction": 0.4533678756476684,
+                "std_bp": 133.91923413231626
+              },
+              "index_event_same_sample": {
+                "mean_bp": -2.2411558191281844,
+                "median_bp": -1.5097770170108271,
+                "positive_fraction": 0.48186528497409326,
+                "std_bp": 109.42512239310476
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -18.981145621561296,
+                "median_bp": -6.5066463664487095,
+                "positive_fraction": 0.44559585492227977,
+                "std_bp": 134.012510208241
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.49060996164940135,
+                "median_bp": 0.5337609624855855,
+                "positive_fraction": 0.5259067357512953,
+                "std_bp": 10.418776472366103
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.7308585385482516,
+                "median_bp": 0.7807473577953195,
+                "positive_fraction": 0.5233160621761658,
+                "std_bp": 12.598158984793054
+              },
+              "etf_close_MFE": {
+                "mean_bp": 68.94913917417753,
+                "median_bp": 48.98210718687457,
+                "positive_fraction": 0.8911917098445595,
+                "std_bp": 74.66005638770469
+              },
+              "etf_close_MAE": {
+                "mean_bp": -67.58834849238096,
+                "median_bp": -49.23191973327468,
+                "positive_fraction": 0.0,
+                "std_bp": 76.75946362700053
+              },
+              "event_price_return_correlation": 0.9954885243753409
+            }
+          }
+        },
+        "120": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 2.315679947883665,
+              "median_bp": 0.0,
+              "positive_fraction": 0.47292015633724177,
+              "std_bp": 164.2246485544541
+            },
+            "etf_control": {
+              "mean_bp": 0.7106891621887764,
+              "median_bp": 0.0,
+              "positive_fraction": 0.46454494695700727,
+              "std_bp": 102.31986584324686
+            },
+            "etf_incremental": {
+              "mean_bp": 1.604990785694889,
+              "median_bp": 0.0,
+              "positive_fraction": 0.47738693467336685,
+              "std_bp": 185.69128791539973
+            },
+            "index_event_same_sample": {
+              "mean_bp": 0.7316827235989126,
+              "median_bp": -0.9382916836087052,
+              "positive_fraction": 0.49860413176996093,
+              "std_bp": 156.07630850972006
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": -0.2843526332493366,
+              "median_bp": -2.6084042034835164,
+              "positive_fraction": 0.4807370184254606,
+              "std_bp": 178.11396739668737
+            },
+            "event_tracking_residual": {
+              "mean_bp": 1.5839972242847526,
+              "median_bp": 0.836650407439743,
+              "positive_fraction": 0.5315466219988833,
+              "std_bp": 27.639385708254316
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 1.8893434189442255,
+              "median_bp": 1.6286968936474189,
+              "positive_fraction": 0.5388051367950866,
+              "std_bp": 29.67248433274646
+            },
+            "etf_close_MFE": {
+              "mean_bp": 96.77427283972563,
+              "median_bp": 64.9953574744666,
+              "positive_fraction": 0.9028475711892797,
+              "std_bp": 129.31821912682724
+            },
+            "etf_close_MAE": {
+              "mean_bp": -91.61130178573292,
+              "median_bp": -65.18904823989536,
+              "positive_fraction": 0.0,
+              "std_bp": 111.5147167320791
+            },
+            "event_price_return_correlation": 0.9863929519588035
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 15.481219482670527,
+                "median_bp": -7.85321624901858,
+                "positive_fraction": 0.4409722222222222,
+                "std_bp": 183.67028898829454
+              },
+              "etf_control": {
+                "mean_bp": -8.16559986450713,
+                "median_bp": -17.506224861137397,
+                "positive_fraction": 0.41087962962962965,
+                "std_bp": 91.04525030719233
+              },
+              "etf_incremental": {
+                "mean_bp": 23.646819347177658,
+                "median_bp": 0.0,
+                "positive_fraction": 0.49537037037037035,
+                "std_bp": 201.20964979500312
+              },
+              "index_event_same_sample": {
+                "mean_bp": 12.762579059138783,
+                "median_bp": -8.875416069225594,
+                "positive_fraction": 0.46875,
+                "std_bp": 170.1231425647466
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 20.83509765874912,
+                "median_bp": 1.0761468185221945,
+                "positive_fraction": 0.5092592592592593,
+                "std_bp": 187.87863421539694
+              },
+              "event_tracking_residual": {
+                "mean_bp": 2.718640423531746,
+                "median_bp": 1.1220836645925436,
+                "positive_fraction": 0.5381944444444444,
+                "std_bp": 34.520784374268175
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.8117216884285385,
+                "median_bp": 1.5355365072128313,
+                "positive_fraction": 0.5347222222222222,
+                "std_bp": 36.4096780602865
+              },
+              "etf_close_MFE": {
+                "mean_bp": 103.81336832872914,
+                "median_bp": 66.07485330270447,
+                "positive_fraction": 0.8923611111111112,
+                "std_bp": 155.77125273440214
+              },
+              "etf_close_MAE": {
+                "mean_bp": -84.21529122972314,
+                "median_bp": -62.93444321955,
+                "positive_fraction": 0.0,
+                "std_bp": 102.32143127454555
+              },
+              "event_price_return_correlation": 0.9838676776014033
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": -9.955114181626419,
+                "median_bp": 6.825938566553669,
+                "positive_fraction": 0.5026968716289104,
+                "std_bp": 142.66159716472998
+              },
+              "etf_control": {
+                "mean_bp": 8.983735245322825,
+                "median_bp": 9.496676163341933,
+                "positive_fraction": 0.5145631067961165,
+                "std_bp": 111.17298113593479
+              },
+              "etf_incremental": {
+                "mean_bp": -18.938849426949243,
+                "median_bp": -3.0437080590406396,
+                "positive_fraction": 0.46062567421790723,
+                "std_bp": 167.3629468498007
+              },
+              "index_event_same_sample": {
+                "mean_bp": -10.48157988039941,
+                "median_bp": 5.337966548742967,
+                "positive_fraction": 0.5264293419633226,
+                "std_bp": 140.81372251041543
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -19.968500478218772,
+                "median_bp": -5.76573870853192,
+                "positive_fraction": 0.45415318230852214,
+                "std_bp": 166.103837516434
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.526465698772992,
+                "median_bp": 0.6711042035068004,
+                "positive_fraction": 0.5253505933117584,
+                "std_bp": 19.05095145488794
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.0296510512695263,
+                "median_bp": 1.6779668276323267,
+                "positive_fraction": 0.5426105717367853,
+                "std_bp": 21.540028801502686
+              },
+              "etf_close_MFE": {
+                "mean_bp": 90.21356248104276,
+                "median_bp": 63.54249404289081,
+                "positive_fraction": 0.912621359223301,
+                "std_bp": 98.00522379710205
+              },
+              "etf_close_MAE": {
+                "mean_bp": -98.5046708476449,
+                "median_bp": -68.29268292682933,
+                "positive_fraction": 0.0,
+                "std_bp": 119.03480547804288
+              },
+              "event_price_return_correlation": 0.991051588164522
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": -2.322073627616865,
+                "median_bp": 0.0,
+                "positive_fraction": 0.4879518072289157,
+                "std_bp": 103.41889402115517
+              },
+              "etf_control": {
+                "mean_bp": 1.7272793791575547,
+                "median_bp": 7.316496385355586,
+                "positive_fraction": 0.5301204819277109,
+                "std_bp": 97.41620153167136
+              },
+              "etf_incremental": {
+                "mean_bp": -4.04935300677442,
+                "median_bp": -6.8727795807044245,
+                "positive_fraction": 0.4578313253012048,
+                "std_bp": 131.8853530216065
+              },
+              "index_event_same_sample": {
+                "mean_bp": -4.544402682946205,
+                "median_bp": 3.1713923844289837,
+                "positive_fraction": 0.5180722891566265,
+                "std_bp": 108.15088554047216
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -5.546092955658068,
+                "median_bp": -4.420901072684225,
+                "positive_fraction": 0.463855421686747,
+                "std_bp": 135.34651918102173
+              },
+              "event_tracking_residual": {
+                "mean_bp": 2.2223290553293404,
+                "median_bp": 2.0161549655051125,
+                "positive_fraction": 0.5873493975903614,
+                "std_bp": 12.64173989609551
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.496739948883649,
+                "median_bp": 0.659232574130586,
+                "positive_fraction": 0.5120481927710844,
+                "std_bp": 16.331485494347497
+              },
+              "etf_close_MFE": {
+                "mean_bp": 74.5510226592516,
+                "median_bp": 55.769109278491214,
+                "positive_fraction": 0.9307228915662651,
+                "std_bp": 72.13785702041532
+              },
+              "etf_close_MAE": {
+                "mean_bp": -72.15122317295392,
+                "median_bp": -57.844810606831885,
+                "positive_fraction": 0.0,
+                "std_bp": 74.3600812883283
+              },
+              "event_price_return_correlation": 0.9938567837001678
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 1.5298487382202197,
+                "median_bp": 0.0,
+                "positive_fraction": 0.49385749385749383,
+                "std_bp": 119.50035566057488
+              },
+              "etf_control": {
+                "mean_bp": -20.291763444941573,
+                "median_bp": -18.621973929237036,
+                "positive_fraction": 0.40540540540540543,
+                "std_bp": 97.04555434833937
+              },
+              "etf_incremental": {
+                "mean_bp": 21.821612183161797,
+                "median_bp": 10.567223263613368,
+                "positive_fraction": 0.5601965601965602,
+                "std_bp": 145.75369149833594
+              },
+              "index_event_same_sample": {
+                "mean_bp": -0.13961202170171494,
+                "median_bp": 6.049417482816288,
+                "positive_fraction": 0.538083538083538,
+                "std_bp": 123.19009577770262
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 19.96876609314704,
+                "median_bp": 9.39674371062793,
+                "positive_fraction": 0.5454545454545454,
+                "std_bp": 149.67080950794625
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.6694607599219349,
+                "median_bp": 0.9680858638971834,
+                "positive_fraction": 0.5233415233415234,
+                "std_bp": 13.129179728597675
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 1.8528460900147552,
+                "median_bp": 3.135513049027372,
+                "positive_fraction": 0.542997542997543,
+                "std_bp": 17.489463567900984
+              },
+              "etf_close_MFE": {
+                "mean_bp": 87.35920641262693,
+                "median_bp": 70.36059806508455,
+                "positive_fraction": 0.9017199017199017,
+                "std_bp": 78.82638300544215
+              },
+              "etf_close_MAE": {
+                "mean_bp": -79.92349428805265,
+                "median_bp": -57.69230769230749,
+                "positive_fraction": 0.0,
+                "std_bp": 80.21834177729316
+              },
+              "event_price_return_correlation": 0.9946077585947971
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -10.357130975273394,
+                "median_bp": -10.964912280702066,
+                "positive_fraction": 0.4085106382978723,
+                "std_bp": 97.3208522418145
+              },
+              "etf_control": {
+                "mean_bp": -3.590449565625007,
+                "median_bp": -9.302325581393989,
+                "positive_fraction": 0.4127659574468085,
+                "std_bp": 82.40126949468981
+              },
+              "etf_incremental": {
+                "mean_bp": -6.766681409648387,
+                "median_bp": -9.4607209536135,
+                "positive_fraction": 0.4127659574468085,
+                "std_bp": 104.1884745504654
+              },
+              "index_event_same_sample": {
+                "mean_bp": -11.047645817229128,
+                "median_bp": -16.563656498158608,
+                "positive_fraction": 0.425531914893617,
+                "std_bp": 99.83651332439375
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -7.71543773429966,
+                "median_bp": -4.015810851014656,
+                "positive_fraction": 0.46382978723404256,
+                "std_bp": 105.2417380344742
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.6905148419557335,
+                "median_bp": 0.7192333732630729,
+                "positive_fraction": 0.5319148936170213,
+                "std_bp": 13.181918349650639
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.9487563246512726,
+                "median_bp": 0.0884530132094774,
+                "positive_fraction": 0.502127659574468,
+                "std_bp": 16.343013099208004
+              },
+              "etf_close_MFE": {
+                "mean_bp": 58.09151393107948,
+                "median_bp": 43.62050163576936,
+                "positive_fraction": 0.8638297872340426,
+                "std_bp": 60.38814102667864
+              },
+              "etf_close_MAE": {
+                "mean_bp": -71.79665852812309,
+                "median_bp": -55.86592178770999,
+                "positive_fraction": 0.0,
+                "std_bp": 70.90424204647712
+              },
+              "event_price_return_correlation": 0.9913837272255019
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 16.320000652464312,
+                "median_bp": 0.0,
+                "positive_fraction": 0.494199535962877,
+                "std_bp": 250.86497176233
+              },
+              "etf_control": {
+                "mean_bp": 13.005543406316741,
+                "median_bp": 9.407337723422726,
+                "positive_fraction": 0.5011600928074246,
+                "std_bp": 106.8946557822742
+              },
+              "etf_incremental": {
+                "mean_bp": 3.314457246147573,
+                "median_bp": -9.239929885757059,
+                "positive_fraction": 0.4547563805104408,
+                "std_bp": 270.6398717675389
+              },
+              "index_event_same_sample": {
+                "mean_bp": 13.922769728137363,
+                "median_bp": 4.465700538763828,
+                "positive_fraction": 0.5150812064965197,
+                "std_bp": 224.68755367604683
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -1.0093844617444259,
+                "median_bp": -9.01727737650293,
+                "positive_fraction": 0.44779582366589327,
+                "std_bp": 244.23529812282757
+              },
+              "event_tracking_residual": {
+                "mean_bp": 2.3972309243269505,
+                "median_bp": 0.5970285599832259,
+                "positive_fraction": 0.5197215777262181,
+                "std_bp": 51.9087330972992
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 4.323841707891999,
+                "median_bp": 3.255878337149465,
+                "positive_fraction": 0.5823665893271461,
+                "std_bp": 53.4717341646423
+              },
+              "etf_close_MFE": {
+                "mean_bp": 138.4319678684523,
+                "median_bp": 79.92895204262939,
+                "positive_fraction": 0.8955916473317865,
+                "std_bp": 208.2854949040364
+              },
+              "etf_close_MAE": {
+                "mean_bp": -120.85230363878789,
+                "median_bp": -74.07407407407418,
+                "positive_fraction": 0.0,
+                "std_bp": 162.96818321010338
+              },
+              "event_price_return_correlation": 0.982176747394576
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": -0.7884241125649154,
+                "median_bp": -9.858128461763261,
+                "positive_fraction": 0.4533678756476684,
+                "std_bp": 156.5200635157601
+              },
+              "etf_control": {
+                "mean_bp": 10.871766055674541,
+                "median_bp": -7.388882883885839,
+                "positive_fraction": 0.46113989637305697,
+                "std_bp": 113.32500692953853
+              },
+              "etf_incremental": {
+                "mean_bp": -11.660190168239456,
+                "median_bp": -2.2271295673126357,
+                "positive_fraction": 0.47150259067357514,
+                "std_bp": 183.1803453936571
+              },
+              "index_event_same_sample": {
+                "mean_bp": -1.3691954514040623,
+                "median_bp": -12.11655998592076,
+                "positive_fraction": 0.46632124352331605,
+                "std_bp": 155.62511977751979
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -11.780020554947306,
+                "median_bp": -3.293965903905516,
+                "positive_fraction": 0.4740932642487047,
+                "std_bp": 183.9891889257979
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.5807713388391468,
+                "median_bp": 0.06527584186177826,
+                "positive_fraction": 0.5051813471502591,
+                "std_bp": 10.409183014620433
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.11983038670785151,
+                "median_bp": 0.9029859297221554,
+                "positive_fraction": 0.5310880829015544,
+                "std_bp": 12.950386474192502
+              },
+              "etf_close_MFE": {
+                "mean_bp": 102.85207823324177,
+                "median_bp": 68.89432090561698,
+                "positive_fraction": 0.9119170984455959,
+                "std_bp": 111.81219054862314
+              },
+              "etf_close_MAE": {
+                "mean_bp": -100.08605079575902,
+                "median_bp": -70.10031490882473,
+                "positive_fraction": 0.0,
+                "std_bp": 108.20230540148793
+              },
+              "event_price_return_correlation": 0.9977923441208322
+            }
+          }
+        },
+        "240": {
+          "pooled": {
+            "n": 1791,
+            "etf_event": {
+              "mean_bp": 6.0178210209128356,
+              "median_bp": -6.381620931716903,
+              "positive_fraction": 0.4723618090452261,
+              "std_bp": 253.51122026400373
+            },
+            "etf_control": {
+              "mean_bp": 1.2544336886349603,
+              "median_bp": 0.0,
+              "positive_fraction": 0.474036850921273,
+              "std_bp": 162.23166243676752
+            },
+            "etf_incremental": {
+              "mean_bp": 4.763387332277879,
+              "median_bp": 0.0,
+              "positive_fraction": 0.47906197654941374,
+              "std_bp": 287.83018135875733
+            },
+            "index_event_same_sample": {
+              "mean_bp": 3.004602054762565,
+              "median_bp": -7.590386998113097,
+              "positive_fraction": 0.480178671133445,
+              "std_bp": 235.80790130532992
+            },
+            "index_incremental_same_sample": {
+              "mean_bp": 1.2171684695023388,
+              "median_bp": -1.6190342679756053,
+              "positive_fraction": 0.48743718592964824,
+              "std_bp": 271.68815749918394
+            },
+            "event_tracking_residual": {
+              "mean_bp": 3.013218966150273,
+              "median_bp": 1.299920502064733,
+              "positive_fraction": 0.5376884422110553,
+              "std_bp": 42.21623403740905
+            },
+            "incremental_tracking_residual": {
+              "mean_bp": 3.5462188627755387,
+              "median_bp": 1.8864110680449908,
+              "positive_fraction": 0.542713567839196,
+              "std_bp": 44.18095787766535
+            },
+            "etf_close_MFE": {
+              "mean_bp": 145.45090296274967,
+              "median_bp": 96.23797025371972,
+              "positive_fraction": 0.9223897264098269,
+              "std_bp": 211.3874218214324
+            },
+            "etf_close_MAE": {
+              "mean_bp": -136.5115440813962,
+              "median_bp": -97.19222462203136,
+              "positive_fraction": 0.0,
+              "std_bp": 153.55547941015035
+            },
+            "event_price_return_correlation": 0.9877149199402055
+          },
+          "sides": {
+            "LONG": {
+              "n": 864,
+              "etf_event": {
+                "mean_bp": 21.990822129462618,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48032407407407407,
+                "std_bp": 293.6348200730419
+              },
+              "etf_control": {
+                "mean_bp": -22.49364701534969,
+                "median_bp": -26.3398886278271,
+                "positive_fraction": 0.4074074074074074,
+                "std_bp": 150.67398044418863
+              },
+              "etf_incremental": {
+                "mean_bp": 44.48446914481231,
+                "median_bp": 9.561383119719435,
+                "positive_fraction": 0.5416666666666666,
+                "std_bp": 318.8953825303208
+              },
+              "index_event_same_sample": {
+                "mean_bp": 18.340836506341734,
+                "median_bp": -3.4513336680441764,
+                "positive_fraction": 0.4849537037037037,
+                "std_bp": 261.3898624762008
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 40.23036094077026,
+                "median_bp": 6.847852285792877,
+                "positive_fraction": 0.5474537037037037,
+                "std_bp": 288.28159065449006
+              },
+              "event_tracking_residual": {
+                "mean_bp": 3.6499856231208807,
+                "median_bp": 1.9142224626905735,
+                "positive_fraction": 0.5555555555555556,
+                "std_bp": 57.629756976997285
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 4.25410820404205,
+                "median_bp": 1.8305242438038105,
+                "positive_fraction": 0.5405092592592593,
+                "std_bp": 59.24611422807132
+              },
+              "etf_close_MFE": {
+                "mean_bp": 159.14164444415786,
+                "median_bp": 95.19690229032874,
+                "positive_fraction": 0.9178240740740741,
+                "std_bp": 270.00169694720745
+              },
+              "etf_close_MAE": {
+                "mean_bp": -130.76233913507915,
+                "median_bp": -92.94373026264624,
+                "positive_fraction": 0.0,
+                "std_bp": 149.2416730339851
+              },
+              "event_price_return_correlation": 0.9851377360675783
+            },
+            "SHORT": {
+              "n": 927,
+              "etf_event": {
+                "mean_bp": -8.869636322978218,
+                "median_bp": -8.764241893075564,
+                "positive_fraction": 0.46494066882416396,
+                "std_bp": 208.1994706887969
+              },
+              "etf_control": {
+                "mean_bp": 23.38856716030998,
+                "median_bp": 18.587360594795044,
+                "positive_fraction": 0.5361380798274002,
+                "std_bp": 169.33468061091457
+              },
+              "etf_incremental": {
+                "mean_bp": -32.25820348328819,
+                "median_bp": -10.905125408942062,
+                "positive_fraction": 0.42071197411003236,
+                "std_bp": 249.87589185641988
+              },
+              "index_event_same_sample": {
+                "mean_bp": -11.289364036029673,
+                "median_bp": -12.474902562891188,
+                "positive_fraction": 0.47572815533980584,
+                "std_bp": 208.1512848388911
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -35.14464198915514,
+                "median_bp": -10.450349544817161,
+                "positive_fraction": 0.43149946062567424,
+                "std_bp": 249.8266313322871
+              },
+              "event_tracking_residual": {
+                "mean_bp": 2.419727713051454,
+                "median_bp": 0.7071414584225444,
+                "positive_fraction": 0.5210355987055016,
+                "std_bp": 18.63042044804281
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.8864385058669457,
+                "median_bp": 1.9852282937049548,
+                "positive_fraction": 0.5447680690399137,
+                "std_bp": 22.33389835179386
+              },
+              "etf_close_MFE": {
+                "mean_bp": 132.69060022279638,
+                "median_bp": 97.94319294809006,
+                "positive_fraction": 0.9266450916936354,
+                "std_bp": 134.34453987253644
+              },
+              "etf_close_MAE": {
+                "mean_bp": -141.87002636145868,
+                "median_bp": -101.75763182238784,
+                "positive_fraction": 0.0,
+                "std_bp": 157.28064649419076
+              },
+              "event_price_return_correlation": 0.9959954502423234
+            }
+          },
+          "years": {
+            "2021": {
+              "n": 332,
+              "etf_event": {
+                "mean_bp": -23.08120873425817,
+                "median_bp": -17.432226813161588,
+                "positive_fraction": 0.4457831325301205,
+                "std_bp": 157.93025944382012
+              },
+              "etf_control": {
+                "mean_bp": 1.0298316088195962,
+                "median_bp": -3.0358227079541056,
+                "positive_fraction": 0.4819277108433735,
+                "std_bp": 135.01490282820833
+              },
+              "etf_incremental": {
+                "mean_bp": -24.111040343077764,
+                "median_bp": -6.501950585174887,
+                "positive_fraction": 0.4427710843373494,
+                "std_bp": 188.24591310283645
+              },
+              "index_event_same_sample": {
+                "mean_bp": -26.98908695664989,
+                "median_bp": -20.88129132515215,
+                "positive_fraction": 0.4307228915662651,
+                "std_bp": 162.30974331900308
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -27.118380092194613,
+                "median_bp": -7.561519173342468,
+                "positive_fraction": 0.44879518072289154,
+                "std_bp": 192.8629116574153
+              },
+              "event_tracking_residual": {
+                "mean_bp": 3.907878222391722,
+                "median_bp": 3.9220415475665904,
+                "positive_fraction": 0.6144578313253012,
+                "std_bp": 13.715833802598254
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 3.00733974911685,
+                "median_bp": 2.853046831725048,
+                "positive_fraction": 0.5481927710843374,
+                "std_bp": 18.778571318475734
+              },
+              "etf_close_MFE": {
+                "mean_bp": 105.5388967782513,
+                "median_bp": 89.03566772647642,
+                "positive_fraction": 0.9457831325301205,
+                "std_bp": 92.11646374158474
+              },
+              "etf_close_MAE": {
+                "mean_bp": -119.56745309574015,
+                "median_bp": -91.14281028280102,
+                "positive_fraction": 0.0,
+                "std_bp": 119.66365093662402
+              },
+              "event_price_return_correlation": 0.9967046359677837
+            },
+            "2022": {
+              "n": 407,
+              "etf_event": {
+                "mean_bp": 4.089237216527156,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48157248157248156,
+                "std_bp": 183.84149044087593
+              },
+              "etf_control": {
+                "mean_bp": -21.303245379166526,
+                "median_bp": -18.885741265344258,
+                "positive_fraction": 0.43734643734643736,
+                "std_bp": 152.45614738927472
+              },
+              "etf_incremental": {
+                "mean_bp": 25.392482595693682,
+                "median_bp": 5.04995773640271,
+                "positive_fraction": 0.5110565110565111,
+                "std_bp": 216.83920966376664
+              },
+              "index_event_same_sample": {
+                "mean_bp": 2.143951229323669,
+                "median_bp": -3.407119848022333,
+                "positive_fraction": 0.49385749385749383,
+                "std_bp": 188.9312577921701
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 23.376646993936905,
+                "median_bp": 0.19080684505845547,
+                "positive_fraction": 0.5036855036855037,
+                "std_bp": 222.94186012972588
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.9452859872034873,
+                "median_bp": 0.9528353391741184,
+                "positive_fraction": 0.5184275184275184,
+                "std_bp": 13.963204445272687
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.015835601756772,
+                "median_bp": 2.158219605513656,
+                "positive_fraction": 0.5528255528255528,
+                "std_bp": 19.091374641647583
+              },
+              "etf_close_MFE": {
+                "mean_bp": 133.8507015034075,
+                "median_bp": 103.98613518197486,
+                "positive_fraction": 0.9287469287469288,
+                "std_bp": 120.97783375277508
+              },
+              "etf_close_MAE": {
+                "mean_bp": -124.40492441028874,
+                "median_bp": -100.54844606947056,
+                "positive_fraction": 0.0,
+                "std_bp": 112.218972670605
+              },
+              "event_price_return_correlation": 0.9975662427647985
+            },
+            "2023": {
+              "n": 235,
+              "etf_event": {
+                "mean_bp": -9.977887603700474,
+                "median_bp": -18.85014137606,
+                "positive_fraction": 0.4425531914893617,
+                "std_bp": 141.99853849276224
+              },
+              "etf_control": {
+                "mean_bp": 5.769829690666481,
+                "median_bp": 8.396305625525402,
+                "positive_fraction": 0.502127659574468,
+                "std_bp": 122.79695329838025
+              },
+              "etf_incremental": {
+                "mean_bp": -15.747717294366955,
+                "median_bp": -0.09800174443075349,
+                "positive_fraction": 0.425531914893617,
+                "std_bp": 159.73190044998168
+              },
+              "index_event_same_sample": {
+                "mean_bp": -11.30255828751029,
+                "median_bp": -15.015313631120408,
+                "positive_fraction": 0.4425531914893617,
+                "std_bp": 145.04178383347514
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -18.030833560556417,
+                "median_bp": -1.6335441150494567,
+                "positive_fraction": 0.4723404255319149,
+                "std_bp": 162.2975899632997
+              },
+              "event_tracking_residual": {
+                "mean_bp": 1.3246706838098166,
+                "median_bp": 1.7157001518686155,
+                "positive_fraction": 0.5319148936170213,
+                "std_bp": 12.440384924205295
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 2.283116266189463,
+                "median_bp": 1.5954144284568983,
+                "positive_fraction": 0.5276595744680851,
+                "std_bp": 16.593758055469173
+              },
+              "etf_close_MFE": {
+                "mean_bp": 84.91506682236466,
+                "median_bp": 57.85920925747368,
+                "positive_fraction": 0.902127659574468,
+                "std_bp": 86.57825025745444
+              },
+              "etf_close_MAE": {
+                "mean_bp": -101.6339437535922,
+                "median_bp": -75.51240560949357,
+                "positive_fraction": 0.0,
+                "std_bp": 96.57832921130155
+              },
+              "event_price_return_correlation": 0.9964676683917872
+            },
+            "2024": {
+              "n": 431,
+              "etf_event": {
+                "mean_bp": 44.71368095564728,
+                "median_bp": 9.652509652509078,
+                "positive_fraction": 0.5034802784222738,
+                "std_bp": 395.58122432545105
+              },
+              "etf_control": {
+                "mean_bp": 11.596437645607034,
+                "median_bp": 13.333333333332975,
+                "positive_fraction": 0.5104408352668214,
+                "std_bp": 174.59745339212427
+              },
+              "etf_incremental": {
+                "mean_bp": 33.11724331004024,
+                "median_bp": 0.0,
+                "positive_fraction": 0.48259860788863107,
+                "std_bp": 436.53103291257406
+              },
+              "index_event_same_sample": {
+                "mean_bp": 37.992409547261616,
+                "median_bp": 8.696225047764017,
+                "positive_fraction": 0.5220417633410673,
+                "std_bp": 343.46747303185725
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": 24.11520670436836,
+                "median_bp": -3.419907410391332,
+                "positive_fraction": 0.4872389791183295,
+                "std_bp": 386.1755092494117
+              },
+              "event_tracking_residual": {
+                "mean_bp": 6.721271408385651,
+                "median_bp": 0.49028545935914103,
+                "positive_fraction": 0.5127610208816705,
+                "std_bp": 82.40248926926579
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 9.002036605671874,
+                "median_bp": 3.12202236938397,
+                "positive_fraction": 0.5707656612529002,
+                "std_bp": 84.01622930125887
+              },
+              "etf_close_MFE": {
+                "mean_bp": 212.51547266926838,
+                "median_bp": 122.87334593572896,
+                "positive_fraction": 0.9048723897911833,
+                "std_bp": 357.2758515595162
+              },
+              "etf_close_MAE": {
+                "mean_bp": -164.74058458551258,
+                "median_bp": -113.31444759206776,
+                "positive_fraction": 0.0,
+                "std_bp": 213.8723682660796
+              },
+              "event_price_return_correlation": 0.985006444948452
+            },
+            "2025": {
+              "n": 386,
+              "etf_event": {
+                "mean_bp": -0.3892064868194567,
+                "median_bp": -9.36802882632315,
+                "positive_fraction": 0.4689119170984456,
+                "std_bp": 226.94321870446856
+              },
+              "etf_control": {
+                "mean_bp": 10.935836551747743,
+                "median_bp": -9.474355061667161,
+                "positive_fraction": 0.4481865284974093,
+                "std_bp": 194.8105783720585
+              },
+              "etf_incremental": {
+                "mean_bp": -11.325043038567198,
+                "median_bp": 0.12644373629910888,
+                "positive_fraction": 0.5051813471502591,
+                "std_bp": 271.0256861098342
+              },
+              "index_event_same_sample": {
+                "mean_bp": -0.6466225853680194,
+                "median_bp": -9.471250884985349,
+                "positive_fraction": 0.4844559585492228,
+                "std_bp": 225.60451484047658
+              },
+              "index_incremental_same_sample": {
+                "mean_bp": -11.625524896106283,
+                "median_bp": 0.7655728003175266,
+                "positive_fraction": 0.5129533678756477,
+                "std_bp": 270.8392097144942
+              },
+              "event_tracking_residual": {
+                "mean_bp": 0.25741609854856273,
+                "median_bp": 0.665704583892035,
+                "positive_fraction": 0.5233160621761658,
+                "std_bp": 14.118136380976017
+              },
+              "incremental_tracking_residual": {
+                "mean_bp": 0.30048185753908646,
+                "median_bp": 0.08383503718067953,
+                "positive_fraction": 0.5051813471502591,
+                "std_bp": 16.50855107389806
+              },
+              "etf_close_MFE": {
+                "mean_bp": 153.98240554483934,
+                "median_bp": 99.40367675030926,
+                "positive_fraction": 0.927461139896373,
+                "std_bp": 169.33253583353715
+              },
+              "etf_close_MAE": {
+                "mean_bp": -153.56426955584783,
+                "median_bp": -105.78326615159229,
+                "positive_fraction": 0.0,
+                "std_bp": 157.27653861838644
+              },
+              "event_price_return_correlation": 0.9980709774926864
+            }
+          }
+        }
+      }
+    }
+  },
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "horizon_selected": false,
+  "signal_refitted": false,
+  "control_rematched": false,
+  "option_outcomes_read": false,
+  "formal_causal_inference": false,
+  "anchor_rows": 49568,
+  "unique_carrier_timestamps": 44578,
+  "decision": "PARTIAL_CARRIER_TRANSPORT",
+  "ETF_outcomes_read": true,
+  "evidence_files": [
+    {
+      "path": "588000.SH_coverage.csv",
+      "sha256": "3c37332c9f48ca27f33883c92f74ddd5cecd5d21b1dc5a14e94753e90a939de5",
+      "bytes": 128248
+    },
+    {
+      "path": "588000.SH_transport.csv",
+      "sha256": "d69183eb3e7bc5ffcdccb55158a666e17ce2e84ed9c01fed7b478f3427d5ab75",
+      "bytes": 3447986
+    },
+    {
+      "path": "frozen_index_clock_anchors.csv",
+      "sha256": "2b82ccf2a0a1b58d3b43f1354217033fcaf55d01f81f099862f7a7206d4ac8b0",
+      "bytes": 4657643
+    }
+  ]
+}

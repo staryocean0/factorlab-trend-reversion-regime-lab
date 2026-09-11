@@ -1,0 +1,58 @@
+{
+  "symbol": "588000.SH",
+  "source": "DataHub_local_lake_raw_canonical_1m",
+  "source_reference": "unified_datahub lake partition bars_cn_a_1m_raw_canonical_4ceca170a851/instrument_type=etf; bar_align=session_end_label_v2; wall-clock Z suffix decoded as Asia/Shanghai",
+  "frequency": "1m",
+  "timezone": "Asia/Shanghai",
+  "bar_label": "bar_end",
+  "price_basis": "unadjusted_actual_traded_OHLC",
+  "volume_unit": "shares",
+  "zero_volume_semantics": "not_an_observed_trade",
+  "research_use_authorized": true,
+  "corporate_actions_complete": true,
+  "corporate_actions_reference": "Eastmoney pingzhong dividend ledger 588000: only recorded split ex-date 2020-11-09 precedes the frozen 2021-2025 window; no split/dividend rows inside 2021-01-01..2025-12-31 (https://fund.eastmoney.com/pingzhongdata/588000.js)",
+  "corporate_actions_window": {
+    "start": "2021-01-01",
+    "end": "2025-12-31"
+  },
+  "files": [
+    {
+      "path": "data/r1a_carrier_prices/private/588000_2021.csv",
+      "sha256": "fa443856d1b788a26c4156d7f78eddf64444c63b8592b262315cce39e2a3ffd1",
+      "bytes": 3935527,
+      "rows": 58563
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/588000_2022.csv",
+      "sha256": "e34b32ddfe3a323aa94da6c3d5259335ebe8d8f76935f232a1b4daf3f99bf1af",
+      "bytes": 3935489,
+      "rows": 58322
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/588000_2023.csv",
+      "sha256": "10d6ee31bd30007b2643fad95bcfe7678f55a7772b3633c8c8256f16fdc8c23b",
+      "bytes": 3960464,
+      "rows": 58322
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/588000_2024.csv",
+      "sha256": "08b7b47dd54dd41e52112f547202bffa88bb7103b3c21be2011804a59edf2494",
+      "bytes": 3966452,
+      "rows": 58322
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/588000_2025.csv",
+      "sha256": "08839ca0242ddd57a3b84305abb9670ca1b8055d2bd33ce59768bd84af97b14a",
+      "bytes": 3984249,
+      "rows": 58563
+    }
+  ],
+  "corporate_actions_file": {
+    "path": "data/r1a_carrier_prices/private/588000_actions.csv",
+    "sha256": "3e0ea91b3250fe460aa14646596ae6f56518ffecc94c68d131819c398075920a",
+    "bytes": 43,
+    "rows": 0
+  },
+  "dataset_version": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+  "volume_note": "DataHub raw canonical 1m volume is exchange-reported share quantity"
+}

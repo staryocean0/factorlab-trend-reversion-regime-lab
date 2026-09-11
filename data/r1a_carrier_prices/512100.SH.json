@@ -1,0 +1,58 @@
+{
+  "symbol": "512100.SH",
+  "source": "DataHub_local_lake_raw_canonical_1m",
+  "source_reference": "unified_datahub lake partition bars_cn_a_1m_raw_canonical_4ceca170a851/instrument_type=etf; bar_align=session_end_label_v2; wall-clock Z suffix decoded as Asia/Shanghai",
+  "frequency": "1m",
+  "timezone": "Asia/Shanghai",
+  "bar_label": "bar_end",
+  "price_basis": "unadjusted_actual_traded_OHLC",
+  "volume_unit": "shares",
+  "zero_volume_semantics": "not_an_observed_trade",
+  "research_use_authorized": true,
+  "corporate_actions_complete": true,
+  "corporate_actions_reference": "Eastmoney pingzhong dividend ledger cross-checked with SSE cash-distribution notice 512100 ex-date 2025-01-15 (https://www.sse.com.cn/assortment/options/mnjyzxxx/c/c_20250115_10770107.shtml)",
+  "corporate_actions_window": {
+    "start": "2021-01-01",
+    "end": "2025-12-31"
+  },
+  "files": [
+    {
+      "path": "data/r1a_carrier_prices/private/512100_2021.csv",
+      "sha256": "7851849f7383098bc40c1c560c4d85019711c0015eb935ddb72e6cfbe7f32f28",
+      "bytes": 3877710,
+      "rows": 58563
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/512100_2022.csv",
+      "sha256": "553a98c25ac9a314938045f7ff43af5568d2541c96fe74b660a1ea799f715c2b",
+      "bytes": 3890222,
+      "rows": 58081
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/512100_2023.csv",
+      "sha256": "4ac0423567734a62d75f69a87bbde09bd9f83aad60f9b9f11fd11496d61aaca8",
+      "bytes": 3915761,
+      "rows": 58322
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/512100_2024.csv",
+      "sha256": "796aed5c67a4ec9d04ae2c7dddad192bd7fbced963529b71fbd8a66d8206ad31",
+      "bytes": 3920054,
+      "rows": 58322
+    },
+    {
+      "path": "data/r1a_carrier_prices/private/512100_2025.csv",
+      "sha256": "d600155e41f23b63d64d73c035f919f68bcd7ed3b93f48e401f310f312fdea73",
+      "bytes": 3930936,
+      "rows": 58563
+    }
+  ],
+  "corporate_actions_file": {
+    "path": "data/r1a_carrier_prices/private/512100_actions.csv",
+    "sha256": "3009689c6651da784e1da23b92645def7d272936c4ea407c7c3cbe74c5052825",
+    "bytes": 161,
+    "rows": 1
+  },
+  "dataset_version": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+  "volume_note": "DataHub raw canonical 1m volume is exchange-reported share quantity"
+}
