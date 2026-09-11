@@ -28,21 +28,18 @@
 
 ## 你的执行任务
 
-### A. 获取真实、非事件条件化的数据样本或正式交付
+### A. 以本地 DataHub 为主路径完成 MO 准入
 
-优先 CFFEX 官方历史 Level-2 Snapshot 或 CIIS 官方分发。旧公开样本 `20221206_Sample_CFF_Snapshot.xlsx` 已确认 live 404，且同路径变体和 exact-URL Internet Archive 路径都已耗尽；不要盲目重复。
+**主路径（用户已确认）**：本地 pinned DataHub MO L1 trade-activity（`docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`）。有效 quote 窗口 **2022-07-22 .. 2026-08-25**；用户对 2026-08-26..2026-09-10 尾部已明确忽略。
 
-尝试获得：
-- 当前等价的非事件条件化 Snapshot sample；或
-- 正式完整交付。
+**Fee 已冻结**：开/平各 **14 元/张/腿**（`docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`）。
 
-目标范围是全部挂牌 MO 合约，历史段 2022-07-22 至 2026-09-10。不要把 R1_B event timestamps 提供给数据方，也不要只请求事件附近数据。
+CIIS/CFFEX 官方 Level-2 订单仅为**可选**官方 provenance 补充（`docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`），不是当前 blocker。
 
-如果遇到付费、登录、人工审批、账号权限等不可自动跨越的现实边界：
-- 不要伪造下载结果；
-- 不要假装已经购买；
-- 整理出精确的 order/request package、字段要求、时间范围、联系人/页面和待用户完成的唯一外部动作；
-- 然后继续完成所有不依赖购买的代码、schema、测试和 provenance 工作。
+本地任务：
+- 绑定/物化完整 DataHub MO 窗口；
+- 填充 manifest + 跑 `validate_mo_quote_source.py`；
+- 不要把 R1_B event timestamps 混入数据请求或事后筛选 quote。
 
 ### B. 严格按两个 delivery epoch 处理
 

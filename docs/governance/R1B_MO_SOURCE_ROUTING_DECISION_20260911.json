@@ -1,0 +1,34 @@
+{
+  "decision_id": "rmr_R1B_MO_source_routing_decision_20260911",
+  "decided_on": "2026-09-11",
+  "decided_by": "user",
+  "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "primary_source": {
+    "route": "datahub_pinned_mo_trade_activity_l1",
+    "binding": "docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json",
+    "mapping": "docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json",
+    "adapter": "research/r1b_mo_data_admission/adapt_datahub_mo_trade_activity.py",
+    "reason": "Local pinned DataHub MO L1 bid/ask satisfies frozen canonical schema for R1B executable spread mapping."
+  },
+  "optional_supplement": {
+    "route": "ciis_cffex_level2_snapshot",
+    "status": "optional_official_provenance_only",
+    "order_package": "docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md",
+    "reason": "Use only if official byte-layout provenance or multi-epoch CIIS delivery is needed later; not required for current bid1/ask1 admission work."
+  },
+  "study_window": {
+    "mo_quote_start": "2022-07-22",
+    "mo_quote_end_effective": "2026-08-25",
+    "prior_nominal_end": "2026-09-10",
+    "tail_gap_waiver": {
+      "waived": true,
+      "waived_on": "2026-09-11",
+      "waived_by": "user",
+      "note": "Pinned DataHub dataset ends 2026-08-25; remaining calendar days to 2026-09-10 are intentionally out of scope."
+    }
+  },
+  "fee_contract": "docs/governance/R1B_MO_FEE_CONTRACT@1.0.json",
+  "empirical_option_outcome_test_authorized": false,
+  "production_authority": false,
+  "blackbox_query_count": 3
+}

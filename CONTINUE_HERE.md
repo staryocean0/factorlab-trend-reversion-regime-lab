@@ -52,7 +52,7 @@ Read:
 
 ## Data-admission state
 
-No MO historical intraday best-bid/best-ask tape is **admitted**. Legacy-epoch schema mapping on a public CIIS sample and pinned DataHub MO trade-activity L1 mapping are both complete at `ADAPTED_NOT_ADMITTED` only.
+No MO historical intraday best-bid/best-ask tape is **admitted** yet. **Primary source route is local pinned DataHub MO L1** (`docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`). Legacy CIIS public-sample mapping remains auxiliary schema evidence only at `ADAPTED_NOT_ADMITTED`.
 
 Confirmed:
 
@@ -69,17 +69,19 @@ Therefore the acquisition window is frozen as two physical delivery epochs:
 
 Each epoch requires an independent source-specific mapping and schema/provenance check. One epoch cannot waive unresolved fields in the other; canonical concatenation is forbidden until both pass.
 
-**DataHub rank-2 route (parallel, not CIIS substitute):**
+**DataHub primary route (user decision 2026-09-11):**
 
 - product `cffex_index_option_trade_activity_3s`, dataset_version `derivative_trade_activity_cn_cffex_3s_20191223_20260825_v5_20260830`;
-- MO L1 bid/ask coverage **2022-07-22 .. 2026-08-25** (tail gap to frozen window end 2026-09-10);
-- binding `docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`, mapping `docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`;
-- adapter `adapt_datahub_mo_trade_activity.py`; 2022-12 export/adapt receipt shows **328,706** canonical rows at `ADAPTED_NOT_ADMITTED`;
+- MO L1 bid/ask effective window **2022-07-22 .. 2026-08-25**; user waived the nominal tail to 2026-09-10;
+- binding/mapping/routing: `R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`, `R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`, `R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`;
+- adapter `adapt_datahub_mo_trade_activity.py`; bounded 2022-12 adapt receipt: **328,706** rows at `ADAPTED_NOT_ADMITTED`;
 - route doc: `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`.
+
+**CIIS/CFFEX official Level-2 order is optional** (`docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md`) — only for later official byte-layout provenance, not a current blocker.
 
 Current source state:
 
-`LEGACY_AND_DATAHUB_SCHEMA_MAPPED_NOT_ADMITTED_POST_EPOCH_FEE_AND_FULL_DELIVERY_REQUIRED`
+`DATAHUB_PRIMARY_SCHEMA_MAPPED_FEE_FROZEN_TAIL_WAIVED_ADMISSION_MANIFEST_REQUIRED`
 
 Session receipt: `docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json`.
 
@@ -100,6 +102,8 @@ Governance:
 - `docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json`
 - `docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json`
 - `docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json`
+- `docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`
+- `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`
 - `docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json`
 
 Research/source docs:
@@ -112,6 +116,7 @@ Research/source docs:
 - `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md`
 - `docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md`
 - `docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260911.md`
+- `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260911.md`
 
 Code:
 
@@ -147,25 +152,23 @@ No BLACKBOX allocation is created by this freeze.
 
 Current state:
 
-`R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_STRONG_PARTIAL_BROKER_UNRESOLVED`
+`R1B_MO_FEE_CONTRACT_FROZEN_USER_14_CNY_PER_LEG`
 
-Strong evidence supports the CFFEX exchange baseline of RMB 15/contract trading fee and RMB 2/contract exercise/assignment fee at launch/current anchors, but the complete official effective-period chain is not yet frozen and the actual broker/customer historical commission schedule is unresolved.
+User froze all-in MO trading fee at **RMB 14 per contract per open leg** and **RMB 14 per contract per close leg** over **2022-07-22 .. 2026-08-25**. Machine contract: `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json`. Spread is not double-counted in fees.
 
-Do not treat RMB 15 as historical all-in cost. Do not invent broker markup.
+Historical exchange-only evidence at RMB 15/contract remains archived context in `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md` and is not the active fee authority.
 
 ## Exact next authorized action
 
 **Do not run an option return study yet.**
 
-User-only external step: email **hd@ciis.com.hk** using `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md` to order full dual-epoch MO Level-2 Snapshot history and request a post-2024-07-08 era sample if available. Also supply the account's historical broker commission schedule; do not substitute another broker's public rate card.
+Local next step only:
 
-After delivery:
+1. Materialize or bind the full DataHub MO window through **2026-08-25** under the pinned dataset_version.
+2. Populate a complete source manifest with frozen fee contract and file inventory.
+3. Run `validate_mo_quote_source.py`; retain PASS/FAIL receipt.
 
-1. Preserve raw bytes per epoch; record SHA-256, byte size, row count and package/version metadata.
-2. Complete post-transition mapping independently; do not infer from legacy layout.
-3. Replace provisional third-Friday expiry on the public sample with authoritative contract master from delivery.
-4. Populate an actual-source manifest; freeze the complete fee contract.
-5. Run multi-epoch adapter then `validate_mo_quote_source.py`; retain PASS/FAIL receipt.
+Optional external step (not required now): CIIS/CFFEX official Level-2 order via `docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md` if official byte-layout provenance is desired later.
 
 Only a complete admission PASS can unlock a **separate pre-execution freeze**. PASS still does not authorize PnL, BLACKBOX #4 or production.
 

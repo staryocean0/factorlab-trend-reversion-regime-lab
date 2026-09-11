@@ -2,7 +2,7 @@
 
 Research identity: `rmr_R1B_MO_convex_impulse_mapping_v1`
 
-Purpose: single external action package for the account holder. Sending this order creates **no** admission PASS, option PnL authority, BLACKBOX query #4, or production authority.
+Purpose: **optional** external action package for the account holder if official CIIS/CFFEX byte-layout provenance is desired later. **Not required** while local pinned DataHub MO L1 is the primary route (`docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json`). Sending this order creates **no** admission PASS, option PnL authority, BLACKBOX query #4, or production authority.
 
 `production_authority=false`
 
@@ -14,9 +14,9 @@ The old dead href `.../sampledata/20221206_Sample_CFF_Snapshot.xlsx` was superse
 
 That legacy positional workbook was downloaded locally on 2026-09-11 (SHA-256 `b0aa832d5ca875cc017f97baf3fa83e2762548d6835c58591e4736fa0df1021b`, 628,017 bytes, 2,999 rows / 1,621 MO rows). It supports **legacy epoch schema mapping only**; it does not substitute for the full 2022-07-22..2026-09-10 delivery and contains no post-2024-07-08 layout.
 
-## Remaining external action (user-only)
+## Optional external action (user-only, not a current blocker)
 
-Email **hd@ciis.com.hk** with the completed order form and the request below.
+If official CIIS delivery is still wanted for provenance audit, email **hd@ciis.com.hk** with the completed order form and the request below.
 
 Attachments to prepare locally (already downloaded for checksum inventory; do not expose private account fields in the public repo):
 

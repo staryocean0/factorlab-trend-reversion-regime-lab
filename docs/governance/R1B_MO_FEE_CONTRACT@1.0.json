@@ -1,0 +1,29 @@
+{
+  "contract_id": "rmr_R1B_MO_fee_contract_v1",
+  "frozen_as_of": "2026-09-11",
+  "frozen_by": "user_authoritative_decision",
+  "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
+  "status": "frozen",
+  "currency": "CNY",
+  "fee_semantics": {
+    "unit": "per_contract_per_trade_leg",
+    "spread_in_fee": false,
+    "note": "Executable spread is priced by ask-entry and bid-exit. Fees below are all-in per contract per open/close leg."
+  },
+  "exchange_fee_source": "user_authoritative_override_2026-09-11",
+  "broker_fee_source": "user_authoritative_all_in_14_cny_per_contract_per_leg",
+  "effective_periods": [
+    {
+      "start": "2022-07-22",
+      "end": "2026-08-25",
+      "open_trading_fee_cny_per_contract": 14,
+      "close_trading_fee_cny_per_contract": 14,
+      "exercise_assignment_fee_cny_per_contract": 0,
+      "declaration_fee_cny_per_contract": 0,
+      "authority": "user_frozen_single_item_14_cny"
+    }
+  ],
+  "supersedes_pending_state": "R1B_MO_FEE_CONTRACT_PENDING_EXCHANGE_CHAIN_STRONG_PARTIAL_BROKER_UNRESOLVED",
+  "production_authority": false,
+  "blackbox_query_count": 3
+}

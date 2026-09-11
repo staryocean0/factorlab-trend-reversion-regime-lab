@@ -1,10 +1,12 @@
 # R1_B MO fee-source status — 2026-09-10
 
+> **Superseded for active authority** by `docs/research/R1B_MO_FEE_SOURCE_STATUS_20260911.md` and `docs/governance/R1B_MO_FEE_CONTRACT@1.0.json` (user frozen RMB 14 / contract / leg). Retained as historical exchange-evidence context only.
+
 Research identity: `rmr_R1B_MO_convex_impulse_mapping_v1`
 
 Purpose: close as much of the fee-admission prerequisite as can be supported **before any event-conditioned option outcome is inspected**.
 
-Current decision: **FEE CONTRACT NOT YET FROZEN**
+Historical decision at write time: **FEE CONTRACT NOT YET FROZEN**
 
 Reason: exchange-level evidence is strong but the full effective-period chain has not yet been proven from a complete official historical notice set, and the account/broker commission schedule is not known.
 

@@ -1,7 +1,8 @@
 {
   "mapping_version": 1,
   "source_family": "DataHub derivative_trade_activity_cn_cffex_3s v5_20260830",
-  "source_rank": 2,
+  "source_rank": 1,
+  "primary_route": true,
   "evidence": {
     "product_id": "cffex_index_option_trade_activity_3s",
     "dataset_version": "derivative_trade_activity_cn_cffex_3s_20191223_20260825_v5_20260830",
@@ -33,7 +34,8 @@
   "source_timezone": "Asia/Shanghai",
   "master_contract_code": "contract_symbol",
   "master_expiry": "expiry_date",
-  "status": "SCHEMA_MAPPED_DATAHUB_PINNED_NOT_ADMITTED",
+  "status": "SCHEMA_MAPPED_DATAHUB_PRIMARY_NOT_ADMITTED",
+  "fee_contract": "docs/governance/R1B_MO_FEE_CONTRACT@1.0.json",
   "blackbox_query_count": 3,
   "production_authority": false
 }

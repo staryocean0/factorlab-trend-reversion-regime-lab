@@ -2,7 +2,8 @@
   "binding_id": "rmr_R1B_MO_datahub_source_binding_v1",
   "research_identity": "rmr_R1B_MO_convex_impulse_mapping_v1",
   "source_type": "datahub_pinned_derivative_trade_activity_l1",
-  "source_priority_rank": 2,
+  "source_priority_rank": 1,
+  "routing_decision": "docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json",
   "production_authority": false,
   "dataset_binding": {
     "product_id": "cffex_index_option_trade_activity_3s",
@@ -19,8 +20,14 @@
     "underlying": "000852.SH",
     "first_trading_day": "2022-07-22",
     "last_trading_day": "2026-08-25",
-    "research_window_end_requested": "2026-09-10",
-    "tail_gap_note": "Rows after 2026-08-25 are outside this pinned dataset_version."
+    "research_window_end_effective": "2026-08-25",
+    "research_window_end_nominal_superseded": "2026-09-10",
+    "tail_gap_waiver": {
+      "waived": true,
+      "waived_on": "2026-09-11",
+      "waived_by": "user",
+      "note": "Study intentionally ends at pinned DataHub tail; days after 2026-08-25 are out of scope."
+    }
   },
   "serving_filter": "product_root='MO' AND source_kind='baidu_cffex_500ms_derived_trade_activity_3s' AND isfinite(bid_price_1) AND isfinite(ask_price_1) AND bid_price_1>0 AND ask_price_1>=bid_price_1",
   "consumer_contract": "factorlab_cffex_mo_synchronized_l1_ask_bid.v1",
