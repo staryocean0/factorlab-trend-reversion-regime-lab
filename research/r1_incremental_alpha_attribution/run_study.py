@@ -276,12 +276,12 @@ def main() -> int:
         "incremental_summary": incremental_summary,
         "path_summary": path_summary,
         "common_strong_incremental_horizons": common_strong(summary_bundle),
-        "matching_outcome_information_used": false,
-        "horizon_selected": false,
-        "instrument_mapping_performed": false,
+        "matching_outcome_information_used": False,
+        "horizon_selected": False,
+        "instrument_mapping_performed": False,
         "blackbox_query_count": 3,
-        "blackbox_query_4_authorized": false,
-        "production_authority": false,
+        "blackbox_query_4_authorized": False,
+        "production_authority": False,
     }
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     matches_ledger.to_csv(MATCH_LEDGER, index=False)
