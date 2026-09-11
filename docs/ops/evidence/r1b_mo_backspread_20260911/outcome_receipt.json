@@ -1,0 +1,60 @@
+{
+  "schema_id": "rmr_R1B_MO_ratio_backspread_outcome_receipt_recovered@1.0",
+  "research_identity": "rmr_R1B_MO_ratio_backspread_v1",
+  "candidate_id": "R1B_MO_1x2_ADJACENT_OTM_RATIO_BACKSPREAD_SAME_CAUSAL_EXIT",
+  "freeze_path": "docs/governance/R1B_MO_BACKSPREAD_PRE_EXECUTION_FREEZE@1.0.json",
+  "freeze_commit": "3587ef7f22814579140758e874f9975d1998f482",
+  "outcome_trigger_commit": "d2d3a99e7329f4265c277b5087e8081eba0e97fb",
+  "actions_run_id": 34612892387,
+  "actions_job_id": 103307532666,
+  "preflight_run_id": 34612801045,
+  "preflight_status": "PASS_5_TESTS",
+  "outcome_execution_step": "completed_success",
+  "evidence_commit_step": "failed_after_outcome_due_sparse_checkout_git_add_boundary",
+  "evidence_recovery_method": "exact aggregate adjudication transcribed from immutable completed GitHub Actions job log; no outcome rule or gate was changed and no empirical rerun was performed",
+  "event_ledger_persisted": false,
+  "event_ledger_note": "The runner generated an event ledger on the ephemeral Actions filesystem, but git add rejected paths outside the sparse-checkout definition. The runner output and aggregate adjudication were preserved in the completed job log. The identity decision does not depend on recovering row-level data because three precommitted economic gates fail by wide margins.",
+  "fresh_oos": false,
+  "blackbox_query_count": 3,
+  "blackbox_query_4_authorized": false,
+  "production_authority": false,
+  "threshold_retune_after_results": false,
+  "adjudication": {
+    "decision": "FAIL_IDENTITY_CLOSED",
+    "passed": false,
+    "n_joinable_underlying_events": 385,
+    "n_completed_backspread": 360,
+    "joint_fill_coverage": 0.935064935064935,
+    "pooled_mean_net_cny": -376.6111111111111,
+    "pooled_median_net_cny_descriptive": -884.0000000000007,
+    "win_rate_descriptive": 0.2222222222222222,
+    "annual_mean_net_cny": {
+      "2023": -408.5714285714283,
+      "2024": -131.4324324324326,
+      "2025": -484.8163265306121
+    },
+    "annual_positive_years": 0,
+    "quarterly_mean_net_cny": {
+      "2023Q1": -279.99999999999966,
+      "2023Q2": -717.9999999999997,
+      "2023Q3": -474.3999999999997,
+      "2023Q4": -268.0000000000003,
+      "2024Q1": 159.68421052631552,
+      "2024Q2": -720.5517241379313,
+      "2024Q3": 1476.7692307692314,
+      "2024Q4": -782.1818181818187,
+      "2025Q1": -202.12499999999974,
+      "2025Q2": -660.1904761904763,
+      "2025Q3": -758.2857142857138,
+      "2025Q4": -349.8823529411765
+    },
+    "quarterly_positive_quarters": 2,
+    "gate_results": {
+      "joint_fill_coverage": true,
+      "pooled_mean_net_positive": false,
+      "annual_mean_positive_min_years": false,
+      "quarterly_mean_positive_min_quarters": false
+    }
+  },
+  "final_decision": "FAIL_IDENTITY_CLOSED_NO_RETUNE"
+}
