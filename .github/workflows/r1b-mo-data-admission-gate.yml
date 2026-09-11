@@ -11,14 +11,18 @@ on:
       - 'research/r1b_mo_backspread/**'
       - 'research/index_price_validity/**'
       - 'research/r1_incremental_alpha_attribution/**'
+      - 'research/r1a_carrier_transport/**'
       - 'tests/test_r1b_mo_*.py'
       - 'tests/test_index_price_validity.py'
       - 'tests/test_r1_incremental_alpha_attribution.py'
+      - 'tests/test_r1a_carrier_transport.py'
       - 'docs/governance/R1B_MO_*.json'
       - 'docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json'
       - 'docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json'
+      - 'docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json'
       - 'docs/ops/evidence/r1b_mo_outcome_20260911/**'
       - 'docs/ops/evidence/r1_incremental_alpha_20260911/**'
+      - 'docs/ops/evidence/r1a_carrier_transport_20260912/**'
       - 'data/r1b_research/**'
       - 'pyproject.toml'
       - '.github/workflows/r1b-mo-data-admission-gate.yml'
@@ -41,6 +45,7 @@ jobs:
             docs/governance
             docs/ops/evidence/r1b_mo_outcome_20260911
             docs/ops/evidence/r1_incremental_alpha_20260911
+            docs/ops/evidence/r1a_carrier_transport_20260912
             data/r1b_research
           sparse-checkout-cone-mode: false
       - uses: actions/setup-python@v5
@@ -48,5 +53,5 @@ jobs:
           python-version: '3.11'
       - name: Install package
         run: python -m pip install -e .
-      - name: Run MO and price-attribution research regression tests
-        run: python -m pytest -q tests/test_r1b_mo_*.py tests/test_index_price_validity.py tests/test_r1_incremental_alpha_attribution.py
+      - name: Run MO, price-attribution and carrier boundary regression tests
+        run: python -m pytest -q tests/test_r1b_mo_*.py tests/test_index_price_validity.py tests/test_r1_incremental_alpha_attribution.py tests/test_r1a_carrier_transport.py

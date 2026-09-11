@@ -1,71 +1,55 @@
 # 本地执行模型接管提示
 
-你接管 `staryocean0/factorlab-trend-reversion-regime-lab`。先读 `CONTINUE_HERE.md`，不要重新打开已经关闭的研究身份。
+接管 `staryocean0/factorlab-trend-reversion-regime-lab`。先读 `CONTINUE_HERE.md` 和 `research/r1a_carrier_transport/README.md`。检查本地未提交改动，安全地 fetch/fast-forward main，不覆盖用户工作。
 
-## 当前 authority
+## 当前停点
 
-- R1 / R2 仍是 certified mechanisms；
-- `BLACKBOX_query_count=3`，禁止 query #4；
-- `production_authority=false`。
+R1_A 的 ETF 价格回放已经冻结、实现并完成云端工程核验，但没有真实 ETF 交付数据：
 
-已经完成两层价格研究：
+`BLOCKED_CARRIER_DATA_NOT_ADMITTED`
 
-1. 纯 cash-index price validity；
-2. R1 matched-parent incremental-alpha attribution。
+`ETF_outcomes_read=false`
 
-最新正式解释：
+这不是 ETF 策略失败，也不是 ETF 验证通过。不要重新设计信号、改持有期或再研究期权。
 
-`R1_A_CSI1000_PULLBACK_SPECIFIC_INCREMENTAL_ALPHA_SUPPORTED_TRANSPORT_NOT_YET_STRONG`
+## 直接执行的数据任务
 
-`R1_B_RAW_DIRECTIONAL_EDGE_REINTERPRETED_AS_PARENT_TREND_CONTINUATION_NOT_DISTINCT_PULLBACK_ALPHA`
+从现有、本来就有权访问的 DataHub、行情终端或正式历史数据接口，查找并导出以下完整历史：
 
-## 关键结果
+- 主载体 `512100.SH`，对应中证1000 `000852.SH`；
+- 次载体 `588000.SH`，对应科创50 `000688.SH`；
+- 时间都是 `2021-01-01 .. 2025-12-31`；
+- 1分钟、真实未复权 OHLCV；
+- 完整时间戳/标签/时区/成交量字典；
+- 同期完整分红、拆分除权除息日期及来源。
 
-R1_A / CSI1000：
+请求完整非事件条件化数据，不只下载信号日期。不要用日线、5分钟插值、最近5个交易日、指数改名或合成价格替代。Tushare 当前对应接口是 `etf_mins`，但需要既有权限；不得购买、借用他人 token 或绕过权限。找不到合法访问方式就保留精确 blocker，不伪造数据。
 
-- 15 bars：event `+4.80bp`，matched parent control `+0.95bp`，incremental `+3.85bp`，bootstrap 95% CI `[+0.80,+6.88]bp`，4/5 年增量均值为正，LONG/SHORT 都正；
-- 30 bars：event `+6.80bp`，control `+0.72bp`，incremental `+6.07bp`，CI `[+1.38,+10.66]bp`，5/5 年为正，LONG/SHORT 都正。
+保存原始 bytes、SHA256、字节数、行数和真实来源。付费或非公开文件默认放 `data/r1a_carrier_prices/private/`，禁止提交公共 Git；没有再分发授权不得为了云端方便公开原包。账号、token、非公开下载地址不得出现在公开回执里。
 
-这不等于选定 15/30 为交易持有期；只是 frozen horizon surface 中 pullback-specific information 最明确的位置。
+按 README 的 schema 建立每只 ETF 的 manifest：
 
-R1_A / STAR50：短 horizon 增量均值方向一致，但没有通过完整 strong-incremental 条件，所以只是 supportive transport。
+`data/r1a_carrier_prices/512100.SH.json`
 
-R1_B：不要再把 120/240 raw return 当作 pullback-specific alpha。CSI1000 240 bars event `+23.43bp`，matched control `+34.63bp`，incremental `-11.20bp`。它更像 parent-trend continuation 的状态标记，不是新增 entry alpha。
+`data/r1a_carrier_prices/588000.SH.json`
 
-## 当前任务方向
+只有来源证据齐全时才填写 research_use_authorized/corporate_actions_complete=true。不要猜 bar 是开始标签还是结束标签，更不能用最高相关性来选择时间平移。实际原始格式需要转换时，先冻结来源映射、补测试，再转换。
 
-下一层只做 **R1_A carrier price transport**。
+## 实际回放命令
 
-顺序：
+```bash
+PYTHONPATH=src:. python -m pytest -q tests/test_r1a_carrier_transport.py
+PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py --output /tmp/r1a-new-delivery
+```
 
-`R1 mechanism -> R1_A incremental index alpha -> ETF/index carrier price transport -> execution economics`
+每次交付版本使用新的输出目录，不覆盖 `docs/ops/evidence/r1a_carrier_transport_20260912/` 的历史阻塞回执。
 
-如果找到 ETF / carrier 分钟数据：
+已冻结的 1,296 组 CSI1000 和 1,802 组 STAR50 R1_A 事件/对照原样使用，不重算信号、不重新匹配。ETF 必须精确匹配指数时钟；不能缺一分钟就顺延。全报 `1/5/15/30/60/120/240` 根指数观察 bar，不从结果选 15 或30。事件和对照必须一起覆盖，并和同一入选样本的指数收益对比。
 
-1. 先记录 instrument identity、数据来源、时间范围、复权/时间戳规则；
-2. outcome 前冻结 transport contract；
-3. 原样 replay 已冻结的 R1_A causal event timestamps/directions；
-4. 全报 `1/5/15/30/60/120/240`，禁止先选 15/30；
-5. 先做 zero-cost carrier price transport；
-6. synthetic SHORT 可以用于 signal transport，但必须注明非实际可执行；
-7. 只有 transport 成立后才单独研究 spread/fee/T+1/borrow/futures basis/inventory。
+先做零成本、synthetic LONG/SHORT 的价格层，不涉及真实可空性、保证金、手续费或期权。跨分红拆分、缺分钟、零成交量按冻结规则明确处理，不能改规则凑通过率。
 
-## 仍然关闭
+## 完成时交付
 
-- R1 structural economic translations v1/v2/v3；
-- R2 direct directional economic identity；
-- R1_B temporal impulse completion；
-- R1_B ATM option / 1x2 backspread；
-- probability/time-of-day/regime/horizon rescue；
-- R3/R4/R5-B1/R5-C 等历史关闭 lanes。
+实际取得文件及 hash、数据准入结果、有效配对覆盖率和剔除原因、完整七周期 ETF/指数/增量对照表、测试结果、commit SHA、仍缺的外部材料。数据不足就汇报 BLOCKED/INSUFFICIENT，不能记作策略 FAIL 或 PASS。只提交获准公开的证据，并同步 CONTINUE_HERE。
 
-不要用最新结果去救这些身份。
-
-## 工程纪律
-
-- empirical study 一律先 freeze 后 outcome；
-- synthetic tests 先于真实回放；
-- 不覆盖失败证据；
-- 一次性 workflow 完成后删除；
-- 不提交凭据、账号、非公开链接或本地原始 DataHub lake；
-- 当前 authority 入口是 `CONTINUE_HERE.md`。
+R1_B、R2、旧期权和其他已关闭身份不重开。既有指数证据是条件于匹配设计的历史观察，不是新的独立 OOS 或因果证明。`BLACKBOX_query_count=3` 不变，禁止 query #4，`production_authority=false`。
