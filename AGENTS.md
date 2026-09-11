@@ -1,17 +1,17 @@
 # Reversal / Mean-Reversion Strategy Bucket
 
-Read CONTINUE_HERE.md and docs/research/R1A_ENDPOINT_METHOD_REVIEW_20260912.md.
+Read CONTINUE_HERE.md and docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md.
 
-Latest measurement: ENDPOINT_DIAGNOSTIC_COMPLETE_DESCRIPTIVE, all 14 fixed carrier/horizon cells. The old full-path v1 remains PARTIAL_CARRIER_TRANSPORT under its unchanged definition; do not overwrite its freeze or failures. The endpoint alternative was explicitly separately frozen after a user-authorized method review, before new endpoint outcomes.
+Latest completed: RETROSPECTIVE_ENDPOINT_ROBUSTNESS_COMPLETED_NO_PRODUCTION. Dependence/multiplicity, reuse, nonoverlap, leave-year and missing-outcome sensitivity have actually executed. Do not restart them as an unseen test.
 
-Actual ETF CSVs live in data/r1a_carrier_prices/cloud_pack_v1/. No local DataHub/private dependency or routine data-transfer request remains.
+R1_A remains a historical short-horizon lead, not statistically established/executable alpha. No adjusted primary cell has a strictly positive lower bound. This is not proof of zero effect or closure of R1_A. Do not select a convenient block origin/horizon/matching rule/year/side/ETF to recover a preferred significance result.
 
-Preserve the original R1_A signals, pairs, directions, fixed carriers and seven horizons. New endpoint sampling requires four positive-volume exact observations per pair/horizon, record integrity >=95% by year and endpoint-pair coverage >=80% pooled AND every event year. These are frozen diagnostic gates, not a retroactive full-path PASS. No fills, nearest quotes, clock shifts, filters, rematching or excluded-year rescue.
+The graph-sandwich/t method is an explicitly approximate calendar-exposure adaptation; its assumptions are not proved by CI. Family corrections cover displayed contrasts, not all past historical research. Endpoint observation selection and matching confounding are not causal identification.
 
-Primary CSI1000 common-endpoint intersection failed the 2021 gate; its common-sample ETF outcomes were not opened. Per-horizon primary samples differ. Secondary common-endpoint sensitivity passed. Preserve this distinction.
+Future evidence should use a separately frozen genuinely unused/prospective data role and observation/exit policy. Do not assume a new date/year is fresh without exposure audit. No BLACKBOX query #4 and no production/real-account action.
 
-Conditional terminal returns do not establish a live entry rule: exit availability is future information. Selection may be informative; source volume=0 is not independent proof of exchange no-trade. No path risk, MFE/MAE, stops/targets or execution feasibility was measured in the endpoint diagnostic.
+Data are already available in data/r1a_carrier_prices/cloud_pack_v1/. No local DataHub/private dependency or routine re-delivery request remains. Recorded source volume=0 is not independently proven exchange no-trade.
 
-Next work is a separately frozen dependence/observation-selection robustness treatment, not choosing 15/30 as a trading horizon or jumping to options. Account for overlapping windows, reused controls and multiple historical analyses before strong inference. Keep current conclusions descriptive until then.
+Preserve original signals, pairs, directions, seven horizons, fixed carriers and all source bytes. The earlier endpoint and full-path protocols remain unchanged. CSI1000's failed all-seven-endpoint common cohort is still not authorized for a return table. Missingness scenarios are assumptions, not imputed ETF outcomes. No path-risk, cost, borrow, stop/target, futures or option result is authorized by this stage.
 
-Preserve old evidence and require fresh output directories. R1_B, R2 directional and closed MO identities stay closed. BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false.
+Use fresh output directories and retain historical receipts. R1_B, R2-directional and closed MO identities remain closed. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; horizon_selected=false.

@@ -1,9 +1,9 @@
 # AI entry
 
-Read CONTINUE_HERE.md, docs/research/R1A_ENDPOINT_METHOD_REVIEW_20260912.md, PROMPT.md and AGENTS.md.
+Read CONTINUE_HERE.md, docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md, PROMPT.md and AGENTS.md.
 
-Latest: ENDPOINT_DIAGNOSTIC_COMPLETE_DESCRIPTIVE (both ETFs, all seven horizon-specific cells). The separate old full-path v1 still has its historical PARTIAL_CARRIER_TRANSPORT result. Do not conflate the estimands or falsely claim no primary ETF outcomes have been measured.
+Latest completed: RETROSPECTIVE_ENDPOINT_ROBUSTNESS_COMPLETED_NO_PRODUCTION. R1_A remains a short-horizon historical lead, not established/executable alpha. No positive adjusted primary interval; this is not proof of zero effect or closure of the mechanism.
 
-Public cloud_pack_v1 bytes are available; no routine local data transfer is needed. Primary all-seven-endpoint common sample failed its annual gate and was not opened. All per-horizon comparisons use their own identical-sample index controls.
+Dependence/multiplicity and selection sensitivities have executed. Next useful evidence requires genuinely unused/prospective data under a separately frozen confirmation/observation design, not more tuning on the same years. No routine local transfer is needed.
 
-Next frontier: dependence/observation-selection robustness before execution, with a separate freeze. No signal refit, chosen horizon, path-risk claim or option rescue. BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false.
+Old full-path/endpoint states and data are preserved; primary common-cohort outcomes remain unopened. BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false; no chosen horizon or option rescue.

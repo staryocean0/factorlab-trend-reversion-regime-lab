@@ -12,6 +12,7 @@ on:
       - 'research/index_price_validity/**'
       - 'research/r1_incremental_alpha_attribution/**'
       - 'research/r1a_carrier_transport/**'
+      - 'research/r1a_endpoint_robustness/**'
       - 'tests/test_r1b_mo_*.py'
       - 'tests/test_index_price_validity.py'
       - 'tests/test_r1_incremental_alpha_attribution.py'
@@ -21,6 +22,7 @@ on:
       - 'docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json'
       - 'docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json'
       - 'docs/governance/R1A_ENDPOINT_PRICE_DIAGNOSTIC_FREEZE@1.0.json'
+      - 'docs/governance/R1A_ENDPOINT_ROBUSTNESS_FREEZE@1.0.json'
       - 'docs/ops/evidence/r1b_mo_outcome_20260911/**'
       - 'docs/ops/evidence/r1_incremental_alpha_20260911/**'
       - 'docs/ops/evidence/r1a_carrier_transport_20260912/**'
@@ -29,6 +31,7 @@ on:
       - 'docs/ops/evidence/r1a_carrier_source_audit_20260912/**'
       - 'docs/ops/evidence/r1a_cloud_raw_replay_9abe704/**'
       - 'docs/ops/evidence/r1a_endpoint_diagnostic_20260912/**'
+      - 'docs/ops/evidence/r1a_endpoint_robustness_20260912/**'
       - 'data/r1a_carrier_prices/**'
       - 'data/manifest.json'
       - 'data/market/1m/**'
@@ -43,6 +46,9 @@ jobs:
   research-regression-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -60,6 +66,7 @@ jobs:
             docs/ops/evidence/r1a_carrier_cloud_audit_20260912
             docs/ops/evidence/r1a_carrier_source_audit_20260912
             docs/ops/evidence/r1a_endpoint_diagnostic_20260912
+            docs/ops/evidence/r1a_endpoint_robustness_20260912
             data/manifest.json
             data/market/1m
             data/r1a_carrier_prices
@@ -94,4 +101,25 @@ jobs:
           for spec in a['evidence_files']:
               assert sha(new/spec['path']) == spec['sha256'], spec['path']
           print('Endpoint evidence reproduced; this is not new empirical certification.')
+          PY
+      - name: Reproduce retrospective robustness without choosing a new specification
+        env:
+          PYTHONPATH: src:.
+        run: |
+          python research/r1a_endpoint_robustness/study.py --output "$RUNNER_TEMP/r1a-robustness-replay"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from research.r1a_carrier_transport.audit_public_delivery import compare_json
+          from research.r1a_endpoint_robustness.study import sha
+          old = Path('docs/ops/evidence/r1a_endpoint_robustness_20260912')
+          new = Path(os.environ['RUNNER_TEMP'])/'r1a-robustness-replay'
+          a = json.loads((old/'robustness_receipt.json').read_text())
+          b = json.loads((new/'robustness_receipt.json').read_text())
+          assert a['freeze_sha256'] == b['freeze_sha256']
+          for k in ['decision','carriers','primary_family14_positive_cells','all_four_family56_positive_cells']:
+              compare_json(b[k], a[k], k)
+          for spec in a['output_csvs']:
+              assert sha(new/spec['path']) == spec['sha256'], spec['path']
+          print('All frozen robustness values reconciled; no new significance claim.')
           PY
