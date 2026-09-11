@@ -13,6 +13,7 @@ on:
       - 'docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json'
       - 'docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json'
       - 'docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json'
+      - 'pyproject.toml'
       - '.github/workflows/r1b-mo-data-admission-gate.yml'
 
 permissions:
