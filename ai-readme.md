@@ -1,13 +1,11 @@
 # AI entry
 
-Read `CONTINUE_HERE.md`, `docs/research/R1A_CARRIER_TRANSPORT_STATUS_20260912.md`, `PROMPT.md`, and `AGENTS.md`.
+Read `CONTINUE_HERE.md`, `PROMPT.md`, `AGENTS.md`, then `docs/ops/evidence/r1a_carrier_cloud_audit_20260912/REPORT.md`.
 
-Current frontier: **R1_A ETF price data acquisition/admission**.
+Current state: `PARTIAL_CARRIER_TRANSPORT` after user delivery b656b4b.
 
-`BLOCKED_CARRIER_DATA_NOT_ADMITTED`; `ETF_outcomes_read=false`.
+588000 local outcomes were measured and reconciled in cloud public-ledger audit; 512100 stays unmeasured because 2021 valid-minute coverage is below the frozen 95% gate. Raw ETF files remain private/local, not supplied by manifests or outcome CSVs.
 
-The frozen `512100.SH` / `588000.SH` exact-clock event-and-control transport implementation and cloud engineering preflight are complete. The actual ETF return study is not complete. Do not confuse regression SUCCESS with empirical PASS.
+Next: source provenance and primary zero-volume/missingness attribution, not another acquisition redesign or payoff search. No rule relaxation, horizon choice, rematching, raw-data publication or claim of independent raw-ETF cloud reproduction.
 
-Use the existing runner and its README delivery contract. Do not refit, rematch, pick a holding horizon, reconstruct missing bars, or reopen closed R1_B/R2/option work.
-
-`BLACKBOX_query_count=3`, no query #4; `production_authority=false`; `fresh_oos=false`.
+`BLACKBOX_query_count=3`; `production_authority=false`; `fresh_oos=false`.

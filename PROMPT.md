@@ -1,55 +1,48 @@
-# 本地执行模型接管提示
+# 本地执行模型接管提示 — 已交付数据后的审计
 
-接管 `staryocean0/factorlab-trend-reversion-regime-lab`。先读 `CONTINUE_HERE.md` 和 `research/r1a_carrier_transport/README.md`。检查本地未提交改动，安全地 fetch/fast-forward main，不覆盖用户工作。
+仓库：`staryocean0/factorlab-trend-reversion-regime-lab`。先读 `CONTINUE_HERE.md`，检查本地未提交改动后安全 fetch/fast-forward main，不覆盖用户工作。
 
-## 当前停点
+## 已完成，不要重复
 
-R1_A 的 ETF 价格回放已经冻结、实现并完成云端工程核验，但没有真实 ETF 交付数据：
+用户提交 `b656b4b` 已导出两只 ETF 的本地 DataHub 历史并推送清单与结果。现在不是“从头找 ETF 数据”。
 
-`BLOCKED_CARRIER_DATA_NOT_ADMITTED`
+- `588000.SH` 已本地 admission PASS 并完成描述性回放：1,791/1,802 组、12,537 行。云端已核验结果 hashes、原始配对、七周期、2,128 个汇总字段，并用原指数分钟 bytes 独立重算指数对照，均一致。
+- `512100.SH` 已本地导出，但 2021 正成交量分钟覆盖率 94.478738% 低于冻结的 95%；没有打开其收益。
+- 总状态 `PARTIAL_CARRIER_TRANSPORT`，不是全部成功、全部失败或两只都没数据。
+- 原始 ETF CSV 和除权除息文件留在 Git-ignored `data/r1a_carrier_prices/private/`；不要误说已上传云端原始行情。
 
-`ETF_outcomes_read=false`
+## 下一项任务：源数据与2021覆盖率审计
 
-这不是 ETF 策略失败，也不是 ETF 验证通过。不要重新设计信号、改持有期或再研究期权。
+使用已经存在、合法可访问的本地 DataHub 原始分区和导出文件，不购买、不借 token，不请求事件条件化数据，不重跑或优化收益。
 
-## 直接执行的数据任务
+输出 public-safe 审计回执，优先解决 `512100` 的2021年：按月/年分别列出指数应有分钟数、原源行数、导出行数、缺失时间戳数、零成交量数、异常价格行数、时段/窗口过滤数、时间标签不一致数、重复时间戳数和冲突重复数。各类口径须说明是否互斥并核对总数。
 
-从现有、本来就有权访问的 DataHub、行情终端或正式历史数据接口，查找并导出以下完整历史：
+核实零成交量到底是真实无成交、源数据占位约定还是采集问题。必要时用已有权限的独立来源仅核查这些数据语义/成交事实，不读取策略收益来挑修复方式。真实无成交不能补价或伪造为正成交量，也不能自动降低95%、删除2021或换ETF。若确为真实覆盖不足，保留本冻结下的INSUFFICIENT。
 
-- 主载体 `512100.SH`，对应中证1000 `000852.SH`；
-- 次载体 `588000.SH`，对应科创50 `000688.SH`；
-- 时间都是 `2021-01-01 .. 2025-12-31`；
-- 1分钟、真实未复权 OHLCV；
-- 完整时间戳/标签/时区/成交量字典；
-- 同期完整分红、拆分除权除息日期及来源。
+另外补齐：
 
-请求完整非事件条件化数据，不只下载信号日期。不要用日线、5分钟插值、最近5个交易日、指数改名或合成价格替代。Tushare 当前对应接口是 `etf_mins`，但需要既有权限；不得购买、借用他人 token 或绕过权限。找不到合法访问方式就保留精确 blocker，不伪造数据。
+1. 原始分区/导出的 SHA256、字节数和行数，以及支撑 `session_end_label_v2` 和 `Z`后缀实际表示上海墙钟时间的上游字典/转换链。不能仅凭收益相关性选择平移。
+2. 现有 `export_datahub_lake.py` 的 keep-last 去重前后计数及冲突样本摘要。云端看到代码会去重，但无法判断本交付实际是否发生冲突；不要凭空推定有或没有。
+3. 完整分红/拆分源的快照hash或来源回执，说明2021-2025覆盖范围，并为588000空事件表提供完整性证据。
 
-保存原始 bytes、SHA256、字节数、行数和真实来源。付费或非公开文件默认放 `data/r1a_carrier_prices/private/`，禁止提交公共 Git；没有再分发授权不得为了云端方便公开原包。账号、token、非公开下载地址不得出现在公开回执里。
+只提交可公开的审计数字、hash、schema和证据说明；不公开付费原始数据、凭据、账号、非公开下载地址。源数据真实性审计与已完成的公开账本算术审计是不同层次。
 
-按 README 的 schema 建立每只 ETF 的 manifest：
+## 发现实际缺陷时
 
-`data/r1a_carrier_prices/512100.SH.json`
+先固定具体事实与更正版本，保留所有旧manifest/receipt。只更正已被证据确认的数据或映射错误；不改信号、配对、horizon、年份、侧别、成本或门槛。更正后按原协议用新的输出目录回放，禁止覆盖历史输出。仅补文档不需要重跑收益。
 
-`data/r1a_carrier_prices/588000.SH.json`
-
-只有来源证据齐全时才填写 research_use_authorized/corporate_actions_complete=true。不要猜 bar 是开始标签还是结束标签，更不能用最高相关性来选择时间平移。实际原始格式需要转换时，先冻结来源映射、补测试，再转换。
-
-## 实际回放命令
+## 复核命令
 
 ```bash
-PYTHONPATH=src:. python -m pytest -q tests/test_r1a_carrier_transport.py
-PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py --output /tmp/r1a-new-delivery
+PYTHONPATH=src:. python research/r1a_carrier_transport/audit_public_delivery.py --output /tmp/r1a-public-audit-new
 ```
 
-每次交付版本使用新的输出目录，不覆盖 `docs/ops/evidence/r1a_carrier_transport_20260912/` 的历史阻塞回执。
+有完整manifest引用原始文件时的原协议回放命令：
 
-已冻结的 1,296 组 CSI1000 和 1,802 组 STAR50 R1_A 事件/对照原样使用，不重算信号、不重新匹配。ETF 必须精确匹配指数时钟；不能缺一分钟就顺延。全报 `1/5/15/30/60/120/240` 根指数观察 bar，不从结果选 15 或30。事件和对照必须一起覆盖，并和同一入选样本的指数收益对比。
+```bash
+PYTHONPATH=src:. python research/r1a_carrier_transport/transport.py --output /tmp/r1a-transport-new-version
+```
 
-先做零成本、synthetic LONG/SHORT 的价格层，不涉及真实可空性、保证金、手续费或期权。跨分红拆分、缺分钟、零成交量按冻结规则明确处理，不能改规则凑通过率。
+全报 `1/5/15/30/60/120/240` 根指数观察bar，event和原matched-control保持不变。synthetic SHORT与零成本价格收益不是可实盘盈利。588000只是科创50次载体，不能替代中证1000主检验。
 
-## 完成时交付
-
-实际取得文件及 hash、数据准入结果、有效配对覆盖率和剔除原因、完整七周期 ETF/指数/增量对照表、测试结果、commit SHA、仍缺的外部材料。数据不足就汇报 BLOCKED/INSUFFICIENT，不能记作策略 FAIL 或 PASS。只提交获准公开的证据，并同步 CONTINUE_HERE。
-
-R1_B、R2、旧期权和其他已关闭身份不重开。既有指数证据是条件于匹配设计的历史观察，不是新的独立 OOS 或因果证明。`BLACKBOX_query_count=3` 不变，禁止 query #4，`production_authority=false`。
+`BLACKBOX_query_count=3`，禁止query#4；`production_authority=false`；`fresh_oos=false`。R1_B/R2及旧期权身份均不重开。
