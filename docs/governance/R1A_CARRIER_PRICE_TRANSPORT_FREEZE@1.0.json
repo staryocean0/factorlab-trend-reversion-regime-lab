@@ -1,0 +1,80 @@
+{
+  "schema_id": "factorlab_r1a_carrier_price_transport_freeze@1.0",
+  "frozen_on": "2026-09-12",
+  "status": "FROZEN_BEFORE_CARRIER_OUTCOMES",
+  "identity": "rmr_R1A_same_clock_matched_parent_ETF_price_transport_v1",
+  "purpose": "Measure transport of unchanged R1_A event and matched-control cash-index price responses into actual ETF traded-price series, not execution profitability.",
+  "baseline_commit": "6981bd8d6ce33001e2a9c25f7cdfb7bbd5519826",
+  "matched_pairs_path": "docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv",
+  "matched_pairs_git_blob_sha1": "95191091d1a26c360c3efb5ae2d5be9cf194211d",
+  "index_manifest_git_blob_sha1": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+  "carriers": {
+    "000852.SH": {
+      "carrier": "512100.SH",
+      "name": "南方中证1000交易型开放式指数证券投资基金",
+      "role": "primary_CSI1000_transport",
+      "expected_frozen_pairs": 1296,
+      "identity_reference": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20201021_5237291.shtml"
+    },
+    "000688.SH": {
+      "carrier": "588000.SH",
+      "name": "华夏上证科创板50成份交易型开放式指数证券投资基金",
+      "role": "secondary_STAR50_transport_not_independent_confirmation",
+      "expected_frozen_pairs": 1802,
+      "identity_reference": "https://www.chinaamc.com/fund/588000/"
+    }
+  },
+  "carrier_selection_reason": "One fixed plain domestic index ETF per parent index, identified from issuer/exchange records and available before the evaluation window; not selected by returns, spread, current AUM or retrospective tracking quality. Do not switch carrier after outcomes.",
+  "window": {"start": "2021-01-01", "end": "2025-12-31"},
+  "signal_cell": "R1_A",
+  "horizons_observed_index_bars": [1, 5, 15, 30, 60, 120, 240],
+  "entry": "Use the exact existing event_entry_idx and control_entry_idx, which represent next observed index 1m close after confirmation. Never regenerate or rematch on ETF data.",
+  "alignment": {
+    "timezone": "Asia/Shanghai",
+    "canonical_label": "bar_end",
+    "join": "exact_timestamp_only",
+    "clock": "index trading observation clock, NOT ETF row offsets or wall-clock minutes",
+    "source_start_labels": "A documented source-specific conversion may be admitted before replay; do not choose shifts by correlation or PnL.",
+    "no_forward_fill": true,
+    "no_interpolation": true,
+    "no_nearest_quote": true,
+    "no_5m_to_1m_reconstruction": true,
+    "horizon_can_cross_lunch_or_overnight": true
+  },
+  "admission": {
+    "required_schema": ["symbol", "timestamp", "open", "high", "low", "close", "volume"],
+    "price_basis": "unadjusted_actual_traded_OHLC",
+    "required_metadata": ["source", "source_reference", "frequency", "timezone", "bar_label", "price_basis", "volume_unit", "zero_volume_semantics", "research_use_authorized", "corporate_actions_complete", "corporate_actions_reference", "corporate_actions_window", "files", "corporate_actions_file"],
+    "hashes": "SHA256, byte count and row count for every carrier delivery file; preserve raw bytes outside public Git unless redistribution is authorized.",
+    "reject": ["unknown time semantics", "unknown adjustment basis", "duplicate timestamps", "invalid or nonfinite prices", "invalid OHLC ordering", "negative volume", "wrong symbol", "out-of-window rows", "unverified corporate-action coverage"],
+    "minimum_observed_minute_coverage_each_calendar_year": 0.95,
+    "minimum_common_pair_coverage_pooled_and_each_event_year": 0.80,
+    "coverage_failure": "INSUFFICIENT_CARRIER_COVERAGE, not alpha failure. No outcome table is authorized for a carrier until its admission and common-pair coverage pass.",
+    "partial_carriers": "A separately admitted carrier may be measured; the other remains blocked. Never present one carrier as both."
+  },
+  "sample": {
+    "denominator": "Every frozen R1_A matched pair, including missing pairs, remains in the coverage ledger.",
+    "common_primary": "Require both event and control ETF prices at every index timestamp from entry through 240 bars. Use the same complete-pair sample for every horizon, and recompute index comparators on exactly that sample.",
+    "zero_volume": "Zero-volume carrier minutes are unavailable observed-trade prices, not free fills.",
+    "corporate_actions": "A complete source-backed ex-date ledger is mandatory. Exclude a pair from the common raw-price sample if either path crosses a split/distribution ex-date (entry_day < ex_date <= exit_day). Report exclusions. Do not interpret a mechanical dividend/split price drop as signal failure or apply undocumented adjustment factors.",
+    "no_future_event_control_exclusions": "Use the original already-frozen pairs unchanged. Do not add future-treatment filters or revise matching."
+  },
+  "measurements": {
+    "event": "d*(ETF_event_exit/ETF_event_entry-1)",
+    "control": "d*(ETF_control_exit/ETF_control_entry-1)",
+    "incremental": "ETF_event_return - ETF_control_return",
+    "event_tracking_residual": "ETF_event_return - identical_clock_index_event_return",
+    "incremental_tracking_residual": "ETF_incremental_return - identical_sample_index_incremental_return",
+    "reports": ["all seven horizons", "pooled mean/median/positive fraction", "LONG and synthetic SHORT", "each of 2021/2022/2023/2024/2025", "same-sample index comparison", "tracking residual mean/median/dispersion/correlation", "close-observation MFE/MAE including zero at entry", "coverage and exclusion reasons"],
+    "primary_cost_bps": 0,
+    "short_is_synthetic": true,
+    "formal_causal_inference": false,
+    "interpretation": "Descriptive historical transport on already consumed history, conditional on the inherited matching design. Same underlying exposures and overlapping dates are not independent confirmations. No fresh-OOS, causal-identification, optimized-horizon or profitability claim."
+  },
+  "data_request": "Non-event-conditioned full 2021-2025 ETF 1m OHLCV plus timestamp dictionary and complete split/distribution ex-dates. The internal anchor audit is not the default external acquisition request.",
+  "prohibitions": ["no R1 refit", "no control rematching", "no horizon winner", "no entry/exit/stop/target/cost search", "no year/side/regime/clock filter", "no ETF selection by observed outcomes", "no R1_B rescue", "no R2 reopening", "no option/futures outcomes", "no purchase or permission circumvention"],
+  "BLACKBOX_query_count": 3,
+  "blackbox_query_4_authorized": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
