@@ -1,0 +1,85 @@
+{
+  "freeze_id": "index_price_validity_v1",
+  "frozen_on": "2026-09-11",
+  "status": "FROZEN_BEFORE_NEW_PRICE_LAYER_RUN",
+  "purpose": "Validate pure directional price response of certified reversal/mean-reversion event families before instrument implementation.",
+  "production_authority": false,
+  "blackbox_query_count": 3,
+  "blackbox_query_4_authorized": false,
+  "primary_instrument_layer": "cash_index_reference_price_only",
+  "symbols": {
+    "000852.SH": {
+      "role": "primary_reusable_index_validation",
+      "window": {"start": "2015-01-05", "end": "2025-12-31"},
+      "DEV": {"start": "2015-01-05", "end": "2020-12-31"},
+      "VALIDATION": {"start": "2021-01-01", "end": "2025-12-31"}
+    },
+    "000688.SH": {
+      "role": "cross_index_transport_check_not_mechanism_certification",
+      "window": {"start": "2020-07-23", "end": "2025-12-31"},
+      "context_year": "2020",
+      "transport_years": ["2021", "2022", "2023", "2024", "2025"]
+    }
+  },
+  "frequency": "1m",
+  "signal_families": {
+    "R1_A": {"mechanism": "R1 trend-parent pullback", "lower_scale": "S1", "parent_scale": "S2", "trade_direction": "frozen parent direction"},
+    "R1_B": {"mechanism": "R1 trend-parent pullback", "lower_scale": "S2", "parent_scale": "S3", "trade_direction": "frozen parent direction"},
+    "R2_A": {"mechanism": "R2 range-boundary failed breakout", "lower_scale": "S1", "parent_scale": "S2", "trade_direction": "opposite breakout side toward old range edge"},
+    "R2_B": {"mechanism": "R2 range-boundary failed breakout", "lower_scale": "S2", "parent_scale": "S3", "trade_direction": "opposite breakout side toward old range edge"}
+  },
+  "directional_change_thresholds": {
+    "S1": 0.003445827004614232,
+    "S2": 0.006891654009228464,
+    "S3": 0.013783308018456928
+  },
+  "r1_vol_reference": 0.013783308018456928,
+  "event_non_overlap": "retain the original structural-resolution non-overlap convention for each signal family",
+  "entry": {
+    "rule": "next observed 1m close after causal event confirmation",
+    "structural_interval_filter": false,
+    "reason": "this study tests price-direction information, not the closed structural-entry geometry"
+  },
+  "horizons_observed_bars": [1, 5, 15, 30, 60, 120, 240],
+  "primary_return": {
+    "name": "signed_gross_index_return",
+    "formula": "signal_direction * (close[entry_idx+h] / close[entry_idx] - 1)",
+    "cost": 0,
+    "short_side_is_synthetic": true
+  },
+  "path_diagnostics": ["MFE_signed_return", "MAE_signed_return"],
+  "required_outputs_each_symbol_cell_horizon": [
+    "n",
+    "mean_signed_return",
+    "median_signed_return",
+    "win_rate",
+    "mean_MFE",
+    "mean_MAE",
+    "annual_mean_signed_return",
+    "positive_annual_mean_years",
+    "LONG_n_mean_median_win",
+    "SHORT_n_mean_median_win"
+  ],
+  "support_flags_each_horizon": {
+    "pooled_mean_positive": true,
+    "pooled_median_positive": true,
+    "win_rate_above_50pct": true,
+    "positive_annual_mean_min_4_of_5": true,
+    "both_LONG_and_SHORT_mean_positive_when_each_side_n_ge_30": true
+  },
+  "interpretation_rule": "Report every predeclared horizon. Do not select a best horizon, do not optimize a holding period, and do not create an execution rule from the strongest cell in this run.",
+  "explicit_prohibitions": [
+    "no option outcomes",
+    "no ETF parameter search",
+    "no futures or ETF execution assumptions",
+    "no transaction-cost gate in the primary signal-validity table",
+    "no probability threshold or sizing search",
+    "no entry-delay search",
+    "no stop or target search",
+    "no horizon selection",
+    "no scale threshold refit",
+    "no favorable year/time-of-day/regime filtering",
+    "no BLACKBOX query #4",
+    "no production claim"
+  ]
+}
