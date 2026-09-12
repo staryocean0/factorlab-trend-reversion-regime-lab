@@ -1,0 +1,75 @@
+name: repository-consistency
+on:
+  push:
+    branches: [main, maintenance/repository-consistency-20260912]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full_regression:
+        description: Run all tests and the retained source/closeout replays
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: repository-consistency-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  consistency:
+    if: github.event_name != 'push' || github.ref == 'refs/heads/main' || contains(github.event.head_commit.message, '[validate-repository]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/
+            /data/README.md
+            !/docs/ops/evidence/
+            /docs/ops/evidence/etf_day_reconciliation_20260912/receipt.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package and maintenance dependencies
+        run: python -m pip install -e '.[maintenance]'
+      - name: Check repository-wide component, source and workflow consistency
+        run: python scripts/repository_consistency.py --check --output "$RUNNER_TEMP/repository-consistency.json"
+      - name: Test maintenance guards and support-module import closure
+        run: python -m pytest -q tests/test_repository_consistency.py --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
+      - name: Validate setup shell syntax
+        run: bash -n .codex/cloud_setup.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: repository-consistency-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/repository-consistency.json
+            ${{ runner.temp }}/maintenance-tests.xml
+          if-no-files-found: warn
+  full-regression:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/repository-regression.yml
+  source-field-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/etf-day-reconciliation.yml
+  source-observation-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/etf-one-day-observation.yml
+  source-document-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/etf-upstream-delivery.yml
+  no-fit-evidence-closeout:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/r1a-evidence-closeout.yml
