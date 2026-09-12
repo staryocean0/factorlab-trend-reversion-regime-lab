@@ -1,0 +1,61 @@
+{
+  "schema_id": "factorlab_r1a_causal_control_design_freeze@1.0",
+  "frozen_on": "2026-09-12",
+  "baseline_commit": "02717cb0844d17bb572a2a5d4ace9fa92c8dd5b8",
+  "identity": "rmr_R1A_past_mature_caliper_interval_exclusive_design_v1",
+  "status": "FROZEN_BEFORE_NEW_ALLOCATION_AND_OUTCOMES",
+  "question": "Can event-time-available historical controls preserve the existing Development event population and measured covariate balance while preventing exact and interval reuse, without looking at newly assigned returns?",
+  "stage": "DESIGN_COVERAGE_BALANCE_AND_GEOMETRY_ONLY",
+  "scopes": {
+    "000852.SH": {"start": "2015-01-05", "end": "2020-12-31", "role": "ORIGINAL_DEVELOPMENT", "events": 1752},
+    "000688.SH": {"start": "2020-07-23", "end": "2020-12-31", "role": "SHORT_CONTEXT_NOT_REPLICATION", "events": 156}
+  },
+  "events": {
+    "path": "docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv",
+    "git_blob_sha1": "d4d06d136fab527e3717575517be50acbe56e542",
+    "identity": "Keep every original event row and its parent direction. Original control IDs remain immutable reference columns, not new assignments.",
+    "boundary": "The inherited finite cohort has 240 future observed bars inside pre2021 Development. This terminal boundary is not an automatically valid live event-admission rule."
+  },
+  "inputs": {
+    "allowed_prices": "Only seven pre2021 index partitions already hash-pinned by data/manifest.json and the prior Development receipt. Reuse the admitted timestamp convention; do not retune it.",
+    "feature_compiler": "Reuse existing build_r1_events_and_controls and its causal parent-state features, original recent-R1 exclusion, and thresholds. Confirm regenerated event identities/features agree with frozen Development event rows. Do not write any new returns.",
+    "allocation_firewall": "Allocator takes only declared identity/time/covariate columns. No price, realized-return, severity, event outcome, uncertainty estimate, Validation/ETF or 2026 data enters its signature. Source close prices are accessed only to compile the historical causal feature stream and inherited structural event clocks, not to evaluate new paired returns."
+  },
+  "features": ["parent_abs_drift", "parent_efficiency", "log1p_parent_age_bars", "local_vol_30_over_240"],
+  "exact_strata": ["symbol", "calendar_year", "parent_direction", "clock_bucket_30min"],
+  "allocation": {
+    "event_order": "increasing event_entry_idx; no future optimization/reallocation",
+    "information_cutoff": "event_entry_idx - 1",
+    "maturity": "control_entry_idx + 240 <= information_cutoff",
+    "scaling": "For each event, median/MAD*1.4826 of the entire same-year matured eligible control prefix for that symbol. Fallback to prefix population SD, then 1.0 for degenerate features. Never normalize with the full future year. Record actual centers/scales and maximum source index.",
+    "caliper": "Each of four absolute event-control feature gaps divided by its event-time prefix scale must be <= 0.5. This is a fixed design-specific bound, not a claimed universal matching rule.",
+    "objective": "nearest Euclidean distance among allowed candidates in the four prefix-standardized coordinates; tie-break smallest control_entry_idx",
+    "primary_capacity": "Every selected inclusive control price interval [c,c+240] must be disjoint from every control interval already allocated for that symbol. No reuse across directions, clock strata, events, or years. A shared endpoint also counts as overlap.",
+    "no_match": "retain event and explicit reason: no matured exact-stratum candidate, no candidate inside caliper, or all caliper candidates blocked by allocated intervals",
+    "no_future_treatment_exclusion": "Do not add exclusions based on events after a control entry. Cross-pair event/control overlap is measured, not silently removed."
+  },
+  "fixed_diagnostic_stages": [
+    {"name": "PAST_NEAREST", "purpose": "Availability-only diagnostic; reuse allowed and no caliper. Not a deployable fallback."},
+    {"name": "PAST_CALIPER", "purpose": "Add fixed quality bound with reuse allowed. Gives a per-event admissibility ceiling before resource competition. Not a deployable fallback."},
+    {"name": "PAST_CALIPER_EXCLUSIVE", "purpose": "Only primary candidate; add nonoverlapping 240-bar interval allocation."}
+  ],
+  "outputs": ["every-event allocation/status ledger for all three stages", "prefix scaling audit", "candidate counts and bottleneck reasons", "pooled/year/side/year-side coverage", "matching covariate standardized differences and variance ratios", "retained-vs-all-event covariate shifts", "original-baseline and new control reuse and overlap geometry on identical retained event IDs", "all seven horizon exposure tables using unit notional incidence only, no price weights", "pointwise admissibility ceiling explicitly not a global assignment optimum"],
+  "design_gate": {
+    "scope": "Evaluate each symbol separately; only CSI1000 is primary. STAR50 short context is never an independent confirmation or a veto for CSI1000.",
+    "coverage": "pooled >=0.80 and each year/side/year-side group with original n>=30 >=0.80; smaller groups are still reported",
+    "balance": "For all four features, absolute matched-event-minus-control mean divided by original full-event population SD <=0.10, pooled and in the same eligible groups. Also require retained-event-minus-all-event standardized mean shift <=0.10. Keep the original-event SD denominator fixed within each reported group. Zero SD with equal means gives 0, otherwise unavailable and fail-closed.",
+    "variance_ratios": "Report, do not use to choose a new caliper or add filters in this round.",
+    "timing_and_capacity": "zero primary maturity violations; max exact reuse<=1; zero control-control inclusive interval overlap; fixed caliper holds for every primary match",
+    "interpretation": "PASS would mean limited design-screen feasibility only, not full-population identification, reduced realized noise, alpha, valid statistical inference or formal confirmation authority. Failure describes this fixed design, not R1_A invalidity or impossibility for every allocation algorithm."
+  },
+  "mathematical_references": [
+    {"reference": "Austin 2009, Balance diagnostics", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3472075/", "use": "SMD and distribution diagnostics; 0.1 is a design convention with no universal consensus, not a significance test or causal guarantee."},
+    {"reference": "Stuart 2010, Matching methods", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2943670/", "use": "Keep outcome analysis separate from design; use original treated-event SD for balance comparisons. Temporal maturity/capacity/caliper decisions here are project-specific."}
+  ],
+  "prohibitions": ["no new paired returns even on a PASS in this stage", "no hidden event drops", "no pooled-only presentation", "no caliper/coverage/strata/lag search", "no extra control count search", "no automatic alternative candidate after failure", "no new p-values", "no original signal or pair overwrite", "no Validation/ETF/MO/2026 outcomes", "no confirmation clock or execution"],
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "horizon_selected": false
+}
