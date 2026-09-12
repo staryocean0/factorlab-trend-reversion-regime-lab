@@ -1,0 +1,65 @@
+{
+  "schema_id": "factorlab_etf_index_measurability_freeze@1.0",
+  "status": "FROZEN_BEFORE_NEW_MEASUREMENT_SUMMARIES",
+  "session_date": "2026-09-12",
+  "identity": "etf_index_relative_price_measurement_screen_v1",
+  "baseline_commit": "7dbfaf109642b2bedb9994b0e64073183cd511c3",
+  "authorization": "User approved the ETF-index relative-price measurability and pseudo-reversion screen, not a reversion outcome or trading experiment.",
+  "maps": {"512100.SH": "000852.SH", "588000.SH": "000688.SH"},
+  "window": {"start": "2021-01-01", "end": "2025-12-31"},
+  "data_role": "ALREADY_CONSUMED_HISTORICAL_MEASUREMENT_ONLY_NOT_FRESH_OOS",
+  "source_guards": {
+    "data/manifest.json": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "data/r1a_carrier_prices/cloud_pack_v1/512100.SH.json": "78de56c91ef629171149ebad52e1edab690773f6",
+    "data/r1a_carrier_prices/cloud_pack_v1/588000.SH.json": "77909bd221f57692f157a30d07201de6ce8faff9",
+    "docs/ops/evidence/r1a_carrier_source_audit_20260912/source_delivery_audit.json": "0fdfa9d4963fe267ab25cbff28985e9ff321c72e"
+  },
+  "access": "Read exactly ten index 1m annual partitions for the two maps and 2021-2025, ten existing ETF annual CSVs, two action CSVs, the pinned manifests and source audit. Inventory other repository DATA PATHS only; do not read MO, 3s prices, R1 outcome ledgers or 2026 prices.",
+  "estimand": "Observability, tick granularity and magnitude of label-coincident consecutive-minute ETF-minus-index log price changes. NOT a level premium, true NAV deviation, excess alpha, causal mispricing or subsequent repair.",
+  "time": {
+    "canonical_timezone": "Asia/Shanghai",
+    "index_parse": "Inherit original market reader's first-19-character Shanghai wall-clock mapping, cross-check trading_day; report its provenance limitation rather than optimize a shift.",
+    "etf_parse": "Use explicit timezone-aware canonical CSV timestamps; reject naive values.",
+    "join": "exact timestamp only; index reference clock",
+    "sessions_bar_end": ["09:31..11:30", "13:01..15:00"],
+    "eligible_comparison": "Adjacent index records exactly 60 seconds apart, same day and same declared session, finite positive index closes and valid positive-volume ETF OHLCV at both endpoints. Exclude the full action ex-date from this diagnostic. Report every exclusion and all extras.",
+    "no_lunch_overnight_or_missing_row_bridge": true,
+    "positive_volume_is": "a positive-volume vendor record, not proof of synchronous trades, executable quotes or absence of vendor error",
+    "unchanged_positive_close_is": "a descriptive repeat, not proof of staleness"
+  },
+  "formulas": {
+    "absolute_change_gap_bp": "abs(10000*(log(ETF_t/ETF_prev)-log(Index_t/Index_prev)))",
+    "reference_tick_cny": 0.001,
+    "tick_bp": "10000*0.001/ETF_prev; dimensional reference only, NOT a spread, observation-error bound or profit threshold",
+    "grid_check": "For all finite positive ETF OHLC, abs(price/0.001-round(price/0.001))<=1e-6. Off-grid counts retained, not rounded away.",
+    "same_minute_range_bp": "10000*(ETF_high-ETF_low)/ETF_close, descriptive trade range NOT synchronous quote uncertainty",
+    "gap_to_tick": "absolute_change_gap_bp/tick_bp; <=1 reference tick fraction reported, no candidate selection"
+  },
+  "summaries": {
+    "groups": "each carrier pooled, each calendar year, each calendar month; identical predeclared rules",
+    "counts": ["index reference records", "missing ETF row", "invalid OHLCV", "zero volume", "positive volume", "extra ETF timestamps by clock", "nonflat zero-volume records", "duplicate timestamps", "record vs positive-volume coverage", "known action-day records", "adjacent 60s comparisons and mutually exclusive rejection reasons"],
+    "quantiles": [0.5, 0.9, 0.95, 0.99],
+    "diagnostics": ["absolute same-interval change gap", "reference tick in bp", "absolute gap / reference tick", "unchanged positive-volume close fraction", "positive-volume flat-OHLC fraction", "OHLC grid departures", "same-minute OHLC range", "available source columns and missing observation fields"]
+  },
+  "identification_test": "Construct deterministic synthetic observational-equivalence examples: identical ETF OHLCV and sampled index values can arise from trade-price bid/ask bounce around unchanged fair value OR a changing efficient price. Likewise a sampled relative discrepancy can be ETF off fair value OR an index/reference publication lag. No hidden mechanism is identified merely by the minute columns.",
+  "gates": {
+    "L0": "Byte identity, schema, timestamp-label parsing and numerical summaries; conditional on inherited source semantics.",
+    "L1": "Synchronous economically meaningful relative deviation additionally requires documented within-bar trade/index as-of times and ETF quote or efficient-price/reference evidence. NAV premium further requires source-backed contemporaneous IOPV/basket/cash/action valuation with publication times and limitations; IOPV alone is not perfect NAV.",
+    "L2": "Reversion, repair-side, lead-lag and execution outcomes are outside this screen and never opened.",
+    "stop": "If L1 is not identifiable from the admitted delivery, finish L0 diagnostics and report a minimal external-data contract. Do not declare all observed gaps artifacts or search longer horizons/thresholds to evade the limitation. No new acquisition/purchase or empirical candidate automatically follows."
+  },
+  "prohibitions": ["no R1_A event conditioning or revival", "no shift/correlation optimization", "no fitted beta/cointegration/spread-level model", "no autocorrelation or future markout/repair test", "no z-score entry or threshold search", "no half-life estimation", "no fills/interpolation/price rounding", "no borrowing/cost/option/execution study", "no new source purchase or credential use", "no old evidence overwrite"],
+  "source_semantics_limit": "Pinned local source audit lists DataHub time-contract references and action-source summaries, but these are not independently inspected exchange messages. Report declared vs verified separately.",
+  "references": [
+    "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734754.shtml",
+    "https://investor.szse.cn/warning/activities/fundIntroduction/t20210104_584079.html",
+    "https://archive.nyu.edu/handle/2451/26827"
+  ],
+  "budget": "One deterministic measurement pass, synthetic boundary tests and read-only reproduction. No adaptive candidate/method selection.",
+  "R1A_disposition_unchanged": true,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "reversion_outcomes_authorized": false,
+  "confirmation_clock_started": false
+}
