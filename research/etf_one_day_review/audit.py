@@ -121,10 +121,15 @@ def run(root: Path, output: Path) -> dict:
         table=pq.read_table(p); require(table.num_rows==spec['rows'],'row count changed '+name)
         rows=table.to_pylist(); code=name.split('/')[1].split('_')[0]
         require(all(r['trading_day']==DAY for r in rows),'out-of-day market rows')
-        idcol='symbol' if name.startswith('index_3s') else 'instrument_id'
-        require(all(r[idcol]==code+'.SH' for r in rows),'instrument mismatch')
+        is_index=name.startswith('index_3s')
+        idcol='symbol' if is_index else 'instrument_id'
+        # Delivery export_receipt source_identity_probe uses .SSE for ETFs;
+        # index aliases use .SH. No source identifier is renamed or relaxed.
+        native_id=code+('.SH' if is_index else '.SSE')
+        require(all(r[idcol]==native_id for r in rows),'instrument mismatch: '+name)
+        if not is_index: require(all(r['code']==code and r['exchange']=='SSE' for r in rows),'ETF code/exchange mismatch')
         tables[name]=rows
-        integrity.append({'path':name,**spec,'columns':table.num_columns})
+        integrity.append({'path':name,**spec,'columns':table.num_columns,'native_instrument_id':native_id})
     payload=[{'path':str(p.relative_to(root)),'bytes':p.stat().st_size,'sha256':digest(p)} for p in sorted(pack.rglob('*')) if p.is_file()]
     phase_rows=[]; interval_issues=[]; quote_rows=[]; trade_rows=[]; index_rows=[]; lookup_rows=[]; boundary_rows=[]; anomaly=[]
     for code,idx in PAIRS:
