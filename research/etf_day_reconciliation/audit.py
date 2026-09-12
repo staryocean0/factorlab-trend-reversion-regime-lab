@@ -22,7 +22,7 @@ LEGACY = 'data/r1a_carrier_prices/cloud_pack_v1'
 FREEZE = 'docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json'
 FREEZE_SHA = '89f65e51a9b89fea160ad4f305392afa651986d3482bcc8c4f77831994830bd3'
 MANIFEST_SHA = '559963188f9b2f858f8255e7f107496288f8e2ed884f81a762584ef249853360'
-YEAR_PINS = {'512100': ('d600155e41f23b63d64d73c035f919f68bcd7ed3b93f48e401f310f312fdea73',3930936), '588000': ('08839ca0242ddd57a3b84305abb9670ca1b8055d2bd33ce59768bd84af97b14a',3948855)}
+YEAR_PINS = {'512100': ('d600155e41f23b63d64d73c035f919f68bcd7ed3b93f48e401f310f312fdea73',3930936), '588000': ('08839ca0242ddd57a3b84305abb9670ca1b8055d2bd33ce59768bd84af97b14a',3984249)}
 CONVENTIONS = ('[t-60s,t)', '(t-60s,t]', '[t,t+60s)', '(t,t+60s]')
 PHASES = {'continuous_am': ('09:30:00','11:30:00'), 'continuous_pm': ('13:00:00','14:57:00')}
 ZERO = Decimal(0)
@@ -158,7 +158,7 @@ def quote_accounting(code,quotes,tape):
         dv=dec(q['cum_volume'])-tape.quantities[through]
         db=dec(q['cum_volume'])-tape.quantities[before]
         da=dec(q['cum_amount'])-tape.notionals[through]
-        result.append({'carrier':code,'event_seq':q['event_seq'],'session_phase':q['session_phase'], 'source_label':str(t),
+        result.append({'carrier':code,'event_seq':q['event_seq'],'session_phase':q['session_phase'],'source_label':str(t),
           'quote_cum_volume_raw':dec(q['cum_volume']),'tick_cum_before_raw':tape.quantities[before],
           'tick_cum_through_raw':tape.quantities[through],'quantity_difference_through_raw':dv,
           'quantity_difference_before_raw':db,'ticks_exactly_at_quote_label':through-before,
@@ -270,8 +270,8 @@ def run(root,output):
     quote_rows=[];minute_rows=[];dispositions=[];targets=[];probes=[]
     for code,index in (('512100','000852'),('588000','000688')):
         p=root/LEGACY/'prices'/(code+'_2025.csv');hp,bp=YEAR_PINS[code]
-        require(digest(p)==hp,'legacy price bytes changed')
-        # File SHA is authoritative; row count and file bytes are independently recorded.
+        require(p.is_file() and not p.is_symlink() and digest(p)==hp and p.stat().st_size==bp,'legacy price bytes changed')
+        # Both byte sizes come from the independently retained fixed-day intake.
         with p.open(newline='') as f:
             legacy=[r for r in csv.DictReader(f) if r['timestamp'].startswith(DAY)]
         require(len(legacy)==241 and all(r['symbol']==code+'.SH' for r in legacy),'legacy fixed-day denominator')
