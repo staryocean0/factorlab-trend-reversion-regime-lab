@@ -56,6 +56,7 @@ jobs:
       OPENBLAS_NUM_THREADS: '1'
       OMP_NUM_THREADS: '1'
       MKL_NUM_THREADS: '1'
+      PYTHONPATH: src:.
     steps:
       - uses: actions/checkout@v4
         with:
@@ -87,12 +88,11 @@ jobs:
       - name: Install package
         run: python -m pip install -e .
       - name: Run MO, price-attribution, carrier, feasibility and method regression tests
-        run: PYTHONPATH=src:. python -m pytest -q tests/test_r1b_mo_*.py tests/test_index_price_validity.py tests/test_r1_incremental_alpha_attribution.py tests/test_r1a_*.py
+        id: regression
+        run: python -m pytest -q tests/test_r1b_mo_*.py tests/test_index_price_validity.py tests/test_r1_incremental_alpha_attribution.py tests/test_r1a_*.py
       - name: Reproduce original full-path ETF result from public CSV bytes
-        run: PYTHONPATH=src:. python research/r1a_carrier_transport/verify_cloud_replay.py --output "$RUNNER_TEMP/r1a-public-csv-replay"
+        run: python research/r1a_carrier_transport/verify_cloud_replay.py --output "$RUNNER_TEMP/r1a-public-csv-replay"
       - name: Reproduce separate endpoint diagnostic and reconcile frozen outputs
-        env:
-          PYTHONPATH: src:.
         run: |
           python research/r1a_carrier_transport/endpoint_diagnostic.py --output "$RUNNER_TEMP/r1a-endpoint-replay"
           python - <<'PY'
@@ -111,54 +111,22 @@ jobs:
               assert sha(new/spec['path']) == spec['sha256'], spec['path']
           print('Endpoint evidence reproduced; this is not new empirical certification.')
           PY
-      - name: Reproduce retrospective robustness without choosing a new specification
-        env:
-          PYTHONPATH: src:.
+      - name: Reproduce retrospective robustness with pinned evidence and exact decisions
         run: |
           python research/r1a_endpoint_robustness/study.py --output "$RUNNER_TEMP/r1a-robustness-replay"
-          python - <<'PY'
-          import json, os
-          from pathlib import Path
-          from research.r1a_carrier_transport.audit_public_delivery import compare_json
-          from research.r1a_endpoint_robustness.study import sha
-          old = Path('docs/ops/evidence/r1a_endpoint_robustness_20260912')
-          new = Path(os.environ['RUNNER_TEMP'])/'r1a-robustness-replay'
-          a = json.loads((old/'robustness_receipt.json').read_text())
-          b = json.loads((new/'robustness_receipt.json').read_text())
-          assert a['freeze_sha256'] == b['freeze_sha256']
-          for k in ['decision','carriers','primary_family14_positive_cells','all_four_family56_positive_cells']:
-              compare_json(b[k], a[k], k)
-          for spec in a['output_csvs']:
-              assert sha(new/spec['path']) == spec['sha256'], spec['path']
-          print('All frozen robustness values reconciled; no new significance claim.')
-          PY
-      - name: Reproduce fixed feasibility and null simulations, no new data-role probe
-        env:
-          PYTHONPATH: src:.
+          python research/r1a_method_calibration/prior_replay_audit.py --stage robustness \
+            --reference docs/ops/evidence/r1a_endpoint_robustness_20260912 \
+            --replay "$RUNNER_TEMP/r1a-robustness-replay" \
+            --output "$RUNNER_TEMP/r1a-robustness-replay-audit.json"
+      - name: Reproduce fixed feasibility without new data-role probes
         run: |
           python research/r1a_confirmation_feasibility/study.py --output "$RUNNER_TEMP/r1a-feasibility-replay"
-          python - <<'PY'
-          import json, os
-          from pathlib import Path
-          from research.r1a_endpoint_robustness.study import sha
-          from research.r1a_carrier_transport.audit_public_delivery import compare_json
-          old=Path('docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning')
-          new=Path(os.environ['RUNNER_TEMP'])/'r1a-feasibility-replay'
-          a=json.loads((old/'feasibility_receipt.json').read_text())
-          b=json.loads((new/'feasibility_receipt.json').read_text())
-          for k in ['decision','freeze_sha256','design_count','table_rows','historical_trading_days',
-                    'primary_CSI1000_short_locations_NOT_selected','four_bp_budget_comparison_NOT_forecast',
-                    'calibration_summary','simulated_samples']:
-              compare_json(b[k],a[k],k)
-          for spec in a['files']:
-              assert sha(new/spec['path'])==spec['sha256'],spec['path']
-          assert b['new_confirmation_prices_read'] is False
-          assert b['confirmation_protocol_frozen'] is False
-          print('Conditional planning and synthetic simulations reproduced; no confirmation sample opened.')
-          PY
-      - name: Reproduce fixed method-only simulations and audit exact counts and numeric differences
-        env:
-          PYTHONPATH: src:.
+          python research/r1a_method_calibration/prior_replay_audit.py --stage feasibility \
+            --reference docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning \
+            --replay "$RUNNER_TEMP/r1a-feasibility-replay" \
+            --output "$RUNNER_TEMP/r1a-feasibility-replay-audit.json"
+      - name: Reproduce fixed method-only simulations and audit every value
+        if: ${{ !cancelled() && steps.regression.outcome == 'success' }}
         run: |
           python research/r1a_method_calibration/study.py --output "$RUNNER_TEMP/r1a-method-replay"
           python research/r1a_method_calibration/replay_audit.py \
@@ -168,8 +136,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r1a-method-replay-audit-${{ github.run_id }}
+          name: r1a-statistical-replay-audits-${{ github.run_id }}
           path: |
-            ${{ runner.temp }}/r1a-method-replay-audit.json
+            ${{ runner.temp }}/r1a-*-replay-audit.json
             ${{ runner.temp }}/r1a-method-replay
+            ${{ runner.temp }}/r1a-robustness-replay
+            ${{ runner.temp }}/r1a-feasibility-replay
           if-no-files-found: warn
