@@ -2,9 +2,6 @@ name: repository-full-regression
 on:
   workflow_dispatch:
   workflow_call:
-  push:
-    branches: [maintenance/repository-consistency-20260912]
-    paths: ['.github/workflows/repository-regression.yml']
 permissions:
   contents: read
 jobs:
@@ -27,6 +24,7 @@ jobs:
             /*
             !/data/
             /data/manifest.json
+            /data/README.md
             /data/market/1m/
             /data/r1b_research/
             /data/r1a_carrier_prices/
@@ -36,7 +34,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: python -m pip install -e .
+      - run: python -m pip install -e '.[maintenance]'
+      - name: Check component and authority consistency
+        run: python scripts/repository_consistency.py --check --output "$RUNNER_TEMP/consistency.json"
       - name: Collect every non-archived test
         run: python -m pytest --collect-only -q > "$RUNNER_TEMP/test-collection.txt"
       - name: Run all unit and retained-evidence tests, without generating a new study
@@ -48,4 +48,5 @@ jobs:
           path: |
             ${{ runner.temp }}/all-tests.xml
             ${{ runner.temp }}/test-collection.txt
+            ${{ runner.temp }}/consistency.json
           if-no-files-found: warn
