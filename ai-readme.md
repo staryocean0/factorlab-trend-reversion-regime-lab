@@ -1,11 +1,11 @@
 # AI entry
 
-Read `CONTINUE_HERE.md`, `docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md`, `PROMPT.md`, `AGENTS.md`.
+Read CONTINUE_HERE.md, docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md, PROMPT.md and AGENTS.md.
 
-Latest: `CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START`.
+Latest task is complete: BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY. No feasible method cleared the entire fixed synthetic screen; no real R1_A means were retested and no 2026 outcomes were opened. R1_A remains an unconfirmed lead, not a closed mechanism.
 
-Power/information-cost planning, 224,000 null simulations and bounded metadata-only data-role audit are completed. Do not treat them as fresh alpha evidence. Small effects need large information under inherited noise; off-graph serial dependence challenges the old approximate inference. No final confirmation design/clock or trading promotion exists.
+End the fixed estimator sweep. Any next authorized work needs a concrete Development-only noise/measurement decomposition, not bandwidth, grouping or p-value shopping. That future task has not run in this receipt.
 
-A 2026 CSI1000 candidate in the overnight repository has repeat-use provenance, not a certified R1_A holdout. Candidate prices remain unopened. Existing 2021-2025 ETF bytes are already public; no routine local transfer task.
+Historical actual ETF CSVs are available. No routine local transfer. 2026 candidate remains metadata-only; failed primary common-all-horizon cohort remains unopened. Preserve all old source/identity/freeze/evidence states.
 
-Next bounded task: method-only calibration/measurement feasibility, not historic p-value search. Preserve all old signals/pairs/horizons/maps and receipts. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false.
+BLACKBOX_query_count=3; no #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; no confirmation clock or selected horizon.

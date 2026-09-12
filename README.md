@@ -1,31 +1,31 @@
 # FactorLab Trend–Reversion Regime Lab
 
-Reversal / mean-reversion research, separating mechanism, price response, observation quality, uncertainty and trading implementation.
+Mechanism, price response, observation quality, uncertainty and trading implementation are separate research layers.
 
-## Latest completed work
+## Latest completed stage
 
-**`CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START`**
+**R1_A bounded synthetic method review: `BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY`.**
 
-R1_A remains a historical short-horizon lead, not statistically established trading alpha. The authorized sample-size/power, synthetic null-calibration and candidate-data-role audit have executed; no new confirmation sample has been opened.
+A fixed seven-model, 28-design, 2,000-repetition simulation evaluated three feasible procedures plus a known-covariance reference. The methods were not applied to real R1_A means. No 2026 outcome or new confirmation sample was consumed.
 
-Under the inherited paired-return noise and sample rate, detecting a true 4bp CSI1000 index increment with 80% power and a 14-comparison interval needs roughly 4,858 pairs at h15 or 13,062 at h30. These are assumption-dependent planning calculations, not confirmed sample-size requirements or chosen horizons. Their very long information-equivalent calendar extrapolations diagnose an inefficient proposed campaign, not an instruction to wait decades.
+HAC6 materially reduced false rejection under moderate serial dependence, but stronger persistence remained problematic. Five-year group inference had better joint-family behavior but failed marginal safeguards and changes the weighting target. No feasible method cleared the complete frozen screen. This does not disprove the R1_A mechanism.
 
-Calibration also found the old approximate graph/t method vulnerable to off-graph serial dependence: in a declared AR(1)=0.6 null stress model, nominal 5% marginal rejection ranged 6.8%-22.2%. That is simulated behavior, not a measured real-market false-positive rate. No estimator was retuned to obtain significance.
-
-A relevant 2026 CSI1000 minute file was located in the overnight repository, but its manifest records repeat-validation use and `fresh_oos=false`. R1_A-specific non-exposure is not established. No candidate new prices were read or copied; no final confirmation clock started.
+Information accounting also shows that simply adding controls is not a sufficient solution under the explicit balanced-noise scenario: at most 2x information from infinitely many independent controls versus much larger old small-effect/one-year planning gaps. These are conditional calculations, not universal limits or forecasts.
 
 ## Start here
 
 1. [CONTINUE_HERE.md](CONTINUE_HERE.md)
-2. [Feasibility interpretation](docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md)
-3. [Power and calibration tables](docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/REPORT.md)
-4. [Data-role audit](docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/REPORT.md)
-5. [PROMPT.md](PROMPT.md)
+2. [Method review and decision](docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md)
+3. [Complete synthetic tables](docs/ops/evidence/r1a_method_calibration_20260912/REPORT.md)
+4. [Method-only freeze](docs/governance/R1A_METHOD_CALIBRATION_FREEZE@1.0.json)
+5. [Reproduction](research/r1a_method_calibration/README.md)
 
-Next bounded work is method-only calibration/measurement feasibility with explicit assumptions and a resource budget, before formal confirmation or execution economics. Do not search prior market outcomes until a preferred p-value appears.
+The bounded estimator sweep is closed. R1_A remains an unconfirmed historical lead; no formal confirmation or execution campaign is started. Further work needs a concrete noise/measurement hypothesis, not more estimator or p-value shopping.
 
-## Data and preserved history
+## Data and preserved evidence
 
-Historical ETF CSVs are already public in `data/r1a_carrier_prices/cloud_pack_v1/`; no routine local re-delivery is required. All prior endpoint, full-path and retrospective robustness evidence remains unchanged. The old full-path `PARTIAL_CARRIER_TRANSPORT` label is not the current overall project frontier. R1/R2 mechanisms and closed R1_B/R2-directional/MO identities are preserved.
+Actual 2021-2025 ETF CSVs are in `data/r1a_carrier_prices/cloud_pack_v1/`; no routine local transfer is needed. The known 2026 CSI1000 candidate remains metadata-only and is not certified as R1_A holdout.
 
-`BLACKBOX_query_count=3`; no query #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`. No holding horizon selected.
+All seven endpoint diagnostics for both ETFs remain completed. Full-path v1 retains its historical PARTIAL_CARRIER_TRANSPORT result. The failed primary all-seven-endpoint common-cohort return table remains unopened. Old signals, raw data, tests, freezes and decisive receipts are preserved.
+
+R1/R2 certifications and closed R1_B/R2-directional/MO identities are unchanged. `BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; no horizon selected.

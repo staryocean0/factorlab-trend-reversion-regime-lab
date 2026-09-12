@@ -76,7 +76,7 @@ def test_retained_screen_does_not_promote_failed_methods_or_oracle():
 
 def test_efficiency_bound_not_claimed_as_empirical_R_squared():
     b = pd.read_csv(EVIDENCE/'information_budget_NOT_commitment.csv')
-    c = pd.read_csv(EVIDENCE/'multiple_control_bounds_ASSUMPTIONS.csv')
+    c = pd.read_csv(EVIDENCE/'multiple_control_bounds_ASSUMPTIONS.csv', dtype={'K_controls': str})
     assert len(b) == 336 and len(c) == 20
     assert b.measured_R_squared.eq(False).all() and b.real_matching_changed.eq(False).all()
     assert c.empirical_R1A_decomposition.eq(False).all()

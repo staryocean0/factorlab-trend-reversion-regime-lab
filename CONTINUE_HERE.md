@@ -1,83 +1,67 @@
 # Continue here — reversal / mean-reversion research
 
-## Latest completed stage
+## Latest completed task
 
-**`CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START`**
+**`BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY`**
 
-The user-authorized sample-size/power, null-calibration and new-data-role checks have executed. This is not a plan awaiting execution. R1_A remains a historical short-horizon lead, not a confirmed trading edge and not a disproved mechanism.
-
-Decisive run `34661221824`, job `103463958578`: SUCCESS. Freeze commit `4c1b30995e02e00d335b83a050a45e9cb309d502`; computation commit `25cf8ffa9d45995b8d24c63184d3dd8b73af1c00`.
+The limited method-only calibration and information-efficiency review has executed. No implementable method clears the complete prespecified synthetic screen; no real R1_A p-value was recalculated and no confirmation sample was opened. R1_A remains an unconfirmed historical lead, not a disproved mechanism.
 
 Read first:
 
-1. `docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md`
-2. `docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/REPORT.md`
-3. `docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/feasibility_receipt.json`
-4. `docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/REPORT.md`
-5. `docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/csi1000_2026_candidate_review.json`
-6. `docs/governance/R1A_CONFIRMATION_FEASIBILITY_FREEZE@1.0.json`
+1. `docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md`
+2. `docs/ops/evidence/r1a_method_calibration_20260912/REPORT.md`
+3. `docs/ops/evidence/r1a_method_calibration_20260912/method_receipt.json`
+4. `docs/governance/R1A_METHOD_CALIBRATION_FREEZE@1.0.json`
+5. `research/r1a_method_calibration/README.md`
 
-## What was measured
+Freeze commit `3032c6567b15c7df705f09101d63ba1caeadd4d1`; decisive code `bd1b4b7fac45bf5075be84a4a666287df4a411b9`; Actions `34662714569`, job `103468357915`: SUCCESS.
 
-All 28 layer/index/horizon designs were evaluated: INDEX uses every frozen original pair regardless of ETF availability; ETF uses its already measured horizon-specific observed-endpoint pairs. Old means were not plugged in as true effects. Fixed true-effect assumptions are 2/4/6bp; targets 80%/90%; comparison families 1/7/14/28; four inherited variance specifications.
+## Actual execution scope
 
-Retained tables include 112 noise specifications, 2,688 sample-size scenarios, 6,720 fixed-budget scenarios, 140 annual pair rates and 112 calibration rows. The calibration represents 224,000 synthetic datasets, not new market observations.
+Seven stipulated DGPs x 28 fixed layer/carrier/horizon designs x 2,000 replicates =392,000 design datasets in 14,000 jointly simulated replicate universes. Three feasible methods and a nondeployable oracle are fully reported. There are 784 method cells, 84 directly simulated joint-family checks, 336 information-budget rows and 20 multiple-control assumption rows.
 
-At primary 20-day/origin-0 variance and family 14, for 80% positive detection of a true 4bp index increment:
+The method reader only uses original pair/availability identities, disclosed historical SD/SE values and trading_day columns from five hash-verified 2021-2025 index files. It does not load market OHLC or ETF return ledgers. The decisive checkout excluded ETF outcomes, ETF raw data and new candidate prices. Shared calendar and pair shocks are modeled jointly across layers/horizons; not every possible joint dependence is established.
 
-| CSI1000 location | Expected paired observations | Required trading days | Historical-information-equivalent years |
-|---|---:|---:|---:|
-| 15 bars | 4,858 | 4,543 | 18.74 |
-| 30 bars | 13,062 | 12,215 | 50.39 |
+## Findings
 
-These are conditional noise/rate extrapolations, NOT forecasts, final sample-size commitments, instructions to wait decades, or claims of market stationarity over that span. ETF quantities are larger (5,260/14,996 pairs). A 243-day index budget has 80%-power detectable effects about 17.29/28.36bp, not 2-6bp. The model's assumptions and subsequent calibration limits make an immediate confirmatory launch unjustified.
+Under imposed AR(0.6) calendar shocks, nominal-5% marginal error across designs is 7.55%-22.65% for the old graph, 2.20%-5.45% for fixed exposure-score HAC6 and 5.20%-7.00% for five-year group t. Under stronger AR(0.9), these become 18.55%-50.30%, 6.15%-19.85% and 9.30%-16.00%.
 
-## Calibration finding
+For the 14-contrast ETF family, AR(0.6) errors are 11.75%/2.40%/1.75%; AR(0.9) errors are 38.60%/10.35%/5.10%. Group t has no severe FAMILY flag but fails marginal safeguards and changes the estimand to equal-year weighting; do not misreport it as failing every joint check. The oracle does well but knows the imposed covariance and cannot be used on real unknown data.
 
-Nominal-5% null rejection across the 28 fixed geometries:
+No feasible method passes the complete frozen screen. Finite simulation success would not itself certify market validity anyway. All methods quantified every replicate; none obtained low rejection by hiding failed draws.
 
-- IID Gaussian: 2.95%-4.85%.
-- Shared independent block Gaussian: 4.60%-7.45%.
-- Shared independent block t5: 3.20%-7.25%.
-- Off-graph AR(1)=0.6 block dependence: 6.80%-22.20%; 26/28 severe warnings under the frozen Monte Carlo criterion.
+Signed event/control loadings with exact reuse behave materially differently from unsigned common-load shocks: old graph size in the signed AR(0.6) case is 4.00%-4.90%. This is a hypothetical cancellation mechanism, not proof of the actual R1_A covariance structure. Do not treat the worst unsigned model as market truth.
 
-The AR model is imposed, not estimated market truth. This shows sensitivity to an explicit dependence violation, not that the real false-positive rate equals 22.20%. Easier-case performance is not certification either. The prior graph/t estimator is not validated for prospective use by a green CI. No historic p-value was retuned, no means changed, no new alpha PASS issued.
+## Information efficiency, explicitly conditional
 
-## Data-role audit — 2026 candidate exists but is not admitted as fresh
+Under the previous normal power/noise assumptions, a 243-day index budget for a true 4bp effect with family14/80% power needs approximately 94.65% (h15) or 98.01% (h30) variance reduction: 18.69x/50.27x information. These are NOT attainable-R-squared claims, forecasts or universal limits.
 
-Five public default-branch trees and 37 bounded metadata files were inspected, plus branch names. No candidate new price or strategy-outcome file was read. The overnight repository hit the predeclared 12-of-34 metadata limit; the audit does not claim exhaustive local/private/branch/artifact exposure coverage.
+In the explicit balanced independent event/control noise model, averaging infinitely many independent controls can only halve paired variance (2x information). Correlated controls improve less. This does not establish actual R1_A noise composition and no matching was changed.
 
-Relevant existing candidate:
+## Current decision and next boundary
 
-`staryocean0/factorlab-overnight-open-lab/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet`
+Do not launch formal confirmation or execution. End this fixed estimator sweep; do not shop more lags, group counts, seeds, model exclusions or real-history p-values. Preserve R1_A as a lead, not a closed mechanism.
 
-Its manifest declares `000852.SH`, 2026-01-05..2026-08-21, 154 trading days, 36,960 rows; `fresh_oos=false` and use in a gap-fill repeat-validation evaluator. A source metadata-only review is retained. It was NOT copied or opened as prices here.
+If further work is authorized, the bounded scientific question is **Development-only event/control and signed-common-noise decomposition**, not another significance search. Determine which variance components actually dominate and whether a causally available measurement could materially reduce them without changing the intended target. Any changed target or matching rule is a separately disclosed design. That future study has not run or been frozen by this method receipt.
 
-Decision: `KNOWN_REPEAT_USE_NOT_CERTIFIED_R1A_HOLDOUT`; R1_A-specific exposure is UNKNOWN. Another study's use does not automatically contaminate R1_A, but absence of an R1_A usage log does not establish non-exposure. No paired admitted 2026 ETF package or qualified confirmation set was established. Do not say no 2026 data exist; do not call this file independent validation.
+Keep the known 2026 CSI1000 candidate metadata-only until source/exposure qualification and a defensible final design exist. No confirmation clock, automated collection, purchase or live trade has started.
 
-## Current next boundary
+## Available data and preserved history
 
-**Do not launch a formal small-effect confirmation campaign yet.** No final confirmation protocol or observation clock has started. The feasibility freeze is not a prospective study start.
+The actual historical ETF pack remains `data/r1a_carrier_prices/cloud_pack_v1/`; no local DataHub/private dependency or routine transfer request remains. A 2026 CSI1000 file exists in the overnight repository, with known repeat-use metadata and unresolved R1_A exposure. Do not claim no 2026 data exist or that it is fresh holdout.
 
-The next bounded task is method-only calibration/measurement feasibility, on synthetic data and already disclosed historical nuisance geometry. Address serial/calendar dependence and information efficiency before spending scarce potentially confirmatory data. Require an explicit resource budget and disclosed estimand. Do not search real-history p-values across estimators, matching rules, horizons or filters. Any substantive matching/estimand change is a new design, never a retroactive edit of the old outcomes.
+All old signals, pairs, directions, seven horizons, fixed ETF maps, raw bytes and receipts are preserved. Both endpoint diagnostics remain completed; full-path v1 remains PARTIAL_CARRIER_TRANSPORT under its own definition. The primary failed all-seven-endpoint common-cohort ETF table stays unopened. Source zero-volume semantics and missing-outcome selection remain unresolved by synthetic simulations.
 
-Keep 2026 at metadata-only status until that design and source/exposure role are justified. No automatic purchase, local data-transfer request, live-account action, options or futures study is triggered.
+Earlier decisions: `R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md`, `R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md`, and `R1A_ENDPOINT_METHOD_REVIEW_20260912.md` under `docs/research/`. They are historical evidence, not competing latest instructions.
 
-## Preserved evidence and authority
+R1/R2 mechanism certification and closed R1_B/R2-directional/MO identities remain unchanged. `BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
 
-Retrospective endpoint robustness remains completed and non-promoting; 0/14 primary adjusted lower bounds were positive. That is inconclusive evidence, not a zero-effect finding. Both ETF endpoint diagnostics remain completed; the original full-path v1 remains PARTIAL_CARRIER_TRANSPORT under its original definition. CSI1000's failed all-seven-endpoint common-cohort ETF table remains unopened.
-
-All original R1_A signals, pairs, directions, carriers, seven horizons and historical CSVs remain unchanged. Source-observation and missing-outcome assumptions are not resolved by sample-size calculations. R1/R2 certifications and closed R1_B/R2-directional/MO identities are preserved.
-
-Actual historical ETF data remain public in `data/r1a_carrier_prices/cloud_pack_v1/`. Do not ask for another routine transfer of those files.
-
-## Reproduction
+## Reproduce — fresh directory only
 
 ```bash
-PYTHONPATH=src:. python research/r1a_confirmation_feasibility/study.py --output /tmp/r1a-feasibility-new
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src:. \
+  python research/r1a_method_calibration/study.py --output /tmp/r1a-method-new
 PYTHONPATH=src:. python -m pytest -q tests/test_r1a_*.py
 ```
 
-Use a fresh output directory. The live metadata audit is deliberately not rerun by ordinary regression CI; its original tree/blob hashes are retained. Repeating it is a new timestamped inventory, not confirmation.
-
-`BLACKBOX_query_count=3`; no query #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
+Regression replays old experiments only to check reproducibility, not to generate new significance claims. No live data-role probe is needed for ordinary tests.
