@@ -11,6 +11,9 @@ on:
       - '.github/workflows/etf-index-measurability.yml'
 permissions:
   contents: read
+concurrency:
+  group: etf-readonly-replay-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   readonly-measurement-replay:
     runs-on: ubuntu-latest
@@ -31,6 +34,7 @@ jobs:
             /research/etf_index_measurability/
             /tests/test_etf_index_measurability.py
             /tests/test_etf_measurement_retained.py
+            /tests/test_etf_measurement_replay_precision.py
             /docs/governance/ETF_INDEX_MEASURABILITY_FREEZE@1.0.json
             /docs/governance/ETF_SOURCE_QUALITY_ADVISORY_20260912.json
             /docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json
@@ -45,8 +49,8 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -e .
-      - name: Test observation boundaries and retained source advisory
-        run: python -m pytest -q tests/test_etf_index_measurability.py tests/test_etf_measurement_retained.py
+      - name: Test observation boundaries, exact evidence and quantile rounding guard
+        run: python -m pytest -q tests/test_etf_index_measurability.py tests/test_etf_measurement_retained.py tests/test_etf_measurement_replay_precision.py
       - name: Verify exact source isolation
         run: |
           python - <<'PY'
@@ -56,9 +60,10 @@ jobs:
           assert len(list(Path('data').rglob('*.csv')))==12
           assert not Path('research/r1a_walkforward_prediction').exists()
           PY
-      - name: Reproduce label-clock measurements without outcomes
+      - name: Reproduce and audit all label-clock measurements without outcomes
         run: |
-          python research/etf_index_measurability/audit.py --output "$RUNNER_TEMP/etf-measurement" --reference docs/ops/evidence/etf_index_measurability_20260912
+          python research/etf_index_measurability/audit.py --output "$RUNNER_TEMP/etf-measurement"
+          python research/etf_index_measurability/verify_replay.py --reference docs/ops/evidence/etf_index_measurability_20260912 --replay "$RUNNER_TEMP/etf-measurement" --output "$RUNNER_TEMP/etf-measurement-replay-audit.json"
       - name: Reproduce separate source-provenance inspection
         run: |
           python research/etf_index_measurability/source_flags.py --output "$RUNNER_TEMP/etf-source"
@@ -78,5 +83,6 @@ jobs:
         with:
           name: etf-measurement-replay-${{ github.run_id }}
           path: |
-            ${{ runner.temp }}/etf-measurement/receipt.json
-            ${{ runner.temp }}/etf-source/receipt.json
+            ${{ runner.temp }}/etf-measurement
+            ${{ runner.temp }}/etf-source
+            ${{ runner.temp }}/etf-measurement-replay-audit.json
