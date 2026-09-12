@@ -1,0 +1,89 @@
+name: evidence-closeout-regression
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, research/r1a-evidence-closeout-v1]
+    paths:
+      - 'research/r1a_evidence_closeout/**'
+      - 'tests/test_r1a_evidence_closeout.py'
+      - 'tests/test_evidence_closeout_retained.py'
+      - 'docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json'
+      - 'docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json'
+      - 'docs/ops/evidence/r1a_evidence_closeout_20260912/**'
+      - 'docs/ops/evidence/r1a_walkforward_prediction_20260912/**'
+      - 'docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv'
+      - 'docs/research/**'
+      - '.github/workflows/r1a-evidence-closeout.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  readonly-no-fit-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: src:.
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /pyproject.toml
+            /src/
+            /shared/
+            /research/r1a_evidence_closeout/
+            /tests/test_r1a_evidence_closeout.py
+            /tests/test_evidence_closeout_retained.py
+            /docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json
+            /docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json
+            /docs/ops/evidence/r1a_walkforward_prediction_20260912/
+            /docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv
+            /docs/ops/evidence/r1a_evidence_closeout_20260912/
+            /docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md
+            /docs/research/R1_INCREMENTAL_ALPHA_PROGRAM_DECISION_20260911.md
+            /docs/research/R1A_ENDPOINT_METHOD_REVIEW_20260912.md
+            /docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md
+            /docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md
+            /docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md
+            /docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md
+            /docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md
+            /docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Test exact algebra and sealed closeout
+        run: python -m pytest -q tests/test_r1a_evidence_closeout.py tests/test_evidence_closeout_retained.py
+      - name: Enforce no raw-market data or prior fitter
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          assert not Path('data').exists()
+          assert not list(Path('.').rglob('*.parquet'))
+          assert not Path('research/r1a_walkforward_prediction').exists()
+          assert not Path('docs/ops/evidence/r1a_control_design_20260912/allocation_ledger.csv').exists()
+          d=json.loads(Path('docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json').read_text())
+          assert d['active_empirical_candidate'] is None
+          assert d['automatic_continuation_authorized'] is False
+          print('Existing evidence only. Reserve is not a zero-alpha statistical verdict.')
+          PY
+      - name: Reproduce existing-evidence accounting only
+        run: |
+          python research/r1a_evidence_closeout/audit.py --output "$RUNNER_TEMP/r1a-closeout-replay"
+          python research/r1a_evidence_closeout/verify_replay.py \
+            --reference docs/ops/evidence/r1a_evidence_closeout_20260912 \
+            --replay "$RUNNER_TEMP/r1a-closeout-replay" \
+            --output "$RUNNER_TEMP/r1a-closeout-replay-audit.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r1a-closeout-replay-${{ github.run_id }}
+          path: ${{ runner.temp }}/r1a-closeout-replay-audit.json
+          if-no-files-found: warn

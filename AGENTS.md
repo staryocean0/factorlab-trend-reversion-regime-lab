@@ -1,15 +1,19 @@
-# Trend/reversion research
+# 接管与修改约束
 
-Read CONTINUE_HERE.md and docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](docs/REPOSITORY_STATE.json) · [最新研究解释](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-Latest fixed-day quantity/price/minute-boundary accounting is complete. All original sources remain unchanged. No new local retransmission is needed. Six Parquet files, source docs and five-year legacy CSVs are already in the cloud.
+读取 [CONTINUE_HERE](CONTINUE_HERE.md)、[组件索引](docs/COMPONENTS.md)、[数据边界](docs/DATA.md)。
 
-Day-end quantity equality does not imply intraday equality: continuous quote cum_volume is above recorded tick sums at the same source label in629/4711 and3508/4740 cases. This is not economic ETF/index lead-lag or a calibrated latency estimate. Do not fit a shift to hide it.
+当前状态只由docs/REPOSITORY_STATE.json及它引用的裁决和回执定义。历史报告、迁移白皮书、旧任务和source副本不是新授权。不得从R1机制记录推导生产资格。
 
-All four declared minute scenarios retained; none fully reproduces old OHLC or is newly certified as vendor truth. Raw-unit quantity mismatch does not certify an error or justify multiplying all old volumes. The13:26 anomaly is not reconstructed; no source prices, volumes or historical results may be overwritten with nearby prints.
+维护时保留原数据、冻结定义和决定性回执；不改科学公式、阈值、配对、已关闭样本或研究数据角色。全仓保留清单由一致性检查验证。历史代码因导入和复现依赖保留，不代表可以直接新采集、新拟合或新回测。
 
-RestrictedSourceView is an offline consumer contract, not a DataHub patch or live execution API. Reject reversed/empty/unknown intervals, no future checkpoint/backfill, no cross-phase carry, no fallback to old states after an invalid latest event. Clip only consumer ends at declared phase boundaries. Retain original post-close reversed rows; do not invent an end.
+RestrictedSourceView只是离线来源标签消费者；禁止坏区间、跨阶段延续、未来checkpoint回填、无效最新状态后退用旧值。源DataHub生产器未修复；不能把本地防误用措施称为实时PIT、净值或同步认证。
 
-This finite audit has ended. No automatic new fit, bucket search, date expansion,2026 price reading, purchase, returns, NAV premium or strategy promotion. Unproven publication times/units/source completeness remain explicit usage limits. New empirical scope requires its own authorization and assumptions.
-
-R1_A reserved and active development paused. ClosedR1_B/R2/options remain closed. Prior known512100 action correction and zero published-cohort impact complete; cancelled2022-08-03 split must not be applied. Preserve all old source bytes, manifests, freezes and receipts. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false.
+默认CI只做组件一致性和合成检查；历史工作流为手动/受控复用。全部测试和保留证据复现使用测试说明中的显式入口，不覆盖旧输出。不要强推或清理其他仓库。

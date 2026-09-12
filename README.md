@@ -1,15 +1,23 @@
-# FactorLab Trend–Reversion Regime Lab
+# FactorLab 趋势反转与均值回归研究
 
-Current frontier: **fixed-day field reconciliation complete; source-label consumer restricted; intraday synchronization and original minute semantics not certified**.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](docs/REPOSITORY_STATE.json) · [最新研究解释](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-Read [CONTINUE_HERE.md](CONTINUE_HERE.md) and [fixed-day reconciliation](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md).
+## 入口
 
-Six2025-12-01 source Parquet files are already cloud-verified. Further accounting completed9798 quote events and1928 legacy-minute boundary scenarios. Day-end quantities agree, but many same-label intraday cumulative quantities do not; the four fixed minute conventions do not fully reproduce oldOHLC. No fitted time shift, guessed quantity conversion or source-data overwrite was used.
+[当前状态与下一步边界](CONTINUE_HERE.md) · [当前研究与工程白皮书](docs/WHITEPAPER.md) · [组件索引](docs/COMPONENTS.md) · [测试与工作流](docs/TESTING.md) · [数据用途说明](docs/DATA.md)
 
-[Restricted consumer contract](docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json) prevents reversed-terminal and cross-phase intervals from being used. This is a read-only local consumer restriction, not a repaired upstream DataHub product or real-time execution authority.
+当前没有已确认策略或自动续开的实验。已完成的研究、数据修正和审计可复现，但复现通过不增加市场证据。请勿将归档快照或旧manifest中的complete=true作为新的研究准入。
 
-No further local transfer is currently requested. This finite audit is finished; no automatic date expansion, acquisition, returns or NAV-premium experiment follows. New studies must explicitly qualify their source assumptions.
+## 本地环境
 
-R1_A remains an unconfirmed reserved lead with active development paused. The prior known512100 action correction did not change published cohorts or means. All historical sources, freezes, results and failures are retained.
+```bash
+bash .codex/cloud_setup.sh
+```
 
-`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Reproducibility is not strategy certification.
+默认只安装依赖并检查组件一致性，不自动回放历史拟合。完整回归需要已检出测试依赖数据，见测试说明。源码包版本0.1.0是包装版本，不是策略成熟度。

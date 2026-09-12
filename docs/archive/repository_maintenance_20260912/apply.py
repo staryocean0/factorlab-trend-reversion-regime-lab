@@ -302,7 +302,7 @@ python -m pytest -q
     write('docs/infrastructure_manifest.json',json.dumps({'schema_id':'factorlab_current_infrastructure@2.0','scope':'existing installable support files, not the original import snapshot','historical_manifest':ARCHIVE+'/docs/infrastructure_manifest.json','production_authority':False,'files':current_infra},ensure_ascii=False,indent=2))
     baseline={'baseline_commit':BASE,'baseline_file_count':len(entries),'modified_baseline_paths':snapshots,'removed_active_paths':['docs/seed_manifest.json','.github/workflows/r1b-mo-data-admission-gate.yml'],'archive_prefix':ARCHIVE,'entries':entries}
     write('docs/maintenance/BASELINE_COMPONENTS.json',json.dumps(baseline,ensure_ascii=False,indent=2))
-    write(ARCHIVE+'/README.md','# 清理前快照\n\n基线：`'+BASE+'`。子文件保持原字节，仅用于历史追溯；不运行归档配置或再次派发旧任务。原位历史报告与冻结证据没有移动。\n')
+    write(ARCHIVE+'/ARCHIVE_INDEX.md','# 清理前快照\n\n基线：`'+BASE+'`。子文件保持原字节，仅用于历史追溯；不运行归档配置或再次派发旧任务。原位历史报告与冻结证据没有移动。\n')
     write('docs/maintenance/README.md','# 维护记录\n\n这轮统一状态源、文档/白皮书、模块生命周期、启动脚本和工作流。基线清单保护原始数据和科学证据；清理不提升研究结论。\n\n原文件变化在BASELINE_COMPONENTS.json列明。机器验收包含源码语法、导入、生成文档、路径及工作流；完整pytest和受限复现结果以实际Actions记录为准，不能提前写为通过。\n')
     print(json.dumps({'baseline_files':len(entries),'archived_original_files':len(snapshots),'modules':len(MODULES),'generated_docs':len(bodies)},ensure_ascii=False))
 

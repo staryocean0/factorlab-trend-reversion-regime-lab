@@ -1,18 +1,19 @@
-# Read-only review of the delivered upstream evidence
+# etf_upstream_review
 
-Read `docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md`.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](../../docs/REPOSITORY_STATE.json) · [最新研究解释](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-35 payload files plus the pinned manifest are verified; four excerpt ranges are compared against supplied full text. The 20 frozen anomalies are compared independently at the imported/archive, canonical and delivered-example levels. Two encodings and two views of the same upstream data are not independent providers.
+生命周期：`COMPLETED_SOURCE_AUDIT_REPLAY_ONLY`。
 
-The reviewed source's scalar labeling and prior-close fill functions are exercised on synthetic inputs only. The missing production settings and complete 3s minute input are NOT reconstructed; eight delivered 3s observations do not reconstruct an entire minute.
+解释报告：[docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md](../../docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md)。冻结复现入口：[.github/workflows/etf-upstream-delivery.yml](../../.github/workflows/etf-upstream-delivery.yml)（手动/受控调用，不自动新实验）。
 
-```bash
-PYTHONPATH=. python -m unittest discover -s tests -p test_etf_upstream_review.py -v
-PYTHONPATH=. python research/etf_upstream_review/audit.py --output /tmp/new-upstream-review
-```
+实现、源文件、冻结输入和已保存结果保持原样。复现只能使用原范围、新输出目录，并与保留证据比较；不能覆盖旧回执。
 
-Use a fresh output directory. No five-year market pack, outcomes, fitting, 2026 candidate prices, vendor calls or credentials are needed. `available_at` is not a common real-time publication field across these producers. The legacy Z exception is explicitly dataset-scoped, not a replacement for normal UTC parsing.
+旧使用说明作为历史参考保留：[docs/archive/repository_pre_cleanup_20260912/research/etf_upstream_review/README.md](../../docs/archive/repository_pre_cleanup_20260912/research/etf_upstream_review/README.md)。其中的下载/继续/准入措辞不是当前任务。
 
-Only the source-repository versions declared in the supplied manifest are available here. Full files/excerpts and supplied samples are verified, not unseen upstream Git repositories or original vendor archives.
-
-A separately prepared one-day delivery request is `docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md`. The local files are in `data/etf_microstructure_sample_20251201_v1/`. That pack does not start a backtest or buy data. R1_A remains reserved.
+当前用途和统一测试：[docs/COMPONENTS.md](../../docs/COMPONENTS.md)、[docs/TESTING.md](../../docs/TESTING.md)。

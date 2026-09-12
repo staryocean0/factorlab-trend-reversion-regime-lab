@@ -1,0 +1,67 @@
+name: etf-one-day-observation
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, audit/etf-one-day-observation-v1]
+    paths:
+      - '.github/workflows/etf-one-day-observation.yml'
+      - 'research/etf_one_day_review/**'
+      - 'tests/test_etf_one_day_review.py'
+      - 'data/etf_microstructure_sample_20251201_v1/**'
+      - 'docs/ops/evidence/etf_one_day_cloud_review_20260912/**'
+permissions:
+  contents: read
+concurrency:
+  group: etf-one-day-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  readonly-source-clock-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /data/etf_microstructure_sample_20251201_v1/
+            /research/etf_one_day_review/
+            /tests/test_etf_one_day_review.py
+            /docs/ops/evidence/etf_one_day_cloud_review_20260912/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'pyarrow>=19,<22'
+      - name: Check pure source-clock and session boundaries
+        run: python -m unittest discover -s tests -p test_etf_one_day_review.py -v
+      - name: Verify narrow raw scope
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('data/etf_microstructure_sample_20251201_v1')
+          assert set(Path('data').rglob('*.parquet'))==set(p.rglob('*.parquet'))
+          assert len(list(p.rglob('*.parquet')))==6
+          assert not Path('data/r1a_carrier_prices/cloud_pack_v1').exists()
+          PY
+      - name: Read six original files and reproduce the source audit
+        run: python research/etf_one_day_review/audit.py --output "$RUNNER_TEMP/day-audit"
+      - name: Compare all retained evidence bytes without overwriting
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          old=Path('docs/ops/evidence/etf_one_day_cloud_review_20260912')
+          new=Path(os.environ['RUNNER_TEMP'])/'day-audit'
+          assert (old/'receipt.json').is_file()
+          assert {p.name for p in old.iterdir() if p.is_file()}=={p.name for p in new.iterdir() if p.is_file()}
+          for p in old.iterdir():
+              if p.is_file(): assert p.read_bytes()==(new/p.name).read_bytes(),p.name
+          print('Exact retained source-audit replay; not new market evidence.')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: etf-one-day-review-${{ github.run_id }}
+          path: ${{ runner.temp }}/day-audit
+          if-no-files-found: warn

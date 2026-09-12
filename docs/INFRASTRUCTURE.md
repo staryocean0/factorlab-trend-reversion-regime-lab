@@ -1,20 +1,17 @@
-# 项目级择时基础设施裁剪
+# 当前代码与运行环境
 
-参考已有two-wave/overnight/STAR仓库的“固定数据＋来源清单＋环境＋测试＋提示词”模式，直接从本地FactorLab精选通用模块，未fork任何旧仓库历史。完整来源SHA见`infrastructure_manifest.json`。
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](REPOSITORY_STATE.json) · [最新研究解释](research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-| 能力 | 入口 | 使用限制 |
-|---|---|---|
-| Layer 1时钟与成交窗配对 | `factor_lab.data.session_offset_defaults` | 菜单不等于已交付数据；不本地重采样墙钟OHLC |
-| 通用回测适配 | `factor_lab.data.services.standard_backtest_service` | 输入收益序列的诊断性回放；不构成真实撮合/T+1/限价/容量执行引擎 |
-| 成本与相对表现 | `filtering.costs`、`portfolio.relative_performance` | 参数须由新协议冻结；云脊常量只为兼容，不带其数据 |
-| Layer 2测量坐标/列边界 | `market_state.timing_layer2_measurement_plane` | 因果feature、后验target、兼容定义分开 |
-| 基本K线测量与归一化 | `market_state.core_kline_attribute_pool`、`normalization`、`indicators.*` | 年度reducer仅作描述，不能贴回每根bar成为在线特征 |
-| 多重检验与时序证据 | `governance.multiple_testing`、`temporal_integrity`、`evidence_resolver` | 辅助函数不替代新研究完整审计 |
-| 冻结来源解析 | `governance.sealed_source` | 本新仓没有旧FactorLab Git历史；旧hash不可恢复就失败，不伪造 |
-| 公共异常依赖 | `core.errors`、`observability.exceptions`、`shared.observability` | 仅导入闭包，不带完整运行时/服务 |
+Python支持范围以[pyproject.toml](../pyproject.toml)为准。包装版本不是策略成熟度。[当前支持模块清单](infrastructure_manifest.json)仅列实际存在的文件；旧导入时清单已经归档，不再宣称不存在的standard_backtest_service可导入。
 
-源模块原字节保留；`__init__.py`使用轻量命名空间壳，避免完整项目的eager imports把旧策略/衍生品模块拉进来。本包不是完整FactorLab，不保证未列API存在。
+`src/regime_lab`提供市场包读取与发布检查；`src/factor_lab`、`shared`为裁剪后的支持库；`research/`按[生命周期索引](COMPONENTS.md)保留。历史算法模块与归档源码仍被固定研究导入，不能为了目录好看破坏导入闭包。
 
-未上传：旧策略、参数winner、模型、回测结果、其他主题输入、策略注册表和生产指针；也未把two-wave的300多个依赖模块整个搬来。更深的Layer 2旧模块若直接依赖旧策略实现，此次不强行引入。需要新的逐时点测量时，由研究AI按本课题数据与因果合同开发并测试。
+[云端初始化](../.codex/cloud_setup.sh)安装依赖并运行结构门禁，不调用已移走的seed验证器，不自动重新训练历史预测器。[统一一致性检查](../scripts/repository_consistency.py)检查状态块、文件角色、路径、导入、测试和工作流。
 
-这是一份可复用基础设施快照，而非策略级实现；策略的白皮书/代码/测试/工作流待接手AI建立。
+完整研究回归和冻结复现见[TESTING](TESTING.md)。工程验收不授予数据源真实性、实时撮合或策略生产资格。

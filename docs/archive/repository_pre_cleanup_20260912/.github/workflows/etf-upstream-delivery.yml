@@ -1,0 +1,60 @@
+name: etf-upstream-delivery-regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, audit/etf-upstream-delivery-v1]
+    paths:
+      - 'data/etf_upstream_evidence_v1/**'
+      - 'research/etf_upstream_review/**'
+      - 'tests/test_etf_upstream_review.py'
+      - 'docs/ops/evidence/etf_upstream_cloud_review_20260912/**'
+      - '.github/workflows/etf-upstream-delivery.yml'
+permissions:
+  contents: read
+jobs:
+  readonly-upstream-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PYTHONPATH: .
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /data/etf_upstream_evidence_v1/
+            /research/etf_upstream_review/
+            /tests/test_etf_upstream_review.py
+            /docs/ops/evidence/etf_upstream_cloud_review_20260912/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test fixed source interpretation and refusal boundaries
+        run: python -m unittest discover -s tests -p test_etf_upstream_review.py -v
+      - name: Reproduce evidence in a fresh directory and compare exact bytes
+        run: |
+          python research/etf_upstream_review/audit.py --output "$RUNNER_TEMP/upstream-review"
+          python - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          old=Path('docs/ops/evidence/etf_upstream_cloud_review_20260912')
+          new=Path(os.environ['RUNNER_TEMP'])/'upstream-review'
+          r=json.loads((old/'receipt.json').read_text())
+          assert hashlib.sha256((old/'receipt.json').read_bytes()).hexdigest()=='d563bc120f82f73f15514ef260819fba935f4d5908e68dcb9a4487e88cf27ae5'
+          assert (old/'receipt.json').read_bytes()==(new/'receipt.json').read_bytes()
+          for spec in r['files']:
+              for folder in (old,new):
+                  p=folder/spec['path']
+                  assert p.stat().st_size==spec['bytes']
+                  assert hashlib.sha256(p.read_bytes()).hexdigest()==spec['sha256']
+          assert not r['exchange_publication_times_verified'] and not r['return_population_opened']
+          print('PASS source explanation replay; not full source or strategy certification')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: etf-upstream-review-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream-review/
+          if-no-files-found: error

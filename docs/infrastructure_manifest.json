@@ -1,103 +1,144 @@
 {
+  "schema_id": "factorlab_current_infrastructure@2.0",
+  "scope": "existing installable support files, not the original import snapshot",
+  "historical_manifest": "docs/archive/repository_pre_cleanup_20260912/docs/infrastructure_manifest.json",
+  "production_authority": false,
   "files": [
     {
+      "path": "shared/__init__.py",
+      "sha256": "032eab267d1a0143bfffbb3b179d8022fad11bfadfd2ee82f4b861ed2e8dd352"
+    },
+    {
+      "path": "shared/observability/__init__.py",
+      "sha256": "032eab267d1a0143bfffbb3b179d8022fad11bfadfd2ee82f4b861ed2e8dd352"
+    },
+    {
+      "path": "shared/observability/error_codes.py",
+      "sha256": "de842b4c6269bafcd98c62f4d398102f17babb814dc5a14f7cf89050db6dbcc6"
+    },
+    {
+      "path": "shared/observability/exceptions.py",
+      "sha256": "a366544fba441232f38f54ec5e741c6c5a5b64077329f2b3b583cab99e0188d7"
+    },
+    {
+      "path": "src/factor_lab/__init__.py",
+      "sha256": "762f06fcadae3cfd7fa6ca450e9ff39403ba9c30e649520e7775dea8dc74a5fe"
+    },
+    {
+      "path": "src/factor_lab/core/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
+    },
+    {
       "path": "src/factor_lab/core/errors.py",
-      "source_project_relative": "src/factor_lab/core/errors.py",
       "sha256": "5a15e5ed4c28967263af89dd0a4b510ec2e8f0233df3887a1a750d303d50fa9a"
     },
     {
-      "path": "src/factor_lab/observability/exceptions.py",
-      "source_project_relative": "src/factor_lab/observability/exceptions.py",
-      "sha256": "3af4fee33fdc958f7f7215afb53f10405c4591a1a04d2b08c6ba87f35fc63a54"
+      "path": "src/factor_lab/data/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
     },
     {
-      "path": "src/factor_lab/data/session_offset_defaults.py",
-      "source_project_relative": "src/factor_lab/data/session_offset_defaults.py",
-      "sha256": "b0890d351e631aa46c24b76ddecc5f22fffc35fce0fdb188e3c1bcdeebeb6724"
+      "path": "src/factor_lab/data/services/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
     },
     {
       "path": "src/factor_lab/data/services/standard_backtest_service.py",
-      "source_project_relative": "src/factor_lab/data/services/standard_backtest_service.py",
       "sha256": "6d0e409ffbabee5108d4666d214f49868b555f297ca2851baa25f1418c8cddc2"
     },
     {
-      "path": "src/factor_lab/portfolio/relative_performance.py",
-      "source_project_relative": "src/factor_lab/portfolio/relative_performance.py",
-      "sha256": "1b53dfb9ca96bda634eb5eac485c976d7032ea9c0a880cbd0b96b057dec2f166"
+      "path": "src/factor_lab/data/session_offset_defaults.py",
+      "sha256": "b0890d351e631aa46c24b76ddecc5f22fffc35fce0fdb188e3c1bcdeebeb6724"
+    },
+    {
+      "path": "src/factor_lab/filtering/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
+    },
+    {
+      "path": "src/factor_lab/filtering/costs.py",
+      "sha256": "b8100bc61b28b05c03525e3c691d44e5380455eaab2bba2cc361fc6ae1c5ed52"
+    },
+    {
+      "path": "src/factor_lab/governance/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
+    },
+    {
+      "path": "src/factor_lab/governance/evidence_resolver.py",
+      "sha256": "0058bd7e24f720a07888c36222ceac128f4c71f1def18c4aeef9f4964277b4f0"
     },
     {
       "path": "src/factor_lab/governance/multiple_testing.py",
-      "source_project_relative": "src/factor_lab/governance/multiple_testing.py",
       "sha256": "58e793288b47ab97d22c39ce94c58e7998dddcd81632313aa8ae1a009f5e1cd5"
     },
     {
       "path": "src/factor_lab/governance/sealed_source.py",
-      "source_project_relative": "src/factor_lab/governance/sealed_source.py",
       "sha256": "bf7a24984efb5a0cf57f09e90da13a9904b08a44b1023653b3ec757fce3acd88"
     },
     {
       "path": "src/factor_lab/governance/temporal_integrity.py",
-      "source_project_relative": "src/factor_lab/governance/temporal_integrity.py",
       "sha256": "66cda0b1254e3f900222a6cd6b5afc9820cb4f430d2905f6cee7df9ad0433868"
     },
     {
-      "path": "src/factor_lab/governance/evidence_resolver.py",
-      "source_project_relative": "src/factor_lab/governance/evidence_resolver.py",
-      "sha256": "0058bd7e24f720a07888c36222ceac128f4c71f1def18c4aeef9f4964277b4f0"
-    },
-    {
-      "path": "src/factor_lab/filtering/costs.py",
-      "source_project_relative": "src/factor_lab/filtering/costs.py",
-      "sha256": "b8100bc61b28b05c03525e3c691d44e5380455eaab2bba2cc361fc6ae1c5ed52"
-    },
-    {
-      "path": "src/factor_lab/market_state/normalization.py",
-      "source_project_relative": "src/factor_lab/market_state/normalization.py",
-      "sha256": "2b43c89e0bd4cb7ef3b6e97f7da71b59c5046b1e775df5773b531373c1c26d0f"
-    },
-    {
-      "path": "src/factor_lab/market_state/core_kline_attribute_pool.py",
-      "source_project_relative": "src/factor_lab/market_state/core_kline_attribute_pool.py",
-      "sha256": "615ccd149fb9baeaae730130d552fc221304b431f16a961aa81c904e59a09d11"
-    },
-    {
-      "path": "src/factor_lab/market_state/timing_layer2_measurement_plane.py",
-      "source_project_relative": "src/factor_lab/market_state/timing_layer2_measurement_plane.py",
-      "sha256": "53665163b4722ab125e71220f93bfebc841a22ce1ea46bf5e0d4a9159b8fba3b"
+      "path": "src/factor_lab/indicators/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
     },
     {
       "path": "src/factor_lab/indicators/bar_direction_continuity.py",
-      "source_project_relative": "src/factor_lab/indicators/bar_direction_continuity.py",
       "sha256": "1721d8fa5207db31ce8cd8f8e7ad950569139cab34c13f85de06b54cc9d50aa3"
     },
     {
       "path": "src/factor_lab/indicators/directional_impulse.py",
-      "source_project_relative": "src/factor_lab/indicators/directional_impulse.py",
       "sha256": "8ea27ccb0d51b0b1a8578113d9654e79db95cd0179b7844eb9790aaa5a2ad16f"
     },
     {
       "path": "src/factor_lab/indicators/jump_reversal_risk.py",
-      "source_project_relative": "src/factor_lab/indicators/jump_reversal_risk.py",
       "sha256": "725a5c45dba5f81d7b5b9f10f3bb7a583071493452af9eade9b522ceaf49a28e"
     },
     {
       "path": "src/factor_lab/indicators/path_weighted_bar_color_imbalance.py",
-      "source_project_relative": "src/factor_lab/indicators/path_weighted_bar_color_imbalance.py",
       "sha256": "0f5364673a1f07db2ccc5b80420038ab797af6b9867d61a35f2384622674dc47"
     },
     {
-      "path": "shared/observability/exceptions.py",
-      "source_project_relative": "workspace/shared/observability/exceptions.py",
-      "sha256": "a366544fba441232f38f54ec5e741c6c5a5b64077329f2b3b583cab99e0188d7"
+      "path": "src/factor_lab/market_state/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
     },
     {
-      "path": "shared/observability/error_codes.py",
-      "source_project_relative": "workspace/shared/observability/error_codes.py",
-      "sha256": "de842b4c6269bafcd98c62f4d398102f17babb814dc5a14f7cf89050db6dbcc6"
+      "path": "src/factor_lab/market_state/core_kline_attribute_pool.py",
+      "sha256": "615ccd149fb9baeaae730130d552fc221304b431f16a961aa81c904e59a09d11"
+    },
+    {
+      "path": "src/factor_lab/market_state/normalization.py",
+      "sha256": "2b43c89e0bd4cb7ef3b6e97f7da71b59c5046b1e775df5773b531373c1c26d0f"
+    },
+    {
+      "path": "src/factor_lab/market_state/timing_layer2_measurement_plane.py",
+      "sha256": "53665163b4722ab125e71220f93bfebc841a22ce1ea46bf5e0d4a9159b8fba3b"
+    },
+    {
+      "path": "src/factor_lab/observability/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
+    },
+    {
+      "path": "src/factor_lab/observability/exceptions.py",
+      "sha256": "3af4fee33fdc958f7f7215afb53f10405c4591a1a04d2b08c6ba87f35fc63a54"
+    },
+    {
+      "path": "src/factor_lab/portfolio/__init__.py",
+      "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
+    },
+    {
+      "path": "src/factor_lab/portfolio/relative_performance.py",
+      "sha256": "1b53dfb9ca96bda634eb5eac485c976d7032ea9c0a880cbd0b96b057dec2f166"
+    },
+    {
+      "path": "src/regime_lab/__init__.py",
+      "sha256": "c0f9e105108ac9f98e35d836d34887ed8d43d81906bf890a5bb02bc0fb351b95"
+    },
+    {
+      "path": "src/regime_lab/market_data.py",
+      "sha256": "d35fe072d725fc94f91dacfc252e8885ef7ce30ec7ddbee1f115583a3e395161"
+    },
+    {
+      "path": "src/regime_lab/package_guard.py",
+      "sha256": "93ff38d38c8ff482da1208536f38ffb2987c6552ae7748d190358baa7e414419"
     }
-  ],
-  "original_source_bytes_preserved": true,
-  "namespace_shells": "minimal to avoid importing omitted strategy modules",
-  "complete_factorlab_package": false,
-  "strategy_or_result_imported": false
+  ]
 }

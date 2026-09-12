@@ -1,22 +1,19 @@
-# One-day ETF source observation review
+# etf_one_day_review
 
-Scope: user-delivered commit `6004b42b1a6d68e13ec602126292a3709d474b70`, all six files in `data/etf_microstructure_sample_20251201_v1/`, source day 2025-12-01 only. Full git clone is not a prerequisite: pinned sparse checkout, actual file hashes and row/identity checks are used. No 2026 market prices, returns, lead-lag fit, threshold search, R1_A restart or data purchase.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](../../docs/REPOSITORY_STATE.json) · [最新研究解释](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-Before the source-content audit, the delivery manifest, dictionary and materializer excerpts were read. The terminal valid_until=15:00 code boundary was already visible. This is a defect-oriented source audit, not a blinded statistical experiment.
+生命周期：`COMPLETED_SOURCE_AUDIT_REPLAY_ONLY`。
 
-The audit preserves all raw rows, checks original label decoding and stable event/trade sequence, checkpoints, full displayed price ordering, invalid intervals, trade same-timestamp multiplicity and index observation gaps. Nothing is deduplicated by timestamp. No inferred quantity multiplier or monetary conversion is applied.
+解释报告：[docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md](../../docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md)。冻结复现入口：[.github/workflows/etf-one-day-observation.yml](../../.github/workflows/etf-one-day-observation.yml)（手动/受控调用，不自动新实验）。
 
-Source-label interval coverage is examined at already observed index times within fixed half-open continuous interiors [09:30,11:30), [13:00,14:57). These intervals are observation-accounting scopes, not a selected trading schedule. All remaining phases remain in the full-file and phase reports. Lookups require same phase, valid_from <= target < valid_until, positive finite bid/ask and displayed size, bid<=ask. Invalid terminal intervals and uncovered boundaries are not repaired or backfilled. The immutable raw files remain authoritative as delivered evidence, not a claim they are defect-free.
+实现、源文件、冻结输入和已保存结果保持原样。复现只能使用原范围、新输出目录，并与保留证据比较；不能覆盖旧回执。
 
-A covered target is ONLY an offline labelled-source state. `valid_until` was built from a subsequent state-change event; it is not independently verified real-time knowledge. Time since last state change is not quote age, receipt latency or proof of continuous source snapshots. Original snapshot and archive bytes are not present. Sparse state changes cannot prove no missing snapshots.
+旧使用说明作为历史参考保留：[docs/archive/repository_pre_cleanup_20260912/research/etf_one_day_review/README.md](../../docs/archive/repository_pre_cleanup_20260912/research/etf_one_day_review/README.md)。其中的下载/继续/准入措辞不是当前任务。
 
-The already-fixed 512100 13:26 anomaly is inspected using two adjacent raw clock bins [13:25,13:26), [13:26,13:27), with exact left-boundary counts and native integer prices/quantity sums. Both bins are reported, neither is selected by OHLC similarity. This is not a reconstruction of the legacy native 1m bucket or a proof of the vendor's zero-volume cause. Cross-product numeric agreement would not independently certify exchange accuracy, units or receipt-time synchronization.
-
-Run:
-
-```bash
-python -m unittest discover -s tests -p test_etf_one_day_review.py
-python research/etf_one_day_review/audit.py --output /tmp/etf-one-day-new
-```
-
-The runner requires pyarrow; tests for pure clock/boundary functions use only the standard library. Always use a new output directory. An engineering PASS is not trading, exact-PIT, NAV-premium, complete-history or representative-sample qualification. Existing R1_A reserve and known-action impact dispositions remain unchanged.
+当前用途和统一测试：[docs/COMPONENTS.md](../../docs/COMPONENTS.md)、[docs/TESTING.md](../../docs/TESTING.md)。

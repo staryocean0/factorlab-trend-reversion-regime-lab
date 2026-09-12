@@ -1,17 +1,19 @@
-# Fixed-day source reconciliation v1
+# etf_day_reconciliation
 
-Scope: 2025-12-01 only. Read the freeze and `docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md`.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](../../docs/REPOSITORY_STATE.json) · [最新研究解释](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-```bash
-python -m pip install 'pyarrow>=19,<22'
-python -m unittest discover -s tests -p 'test_etf_day_reconciliation*.py' -v
-python research/etf_day_reconciliation/audit.py --output /tmp/etf-day-reconciliation-new
-```
+生命周期：`READ_ONLY_SOURCE_CONSUMER`。
 
-Requires the six delivered Parquet files, two original 2025 annual ETF CSVs and the freeze. Only the fixed day enters numeric calculations; full annual bytes are hash-checked. Prefer sparse checkout, not a complete data-repository clone. Always use a new output path.
+解释报告：[docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)。冻结复现入口：[.github/workflows/etf-day-reconciliation.yml](../../.github/workflows/etf-day-reconciliation.yml)（手动/受控调用，不自动新实验）。
 
-The eight retained CSVs and receipt live at `docs/ops/evidence/etf_day_reconciliation_20260912/`. Every discrepancy is retained. Four minute conventions are accounting scenarios, not fitted alternatives. Decimal arithmetic avoids masking discrepancies with an arbitrary tolerance. A price divisor of 10000 is explicitly conditional on the delivered representation, not currency or quantity-unit certification.
+实现、源文件、冻结输入和已保存结果保持原样。复现只能使用原范围、新输出目录，并与保留证据比较；不能覆盖旧回执。
 
-`RestrictedSourceView(rows).lookup(source_label)` returns an index into original quote rows or None. It supports only the fixed-day continuous source-label contract. No fallback from a bad latest event, no carry from another phase, no future checkpoint, no extension of reversed terminal intervals. It uses offline validity metadata and is NOT a live receipt-time API. `dispositions` records rejected rows and separately clipped consumer ends. Original rows are not modified.
+旧使用说明作为历史参考保留：[docs/archive/repository_pre_cleanup_20260912/research/etf_day_reconciliation/README.md](../../docs/archive/repository_pre_cleanup_20260912/research/etf_day_reconciliation/README.md)。其中的下载/继续/准入措辞不是当前任务。
 
-This does not patch DataHub, reconstruct missing vendor archives, certify old bar semantics, alter historical signals/results, or authorize prices/returns on new dates. R1_A remains reserved. The finite reconciliation is complete; there is no automatic follow-on model or clock-shift search.
+当前用途和统一测试：[docs/COMPONENTS.md](../../docs/COMPONENTS.md)、[docs/TESTING.md](../../docs/TESTING.md)。

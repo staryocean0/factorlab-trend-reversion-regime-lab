@@ -1,27 +1,19 @@
-# R1_A confirmation feasibility
+# r1a_confirmation_feasibility
 
-Authority: `docs/governance/R1A_CONFIRMATION_FEASIBILITY_FREEZE@1.0.json`.
-Interpretation: `docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md`.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](../../docs/REPOSITORY_STATE.json) · [最新研究解释](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-This module does conditional sample-size/power planning and synthetic null calibration. It does not confirm alpha, inspect candidate new market prices, or select a trading horizon. All prior evidence stays immutable.
+生命周期：`COMPLETED_PLANNING_NO_NEW_PROBES`。
 
-```bash
-PYTHONPATH=src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python research/r1a_confirmation_feasibility/study.py --output /tmp/r1a-feasibility-new
-PYTHONPATH=src:. python -m pytest -q tests/test_r1a_confirmation_feasibility.py tests/test_r1a_feasibility_retained.py
-```
+解释报告：[docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md](../../docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md)。冻结复现入口：[.github/workflows/legacy-price-statistics-replay.yml](../../.github/workflows/legacy-price-statistics-replay.yml)（手动/受控调用，不自动新实验）。
 
-Use a fresh output directory. No private data or DataHub is required. The 2015-2025 index reader hash-checks the old bytes, and prior endpoint ledgers are pinned by receipt hashes. Historical means are centered before noise estimation; the power scenarios use assumed 2/4/6bp, not observed effects. Conditional years are information equivalents, not forecasts or waiting commitments.
+实现、源文件、冻结输入和已保存结果保持原样。复现只能使用原范围、新输出目录，并与保留证据比较；不能覆盖旧回执。
 
-The sparse inclusion-exclusion operator is mathematically identical to the previous union-of-exposure-block adjacency quadratic and tested against it. Four declared simulation models test that unchanged approximate estimator; their parameters do not estimate the true market DGP. Simulation can expose failure under an assumption violation, not certify real-market validity.
+旧使用说明作为历史参考保留：[docs/archive/repository_pre_cleanup_20260912/research/r1a_confirmation_feasibility/README.md](../../docs/archive/repository_pre_cleanup_20260912/research/r1a_confirmation_feasibility/README.md)。其中的下载/继续/准入措辞不是当前任务。
 
-All 28 index/ETF/index-identity/horizon designs, four variance specifications, 1/7/14/28 comparison families, 80%/90% targets and 60/120/243/486/1215-day budgets remain reported. Choosing a favorable one after the run is not authorized.
-
-A separate bounded metadata inventory command is available for an explicitly requested new inventory:
-
-```bash
-PYTHONPATH=src:. python research/r1a_confirmation_feasibility/audit_data_roles.py --output /tmp/r1a-data-role-new
-```
-
-It reads repository trees, allowlisted JSON metadata and branch names, not candidate prices or outcome tables. Use only existing authorized GitHub access. Its output is time-dependent and is NOT automatically rerun in regression CI. The historical inventory and the supplementary metadata-only 2026 CSI1000 candidate review remain preserved.
-
-No qualified new confirmation data role, final confirmation protocol, prospective clock or production permission is granted by either command.
+当前用途和统一测试：[docs/COMPONENTS.md](../../docs/COMPONENTS.md)、[docs/TESTING.md](../../docs/TESTING.md)。

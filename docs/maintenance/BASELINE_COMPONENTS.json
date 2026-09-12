@@ -1,0 +1,3996 @@
+{
+  "baseline_commit": "b4d023b100c49c7dbaa44e81417d7a0386a5b004",
+  "baseline_file_count": 986,
+  "modified_baseline_paths": [
+    "README.md",
+    "CONTINUE_HERE.md",
+    "AGENTS.md",
+    "PROMPT.md",
+    "ai-readme.md",
+    "docs/DATA.md",
+    "docs/INFRASTRUCTURE.md",
+    "docs/RESEARCH_GOVERNANCE.md",
+    "docs/cloud_local_communication.md",
+    "docs/ops/ETF_UPSTREAM_SEMANTICS_HANDOFF_20260912.md",
+    "docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md",
+    "docs/seed_manifest.json",
+    "docs/infrastructure_manifest.json",
+    ".codex/cloud_setup.sh",
+    "pyproject.toml",
+    "src/regime_lab/__init__.py",
+    "docs/archive/README.md",
+    ".github/workflows/etf-day-reconciliation.yml",
+    ".github/workflows/etf-index-measurability.yml",
+    ".github/workflows/etf-one-day-observation.yml",
+    ".github/workflows/etf-source-repair.yml",
+    ".github/workflows/etf-upstream-delivery.yml",
+    ".github/workflows/r1a-control-design.yml",
+    ".github/workflows/r1a-development-noise-regression.yml",
+    ".github/workflows/r1a-evidence-closeout.yml",
+    ".github/workflows/r1a-walkforward-prediction.yml",
+    ".github/workflows/r1b-mo-data-admission-gate.yml",
+    "research/etf_day_reconciliation/README.md",
+    "research/etf_index_measurability/README.md",
+    "research/etf_one_day_review/README.md",
+    "research/etf_source_repair/README.md",
+    "research/etf_upstream_review/README.md",
+    "research/r1a_carrier_transport/README.md",
+    "research/r1a_confirmation_feasibility/README.md",
+    "research/r1a_control_design/README.md",
+    "research/r1a_development_noise/README.md",
+    "research/r1a_evidence_closeout/README.md",
+    "research/r1a_method_calibration/README.md",
+    "research/r1a_walkforward_prediction/README.md"
+  ],
+  "removed_active_paths": [
+    "docs/seed_manifest.json",
+    ".github/workflows/r1b-mo-data-admission-gate.yml"
+  ],
+  "archive_prefix": "docs/archive/repository_pre_cleanup_20260912",
+  "entries": {
+    ".codex/cloud_setup.sh": {
+      "mode": "100644",
+      "git_blob": "edb60a0b9a503edce02039052f71ff6214875503"
+    },
+    ".gitattributes": {
+      "mode": "100644",
+      "git_blob": "f4c9e4c9cd56c7a40f09dd5100c69f3701ae219e"
+    },
+    ".github/workflows/etf-day-reconciliation.yml": {
+      "mode": "100644",
+      "git_blob": "a4deaed1476f23ea9cc46d7818dabc982f6d2e51"
+    },
+    ".github/workflows/etf-index-measurability.yml": {
+      "mode": "100644",
+      "git_blob": "4d72c82607d0f232051f5669eec26594ddec8631"
+    },
+    ".github/workflows/etf-one-day-observation.yml": {
+      "mode": "100644",
+      "git_blob": "1555f1c43dbd2cc24f7c0e4bf306e773846da6a5"
+    },
+    ".github/workflows/etf-source-repair.yml": {
+      "mode": "100644",
+      "git_blob": "5b34ef98b5be44f59e9d28df76becd4b64bf2992"
+    },
+    ".github/workflows/etf-upstream-delivery.yml": {
+      "mode": "100644",
+      "git_blob": "b34ceb20c8c27a5172ca035c71f65f0341879e64"
+    },
+    ".github/workflows/r1a-control-design.yml": {
+      "mode": "100644",
+      "git_blob": "7eac0719411fbbf032a76df5e7b5588bd338333c"
+    },
+    ".github/workflows/r1a-development-noise-regression.yml": {
+      "mode": "100644",
+      "git_blob": "f3720659cdf7bf077f4d19f7d5aa7d66d08854b2"
+    },
+    ".github/workflows/r1a-evidence-closeout.yml": {
+      "mode": "100644",
+      "git_blob": "744524d9633d0f75f0e32bb3008b791497e478f1"
+    },
+    ".github/workflows/r1a-walkforward-prediction.yml": {
+      "mode": "100644",
+      "git_blob": "a18ca19b75d2334647c0dd3d4b8f6890402b8a3c"
+    },
+    ".github/workflows/r1b-mo-data-admission-gate.yml": {
+      "mode": "100644",
+      "git_blob": "d266a2a2044750f9b94fbd2a12d8f89c1f68d6f1"
+    },
+    ".gitignore": {
+      "mode": "100644",
+      "git_blob": "834345094b22eaa3898d64cf58a993363e94f935"
+    },
+    "AGENTS.md": {
+      "mode": "100644",
+      "git_blob": "720fb68203fbf40782182d36890cd99654b9117a"
+    },
+    "CONTINUE_HERE.md": {
+      "mode": "100644",
+      "git_blob": "55b52b85d6952fe30858354f3e63c0385ffe6ed5"
+    },
+    "PROMPT.md": {
+      "mode": "100644",
+      "git_blob": "a7b4dd11db137da1f1c440a58a7581aaf2239e7c"
+    },
+    "README.md": {
+      "mode": "100644",
+      "git_blob": "6d533b58987c29120c16d59b38d4608078502333"
+    },
+    "ai-readme.md": {
+      "mode": "100644",
+      "git_blob": "51163cc3cbc5da83e2ec8543d931d2f95bd7cf96"
+    },
+    "data/etf_microstructure_sample_20251201_v1/README.md": {
+      "mode": "100644",
+      "git_blob": "bb0accc1e46f97bb16ad53f6dc7ba924ae4fefc4"
+    },
+    "data/etf_microstructure_sample_20251201_v1/actions_20251201/KNOWN_ACTIONS.md": {
+      "mode": "100644",
+      "git_blob": "cdc6887ad8f8bc4fbd14ee9d26d38ef89f4f0a71"
+    },
+    "data/etf_microstructure_sample_20251201_v1/dictionaries/SNAPSHOT_VS_DELTA.md": {
+      "mode": "100644",
+      "git_blob": "af5cf61c628743ca4f11d56139df080edaa7da86"
+    },
+    "data/etf_microstructure_sample_20251201_v1/dictionaries/TIME_AND_UNITS.md": {
+      "mode": "100644",
+      "git_blob": "0ea4cddd0575c782e63e845d4d4752f539793c63"
+    },
+    "data/etf_microstructure_sample_20251201_v1/dictionaries/baidu_catalog_l2_units.md": {
+      "mode": "100644",
+      "git_blob": "108aa5fcf589a879677ca16430ff8ff26fcc216a"
+    },
+    "data/etf_microstructure_sample_20251201_v1/dictionaries/materialize_fund_cb_l2_recent_1y_excerpt.py": {
+      "mode": "100644",
+      "git_blob": "9406b512e26cbca35b6a3fd88990777c6da2e7c0"
+    },
+    "data/etf_microstructure_sample_20251201_v1/dictionaries/onboarding_time_schema_excerpt.md": {
+      "mode": "100644",
+      "git_blob": "4a0edba10b3aafa6cf8442802fa0cb5664311257"
+    },
+    "data/etf_microstructure_sample_20251201_v1/dictionaries/transactions_service_normalize_observation.py": {
+      "mode": "100644",
+      "git_blob": "609aca1ac814fcf411944f77a325ec0bda9a9e45"
+    },
+    "data/etf_microstructure_sample_20251201_v1/export_one_day.py": {
+      "mode": "100644",
+      "git_blob": "a9dd2fdd05c7f9db49a174b49f446ffdaeb360ef"
+    },
+    "data/etf_microstructure_sample_20251201_v1/export_receipt.json": {
+      "mode": "100644",
+      "git_blob": "3be1e530b8a43f57bc5554426b8f4b69b9600729"
+    },
+    "data/etf_microstructure_sample_20251201_v1/index_3s/000688_20251201.parquet": {
+      "mode": "100644",
+      "git_blob": "06e31d490cdbe9e02ad51725b7252b79fe07335a"
+    },
+    "data/etf_microstructure_sample_20251201_v1/index_3s/000852_20251201.parquet": {
+      "mode": "100644",
+      "git_blob": "88f99778ce38f72fb408e75689b12dc22ee42f36"
+    },
+    "data/etf_microstructure_sample_20251201_v1/manifest.json": {
+      "mode": "100644",
+      "git_blob": "b7ccaca6bb0ae712922dd81cb84acd0e334d7847"
+    },
+    "data/etf_microstructure_sample_20251201_v1/quotes/512100_20251201.parquet": {
+      "mode": "100644",
+      "git_blob": "91dfcd8b97f82a8929e0b85fb0ab4566cb9bfad1"
+    },
+    "data/etf_microstructure_sample_20251201_v1/quotes/588000_20251201.parquet": {
+      "mode": "100644",
+      "git_blob": "3a547a54031add9b1e5c98df2ae46df59d87c49b"
+    },
+    "data/etf_microstructure_sample_20251201_v1/trades/512100_20251201.parquet": {
+      "mode": "100644",
+      "git_blob": "4a8ba62b233454eadbc8856afab4a57b32d3803f"
+    },
+    "data/etf_microstructure_sample_20251201_v1/trades/588000_20251201.parquet": {
+      "mode": "100644",
+      "git_blob": "5243ddfcfac769012b77761803e41ded6fbbf2a4"
+    },
+    "data/etf_source_actions_v2/512100.SH_actions.csv": {
+      "mode": "100644",
+      "git_blob": "0ebcad4096e52217b494e584b0d7b8ea941a83c5"
+    },
+    "data/etf_source_actions_v2/588000.SH_actions.csv": {
+      "mode": "100644",
+      "git_blob": "bf8a752626d1674a51046e50f8b5515926251009"
+    },
+    "data/etf_source_actions_v2/README.md": {
+      "mode": "100644",
+      "git_blob": "77ed3b74f57376aebf50da2b60ca74d2477bd3ed"
+    },
+    "data/etf_source_actions_v2/manifest.json": {
+      "mode": "100644",
+      "git_blob": "0eb60835495206e547648147783a1914a57e1a32"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/NOTES.md": {
+      "mode": "100644",
+      "git_blob": "8ecdba2287f5fc13b09c5e933017bd2024511fd5"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/canonical-bars-whitepaper.md": {
+      "mode": "100644",
+      "git_blob": "cf8ef3e7e93abafa44f82d370ab2cbe2483a381c"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/canonical-bars-whitepaper_section5.md": {
+      "mode": "100644",
+      "git_blob": "c5ccfcff970755bc9e17a8d6cea0701ea6c204cb"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/cn_a_1m_4ceca_identity_time.md": {
+      "mode": "100644",
+      "git_blob": "da4f35470fa5754c6ec00e6f9f253c185fb659a1"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/export_datahub_lake_timestamp.py": {
+      "mode": "100644",
+      "git_blob": "33f8c5ed1328f2795aff8eedb083460707e93e2a"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/session_offset_contract.py": {
+      "mode": "100644",
+      "git_blob": "321ec25dfddba4e456915fafa1664d5dceaa1fe4"
+    },
+    "data/etf_upstream_evidence_v1/01_timestamp_semantics/session_offset_contract_1m_and_buckets.py": {
+      "mode": "100644",
+      "git_blob": "c71aac0de749c5fcf626da3d48a598262d91f9ea"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/STOP_LAYER_AND_UNITS.md": {
+      "mode": "100644",
+      "git_blob": "aaadf5b5f844ae527819a350ef309428fddf0bbc"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/baidu-netdisk-data-catalog_etf_1m_units.md": {
+      "mode": "100644",
+      "git_blob": "ce3d114b44fc828ce01fae342a2b21e6ef956be7"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/baidu_fund_1m_history_rows.json": {
+      "mode": "100644",
+      "git_blob": "a28ade1937656885f0c5ad255bbba3c1ba1ddb75"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/export_datahub_lake_excerpt.py": {
+      "mode": "100644",
+      "git_blob": "b67c949313f41690a39e5b506f785f1a3b624eca"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/frozen_examples.csv": {
+      "mode": "100644",
+      "git_blob": "2ea36081a3fb1e731b6a2e29eb318a36e89e1d0b"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/import_local_minute_archives_excerpt.py": {
+      "mode": "100644",
+      "git_blob": "cf5840ef105d00e4f3b01c1f88b2b275e8b8a394"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/lake_4ceca_probe.json": {
+      "mode": "100644",
+      "git_blob": "a9f67a7fb8a1f3ea8503e85d8b74156c6202f4dd"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/lake_4ceca_upstream_rows.csv": {
+      "mode": "100644",
+      "git_blob": "33437c802e19419cb9a0f8319ad5e8adb2cf6750"
+    },
+    "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/lake_4ceca_upstream_rows.json": {
+      "mode": "100644",
+      "git_blob": "257eb18dfcc3315c5e4fd2a1f2c64b75c8d81c28"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/FIELD_NOTES.md": {
+      "mode": "100644",
+      "git_blob": "7647b82c512355569781f2c846d464f3114f18ea"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/export_v3_causal_flat_fill.py": {
+      "mode": "100644",
+      "git_blob": "ad97866ae6c136185b49265643a852977d2e455a"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/index_1m_observed_and_fill_samples.csv": {
+      "mode": "100644",
+      "git_blob": "16f70d28e05374ca2d776699404393b035d209ee"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/index_1m_observed_and_fill_samples.json": {
+      "mode": "100644",
+      "git_blob": "4ba1327ca34758ad95a2664bbd62c809490ab1ae"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/index_3s_input_000852_20210104_0930.json": {
+      "mode": "100644",
+      "git_blob": "af1c2be4e9ca571b1537f4e0b307527e1a1ad3c1"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/transactions_service_derive_minute.py": {
+      "mode": "100644",
+      "git_blob": "9606a5014be9709a8073b52a5e54663fd3edd463"
+    },
+    "data/etf_upstream_evidence_v1/03_index_processing/unified_kline_v2_densify.py": {
+      "mode": "100644",
+      "git_blob": "06bfa9ba63ef99efffcbb0cab4d5f33d2b3c0eef"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/COVERAGE.md": {
+      "mode": "100644",
+      "git_blob": "8dd72f52ac03f9bd63c0021de11a8ab283abd5e4"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json": {
+      "mode": "100644",
+      "git_blob": "664a7759765dbd884d2f342107216d256fd9ef78"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/eastmoney_nav_coverage.json": {
+      "mode": "100644",
+      "git_blob": "e11d6e1c5081c9dc0954081005afc996ddb6661e"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/eastmoney_nav_event_rows.json": {
+      "mode": "100644",
+      "git_blob": "0a48b8da97d3d326c82d3fc5a5668f487562fb1d"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/etf_source_actions_v2_manifest.json": {
+      "mode": "100644",
+      "git_blob": "0eb60835495206e547648147783a1914a57e1a32"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/known_overlay_512100.SH_actions.csv": {
+      "mode": "100644",
+      "git_blob": "0ebcad4096e52217b494e584b0d7b8ea941a83c5"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/known_overlay_588000.SH_actions.csv": {
+      "mode": "100644",
+      "git_blob": "bf8a752626d1674a51046e50f8b5515926251009"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/sina_combined_factor_coverage.json": {
+      "mode": "100644",
+      "git_blob": "b07df8248e324607e12ca383b63b23d0fd1da2d6"
+    },
+    "data/etf_upstream_evidence_v1/04_corporate_actions/sina_combined_factor_rows.json": {
+      "mode": "100644",
+      "git_blob": "366e5aac147137c3403bb4d66fda19aecffa2a51"
+    },
+    "data/etf_upstream_evidence_v1/05_microstructure_inventory/INVENTORY.md": {
+      "mode": "100644",
+      "git_blob": "3bcf0a198b5a8892d8be60c256f1a1861bcb40db"
+    },
+    "data/etf_upstream_evidence_v1/05_microstructure_inventory/inventory.json": {
+      "mode": "100644",
+      "git_blob": "77f17d9fe57c29d64004f997077f09edbab5c2fa"
+    },
+    "data/etf_upstream_evidence_v1/README.md": {
+      "mode": "100644",
+      "git_blob": "44140f4725706dd882359848297cfb15ca76d21d"
+    },
+    "data/etf_upstream_evidence_v1/manifest.json": {
+      "mode": "100644",
+      "git_blob": "991324900aab5be6690790c0843cb5b020f50944"
+    },
+    "data/manifest.json": {
+      "mode": "100644",
+      "git_blob": "a1935d30326dc9306dc23cdb309ac463114e2a2a"
+    },
+    "data/market/1m/000688.SH/2020.parquet": {
+      "mode": "100644",
+      "git_blob": "ec951cec88d4e70ed1b6058b49fdac580478497a"
+    },
+    "data/market/1m/000688.SH/2021.parquet": {
+      "mode": "100644",
+      "git_blob": "d245da7e473b8226d4b3ddae511093156517f8c5"
+    },
+    "data/market/1m/000688.SH/2022.parquet": {
+      "mode": "100644",
+      "git_blob": "180e255839d49e41d755bb9025c25d6a8aea8aa6"
+    },
+    "data/market/1m/000688.SH/2023.parquet": {
+      "mode": "100644",
+      "git_blob": "6dc7de6de7fe04233566b2a1743de66b054df18b"
+    },
+    "data/market/1m/000688.SH/2024.parquet": {
+      "mode": "100644",
+      "git_blob": "58db24cb015ecae90e2c7a278d6a6b0f88b046ea"
+    },
+    "data/market/1m/000688.SH/2025.parquet": {
+      "mode": "100644",
+      "git_blob": "66bb8069e692a139ab9b0be6a03080d3b2b696f1"
+    },
+    "data/market/1m/000852.SH/2015.parquet": {
+      "mode": "100644",
+      "git_blob": "b09f15c5afbbaf213a9b5931ef6957dfb9bbea39"
+    },
+    "data/market/1m/000852.SH/2016.parquet": {
+      "mode": "100644",
+      "git_blob": "d6bd6ed71aa7bf5b96574f7537dc10f2c6a17cae"
+    },
+    "data/market/1m/000852.SH/2017.parquet": {
+      "mode": "100644",
+      "git_blob": "95e51f7b6e155e7cc0d91f550641ffdcaeba4bc2"
+    },
+    "data/market/1m/000852.SH/2018.parquet": {
+      "mode": "100644",
+      "git_blob": "730206f92ac798a127f663c9f3a4d31ce6b695b2"
+    },
+    "data/market/1m/000852.SH/2019.parquet": {
+      "mode": "100644",
+      "git_blob": "6596c51009bdb80e7fc50f3cd6c412c325110f04"
+    },
+    "data/market/1m/000852.SH/2020.parquet": {
+      "mode": "100644",
+      "git_blob": "25b7ebb894b8e27b7b8692aeffff613a170c6f1b"
+    },
+    "data/market/1m/000852.SH/2021.parquet": {
+      "mode": "100644",
+      "git_blob": "a1b9327fcdc9939269ded4349364277848b8480c"
+    },
+    "data/market/1m/000852.SH/2022.parquet": {
+      "mode": "100644",
+      "git_blob": "f5e699ddbe7fe26dc8e977bb8c72bad9ff83beef"
+    },
+    "data/market/1m/000852.SH/2023.parquet": {
+      "mode": "100644",
+      "git_blob": "a915cc9a0e9259e2660558c07ffbe1d6c37c0e8f"
+    },
+    "data/market/1m/000852.SH/2024.parquet": {
+      "mode": "100644",
+      "git_blob": "0866817a015bbcce3f9085f3f67a855cb09f3594"
+    },
+    "data/market/1m/000852.SH/2025.parquet": {
+      "mode": "100644",
+      "git_blob": "abe4751cdd086b40f0055dc850f59fca2892ecbd"
+    },
+    "data/market/3s/000688.SH/2020.parquet": {
+      "mode": "100644",
+      "git_blob": "456513769ffbe8d7dbb7e493a3e2bc6384403d85"
+    },
+    "data/market/3s/000688.SH/2021.parquet": {
+      "mode": "100644",
+      "git_blob": "2dd880e3be9e83a04a58f9b47605b34710462723"
+    },
+    "data/market/3s/000688.SH/2022.parquet": {
+      "mode": "100644",
+      "git_blob": "861922def2d63f1e702126e5f2d6af7be34c4621"
+    },
+    "data/market/3s/000688.SH/2023.parquet": {
+      "mode": "100644",
+      "git_blob": "dec37840a7b5cc523d6b829289852d9eb9d91490"
+    },
+    "data/market/3s/000688.SH/2024.parquet": {
+      "mode": "100644",
+      "git_blob": "6d80fb449f510344382f3ad64bfca1e93e2807fa"
+    },
+    "data/market/3s/000688.SH/2025.parquet": {
+      "mode": "100644",
+      "git_blob": "f10b8d0fb188db8ed7518a0527d3951c0b442a1b"
+    },
+    "data/market/3s/000852.SH/2014.parquet": {
+      "mode": "100644",
+      "git_blob": "6f5004d01b2cf54d47f26d058ca8192f68ef85ba"
+    },
+    "data/market/3s/000852.SH/2015.parquet": {
+      "mode": "100644",
+      "git_blob": "de57df0759c35dba03556039fbbda5226767cb55"
+    },
+    "data/market/3s/000852.SH/2016.parquet": {
+      "mode": "100644",
+      "git_blob": "ab7a6ead6492c75618c2fd8c7c18b0920cbbf046"
+    },
+    "data/market/3s/000852.SH/2017.parquet": {
+      "mode": "100644",
+      "git_blob": "8f89d9110cc722b881051067003d208dc708c757"
+    },
+    "data/market/3s/000852.SH/2018.parquet": {
+      "mode": "100644",
+      "git_blob": "6840da2d6a1236f8e095a322b927c1495d3b1f49"
+    },
+    "data/market/3s/000852.SH/2019.parquet": {
+      "mode": "100644",
+      "git_blob": "148b1aaadc34171c609d1100d03b08d01ecab21b"
+    },
+    "data/market/3s/000852.SH/2020.parquet": {
+      "mode": "100644",
+      "git_blob": "edc5db1567eac80b0832c87ec50f2c6621739b45"
+    },
+    "data/market/3s/000852.SH/2021.parquet": {
+      "mode": "100644",
+      "git_blob": "93c86c031c32b4d2afdbc9ebecf7f6ec4199e441"
+    },
+    "data/market/3s/000852.SH/2022.parquet": {
+      "mode": "100644",
+      "git_blob": "cf72529de4b4481f473dae2184a80d570436ab10"
+    },
+    "data/market/3s/000852.SH/2023.parquet": {
+      "mode": "100644",
+      "git_blob": "43ac9f27aefb01e1835df236361277760da4b96d"
+    },
+    "data/market/3s/000852.SH/2024.parquet": {
+      "mode": "100644",
+      "git_blob": "009674d26a36187cc68fda1475b20be5d97f0edc"
+    },
+    "data/market/3s/000852.SH/2025.parquet": {
+      "mode": "100644",
+      "git_blob": "ff2f5c52997a05abda5d223bc447f97714605226"
+    },
+    "data/market/5m/000688.SH/2020.parquet": {
+      "mode": "100644",
+      "git_blob": "36fdf5c907eaaa5d7b8eacaff24f601c539cc302"
+    },
+    "data/market/5m/000688.SH/2021.parquet": {
+      "mode": "100644",
+      "git_blob": "804d49ec5338b1e3b8dd65e640ed49231c927ce9"
+    },
+    "data/market/5m/000688.SH/2022.parquet": {
+      "mode": "100644",
+      "git_blob": "c3c343f53f7323656815950f54bb962dfab5b703"
+    },
+    "data/market/5m/000688.SH/2023.parquet": {
+      "mode": "100644",
+      "git_blob": "02c3a9474dff4e5203cec12ca7a24a3b2be8994b"
+    },
+    "data/market/5m/000688.SH/2024.parquet": {
+      "mode": "100644",
+      "git_blob": "2d75a6ba7623c5fe9e3b36cb0904ee542d33110c"
+    },
+    "data/market/5m/000688.SH/2025.parquet": {
+      "mode": "100644",
+      "git_blob": "32d6d1754f965dd6298c885e30b244b877d694ed"
+    },
+    "data/market/5m/000852.SH/2015.parquet": {
+      "mode": "100644",
+      "git_blob": "9d2d84440275413623ff738ae8c25950e4b67f27"
+    },
+    "data/market/5m/000852.SH/2016.parquet": {
+      "mode": "100644",
+      "git_blob": "08c24b173d259f44061e2f7ffdc572b99ede2dfc"
+    },
+    "data/market/5m/000852.SH/2017.parquet": {
+      "mode": "100644",
+      "git_blob": "31a9c0700b8d96249313738bccbf4502c0489be7"
+    },
+    "data/market/5m/000852.SH/2018.parquet": {
+      "mode": "100644",
+      "git_blob": "db4b03041c673a60606b75a56e15682f42e2b7a4"
+    },
+    "data/market/5m/000852.SH/2019.parquet": {
+      "mode": "100644",
+      "git_blob": "9dadff0a88a6a03f8defcf12ba28b1e6f57fd84e"
+    },
+    "data/market/5m/000852.SH/2020.parquet": {
+      "mode": "100644",
+      "git_blob": "c45ef84c123ae9f4ca1843b2816a4f413742547e"
+    },
+    "data/market/5m/000852.SH/2021.parquet": {
+      "mode": "100644",
+      "git_blob": "aba298f940c7992ec8814dd8ece197477d106fa9"
+    },
+    "data/market/5m/000852.SH/2022.parquet": {
+      "mode": "100644",
+      "git_blob": "fe6eed805f7237091813c32d25011848fc29b705"
+    },
+    "data/market/5m/000852.SH/2023.parquet": {
+      "mode": "100644",
+      "git_blob": "0b17d76b150bfd15d45158f100748898e72089b1"
+    },
+    "data/market/5m/000852.SH/2024.parquet": {
+      "mode": "100644",
+      "git_blob": "ba45837375d8a3ca64cb3faa7750bf51e9760796"
+    },
+    "data/market/5m/000852.SH/2025.parquet": {
+      "mode": "100644",
+      "git_blob": "85159b9fa1b2b6854b1a0f04faa9f963e9d04c13"
+    },
+    "data/r1a_carrier_prices/512100.SH.json": {
+      "mode": "100644",
+      "git_blob": "9940dfa2d768d32d2c06f7097b94711cf28c960c"
+    },
+    "data/r1a_carrier_prices/588000.SH.json": {
+      "mode": "100644",
+      "git_blob": "9808fad481e646c15533231cf875726420b88e19"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/512100.SH.json": {
+      "mode": "100644",
+      "git_blob": "78de56c91ef629171149ebad52e1edab690773f6"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/588000.SH.json": {
+      "mode": "100644",
+      "git_blob": "77909bd221f57692f157a30d07201de6ce8faff9"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/DELIVERY_CHECKLIST.json": {
+      "mode": "100644",
+      "git_blob": "c9d9f7579c90ba9a6bcd7e470ca7bd7256af8d15"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/README.md": {
+      "mode": "100644",
+      "git_blob": "59cfbdc1871e13c2d6846d3d97626f4bbad4329f"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2021.csv": {
+      "mode": "100644",
+      "git_blob": "93769953b887e242e0419513fd93869f4293a4b7"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2022.csv": {
+      "mode": "100644",
+      "git_blob": "482e6ba39f4e2986bc26d3e4123109380c645ed1"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2023.csv": {
+      "mode": "100644",
+      "git_blob": "4c56251bc6377cbce332498b061f57c470bc1f92"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2024.csv": {
+      "mode": "100644",
+      "git_blob": "09aa09c04b1f0c55eaf0d1757500348849993731"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2025.csv": {
+      "mode": "100644",
+      "git_blob": "a1803105630a4fc84247343ab58ba7e76bdd7828"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_actions.csv": {
+      "mode": "100644",
+      "git_blob": "261028c0c8ce9bd292363535aad0b7b5ed950364"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2021.csv": {
+      "mode": "100644",
+      "git_blob": "43ddfe2d5080ccc4c9ee33169020159fbf0f19b2"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2022.csv": {
+      "mode": "100644",
+      "git_blob": "7d28184b676f420a536ca265c171b73cd5bbc5f8"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2023.csv": {
+      "mode": "100644",
+      "git_blob": "e5a4bdc65ef3b1e8270fe2319a664296ffcda685"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2024.csv": {
+      "mode": "100644",
+      "git_blob": "a32a7c2a22d179e4cc54a9f0bd3d3a403b22ad75"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2025.csv": {
+      "mode": "100644",
+      "git_blob": "dc41b4be64d88e95876587abd23faf0fad81d952"
+    },
+    "data/r1a_carrier_prices/cloud_pack_v1/prices/588000_actions.csv": {
+      "mode": "100644",
+      "git_blob": "bf8a752626d1674a51046e50f8b5515926251009"
+    },
+    "data/r1b_research/README.md": {
+      "mode": "100644",
+      "git_blob": "918d27816d0914417a9970351eb361de5c311dd4"
+    },
+    "data/r1b_research/contract_master.csv": {
+      "mode": "100644",
+      "git_blob": "b63508859a0a170e2861923ad7b1a94d2bf2cc55"
+    },
+    "data/r1b_research/manifest.json": {
+      "mode": "100644",
+      "git_blob": "bb4bc3ded32b9083ce2a7fdd5767cd23219ab34a"
+    },
+    "data/r1b_research/mo_quotes/mo_2022-07.csv": {
+      "mode": "100644",
+      "git_blob": "8ba6ca7942b6695952082e08f6e8ae903e1a0f74"
+    },
+    "data/r1b_research/mo_quotes/mo_2022-08.csv": {
+      "mode": "100644",
+      "git_blob": "f8942b2f3e3fb909b2d560b895ba0d3abeff0637"
+    },
+    "data/r1b_research/mo_quotes/mo_2022-09.csv": {
+      "mode": "100644",
+      "git_blob": "16d00cbcdd08a1eeb2b855c2b8cb6ef4887635a2"
+    },
+    "data/r1b_research/mo_quotes/mo_2022-10.csv": {
+      "mode": "100644",
+      "git_blob": "f897d0fe768f2212c01dbddee7b649a178f83427"
+    },
+    "data/r1b_research/mo_quotes/mo_2022-11.csv": {
+      "mode": "100644",
+      "git_blob": "4a80e105a2ad8526397862bc19381c0ee85e5785"
+    },
+    "data/r1b_research/mo_quotes/mo_2022-12.csv": {
+      "mode": "100644",
+      "git_blob": "a0f21b9e29c877bbebc0e08b5a8e9ff8ee7d48f7"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-01.csv": {
+      "mode": "100644",
+      "git_blob": "6df74dc3227066a134d528e6cd6508a74b89510b"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-02.csv": {
+      "mode": "100644",
+      "git_blob": "b369a2a17255304ff33ecb16ac6b54f81bac5635"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-03.csv": {
+      "mode": "100644",
+      "git_blob": "1882b95db0956fc345cac72210e87e240a287e5b"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-04.csv": {
+      "mode": "100644",
+      "git_blob": "05cb29c75bdc1016d7c28b9b8af7d9d2347bab2d"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-05.csv": {
+      "mode": "100644",
+      "git_blob": "dea07a01f4f68faa4f1a4e8a6af17fb16d763a55"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-06.csv": {
+      "mode": "100644",
+      "git_blob": "faaad1309325ec722124d864159b6ec646f21122"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-07.csv": {
+      "mode": "100644",
+      "git_blob": "15316556aa3aef5246711665e0a71b207b7d368d"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-08.csv": {
+      "mode": "100644",
+      "git_blob": "397a12398bde81150e5d6311c2a14cb71887c815"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-09.csv": {
+      "mode": "100644",
+      "git_blob": "345a2634b6cd11f398d0b1c3f31d6442edb77956"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-10.csv": {
+      "mode": "100644",
+      "git_blob": "ab4526d46a67e76349e52e29a34cb7320ce8f076"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-11.csv": {
+      "mode": "100644",
+      "git_blob": "b9f822f627f9bd15c155b0cd5b6aa77bc87bbefa"
+    },
+    "data/r1b_research/mo_quotes/mo_2023-12.csv": {
+      "mode": "100644",
+      "git_blob": "7afaec1c6f280286e67867bfdf7df6d64e5c90da"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-01.csv": {
+      "mode": "100644",
+      "git_blob": "cafa25a493640f2545a7529fe216fc5db1651c16"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-02.csv": {
+      "mode": "100644",
+      "git_blob": "d718c092e35d75ca9e2270835c4fe5cd13e6c523"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-03.csv": {
+      "mode": "100644",
+      "git_blob": "9246e9bb6f7db37caa94291f1bc383db8c3ec5ee"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-04.csv": {
+      "mode": "100644",
+      "git_blob": "83160be57cc7c6c6ee68beee32ebaaf1bff21bc2"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-05.csv": {
+      "mode": "100644",
+      "git_blob": "4b5ce6891ef647e2d403fc4cf1ac10a90132c043"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-06.csv": {
+      "mode": "100644",
+      "git_blob": "5bc13fc5420c2dbd43d2eb700de6f39ae235be06"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-01.csv": {
+      "mode": "100644",
+      "git_blob": "7f432e7d77690a601bef464e7eb861def13d8442"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-02.csv": {
+      "mode": "100644",
+      "git_blob": "b449722d9727f9b80b6787cea2e60b132abc8d0a"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-03.csv": {
+      "mode": "100644",
+      "git_blob": "a3199ac5fc024c953113b05c4c389085979d4a00"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-04.csv": {
+      "mode": "100644",
+      "git_blob": "5f144449aa85b6fe8868c4d773f42a5852719936"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-05.csv": {
+      "mode": "100644",
+      "git_blob": "3953adebc760b7ff4556d2b2188bcdd6b0a749b1"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-08.csv": {
+      "mode": "100644",
+      "git_blob": "65a844679b4823c257a4d3b6ac6bbd614f0f45af"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-09.csv": {
+      "mode": "100644",
+      "git_blob": "595eff3f87ace2830724127fe3736e0ee4c1cc19"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-10.csv": {
+      "mode": "100644",
+      "git_blob": "e974e0da88b3d1418cf9254464f1df7e3f017d9b"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-11.csv": {
+      "mode": "100644",
+      "git_blob": "848127aeb6046879892536b8fe6aa7255a694595"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-12.csv": {
+      "mode": "100644",
+      "git_blob": "4c15872b6fe24e6cc4163f95ef009947cb716232"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-15.csv": {
+      "mode": "100644",
+      "git_blob": "5f2fc411c0988cff9661cb9a5b9f36e40be4fead"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-16.csv": {
+      "mode": "100644",
+      "git_blob": "19ae1f1aa80701883cc39d73257e032a3db5df64"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-17.csv": {
+      "mode": "100644",
+      "git_blob": "2c0ac858a57b8d2073e372864b45b0087adcc16b"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-18.csv": {
+      "mode": "100644",
+      "git_blob": "5544e4ea50ee86f55acfd9dc194b3220a4aacc4d"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-19.csv": {
+      "mode": "100644",
+      "git_blob": "7717705262cf5829cb65929fd029cc4573b9f440"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-22.csv": {
+      "mode": "100644",
+      "git_blob": "0bd18302bac173b47a7b04a169e1cefc9f47bea5"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-23.csv": {
+      "mode": "100644",
+      "git_blob": "1be7d39ddf0817f23eec4e6367eaeb6b9b316614"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-24.csv": {
+      "mode": "100644",
+      "git_blob": "9d28adad0bb173d034a628006839ec57006ced15"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-25.csv": {
+      "mode": "100644",
+      "git_blob": "25fa057e0a42f47058b775cd8842d5a9a749bfaf"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-26.csv": {
+      "mode": "100644",
+      "git_blob": "52d26955bd0b250896f32159224f85644c018efb"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-29.csv": {
+      "mode": "100644",
+      "git_blob": "18f55432dd041b298a44f2bd2561822d70386df9"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-30.csv": {
+      "mode": "100644",
+      "git_blob": "1d267064128a1b3c462b401726a9dba73974a59c"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-07-31.csv": {
+      "mode": "100644",
+      "git_blob": "b433778299bec2633a59f22cc3a9cc2ab9a4b2b6"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-08.csv": {
+      "mode": "100644",
+      "git_blob": "8661a919d3fdb3fe53a2ba2dee7dd3449ca8cd03"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-09.csv": {
+      "mode": "100644",
+      "git_blob": "6f667c828b07d56c1425baaf4191d0ab598372fd"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-08.csv": {
+      "mode": "100644",
+      "git_blob": "9a23bc4168f462257b082f3ce8aa71f9af8766c8"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-09.csv": {
+      "mode": "100644",
+      "git_blob": "3b0cd8a3112ac9f4a74b47f8942c6bd39dc8b7b6"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-10.csv": {
+      "mode": "100644",
+      "git_blob": "8edead0ef676a3a2eae202d1d656c4a9e25218dc"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-11.csv": {
+      "mode": "100644",
+      "git_blob": "bed5c469c42e844ff4b72b91a4d69ac1e472b680"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-14.csv": {
+      "mode": "100644",
+      "git_blob": "5c90bf9b7ce25125d65e225189563c281aa4bc4b"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-15.csv": {
+      "mode": "100644",
+      "git_blob": "28c8ed486ac61e41b8e758deb8ae51684927185a"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-16.csv": {
+      "mode": "100644",
+      "git_blob": "b924eac01b07701f4cdc00a8c3184c3f42c2f20c"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-17.csv": {
+      "mode": "100644",
+      "git_blob": "36c7146af08a951cd13a92049fd0694d2a158872"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-18.csv": {
+      "mode": "100644",
+      "git_blob": "724579867cda84fb580cbf73764da5f07256db26"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-21.csv": {
+      "mode": "100644",
+      "git_blob": "01f0c6bc22c7cf088cfbec943f0e632e5cf4188f"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-22.csv": {
+      "mode": "100644",
+      "git_blob": "cb0c5c3215cc3a38731765a9e34631995aae9f09"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-23.csv": {
+      "mode": "100644",
+      "git_blob": "28b2e2100db78a242f0a05d900c5102d1d18460e"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-24.csv": {
+      "mode": "100644",
+      "git_blob": "9f8b5153f984d8cb5751e1196083efaf8bc9eb58"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-25.csv": {
+      "mode": "100644",
+      "git_blob": "d7a3363ddce2da69c3c411b3ec63f5ab9c7d1099"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-28.csv": {
+      "mode": "100644",
+      "git_blob": "8eec21b4c67bb18d7e9746da836121432f47eaa1"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-29.csv": {
+      "mode": "100644",
+      "git_blob": "c1d247e84a202d8f741837d7ab5ffc34157cf6c1"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-30.csv": {
+      "mode": "100644",
+      "git_blob": "7a7d3ac182ad2e1af760df28697a61b5c1b777e3"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-10-31.csv": {
+      "mode": "100644",
+      "git_blob": "259a89a39d492c214ad697688c239f1ece7d2f7b"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-01.csv": {
+      "mode": "100644",
+      "git_blob": "6a09693da117868763abb92e3da9de30c1c4e528"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-04.csv": {
+      "mode": "100644",
+      "git_blob": "be4446be8d6a944b21f688317a1914ea2a4e2fbb"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-05.csv": {
+      "mode": "100644",
+      "git_blob": "5dbdd9fc85392b3989e831b80f82205e6636fbbc"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-06.csv": {
+      "mode": "100644",
+      "git_blob": "9f7f88aac429ef4342d60ecdd4fa7e3d2d64c20c"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-07.csv": {
+      "mode": "100644",
+      "git_blob": "d4b29dfe65dc143a241babe05f75f5dc9baf695b"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-08.csv": {
+      "mode": "100644",
+      "git_blob": "50db4de404d58b111523fbbff816f7993ad06542"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-11.csv": {
+      "mode": "100644",
+      "git_blob": "1c3c0955d74ca1a6c368711d24360fc031181c2a"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-12.csv": {
+      "mode": "100644",
+      "git_blob": "900d3f9d3bf5a67526d84625437b33b992060d96"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-13.csv": {
+      "mode": "100644",
+      "git_blob": "de0235e7f1bbad2591308497d317bf3bae6972d9"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-14.csv": {
+      "mode": "100644",
+      "git_blob": "17e79ec138dc59e0b9c3b8918af18ec02fc8a398"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-15.csv": {
+      "mode": "100644",
+      "git_blob": "e52704438063fdddc113292e8f9c667a1881c541"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-18.csv": {
+      "mode": "100644",
+      "git_blob": "caeac1a0ea559b3ff0f20f0ea08756988de48858"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-19.csv": {
+      "mode": "100644",
+      "git_blob": "3cb5f3155290a4643017e6f671437872b15d21ca"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-20.csv": {
+      "mode": "100644",
+      "git_blob": "a56ee81f300ade458f0979d129a6c606a828c2ed"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-21.csv": {
+      "mode": "100644",
+      "git_blob": "3b633357c0ce77d208ba06dde7645c24f8b2fb01"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-22.csv": {
+      "mode": "100644",
+      "git_blob": "78705760bcfcedca1ddd7a8f9b6e44a02c9505e2"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-25.csv": {
+      "mode": "100644",
+      "git_blob": "f94bb7101796b35ee3b49334f7a8307054c81158"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-26.csv": {
+      "mode": "100644",
+      "git_blob": "2de72105f3dbd8a24a0e66bfd7b4d62bdf5482fc"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-27.csv": {
+      "mode": "100644",
+      "git_blob": "7cc8dfc71108ab8d948ee93ce64721a27a1f86e4"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-28.csv": {
+      "mode": "100644",
+      "git_blob": "257aa0d0d4771bc557a69dfcc3285429e3565c4d"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-11-29.csv": {
+      "mode": "100644",
+      "git_blob": "39966132289b9ab2f22cb293341dd7123369f2c7"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-02.csv": {
+      "mode": "100644",
+      "git_blob": "117cf175b72dc16a4c9a4e0feb01be3f92cbae35"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-03.csv": {
+      "mode": "100644",
+      "git_blob": "9379a55fc8bd8e31566d4f7f277115081a2fc53e"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-04.csv": {
+      "mode": "100644",
+      "git_blob": "af9f9b92897173142feab6fb765aaafbbff39653"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-05.csv": {
+      "mode": "100644",
+      "git_blob": "f17a1059d4dfd973ddec1fb0052bf0b1864d1553"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-06.csv": {
+      "mode": "100644",
+      "git_blob": "a7dcd51c6e86b90e0994a571b8e29fc9f0e43eea"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-09.csv": {
+      "mode": "100644",
+      "git_blob": "5ea2b8d934507c8edaf8b44229bcc6d6d55b74a8"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-10.csv": {
+      "mode": "100644",
+      "git_blob": "6ea9ac883dbc61086253c89e66ccfb398e99cc11"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-11.csv": {
+      "mode": "100644",
+      "git_blob": "c67782c91cab8574252259c05a90ac7a2cc02d95"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-12.csv": {
+      "mode": "100644",
+      "git_blob": "f26f8e1e2b7495b9dcc88199d69879e43f785256"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-13.csv": {
+      "mode": "100644",
+      "git_blob": "354f8d23dfe64e335177ae07e0d6769e01318026"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-16.csv": {
+      "mode": "100644",
+      "git_blob": "da34e05ab6c0fb27aa77280c96d58b862c116db0"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-17.csv": {
+      "mode": "100644",
+      "git_blob": "c7a205a192c699b95aedb6607924646182dab154"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-18.csv": {
+      "mode": "100644",
+      "git_blob": "bde27d75ee4e37aeaee1de85e60ae6783adebb22"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-19.csv": {
+      "mode": "100644",
+      "git_blob": "33eaf0cdb9783d9b3103733248f6b281cccd1b75"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-20.csv": {
+      "mode": "100644",
+      "git_blob": "322df9c325c6da3637be1d0174e17a2882d4d5e1"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-23.csv": {
+      "mode": "100644",
+      "git_blob": "833c3ff9f38f22ea74c8f792d71fc6277f4c6870"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-24.csv": {
+      "mode": "100644",
+      "git_blob": "976f7dd8839e0bd6c61fcb783bcde615a19ed49a"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-25.csv": {
+      "mode": "100644",
+      "git_blob": "8d517031acc1d12edaaa76576cba7728158e9494"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-26.csv": {
+      "mode": "100644",
+      "git_blob": "214182bb776970c970a4bdeb8748444e33b9064c"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-27.csv": {
+      "mode": "100644",
+      "git_blob": "6425d30caa5581b1437b88e2394d913ba5cba65d"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-30.csv": {
+      "mode": "100644",
+      "git_blob": "6448370d7815bed909f1074eba3fbc00dc7ba781"
+    },
+    "data/r1b_research/mo_quotes/mo_2024-12-31.csv": {
+      "mode": "100644",
+      "git_blob": "468c000879d262f92a7e61bbe2aba8a03de1174e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-02.csv": {
+      "mode": "100644",
+      "git_blob": "d4c04f492226fef0320d5aea81d7abeb61c6168e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-03.csv": {
+      "mode": "100644",
+      "git_blob": "a7ddfcb0237015ab9a87c620ce72b527df6a2a72"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-06.csv": {
+      "mode": "100644",
+      "git_blob": "3cf6bae0e090016907165a372568f7aba228da28"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-07.csv": {
+      "mode": "100644",
+      "git_blob": "acf540ef4b6301682fcb26cf7f04f653e47de09a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-08.csv": {
+      "mode": "100644",
+      "git_blob": "33af300ed866c2f246439c8c331192feae63252c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-09.csv": {
+      "mode": "100644",
+      "git_blob": "eb745c9d8656697c5906bcb06088fcf783540249"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-10.csv": {
+      "mode": "100644",
+      "git_blob": "f25f02436659c452563d54fbd333f883b51ae22d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-13.csv": {
+      "mode": "100644",
+      "git_blob": "6b4bb2f3183e254884847bd21661b86d48ae16f6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-14.csv": {
+      "mode": "100644",
+      "git_blob": "c711e1390bddbc6e1bcd12dac790932f087370c8"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-15.csv": {
+      "mode": "100644",
+      "git_blob": "dae031938f08b283f6ec25e815c8ce0c5956b96d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-16.csv": {
+      "mode": "100644",
+      "git_blob": "49bcbccf3476e8764706ce2c154d09232840a04e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-17.csv": {
+      "mode": "100644",
+      "git_blob": "8556a29887e5ad13e2f489235e15b7f9932e5470"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-20.csv": {
+      "mode": "100644",
+      "git_blob": "12d6e8cb8168ce308c208495e4d6a6ffc897782c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-21.csv": {
+      "mode": "100644",
+      "git_blob": "568bf8a3d3dea5992267b6739c8cd2aad323a548"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-22.csv": {
+      "mode": "100644",
+      "git_blob": "8f4e468c377c92f14dbe7957b3bfcefba1cfb5cd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-23.csv": {
+      "mode": "100644",
+      "git_blob": "5c6b26e8394d4fffa9b26c19895641333d692b62"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-24.csv": {
+      "mode": "100644",
+      "git_blob": "7b48d1c25c1330ccb3ad927d9dc507324da3c016"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-01-27.csv": {
+      "mode": "100644",
+      "git_blob": "9870ad8f20dcca0ff1ada0d13c529df5837cf892"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-05.csv": {
+      "mode": "100644",
+      "git_blob": "eb3252cd8117ad56f721fffa26c61c724a24ef5f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-06.csv": {
+      "mode": "100644",
+      "git_blob": "f2404b6eaefa95629e91b3370bfc61f34ab69abd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-07.csv": {
+      "mode": "100644",
+      "git_blob": "50f387f17f0023a3c93483cafc985a6613428852"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-10.csv": {
+      "mode": "100644",
+      "git_blob": "6b5ad6b4d2f2f355856e45f2dcb81351e8ee6b0f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-11.csv": {
+      "mode": "100644",
+      "git_blob": "1214ffedd1f043bee03f097ade7d8fdd42c5b9ad"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-12.csv": {
+      "mode": "100644",
+      "git_blob": "c39882a46cbeddcd86816ded304224a4c4a775af"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-13.csv": {
+      "mode": "100644",
+      "git_blob": "3ad73bed9bda07ebdde8c4e7bb02b625823e06f0"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-14.csv": {
+      "mode": "100644",
+      "git_blob": "4b1a084b2c41ea96fc5745dfacebc43340b86768"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-17.csv": {
+      "mode": "100644",
+      "git_blob": "8ef1b711aba8c3d82a3fae485e08bf720d3e17d0"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-18.csv": {
+      "mode": "100644",
+      "git_blob": "5051c4269a503fe8f9ad68fec1c729a2f24386e7"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-19.csv": {
+      "mode": "100644",
+      "git_blob": "3c56f979d72eb867c4cdc904c7d11ed1d707273b"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-20.csv": {
+      "mode": "100644",
+      "git_blob": "731643a61b95a135b8650f6a936be9b299a2ff24"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-21.csv": {
+      "mode": "100644",
+      "git_blob": "578fd0be5497aaf1b05b89257bea68f010d0146b"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-24.csv": {
+      "mode": "100644",
+      "git_blob": "382e6c9d5aa8076bffb5a0e2755362c58d2d1422"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-25.csv": {
+      "mode": "100644",
+      "git_blob": "c9cdacc00c4f8334cbda48184b46a174d64c8e8c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-26.csv": {
+      "mode": "100644",
+      "git_blob": "52ca58374b65b15263719b896b479c571dfb8e57"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-27.csv": {
+      "mode": "100644",
+      "git_blob": "77403b2869486d0091a36a1bf2fdeb939b9039bd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-02-28.csv": {
+      "mode": "100644",
+      "git_blob": "11453f23f6f2d0a67d039a67b3dfe787f859d166"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-03.csv": {
+      "mode": "100644",
+      "git_blob": "81ecfbbb9f8c35dc76605aec1a6990875a308af4"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-04.csv": {
+      "mode": "100644",
+      "git_blob": "f60fda055c540fb64192f0c98579e2d681339fa4"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-05.csv": {
+      "mode": "100644",
+      "git_blob": "5f639c6330760a82b7de79d0f6b7dc1fe4607901"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-06.csv": {
+      "mode": "100644",
+      "git_blob": "3b1689346e51c8d7fbc1d27d120ac68e028383fc"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-07.csv": {
+      "mode": "100644",
+      "git_blob": "8475f8e7eddd4b4ba41b517997c3f4bc5e71da26"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-10.csv": {
+      "mode": "100644",
+      "git_blob": "8f52e0588a1a17d655a122be5a94a111f6bedfdb"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-11.csv": {
+      "mode": "100644",
+      "git_blob": "ffd141f55136a3b5b878b7c0d50321725e917b19"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-12.csv": {
+      "mode": "100644",
+      "git_blob": "020d1c9276a24052d6b9669387dfbb05f3e26ec9"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-13.csv": {
+      "mode": "100644",
+      "git_blob": "ddd608d8f17f9efa56ab650a93514047921b48f0"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-14.csv": {
+      "mode": "100644",
+      "git_blob": "62ba60b17884dde7e99b70eadede1b0e5edf571e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-17.csv": {
+      "mode": "100644",
+      "git_blob": "73a5fd90824b1ddfe23c4bdea81f404f8d2a5214"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-18.csv": {
+      "mode": "100644",
+      "git_blob": "6436e43c88dd0b24efff93bb3a11726cc6e5c2ef"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-19.csv": {
+      "mode": "100644",
+      "git_blob": "04aabf8ebf3c99e1008aac87b5368a0a78502dd6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-20.csv": {
+      "mode": "100644",
+      "git_blob": "7bad0b7ebcd74af00a2aad1c4cef8ed6cf34c820"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-21.csv": {
+      "mode": "100644",
+      "git_blob": "75cf2274e88ec82b9444a4b137ffb7bb8235cb0e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-24.csv": {
+      "mode": "100644",
+      "git_blob": "dc5f8e39828932cfd2ee8b4268067737cd942b21"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-25.csv": {
+      "mode": "100644",
+      "git_blob": "fa5834d87457adc7f8a178acdc263dc346077f50"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-26.csv": {
+      "mode": "100644",
+      "git_blob": "09aab3345d84e9d09a23dc7d1174fc4096df3aca"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-27.csv": {
+      "mode": "100644",
+      "git_blob": "9575ecd5b79b44ca41c0fd8d3f9b6ac7d0cc812d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-28.csv": {
+      "mode": "100644",
+      "git_blob": "8eead1a1adf37d4df0b2379b28a8d02a1abffc8b"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-03-31.csv": {
+      "mode": "100644",
+      "git_blob": "5416c55632d7f3265341d003dd198f7cc50fc6b6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-01.csv": {
+      "mode": "100644",
+      "git_blob": "4acc351646cbe7cf05e6003b1fd275ddcb203e44"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-02.csv": {
+      "mode": "100644",
+      "git_blob": "f68c4fb8b31b628ec57b00c2c06959565a2d49b5"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-03.csv": {
+      "mode": "100644",
+      "git_blob": "e19bd6f65763dd0ffe6947151afa5afd67c4390c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-07.csv": {
+      "mode": "100644",
+      "git_blob": "17821409659a42707e5a9c1076bcc5065b8afb3d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-08.csv": {
+      "mode": "100644",
+      "git_blob": "fe57a055d651c49d2eda17fbd0630a002fd01143"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-09.csv": {
+      "mode": "100644",
+      "git_blob": "c165e53f13697ec82309956213daa3a8f33f5c53"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-10.csv": {
+      "mode": "100644",
+      "git_blob": "b161925334dafabfce0984cdc12181718922d725"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-11.csv": {
+      "mode": "100644",
+      "git_blob": "d968a9184b56c03fc9a2d2df00b63e30718b8245"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-14.csv": {
+      "mode": "100644",
+      "git_blob": "d2aa8474c69cc3606e1aa40433961391ccdfbb1e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-15.csv": {
+      "mode": "100644",
+      "git_blob": "1623748504ec006ebc129d6caa0605e896eac145"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-16.csv": {
+      "mode": "100644",
+      "git_blob": "c77b1c348db6240832750a430a31fd99739bbbc8"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-17.csv": {
+      "mode": "100644",
+      "git_blob": "7253b0a2f1fba84e1ef8bdfbb65522ab8608835c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-18.csv": {
+      "mode": "100644",
+      "git_blob": "1a2febf6de8f9ab7a4c94da765e03818935468bb"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-21.csv": {
+      "mode": "100644",
+      "git_blob": "ca6604b2371721759cf57876a9a9da9cba3b37f4"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-22.csv": {
+      "mode": "100644",
+      "git_blob": "42360672517611ff1fcff047057fd361ea34865a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-23.csv": {
+      "mode": "100644",
+      "git_blob": "9688158c52c60c7dc7d586afaaccdc80962c8e3a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-24.csv": {
+      "mode": "100644",
+      "git_blob": "52f379817489b4277b2f8b448d51f4cd8e04f5e2"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-25.csv": {
+      "mode": "100644",
+      "git_blob": "7b13f8439ce111afa0933bf4e385d736c388bec5"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-28.csv": {
+      "mode": "100644",
+      "git_blob": "fc312f106ba7c86c3e056fca8187a9cc94f7c925"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-29.csv": {
+      "mode": "100644",
+      "git_blob": "915a5f94598b498ab0f85ff0cc39b4c13f7475c6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-04-30.csv": {
+      "mode": "100644",
+      "git_blob": "ce76595e643bad9482ef15bf7f1760ec1a9434be"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-05.csv": {
+      "mode": "100644",
+      "git_blob": "e1afa62b344923c28727024c9e1982d529aab1c1"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-06.csv": {
+      "mode": "100644",
+      "git_blob": "ca6a93a16277b16b739048e8a966acfe3202deeb"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-01.csv": {
+      "mode": "100644",
+      "git_blob": "195410b5be1f0b5eb528b4b2e007144a3123388d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-02.csv": {
+      "mode": "100644",
+      "git_blob": "a50b2a7653f2254df0f4933d9218fc5105a40eff"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-03.csv": {
+      "mode": "100644",
+      "git_blob": "79bac90f3bdbb9f6258bca8f508e0fed5c389387"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-04.csv": {
+      "mode": "100644",
+      "git_blob": "d530229fc43cd3b200c4dce37bf73405ce5a7520"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-07.csv": {
+      "mode": "100644",
+      "git_blob": "cf90a5f603c52daa0d81dd26247ae96846d6b038"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-08.csv": {
+      "mode": "100644",
+      "git_blob": "0f8b38b16e45417e24e672c17a12a47b0e94716f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-09.csv": {
+      "mode": "100644",
+      "git_blob": "a8adfcad855f6a46491213a45f01f9befcdfbaaf"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-10.csv": {
+      "mode": "100644",
+      "git_blob": "27ae339fc8d27511f874bdd475e163645e3513a9"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-11.csv": {
+      "mode": "100644",
+      "git_blob": "db7420275afa280a7b49e7d0a6138e3ea9c46a36"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-14.csv": {
+      "mode": "100644",
+      "git_blob": "5a776c800fc58ed88d98d8e0b84f0dc404f4bc85"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-15.csv": {
+      "mode": "100644",
+      "git_blob": "fc3b0d720b018187b0011fa6fb14cecb44dc06a1"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-16.csv": {
+      "mode": "100644",
+      "git_blob": "a24dbf761ba6cdb4518c6e69d4c1943a75ed0f04"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-17.csv": {
+      "mode": "100644",
+      "git_blob": "3b48b9a3db6f66e6699e8cae279c2c1c4fd79d31"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-18.csv": {
+      "mode": "100644",
+      "git_blob": "83725c198651ff1a6c0ac6050405d74f7f8dd67f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-21.csv": {
+      "mode": "100644",
+      "git_blob": "138a4a4128e24c092b3083a44f99c92548ae2c06"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-22.csv": {
+      "mode": "100644",
+      "git_blob": "dc0acd34f0d895125c563382507528d90166d00f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-23.csv": {
+      "mode": "100644",
+      "git_blob": "c03bf123a1e3ff07f0d1f65a43281921f2ebdb63"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-24.csv": {
+      "mode": "100644",
+      "git_blob": "5761b3cd935e68e08c6a86717ee7b6c955b89ab2"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-25.csv": {
+      "mode": "100644",
+      "git_blob": "15ccf66b64334a38fe4a3d11a81742c4bafce130"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-28.csv": {
+      "mode": "100644",
+      "git_blob": "6d988294075c5aa60cf9e5b5f11483e7ba2a0ba6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-29.csv": {
+      "mode": "100644",
+      "git_blob": "d719027a95c0304fc902f8dd4b3a1fba7a9c86a3"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-30.csv": {
+      "mode": "100644",
+      "git_blob": "aa7d451d4291719f86fe4528bb654fdbb44adb52"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-07-31.csv": {
+      "mode": "100644",
+      "git_blob": "74a1fc3ab0c683bdbe434312d742066dd6decb23"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-01.csv": {
+      "mode": "100644",
+      "git_blob": "fdf63653c60700405657195b8afd91df5aea7b12"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-04.csv": {
+      "mode": "100644",
+      "git_blob": "d564f01eef2408cc6edf53d1e0e80fbc06bbfcfa"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-05.csv": {
+      "mode": "100644",
+      "git_blob": "24c48c329d9c81723e7b8e7b85d636205b91c9ba"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-06.csv": {
+      "mode": "100644",
+      "git_blob": "3f22cbe5059257c752731334e2a046d4ef008cbd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-07.csv": {
+      "mode": "100644",
+      "git_blob": "6f4972af817b6a1d86619c6a7a1aafe96db8da9a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-08.csv": {
+      "mode": "100644",
+      "git_blob": "31a17b95461236781ed686ebd47bd473bef46872"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-11.csv": {
+      "mode": "100644",
+      "git_blob": "6ed4eff99c460cae95e83fff773867ce5f1c8d04"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-12.csv": {
+      "mode": "100644",
+      "git_blob": "f0354f4c3fd9d7b002e37bdbc93b7179d283748e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-13.csv": {
+      "mode": "100644",
+      "git_blob": "14c9af2baaf3064d8ab01558e71c5e658855c800"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-14.csv": {
+      "mode": "100644",
+      "git_blob": "00fdc8d06266d8ede756c7865493972369460e70"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-15.csv": {
+      "mode": "100644",
+      "git_blob": "459e44a5993c899d1a00a8fff77a52705f25f3c7"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-18.csv": {
+      "mode": "100644",
+      "git_blob": "f0dfc2ca14c55f09e11bf56847dd0e1156f595f5"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-19.csv": {
+      "mode": "100644",
+      "git_blob": "612d2b68e3e0ca348b1dabf6139b1d515323a5c4"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-20.csv": {
+      "mode": "100644",
+      "git_blob": "3634c924697f51a73dde641df5dd46470d1541aa"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-21.csv": {
+      "mode": "100644",
+      "git_blob": "059058ae8c563e52a7405e6e7320063d00dee2a3"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-22.csv": {
+      "mode": "100644",
+      "git_blob": "8085658e923c0db2a0cd28cb046da6493b9f618a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-25.csv": {
+      "mode": "100644",
+      "git_blob": "84873f25bc2aed12bf11162da204c60808e9150b"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-26.csv": {
+      "mode": "100644",
+      "git_blob": "1b1a820918aa57266c8911028cbc8c4a467ead05"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-27.csv": {
+      "mode": "100644",
+      "git_blob": "4e2936cbf206e25429d49f80a7680aa2c553e6fd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-28.csv": {
+      "mode": "100644",
+      "git_blob": "222fe687e57ab6ee68fa90c55a6ffd9136aaa441"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-08-29.csv": {
+      "mode": "100644",
+      "git_blob": "68bb6e2fd6c58ba1a1d0fdd2dc899e8698a9829f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-01.csv": {
+      "mode": "100644",
+      "git_blob": "49058679cd4af57a74bc29cfe568d1feaf94d8f5"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-02.csv": {
+      "mode": "100644",
+      "git_blob": "8192c457dc3b71a22ae6b360a3d9886e0f7cd9f5"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-03.csv": {
+      "mode": "100644",
+      "git_blob": "0c6b77da6e78b27396dd1da65bdc28db0af90824"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-04.csv": {
+      "mode": "100644",
+      "git_blob": "2c3a0b423cebed38a686e6803342ec8f0ed5c071"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-05.csv": {
+      "mode": "100644",
+      "git_blob": "f6cbb3444ba543bc0a079b6d57a3da2f6080602e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-08.csv": {
+      "mode": "100644",
+      "git_blob": "4d3d585ae6456ea1ea142d889e7877f8f3f9ddeb"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-09.csv": {
+      "mode": "100644",
+      "git_blob": "e355b65ea40f24bb6ade0f796ed1c8c4fbe751f9"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-10.csv": {
+      "mode": "100644",
+      "git_blob": "3c97f8ad339574237dae7ed16b5e52c3bc22bbcd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-11.csv": {
+      "mode": "100644",
+      "git_blob": "88bcc2b6c5aec125097d242b789dccbb6dc55047"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-12.csv": {
+      "mode": "100644",
+      "git_blob": "19a4ca35476558f89c7b139c1b186f5815af6add"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-15.csv": {
+      "mode": "100644",
+      "git_blob": "76a54a2b77104d4eafa5ddab8046b35e788795a6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-16.csv": {
+      "mode": "100644",
+      "git_blob": "eb04351b1149fc7daf558decb45fc90ccb4bbafe"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-17.csv": {
+      "mode": "100644",
+      "git_blob": "61e2ca476c5448eacd7b09d3a12e5d79e2a0e33e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-18.csv": {
+      "mode": "100644",
+      "git_blob": "2733854f4828dd5c42e97ddfaa0078c42ad47c3d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-19.csv": {
+      "mode": "100644",
+      "git_blob": "08c744eef5af5455a90c2691dda0b946f2c278e8"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-22.csv": {
+      "mode": "100644",
+      "git_blob": "eccc5cd0fa290fa6f9e9408c246548144c81e418"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-23.csv": {
+      "mode": "100644",
+      "git_blob": "1a1f5746962204b7c738e0ab33eae8381b41c1b4"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-24.csv": {
+      "mode": "100644",
+      "git_blob": "1e89cf609c1a86eb120113fecb4e1ef38af9b937"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-25.csv": {
+      "mode": "100644",
+      "git_blob": "b3b7b955f73581c73c61afeb8e3d8501c6184ca6"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-26.csv": {
+      "mode": "100644",
+      "git_blob": "2a3f45b6a50d21e2384cede05c2554a77cf72db4"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-29.csv": {
+      "mode": "100644",
+      "git_blob": "6af07ad3e40d5ca40a8b569583d689e0221465dd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-09-30.csv": {
+      "mode": "100644",
+      "git_blob": "fcfc29e921901f5d5d3608c037d93aa7f544ec18"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-09.csv": {
+      "mode": "100644",
+      "git_blob": "bc0556519db54b54ebc5d185fbab54b2bdec4dcb"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-10.csv": {
+      "mode": "100644",
+      "git_blob": "ffcdd111682b01f0713f0418c36f77863e8074d3"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-13.csv": {
+      "mode": "100644",
+      "git_blob": "3654f17e8cd49e6d577a83765ae111c747e023d5"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-14.csv": {
+      "mode": "100644",
+      "git_blob": "cd0348cb58ec411097d5fab9fe9c83cf9f3ce77c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-15.csv": {
+      "mode": "100644",
+      "git_blob": "9afe4cfbe8d9124d6014da2873a14a8c58b31753"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-16.csv": {
+      "mode": "100644",
+      "git_blob": "ba80a22b49a5b924735bcc9061582d2e225c5360"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-17.csv": {
+      "mode": "100644",
+      "git_blob": "7dd978b6bef60eff6e1455c1b26fa28d5363e16e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-20.csv": {
+      "mode": "100644",
+      "git_blob": "98f817055cbb8a78ca89c3a032fbfdba7cffea15"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-21.csv": {
+      "mode": "100644",
+      "git_blob": "419dc167fa70f683d4c143cf9e1b247e66d5378a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-22.csv": {
+      "mode": "100644",
+      "git_blob": "6c7b291954d8c717bc85c0cbaaf5ced3cf5fffbf"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-23.csv": {
+      "mode": "100644",
+      "git_blob": "ae141c9baa01b4ac5075a397c27dbd1f90166d2e"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-24.csv": {
+      "mode": "100644",
+      "git_blob": "82b56075e105570d87e45e968396380d731cdcab"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-27.csv": {
+      "mode": "100644",
+      "git_blob": "e05de8abf6aa7b073ba4a80a5dd8a9b7069cb138"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-28.csv": {
+      "mode": "100644",
+      "git_blob": "f493bb8f6d5bd759e9633ccb7ba9b4590ead36ca"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-29.csv": {
+      "mode": "100644",
+      "git_blob": "bffb3700deadb6b01acf41062c5a05f472a20111"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-30.csv": {
+      "mode": "100644",
+      "git_blob": "8d9b070e75b5cdc108c89115b0161ec3a54b64f3"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-10-31.csv": {
+      "mode": "100644",
+      "git_blob": "2516e48b56bd85142d1d77a40c3860a234da7c8d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-03.csv": {
+      "mode": "100644",
+      "git_blob": "5402d1c660c58185acc6d878cefb1d50f6079e30"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-04.csv": {
+      "mode": "100644",
+      "git_blob": "502011cf32b3bcf6419f22dd6fdd80778091d17c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-05.csv": {
+      "mode": "100644",
+      "git_blob": "189361c4b014586ebd627a6680e92561ec15ec4c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-06.csv": {
+      "mode": "100644",
+      "git_blob": "0dcd568fd2f91088e3c05c9e64cd2d0904531511"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-07.csv": {
+      "mode": "100644",
+      "git_blob": "4a8d52bcc8dababcbc9287bb37d40f61c4afe6bd"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-10.csv": {
+      "mode": "100644",
+      "git_blob": "d1b33222adb4b7aecef25011e9aed3e185f76a79"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-11.csv": {
+      "mode": "100644",
+      "git_blob": "6ab180508720d8e25caf0d46ff164f0e35039d5d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-12.csv": {
+      "mode": "100644",
+      "git_blob": "b0b4d75b493f4dc3e76fa3738202db2f4975b2ee"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-13.csv": {
+      "mode": "100644",
+      "git_blob": "c20388a190bf94318815a7840d5608bccad34da0"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-14.csv": {
+      "mode": "100644",
+      "git_blob": "69ba10c3cc891c95baa66f64f58338beee12e4b1"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-17.csv": {
+      "mode": "100644",
+      "git_blob": "37e56d353b8280fb253fe94aa2a9dcf627b038fa"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-18.csv": {
+      "mode": "100644",
+      "git_blob": "7ed4008af824c1f4ed2d29d8b4fd96f69f622a39"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-19.csv": {
+      "mode": "100644",
+      "git_blob": "d6f96bdc40af9e21994cfa190ec0c5ae86b72325"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-20.csv": {
+      "mode": "100644",
+      "git_blob": "6488ab090581f04a749c80c78b6c6f9dcbc08940"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-21.csv": {
+      "mode": "100644",
+      "git_blob": "53704d770f6b2c3a445b9b9015c13c3d50deaef3"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-24.csv": {
+      "mode": "100644",
+      "git_blob": "218230867b1ea9e5ae6680486c2fd70ff0c3967c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-25.csv": {
+      "mode": "100644",
+      "git_blob": "13b009450b19005828e53e365598f149a0fe44ed"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-26.csv": {
+      "mode": "100644",
+      "git_blob": "166b47e5a7c24a3c3b19b6ad5f5a82c07973aa9d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-27.csv": {
+      "mode": "100644",
+      "git_blob": "168650b041e17f42144d7aac2f94bc24e8c8bb66"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-11-28.csv": {
+      "mode": "100644",
+      "git_blob": "b5c2aacfee845d4006ddbb1ee919d464bee5a7b0"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-01.csv": {
+      "mode": "100644",
+      "git_blob": "ad1189c40575eca4184a8a03f605292400043946"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-02.csv": {
+      "mode": "100644",
+      "git_blob": "9fa381a13435c98ef9e66316dcd85cb1a9faac3a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-03.csv": {
+      "mode": "100644",
+      "git_blob": "f24d3892e6e92fa69abfbe2260b92df7dc94117f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-04.csv": {
+      "mode": "100644",
+      "git_blob": "3fc238a547ad6bf85cea2f025227ba6713300f7a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-05.csv": {
+      "mode": "100644",
+      "git_blob": "c41867649952651780760b2b13d1c93b02291db7"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-08.csv": {
+      "mode": "100644",
+      "git_blob": "e14aea946b90b5018e1a0c410630b9bd1f4a5433"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-09.csv": {
+      "mode": "100644",
+      "git_blob": "f7a0da01231659c9a5b9c05e8a8168a5be35c9d0"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-10.csv": {
+      "mode": "100644",
+      "git_blob": "5bdfa42df79bfd6ff0249cb8a937e1b686461ac3"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-11.csv": {
+      "mode": "100644",
+      "git_blob": "8758a78a6af7be19f51ebe622806a5271549a00c"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-12.csv": {
+      "mode": "100644",
+      "git_blob": "45fdce064666f4e04ec83c1748222247be026a49"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-15.csv": {
+      "mode": "100644",
+      "git_blob": "7c09708683c9601b2822522fd8ed48fa8d564bac"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-16.csv": {
+      "mode": "100644",
+      "git_blob": "212739b5fbd1fac219b9052220a56235c4883482"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-17.csv": {
+      "mode": "100644",
+      "git_blob": "6c030e56a693aef55188e430ef032f2b2a5304c1"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-18.csv": {
+      "mode": "100644",
+      "git_blob": "241527c5faf38cf3a2e97d78699642c4882ddb4f"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-19.csv": {
+      "mode": "100644",
+      "git_blob": "fd334147229501829c9457895f90c8686f9ffdc2"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-22.csv": {
+      "mode": "100644",
+      "git_blob": "4be11839a435058ca73dff5697758f50df7dd2f8"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-23.csv": {
+      "mode": "100644",
+      "git_blob": "ff394947878ffaa57487227a1151541724d7f54d"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-24.csv": {
+      "mode": "100644",
+      "git_blob": "468ab8c164937ab53a2867ec3725f82cd82a5b1a"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-25.csv": {
+      "mode": "100644",
+      "git_blob": "345abe6183c3bede72342c4a59b60e40da275e39"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-26.csv": {
+      "mode": "100644",
+      "git_blob": "5fa7fb0f04ade4bcb2a86c18bf7164652f3e9611"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-29.csv": {
+      "mode": "100644",
+      "git_blob": "186f893652167f8374bb00508a6ea607fa9cac25"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-30.csv": {
+      "mode": "100644",
+      "git_blob": "073691075809545bdd14a1f371e90e0097075daa"
+    },
+    "data/r1b_research/mo_quotes/mo_2025-12-31.csv": {
+      "mode": "100644",
+      "git_blob": "84ed594e37f9aed0b8f668b1c08f96b9f7b2703a"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2015.csv": {
+      "mode": "100644",
+      "git_blob": "8432e4afc6db6dd15a092bbd2d6b5de63e0320d2"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2016.csv": {
+      "mode": "100644",
+      "git_blob": "379ed3e99e2d4b9704bcb9512cb7291916d33fda"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2017.csv": {
+      "mode": "100644",
+      "git_blob": "c630d9ba9dc36fe5c25d2ca57d15b2c7e7bd20b1"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2018.csv": {
+      "mode": "100644",
+      "git_blob": "f034f6a50990a5dc2a494a3b5710af9ffdbd82bc"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2019.csv": {
+      "mode": "100644",
+      "git_blob": "944a4512fd14032f9684a8d811b0703afb964e10"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2020.csv": {
+      "mode": "100644",
+      "git_blob": "fbdc2dd3bcde74ee1337ffb17db2d024f365388c"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2021.csv": {
+      "mode": "100644",
+      "git_blob": "0199132e5c58b4b6a97f9b7eb90c6e62ac591d6b"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2022.csv": {
+      "mode": "100644",
+      "git_blob": "fe2fd0f27be224821fdb61bb9f6707d8395500ee"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2023.csv": {
+      "mode": "100644",
+      "git_blob": "d217395839e0014d279ee260684588008f6f6231"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2024.csv": {
+      "mode": "100644",
+      "git_blob": "8634f578bb6c705330a5290ae9968101c5a1f4ef"
+    },
+    "data/r1b_research/underlying_1m/000852.SH_1m_2025.csv": {
+      "mode": "100644",
+      "git_blob": "ea85fa9ea3f4465e515cb3147c52758e47b56ded"
+    },
+    "data/research_inputs/r5_b1/5m_offset_0.parquet": {
+      "mode": "100644",
+      "git_blob": "30eddf3020d311fb409660a8c296f6309383745f"
+    },
+    "data/research_inputs/r5_b1/manifest.json": {
+      "mode": "100644",
+      "git_blob": "ba7b42f11323b8f95d6b9d0f1c4f7196f159dec8"
+    },
+    "docs/DATA.md": {
+      "mode": "100644",
+      "git_blob": "cc8efe4a9f06fcb7004d62a695f32b6a88a80626"
+    },
+    "docs/INFRASTRUCTURE.md": {
+      "mode": "100644",
+      "git_blob": "34d1eeae45f313e4d726815108371c55d174c006"
+    },
+    "docs/RESEARCH_GOVERNANCE.md": {
+      "mode": "100644",
+      "git_blob": "77ca4104714e231ec786300467c3563081f507b0"
+    },
+    "docs/archive/README.md": {
+      "mode": "100644",
+      "git_blob": "016789644ec40d95f45703bdc1702ab7267eee95"
+    },
+    "docs/archive/broad_rmr_migrated_from_two_wave_20260909/DECISIVE_EVIDENCE.json": {
+      "mode": "100644",
+      "git_blob": "4466943ed7cb1bbbf596e63cad123f09d5ae6ecb"
+    },
+    "docs/archive/broad_rmr_migrated_from_two_wave_20260909/MIGRATION_NOTE.md": {
+      "mode": "100644",
+      "git_blob": "a4fa4bd8e08aeabdbd09bc675ba9892d331d4d0b"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/R1B_MO_CIIS_ACQUISITION_ROUTE_20260910.md": {
+      "mode": "100644",
+      "git_blob": "87a37a4e11676ea983a985f08f9d279fb0d5d77d"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/R1B_MO_CIIS_SAMPLE_ACQUISITION_RESULT_20260910.md": {
+      "mode": "100644",
+      "git_blob": "2797f17595cd4e085ece43cdcdefdffd372bdb6b"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/acquisition_route.txt": {
+      "mode": "100644",
+      "git_blob": "621e94f0ec951431443029088dba63eb586edbc8"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/ciis_sample_page_capture.html": {
+      "mode": "100644",
+      "git_blob": "f7fc9fc5a5d19ccafc6f3d823de05e846cc3f38f"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/internet_archive_cdx.json": {
+      "mode": "100644",
+      "git_blob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/internet_archive_cdx_curl_rc.txt": {
+      "mode": "100644",
+      "git_blob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/listing_receipt.json": {
+      "mode": "100644",
+      "git_blob": "e4ec5ad61f150278fb323d7966caae316d378d7a"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/live_download_status.txt": {
+      "mode": "100644",
+      "git_blob": "19156f77544da048697f7b2838165df6ff541bdc"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/live_variant_probe.tsv": {
+      "mode": "100644",
+      "git_blob": "df8a4f84218e69f0573620aa3e0ad66ce2ca0622"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/page_link_context.txt": {
+      "mode": "100644",
+      "git_blob": "80f23f9c31b0fc6af93aea57b35986b08078aea8"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/resolved_download_url.txt": {
+      "mode": "100644",
+      "git_blob": "185c4e9bc89143e11d9ec918fae5f2b6296891ee"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/sample_acquisition_receipt.json": {
+      "mode": "100644",
+      "git_blob": "f5384e18acee6148e72922c798fca9ab02ee1ade"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/sample_schema_preview.json": {
+      "mode": "100644",
+      "git_blob": "4ef8bfd91df5fefc1723d444c8614f6466a6eb3e"
+    },
+    "docs/archive/ciis_public_sample_recovery_20260910/source_page_url.txt": {
+      "mode": "100644",
+      "git_blob": "940b89228a32bbc2e629fb32cafc54cc357eed96"
+    },
+    "docs/archive/legacy_seed/RESEARCH_FRAMEWORK.md": {
+      "mode": "100644",
+      "git_blob": "dde08c442eabe6a35020c08be92adb419c537539"
+    },
+    "docs/archive/legacy_seed/experiments/README.md": {
+      "mode": "100644",
+      "git_blob": "0d6ec1e9acc01f6f748601892d36a37fcbc506ce"
+    },
+    "docs/archive/legacy_seed/literature/README.md": {
+      "mode": "100644",
+      "git_blob": "01ea56c716fed749954398201912c79da4592193"
+    },
+    "docs/archive/legacy_seed/literature/references.json": {
+      "mode": "100644",
+      "git_blob": "b5ffbf79479d33388b735a61612f80acec7462af"
+    },
+    "docs/archive/legacy_seed/scripts/seal_seed.py": {
+      "mode": "100644",
+      "git_blob": "4283c75abdc4cb87d76ff3142a4c4471e68bcd7b"
+    },
+    "docs/archive/legacy_seed/scripts/validate_seed.py": {
+      "mode": "100644",
+      "git_blob": "6b555743b909c9ec504f496a875349d295e8c625"
+    },
+    "docs/archive/legacy_seed/templates/PROTOCOL.md": {
+      "mode": "100644",
+      "git_blob": "06356ba8fe9f0a784586a857d5aadef09f8a6469"
+    },
+    "docs/archive/legacy_seed/templates/RESULT_CARD.md": {
+      "mode": "100644",
+      "git_blob": "e63ae84f17f03837a06bb831519d6be837ca2b23"
+    },
+    "docs/archive/legacy_seed/templates/attempts.csv": {
+      "mode": "100644",
+      "git_blob": "858c87fc3370d90a5779c7840b9a2aa3feb1ec76"
+    },
+    "docs/archive/legacy_seed/tests/test_seed.py": {
+      "mode": "100644",
+      "git_blob": "7fcfb879fa06b15b027ea9f1c8d55b358ba103b4"
+    },
+    "docs/archive/r5_b1_closed_20260910/docs/R5_B1_DATA_IDENTITY_ADAPTER_20260910.md": {
+      "mode": "100644",
+      "git_blob": "0bbc3e566a081aeb3f0bc8de7cb83eddb4788521"
+    },
+    "docs/archive/r5_b1_closed_20260910/docs/R5_B1_INPUT_MIGRATION_DECISION_20260910.md": {
+      "mode": "100644",
+      "git_blob": "87bf77d6f31e238026b7b581320e42e5e49a0071"
+    },
+    "docs/archive/r5_b1_closed_20260910/docs/R5_B1_LIMITED_DIAGNOSTIC_PROTOCOL_20260910.md": {
+      "mode": "100644",
+      "git_blob": "8881b036ec61d6ab96b71b6c69e9c4f4e6c420c8"
+    },
+    "docs/archive/r5_b1_closed_20260910/docs/R5_B1_LIMITED_DIAGNOSTIC_RESULT_20260910.md": {
+      "mode": "100644",
+      "git_blob": "8a5287ecf3718f3aa20d02af909de96986acbebb"
+    },
+    "docs/archive/r5_b1_closed_20260910/frozen_source/run_broad_rmr_R5_multiscale_serial_dependence.py": {
+      "mode": "100644",
+      "git_blob": "cd0ac94f7f8dc4fba7c9ee25701bcca02f551f2a"
+    },
+    "docs/archive/r5_b1_closed_20260910/limited_diagnostic_receipt.json": {
+      "mode": "100644",
+      "git_blob": "9648f6aeced8174695aa9c48091405df0f9b0c1f"
+    },
+    "docs/archive/r5_b1_closed_20260910/runners/run_exact_frozen_input_diagnostic.py": {
+      "mode": "100644",
+      "git_blob": "a760c6e77f9098c847d58ff61ae4f08834a62414"
+    },
+    "docs/archive/r5_b1_closed_20260910/runners/run_limited_diagnostic.py": {
+      "mode": "100644",
+      "git_blob": "ed5e580d5203ea79d434993cb177142a65af5989"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/README.md": {
+      "mode": "100644",
+      "git_blob": "b09361dd7edb4025cff89f9c05313b7a4cf1fd67"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/PROVENANCE.md": {
+      "mode": "100644",
+      "git_blob": "cf016dc49972544df7c252af6d142ada60e5a34b"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/files/.github/workflows/rmr-activity-pressure-reversal-v1.yml": {
+      "mode": "100644",
+      "git_blob": "e63b3e736bd1f9a4f371f49ef095a8d2a39105d5"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/files/docs/research/rmr_activity_pressure_reversal_v1/FROZEN_PROTOCOL.md": {
+      "mode": "100644",
+      "git_blob": "fd0dc28aa6dca21cfbdbd26b72ec7b0ae0b7fe67"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/files/docs/research/rmr_activity_pressure_reversal_v1/run_study.py": {
+      "mode": "100644",
+      "git_blob": "ee6bbe1cf80a6280511ddcd474613bee61a1c4cb"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/files/docs/research/rmr_activity_pressure_reversal_v1/test_study.py": {
+      "mode": "100644",
+      "git_blob": "79d65d6f00135626a896db770863c5914a77ae9c"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/manifest.tsv": {
+      "mode": "100644",
+      "git_blob": "bac551fbcf42a8bf0864790e1bd4857a2aac01e8"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/activity-pressure-reversal-v1/skipped_large_or_deleted.tsv": {
+      "mode": "100644",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/PROVENANCE.md": {
+      "mode": "100644",
+      "git_blob": "a5719200cce13ebb575f6de73669321b6ed9e38a"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/files/.github/workflows/rmr-cross-index-relative-dislocation-v1.yml": {
+      "mode": "100644",
+      "git_blob": "3a949b1715bab5aa0e1a8dccb0db9942f164de7b"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/files/docs/research/rmr_cross_index_relative_dislocation_v1/FROZEN_PROTOCOL.md": {
+      "mode": "100644",
+      "git_blob": "c3bae206b4dd73689c52a9b1954afb161b3928b4"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/files/docs/research/rmr_cross_index_relative_dislocation_v1/RESULT.md": {
+      "mode": "100644",
+      "git_blob": "d7ae45e18f8ec4e874a96d3b888142f7ba0e0a89"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/files/docs/research/rmr_cross_index_relative_dislocation_v1/run_study.py": {
+      "mode": "100644",
+      "git_blob": "792b2f314b2c023e9c1ce30ff1bb053b649c7676"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/files/docs/research/rmr_cross_index_relative_dislocation_v1/test_study.py": {
+      "mode": "100644",
+      "git_blob": "93bcad5a1bf2c66928c4bbc6c271e8d4a0b97701"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/manifest.tsv": {
+      "mode": "100644",
+      "git_blob": "52902c31e4d4bd752a9da127f814fe10d75d3219"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/cross-index-relative-dislocation-v1/skipped_large_or_deleted.tsv": {
+      "mode": "100644",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/PROVENANCE.md": {
+      "mode": "100644",
+      "git_blob": "2e8ce4301564b1b38c765657dc97272ef572bc90"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/files/.github/workflows/rmr-event-overshoot-exhaustion-v1.yml": {
+      "mode": "100644",
+      "git_blob": "52e50f1ba3232f2d9f07174557ad639cd7398adb"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/files/docs/research/rmr_event_overshoot_exhaustion_v1/FROZEN_PROTOCOL.md": {
+      "mode": "100644",
+      "git_blob": "8bd413af25662c8bba9374a305c572b4f3948ae6"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/files/docs/research/rmr_event_overshoot_exhaustion_v1/RESULT.md": {
+      "mode": "100644",
+      "git_blob": "b70338a67330595947e01bfabd2d7c141735507e"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/files/docs/research/rmr_event_overshoot_exhaustion_v1/run_study.py": {
+      "mode": "100644",
+      "git_blob": "3dc9104a0af5204430f38a4aa32600e2e0ed36b3"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/files/docs/research/rmr_event_overshoot_exhaustion_v1/test_study.py": {
+      "mode": "100644",
+      "git_blob": "9891a7727fe0e31b15964dfb5007f5088b873716"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/manifest.tsv": {
+      "mode": "100644",
+      "git_blob": "f62a54190c19c738945632c6ec39150393910d60"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/event-overshoot-exhaustion-v1/skipped_large_or_deleted.tsv": {
+      "mode": "100644",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/PROVENANCE.md": {
+      "mode": "100644",
+      "git_blob": "96f828dad14512e577e55ae43af4724714d42e1d"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/files/.github/workflows/rmr-isolated-shock-recoil-v1.yml": {
+      "mode": "100644",
+      "git_blob": "7d89069c5c097b258796c2d675fde01dcb551c01"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/files/docs/research/rmr_isolated_shock_recoil_v1/FROZEN_PROTOCOL.md": {
+      "mode": "100644",
+      "git_blob": "a7c710d27fa021948bea95e7d8e9f800a451f432"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/files/docs/research/rmr_isolated_shock_recoil_v1/RESULT.md": {
+      "mode": "100644",
+      "git_blob": "ce0068518fabf4b5f8324d1034be4ea14755b116"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/files/docs/research/rmr_isolated_shock_recoil_v1/run_study.py": {
+      "mode": "100644",
+      "git_blob": "545e0858f7ca6e15dbf0a06a6d6c3874f97f303f"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/files/docs/research/rmr_isolated_shock_recoil_v1/test_study.py": {
+      "mode": "100644",
+      "git_blob": "63b12243684f50a4413db65ac4a41051d7ae242d"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/manifest.tsv": {
+      "mode": "100644",
+      "git_blob": "94e19775b2279206b9a82631924bb28a6743fe36"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/isolated-shock-recoil-v1/skipped_large_or_deleted.tsv": {
+      "mode": "100644",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/PROVENANCE.md": {
+      "mode": "100644",
+      "git_blob": "075e0211eff7dc7abcc75b8bdeef8b452acc4786"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/files/.github/workflows/rmr-lunch-boundary-normalization-v1.yml": {
+      "mode": "100644",
+      "git_blob": "57183bf3ec091cfa418f8483b39b8c16036024c7"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/files/docs/research/rmr_lunch_boundary_normalization_v1/FROZEN_PROTOCOL.md": {
+      "mode": "100644",
+      "git_blob": "ae1ef2ad1eef1f13c9f772ac19566fa48ce5e07e"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/files/docs/research/rmr_lunch_boundary_normalization_v1/run_study.py": {
+      "mode": "100644",
+      "git_blob": "41b83886c85ee36b7959e419c2fe29e75eac7713"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/files/docs/research/rmr_lunch_boundary_normalization_v1/test_study.py": {
+      "mode": "100644",
+      "git_blob": "1a741edac3949c9a546e09c22ae4f8fdca0ce84c"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/manifest.tsv": {
+      "mode": "100644",
+      "git_blob": "d081751b00717e8c6a998ea44a8f60fe587739cc"
+    },
+    "docs/archive/rmr_discovery_migrated_from_star50_20260910/lunch-boundary-normalization-v1/skipped_large_or_deleted.tsv": {
+      "mode": "100644",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/README.md": {
+      "mode": "100644",
+      "git_blob": "794d9eedd3676a0d6c5ad56b6581995aaa3c78f1"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/STAR50_MIGRATED_RMR_FINDINGS.md": {
+      "mode": "100644",
+      "git_blob": "fc68a2e6b602e959ec6e6ea43c01649c918711de"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/STAR50_RMR_SIGNAL_SOURCE_MAP.md": {
+      "mode": "100644",
+      "git_blob": "6a763272e767e29ea9e2e0a930706055eecc533b"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_R1B_temporal_impulse_completion_v1_history_anchor_20260908.md": {
+      "mode": "100644",
+      "git_blob": "18ac91273977675acd35bac1f0c87106aee0ab18"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_R1_economic_translation_round_history_anchor_20260908.md": {
+      "mode": "100644",
+      "git_blob": "2d0ad49277362fda66fb4e4fb941f1682d255d06"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md": {
+      "mode": "100644",
+      "git_blob": "72d5696cb260119c2d94f22ba1575240de1d6bcb"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_R1_true_fresh_2026Q4_preregistration_retirement_20260909.md": {
+      "mode": "100644",
+      "git_blob": "7d32226ae2f2e53bea057446fc5df5854e1f3d8b"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_R2_range_integrity_and_economic_v1_history_anchor_20260908.md": {
+      "mode": "100644",
+      "git_blob": "4a06f22df0c13deb06425dec0fcc07945cb6acc0"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_R5C_v2_history_anchor_20260908.md": {
+      "mode": "100644",
+      "git_blob": "882a5db56b405feb5475342f62f66318843922b1"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_mechanism_to_execution_diagnostic_v1_history_anchor_20260908.md": {
+      "mode": "100644",
+      "git_blob": "a0d2de78c4d3aba932625333f4b4a98440ab8a24"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/archive/rmr_unified_parent_state_router_v1_history_anchor_20260908.md": {
+      "mode": "100644",
+      "git_blob": "d46d45c754d26577d62c9317a75ae5a37aef33f8"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reusable_blackbox_query_ledger_v1.json": {
+      "mode": "100644",
+      "git_blob": "6740cea4d1efcf6c0d59f2c078670c48a22e711a"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reusable_three_role_data_policy_v1.json": {
+      "mode": "100644",
+      "git_blob": "d818b71bb3ec2b79fc3f9827406d5d7ba584f2e9"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json": {
+      "mode": "100644",
+      "git_blob": "66ec878d9ded23da04957ccd4ce4ada3f35337a2"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json": {
+      "mode": "100644",
+      "git_blob": "ee4885d0de54524626b8a636491fb628333da0f7"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_R2_range_integrity_v2_protocol.json": {
+      "mode": "100644",
+      "git_blob": "57022849f0087c9a3cfb71f8f785bfedcb390557"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_R2_state_v1.json": {
+      "mode": "100644",
+      "git_blob": "ab7e5fe0010ddc19b6e8a6eb10e6c010bd31de67"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_R5C_state_v1.json": {
+      "mode": "100644",
+      "git_blob": "2c9f9dd2dac84eafab47df031d1db77573c8f224"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_program_state_v1.json": {
+      "mode": "100644",
+      "git_blob": "3c4579e05c236229d0e0ebe454338e9bcc8a6c9a"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/reversal_mean_reversion_stage1_scale_contract_v1.json": {
+      "mode": "100644",
+      "git_blob": "67b929b19291979daa6a5a64f25c52fa652ce10b"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/rmr_R1_reusable_blackbox_parameter_freeze_v1.json": {
+      "mode": "100644",
+      "git_blob": "30e65e8daec25243be0e31a68d6f9b2f7b71e95c"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/governance/rmr_R2_range_integrity_v2_parameter_freeze.json": {
+      "mode": "100644",
+      "git_blob": "9c64a452c539f25d90a795492eed8132107e1c2c"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/reversal_mean_reversion_literature_map_20260908.md": {
+      "mode": "100644",
+      "git_blob": "5ae97ec16e2fca5647093b89c8e65303f97bb034"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/reversal_mean_reversion_program_whitepaper_v1.md": {
+      "mode": "100644",
+      "git_blob": "d96a1a0e8fb77fd61433fbc401bff8f90b309364"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/reversal_mean_reversion_stage1_discovery_round_closeout_20260908.md": {
+      "mode": "100644",
+      "git_blob": "52ec2b101f12f38234b0c18065bef025d0e20ff9"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/reversal_mean_reversion_two_promotion_program_review_20260908.md": {
+      "mode": "100644",
+      "git_blob": "7057c9550d2a36cc19fc6d8347909e380e0382cc"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1B_temporal_execution_theory_program_review_20260908.md": {
+      "mode": "100644",
+      "git_blob": "cfb8825c1ea52e21cf2b223be7acf6100378a7ff"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1B_temporal_impulse_completion_DEV_adjudication_20260908.md": {
+      "mode": "100644",
+      "git_blob": "6cfa8314f35a7e449b62f150f807b04c9c00a1a5"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1B_temporal_impulse_completion_DEV_decisive_receipt_20260908.json": {
+      "mode": "100644",
+      "git_blob": "2007b6e93f0ef398ccda78147d46cc1a85183378"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1_R2_certified_mechanism_synthesis_20260908.md": {
+      "mode": "100644",
+      "git_blob": "0950f11faac5b0002b5e02ba44635d66d69f1d74"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1_economic_translation_round_closeout_20260908.md": {
+      "mode": "100644",
+      "git_blob": "a1296c20d872dda3d8bd77e461a7633f2a314bd1"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1_reusable_blackbox_certification_20260908.json": {
+      "mode": "100644",
+      "git_blob": "ed351848ee80a020ff7daf46d35b0a9058bd50e7"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R1_reusable_validation_adjudication_20260908.md": {
+      "mode": "100644",
+      "git_blob": "c50f7cf1a007693636fffa800dc16145781b9983"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R2_dedicated_program_review_20260908.md": {
+      "mode": "100644",
+      "git_blob": "1e526769f55d6bfca7c8ce2405c32633fb4a52f7"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R2_economic_translation_v1_closeout_20260908.md": {
+      "mode": "100644",
+      "git_blob": "24f527c0d181374cd47c520e03453d3ef9e0adfd"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R2_range_integrity_v2_blackbox_certification_20260908.json": {
+      "mode": "100644",
+      "git_blob": "dfc63cd6ac60a277c3cf92d49aa404a2bac3dcfc"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R2_range_integrity_v2_validation_adjudication_20260908.md": {
+      "mode": "100644",
+      "git_blob": "702bfae5fc6dc3cee0a2c51ac78cb346b09ab2bf"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R5C_reusable_blackbox_certification_20260908.json": {
+      "mode": "100644",
+      "git_blob": "06ca1c8044b679f23957b7bad0ed87c792d2db50"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R5C_reusable_closeout_20260908.md": {
+      "mode": "100644",
+      "git_blob": "0eff305561fd0a8d9fbbc8e5d22a2f315eccef54"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_R5C_reusable_validation_adjudication_20260908.md": {
+      "mode": "100644",
+      "git_blob": "78580d1c73a0251a6007d81dcb2712c3183f2201"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_mechanism_to_execution_diagnostic_v1_adjudication_20260908.md": {
+      "mode": "100644",
+      "git_blob": "ce36a36028189dabfe9f64b741ce580ee2e4de33"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_mechanism_to_execution_diagnostic_v1_decisive_receipt_20260908.json": {
+      "mode": "100644",
+      "git_blob": "17ea426f8d1af8674f19970c4453edf17f46628c"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_payoff_object_instrument_theory_review_v1.md": {
+      "mode": "100644",
+      "git_blob": "d939586370fdd9e943c5e7b6745452afeaa23e21"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_unified_parent_state_router_program_review_20260908.md": {
+      "mode": "100644",
+      "git_blob": "063130049250cb62a01a8766b97d658836876523"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_unified_parent_state_router_v1_closeout_20260908.md": {
+      "mode": "100644",
+      "git_blob": "6688bc71d93e9856285b4726b2c9c55d46e29724"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/docs/research/rmr_unified_parent_state_router_v1_validation_adjudication_20260908.md": {
+      "mode": "100644",
+      "git_blob": "192994c6d4769a61811dc84a6a4b3f9b3fc6012b"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/scripts/certify_rmr_R1_reusable_blackbox.py": {
+      "mode": "100644",
+      "git_blob": "ede10622105dca25888f1a4039494e9568a39d82"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/scripts/run_rmr_R1_reusable_dev_validation.py": {
+      "mode": "100644",
+      "git_blob": "ea8057753bc91654620442ab93d5356eb0848a94"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/scripts/run_rmr_stage1_common_probe.py": {
+      "mode": "100644",
+      "git_blob": "835d68548d017c66106e4e22eda42a11a354c884"
+    },
+    "docs/archive/rmr_migrated_from_star50_20260909/raw/tests/test_reusable_three_role_blackbox.py": {
+      "mode": "100644",
+      "git_blob": "db6f9ba93d3c541c1ccfd43b24764bc1e1720425"
+    },
+    "docs/archive/rmr_parent_state_legacy_20260911/scripts/certify_rmr_R1_reusable_blackbox.py": {
+      "mode": "100644",
+      "git_blob": "ede10622105dca25888f1a4039494e9568a39d82"
+    },
+    "docs/archive/rmr_parent_state_legacy_20260911/scripts/run_rmr_R1_reusable_dev_validation.py": {
+      "mode": "100644",
+      "git_blob": "ea8057753bc91654620442ab93d5356eb0848a94"
+    },
+    "docs/archive/rmr_parent_state_legacy_20260911/scripts/run_rmr_stage1_common_probe.py": {
+      "mode": "100644",
+      "git_blob": "835d68548d017c66106e4e22eda42a11a354c884"
+    },
+    "docs/archive/rmr_parent_state_legacy_20260911/tests/test_reusable_three_role_blackbox.py": {
+      "mode": "100644",
+      "git_blob": "db6f9ba93d3c541c1ccfd43b24764bc1e1720425"
+    },
+    "docs/archive/scope_repair_20260909/BUCKET_SCOPE_REPAIR_20260909.md": {
+      "mode": "100644",
+      "git_blob": "4dd7f6669029978dd244fbf936a8c84995b35ebb"
+    },
+    "docs/archive/scope_repair_20260909/KLINE_RECOGNIZER_SCOPE_MIGRATION_20260909.md": {
+      "mode": "100644",
+      "git_blob": "338ebb916e8cd895b205bdd9610d1b5d9f298faf"
+    },
+    "docs/archive/scope_repair_20260909/R1_R2_MIGRATION_NOTE_20260909.md": {
+      "mode": "100644",
+      "git_blob": "def413d3734d8e37bc774c25209844f834ac3f3d"
+    },
+    "docs/cloud_local_communication.md": {
+      "mode": "100644",
+      "git_blob": "07bac7de15d5053c365d2ef32ec0a421628d67d6"
+    },
+    "docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json": {
+      "mode": "100644",
+      "git_blob": "664a7759765dbd884d2f342107216d256fd9ef78"
+    },
+    "docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "790127b993859160d01a679efbdba6b911c36113"
+    },
+    "docs/governance/ETF_INDEX_MEASURABILITY_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "de48ee55c007389021bf8c282030a2dff96258eb"
+    },
+    "docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json": {
+      "mode": "100644",
+      "git_blob": "0114dd294f546dfb190de6146b97f968a2055214"
+    },
+    "docs/governance/ETF_SOURCE_QUALITY_ADVISORY_20260912.json": {
+      "mode": "100644",
+      "git_blob": "c7f4ab4f5959b4f26290a3265eb51fb3bc1fd7f1"
+    },
+    "docs/governance/ETF_SOURCE_REPAIR_IMPACT_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "a3426f45bf80310fcc5d187577becd37f8e90219"
+    },
+    "docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "9a3d24da0a1d829d2d604219dedf72a1d49a7a18"
+    },
+    "docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "8ed0d34629dc7a20345e98ac5b3482df4008dab2"
+    },
+    "docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "9a8706738823d476cfa39213d7b29feab2392c16"
+    },
+    "docs/governance/R1A_CONFIRMATION_FEASIBILITY_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "30c7af7e9a58ca5b6332a942b5ac1133412f84ef"
+    },
+    "docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "b543da3a036df861a752e991c402b7b1d0535f2d"
+    },
+    "docs/governance/R1A_ENDPOINT_PRICE_DIAGNOSTIC_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "d83d0d859c1cdfa60a86768f7dfdb5f0a40f8809"
+    },
+    "docs/governance/R1A_ENDPOINT_ROBUSTNESS_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "532ab1be4c0b4ff94a50ed919358663cbcaacdad"
+    },
+    "docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "4e17573e764c232ab5f34ec8a7925ed37ad6546d"
+    },
+    "docs/governance/R1A_METHOD_CALIBRATION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "5fba8e72618dca15dbe61110037673cd57c1eb8e"
+    },
+    "docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json": {
+      "mode": "100644",
+      "git_blob": "1726c6a91796aac6a88d5fed8feeccc9932244f8"
+    },
+    "docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "cec36f168100f5756d51be484f7f7c48af241cec"
+    },
+    "docs/governance/R1B_MO_ADMISSION_MANIFEST_TEMPLATE.json": {
+      "mode": "100644",
+      "git_blob": "27205f69e8de0d1ef4dccf680db68280b1bcfd55"
+    },
+    "docs/governance/R1B_MO_BACKSPREAD_PRE_EXECUTION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "32cec68e2d126e3630bf9acaf1837178aab15cdb"
+    },
+    "docs/governance/R1B_MO_CFFEX_SOURCE_MAPPING_TEMPLATE.json": {
+      "mode": "100644",
+      "git_blob": "ac0cb0640fa058ca273e2ae603907e9bacd4bde2"
+    },
+    "docs/governance/R1B_MO_CIIS_DELIVERY_EPOCH_FREEZE_20260910.json": {
+      "mode": "100644",
+      "git_blob": "f01dfbc8c4c80d56ab50502d43171b581d81be0c"
+    },
+    "docs/governance/R1B_MO_DATAHUB_SOURCE_BINDING_v1.json": {
+      "mode": "100644",
+      "git_blob": "3aa4a7ba55360faf4ea62976388934a8830bda36"
+    },
+    "docs/governance/R1B_MO_DATAHUB_TRADE_ACTIVITY_MAPPING_v1.json": {
+      "mode": "100644",
+      "git_blob": "04e491007696ff463dde1440baa7b43fd3498b24"
+    },
+    "docs/governance/R1B_MO_DATA_ADMISSION_PROTOCOL_V1.json": {
+      "mode": "100644",
+      "git_blob": "cc3d00264ba22977feb42f21569bcf1b28ccff57"
+    },
+    "docs/governance/R1B_MO_DATA_ROLE_FREEZE_20260910.json": {
+      "mode": "100644",
+      "git_blob": "479db623a4e88858d3e43267448f614030068906"
+    },
+    "docs/governance/R1B_MO_FEE_CONTRACT@1.0.json": {
+      "mode": "100644",
+      "git_blob": "f0ab1902954d598b0fac29485c71965579d7e025"
+    },
+    "docs/governance/R1B_MO_LEGACY_CFFEX_SNAPSHOT_MAPPING_v1.json": {
+      "mode": "100644",
+      "git_blob": "170d9caa5909932bb1a270a398703dbbeee7f5ec"
+    },
+    "docs/governance/R1B_MO_PRE_EXECUTION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "944d79c558ea33a72038f1ffaa7dfad7382022df"
+    },
+    "docs/governance/R1B_MO_SOURCE_ROUTING_DECISION_20260911.json": {
+      "mode": "100644",
+      "git_blob": "953c191d542e68d3d70b4d67330b2880b23b533b"
+    },
+    "docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json": {
+      "mode": "100644",
+      "git_blob": "9f2cdabe27819e1e9e85bd5ba51b33191c53facc"
+    },
+    "docs/infrastructure_manifest.json": {
+      "mode": "100644",
+      "git_blob": "2bada207ff085dc6e6241ed10aa6caeebde2c511"
+    },
+    "docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md": {
+      "mode": "100644",
+      "git_blob": "df661799ddba98c26d887d718995411049bc9b74"
+    },
+    "docs/ops/ETF_UPSTREAM_SEMANTICS_HANDOFF_20260912.md": {
+      "mode": "100644",
+      "git_blob": "a6abc8698e4c9899d4d93801c749bc51f0c40cf0"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/consumer_boundary_probes.csv": {
+      "mode": "100644",
+      "git_blob": "73226ce73da9e6db4bf4808f8e4afe676aa16b42"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/consumer_dispositions.csv": {
+      "mode": "100644",
+      "git_blob": "b38de08c69af4ada7a8235ee5a957ea7ee2767e0"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/consumer_index_label_ledger.csv": {
+      "mode": "100644",
+      "git_blob": "1cf442f8f31018f45c43ec010669bf3647ade938"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/input_integrity.csv": {
+      "mode": "100644",
+      "git_blob": "a205d9998b554e31dcc9baeba5c2b6e49d75bdd4"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/minute_boundary_accounting.csv": {
+      "mode": "100644",
+      "git_blob": "9818feaded7f57d7d53b5d84195c41ab54c1d01b"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/minute_boundary_summary.csv": {
+      "mode": "100644",
+      "git_blob": "efce039d8d74e6430056dd826c459c838db99072"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/quote_tick_accounting.csv": {
+      "mode": "100644",
+      "git_blob": "2bbd155cbb03acf95eb5694a31b8c63243c97439"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/quote_tick_summary.csv": {
+      "mode": "100644",
+      "git_blob": "27c19ecb669b97201d3651afa94b9be43412f45a"
+    },
+    "docs/ops/evidence/etf_day_reconciliation_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "b4779b2a28f2b81057da90bf13de1e34d5216907"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/capabilities.json": {
+      "mode": "100644",
+      "git_blob": "2c4123b08f52bfb3f6ae7c6cd206c5b55a9a0bdf"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/data_path_inventory.json": {
+      "mode": "100644",
+      "git_blob": "4a879097bfe3540986e297521e454c29953ee9f0"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/extra_clock_rows.csv": {
+      "mode": "100644",
+      "git_blob": "8f446c1fdd99dde432c4302f076cd1770f7dd27a"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/measurement_summary.csv": {
+      "mode": "100644",
+      "git_blob": "49ea71d0097778d37a67619ee25f03126f92dd6e"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "fa77aeb36136153965a4b33d98c4eae1fce13a29"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/source_files.csv": {
+      "mode": "100644",
+      "git_blob": "ab4e87606cd5b4a751faff118e84c16a899fe91e"
+    },
+    "docs/ops/evidence/etf_index_measurability_20260912/synthetic_nonidentification.json": {
+      "mode": "100644",
+      "git_blob": "c48d7b77df43e7bc28965d4a1f6bd304b2468655"
+    },
+    "docs/ops/evidence/etf_index_measurability_source_20260912/daily_clock_anomalies.csv": {
+      "mode": "100644",
+      "git_blob": "6cf035229f8d47a9c93daa3759022284ad2a325e"
+    },
+    "docs/ops/evidence/etf_index_measurability_source_20260912/earliest_nonflat_zero_volume_examples.csv": {
+      "mode": "100644",
+      "git_blob": "2ea36081a3fb1e731b6a2e29eb318a36e89e1d0b"
+    },
+    "docs/ops/evidence/etf_index_measurability_source_20260912/index_source_flags.csv": {
+      "mode": "100644",
+      "git_blob": "b9c0e8b5d53f886005fc18e608582606538a4ca8"
+    },
+    "docs/ops/evidence/etf_index_measurability_source_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "2776457a95e0b8268e9000005e2404857ec87f97"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/anomaly_neighbourhood.csv": {
+      "mode": "100644",
+      "git_blob": "a30d521f33ae342f90f50411b3735a8630a9d9ed"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/delivery_payload_hashes.json": {
+      "mode": "100644",
+      "git_blob": "dbe2ae357f5421ec2b6cdebced7fb8cb5f8a4652"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/file_integrity.csv": {
+      "mode": "100644",
+      "git_blob": "106edbefe67c93183adb273c744c0f73c07c14c3"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/fixed_boundary_probes.csv": {
+      "mode": "100644",
+      "git_blob": "20728a842a060e54e38c72f4cb26c3015eca5e40"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/index_quote_label_coverage.csv": {
+      "mode": "100644",
+      "git_blob": "8b3a48e349568aaf3c64c1360af30d179ec4cfcd"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/index_summary.csv": {
+      "mode": "100644",
+      "git_blob": "da05600567490582fb11e4209f77f201d7301628"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/invalid_quote_intervals.csv": {
+      "mode": "100644",
+      "git_blob": "4bc800d2d868aa22fd0c8c7389c4b2eb4a4160ac"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/quote_phase_audit.csv": {
+      "mode": "100644",
+      "git_blob": "469b7ca0c2371dc47b3c6c2a1a7a5dcc008cb374"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/quote_summary.csv": {
+      "mode": "100644",
+      "git_blob": "3dccc141aba27e26bfc54f247c3b2fd37c7a7bf7"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "4b0801ca0b545d1b4b43050cbab2a609fa296344"
+    },
+    "docs/ops/evidence/etf_one_day_cloud_review_20260912/trade_summary.csv": {
+      "mode": "100644",
+      "git_blob": "c19e9afe41519c9d8e42f16e797cf967fd5e5c6f"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/512100.SH_full_path_audit.csv": {
+      "mode": "100644",
+      "git_blob": "051880e02023606a83f9b2bd85d8cea189414eb7"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/512100.SH_known_actions_v2.csv": {
+      "mode": "100644",
+      "git_blob": "0ebcad4096e52217b494e584b0d7b8ea941a83c5"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/588000.SH_full_path_audit.csv": {
+      "mode": "100644",
+      "git_blob": "64d2bc8888f3efc4399ab38bf87619637681b5c0"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/588000.SH_known_actions_v2.csv": {
+      "mode": "100644",
+      "git_blob": "bf8a752626d1674a51046e50f8b5515926251009"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/calendar_boundary_audit.csv": {
+      "mode": "100644",
+      "git_blob": "c1713f3104aea031b50cebbe7423fd5dc0b86aeb"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/consumer_reference_inventory.csv": {
+      "mode": "100644",
+      "git_blob": "e8690f48c73bcacb7731938061db304d2257a7df"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/endpoint_impact_summary.csv": {
+      "mode": "100644",
+      "git_blob": "ddb56a861bc166f0661cd720e4f48daac20e5ed0"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/endpoint_window_audit.csv": {
+      "mode": "100644",
+      "git_blob": "cd6af4ed23ab123317930e835df44912dd0247cc"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/full_path_impact_summary.csv": {
+      "mode": "100644",
+      "git_blob": "6c04c87ab0204b3d782435977edfea67f5962bd1"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/intraday_measurement_impact.csv": {
+      "mode": "100644",
+      "git_blob": "ebb0e3e72ea3f9dde96a71f0247732876855e1df"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/pinned_input_integrity.csv": {
+      "mode": "100644",
+      "git_blob": "f47b9791a84f05e811908ec76bb26dc896a1a03c"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/published_result_impact.csv": {
+      "mode": "100644",
+      "git_blob": "0d9750e9cd1e6dcd981016f13871aa84e0e15b2f"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "a97fd3ceb31760c00e93fbddb49084a9916c4d3e"
+    },
+    "docs/ops/evidence/etf_source_repair_20260912/source_semantics_status.json": {
+      "mode": "100644",
+      "git_blob": "800bfea1ec052e01616205ae3ce1a32361eef215"
+    },
+    "docs/ops/evidence/etf_upstream_cloud_review_20260912/anomaly_comparison.csv": {
+      "mode": "100644",
+      "git_blob": "6ce52085208f4fec10ad1b69d0fbbe76817ab541"
+    },
+    "docs/ops/evidence/etf_upstream_cloud_review_20260912/index_time_channels.csv": {
+      "mode": "100644",
+      "git_blob": "35580aa743eeff1e3a5d6c526f0f46b47c1c69c3"
+    },
+    "docs/ops/evidence/etf_upstream_cloud_review_20260912/inventory_assessment.csv": {
+      "mode": "100644",
+      "git_blob": "d0f049461f954bebc288eaa40a33c63cba1d4100"
+    },
+    "docs/ops/evidence/etf_upstream_cloud_review_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "eb77fe39535ad7364c18181b008131f01e2c3e9e"
+    },
+    "docs/ops/evidence/index_price_validity_20260911/price_response_ledger.csv": {
+      "mode": "100644",
+      "git_blob": "b198767266dfd87af86e1765d8546cf31f724487"
+    },
+    "docs/ops/evidence/index_price_validity_20260911/price_validity_receipt.json": {
+      "mode": "100644",
+      "git_blob": "a9aee622959dbfdc2e5c5fbdd76183d7a7c6f4a9"
+    },
+    "docs/ops/evidence/r1_incremental_alpha_20260911/attribution_receipt.json": {
+      "mode": "100644",
+      "git_blob": "056e87bdeafaa2c5fbb605f79a485d2657c1d7c2"
+    },
+    "docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv": {
+      "mode": "100644",
+      "git_blob": "95191091d1a26c360c3efb5ae2d5be9cf194211d"
+    },
+    "docs/ops/evidence/r1_incremental_alpha_20260911/paired_outcomes.csv": {
+      "mode": "100644",
+      "git_blob": "1b81ade3a702f4cea8b9d67aff457e31ec6a4b86"
+    },
+    "docs/ops/evidence/r1_incremental_alpha_20260911/path_attribution.csv": {
+      "mode": "100644",
+      "git_blob": "7c8ba2b61d463e3d3f435e72319069fb60dd98f6"
+    },
+    "docs/ops/evidence/r1a_carrier_cloud_audit_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "859027c5a9a14f1fb30c5728a47f387f998bc84d"
+    },
+    "docs/ops/evidence/r1a_carrier_cloud_audit_20260912/audit_receipt.json": {
+      "mode": "100644",
+      "git_blob": "7d14ad26ce289f453a172c67344cad40d446d8f1"
+    },
+    "docs/ops/evidence/r1a_carrier_source_audit_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "bc6c3d2f8bd7bb38ab6f4f766131394d3d248100"
+    },
+    "docs/ops/evidence/r1a_carrier_source_audit_20260912/source_delivery_audit.json": {
+      "mode": "100644",
+      "git_blob": "0fdfa9d4963fe267ab25cbff28985e9ff321c72e"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912/datahub_lake_export_receipt.json": {
+      "mode": "100644",
+      "git_blob": "50299bdbed8673f21ea9797bd7ac547717ca7cee"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912/frozen_index_clock_anchors.csv": {
+      "mode": "100644",
+      "git_blob": "9da1aebb1d8abb6cb19ee8978cefd64478c68358"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912/source_candidate_review.json": {
+      "mode": "100644",
+      "git_blob": "b60b87e5612a3ee0fe955d6bbcdbd32a76336e2f"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912/source_inventory_receipt.json": {
+      "mode": "100644",
+      "git_blob": "8c81d137102fba20ac933b65db9b355da7d00805"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912/transport_receipt.json": {
+      "mode": "100644",
+      "git_blob": "e757e2ad2a1992b8263172d2986519147f28c3cb"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912_local/588000.SH_coverage.csv": {
+      "mode": "100644",
+      "git_blob": "864d94210476cca9419f107c03ffdf4eed98e793"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912_local/588000.SH_transport.csv": {
+      "mode": "100644",
+      "git_blob": "edd4444a617e611ed3f466530c9d1f38bc146bda"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912_local/datahub_lake_export_receipt.json": {
+      "mode": "100644",
+      "git_blob": "50299bdbed8673f21ea9797bd7ac547717ca7cee"
+    },
+    "docs/ops/evidence/r1a_carrier_transport_20260912_local/transport_receipt.json": {
+      "mode": "100644",
+      "git_blob": "809dd9185e1919ab83090b51b3a9abe0b1b96261"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/512100_frozen_path_availability_ONLY.csv": {
+      "mode": "100644",
+      "git_blob": "13c6817b18a60aa4f5757ae4d692790513c9c3ce"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "00f5d963bc24a0c3effd8d19eee7b24c834b1d89"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/acceptance_receipt.json": {
+      "mode": "100644",
+      "git_blob": "d303d4ded69c07de5cffb49bda41589192fc9b08"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/monthly_observation_coverage.csv": {
+      "mode": "100644",
+      "git_blob": "41d0666a0e1b08ab956df7410a7643a397e0d4a6"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/replay/588000.SH_coverage.csv": {
+      "mode": "100644",
+      "git_blob": "864d94210476cca9419f107c03ffdf4eed98e793"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/replay/588000.SH_transport.csv": {
+      "mode": "100644",
+      "git_blob": "edd4444a617e611ed3f466530c9d1f38bc146bda"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/replay/frozen_index_clock_anchors.csv": {
+      "mode": "100644",
+      "git_blob": "9da1aebb1d8abb6cb19ee8978cefd64478c68358"
+    },
+    "docs/ops/evidence/r1a_cloud_raw_replay_9abe704/replay/transport_receipt.json": {
+      "mode": "100644",
+      "git_blob": "a1e3f04fafb92bdb66d50af7e19120e659e32805"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "3b1e370d90e7085d44357da833c4bb1f6d3cf29a"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/csi1000_2026_candidate_review.json": {
+      "mode": "100644",
+      "git_blob": "8ce2a306efbfe0c4bd2190bb0afa790a51ab91cf"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/data_role_audit.json": {
+      "mode": "100644",
+      "git_blob": "d5c1d2ff74a28a71424259aaca14e16c37b01919"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "8ac1a4a714a948875d6469ed46c07ef924aaa470"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/feasibility_receipt.json": {
+      "mode": "100644",
+      "git_blob": "6330d2437304052d4578966b2647dc5e925bd310"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/fixed_budget_power_NOT_forecasts.csv": {
+      "mode": "100644",
+      "git_blob": "78e5b231400ab1b259ae8a56e0f71622b90ecf05"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/historical_noise_NOT_new_tests.csv": {
+      "mode": "100644",
+      "git_blob": "6d55ff4eca302c83f3b726f7d1c329487e39a307"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/historical_pair_rates.csv": {
+      "mode": "100644",
+      "git_blob": "27091cf8a9372ddfb40ac2f5b67aba9b0bd0504f"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/null_calibration_synthetic_DGPs.csv": {
+      "mode": "100644",
+      "git_blob": "8e2ce85d32f3004b86c85ef907a5a83d8810a69c"
+    },
+    "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/sample_size_scenarios_NOT_commitments.csv": {
+      "mode": "100644",
+      "git_blob": "1cb89b09b80b6ef28d75b511895710ce6383c526"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "8acf211f275872737b47df0c1d1ae73ff699ca28"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/allocation_ledger.csv": {
+      "mode": "100644",
+      "git_blob": "9c6326bd94e7842ead55ed2c3bceb795152e8d0f"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/compiled_event_features.csv": {
+      "mode": "100644",
+      "git_blob": "b0ac1b1659bca9b6b742533905a70b3178a11501"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/covariate_balance.csv": {
+      "mode": "100644",
+      "git_blob": "247c7821184af9d28ca67cedb2081ca93fb05df5"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/coverage_by_group.csv": {
+      "mode": "100644",
+      "git_blob": "5894afdb5ae5eb1b84e18758518fb293c6c39513"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/design_receipt.json": {
+      "mode": "100644",
+      "git_blob": "d68ab9df9780866c1d9b11da5d8d8bb93ef5ae5b"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/prefix_scaling_audit.csv": {
+      "mode": "100644",
+      "git_blob": "24061bede1c7da591284dad096f3e182d36836cb"
+    },
+    "docs/ops/evidence/r1a_control_design_20260912/unit_incidence_geometry_NOT_realized_variance.csv": {
+      "mode": "100644",
+      "git_blob": "de5313513bd0363e9a6933bc68a9e387236c330c"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "e54d6ac6fe36766fc0ba5c2f5ca419ff8ab89156"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/calendar_contributions_NOT_strategy_backtest.csv": {
+      "mode": "100644",
+      "git_blob": "40f64a66a74e77442c6d9a2eb037d1ebc5c222ac"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/calendar_lag_products.csv": {
+      "mode": "100644",
+      "git_blob": "abb784b992ad644ac439036b65957076857ce529"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/clock_accounting.csv": {
+      "mode": "100644",
+      "git_blob": "b0f27ed1a15ad9728165bc15a27c7bc9635c8bd9"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/control_scale_scenarios.csv": {
+      "mode": "100644",
+      "git_blob": "a166e672baba809115124f16f243024fb98846bb"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/development_leg_returns_NOT_confirmation.csv": {
+      "mode": "100644",
+      "git_blob": "86f0fc69f92dbd6cea3192fafdae5faa210c2a2b"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv": {
+      "mode": "100644",
+      "git_blob": "d4d06d136fab527e3717575517be50acbe56e542"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/leg_variance.csv": {
+      "mode": "100644",
+      "git_blob": "3fe1070c751d848fd6421cd7da07df5fc1528ce0"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/noise_receipt.json": {
+      "mode": "100644",
+      "git_blob": "2a92d3cafce7ceb1b970ef58ef7114024c367f4a"
+    },
+    "docs/ops/evidence/r1a_development_noise_20260912/stratum_covariance.csv": {
+      "mode": "100644",
+      "git_blob": "009c4878bf37ff89df1b942ba2f6068a4a2c0c52"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/512100.SH_endpoint_availability.csv": {
+      "mode": "100644",
+      "git_blob": "6049d5d478b5d8e914629f44dc52dc99fe9d2735"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/512100.SH_endpoint_returns.csv": {
+      "mode": "100644",
+      "git_blob": "3d5fc0547ccfdcb1cb8cf9aef94fcf86dde9fd48"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/588000.SH_common_endpoint_returns.csv": {
+      "mode": "100644",
+      "git_blob": "b998f54a39a59284151e2392ca71e69aa8aae77e"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/588000.SH_endpoint_availability.csv": {
+      "mode": "100644",
+      "git_blob": "dca6209496d57d0ddb9c4c1b395768b8824610b7"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/588000.SH_endpoint_returns.csv": {
+      "mode": "100644",
+      "git_blob": "e7900aebd6b7cf36df2beabb1b6a663afa9709d4"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "6bdf013ec2cc692a25703fdfca0dfa5770203c1b"
+    },
+    "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/endpoint_receipt.json": {
+      "mode": "100644",
+      "git_blob": "89f188522ddd657c8957ec2b85f8d0b57892143b"
+    },
+    "docs/ops/evidence/r1a_endpoint_robustness_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "7a5066a0863b6232c04428175e811844fa7d6ea6"
+    },
+    "docs/ops/evidence/r1a_endpoint_robustness_20260912/all_56_inference_cells.csv": {
+      "mode": "100644",
+      "git_blob": "52f0c3e28971009156db863c89ef7c126d8c6df5"
+    },
+    "docs/ops/evidence/r1a_endpoint_robustness_20260912/clock_disjoint_selection_audit.csv": {
+      "mode": "100644",
+      "git_blob": "6bab1753e053891dd125e69c447abcda7ae534e1"
+    },
+    "docs/ops/evidence/r1a_endpoint_robustness_20260912/missing_residual_scenarios_NOT_ESTIMATES.csv": {
+      "mode": "100644",
+      "git_blob": "593cbefb0c24177c20f1d20c20897b9e9ccd6d9c"
+    },
+    "docs/ops/evidence/r1a_endpoint_robustness_20260912/robustness_overview.csv": {
+      "mode": "100644",
+      "git_blob": "c583df2c55c4f783b4696c3fff54345030d5d92a"
+    },
+    "docs/ops/evidence/r1a_endpoint_robustness_20260912/robustness_receipt.json": {
+      "mode": "100644",
+      "git_blob": "b26e590a8d500cb56185d82dd4b4aeb3b461d21d"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "d4712647e0894c3ebddfd3430e1a4614035b37eb"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/cross_study_evidence.csv": {
+      "mode": "100644",
+      "git_blob": "b9853c6b28f1a609ac01c45f4cc6f213b14e5689"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/error_decomposition.csv": {
+      "mode": "100644",
+      "git_blob": "5ba98a0755373a93aefda9498251a81a6544fb3a"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/observation_accounting.csv": {
+      "mode": "100644",
+      "git_blob": "ab3ffaa52ecb1c0dca73b896c7fa44fcb02cf9c0"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/parameter_adjustment_accounting.csv": {
+      "mode": "100644",
+      "git_blob": "36e6df8cd92f0243f8b678db475c07a479ba72cb"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/published_score_reconciliation.csv": {
+      "mode": "100644",
+      "git_blob": "0da5b6b2b2f766baaf2c92655fdf4d4103fd5387"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "36b222e01d9fba03f58d0845074928eb60dd696e"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/source_integrity.csv": {
+      "mode": "100644",
+      "git_blob": "f1b553ca4889980cf5682fa29b2f10a766ea553d"
+    },
+    "docs/ops/evidence/r1a_evidence_closeout_20260912/year_partition.csv": {
+      "mode": "100644",
+      "git_blob": "2aef7861c8e7b74c8d82ef3e1cbcd868682a2d48"
+    },
+    "docs/ops/evidence/r1a_method_calibration_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "b6e7686f43475c0195fbf01318281e62e1a4b437"
+    },
+    "docs/ops/evidence/r1a_method_calibration_20260912/all_method_DGP_design_cells.csv": {
+      "mode": "100644",
+      "git_blob": "2bd899bae7c1719b64deed2e867f3859959505f1"
+    },
+    "docs/ops/evidence/r1a_method_calibration_20260912/information_budget_NOT_commitment.csv": {
+      "mode": "100644",
+      "git_blob": "a1c14548420daaa50356918084f41433dd55bb25"
+    },
+    "docs/ops/evidence/r1a_method_calibration_20260912/joint_family_null_checks.csv": {
+      "mode": "100644",
+      "git_blob": "7f1018d7ed56fa2e0240db80a68db0205badfde2"
+    },
+    "docs/ops/evidence/r1a_method_calibration_20260912/method_receipt.json": {
+      "mode": "100644",
+      "git_blob": "d98e09fc84b0db513bfa7aca389244534b03ae16"
+    },
+    "docs/ops/evidence/r1a_method_calibration_20260912/multiple_control_bounds_ASSUMPTIONS.csv": {
+      "mode": "100644",
+      "git_blob": "32d27319bfb6f68080afc0a845fe800c68cfc3b9"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/REPORT.md": {
+      "mode": "100644",
+      "git_blob": "88307c30197e3a531b03adbaa77189caa0264d57"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/all_original_event_coverage.csv": {
+      "mode": "100644",
+      "git_blob": "f2dc55bf7822b325375a62991df3d51c0cb35579"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/daily_loss_accounting.csv": {
+      "mode": "100644",
+      "git_blob": "e32b9650efecc56a94a7d263a91c6cc4764ca182"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/event_predictions.csv": {
+      "mode": "100644",
+      "git_blob": "55ee1561131771841e661255bf8eb0362093b7cc"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/fold_training_audit.csv": {
+      "mode": "100644",
+      "git_blob": "c8572a1ca32f04554003a4af2bed974ad78029d3"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/loss_lag_products.csv": {
+      "mode": "100644",
+      "git_blob": "1a0e4807e1708946baceba67a35f169cc0a82b70"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/model_parameters.csv": {
+      "mode": "100644",
+      "git_blob": "471684fb38c790db782cb109c8dbfda557c485e9"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/prefix_identity_audit.csv": {
+      "mode": "100644",
+      "git_blob": "bd52affe9a43b9546767a7b0cb63172c753cd557"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/receipt.json": {
+      "mode": "100644",
+      "git_blob": "0bdf7738cd2a7e73bb20b85b8613dd2954ae488b"
+    },
+    "docs/ops/evidence/r1a_walkforward_prediction_20260912/scores.csv": {
+      "mode": "100644",
+      "git_blob": "4953df4d8d029ce9ce9f2e3db338742d5f925a5e"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/acquisition_session_receipt.json": {
+      "mode": "100644",
+      "git_blob": "d2ff7ea3f180f0309769ef16e24b8a89bcad74aa"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_adapter_receipt.json": {
+      "mode": "100644",
+      "git_blob": "b4f66dbf6e0d882e8a3002a2be9c5a02d059e565"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/datahub_export_2022-12_receipt.json": {
+      "mode": "100644",
+      "git_blob": "252961a6d92a6886dbb26c2c36554769537ee654"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/legacy_adapter_receipt.json": {
+      "mode": "100644",
+      "git_blob": "f9fbb1474cf398dd2b2fb7dd3b8aefe8f56cdc80"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/legacy_prepare_receipt.json": {
+      "mode": "100644",
+      "git_blob": "630b93f1b1dea1d5a0e6c9f647fdaa34937e4643"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_canonical.csv": {
+      "mode": "100644",
+      "git_blob": "f6f7108bdfbc2883ea07edc8df98fd62f4323164"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_contract_master.csv": {
+      "mode": "100644",
+      "git_blob": "ab97b0b9edb04414c043537752b3171e605958ff"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/prepared/legacy_snapshot_mo_only.csv": {
+      "mode": "100644",
+      "git_blob": "54223f5be72a487bce6573e9d90e0343ea83b972"
+    },
+    "docs/ops/evidence/r1b_mo_acquisition_20260911/validator_template_fail_receipt.json": {
+      "mode": "100644",
+      "git_blob": "7739c4bd6c2874c13ce6cce6583320bcdacd13d4"
+    },
+    "docs/ops/evidence/r1b_mo_admission_20260911/admission_validator_receipt.json": {
+      "mode": "100644",
+      "git_blob": "7b634b146044242efa839e5ebe54f58e7507a047"
+    },
+    "docs/ops/evidence/r1b_mo_admission_20260911/materialize_receipt.json": {
+      "mode": "100644",
+      "git_blob": "14ab495066fbc9561b787cc6942ca0c63fc1f7af"
+    },
+    "docs/ops/evidence/r1b_mo_backspread_20260911/outcome_receipt.json": {
+      "mode": "100644",
+      "git_blob": "347955cf021ef05954fd7e13abd74e459b2ca44f"
+    },
+    "docs/ops/evidence/r1b_mo_outcome_20260911/event_ledger.csv": {
+      "mode": "100644",
+      "git_blob": "9747805e7c1666597624d18fa8183f73dfdaa4ac"
+    },
+    "docs/ops/evidence/r1b_mo_outcome_20260911/outcome_receipt.json": {
+      "mode": "100644",
+      "git_blob": "eca105df00fbccec97102259bb480fbcd1601dbb"
+    },
+    "docs/ops/evidence/r1b_mo_pre_execution_20260911/freeze_validator_receipt.json": {
+      "mode": "100644",
+      "git_blob": "bb67e9918663b0ed944695df802aba0091040d38"
+    },
+    "docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "6a6db5ad0f33b20051da03d62e816297924b51e6"
+    },
+    "docs/research/ETF_INDEX_MEASURABILITY_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "a7eeb25b7c9cdaf1157596dc8f9420df2e223c63"
+    },
+    "docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "c15b776574315d4f6be37db3b051dd52d66102de"
+    },
+    "docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "f21963531a14eb51e68a93ac956cb15e6674dbe7"
+    },
+    "docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "a3f4b2e7f04ab481619e4ffb0688877269c05e1f"
+    },
+    "docs/research/INDEX_PRICE_VALIDITY_STUDY_20260911.md": {
+      "mode": "100644",
+      "git_blob": "5ee060e7439d21e996bddc67be271ced8f3b1714"
+    },
+    "docs/research/R1A_CARRIER_TRANSPORT_STATUS_20260912.md": {
+      "mode": "100644",
+      "git_blob": "4440f9a9f5cac69d6784d9b8d27153da5d42f479"
+    },
+    "docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "2972409e911284a8bc9321ee320b9b207118b6b1"
+    },
+    "docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "00a3ec1efa9d8bb761f3983a22e5ce84ce0fbb9b"
+    },
+    "docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "56433d8607f3d30cc578b6691d3043de161f6c3c"
+    },
+    "docs/research/R1A_ENDPOINT_METHOD_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "46be75aef731736c5de870b9b04351447de44e88"
+    },
+    "docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "9a69025433d8dbc9438e940f005e43614adfd0ef"
+    },
+    "docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "f45c35a85ee3be736db12232c65dafbeb038887d"
+    },
+    "docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "0834e8ae9b5c430c9cb008090249eb5b1d31c218"
+    },
+    "docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md": {
+      "mode": "100644",
+      "git_blob": "1c2102554db03f939c5b20e74f67217001210c17"
+    },
+    "docs/research/R1B_MO_CFFEX_ACQUISITION_SPEC_20260910.md": {
+      "mode": "100644",
+      "git_blob": "b3fbca687fc6a81b6e013e60404612df645eced9"
+    },
+    "docs/research/R1B_MO_CIIS_CURRENT_ORDER_ROUTE_20260910.md": {
+      "mode": "100644",
+      "git_blob": "256a766ed195b90800268ee58f35e9288d43cc43"
+    },
+    "docs/research/R1B_MO_CIIS_ORDER_REQUEST_PACKAGE_20260911.md": {
+      "mode": "100644",
+      "git_blob": "5e43c6778e775379d0acebbf125372cfbe76a4c3"
+    },
+    "docs/research/R1B_MO_CONVEX_PAYOFF_THEORY_REVIEW_20260910.md": {
+      "mode": "100644",
+      "git_blob": "3595051637efa3fac67dac1abea88b58b86d204a"
+    },
+    "docs/research/R1B_MO_DATAHUB_ROUTE_20260911.md": {
+      "mode": "100644",
+      "git_blob": "1fb7223a43d3529d164d92bde10174d8ce4af8a5"
+    },
+    "docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260910.md": {
+      "mode": "100644",
+      "git_blob": "8f67c473644a3d3d280a9ccddadc7a5068975904"
+    },
+    "docs/research/R1B_MO_DATA_SOURCE_ADMISSION_STATUS_20260911.md": {
+      "mode": "100644",
+      "git_blob": "acb09698e90bd498b9773472fefef98757c85d64"
+    },
+    "docs/research/R1B_MO_FEE_SOURCE_STATUS_20260910.md": {
+      "mode": "100644",
+      "git_blob": "d1af39d62ff8f4cb10efb73030b3d0729241de05"
+    },
+    "docs/research/R1B_MO_FEE_SOURCE_STATUS_20260911.md": {
+      "mode": "100644",
+      "git_blob": "2fff0ec3144d1ba73dc45cded9cff245210d0df8"
+    },
+    "docs/research/R1B_MO_OUTCOME_STUDY_20260911.md": {
+      "mode": "100644",
+      "git_blob": "18fd09a463ae0e024b5b2603096e776ebb7f072a"
+    },
+    "docs/research/R1B_MO_PRE_EXECUTION_FREEZE_20260911.md": {
+      "mode": "100644",
+      "git_blob": "a1f414b873591bc5e002dfb00f9bcd2f5c36b0c9"
+    },
+    "docs/research/R1B_MO_RATIO_BACKSPREAD_OUTCOME_STUDY_20260911.md": {
+      "mode": "100644",
+      "git_blob": "bb70b1400631ee1314b63da9f60d79ca7e98e4a1"
+    },
+    "docs/research/R1B_MO_RATIO_BACKSPREAD_THEORY_FREEZE_20260911.md": {
+      "mode": "100644",
+      "git_blob": "876823429145de2d31c57cd2897342baba008e21"
+    },
+    "docs/research/R1B_POST_BACKSPREAD_PAYOFF_THEORY_REVIEW_20260911.md": {
+      "mode": "100644",
+      "git_blob": "500e9da0f05acb5cf14d6ac09a34a95b80f3b2d1"
+    },
+    "docs/research/R1_INCREMENTAL_ALPHA_ATTRIBUTION_20260911.md": {
+      "mode": "100644",
+      "git_blob": "f2543f4d15d3b795274fba4cefead5108cfb52cb"
+    },
+    "docs/research/R1_INCREMENTAL_ALPHA_PROGRAM_DECISION_20260911.md": {
+      "mode": "100644",
+      "git_blob": "0266aa153e3f5190e87241d1e785a374a3e4ab0c"
+    },
+    "docs/seed_manifest.json": {
+      "mode": "100644",
+      "git_blob": "5daa89e03a23c75ca2ca8928cacff4df720fd4c1"
+    },
+    "pyproject.toml": {
+      "mode": "100644",
+      "git_blob": "6a54aca5dd0b683cbd727038e031b845d1e72604"
+    },
+    "research/etf_day_reconciliation/README.md": {
+      "mode": "100644",
+      "git_blob": "3715d590544397eddd525b5e9609099a2f0812a0"
+    },
+    "research/etf_day_reconciliation/audit.py": {
+      "mode": "100644",
+      "git_blob": "0ac14d80d810511844f30f4265d2a62b8a8d3f22"
+    },
+    "research/etf_index_measurability/README.md": {
+      "mode": "100644",
+      "git_blob": "0123e035ce59d58fb0dc79e751738be41f4ff900"
+    },
+    "research/etf_index_measurability/audit.py": {
+      "mode": "100644",
+      "git_blob": "a97b3a307f0ac6280756ed70b0b97c34a1a9f15b"
+    },
+    "research/etf_index_measurability/source_flags.py": {
+      "mode": "100644",
+      "git_blob": "9e60dc008380b7b89e7dce7ed32d6a02ae3b35a7"
+    },
+    "research/etf_index_measurability/verify_replay.py": {
+      "mode": "100644",
+      "git_blob": "9b7c95de50bded62dad6ba7d2677d09ebd138575"
+    },
+    "research/etf_one_day_review/README.md": {
+      "mode": "100644",
+      "git_blob": "f3252e7e42275271ba7242ad5f55ef9b04f04cd8"
+    },
+    "research/etf_one_day_review/audit.py": {
+      "mode": "100644",
+      "git_blob": "54e566b92f8fa2e810b3cf5c2413852e865982bd"
+    },
+    "research/etf_source_repair/README.md": {
+      "mode": "100644",
+      "git_blob": "6181acbb0a1c4fc9d263c97d1fab8964154f7df2"
+    },
+    "research/etf_source_repair/REPLAY_METADATA_NOTE.md": {
+      "mode": "100644",
+      "git_blob": "2581c5f7bcfbc10eb56947d154c97d2c02d58575"
+    },
+    "research/etf_source_repair/audit.py": {
+      "mode": "100644",
+      "git_blob": "3784da97185122a3bb46eb50b266f44de2333650"
+    },
+    "research/etf_source_repair/verify_legacy_inventory.py": {
+      "mode": "100644",
+      "git_blob": "a0f497276efaa265e778e24e6c4e7137e6335cbc"
+    },
+    "research/etf_source_repair/verify_retained.py": {
+      "mode": "100644",
+      "git_blob": "fbf04acd77b307bd1a62777813afafa3214f7e8f"
+    },
+    "research/etf_upstream_review/README.md": {
+      "mode": "100644",
+      "git_blob": "2dedae623855c660cb05665e2d04c543fbf937bd"
+    },
+    "research/etf_upstream_review/audit.py": {
+      "mode": "100644",
+      "git_blob": "6007e021f1a5291c1a5f4dea65d8318851eb8021"
+    },
+    "research/index_price_validity/__init__.py": {
+      "mode": "100644",
+      "git_blob": "b68512ee74ef9a9497c7e66a670c19e25bb4c495"
+    },
+    "research/index_price_validity/core.py": {
+      "mode": "100644",
+      "git_blob": "a03bb31ea7f9f883187e6ad26e53df8ad86f4285"
+    },
+    "research/index_price_validity/run_study.py": {
+      "mode": "100644",
+      "git_blob": "7073c53fd2b80822c6be0641a810bc54ef82c0c9"
+    },
+    "research/r1_incremental_alpha_attribution/__init__.py": {
+      "mode": "100644",
+      "git_blob": "6862a47bf59263a6b58901e86b684bc416eda6c8"
+    },
+    "research/r1_incremental_alpha_attribution/core.py": {
+      "mode": "100644",
+      "git_blob": "73c4eaad108e9c56ad5af84a562e89442c192f13"
+    },
+    "research/r1_incremental_alpha_attribution/run_study.py": {
+      "mode": "100644",
+      "git_blob": "c426e450296b274eac56beb3716ee8ec363f5201"
+    },
+    "research/r1a_carrier_transport/README.md": {
+      "mode": "100644",
+      "git_blob": "d6d2ef4b48fe15974c6f6e0467e81f21d32b1560"
+    },
+    "research/r1a_carrier_transport/__init__.py": {
+      "mode": "100644",
+      "git_blob": "43dcbfdecaef4595c2cb182e8f99db7e646ad424"
+    },
+    "research/r1a_carrier_transport/audit_public_delivery.py": {
+      "mode": "100644",
+      "git_blob": "abc55685a848b91b9d7514e73e723ec1e4a8039b"
+    },
+    "research/r1a_carrier_transport/audit_source_delivery.py": {
+      "mode": "100644",
+      "git_blob": "555902e3d419780c998d671120abc2b1d21ddab8"
+    },
+    "research/r1a_carrier_transport/build_cloud_pack.py": {
+      "mode": "100644",
+      "git_blob": "8d06cc15a7505224da5fb37414eac57a0908a2e7"
+    },
+    "research/r1a_carrier_transport/endpoint_diagnostic.py": {
+      "mode": "100644",
+      "git_blob": "a9c37b0aac2abdfca7d8b0cab90bd4ce689267c6"
+    },
+    "research/r1a_carrier_transport/export_datahub_lake.py": {
+      "mode": "100644",
+      "git_blob": "fb4b035b9da9f6231c951719ca4c162d8a9396fc"
+    },
+    "research/r1a_carrier_transport/probe_sources.py": {
+      "mode": "100644",
+      "git_blob": "c7c674f928c44efcb9a46ece28562b16eb2f4802"
+    },
+    "research/r1a_carrier_transport/transport.py": {
+      "mode": "100644",
+      "git_blob": "056efa22d9fb83ce0786ace054f1f926c83265b8"
+    },
+    "research/r1a_carrier_transport/verify_cloud_replay.py": {
+      "mode": "100644",
+      "git_blob": "bd2a51d0b441d400c924cf741ff9ec15c7b8521f"
+    },
+    "research/r1a_confirmation_feasibility/README.md": {
+      "mode": "100644",
+      "git_blob": "280c434cb2f5a46aaed135608fb5ee84897fd3cb"
+    },
+    "research/r1a_confirmation_feasibility/audit_data_roles.py": {
+      "mode": "100644",
+      "git_blob": "b4900aae379c6044f1f6377aabd3a1444ff3eae0"
+    },
+    "research/r1a_confirmation_feasibility/study.py": {
+      "mode": "100644",
+      "git_blob": "04d090f304df692c68d74a9b32ec6831eae92b20"
+    },
+    "research/r1a_control_design/README.md": {
+      "mode": "100644",
+      "git_blob": "916087a192aa72e80fb6bf10f4cf0c4268a94565"
+    },
+    "research/r1a_control_design/core.py": {
+      "mode": "100644",
+      "git_blob": "b14af6ad6a703422035e901b15c238880b86a92f"
+    },
+    "research/r1a_control_design/study.py": {
+      "mode": "100644",
+      "git_blob": "ad431eabc1e8827838d48bbc4976b1f74b21563e"
+    },
+    "research/r1a_control_design/verify_replay.py": {
+      "mode": "100644",
+      "git_blob": "022aac942e281dc63530689202a574c459ff1fc4"
+    },
+    "research/r1a_development_noise/README.md": {
+      "mode": "100644",
+      "git_blob": "97bf16ccbbaef1cdfd87c165440c04a9dffa2fb6"
+    },
+    "research/r1a_development_noise/study.py": {
+      "mode": "100644",
+      "git_blob": "c603a25b068f206832e32305f406dde869eaf390"
+    },
+    "research/r1a_development_noise/verify_replay.py": {
+      "mode": "100644",
+      "git_blob": "cc90fae083c4bb806342c6aaa226507042f71c50"
+    },
+    "research/r1a_endpoint_robustness/study.py": {
+      "mode": "100644",
+      "git_blob": "83ffef4087fb73a09aaf46271d3c06353d6d354a"
+    },
+    "research/r1a_evidence_closeout/README.md": {
+      "mode": "100644",
+      "git_blob": "afe4f72578fa5c3a7ee3e9ead33518c1398c25e0"
+    },
+    "research/r1a_evidence_closeout/audit.py": {
+      "mode": "100644",
+      "git_blob": "9146f601c62749416760d3ea6c3a5a01a5630d96"
+    },
+    "research/r1a_evidence_closeout/source_registry.json": {
+      "mode": "100644",
+      "git_blob": "6449ede9d521e1062792adb5cfabd9c0ba75b9ba"
+    },
+    "research/r1a_evidence_closeout/verify_replay.py": {
+      "mode": "100644",
+      "git_blob": "6b04cf3c54ca22fc2095f6fd0f20624daf1f2396"
+    },
+    "research/r1a_method_calibration/README.md": {
+      "mode": "100644",
+      "git_blob": "93ba4ee620c1deb8e2c90872deabaf8fb0545bbb"
+    },
+    "research/r1a_method_calibration/prior_replay_audit.py": {
+      "mode": "100644",
+      "git_blob": "43d36308a616f277a59f5d570bd2dbe713444161"
+    },
+    "research/r1a_method_calibration/replay_audit.py": {
+      "mode": "100644",
+      "git_blob": "cc187d061fb50f8a592e6a90a72a30535fda4a62"
+    },
+    "research/r1a_method_calibration/study.py": {
+      "mode": "100644",
+      "git_blob": "1354ce214250d84c86d4b14fd6eba8cb69d057bc"
+    },
+    "research/r1a_walkforward_prediction/README.md": {
+      "mode": "100644",
+      "git_blob": "9e9c4244ef63b5205aae7805a50dbfdab335d5c6"
+    },
+    "research/r1a_walkforward_prediction/core.py": {
+      "mode": "100644",
+      "git_blob": "1330d17ab010459665fc67c64f9a93abdbd78037"
+    },
+    "research/r1a_walkforward_prediction/study.py": {
+      "mode": "100644",
+      "git_blob": "c95ff49cea13283e5f790603936f0a784ead4839"
+    },
+    "research/r1a_walkforward_prediction/verify_replay.py": {
+      "mode": "100644",
+      "git_blob": "fdbf8a43a7403f70ff05337794564db1ff18330a"
+    },
+    "research/r1b_mo_backspread/__init__.py": {
+      "mode": "100644",
+      "git_blob": "41220b2a747d5aa43fec7a10e98e630170ac897e"
+    },
+    "research/r1b_mo_backspread/run_study.py": {
+      "mode": "100644",
+      "git_blob": "9b86e74a61b4e5b8113777d1bfb3546110957c8b"
+    },
+    "research/r1b_mo_backspread/selection.py": {
+      "mode": "100644",
+      "git_blob": "6e604291a2eafa59d37739b238f2cbefb1486918"
+    },
+    "research/r1b_mo_data_admission/adapt_cffex_snapshot.py": {
+      "mode": "100644",
+      "git_blob": "738cd380125c391121d8093c5ef431e79fe0e8a8"
+    },
+    "research/r1b_mo_data_admission/adapt_cffex_snapshot_epochs.py": {
+      "mode": "100644",
+      "git_blob": "9423c388ecdc476e0f69ee2af83e8bd0f1a90768"
+    },
+    "research/r1b_mo_data_admission/adapt_datahub_mo_trade_activity.py": {
+      "mode": "100644",
+      "git_blob": "247c9d16a23d8bcf93f002eab999a547e0c35464"
+    },
+    "research/r1b_mo_data_admission/export_datahub_mo_month.py": {
+      "mode": "100644",
+      "git_blob": "541a1f0340a167227cfeed179158854e60d2b1a9"
+    },
+    "research/r1b_mo_data_admission/materialize_datahub_mo_admission_bundle.py": {
+      "mode": "100644",
+      "git_blob": "4b9bbeee3f5e86c6e1620bc6a813f94be15ddd57"
+    },
+    "research/r1b_mo_data_admission/prepare_ciis_legacy_cff_snapshot.py": {
+      "mode": "100644",
+      "git_blob": "7d58ac2cc4e1ef8ef3634d9c45bfebc988a28ce9"
+    },
+    "research/r1b_mo_data_admission/validate_mo_quote_source.py": {
+      "mode": "100644",
+      "git_blob": "521fada3880858c8dafa04a42b8ba8fbb5b4c815"
+    },
+    "research/r1b_mo_outcome/__init__.py": {
+      "mode": "100644",
+      "git_blob": "ecd6835678d70ae1f862583887cb97c0013d8c33"
+    },
+    "research/r1b_mo_outcome/adjudicate.py": {
+      "mode": "100644",
+      "git_blob": "f7725cb61da8d5d4aeaa7562752ce68f11f018ec"
+    },
+    "research/r1b_mo_outcome/events.py": {
+      "mode": "100644",
+      "git_blob": "c884cbe1b9f748ee8de41b00287ee5843dba7f4e"
+    },
+    "research/r1b_mo_outcome/pack_research_csv.py": {
+      "mode": "100644",
+      "git_blob": "9eb5a31bc7ff24ccfdc525676aa2e0f3c7a68fc5"
+    },
+    "research/r1b_mo_outcome/quotes.py": {
+      "mode": "100644",
+      "git_blob": "cac142b34567d87ed1ba8ca02789067ee547971e"
+    },
+    "research/r1b_mo_outcome/run_outcome_study.py": {
+      "mode": "100644",
+      "git_blob": "d70caf7443aa1088a0f150ecd5c5bd79b1fce87f"
+    },
+    "research/r1b_mo_pre_execution/__init__.py": {
+      "mode": "100644",
+      "git_blob": "a86b6bc2fab30b4f0c062bfd057c926e9cbd3eaa"
+    },
+    "research/r1b_mo_pre_execution/selection.py": {
+      "mode": "100644",
+      "git_blob": "160c70f686cf413d89d79e240a4b9599889fe8cd"
+    },
+    "research/r1b_mo_pre_execution/validate_pre_execution_freeze.py": {
+      "mode": "100644",
+      "git_blob": "0fcbff52f2db12c535de613eeb35a2d85b513f4c"
+    },
+    "shared/__init__.py": {
+      "mode": "100644",
+      "git_blob": "bd3e36dad8c42ab5e0fe2f6f962d1e7ec4e626e0"
+    },
+    "shared/observability/__init__.py": {
+      "mode": "100644",
+      "git_blob": "bd3e36dad8c42ab5e0fe2f6f962d1e7ec4e626e0"
+    },
+    "shared/observability/error_codes.py": {
+      "mode": "100644",
+      "git_blob": "c973e7c34d71934078e6e3bc83ad68d9138aa2bb"
+    },
+    "shared/observability/exceptions.py": {
+      "mode": "100644",
+      "git_blob": "a1e4ae854d9d2a72d44750608b0379f9b96fcfaf"
+    },
+    "src/factor_lab/__init__.py": {
+      "mode": "100644",
+      "git_blob": "cdbeb8c0c69c8d8704ca07ef422f8ac31e52ad8c"
+    },
+    "src/factor_lab/core/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/core/errors.py": {
+      "mode": "100644",
+      "git_blob": "9172cefb3dc9c24ada39cc24e6feb584ec7cb3fb"
+    },
+    "src/factor_lab/data/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/data/services/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/data/services/standard_backtest_service.py": {
+      "mode": "100644",
+      "git_blob": "1b878e758d9914af44207a0dadc55b8d9335be53"
+    },
+    "src/factor_lab/data/session_offset_defaults.py": {
+      "mode": "100644",
+      "git_blob": "dc94ca08f2b3cb780dba4593bc5e600dc82e05a9"
+    },
+    "src/factor_lab/filtering/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/filtering/costs.py": {
+      "mode": "100644",
+      "git_blob": "3e37caeba13d2e45f2550a3147623f717ba62cd1"
+    },
+    "src/factor_lab/governance/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/governance/evidence_resolver.py": {
+      "mode": "100644",
+      "git_blob": "6d52707d804d60dca6896303014ab54dbd6d6fa4"
+    },
+    "src/factor_lab/governance/multiple_testing.py": {
+      "mode": "100644",
+      "git_blob": "4c9039f34a447d148608a1b693d43bfcd934d113"
+    },
+    "src/factor_lab/governance/sealed_source.py": {
+      "mode": "100644",
+      "git_blob": "ad31515118a0c4f3821b6b7fc4dfa13aa909206f"
+    },
+    "src/factor_lab/governance/temporal_integrity.py": {
+      "mode": "100644",
+      "git_blob": "46f327cef6bc481febed2a3766092ac250a596d0"
+    },
+    "src/factor_lab/indicators/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/indicators/bar_direction_continuity.py": {
+      "mode": "100644",
+      "git_blob": "e53361c24488ca8ebc1588d50e46fc4590e5cc09"
+    },
+    "src/factor_lab/indicators/directional_impulse.py": {
+      "mode": "100644",
+      "git_blob": "a5c7ca7efedad8d46df5a2a6daf447f0ffcdee9f"
+    },
+    "src/factor_lab/indicators/jump_reversal_risk.py": {
+      "mode": "100644",
+      "git_blob": "28f54b0b41d7fd3317ccf44a5dd8ddf41b0ec942"
+    },
+    "src/factor_lab/indicators/path_weighted_bar_color_imbalance.py": {
+      "mode": "100644",
+      "git_blob": "c80c3b56a85e9e41b30df228028dff841fbd972a"
+    },
+    "src/factor_lab/market_state/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/market_state/core_kline_attribute_pool.py": {
+      "mode": "100644",
+      "git_blob": "138133303616cd2363393670b5e803f15381c65d"
+    },
+    "src/factor_lab/market_state/normalization.py": {
+      "mode": "100644",
+      "git_blob": "ef9510dd4b13c67d647322f7ac02c5dd1466fce1"
+    },
+    "src/factor_lab/market_state/timing_layer2_measurement_plane.py": {
+      "mode": "100644",
+      "git_blob": "e765d9b393ae8a6f84debbb6e085266441c91a0f"
+    },
+    "src/factor_lab/observability/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/observability/exceptions.py": {
+      "mode": "100644",
+      "git_blob": "967fd2cba8acbaf9efa080962c85adb273f46cb2"
+    },
+    "src/factor_lab/portfolio/__init__.py": {
+      "mode": "100644",
+      "git_blob": "2c23514f1ecd6c9a3101e4d6d3786c27812ae675"
+    },
+    "src/factor_lab/portfolio/relative_performance.py": {
+      "mode": "100644",
+      "git_blob": "3fcee655c4381ce374edb967465ac1531b185900"
+    },
+    "src/regime_lab/__init__.py": {
+      "mode": "100644",
+      "git_blob": "9ce0a552e0af53154014ac31323ceacfb58c3e30"
+    },
+    "src/regime_lab/market_data.py": {
+      "mode": "100644",
+      "git_blob": "408201b19fe439fb14b1c7c4e600e9a4d442ffa8"
+    },
+    "src/regime_lab/package_guard.py": {
+      "mode": "100644",
+      "git_blob": "e88170c7a82440ff547f2b00908ee295a8813a84"
+    },
+    "tests/test_control_design_retained.py": {
+      "mode": "100644",
+      "git_blob": "939a17eeee3ac2a7c9aa8ac9dba3fb16eb28daef"
+    },
+    "tests/test_development_noise_retained.py": {
+      "mode": "100644",
+      "git_blob": "3d18d587b6ab3678597663b2ac72e45534bf4531"
+    },
+    "tests/test_etf_day_reconciliation.py": {
+      "mode": "100644",
+      "git_blob": "c197accf355c5d60feb53e7f7695db324279d9c0"
+    },
+    "tests/test_etf_day_reconciliation_retained.py": {
+      "mode": "100644",
+      "git_blob": "21bc7b6d490250bd1a42bd26d45786cab7e315b4"
+    },
+    "tests/test_etf_index_measurability.py": {
+      "mode": "100644",
+      "git_blob": "174dbec58d0d6b505162c4181fdbfa82c1ca056c"
+    },
+    "tests/test_etf_measurement_replay_precision.py": {
+      "mode": "100644",
+      "git_blob": "232099c9be56cc7b8ab2f3b2802fdba28fa92e49"
+    },
+    "tests/test_etf_measurement_retained.py": {
+      "mode": "100644",
+      "git_blob": "e4754d699b0cbd09de6a237328f98d1b15eb4deb"
+    },
+    "tests/test_etf_one_day_review.py": {
+      "mode": "100644",
+      "git_blob": "ee89c6abfd75689cccfd96b47ed3738ca7e45a6d"
+    },
+    "tests/test_etf_replay_inventory.py": {
+      "mode": "100644",
+      "git_blob": "2e4326fb670e046d63cee0da380a7222d784627f"
+    },
+    "tests/test_etf_source_repair.py": {
+      "mode": "100644",
+      "git_blob": "d32f9a3b405083976b4e1d56322f9463a3b0430b"
+    },
+    "tests/test_etf_source_repair_retained.py": {
+      "mode": "100644",
+      "git_blob": "63985b66c102e2a0b55f79e3a0b8b7a1be9c5e55"
+    },
+    "tests/test_etf_upstream_review.py": {
+      "mode": "100644",
+      "git_blob": "020d72d078e10c5baefe7df8a3849e42922b773c"
+    },
+    "tests/test_evidence_closeout_retained.py": {
+      "mode": "100644",
+      "git_blob": "c7a2436d3e60668e87b5ec3e546af82a947d81a9"
+    },
+    "tests/test_index_price_validity.py": {
+      "mode": "100644",
+      "git_blob": "36f5c0e54e658dd31b9c3dcfe7973140f0e7e74a"
+    },
+    "tests/test_r1_incremental_alpha_attribution.py": {
+      "mode": "100644",
+      "git_blob": "c77fd813b991ab7f75906a9b0e34e837343a50a3"
+    },
+    "tests/test_r1a_carrier_transport.py": {
+      "mode": "100644",
+      "git_blob": "086b11f65c0627de241b547ba75a35b437758b14"
+    },
+    "tests/test_r1a_cloud_pack_delivery.py": {
+      "mode": "100644",
+      "git_blob": "0b34ebe52a06d4719eeedab1c7999491190d6d9b"
+    },
+    "tests/test_r1a_cloud_raw_replay.py": {
+      "mode": "100644",
+      "git_blob": "71ff64bec55a009d46668ecf90fc79d3b9ae507e"
+    },
+    "tests/test_r1a_confirmation_feasibility.py": {
+      "mode": "100644",
+      "git_blob": "d6a3e122b9299fe86a4243796331687a8ad1f0fd"
+    },
+    "tests/test_r1a_control_design.py": {
+      "mode": "100644",
+      "git_blob": "aceefb5959d2940f6ac907eb1aca3745c7d10913"
+    },
+    "tests/test_r1a_delivered_ledger_regression.py": {
+      "mode": "100644",
+      "git_blob": "5c10819ff6e86def14d5cc1be133d7c2f29e4646"
+    },
+    "tests/test_r1a_development_noise.py": {
+      "mode": "100644",
+      "git_blob": "154c8b295a29e8f9aad876f1a589ac6f644fa7b7"
+    },
+    "tests/test_r1a_endpoint_diagnostic.py": {
+      "mode": "100644",
+      "git_blob": "56bc68a11002ec6bd77bdb9a3a3db3bf707a36c1"
+    },
+    "tests/test_r1a_endpoint_retained.py": {
+      "mode": "100644",
+      "git_blob": "4396ef892d3c183e82b1b4121ecce0a8086a8c08"
+    },
+    "tests/test_r1a_endpoint_robustness.py": {
+      "mode": "100644",
+      "git_blob": "9ff1d56f02f8bd8591d43eb7b00010fa402613d1"
+    },
+    "tests/test_r1a_evidence_closeout.py": {
+      "mode": "100644",
+      "git_blob": "58bb8eb4f17713e7fa8e952a9f412808e1425960"
+    },
+    "tests/test_r1a_feasibility_retained.py": {
+      "mode": "100644",
+      "git_blob": "c22640ef8dc700f963386941763211514ad8e7e1"
+    },
+    "tests/test_r1a_method_calibration.py": {
+      "mode": "100644",
+      "git_blob": "49ae2f188a1e8add0cf9051b25ea0f3c3177e880"
+    },
+    "tests/test_r1a_method_calibration_retained.py": {
+      "mode": "100644",
+      "git_blob": "0e0ac6f32e90b59bce14de007effb00b730bcc59"
+    },
+    "tests/test_r1a_method_replay_audit.py": {
+      "mode": "100644",
+      "git_blob": "3b50d38f6da66207f395f82c82f190530dcf1ac8"
+    },
+    "tests/test_r1a_prior_replay_audit.py": {
+      "mode": "100644",
+      "git_blob": "135730898102475ae45d9376fe4d48b329374141"
+    },
+    "tests/test_r1a_public_delivery_audit.py": {
+      "mode": "100644",
+      "git_blob": "256ffd17493cd9fb7b5620d514a0d96a1047f855"
+    },
+    "tests/test_r1a_robustness_retained.py": {
+      "mode": "100644",
+      "git_blob": "3ac560af14675d5ea324d943a18964356639b6c2"
+    },
+    "tests/test_r1a_walkforward_prediction.py": {
+      "mode": "100644",
+      "git_blob": "e33ac6ad6f351fa250e26f57e5455e89251d5557"
+    },
+    "tests/test_r1b_mo_backspread.py": {
+      "mode": "100644",
+      "git_blob": "0ae347303c15fe46b0cd4aa9c6aa98ee912acc75"
+    },
+    "tests/test_r1b_mo_cffex_adapter.py": {
+      "mode": "100644",
+      "git_blob": "eb34222d4f4919ffc82b00e513e3c6c24ce35b69"
+    },
+    "tests/test_r1b_mo_cffex_epoch_adapter.py": {
+      "mode": "100644",
+      "git_blob": "ddf361524c95c90138525bcb6ab8d21b172781f9"
+    },
+    "tests/test_r1b_mo_data_admission.py": {
+      "mode": "100644",
+      "git_blob": "329eb6b9a5ad5c1d068dd13d3e168f9afb7b310f"
+    },
+    "tests/test_r1b_mo_datahub_adapter.py": {
+      "mode": "100644",
+      "git_blob": "c8e43578d20e81336bfb7612da2dffdc43d25430"
+    },
+    "tests/test_r1b_mo_outcome_study.py": {
+      "mode": "100644",
+      "git_blob": "69285997441acc1087872b781d7d34ca5b25fe5c"
+    },
+    "tests/test_r1b_mo_pre_execution_freeze.py": {
+      "mode": "100644",
+      "git_blob": "e34830e1ec6837fd08f60b32f5448dd329b4de3e"
+    },
+    "tests/test_r1b_mo_prepare_legacy_cff_snapshot.py": {
+      "mode": "100644",
+      "git_blob": "892f8d10f571e7d90b74bb2bec2032760d04488c"
+    },
+    "tests/test_walkforward_prediction_retained.py": {
+      "mode": "100644",
+      "git_blob": "ba5875da07902c7f28dad55fde549dc8d94f6e90"
+    }
+  }
+}

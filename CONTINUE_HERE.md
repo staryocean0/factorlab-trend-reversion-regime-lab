@@ -1,37 +1,19 @@
-# Continue here — fixed-day field reconciliation completed
+# 从这里接管
 
-Latest task is complete: **day-end quantity equality does not establish intraday synchronization; legacy minutes are not fully reproduced; a restricted read-only source-label consumer is implemented.**
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](docs/REPOSITORY_STATE.json) · [最新研究解释](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-Read:
-1. `docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md`
-2. `docs/ops/evidence/etf_day_reconciliation_20260912/receipt.json`
-3. `docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json`
-4. `research/etf_day_reconciliation/README.md`
+最近完成的是2025-12-01字段对账和受限读取层，不是新收益实验。本次整理仅修复组件同步与运行入口。
 
-## Actual completion
+先读 [当前白皮书](docs/WHITEPAPER.md)、[最新来源对账](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)、[组件生命周期](docs/COMPONENTS.md)。
 
-Freeze `17d87322e4ca8bac4e1299d2c76a4b05b886c9bc`; decisive run `34684308732`, code `fef8578c3caffd523f6db7f26c5a0f947de2be0a`. Eight CSVs plus receipt. Original six Parquet files and only 2025-12-01 legacy CSV observations enter calculations. All original raw bytes remain unchanged.
+现有五年分钟包、上游说明和六个单日Parquet已经交付，不再索取相同材料。已知份额合并遗漏已修正且旧样本/均值不受影响，不重复该任务。不同产品的同步、单位和原生分钟生成语义仍有限制；不得拟合时移或补造字段让数据通过。
 
-9,798 quote/tick accounting rows; 482 original fixed-day legacy rows times four predeclared minute conventions = 1,928 rows. Full phase and boundary accounting retained. No fitted multiplier, selected bucket or clock shift.
+没有正在等待执行的金融实验。下一项实证须由用户另行授权，先明确问题和数据假设。本仓维护、合成测试、保留证据核对不构成重开R1_A或旧期权身份。
 
-Continuous quote cumulative quantity exceeds the sum of recorded ticks at-or-before the quote label in 629/4,711 (512100) and 3,508/4,740 (588000) events; no negative differences. Final-day quantities remain equal. This is a representation mismatch inside each ETF's feeds, not an ETF/index lead-lag signal or proof of physical latency.
-
-Under the declared price divisor, complete OHLC matches for [t-60s,t) are 158/235 and 77/237 printed minutes; all four scenario tables preserved, none certified as vendor truth. Raw-unit quantity inequality is not a data-error verdict because units remain unresolved. 512100 13:26 has no prints in the prior minute and different high/low/close in the next minute's22 prints; neither scenario reconstructs that legacy bar. Do not guess a repair.
-
-## Restricted consumer, not upstream repair
-
-`RestrictedSourceView` rejects reversed/empty/unknown intervals, future checkpoints, cross-phase carry, and fallback to an older state when the latest event is invalid. Consumer ends are clipped at declared phase boundaries; raw ends are not changed. 9,451 source events queryable within scope, 345 outside scope, two reversed terminal intervals retained but rejected. Two primary phase-end intervals clipped only in the consumer view. Observed-index-label coverage remains4736/4738 and4738/4738.
-
-DataHub producer and source Parquet have NOT been patched. Source-label replay, offline valid_until and timestamp equality are NOT exact receipt-time/PIT, exchange synchronization, missing-message certification or executable prices.
-
-## Current stop
-
-This finite field/bucket accounting is finished; do not endlessly rerun it or try new shifts/bucket conventions until one matches. Existing sources are usable for explicitly limited historical observation, not automatically a unified realtime or vendor-certified minute feed. Exact publication times, original vendor members, units, complete action calendars and nonzero IOPV remain unqualified. No returns, date expansion, 2026 opening, acquisition or new empirical candidate follows automatically.
-
-No new local transfer task. Five-year CSVs, source docs and the six day files are already delivered. A new study must separately state its estimand and source assumptions before authorization; missing source facts cannot be filled by optimizing an alignment.
-
-## Preserved history
-
-R1_A remains `R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`; closed R1_B/R2/options and selected-cohort failures remain closed. Known512100 2022-09-02 consolidation/new-old0.36555 and prior published-result zero-impact audit are complete;2022-08-03 proposal was cancelled. Do not repeat that repair. Original sources/manifests/freezes/receipts remain intact; old complete=true does not admit new studies.
-
-`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Engineering replay is not independent strategy evidence.
+修改当前状态时只编辑 [状态源](docs/REPOSITORY_STATE.json)，再运行 `python scripts/repository_consistency.py --render` 和 `--check`。不要分别手改多个入口。历史研究报告、冻结文件和原始数据保持原路径与原字节。

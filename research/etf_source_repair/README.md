@@ -1,30 +1,19 @@
-# ETF source correction and historical impact audit
+# etf_source_repair
 
-Read `docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md` and `docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json`.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](../../docs/REPOSITORY_STATE.json) · [最新研究解释](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-Actual known-action files are in `data/etf_source_actions_v2/`. They fix the missing 512100 2022-09-02 consolidation and exclude the cancelled 2022-08-03 proposal. Exhaustive actions and upstream quote/volume/time semantics remain uncertified.
+生命周期：`COMPLETED_KNOWN_ACTION_REPAIR_REPLAY_ONLY`。
 
-Decisive raw-source impact run: `34677079296`; code `7b66fa290ddeea363323bcb89fdc15f12a896384`. All 3,098 frozen pairs and 21,686 pair-horizon records were checked under ORIGINAL exclusion rules. No included endpoint/full-path cohort changed. All 112 recomputed published mean groups are unchanged. No new return population or model was opened.
+解释报告：[docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md](../../docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md)。冻结复现入口：[.github/workflows/etf-source-repair.yml](../../.github/workflows/etf-source-repair.yml)（手动/受控调用，不自动新实验）。
 
-## Current read-only validation
+实现、源文件、冻结输入和已保存结果保持原样。复现只能使用原范围、新输出目录，并与保留证据比较；不能覆盖旧回执。
 
-```bash
-git fetch --no-tags --filter=blob:none --depth=1 origin ef18bf905e9e427153650d5538a996249bb6a901
-PYTHONPATH=src:. python -m pytest -q tests/test_etf_source_repair.py tests/test_etf_source_repair_retained.py
-PYTHONPATH=src:. python research/etf_source_repair/verify_retained.py
-```
+旧使用说明作为历史参考保留：[docs/archive/repository_pre_cleanup_20260912/research/etf_source_repair/README.md](../../docs/archive/repository_pre_cleanup_20260912/research/etf_source_repair/README.md)。其中的下载/继续/准入措辞不是当前任务。
 
-This verifies retained evidence and 125 pinned baseline inputs, including one historical operational workflow checked from its baseline Git object; all other mounted scientific/source inputs remain byte-exact. It independently checks action-boundary and sample-count arithmetic. It is not another market experiment. See `REPLAY_METADATA_NOTE.md` for the retained failure and commit-specific inventory checks.
-
-## Full decisive audit reproduction
-
-Use a SEPARATE detached checkout of `7b66fa290ddeea363323bcb89fdc15f12a896384` with the original permitted source files, original workflow bytes and baseline Git tree available. Do not replace a user's working tree. Inside that historical checkout:
-
-```bash
-git fetch --no-tags --filter=blob:none --depth=1 origin ef18bf905e9e427153650d5538a996249bb6a901
-PYTHONPATH=src:. python research/etf_source_repair/audit.py --output /tmp/etf-source-repair-new
-```
-
-The initial output is retained at `docs/ops/evidence/etf_source_repair_20260912/`; never overwrite it. The decisive script pins old inputs, reads only 2021-2025 index partitions and delivered ETF data, reuses saved pairs/returns, and generates no signal or fit. The blocked primary full-path and common-cohort outcomes stay closed.
-
-The scanner's 44 code/workflow text hits are a bounded inventory, not proof that every external/dynamic consumer is identified. Reviewed direct consumers measure ETF endpoints/paths; frozen R1 signals and forecasting features use index inputs. Future source use requires the overlay, upstream documentation and qualified data roles.
+当前用途和统一测试：[docs/COMPONENTS.md](../../docs/COMPONENTS.md)、[docs/TESTING.md](../../docs/TESTING.md)。

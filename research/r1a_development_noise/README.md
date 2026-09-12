@@ -1,23 +1,19 @@
-# Actual Development difference-noise accounting
+# r1a_development_noise
 
-Read `docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json` and `docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md`.
+<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
+> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。
+> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。
+> `BLACKBOX_query_count=3`；`production_authority=false`；`fresh_oos=false`。
+> 机器状态：`FIXED_DAY_FIELD_ACCOUNTING_COMPLETE_CONSUMER_RESTRICTED_NO_VENDOR_BUCKET_CERTIFICATION`。
+> [状态源](../../docs/REPOSITORY_STATE.json) · [最新研究解释](../../docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
+<!-- END GENERATED STATUS -->
 
-The runner uses only the original CSI1000 2015-2020 Development prices and STAR50 short 2020 context. It checks original source and code identities, applies the inherited signal/matching engine inside those limits, and retains a distinct DEV cohort. No old Validation pair is rematched or overwritten. The same pairs are used for all seven horizons.
+生命周期：`COMPLETED_DEVELOPMENT_REPLAY_ONLY`。
 
-```bash
-PYTHONPATH=src:. python -m pytest -q tests/test_r1a_development_noise.py tests/test_development_noise_retained.py
-PYTHONPATH=src:. python research/r1a_development_noise/study.py --output /tmp/r1a-dev-noise-new
-PYTHONPATH=src:. python research/r1a_development_noise/verify_replay.py \
-  --reference docs/ops/evidence/r1a_development_noise_20260912 \
-  --replay /tmp/r1a-dev-noise-new --output /tmp/r1a-dev-noise-audit.json
-```
+解释报告：[docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md](../../docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md)。冻结复现入口：[.github/workflows/r1a-development-noise-regression.yml](../../.github/workflows/r1a-development-noise-regression.yml)（手动/受控调用，不自动新实验）。
 
-Fresh output directory required. The dedicated readonly CI performs the same computation with only seven permitted pre2021 price partitions accessible, then verifies all eight tables against sealed references. The older broader regression workflow is preserved. No one-off data-acquisition or result-push workflow remains needed.
+实现、源文件、冻结输入和已保存结果保持原样。复现只能使用原范围、新输出目录，并与保留证据比较；不能覆盖旧回执。
 
-Outputs distinguish empirical individual-pair covariance, within/between-stratum covariance, exact simple-return minute/calendar contributions, primitive independent-shock exposure-energy assumptions, fixed daily lag products and hypothetical extra-control marginal-scale scenarios. No mean standard error, confidence interval or new p-value is computed. The Development leg ledger is reproducibility evidence, not fresh confirmation.
+旧使用说明作为历史参考保留：[docs/archive/repository_pre_cleanup_20260912/research/r1a_development_noise/README.md](../../docs/archive/repository_pre_cleanup_20260912/research/r1a_development_noise/README.md)。其中的下载/继续/准入措辞不是当前任务。
 
-Daily contributions include zero-exposure trading dates and are normalized by the fixed full-cohort pair-per-day rate. Their mean equals the corresponding pair mean, but they do not represent a feasible trading portfolio: control selection uses a retrospective same-year pool. Stratum means are ex-post; primitive energy ratios assume independent equal-variance elementary shocks; scenario tables impose event-control covariance zero. None establishes causal noise removal.
-
-Reference bytes and identities stay pinned; replay floats are reconciled at atol=1e-8 and rtol=1e-10, separately from exact discrete identifiers and counts. The original CSVs use 12 significant digits. The categorical K='infinity' label is not an invalid numeric observation.
-
-`BLACKBOX_query_count=3`; `production_authority=false`; `fresh_oos=false`; no 2026 read or confirmation clock.
+当前用途和统一测试：[docs/COMPONENTS.md](../../docs/COMPONENTS.md)、[docs/TESTING.md](../../docs/TESTING.md)。
