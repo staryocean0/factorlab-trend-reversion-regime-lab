@@ -97,7 +97,7 @@ def groups(f: pd.DataFrame):
         yield side, f.loc[f.parent_direction == direction]
     for year in YEARS:
         for side, direction in (('LONG', 1), ('SHORT', -1)):
-            yield 'YEAR_SIDE_'+str(year)+'_'+side, f.loc[(f.info_year == year) & (f.parent_direction == direction)]
+            yield 'YEAR_'+str(year)+'_'+side, f.loc[(f.info_year == year) & (f.parent_direction == direction)]
 
 
 def validate_prediction_rows(f: pd.DataFrame) -> None:
