@@ -1,0 +1,82 @@
+{
+  "schema_id": "factorlab_r1a_walkforward_prediction_freeze@1.0",
+  "status": "FROZEN_BEFORE_NEW_FORECAST_FITS_AND_SCORES",
+  "session_date": "2026-09-12",
+  "baseline_commit": "442ed108de35e6bc3b9765b203b0c98b4353a20d",
+  "identity": "rmr_R1A_parent_baseline_walkforward_prediction_v1",
+  "authorization": "User explicitly authorized R1_A relative-to-parent walk-forward incremental prediction diagnostic.",
+  "estimand": "On every original evaluable R1_A event in each subsequent Development fold, compare squared prediction error of the fixed parent-feature ridge model against the same ridge model with one additional R1_A indicator. Positive mean loss difference means better predictions relative to this specific benchmark, not causal effect or incremental matched-trade PnL.",
+  "scope": {
+    "symbol": "000852.SH",
+    "start": "2015-01-05",
+    "end": "2020-12-31",
+    "role": "ORIGINAL_CONSUMED_DEVELOPMENT_ONLY",
+    "STAR50": "Not estimated: its pre2021 context lacks a full prior-year warm-up. No substitution of later transport years.",
+    "evaluation_event_population": "Exactly the 1752 original CSI1000 Development R1_A events already recorded in development_pairs.csv. Warm-up events remain in coverage ledger but are not scored. The inherited terminal 240-bar-complete cohort is disclosed; not a prospective all-event admission protocol.",
+    "horizons": [1, 5, 15, 30, 60, 120, 240]
+  },
+  "training_population": {
+    "compiler": "Reuse build_r1_events_and_controls with original thresholds and structural nonoverlap, restricted to 2015-2020, then retain R1_A only. Include each original event and each original eligible non-event control-pool minute ONCE, not the selected matched controls.",
+    "non_event_definition": "Inherited parent-state candidate pool: not an R1_A entry and not within the previous 240 observed bars after an R1_A entry; no future-treatment exclusion. This is a restricted background population, not all possible market minutes.",
+    "weights": "Equal weight per eligible training row, identical rows and weights for both models; no event oversampling, balancing, clipping or tail trimming.",
+    "no_pairing": true,
+    "no_hard_overlap_exclusion": true
+  },
+  "timing": {
+    "information_index": "entry_idx-1, at causal signal confirmation",
+    "entry_reference": "next observed 1m index close, unchanged",
+    "target": "direction*(P[entry+h]/P[entry]-1)*10000 in bp",
+    "fold_assignment": "calendar year of INFORMATION timestamp, not future entry/exit timestamp",
+    "warmup_information_year": 2015,
+    "evaluation_information_years": [2016, 2017, 2018, 2019, 2020],
+    "retrain": "Once before the first information timestamp in each evaluation year, expanding from 2015. Model fixed during that year.",
+    "label_maturity": "For each h separately, training entry+h <= final observed index before evaluation information year. No unfinished target enters fitting, normalization or support diagnostics.",
+    "preprocessing": "Training-only arithmetic means and ddof=0 SD for every non-intercept feature; zero SD replaced by 1. No test clipping or test-informed transformation.",
+    "causality_audit": "Check training maximum label end against fold cutoff; verify original R1_A identities/features on five historical price prefixes; synthetic tests mutate future labels/features without affecting prior fits. Historical compiler may access complete pre2021 prices to reconstruct the established event stream, but no future value is supplied to a fit/forecast.",
+    "no_fresh_oos_claim": true
+  },
+  "models": {
+    "family": "Linear ridge only, no interactions or hyperparameter selection",
+    "objective": "mean((y-intercept-Z*beta)^2)+0.001*sum(beta^2); intercept unpenalized. Fit by deterministic float64 linear solve.",
+    "lambda": 0.001,
+    "baseline_features": ["parent_abs_drift", "parent_efficiency", "log1p_parent_age_bars", "local_vol_30_over_240", "parent_direction", "fixed one-hot 30min INFORMATION-clock buckets 20..30, reference 19"],
+    "enhanced_addition": "One binary R1_A indicator, normalized with training mean/SD like other non-intercept features",
+    "excluded_features": ["severity", "future structural outcome", "resolve_idx", "future returns", "selected-control identity", "matching distance", "year-specific fitted test effect"],
+    "minimum_training_rows": 1000,
+    "minimum_training_events": 20,
+    "minimum_training_non_events": 20,
+    "degenerate_or_failed_fit": "Record all affected event-horizon rows as unscored with explicit reason; do not substitute another model or favorable subset.",
+    "sanity_references": "Zero forecast and the past mixed-training mean are scored as descriptive baseline-adequacy references, not alternative models eligible for selection."
+  },
+  "evaluation": {
+    "primary_score": "mean((y-p_parent)^2-(y-p_parent_plus_R1A)^2) on identical forward-event rows, units bp^2",
+    "full_reporting": ["all seven horizons", "each of five information years", "pooled event-weighted scores", "LONG and SHORT", "baseline/enhanced MSE RMSE MAE mean error", "true signed return mean median", "forecast means", "mean and median loss difference", "relative MSE reduction", "zero and past-mean reference MSE", "unchanged non-event background out-of-time context scores"],
+    "no_new_significance_test": true,
+    "no_calibrated_CI_claim": true,
+    "dependence": "Retain actual event entry/exit dates; all-event daily sums including zero-event days and fixed lag 0/1/5/20/60 products. These are descriptive loss concentration diagnostics, NOT independent sample counts, SEs or trading portfolio risk.",
+    "tail_accounting": "Top ceil(1%) and ceil(5%) of absolute daily loss differences as a share of total absolute daily differences; no trimming.",
+    "support": "For every scored event report any of four continuous features outside prior mixed-training or prior non-event coordinate ranges, missing prior same-direction/information-clock non-event stratum, nearest standardized non-event distance in that stratum, and prior event/non-event counts. Diagnostics only; retain all forecasts, never filter outcomes by these flags.",
+    "support_limit": "Coordinate bounds and nearest distance do not prove joint support, exchangeability, model adequacy or no omitted information.",
+    "descriptive_consistency_flag": "Per h only: pooled loss improvement>0, improvement in at least 4/5 years, and pooled improvement>0 for both directions. Flag is descriptive, not statistical significance, horizon selection or strategy promotion.",
+    "interpretation": "Report baseline adequacy versus zero/past-mean references alongside incremental scores. Negative result rejects no universal nonlinear information; positive result establishes no superiority over all parent models. The R1_A flag is deterministic from price history and only adds a representation relative to the declared finite feature set."
+  },
+  "outputs": ["all_original_event_coverage.csv", "event_predictions.csv", "scores.csv", "daily_loss_accounting.csv", "loss_lag_products.csv", "fold_training_audit.csv", "model_parameters.csv", "prefix_identity_audit.csv", "receipt.json", "REPORT.md"],
+  "budget": "Five annual folds x seven horizons x two nested ridge models = at most 70 fits. One source scope, one fixed lambda, no model/feature/horizon/side/year sweep. Stop after this diagnostic and interpretation; no automatic replacement candidate.",
+  "source_guards": {
+    "data/manifest.json": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "research/index_price_validity/core.py": "a03bb31ea7f9f883187e6ad26e53df8ad86f4285",
+    "research/r1_incremental_alpha_attribution/core.py": "73c4eaad108e9c56ad5af84a562e89442c192f13",
+    "research/r1a_development_noise/study.py": "c603a25b068f206832e32305f406dde869eaf390",
+    "docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json": "9a3d24da0a1d829d2d604219dedf72a1d49a7a18",
+    "docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv": "d4d06d136fab527e3717575517be50acbe56e542"
+  },
+  "preserved": "No source byte/old signal/pair/outcome/freeze edits; old strict-control failure stays closed. New experiment is prediction, not revival of its selected paired-return table.",
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "confirmation_clock_started": false,
+  "horizon_selected": false,
+  "new_2026_outcomes_authorized": false,
+  "references": ["https://otexts.com/fpp3/tscv.html", "https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression-and-classification", "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"]
+}
