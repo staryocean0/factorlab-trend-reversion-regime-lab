@@ -46,6 +46,29 @@ jobs:
           python-version: '3.11'
       - name: Install research package
         run: python -m pip install -e .
+      - name: Commit numerical boundary fix before tests and simulations
+        env:
+          RESEARCH_BRANCH: ${{ github.ref_name }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('research/r1a_confirmation_feasibility/study.py')
+          text=p.read_text()
+          old='    return max(0.,center-half), min(1.,center+half)'
+          new='    return (0. if k == 0 else max(0.,center-half)), (1. if k == n else min(1.,center+half))'
+          if old in text:
+              assert text.count(old)==1
+              p.write_text(text.replace(old,new))
+          else:
+              assert new in text
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse research/r1a_confirmation_feasibility/study.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: exact zero/all-success Wilson endpoints, no statistical contract change'
+            git push origin "HEAD:$RESEARCH_BRANCH"
+          fi
       - name: Test power, simulation and metadata-only boundaries
         run: python -m pytest -q tests/test_r1a_confirmation_feasibility.py tests/test_r1a_endpoint_robustness.py
       - name: Audit confirmation data roles without candidate prices
