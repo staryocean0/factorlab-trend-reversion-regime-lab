@@ -1,0 +1,862 @@
+{
+  "schema_id": "factorlab_r1a_method_calibration_receipt@1.0",
+  "decision": "BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY",
+  "baseline_commit": "a4b86fc4c0a8a0d8cf18f5d92dac6998b6602e74",
+  "freeze_commit": "3032c6567b15c7df705f09101d63ba1caeadd4d1",
+  "freeze_sha256": "f9aa22184f0bdc176401f33aefb1e762a4165627e555744177c03b927d341a04",
+  "code_commit": "bd1b4b7fac45bf5075be84a4a666287df4a411b9",
+  "github_run_id": "34662714569",
+  "seed": 2026091207,
+  "joint_model_replicates": 14000,
+  "synthetic_design_datasets": 392000,
+  "design_count": 28,
+  "method_count": 4,
+  "inputs": {
+    "calendar_days": 1212,
+    "calendar_blocks": 61,
+    "pair_universe": 3098,
+    "entry_clock_universe": 5928,
+    "calendar_files": [
+      {
+        "path": "data/market/1m/000852.SH/2021.parquet",
+        "sha256": "5ef712873ac9c4665e9eab907d2c04a3deb45e346b54f707876ad9496b9114a4",
+        "columns_read": [
+          "trading_day"
+        ]
+      },
+      {
+        "path": "data/market/1m/000852.SH/2022.parquet",
+        "sha256": "fcec2f93333434d190721024cff5a621f9035a7d0a1cc9b887ab95aced24dc29",
+        "columns_read": [
+          "trading_day"
+        ]
+      },
+      {
+        "path": "data/market/1m/000852.SH/2023.parquet",
+        "sha256": "514e313c1833e9e2e66163544912c439a8ceff88ed86f71db6b372e28da49a11",
+        "columns_read": [
+          "trading_day"
+        ]
+      },
+      {
+        "path": "data/market/1m/000852.SH/2024.parquet",
+        "sha256": "52e1d078fefbb1232b07a8b64682f41654ee171d850c5fe5c928350aba9d6b25",
+        "columns_read": [
+          "trading_day"
+        ]
+      },
+      {
+        "path": "data/market/1m/000852.SH/2025.parquet",
+        "sha256": "aebbf7c7bedb78863455192d6efed7536f785c6558fcecd14b475e276e95e1e6",
+        "columns_read": [
+          "trading_day"
+        ]
+      }
+    ],
+    "noise_sha256": "ebecbaaeeab4346c5ff65c04500843c6083560d243b172a0e0c465739fbf4d0c",
+    "pair_sha256": "e4f5977919077e39935adfd5f7f0db0ff41c640de60470c757bf754c457da23c",
+    "availability_files": [
+      {
+        "path": "512100.SH_endpoint_availability.csv",
+        "sha256": "e0ace2ab4cd10312b987f7775c716d9c0fde8f5fbb95832ddd795154654a91c1",
+        "bytes": 2223363
+      },
+      {
+        "path": "588000.SH_endpoint_availability.csv",
+        "sha256": "c59b27072cea714be96ba3a93ba62196394bd4d29a4e8c09061a25e8c4df5ffb",
+        "bytes": 3078513
+      }
+    ],
+    "return_ledger_files_read": [],
+    "OHLC_columns_read": [],
+    "new_data_files_read": []
+  },
+  "geometry": [
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:1",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 1,
+      "n": 1296,
+      "sd": 13.90369171939098,
+      "historical_se": 0.5576035410978931,
+      "lambda": 0.02771997854131031,
+      "lambda_unclipped": 0.02771997854131031,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 178,
+          "2024": 374,
+          "2025": 249
+        },
+        "included": 1296,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:1",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 1,
+      "n": 1271,
+      "sd": 17.075145243628793,
+      "historical_se": 0.5513240795960871,
+      "lambda": 0.00836801345664996,
+      "lambda_unclipped": 0.00836801345664996,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 168,
+          "2022": 302,
+          "2023": 178,
+          "2024": 374,
+          "2025": 249
+        },
+        "included": 1271,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:5",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 5,
+      "n": 1296,
+      "sd": 32.16570132175501,
+      "historical_se": 1.139094765288354,
+      "lambda": 0.01597600374608083,
+      "lambda_unclipped": 0.01597600374608083,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 178,
+          "2024": 374,
+          "2025": 249
+        },
+        "included": 1296,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:5",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 5,
+      "n": 1268,
+      "sd": 33.502366248346775,
+      "historical_se": 1.207718617424619,
+      "lambda": 0.01675677123492901,
+      "lambda_unclipped": 0.01675677123492901,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 170,
+          "2022": 298,
+          "2023": 178,
+          "2024": 373,
+          "2025": 249
+        },
+        "included": 1268,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:15",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 15,
+      "n": 1296,
+      "sd": 53.26016264641441,
+      "historical_se": 2.0619817232617645,
+      "lambda": 0.02407163963655599,
+      "lambda_unclipped": 0.02407163963655599,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 178,
+          "2024": 373,
+          "2025": 249
+        },
+        "included": 1295,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:15",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 15,
+      "n": 1268,
+      "sd": 55.540462275362735,
+      "historical_se": 2.169145664524836,
+      "lambda": 0.024074639810995932,
+      "lambda_unclipped": 0.024074639810995932,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 165,
+          "2022": 303,
+          "2023": 178,
+          "2024": 372,
+          "2025": 249
+        },
+        "included": 1267,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:30",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 30,
+      "n": 1296,
+      "sd": 75.47473769506406,
+      "historical_se": 3.381424423429667,
+      "lambda": 0.04083153531966263,
+      "lambda_unclipped": 0.04083153531966263,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 178,
+          "2024": 373,
+          "2025": 249
+        },
+        "included": 1295,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:30",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 30,
+      "n": 1259,
+      "sd": 78.00040745793594,
+      "historical_se": 3.676022325220349,
+      "lambda": 0.046324448367717576,
+      "lambda_unclipped": 0.046324448367717576,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 159,
+          "2022": 301,
+          "2023": 178,
+          "2024": 372,
+          "2025": 248
+        },
+        "included": 1258,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:60",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 60,
+      "n": 1296,
+      "sd": 117.12439442924791,
+      "historical_se": 5.336650363976562,
+      "lambda": 0.042818354558627605,
+      "lambda_unclipped": 0.042818354558627605,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 178,
+          "2024": 372,
+          "2025": 249
+        },
+        "included": 1294,
+        "excluded_cross_year": 2,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:60",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 60,
+      "n": 1261,
+      "sd": 117.45381455780924,
+      "historical_se": 5.076702681213096,
+      "lambda": 0.03469878828179711,
+      "lambda_unclipped": 0.03469878828179711,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 163,
+          "2022": 300,
+          "2023": 177,
+          "2024": 371,
+          "2025": 248
+        },
+        "included": 1259,
+        "excluded_cross_year": 2,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:120",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 120,
+      "n": 1296,
+      "sd": 151.69119565911612,
+      "historical_se": 6.478584929865678,
+      "lambda": 0.03432733497826052,
+      "lambda_unclipped": 0.03432733497826052,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 177,
+          "2024": 372,
+          "2025": 249
+        },
+        "included": 1293,
+        "excluded_cross_year": 3,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:120",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 120,
+      "n": 1265,
+      "sd": 154.02427975027152,
+      "historical_se": 6.533171259986394,
+      "lambda": 0.032297496412303506,
+      "lambda_unclipped": 0.032297496412303506,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 163,
+          "2022": 303,
+          "2023": 177,
+          "2024": 372,
+          "2025": 247
+        },
+        "included": 1262,
+        "excluded_cross_year": 3,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:512100.SH:240",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "512100.SH",
+      "horizon": 240,
+      "n": 1296,
+      "sd": 232.20613537564876,
+      "historical_se": 7.607977417704581,
+      "lambda": 0.009580607805103945,
+      "lambda_unclipped": 0.009580607805103945,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 186,
+          "2022": 309,
+          "2023": 177,
+          "2024": 370,
+          "2025": 249
+        },
+        "included": 1291,
+        "excluded_cross_year": 5,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:512100.SH:240",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "512100.SH",
+      "horizon": 240,
+      "n": 1261,
+      "sd": 234.89043918802983,
+      "historical_se": 7.528597673665909,
+      "lambda": 0.007326427623952237,
+      "lambda_unclipped": 0.007326427623952237,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 163,
+          "2022": 300,
+          "2023": 177,
+          "2024": 369,
+          "2025": 247
+        },
+        "included": 1256,
+        "excluded_cross_year": 5,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:1",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 1,
+      "n": 1802,
+      "sd": 18.05428000857792,
+      "historical_se": 0.5941567234088175,
+      "lambda": 0.016497805566947348,
+      "lambda_unclipped": 0.016497805566947348,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 436,
+          "2025": 386
+        },
+        "included": 1802,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:1",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 1,
+      "n": 1802,
+      "sd": 20.277031827321483,
+      "historical_se": 0.5747779592522574,
+      "lambda": 0.007765438363803971,
+      "lambda_unclipped": 0.007765438363803971,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 436,
+          "2025": 386
+        },
+        "included": 1802,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:5",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 5,
+      "n": 1802,
+      "sd": 38.43034363204527,
+      "historical_se": 0.9679221917297296,
+      "lambda": 0.0024809790638475895,
+      "lambda_unclipped": 0.0024809790638475895,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 436,
+          "2025": 386
+        },
+        "included": 1802,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:5",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 5,
+      "n": 1802,
+      "sd": 38.94412327317461,
+      "historical_se": 0.9666690618338012,
+      "lambda": 0.0019115996641446552,
+      "lambda_unclipped": 0.0019115996641446552,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 436,
+          "2025": 386
+        },
+        "included": 1802,
+        "excluded_cross_year": 0,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:15",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 15,
+      "n": 1802,
+      "sd": 63.79886816419354,
+      "historical_se": 2.882270278837111,
+      "lambda": 0.04637331092735911,
+      "lambda_unclipped": 0.04637331092735911,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 435,
+          "2025": 386
+        },
+        "included": 1801,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:15",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 15,
+      "n": 1802,
+      "sd": 62.9138440847328,
+      "historical_se": 2.8508856828508886,
+      "lambda": 0.046759248709569046,
+      "lambda_unclipped": 0.046759248709569046,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 435,
+          "2025": 386
+        },
+        "included": 1801,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:30",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 30,
+      "n": 1802,
+      "sd": 85.77497850779646,
+      "historical_se": 3.474707643326446,
+      "lambda": 0.03386692656125817,
+      "lambda_unclipped": 0.03386692656125817,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 435,
+          "2025": 386
+        },
+        "included": 1801,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:30",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 30,
+      "n": 1801,
+      "sd": 86.53146531591496,
+      "historical_se": 3.6969867042400666,
+      "lambda": 0.03963758010060559,
+      "lambda_unclipped": 0.03963758010060559,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 409,
+          "2023": 235,
+          "2024": 434,
+          "2025": 386
+        },
+        "included": 1800,
+        "excluded_cross_year": 1,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:60",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 60,
+      "n": 1802,
+      "sd": 127.71247922104106,
+      "historical_se": 5.855932450804874,
+      "lambda": 0.04812267608979972,
+      "lambda_unclipped": 0.04812267608979972,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 408,
+          "2023": 235,
+          "2024": 435,
+          "2025": 386
+        },
+        "included": 1800,
+        "excluded_cross_year": 2,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:60",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 60,
+      "n": 1801,
+      "sd": 128.16260063664083,
+      "historical_se": 5.987624458086846,
+      "lambda": 0.050623263495947056,
+      "lambda_unclipped": 0.050623263495947056,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 408,
+          "2023": 235,
+          "2024": 434,
+          "2025": 386
+        },
+        "included": 1799,
+        "excluded_cross_year": 2,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:120",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 120,
+      "n": 1802,
+      "sd": 179.3549495358157,
+      "historical_se": 6.7784690264068,
+      "lambda": 0.027016636615303857,
+      "lambda_unclipped": 0.027016636615303857,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 408,
+          "2023": 235,
+          "2024": 433,
+          "2025": 386
+        },
+        "included": 1798,
+        "excluded_cross_year": 4,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:120",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 120,
+      "n": 1802,
+      "sd": 187.21050390943856,
+      "historical_se": 7.0476869530697455,
+      "lambda": 0.02667172006088407,
+      "lambda_unclipped": 0.02667172006088407,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 408,
+          "2023": 235,
+          "2024": 433,
+          "2025": 386
+        },
+        "included": 1798,
+        "excluded_cross_year": 4,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "INDEX_ALL_FROZEN_PAIRS:588000.SH:240",
+      "layer": "INDEX_ALL_FROZEN_PAIRS",
+      "carrier": "588000.SH",
+      "horizon": 240,
+      "n": 1802,
+      "sd": 275.091456971711,
+      "historical_se": 12.018201821880664,
+      "lambda": 0.040888234292560256,
+      "lambda_unclipped": 0.040888234292560256,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 406,
+          "2023": 233,
+          "2024": 432,
+          "2025": 386
+        },
+        "included": 1793,
+        "excluded_cross_year": 9,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    },
+    {
+      "id": "ETF_OBSERVED_ENDPOINTS:588000.SH:240",
+      "layer": "ETF_OBSERVED_ENDPOINTS",
+      "carrier": "588000.SH",
+      "horizon": 240,
+      "n": 1801,
+      "sd": 291.0019861600227,
+      "historical_se": 13.197117023055515,
+      "lambda": 0.04537148842333089,
+      "lambda_unclipped": 0.04537148842333089,
+      "occupied": 61,
+      "group_info": {
+        "group_counts": {
+          "2021": 336,
+          "2022": 406,
+          "2023": 233,
+          "2024": 431,
+          "2025": 386
+        },
+        "included": 1792,
+        "excluded_cross_year": 9,
+        "available": true,
+        "estimand": "equal_calendar_year_mean_not_original_pair_weighted_mean"
+      }
+    }
+  ],
+  "method_screen": {
+    "GRAPH_T_BASELINE": {
+      "severe_marginal_cells": 109,
+      "severe_family_cells": 12,
+      "minimum_valid_fraction": 1.0,
+      "maximum_joint_MC95_hi": 0.4075351011576624,
+      "minimum_complete_family_fraction": 1.0,
+      "limited_simulation_screen_pass": false,
+      "oracle_reference_only": false,
+      "real_market_validity_proved": false,
+      "production_authorized": false
+    },
+    "EXPOSURE_SCORE_HAC6": {
+      "severe_marginal_cells": 26,
+      "severe_family_cells": 2,
+      "minimum_valid_fraction": 1.0,
+      "maximum_joint_MC95_hi": 0.11761886180623717,
+      "minimum_complete_family_fraction": 1.0,
+      "limited_simulation_screen_pass": false,
+      "oracle_reference_only": false,
+      "real_market_validity_proved": false,
+      "production_authorized": false
+    },
+    "FIVE_YEAR_GROUP_T": {
+      "severe_marginal_cells": 28,
+      "severe_family_cells": 0,
+      "minimum_valid_fraction": 1.0,
+      "maximum_joint_MC95_hi": 0.06153153854124964,
+      "minimum_complete_family_fraction": 1.0,
+      "limited_simulation_screen_pass": false,
+      "oracle_reference_only": false,
+      "real_market_validity_proved": false,
+      "production_authorized": false
+    },
+    "ORACLE_MEAN_NORMAL_REFERENCE": {
+      "severe_marginal_cells": 0,
+      "severe_family_cells": 0,
+      "minimum_valid_fraction": 1.0,
+      "maximum_joint_MC95_hi": 0.023080961113718216,
+      "minimum_complete_family_fraction": 1.0,
+      "limited_simulation_screen_pass": false,
+      "oracle_reference_only": true,
+      "real_market_validity_proved": false,
+      "production_authorized": false
+    }
+  },
+  "table_rows": {
+    "all_method_DGP_design_cells.csv": 784,
+    "joint_family_null_checks.csv": 84,
+    "information_budget_NOT_commitment.csv": 336,
+    "multiple_control_bounds_ASSUMPTIONS.csv": 20
+  },
+  "output_csvs": [
+    {
+      "path": "all_method_DGP_design_cells.csv",
+      "sha256": "855f5cd45e7bd325de7d8e57ea2ca252090f2a4f77779b83378b64c40d2cba68",
+      "bytes": 367217
+    },
+    {
+      "path": "joint_family_null_checks.csv",
+      "sha256": "78e2c9cd35ba5c4b68b204582024eeb7aed3968ca1c7679a1f243905085b2d76",
+      "bytes": 11483
+    },
+    {
+      "path": "information_budget_NOT_commitment.csv",
+      "sha256": "212329a4872cc64d230e925477bf4dbf2c87f4f72758b19c5498c8f1683fae6d",
+      "bytes": 52373
+    },
+    {
+      "path": "multiple_control_bounds_ASSUMPTIONS.csv",
+      "sha256": "9687200c47d806e35076aa7cd970e9e0e092b879c4bd831fdded7f8f27cfadf3",
+      "bytes": 801
+    }
+  ],
+  "methods_clearing_limited_screen": [],
+  "real_R1A_means_retested": false,
+  "new_price_data_read": false,
+  "horizon_selected": false,
+  "real_matching_changed": false,
+  "missing_outcomes_imputed": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "confirmation_clock_started": false,
+  "interpretation": "Synthetic-size/power and assumption-based information accounting only. No real alpha, causal or prospective validity certificate. The oracle is not a deployable method; equal-year and pair-weighted estimands are different."
+}
