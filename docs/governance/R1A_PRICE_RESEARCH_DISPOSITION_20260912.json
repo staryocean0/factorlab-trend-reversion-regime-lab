@@ -1,0 +1,27 @@
+{
+  "schema_id": "factorlab_r1a_price_research_disposition@1.0",
+  "status": "R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED",
+  "scope": "Current R1_A price-strategy formulation and its automatic continuation on the already consumed historical data. Not the entire reversal/mean-reversion project or original mechanism certification.",
+  "basis": {
+    "review": "docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md",
+    "evidence_receipt": "docs/ops/evidence/r1a_evidence_closeout_20260912/receipt.json",
+    "evidence_receipt_sha256": "adb89b07da7221b63e75a41747e582991ab46f3738c0b6b75781e9dc35bc33f2",
+    "completed_gate": "EVIDENCE_RECONCILIATION_COMPLETED_NO_NEW_ALPHA_TEST",
+    "decisive_run_id": 34669948608,
+    "decisive_code_commit": "d6109a11ec93efa26bbd2eca5ad1f15c1009c9e9"
+  },
+  "judgment": "No material discrepancy found within the pinned evidence/arithmetic audit scope. Existing positive historical leads coexist with uncertainty, weak benchmark quality, observation selection and uneven forward-model behavior. Reserve the lead and pause automatic active development rather than append another rescue experiment.",
+  "not_claimed": ["R1_A alpha is exactly zero", "all nonlinear formulations fail", "all mean reversion is invalid", "raw-source provenance fully independently verified", "within-year centering estimates achievable prospective correction", "small MSE percentage implies no economic value", "a fresh independent confirmation was completed"],
+  "active_empirical_candidate": null,
+  "automatic_continuation_authorized": false,
+  "new_confirmation_data_opening_authorized": false,
+  "routine_local_data_transfer_required": false,
+  "reopening_requires": ["specific question or reproducible material error", "explicit user authorization", "declared estimand and data-role qualification", "bounded resources and stop conditions", "preservation of previous results and honest disclosure of historical reuse"],
+  "preserved": ["R1/R2 mechanism records", "all source bytes and historical receipts", "old price and ETF endpoint evidence", "old full-path v1 PARTIAL_CARRIER_TRANSPORT under its own definition", "closed strict-control selected-pair returns remain unopened", "closed R1_B/R2-directional/option identities", "known 2026 candidate stays metadata-only"],
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "confirmation_clock_started": false,
+  "horizon_selected": false
+}
