@@ -1,0 +1,26 @@
+{
+  "schema_id": "factorlab_etf_source_repair_impact_freeze@1.0",
+  "status": "FROZEN_BEFORE_AFFECTED_WINDOW_COUNTS",
+  "session_date": "2026-09-12",
+  "baseline_commit": "ef18bf905e9e427153650d5538a996249bb6a901",
+  "authorization": "User authorized versioned ETF action/source repair and impact audit of existing results, not a new strategy.",
+  "scope": {"carriers": ["512100.SH", "588000.SH"], "window": ["2021-01-01", "2025-12-31"], "horizons": [1,5,15,30,60,120,240]},
+  "question": "Which existing event/control endpoint and full-path results actually change when verified corporate actions are added under their ORIGINAL exclusion rules? Separate source completeness, eligibility reasons and numerical impact.",
+  "known_repair": {"symbol":"512100.SH", "record_date":"2022-09-01", "effective_date":"2022-09-02", "resumption_date":"2022-09-05", "new_shares_per_old_share":0.36555},
+  "source_protocol": "Resolve proposed, cancelled and executed actions from issuer/exchange documents. A proposal is not an executed adjustment. Version the source ledger before running impact counts. Adding one verified action does not prove all-window completeness. No original action/price bytes or boolean declarations are overwritten; a superseding machine-readable overlay records their current qualification.",
+  "impact_protocol": {
+    "endpoint": "For both original legs and every h, inspect exact saved timestamps and compare original versus updated action crossing (entry_day < effective_day <= exit_day). Also record halted-day endpoints and unit-bridge crossings to first resumed trading date. No clock shift or imputation.",
+    "full_path": "Retain original 240-index-bar common path rule and annual/pair gates. Count all frozen pairs including blocked carriers. Do not open previously blocked carrier outcomes.",
+    "returns": "If included sample membership changes, apply only original rules and recompute affected published groups in a NEW directory; otherwise reconcile existing ledger identities and state no numerical rewrite needed. No adjusted-price factor fitting, account PnL, or new return sample.",
+    "lookbacks": "Inventory repository code references to the ETF package and trace whether price features or lookbacks consume ETF prices. Distinguish verified consumers, transitive report/test replays and unresolved dynamic consumers.",
+    "intraday": "Replay same-day, same-session 60s measurability under the verified action list and audit changes; this is not a reversion outcome.",
+    "semantics": "Inspect pinned source flags, exporter code and available upstream dictionaries. Unknown exchange-time, zero-volume, fill and availability semantics stay UNKNOWN. No guessed repair."
+  },
+  "prohibitions": ["no signal regeneration", "no rematching", "no new model fits", "no new significance test", "no new 2026 prices", "no outcomes for failed strict-control pairs", "no R1_A promotion", "no spread/lead-lag/reversion backtest", "no data purchase", "no raw-price/action overwrites", "no filling suspension minutes"],
+  "stop": "Deliver versioned source action overlay, source-provenance resolution matrix, complete original-window impact ledger, consumer inventory, necessary changed-result receipts and tests. Do not append a replacement strategy.",
+  "source_guard": "Every baseline tracked input read is verified against git ls-tree at baseline_commit; delivered raw file SHA256/bytes/rows are checked against the unchanged manifests.",
+  "BLACKBOX_query_count":3,
+  "production_authority":false,
+  "fresh_oos":false,
+  "R1A_disposition_unchanged":true
+}
