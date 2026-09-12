@@ -2,76 +2,59 @@
 
 ## Latest completed task
 
-**`DEVELOPMENT_NOISE_ACCOUNTING_COMPLETED_NOT_ALPHA_TEST`**
+**CONTROL_ALLOCATION_DESIGN_SCREEN_COMPLETED_NO_OUTCOMES**.
 
-The user-authorized real event/control noise decomposition has executed, not merely been proposed. R1_A remains an unconfirmed historical price lead. No new significance test, preferred horizon, confirmed trading edge or production permission was issued.
+The user-authorized next gate has executed. The fixed `rmr_R1A_past_mature_caliper_interval_exclusive_design_v1` is closed at the design stage: coverage and retention of the original event population fail. Do not open its selected-pair returns or reinterpret this as R1_A alpha failure.
 
 Read first:
 
-1. `docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md`
-2. `docs/ops/evidence/r1a_development_noise_20260912/REPORT.md`
-3. `docs/ops/evidence/r1a_development_noise_20260912/noise_receipt.json`
-4. `docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json`
-5. `research/r1a_development_noise/README.md`
+1. `docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md`
+2. `docs/ops/evidence/r1a_control_design_20260912/REPORT.md`
+3. `docs/ops/evidence/r1a_control_design_20260912/design_receipt.json`
+4. `docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json`
+5. `research/r1a_control_design/README.md`
 
-Freeze `6315a8c8f0f31b34b02d40392ea2d5b484ad5f33`; decisive code `ea7baea732a8b664509b168937c9ab45b31f22ad`; Actions `34664796626`, job `103474436130`: SUCCESS.
+Freeze `6ebbb80e93cd0e5d783438c41f6fe310381a3e68`; decisive code `6b453cef4546890a4576c79ef77f51b40a5cb905`; Actions `34666939631`, job `103480639603`: SUCCESS. A read-only replay at `ab03c3a415088116147d50c40ad3ad409127c08b`, Actions `34667157622`, also succeeded. Engineering SUCCESS is not a scientific PASS.
 
-## Scope and source boundary
+## Actual result
 
-CSI1000 uses the ORIGINAL Development period 2015-01-05..2020-12-31: 350,561 minutes, 1,462 dates, 1,752 eligible matched events, 1,482 unique controls. STAR50 uses only 2020-07-23..2020-12-31: 156 pairs on 110 dates, a short context check rather than full replication.
+Original Development event populations and features were verified unchanged: CSI1000 2015-2020 has 1,752 events and 144,733 candidate controls; STAR50 short 2020 context has 156 events and 7,673 candidates. The latter is not an independent full-period confirmation.
 
-Only seven pre2021 index price partitions were read. No 2021-2025/ETF/MO/2026 price or return table was opened by this runner. Do not call the previous 2021-2025 paired Validation ledger a Development set. The old signal engine/thresholds and matching algorithm were reused unchanged inside the Development limits; the new DEV cohort does not replace old pairs. All seven horizons share the same pre2021, 240-bar-complete cohort.
+| Scope | Past nearest shadow | Add fixed quality shadow | Primary: add exclusive 240-bar intervals |
+|---|---:|---:|---:|
+| CSI1000 | 1,645 / 1,752 = 93.89% | 414 / 1,752 = 23.63% | 241 / 1,752 = 13.76% |
+| STAR50 context | 122 / 156 = 78.21% | 27 / 156 = 17.31% | 17 / 156 = 10.90% |
 
-## What was learned
+Only the last column is the proposed design. Shadows diagnose availability loss, not alternatives eligible for automatic promotion. CSI1000 no-match reasons are exactly 107 with no mature same-year/direction/clock candidate, 1,231 with no candidate inside the four-component 0.5 prefix-scale caliper, and 173 blocked by already allocated intervals. All original events remain in the denominator and ledger.
 
-Individual CSI1000 pairs, h15/h30:
+Every primary match respects maturity, caliper and zero control-control interval overlap. But selected-event composition is strongly shifted: pooled CSI1000 original-event-SD shifts are -0.532 (parent drift), -0.657 (parent efficiency), +0.681 (log parent age), and -0.321 (local volatility ratio). Paired event-control SMDs below 0.02 do not make those 241 events representative of all 1,752.
 
-| Quantity | h15 | h30 |
-|---|---:|---:|
-| Event SD, bp | 70.745 | 99.850 |
-| Control SD, bp | 49.940 | 68.887 |
-| Difference SD, bp | 82.659 | 114.823 |
-| Event-control correlation | 0.0943 | 0.1113 |
-| Event variance contribution | 73.25% | 75.62% |
-| Control variance contribution | 36.50% | 35.99% |
-| Covariance contribution | -9.75% | -11.61% |
+A further analytical implication, reproduced by the replay auditor, is that the same-year inclusive [c,c+240] disjoint rule can cover at most sum_year min(events_year,floor(price_rows_year/241)) events: 1,230/1,752 = 70.21% for CSI1000, even before matching quality. Thus its 80% overall coverage requirement is incompatible with this constraint conjunction. This is not a universal limit for other designs, and the actual greedy allocation is not claimed globally optimal.
 
-These are empirical dispersions, NOT standard errors of a mean or identified unpredictable noise.
+## Source and outcome boundary
 
-On the actual calendar, aggregate control legs concentrate on repeated/overlapping price intervals. The daily difference-variance accounting becomes event 21.00%/24.55%, control 82.68%/79.30%, covariance -3.68%/-3.85%. This different accounting unit does not contradict the individual-pair table and is not a calibrated mean-variance estimator.
+Only seven pre2021 index price partitions were read to reconstruct the original causal feature stream. The old structural event compiler accesses historical close/first-passage logic; do not falsely claim it never accesses rows after earlier events. The new allocator receives identity/time/covariates only, and no newly assigned paired returns, p-values or realized noise estimates are evaluated.
 
-25.34% of pairs use repeated control entries, maximum reuse 10. Control minute-weight energy is 2.96x/3.73x the sum of individual-control energies at h15/h30 under a hypothetical independent-equal-minute-shock reference. Distinct overlapping control intervals, not just identical IDs, are a large component. Do not call these measured real-market design effects.
+No 2021-2025, ETF, MO or 2026 prices/return ledgers were present in the decisive checkout. The separately named Development allocations do not replace Validation pairs, original signals or historical results. Unit-incidence overlap/energy is geometry, not measured variance reduction or independence.
 
-The inherited control rule is retrospective: 38.13% of control entry indices occur later than their event; median absolute calendar separation is 49 trading days. About 20% of pairs also have overlapping event/control paths at h15/h30. No future-treatment exclusions or rematching were introduced to remove these cases.
+## Current boundary
 
-The fixed year/direction/clock strata explain only 8.66%/7.36% of difference variance BETWEEN strata; most remains within. Group means are ex-post, not a causal predictor. Tail square concentration is reported without trimming. The measured unequal marginal scales imply only 1.50x/1.48x information from infinitely many independent controls in the expressly independent reference model, not a universal limit or an attained gain.
+Stop the fixed hard-pruning design; do not widen 0.5, lower 80%, remove 2015, select a shorter horizon, switch to a shadow or compute returns for only the 241/17 selected pairs to manufacture success. The previous generic statistical-method sweep remains closed. No formal confirmation protocol or clock has started.
 
-## Next boundary — control baseline, not another test formula
+Before proposing any other baseline, explicitly distinguish (a) retrospective, outcome-blind attribution and (b) an event-time forecasting benchmark, while preserving the original all-event target or admitting it is not identified. An offline attribution control need not be a live-trade input. The strict maturity/exclusivity requirements here were new design choices, not universal laws of price validity. Do not create another estimator sweep or pretend that lower overlap alone solves noisy event outcomes.
 
-This accounting is complete. The generic estimator sweep remains closed. No new formal confirmation protocol or prospective clock is authorized.
+The next task is an estimand/identification decision under explicit assumptions, not an authorized empirical candidate. This review does not freeze or execute a replacement. R1_A remains an unconfirmed historical lead, not a closed price mechanism.
 
-Any next proposal should address the control baseline and exposure allocation using only information available at event time, limit or account for both exact and overlapping reuse, and preserve the intended event population or explicitly disclose non-identification. Coverage and covariate balance must be checked before outcomes. Changing the finite matched-pair contrast is a NEW measurement design; it cannot retroactively improve old p-values or turn an ex-post covariance decomposition into a tradable signal.
+## Preserved lineage and data
 
-This round does not implement that redesign. Do not silently drop difficult events, dates, sides or horizons; do not choose control rules using Validation returns. No ETF/missing-price repair, signal refit, cost/stop/target/option/futures search is implied.
+The real Development noise decomposition is retained under `docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md` and `docs/ops/evidence/r1a_development_noise_20260912/`. Individual event dispersion, concentrated calendar control exposure and uncertainty of the mean remain separate quantities.
 
-## Available data and retained authority
+Both ETF endpoint diagnostics remain complete. Original full-path v1 retains its separate PARTIAL_CARRIER_TRANSPORT status. The failed primary all-seven-endpoint common cohort stays unopened. All data, original pair/outcome ledgers, freezes and previous statistical/feasibility findings remain intact.
 
-No local data-transfer task is outstanding: the 2021-2025 ETF CSV pack remains public under `data/r1a_carrier_prices/cloud_pack_v1/`. It was not needed for this pre2021 index-only noise decomposition.
+No routine local data transfer is required: actual historical ETF CSVs are in `data/r1a_carrier_prices/cloud_pack_v1/`. The known 2026 CSI1000 candidate in the overnight repository remains metadata-only, with unresolved R1_A-specific exposure; do not call it automatically fresh holdout.
 
-Both ETF endpoint diagnostics remain completed; the separate original full-path v1 remains PARTIAL_CARRIER_TRANSPORT under its own definition. The failed primary all-seven-endpoint common cohort stays unopened. All original evidence, data, signals, Validation pairs and closes are intact.
+R1/R2 mechanism certifications and closed R1_B/R2-directional/MO identities are unchanged. `BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
 
-A 2026 CSI1000 candidate exists in the overnight repository, with repeat-use metadata and unresolved R1_A exposure; it remains metadata-only. Do not claim no 2026 data exist or call it fresh holdout.
+## Reproduce without reopening the design
 
-R1/R2 certifications and closed R1_B/R2-directional/MO identities are unchanged. Prior method and feasibility reviews remain available in docs/research, as history rather than competing latest instructions.
-
-`BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
-
-## Reproduce only into a fresh directory
-
-```bash
-PYTHONPATH=src:. python -m pytest -q tests/test_r1a_development_noise.py tests/test_development_noise_retained.py
-PYTHONPATH=src:. python research/r1a_development_noise/study.py --output /tmp/r1a-dev-noise-new
-PYTHONPATH=src:. python research/r1a_development_noise/verify_replay.py --reference docs/ops/evidence/r1a_development_noise_20260912 --replay /tmp/r1a-dev-noise-new --output /tmp/r1a-dev-noise-audit.json
-```
-
-A separate narrow readonly regression workflow protects the Development-only input boundary and reproduces these eight tables; the existing broader historical-regression workflow remains intact. Reproduction is not new scientific evidence.
+Use the fresh-directory commands in `research/r1a_control_design/README.md`. The read-only `control-design-regression` workflow preserves seven-file Development source isolation and verifies exact allocation IDs/counts/flags and tightly bounded continuous differences. Reproduction is not new research evidence.

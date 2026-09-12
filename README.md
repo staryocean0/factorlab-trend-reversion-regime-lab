@@ -1,31 +1,32 @@
 # FactorLab Trend–Reversion Regime Lab
 
-Reversal / mean-reversion research, keeping mechanism, price response, observation quality, noise, inference and execution distinct.
+Research separating mechanism, price response, counterfactual baseline, observation quality, noise, inference and execution.
 
-## Current completed stage
+## Latest completed gate
 
-**`DEVELOPMENT_NOISE_ACCOUNTING_COMPLETED_NOT_ALPHA_TEST`**.
+**CONTROL_ALLOCATION_DESIGN_SCREEN_COMPLETED_NO_OUTCOMES**.
 
-Real pre2021 index noise accounting has executed. For CSI1000 h15/h30, individual event SD is 70.745/99.850bp versus control SD 49.940/68.887bp; event-control correlation is only 0.0943/0.1113. Individual-pair dispersion is not mainly a noisy control. However, when the same legs are aggregated on their actual price calendar, reused and overlapping controls produce concentrated exposures: control contributions are 82.68%/79.30% of daily difference variance, with negative covariance offsets. Pair dispersion, calendar contribution variance and uncertainty of a mean are different quantities.
+The fixed event-time-available control design has executed on original pre2021 Development data and is closed without new return analysis. Only 241/1752 CSI1000 events and 17/156 STAR50 short-context events satisfy its combined maturity, covariate-caliper and exclusive-240-bar rules. Matched covariates look close inside the retained pairs, but the retained event population differs materially from the original population.
 
-CSI1000 uses its original 2015-2020 Development period (1,752 pairs); STAR50 only its short 2020 context (156 pairs). No 2021-2025, ETF, MO or 2026 prices were read by this study. Original signals and the retrospective matching algorithm were reused without tuning; previous Validation pairs and outcomes are unchanged.
+Loss decomposition is retained: CSI1000 1645 past-nearest -> 414 inside the fixed quality bound -> 241 interval-exclusive; STAR50 122 -> 27 -> 17. Shadows diagnose losses, not alternative trading candidates. Moreover, the same-year inclusive-240-bar disjoint constraints imply an optimistic CSI1000 capacity ceiling of 1230/1752=70.21%, below the 80% design gate even before similarity requirements.
 
-This identifies a control-allocation issue worth reviewing, not an achieved variance reduction, new alpha certificate or validated inference method. No historical p-value was retested. The previous finite estimator screen stays closed. R1_A remains a lead, not disproved and not production-ready.
+This closes a restrictive comparison design, not R1_A. It does not prove zero alpha, achieve variance reduction, or authorize reopening historical significance searches. No newly assigned return, Validation/ETF/2026 outcome or confirmation clock was opened.
 
-## Entry points
+## Read first
 
 - [Current handoff](CONTINUE_HERE.md)
-- [Actual noise interpretation](docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md)
-- [Full Development evidence](docs/ops/evidence/r1a_development_noise_20260912/REPORT.md)
-- [Frozen decomposition contract](docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json)
-- [Runner and reproduction](research/r1a_development_noise/README.md)
+- [Control design review and capacity proof](docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md)
+- [Complete design evidence](docs/ops/evidence/r1a_control_design_20260912/REPORT.md)
+- [Frozen design contract](docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json)
+- [Reproduction instructions](research/r1a_control_design/README.md)
+- [Previous real-noise decomposition](docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md)
 
-A possible next task is a separately frozen, event-time-available control-baseline design, addressing exact/overlapping reuse while preserving coverage and balance. It is not implemented by the noise receipt. No new confirmation sample is opened.
+Before any replacement, distinguish offline attribution from event-time forecasting and state what identifies an all-event parent-continuation baseline. No replacement empirical candidate is currently authorized.
 
-## Preserved data and history
+## Preserved research and data
 
-Historical ETF data are already cloud-readable in `data/r1a_carrier_prices/cloud_pack_v1/`; no routine local transfer is outstanding. Both ETF endpoint diagnostics remain completed. The original full-path v1 retains its separate PARTIAL_CARRIER_TRANSPORT status. All original source bytes, freezes, ledgers and closed identities remain intact.
+R1_A remains an unconfirmed historical price lead. R1/R2 certifications and closed R1_B/R2-directional/MO identities remain unchanged. Both ETF endpoint diagnostics are complete; original full-path v1 separately remains PARTIAL_CARRIER_TRANSPORT. Old data, pairs, freezes, outcomes and statistical limitations are retained.
 
-The known 2026 CSI1000 file is still a metadata-only candidate with unresolved R1_A holdout status. It is not automatically fresh because of its year. R1/R2 mechanism certifications and closed R1_B/R2-directional/MO lineages are unchanged.
+The real historical ETF pack is already cloud-readable under `data/r1a_carrier_prices/cloud_pack_v1/`; no routine local delivery remains. The known 2026 CSI1000 file is an unopened metadata-only candidate, not automatically fresh holdout.
 
-`BLACKBOX_query_count=3`; no query #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `horizon_selected=false`.
+BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; horizon_selected=false.
