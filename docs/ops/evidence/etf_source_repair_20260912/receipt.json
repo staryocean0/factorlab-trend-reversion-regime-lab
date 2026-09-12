@@ -1,0 +1,330 @@
+{
+  "schema_id": "factorlab_etf_source_repair_impact_receipt@1.0",
+  "decision": "KNOWN_ACTION_REPAIRED_PUBLISHED_MEMBERSHIP_UNCHANGED_SOURCE_SEMANTICS_PENDING",
+  "baseline_commit": "ef18bf905e9e427153650d5538a996249bb6a901",
+  "freeze_sha256": "754ea498931fa51d391224e990e2c6ac2f36a84996731b1f58dd4726d348de78",
+  "overlay_sha256": "164ad91cdb4b787475374e56c278008f31fb677d7e092a194308c9cfe2ed3b26",
+  "code_commit": "7b66fa290ddeea363323bcb89fdc15f12a896384",
+  "github_run_id": "34677079296",
+  "endpoint": [
+    {
+      "carrier": "512100.SH",
+      "horizon": 1,
+      "original_pairs": 1296,
+      "old_eligible": 1271,
+      "new_eligible": 1271,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 4
+    },
+    {
+      "carrier": "512100.SH",
+      "horizon": 5,
+      "original_pairs": 1296,
+      "old_eligible": 1268,
+      "new_eligible": 1268,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 4
+    },
+    {
+      "carrier": "512100.SH",
+      "horizon": 15,
+      "original_pairs": 1296,
+      "old_eligible": 1268,
+      "new_eligible": 1268,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 4
+    },
+    {
+      "carrier": "512100.SH",
+      "horizon": 30,
+      "original_pairs": 1296,
+      "old_eligible": 1259,
+      "new_eligible": 1259,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 4
+    },
+    {
+      "carrier": "512100.SH",
+      "horizon": 60,
+      "original_pairs": 1296,
+      "old_eligible": 1261,
+      "new_eligible": 1261,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 4
+    },
+    {
+      "carrier": "512100.SH",
+      "horizon": 120,
+      "original_pairs": 1296,
+      "old_eligible": 1265,
+      "new_eligible": 1265,
+      "membership_changed": 0,
+      "reason_changed": 1,
+      "new_action_crossing": 1,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 5
+    },
+    {
+      "carrier": "512100.SH",
+      "horizon": 240,
+      "original_pairs": 1296,
+      "old_eligible": 1261,
+      "new_eligible": 1261,
+      "membership_changed": 0,
+      "reason_changed": 2,
+      "new_action_crossing": 2,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 6
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 1,
+      "original_pairs": 1802,
+      "old_eligible": 1802,
+      "new_eligible": 1802,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 5,
+      "original_pairs": 1802,
+      "old_eligible": 1802,
+      "new_eligible": 1802,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 15,
+      "original_pairs": 1802,
+      "old_eligible": 1802,
+      "new_eligible": 1802,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 30,
+      "original_pairs": 1802,
+      "old_eligible": 1801,
+      "new_eligible": 1801,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 60,
+      "original_pairs": 1802,
+      "old_eligible": 1801,
+      "new_eligible": 1801,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 120,
+      "original_pairs": 1802,
+      "old_eligible": 1802,
+      "new_eligible": 1802,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    },
+    {
+      "carrier": "588000.SH",
+      "horizon": 240,
+      "original_pairs": 1802,
+      "old_eligible": 1801,
+      "new_eligible": 1801,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "new_action_crossing": 0,
+      "crossing_previously_included": 0,
+      "unit_bridge_crossing": 0,
+      "halt_endpoint": 0
+    }
+  ],
+  "full_path": [
+    {
+      "carrier": "512100.SH",
+      "original_pairs": 1296,
+      "old_complete_paths": 846,
+      "new_complete_paths": 846,
+      "membership_changed": 0,
+      "reason_changed": 2,
+      "full_path_originally_measured": false,
+      "old_path_gate": false,
+      "new_path_gate": false,
+      "old_all_horizon_endpoint_common": 1192,
+      "new_all_horizon_endpoint_common": 1192,
+      "common_gate_after_known_patch": false
+    },
+    {
+      "carrier": "588000.SH",
+      "original_pairs": 1802,
+      "old_complete_paths": 1791,
+      "new_complete_paths": 1791,
+      "membership_changed": 0,
+      "reason_changed": 0,
+      "full_path_originally_measured": true,
+      "old_path_gate": true,
+      "new_path_gate": true,
+      "old_all_horizon_endpoint_common": 1799,
+      "new_all_horizon_endpoint_common": 1799,
+      "common_gate_after_known_patch": true
+    }
+  ],
+  "intraday_pooled": [
+    {
+      "carrier": "512100.SH",
+      "period": "ALL",
+      "old_eligible": 281354,
+      "new_eligible": 281354,
+      "eligible_difference": 0,
+      "old_action_exclusions": 238,
+      "new_action_exclusions": 476,
+      "old_missing_endpoint_exclusions": 6864,
+      "new_missing_endpoint_exclusions": 6626,
+      "max_preserved_gap_absolute_difference": 0.0
+    },
+    {
+      "carrier": "588000.SH",
+      "period": "ALL",
+      "old_eligible": 288418,
+      "new_eligible": 288418,
+      "eligible_difference": 0,
+      "old_action_exclusions": 0,
+      "new_action_exclusions": 0,
+      "old_missing_endpoint_exclusions": 38,
+      "new_missing_endpoint_exclusions": 38,
+      "max_preserved_gap_absolute_difference": 0.0
+    }
+  ],
+  "pinned_input_files": 125,
+  "original_frozen_pairs": 3098,
+  "endpoint_pair_horizon_rows": 21686,
+  "existing_published_return_rows_checked": 46594,
+  "endpoint_membership_changes": 0,
+  "consumer_text_hits": 44,
+  "original_source_bytes_modified": false,
+  "new_return_population_opened": false,
+  "new_model_fits": 0,
+  "R1A_reserve_unchanged": true,
+  "full_source_qualification_complete": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "files": [
+    {
+      "path": "512100.SH_full_path_audit.csv",
+      "sha256": "e232db312ff831e9a71136e871b05ab16af5648ccbd90ac417a497ca82519758",
+      "bytes": 159078
+    },
+    {
+      "path": "512100.SH_known_actions_v2.csv",
+      "sha256": "184b47945b034de1977650fd82bfd4d07f41ba67d0954dd32030ac9c0df5d82a",
+      "bytes": 285
+    },
+    {
+      "path": "588000.SH_full_path_audit.csv",
+      "sha256": "f2796c6486e07f9bc9b9517d5cfc79a32467e5e74303498c0160775503a256fe",
+      "bytes": 175348
+    },
+    {
+      "path": "588000.SH_known_actions_v2.csv",
+      "sha256": "3e0ea91b3250fe460aa14646596ae6f56518ffecc94c68d131819c398075920a",
+      "bytes": 43
+    },
+    {
+      "path": "calendar_boundary_audit.csv",
+      "sha256": "55f9424bc310f87b236e96a8332d30b4c59876368db6cc2efd679c6e72aab43e",
+      "bytes": 980
+    },
+    {
+      "path": "consumer_reference_inventory.csv",
+      "sha256": "16b92ec6ec9f27411d64d0cee7155191ea915d6ff15d4f521c6a52eba7f81178",
+      "bytes": 8697
+    },
+    {
+      "path": "endpoint_impact_summary.csv",
+      "sha256": "626cbec8f38f6d8a5edc7180c36aad6708d6f077cd541696324b625ef7da3d41",
+      "bytes": 735
+    },
+    {
+      "path": "endpoint_window_audit.csv",
+      "sha256": "d97f667239dc90da7b790f882539180d9ead827fd2ceaa5d20bfe1ebe84bb85e",
+      "bytes": 6929958
+    },
+    {
+      "path": "full_path_impact_summary.csv",
+      "sha256": "dfb5c2dee44190b8471adf085c4998e35533e94be8b4246a63f42c327a280047",
+      "bytes": 367
+    },
+    {
+      "path": "intraday_measurement_impact.csv",
+      "sha256": "7ac93686d828155765b476d2bb58b63122cf5c354ca554ff2cedaac1f424ae6f",
+      "bytes": 5607
+    },
+    {
+      "path": "pinned_input_integrity.csv",
+      "sha256": "dd2a0514eb4dd59c071d9ea8cba01ef50b757ffa93a2fe305268b7cb1986f520",
+      "bytes": 20222
+    },
+    {
+      "path": "published_result_impact.csv",
+      "sha256": "9f9477f40b86b491cd54afb3e1c35281f24af42123d2df64134b2e4e864baa0c",
+      "bytes": 18984
+    },
+    {
+      "path": "source_semantics_status.json",
+      "sha256": "81bc38bcfc89dfb99773403d9241da768d8e610b70a130aaa5524ce4398eb945",
+      "bytes": 1899
+    }
+  ]
+}

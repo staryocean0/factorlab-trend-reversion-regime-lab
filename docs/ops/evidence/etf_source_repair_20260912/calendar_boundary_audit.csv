@@ -1,0 +1,17 @@
+carrier,day,expected_index_labels,present_etf_labels,zero_volume,positive_volume,confirmed_effective_action,confirmed_halt,prices_reported
+512100.SH,2022-08-02,240,240,0,240,False,False,False
+512100.SH,2022-08-03,240,240,0,240,False,False,False
+512100.SH,2022-08-04,240,240,0,240,False,False,False
+512100.SH,2022-09-01,240,240,0,240,False,False,False
+512100.SH,2022-09-02,240,0,0,0,True,True,False
+512100.SH,2022-09-05,240,240,0,240,False,False,False
+512100.SH,2025-01-14,240,240,0,240,False,False,False
+512100.SH,2025-01-15,240,240,0,240,True,False,False
+588000.SH,2022-08-02,240,240,0,240,False,False,False
+588000.SH,2022-08-03,240,240,0,240,False,False,False
+588000.SH,2022-08-04,240,240,0,240,False,False,False
+588000.SH,2022-09-01,240,240,0,240,False,False,False
+588000.SH,2022-09-02,240,240,0,240,False,False,False
+588000.SH,2022-09-05,240,240,0,240,False,False,False
+588000.SH,2025-01-14,240,240,0,240,False,False,False
+588000.SH,2025-01-15,240,240,0,240,False,False,False

@@ -1,0 +1,45 @@
+path,line,matched_tokens,text,scope
+.github/workflows/etf-index-measurability.yml,7,etf_index_measurability,- 'research/etf_index_measurability/**',textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,10,etf_index_measurability,- 'docs/ops/evidence/etf_index_measurability*/**',textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,34,etf_index_measurability,/research/etf_index_measurability/,textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,35,etf_index_measurability,/tests/test_etf_index_measurability.py,textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,42,etf_index_measurability,/docs/ops/evidence/etf_index_measurability_20260912/,textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,43,etf_index_measurability,/docs/ops/evidence/etf_index_measurability_source_20260912/,textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,45,cloud_pack_v1;r1a_carrier_prices,/data/r1a_carrier_prices/cloud_pack_v1/,textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,53,etf_index_measurability,run: python -m pytest -q tests/test_etf_index_measurability.py tests/test_etf_measurement_retained.py tests/test_etf_measurement_replay_precision.py,textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,65,etf_index_measurability,"python research/etf_index_measurability/audit.py --output ""$RUNNER_TEMP/etf-measurement""",textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,66,etf_index_measurability,"python research/etf_index_measurability/verify_replay.py --reference docs/ops/evidence/etf_index_measurability_20260912 --replay ""$RUNNER_TEMP/etf-measurement"" --output ""$RUNNER_TEMP/etf-measurement-replay-audit.json""",textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,69,etf_index_measurability,"python research/etf_index_measurability/source_flags.py --output ""$RUNNER_TEMP/etf-source""",textual_dependency_candidate_not_runtime_proof
+.github/workflows/etf-index-measurability.yml,73,etf_index_measurability,old=Path('docs/ops/evidence/etf_index_measurability_source_20260912'),textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1a-control-design.yml,79,r1a_carrier_prices,assert not Path('data/r1a_carrier_prices').exists(),textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1a-control-design.yml,80,endpoint_diagnostic;r1a_endpoint_diagnostic_20260912,assert not Path('docs/ops/evidence/r1a_endpoint_diagnostic_20260912').exists(),textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1a-development-noise-regression.yml,71,r1a_carrier_prices,assert not Path('data/r1a_carrier_prices').exists(),textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,37,endpoint_diagnostic;r1a_endpoint_diagnostic_20260912,- 'docs/ops/evidence/r1a_endpoint_diagnostic_20260912/**',textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,41,r1a_carrier_prices,- 'data/r1a_carrier_prices/**',textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,76,endpoint_diagnostic;r1a_endpoint_diagnostic_20260912,docs/ops/evidence/r1a_endpoint_diagnostic_20260912,textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,82,r1a_carrier_prices,data/r1a_carrier_prices,textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,97,endpoint_diagnostic,"python research/r1a_carrier_transport/endpoint_diagnostic.py --output ""$RUNNER_TEMP/r1a-endpoint-replay""",textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,101,endpoint_diagnostic,from research.r1a_carrier_transport.endpoint_diagnostic import sha,textual_dependency_candidate_not_runtime_proof
+.github/workflows/r1b-mo-data-admission-gate.yml,103,endpoint_diagnostic;r1a_endpoint_diagnostic_20260912,old = Path('docs/ops/evidence/r1a_endpoint_diagnostic_20260912'),textual_dependency_candidate_not_runtime_proof
+research/etf_index_measurability/audit.py,14,cloud_pack_v1;r1a_carrier_prices,PACK = 'data/r1a_carrier_prices/cloud_pack_v1',textual_dependency_candidate_not_runtime_proof
+research/etf_index_measurability/audit.py,260,etf_index_measurability,"receipt = {'schema_id':'factorlab_etf_index_measurability_receipt@1.0','decision':DECISION,",textual_dependency_candidate_not_runtime_proof
+research/etf_index_measurability/source_flags.py,15,etf_index_measurability,from research.etf_index_measurability.audit import (,textual_dependency_candidate_not_runtime_proof
+research/etf_index_measurability/source_flags.py,63,etf_index_measurability,"'original_measurement_receipt_sha256':sha(root/'docs/ops/evidence/etf_index_measurability_20260912/receipt.json'),",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/audit_public_delivery.py,144,r1a_carrier_prices,path=root/'data/r1a_carrier_prices'/(carrier+'.json'); m=json.loads(path.read_text()),textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/audit_source_delivery.py,266,cloud_pack_v1;r1a_carrier_prices,"parser.add_argument(""--pack"", default=""data/r1a_carrier_prices/cloud_pack_v1"")",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/build_cloud_pack.py,1,cloud_pack_v1,"""""""Build public cloud_pack_v1 from verified private CSV bytes.",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/build_cloud_pack.py,14,cloud_pack_v1;r1a_carrier_prices,"PACK = ""data/r1a_carrier_prices/cloud_pack_v1""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/build_cloud_pack.py,16,r1a_carrier_prices,"""data/r1a_carrier_prices/512100.SH.json"",",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/build_cloud_pack.py,17,r1a_carrier_prices,"""data/r1a_carrier_prices/588000.SH.json"",",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/endpoint_diagnostic.py,22,cloud_pack_v1;r1a_carrier_prices,"PACK = ""data/r1a_carrier_prices/cloud_pack_v1""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/endpoint_diagnostic.py,314,endpoint_diagnostic,"receipt = {""schema_id"": ""factorlab_r1a_endpoint_diagnostic_receipt@1.0"", ""freeze_commit"": FREEZE_COMMIT,",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/export_datahub_lake.py,157,r1a_carrier_prices,"rel = f""data/r1a_carrier_prices/private/{code}_{year}.csv""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/export_datahub_lake.py,163,r1a_carrier_prices,"actions_rel = f""data/r1a_carrier_prices/private/{code}_actions.csv""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/export_datahub_lake.py,193,r1a_carrier_prices,"manifest_path = repo_root / ""data/r1a_carrier_prices"" / f""{carrier}.json""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/transport.py,4,r1a_carrier_prices,Canonical input manifests: data/r1a_carrier_prices/<ETF>.json (see README).,textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/transport.py,279,r1a_carrier_prices,"manifests = args.manifest_dir or root/""data/r1a_carrier_prices""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/verify_cloud_replay.py,1,cloud_pack_v1,"""""""Acceptance audit for 9abe704 cloud_pack_v1, not a new strategy experiment.",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/verify_cloud_replay.py,21,cloud_pack_v1;r1a_carrier_prices,"PACK = ""data/r1a_carrier_prices/cloud_pack_v1""",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/verify_cloud_replay.py,72,r1a_carrier_prices,"require(not (root/""data/r1a_carrier_prices/private"").exists(), ""audit requires checkout WITHOUT private directory"")",textual_dependency_candidate_not_runtime_proof
+research/r1a_carrier_transport/verify_cloud_replay.py,82,r1a_carrier_prices,"prior = json.loads((root/""data/r1a_carrier_prices""/(carrier+"".json"")).read_text())",textual_dependency_candidate_not_runtime_proof
+research/r1a_endpoint_robustness/study.py,22,endpoint_diagnostic;r1a_endpoint_diagnostic_20260912,OLD = 'docs/ops/evidence/r1a_endpoint_diagnostic_20260912',textual_dependency_candidate_not_runtime_proof

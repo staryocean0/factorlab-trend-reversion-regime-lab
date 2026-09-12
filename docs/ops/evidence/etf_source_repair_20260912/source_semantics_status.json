@@ -1,0 +1,64 @@
+{
+  "state": [
+    {
+      "carrier": "512100.SH",
+      "index": "000852.SH",
+      "old_completeness_boolean": true,
+      "effective_known_action_dates": [
+        "2022-09-02",
+        "2025-01-15"
+      ],
+      "global_completeness_certified": false,
+      "on_clock_zero_nonflat": 1388,
+      "index_flat_fill_rows": 1215,
+      "index_available_at_examples": [
+        "10:01:00",
+        "10:02:00",
+        "14:20:00",
+        "14:59:00",
+        "15:30:00"
+      ]
+    },
+    {
+      "carrier": "588000.SH",
+      "index": "000688.SH",
+      "old_completeness_boolean": true,
+      "effective_known_action_dates": [],
+      "global_completeness_certified": false,
+      "on_clock_zero_nonflat": 7,
+      "index_flat_fill_rows": 1220,
+      "index_available_at_examples": [
+        "10:01:00",
+        "10:02:00",
+        "10:57:00",
+        "10:59:00",
+        "11:03:00",
+        "11:07:00",
+        "11:12:00",
+        "14:20:00",
+        "14:59:00",
+        "15:30:00"
+      ]
+    }
+  ],
+  "local_audit_is_not_independent_exchange_verification": true,
+  "upstream_dictionary_files_available_in_this_repo": [],
+  "local_source_audit_top_level_keys": [
+    "carriers",
+    "corporate_actions",
+    "coverage_gate_unchanged",
+    "pack",
+    "primary_512100_2021_conclusion",
+    "schema_id",
+    "source_chain",
+    "window"
+  ],
+  "unresolved": [
+    "true units/placeholder/aggregation semantics of zero-volume nonflat bars",
+    "exchange publication versus canonical wall-clock labels",
+    "meaning of available_at=15:30",
+    "original index fill contract and raw observations",
+    "exhaustive action and suspension calendars"
+  ],
+  "exporter_verified_behavior": "to_numeric only for volume; no scaling/rounding implemented; Z stripped then localized; keep-last dedup; action list hardcoded. This identifies implemented transformations, not correctness of upstream semantics."
+}

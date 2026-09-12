@@ -1,0 +1,3 @@
+carrier,original_pairs,old_complete_paths,new_complete_paths,membership_changed,reason_changed,full_path_originally_measured,old_path_gate,new_path_gate,old_all_horizon_endpoint_common,new_all_horizon_endpoint_common,common_gate_after_known_patch
+512100.SH,1296,846,846,0,2,False,False,False,1192,1192,False
+588000.SH,1802,1791,1791,0,0,True,True,True,1799,1799,True
