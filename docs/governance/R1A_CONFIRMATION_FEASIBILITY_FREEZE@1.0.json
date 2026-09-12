@@ -1,0 +1,77 @@
+{
+  "schema_id": "factorlab_r1a_confirmation_feasibility_freeze@1.0",
+  "identity": "rmr_R1A_confirmation_feasibility_v1",
+  "status": "FROZEN_BEFORE_FEASIBILITY_CALCULATIONS",
+  "date": "2026-09-12",
+  "baseline_commit": "8b1cb1e69123712be3fbefb909ae382e2a1104c3",
+  "purpose": "Assess the resource and methodological feasibility of a later confirmation study. This is NOT the confirmation protocol, a new historical significance search, or authorization to read 2026/prospective returns.",
+  "known_before_freeze": "Historical index/ETF endpoint means and the complete retrospective robustness results have been seen. Existing data may be used to estimate nuisance variance, calendar geometry and eligible pair frequency only. No observed mean is substituted for a true effect in power calculations.",
+  "inputs": {
+    "matched_pairs_git_blob_sha1": "95191091d1a26c360c3efb5ae2d5be9cf194211d",
+    "index_manifest_git_blob_sha1": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "endpoint_receipt_git_blob_sha1": "89f188522ddd657c8957ec2b85f8d0b57892143b",
+    "previous_robustness_code_git_blob_sha1": "83ffef4087fb73a09aaf46271d3c06353d6d354a",
+    "endpoint_files": "Verify all retained endpoint CSVs against the pinned receipt. Index loader must verify 2015-2025 historical bytes via its existing manifest. No newer price files may be loaded."
+  },
+  "designs": {
+    "horizons": [1, 5, 15, 30, 60, 120, 240],
+    "maps": {"000852.SH": "512100.SH", "000688.SH": "588000.SH"},
+    "index_layer": "All frozen R1_A event-control pairs for each index, regardless of ETF endpoint availability. Estimate noise of signed INDEX event-minus-control return; do not impose ETF exclusions on index inference.",
+    "ETF_layer": "Exactly the previously admitted horizon-specific observed ETF pairs. This conditions on future observation; it is not an all-event effect or live entry screen.",
+    "primary_variance_geometry": [20, 0],
+    "variance_sensitivities": [[20, 10], [5, 0], [5, 2]],
+    "variance_estimator": "Reuse the previous graph-sandwich with IID variance floor unchanged; keep nonpositive/insufficient graph cases unquantified. Record marginal SD, historical SE, implied design effect, noise-equivalent independent n, and pair rate. The equivalent n is not an observed independent-unit count."
+  },
+  "power": {
+    "true_effect_scenarios_bp": [2, 4, 6],
+    "target_positive_detection_probabilities": [0.8, 0.9],
+    "alpha": 0.05,
+    "families": [1, 7, 14, 28],
+    "primary_reporting_family": 14,
+    "family_interpretation": "14 is a planning envelope for two fixed indices times seven horizons within each layer; 28 budgets both layers together. 1 and 7 are counterfactual comparison designs, not selected confirmations. These are per-contrast detection targets, NOT probabilities that all horizons pass.",
+    "test": "Positive lower bound of a two-sided Bonferroni normal interval. No test is selected by resulting sample size.",
+    "scaling": "V_future(D)=V_historical*D_historical/D under unchanged long-run variance, pair frequency, matching design and observation mechanism.",
+    "required_days_formula": "ceil(D_hist*(SE_hist/delta)^2*(norm.ppf(1-alpha/(2*m))+norm.ppf(target_power))^2)",
+    "expected_pairs": "required_days * n_hist / D_hist",
+    "equivalent_years": "required_days / (D_hist/5), an information-rate equivalent, NOT a forecast or promise that a decades-long stationary experiment is credible",
+    "fixed_budgets_trading_days": [60, 120, 243, 486, 1215],
+    "budget_power_formula": "norm.cdf(delta/(SE_hist*sqrt(D_hist/D_budget))-norm.ppf(1-alpha/(2*m)))",
+    "min_effect_formula": "(z_critical+z_target)*SE_hist*sqrt(D_hist/D_budget)",
+    "limits": "Plug-in conditional planning, not assurance over nuisance uncertainty. Long extrapolations are feasibility warnings. More data do not remove bias, informative missingness or confirmatory-selection problems. No calendar completion date is chosen."
+  },
+  "null_calibration": {
+    "repetitions_per_design_per_DGP": 2000,
+    "seed": 20260912,
+    "designs": "All 28 index/ETF x index-identity x horizon geometries; no 15/30-only calibration selection.",
+    "estimator": "The unchanged primary 20-day-origin-0 graph/t estimator, recomputed on each simulated sample with its existing IID floor and failure semantics. No empirical p-values are newly reported.",
+    "simulation_models": ["IID_GAUSSIAN", "SHARED_BLOCK_GAUSSIAN", "SHARED_BLOCK_T5", "OFF_GRAPH_AR1_0.6"],
+    "generative_model": "Y=sigma*(sqrt(1-lambda)*epsilon+sqrt(lambda)*B*z); B_i,b=1/sqrt(number_of_exposure_blocks_i) for membership, else 0. Signed outcome-level positive loading is a stress/illustrative model, not an identified market mechanism.",
+    "lambda": "For shared models, match historical graph mean variance with the model using lambda=clip((n*n*SE_hist^2/sigma^2-n)/(sum_b(sum_i B_i,b)^2-n),0,0.95). IID sets lambda=0. Report fitting residual/clipping. Historical means are not used.",
+    "innovations": "Gaussian models use independent standard normals. T5 uses independent t5/sqrt(5/3) for both components. OFF_GRAPH has stationary AR(1) block shocks with coefficient 0.6, over the full ordered block clock including unused blocks. Same lambda, no refit to the stress model.",
+    "outputs": "Pointwise nominal-5% rejection rate, Wilson 95% Monte Carlo interval, nominal-0.05/14 marginal rejection rate, and unquantified frequency. Invalid SE replicates cannot reject and are disclosed. No familywise joint-simulation claim; all geometry/DGP outputs remain reported.",
+    "interpretation": "Simulation diagnoses behavior under declared models only. It neither validates real-market dependence assumptions nor repairs past p-values. Report severe excess-size warnings where pointwise Wilson lower bound exceeds 7.5%; no estimator retuning in this stage."
+  },
+  "data_role_audit": {
+    "scope": "Pinned baseline local manifests plus five public FactorLab default-branch Git trees; bounded metadata JSON and branch listings only. No price CSV/Parquet, event table or outcome report from candidate 2026 samples is opened.",
+    "repositories": ["factorlab-trend-reversion-regime-lab", "factorlab-star50-filter-lab", "factorlab-two-wave-strategy-lab", "factorlab-overnight-open-lab", "factorlab-multifactor-stock-lab"],
+    "metadata_policy": "Record paths/blob hashes, source/provider, symbols/frequency, first/last dates, role/use/freeze declarations. Ignore and do not report numerical strategy outcomes if present in metadata. No secrets, purchase, restricted-data access or new market downloads.",
+    "freshness": "Existing 2015-2025 data are consumed. A 2026-named file is merely a candidate, not fresh. Shared use in another study does not by itself prove this hypothesis was contaminated, but cannot certify no exposure. No log evidence is NOT evidence of no use. Unknown role stays UNKNOWN_NOT_ADMITTED.",
+    "prospective": "Only observations strictly after a later finalized confirmation freeze can be genuinely prospective for that design. This feasibility freeze does not start a confirmation clock.",
+    "limitations": "No claim to search private local disks, all branches, artifacts or users' cognitive exposure. The audit may end with no qualified available confirmation package."
+  },
+  "unchanged": {"signals": true, "matching": true, "carriers": true, "all_horizons": true, "old_receipts": true, "old_gates": true},
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "new_confirmatory_outcomes_authorized": false,
+  "confirmation_protocol_frozen": false,
+  "new_cost_or_option_study": false,
+  "sources": [
+    "https://www.itl.nist.gov/div898/handbook/prc/section2/prc222.htm",
+    "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm",
+    "https://arxiv.org/abs/1312.3398",
+    "https://arxiv.org/abs/1903.01059",
+    "https://arxiv.org/abs/2605.28349",
+    "https://www.cos.io/initiatives/prereg"
+  ]
+}
