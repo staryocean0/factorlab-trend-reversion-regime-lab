@@ -103,7 +103,7 @@ def wilson(k: int, n: int) -> tuple[float,float]:
     z = float(norm.ppf(.975)); p=k/n; den=1+z*z/n
     center=(p+z*z/(2*n))/den
     half=z*math.sqrt(p*(1-p)/n+z*z/(4*n*n))/den
-    return max(0.,center-half), min(1.,center+half)
+    return (0. if k == 0 else max(0.,center-half)), (1. if k == n else min(1.,center+half))
 
 
 def incidence(members: list[set[int]]) -> sparse.csr_matrix:
