@@ -1,33 +1,42 @@
-# 云端接管提示 — R1_A 统计稳健性已完成
+# 云端研究交接 — R1_A 确认可行性已完成
 
-仓库 staryocean0/factorlab-trend-reversion-regime-lab。先读 CONTINUE_HERE.md 和 docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md，安全同步主干，不覆盖用户工作。
+仓库：staryocean0/factorlab-trend-reversion-regime-lab。
+先读 CONTINUE_HERE.md 和 docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md，安全同步 main，不覆盖用户工作。
 
-## 已经完成，不要重复当成新研究
+## 当前结论
 
-实际 ETF CSV 在 data/r1a_carrier_prices/cloud_pack_v1/，无需本地 DataHub/private 或再次搬运。
+CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START。
 
-指数价格层、匹配对照、两只 ETF 的七周期端点价格诊断，以及本轮依赖性/观测选择稳健性均已执行。
+样本量／检验能力、22.4万组模拟空假设数据、五仓元数据资格审计均已实际执行。不要把它们重新说成待做计划；也不要立即打开2026收益。
 
-最新状态 RETROSPECTIVE_ENDPOINT_ROBUSTNESS_COMPLETED_NO_PRODUCTION。
+R1_A仍是历史短周期线索，不是已经确认可交易的alpha，也没有被证明为零效应。
 
-R1_A 仍是短周期历史线索，不是已经统计确立、可直接交易的 alpha。均值没有被重算成负数，但考虑共享行情、重复对照和同时检查14项后，没有一项主检验区间完全高于零。不要把这误写成证明无效或关闭R1_A机制。
+按原配对噪声与出现频率，假设真实增量4bp，80%检出能力、14项比较的指数层方案，15/30 bar分别需要约4858/13062组配对。这些是条件测算，不是确认样本承诺；其多年甚至数十年信息等价长度说明原方案效率不够，绝不是让用户等几十年。
 
-中证1000 15/30 bar 增量 +4.368/+7.074bp；14项校正区间 [-2.211,+10.948]/[-4.077,+18.224]bp。对照等权、去重叠、逐暴露年剔除的短周期符号仍为正。长周期更不稳。
+旧graph/t方法在模拟跨日历块持续相关时会明显误报膨胀。模拟AR(1)=0.6下名义5%误报为6.8%-22.2%，不能把它当成真实市场误报率。不能据此改块长或估计器然后重算旧p值，直到显著。
 
-2021年30 bar仅159/186组端点可观测，另27组的均值只需-7.403bp即可使该年全样本均值为零。原先5/5年正只属于观测样本，不是全体事件证据。所有缺失情景是假设分析，没有补造ETF结果。
+## 下一步的有限任务
 
-## 下一有效方向
+仅做方法校准／测量效率研究：使用预先声明的合成模型和已经披露的历史噪声、事件时钟，先检验方法能否处理跨块相关，再判断能否在明确资源预算下获得足够信息。所有方案必须有数学理由和停止边界，不能无限发散。
 
-需要单独冻结真正未使用/前瞻样本的确认设计，先定数据角色、观测和退出处理，再看结果；不要在同一历史区间不停换块长、匹配、持有期、年份、方向或ETF寻求显著。不能默认2026或任何新标签就是未见样本。禁止BLACKBOX query#4。
+不改旧信号、原配对、七周期、ETF载体或旧结果。若确需更改未来确认的estimand或matching，必须单独公开为新设计，而不是翻写旧研究结论。
 
-本轮近似图依赖方差和t校准的假设未被独立证明，14/56项校正也没有消除此前整个研究史的选择影响。不宣称新OOS、因果识别、全事件收益或实盘净利润。
+## 数据情况
+
+历史ETF实际CSV已在 data/r1a_carrier_prices/cloud_pack_v1/，无需本地DataHub或private/，不要再让用户搬同一包。
+
+隔夜仓已有2026中证1000分钟文件：
+data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet
+
+清单声明154个交易日、36960行、fresh_oos=false，已用于隔夜gap-fill重复验证。R1_A专属暴露史仍UNKNOWN；别的研究使用不自动等于本假设被污染，但也不能直接说未使用。当前只查了元数据，没有读行情或收益。
+
+在最终确认设计、来源准入和数据角色明确前，保留该候选，不消费其价格结果。没有启动正式前瞻时钟；本轮可行性冻结不是确认实验起点。
 
 ## 复现
 
-PYTHONPATH=src:. python research/r1a_endpoint_robustness/study.py --output /tmp/r1a-robustness-new
-
+PYTHONPATH=src:. python research/r1a_confirmation_feasibility/study.py --output /tmp/r1a-feasibility-new
 PYTHONPATH=src:. python -m pytest -q tests/test_r1a_*.py
 
-只能用新输出目录，不覆盖旧回执。原完整路径v1和端点协议保持原状。中证1000未通过的七周期共同样本收益表仍不打开。
+用新输出目录，不覆盖已完成回执。常规CI只复算确定性的可行性结果，不反复在线刷新数据资格审计。
 
-不改信号、配对、时钟、固定载体、七周期和源数据。R1_B、R2方向和旧期权身份不重开。BLACKBOX_query_count=3；production_authority=false；fresh_oos=false；不选持有期。
+BLACKBOX_query_count=3；禁止query#4；production_authority=false；fresh_oos=false；confirmation_protocol_frozen=false。不选持有期，不重开R1_B/R2方向交易/旧期权，不下单、不购买、不启动自动化任务。

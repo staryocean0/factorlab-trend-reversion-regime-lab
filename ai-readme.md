@@ -1,9 +1,11 @@
 # AI entry
 
-Read CONTINUE_HERE.md, docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md, PROMPT.md and AGENTS.md.
+Read `CONTINUE_HERE.md`, `docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md`, `PROMPT.md`, `AGENTS.md`.
 
-Latest completed: RETROSPECTIVE_ENDPOINT_ROBUSTNESS_COMPLETED_NO_PRODUCTION. R1_A remains a short-horizon historical lead, not established/executable alpha. No positive adjusted primary interval; this is not proof of zero effect or closure of the mechanism.
+Latest: `CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START`.
 
-Dependence/multiplicity and selection sensitivities have executed. Next useful evidence requires genuinely unused/prospective data under a separately frozen confirmation/observation design, not more tuning on the same years. No routine local transfer is needed.
+Power/information-cost planning, 224,000 null simulations and bounded metadata-only data-role audit are completed. Do not treat them as fresh alpha evidence. Small effects need large information under inherited noise; off-graph serial dependence challenges the old approximate inference. No final confirmation design/clock or trading promotion exists.
 
-Old full-path/endpoint states and data are preserved; primary common-cohort outcomes remain unopened. BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false; no chosen horizon or option rescue.
+A 2026 CSI1000 candidate in the overnight repository has repeat-use provenance, not a certified R1_A holdout. Candidate prices remain unopened. Existing 2021-2025 ETF bytes are already public; no routine local transfer task.
+
+Next bounded task: method-only calibration/measurement feasibility, not historic p-value search. Preserve all old signals/pairs/horizons/maps and receipts. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false.

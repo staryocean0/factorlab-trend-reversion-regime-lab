@@ -1,17 +1,19 @@
-# Reversal / Mean-Reversion Strategy Bucket
+# Reversal / Mean-Reversion Research
 
-Read CONTINUE_HERE.md and docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md.
+Read `CONTINUE_HERE.md` and `docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md` before acting.
 
-Latest completed: RETROSPECTIVE_ENDPOINT_ROBUSTNESS_COMPLETED_NO_PRODUCTION. Dependence/multiplicity, reuse, nonoverlap, leave-year and missing-outcome sensitivity have actually executed. Do not restart them as an unseen test.
+Latest completed: `CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START`.
 
-R1_A remains a historical short-horizon lead, not statistically established/executable alpha. No adjusted primary cell has a strictly positive lower bound. This is not proof of zero effect or closure of R1_A. Do not select a convenient block origin/horizon/matching rule/year/side/ETF to recover a preferred significance result.
+Power/sample-rate planning, 224,000 synthetic null datasets and bounded data-role audit actually ran. Do not restart them as new empirical validation. All historical signals/pairs/ETF maps/horizons/raw files and earlier gates/receipts remain unchanged.
 
-The graph-sandwich/t method is an explicitly approximate calendar-exposure adaptation; its assumptions are not proved by CI. Family corrections cover displayed contrasts, not all past historical research. Endpoint observation selection and matching confounding are not causal identification.
+R1_A is a lead, not proven alpha or disproved mechanism. No formal confirmation or production promotion is justified by these feasibility tables. Information-equivalent decades are not forecasts or recommended waiting periods. Old variance estimates and normal power scaling are assumptions, not validated real-market calibration. The AR(1) stress exposed substantial off-graph dependence sensitivity; do not quote its worst rejection rate as actual market size.
 
-Future evidence should use a separately frozen genuinely unused/prospective data role and observation/exit policy. Do not assume a new date/year is fresh without exposure audit. No BLACKBOX query #4 and no production/real-account action.
+The next limited research task is method-only calibration/measurement feasibility under predeclared synthetic models and resource bounds, not p-value shopping on the historic return table. A changed estimand/matching rule must be a separately disclosed design and cannot rewrite prior closeouts.
 
-Data are already available in data/r1a_carrier_prices/cloud_pack_v1/. No local DataHub/private dependency or routine re-delivery request remains. Recorded source volume=0 is not independently proven exchange no-trade.
+Actual old ETF data are in `data/r1a_carrier_prices/cloud_pack_v1/`. Do not request repeat local transfer. A 2026 CSI1000 file exists at the overnight repository's `data/gap_fill_repeat_2026/`; metadata declares repeat use/fresh_oos=false. R1_A-specific role remains UNKNOWN. Do not read its prices or call it fresh before appropriate source/exposure and final design review. The audit is bounded, not proof that no data exist elsewhere.
 
-Preserve original signals, pairs, directions, seven horizons, fixed carriers and all source bytes. The earlier endpoint and full-path protocols remain unchanged. CSI1000's failed all-seven-endpoint common cohort is still not authorized for a return table. Missingness scenarios are assumptions, not imputed ETF outcomes. No path-risk, cost, borrow, stop/target, futures or option result is authorized by this stage.
+No final confirmation protocol/clock, automated collection, trade, purchase or external account action has started. The feasibility freeze does not create a prospective start date.
 
-Use fresh output directories and retain historical receipts. R1_B, R2-directional and closed MO identities remain closed. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; horizon_selected=false.
+The primary failed common-all-horizon ETF table stays unopened. No missing-price fills, horizon selection, signal refits, filters, costs, path exits, futures/options or BLACKBOX #4. R1/R2 certification and closed R1_B/R2-directional/MO identities remain.
+
+`BLACKBOX_query_count=3`; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `horizon_selected=false`. Require fresh output directories and retain evidence.

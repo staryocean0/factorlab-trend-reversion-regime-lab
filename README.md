@@ -1,31 +1,31 @@
 # FactorLab Trend–Reversion Regime Lab
 
-Reversal / mean-reversion research, separating mechanism, price response, observation quality, statistical uncertainty and trading implementation.
+Reversal / mean-reversion research, separating mechanism, price response, observation quality, uncertainty and trading implementation.
 
-## Latest completed stage
+## Latest completed work
 
-**R1_A endpoint robustness: `RETROSPECTIVE_ENDPOINT_ROBUSTNESS_COMPLETED_NO_PRODUCTION`.**
+**`CONFIRMATION_FEASIBILITY_COMPLETED_NOT_READY_TO_START`**
 
-The historical short-horizon price lead survives several sign/influence checks, but calendar-dependence and displayed-family corrections do NOT establish a reliably positive incremental edge. No execution promotion; no declaration of zero effect; no closure of the R1_A mechanism.
+R1_A remains a historical short-horizon lead, not statistically established trading alpha. The authorized sample-size/power, synthetic null-calibration and candidate-data-role audit have executed; no new confirmation sample has been opened.
 
-CSI1000 h15/h30 means remain +4.368/+7.074bp. Primary 20-trading-day exposure-graph intervals after 14-contrast correction are [-2.211,+10.948] and [-4.077,+18.224]bp. Zero of all 14 adjusted lower bounds are positive; no cell survives the stricter four-specification check. These are assumption-dependent retrospective intervals, not fresh OOS or a correction for all prior research.
+Under the inherited paired-return noise and sample rate, detecting a true 4bp CSI1000 index increment with 80% power and a 14-comparison interval needs roughly 4,858 pairs at h15 or 13,062 at h30. These are assumption-dependent planning calculations, not confirmed sample-size requirements or chosen horizons. Their very long information-equivalent calendar extrapolations diagnose an inefficient proposed campaign, not an instruction to wait decades.
 
-Positive short-horizon signs remain under equal-control weights, clock-disjoint diagnostic cohorts and leave-exposure-year-out checks. Longer horizons weaken. Missingness matters particularly by year: CSI1000's 2021 h30 observed positive mean could be erased by only -7.403bp average increment across its 27 unobserved pairs. No missing outcomes were manufactured.
+Calibration also found the old approximate graph/t method vulnerable to off-graph serial dependence: in a declared AR(1)=0.6 null stress model, nominal 5% marginal rejection ranged 6.8%-22.2%. That is simulated behavior, not a measured real-market false-positive rate. No estimator was retuned to obtain significance.
 
-## Read first
+A relevant 2026 CSI1000 minute file was located in the overnight repository, but its manifest records repeat-validation use and `fresh_oos=false`. R1_A-specific non-exposure is not established. No candidate new prices were read or copied; no final confirmation clock started.
+
+## Start here
 
 1. [CONTINUE_HERE.md](CONTINUE_HERE.md)
-2. [Robustness interpretation](docs/research/R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md)
-3. [Complete robustness tables](docs/ops/evidence/r1a_endpoint_robustness_20260912/REPORT.md)
-4. [Frozen robustness method](docs/governance/R1A_ENDPOINT_ROBUSTNESS_FREEZE@1.0.json)
+2. [Feasibility interpretation](docs/research/R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md)
+3. [Power and calibration tables](docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/REPORT.md)
+4. [Data-role audit](docs/ops/evidence/r1a_confirmation_feasibility_20260912/data_role/REPORT.md)
 5. [PROMPT.md](PROMPT.md)
 
-The next useful stage is a fixed confirmation design on genuinely unused/prospective observations, not repeated parameter/significance searches on the same history. No holding period is selected.
+Next bounded work is method-only calibration/measurement feasibility with explicit assumptions and a resource budget, before formal confirmation or execution economics. Do not search prior market outcomes until a preferred p-value appears.
 
-## Data and retained history
+## Data and preserved history
 
-Actual historical ETF CSVs are already public in `data/r1a_carrier_prices/cloud_pack_v1/`. No routine local data transfer is required.
+Historical ETF CSVs are already public in `data/r1a_carrier_prices/cloud_pack_v1/`; no routine local re-delivery is required. All prior endpoint, full-path and retrospective robustness evidence remains unchanged. The old full-path `PARTIAL_CARRIER_TRANSPORT` label is not the current overall project frontier. R1/R2 mechanisms and closed R1_B/R2-directional/MO identities are preserved.
 
-Both fixed ETF maps and all seven per-horizon endpoint diagnostics remain measured. The separate original full-path v1 remains `PARTIAL_CARRIER_TRANSPORT` under its own definition. CSI1000's failed all-seven-endpoint common cohort remains unopened. Prior freezes, ledgers, source data and closed research identities are preserved.
-
-R1/R2 certifications and closed R1_B/R2-directional/MO lineages are unchanged. `BLACKBOX_query_count=3`; no query #4; `production_authority=false`; `fresh_oos=false`.
+`BLACKBOX_query_count=3`; no query #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`. No holding horizon selected.
