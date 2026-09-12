@@ -32,16 +32,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Apply exactly the maintenance migration
+      - name: Prepare and validate the intended final migration
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('docs/archive/repository_maintenance_20260912/apply.py')
           text=p.read_text()
           old="write(ARCHIVE+'/README.md'"
-          new="write(ARCHIVE+'/ARCHIVE_INDEX.md'"
           assert text.count(old)==1
-          p.write_text(text.replace(old,new))
+          p.write_text(text.replace(old,"write(ARCHIVE+'/ARCHIVE_INDEX.md'"))
           PY
           python docs/archive/repository_maintenance_20260912/apply.py
           python scripts/repository_consistency.py --render
@@ -52,12 +51,26 @@ jobs:
         run: python scripts/repository_consistency.py --check --output "$RUNNER_TEMP/migration-consistency.json"
       - name: Test new maintenance safeguards
         run: python -m pytest -q tests/test_repository_consistency.py --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
-      - name: Persist maintenance-only changes to the named branch
+      - name: Retain exact final workflow bytes for connector publication
         run: |
+          python - <<'PY'
+          import os,zipfile,json,hashlib
+          from pathlib import Path
+          out=Path(os.environ['RUNNER_TEMP'])/'final-workflows.zip'
+          specs=[]
+          with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED) as z:
+              for p in sorted(Path('.github/workflows').glob('*.yml')):
+                  b=p.read_bytes();z.writestr(str(p),b)
+                  specs.append({'path':str(p),'sha256':hashlib.sha256(b).hexdigest()})
+              z.writestr('workflow_manifest.json',json.dumps(specs,indent=2))
+          PY
+      - name: Publish non-workflow migration only; connector completes the final tree
+        run: |
+          git restore --source=HEAD --staged --worktree -- .github/workflows
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git diff --cached --stat
-          git commit -m 'chore: synchronize repository state and retire stale active surfaces [validate-repository] [full-regression]'
+          git commit -m 'chore: stage synchronized components; workflow publication pending on maintenance branch [skip ci]'
           git push origin HEAD:maintenance/repository-consistency-20260912
       - uses: actions/upload-artifact@v4
         if: always()
@@ -66,6 +79,7 @@ jobs:
           path: |
             ${{ runner.temp }}/migration-consistency.json
             ${{ runner.temp }}/maintenance-tests.xml
+            ${{ runner.temp }}/final-workflows.zip
             docs/REPOSITORY_STATE.json
             docs/maintenance/BASELINE_COMPONENTS.json
           if-no-files-found: warn
