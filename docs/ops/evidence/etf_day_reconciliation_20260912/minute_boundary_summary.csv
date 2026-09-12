@@ -1,0 +1,9 @@
+carrier,convention,all_legacy_rows,complete_continuous_minutes,boundary_scope_rows,with_recorded_ticks,without_recorded_ticks,all_ohlc_equal_declared_scale,close_equal_declared_scale,volume_equal_without_conversion,ohlc_and_volume_equal,legacy_zero_nonflat,legacy_zero_nonflat_with_ticks,tick_sum_raw,legacy_sum_raw
+512100,"[t-60s,t)",241,237,4,235,2,158,220,1,0,1,0,286166074.0,2861661.0
+512100,"(t-60s,t]",241,235,6,233,2,157,218,1,0,1,0,284053011.0,2840530.0
+512100,"[t,t+60s)",241,236,5,234,2,9,76,0,0,1,1,285535474.0,2853235.0
+512100,"(t,t+60s]",241,234,7,232,2,9,75,0,0,1,1,283422411.0,2793809.0
+588000,"[t-60s,t)",241,237,4,237,0,77,153,0,0,0,0,2116934453.0,21168562.0
+588000,"(t-60s,t]",241,235,6,235,0,74,153,0,0,0,0,2099896053.0,20996335.0
+588000,"[t,t+60s)",241,236,5,236,0,4,60,0,0,0,0,2085801061.0,21094002.0
+588000,"(t,t+60s]",241,234,7,234,0,3,60,0,0,0,0,2068762661.0,20841344.0
