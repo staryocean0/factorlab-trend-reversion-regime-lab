@@ -1,0 +1,1522 @@
+[
+  {
+    "symbol": "512100",
+    "timestamp": "2021-01-04T10:47:00Z",
+    "month": "2021-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2021-01-04T10:47:00Z",
+      "trading_day": "2021-01-04",
+      "open": 0.951,
+      "high": 0.951,
+      "low": 0.95,
+      "close": 0.95,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2021-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "high": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "low": {
+        "baidu": 0.95,
+        "canon": 0.95,
+        "equal": true
+      },
+      "close": {
+        "baidu": 0.95,
+        "canon": 0.95,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2021-01-04T10:53:00Z",
+    "month": "2021-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2021-01-04T10:53:00Z",
+      "trading_day": "2021-01-04",
+      "open": 0.95,
+      "high": 0.951,
+      "low": 0.95,
+      "close": 0.951,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2021-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 0.95,
+        "canon": 0.95,
+        "equal": true
+      },
+      "high": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "low": {
+        "baidu": 0.95,
+        "canon": 0.95,
+        "equal": true
+      },
+      "close": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2021-01-04T10:59:00Z",
+    "month": "2021-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2021-01-04T10:59:00Z",
+      "trading_day": "2021-01-04",
+      "open": 0.951,
+      "high": 0.952,
+      "low": 0.951,
+      "close": 0.951,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2021-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "high": {
+        "baidu": 0.952,
+        "canon": 0.952,
+        "equal": true
+      },
+      "low": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "close": {
+        "baidu": 0.951,
+        "canon": 0.951,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2022-01-04T10:41:00Z",
+    "month": "2022-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2022-01-04T10:41:00Z",
+      "trading_day": "2022-01-04",
+      "open": 1.157,
+      "high": 1.157,
+      "low": 1.156,
+      "close": 1.157,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2022-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 1.157,
+        "canon": 1.157,
+        "equal": true
+      },
+      "high": {
+        "baidu": 1.157,
+        "canon": 1.157,
+        "equal": true
+      },
+      "low": {
+        "baidu": 1.156,
+        "canon": 1.156,
+        "equal": true
+      },
+      "close": {
+        "baidu": 1.157,
+        "canon": 1.157,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2022-01-04T11:07:00Z",
+    "month": "2022-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2022-01-04T11:07:00Z",
+      "trading_day": "2022-01-04",
+      "open": 1.159,
+      "high": 1.159,
+      "low": 1.158,
+      "close": 1.159,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2022-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 1.159,
+        "canon": 1.159,
+        "equal": true
+      },
+      "high": {
+        "baidu": 1.159,
+        "canon": 1.159,
+        "equal": true
+      },
+      "low": {
+        "baidu": 1.158,
+        "canon": 1.158,
+        "equal": true
+      },
+      "close": {
+        "baidu": 1.159,
+        "canon": 1.159,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2022-01-04T13:33:00Z",
+    "month": "2022-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2022-01-04T13:33:00Z",
+      "trading_day": "2022-01-04",
+      "open": 1.166,
+      "high": 1.166,
+      "low": 1.165,
+      "close": 1.165,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2022-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 1.166,
+        "canon": 1.166,
+        "equal": true
+      },
+      "high": {
+        "baidu": 1.166,
+        "canon": 1.166,
+        "equal": true
+      },
+      "low": {
+        "baidu": 1.165,
+        "canon": 1.165,
+        "equal": true
+      },
+      "close": {
+        "baidu": 1.165,
+        "canon": 1.165,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2023-03-15T14:49:00Z",
+    "month": "2023-03",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2023-03-15T14:49:00Z",
+      "trading_day": "2023-03-15",
+      "open": 2.713,
+      "high": 2.714,
+      "low": 2.713,
+      "close": 2.714,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2023-03"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.713,
+        "canon": 2.713,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.714,
+        "canon": 2.714,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.713,
+        "canon": 2.713,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.714,
+        "canon": 2.714,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2023-03-22T10:29:00Z",
+    "month": "2023-03",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2023-03-22T10:29:00Z",
+      "trading_day": "2023-03-22",
+      "open": 2.727,
+      "high": 2.728,
+      "low": 2.727,
+      "close": 2.728,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2023-03"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.727,
+        "canon": 2.727,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.728,
+        "canon": 2.728,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.727,
+        "canon": 2.727,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.728,
+        "canon": 2.728,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2023-03-29T13:15:00Z",
+    "month": "2023-03",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2023-03-29T13:15:00Z",
+      "trading_day": "2023-03-29",
+      "open": 2.718,
+      "high": 2.719,
+      "low": 2.718,
+      "close": 2.719,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2023-03"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.718,
+        "canon": 2.718,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.719,
+        "canon": 2.719,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.718,
+        "canon": 2.718,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.719,
+        "canon": 2.719,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2024-01-10T14:15:00Z",
+    "month": "2024-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2024-01-10T14:15:00Z",
+      "trading_day": "2024-01-10",
+      "open": 2.229,
+      "high": 2.229,
+      "low": 2.227,
+      "close": 2.229,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2024-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.229,
+        "canon": 2.229,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.229,
+        "canon": 2.229,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.227,
+        "canon": 2.227,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.229,
+        "canon": 2.229,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2024-01-10T14:17:00Z",
+    "month": "2024-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2024-01-10T14:17:00Z",
+      "trading_day": "2024-01-10",
+      "open": 2.227,
+      "high": 2.227,
+      "low": 2.226,
+      "close": 2.226,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2024-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.227,
+        "canon": 2.227,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.227,
+        "canon": 2.227,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.226,
+        "canon": 2.226,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.226,
+        "canon": 2.226,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2024-01-12T13:39:00Z",
+    "month": "2024-01",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2024-01-12T13:39:00Z",
+      "trading_day": "2024-01-12",
+      "open": 2.253,
+      "high": 2.253,
+      "low": 2.252,
+      "close": 2.252,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2024-01"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.253,
+        "canon": 2.253,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.253,
+        "canon": 2.253,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.252,
+        "canon": 2.252,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.252,
+        "canon": 2.252,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2025-12-01T13:26:00Z",
+    "month": "2025-12",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2025-12-01T13:26:00Z",
+      "trading_day": "2025-12-01",
+      "open": 2.981,
+      "high": 2.982,
+      "low": 2.981,
+      "close": 2.982,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2025-12"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.981,
+        "canon": 2.981,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.982,
+        "canon": 2.982,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.981,
+        "canon": 2.981,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.982,
+        "canon": 2.982,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "512100",
+    "timestamp": "2025-12-02T13:36:00Z",
+    "month": "2025-12",
+    "found": 1,
+    "record": {
+      "symbol": "512100",
+      "market": "cn_a",
+      "timestamp": "2025-12-02T13:36:00Z",
+      "trading_day": "2025-12-02",
+      "open": 2.956,
+      "high": 2.956,
+      "low": 2.955,
+      "close": 2.955,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2025-12"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 2.956,
+        "canon": 2.956,
+        "equal": true
+      },
+      "high": {
+        "baidu": 2.956,
+        "canon": 2.956,
+        "equal": true
+      },
+      "low": {
+        "baidu": 2.955,
+        "canon": 2.955,
+        "equal": true
+      },
+      "close": {
+        "baidu": 2.955,
+        "canon": 2.955,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "588000",
+    "timestamp": "2021-08-16T14:20:00Z",
+    "month": "2021-08",
+    "found": 1,
+    "record": {
+      "symbol": "588000",
+      "market": "cn_a",
+      "timestamp": "2021-08-16T14:20:00Z",
+      "trading_day": "2021-08-16",
+      "open": 1.604,
+      "high": 1.607,
+      "low": 1.604,
+      "close": 1.605,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2021-08"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 1.604,
+        "canon": 1.604,
+        "equal": true
+      },
+      "high": {
+        "baidu": 1.607,
+        "canon": 1.607,
+        "equal": true
+      },
+      "low": {
+        "baidu": 1.604,
+        "canon": 1.604,
+        "equal": true
+      },
+      "close": {
+        "baidu": 1.605,
+        "canon": 1.605,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "588000",
+    "timestamp": "2022-12-06T10:01:00Z",
+    "month": "2022-12",
+    "found": 1,
+    "record": {
+      "symbol": "588000",
+      "market": "cn_a",
+      "timestamp": "2022-12-06T10:01:00Z",
+      "trading_day": "2022-12-06",
+      "open": 1.047,
+      "high": 1.048,
+      "low": 1.047,
+      "close": 1.048,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2022-12"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 1.047,
+        "canon": 1.047,
+        "equal": true
+      },
+      "high": {
+        "baidu": 1.048,
+        "canon": 1.048,
+        "equal": true
+      },
+      "low": {
+        "baidu": 1.047,
+        "canon": 1.047,
+        "equal": true
+      },
+      "close": {
+        "baidu": 1.048,
+        "canon": 1.048,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "588000",
+    "timestamp": "2022-12-06T10:02:00Z",
+    "month": "2022-12",
+    "found": 1,
+    "record": {
+      "symbol": "588000",
+      "market": "cn_a",
+      "timestamp": "2022-12-06T10:02:00Z",
+      "trading_day": "2022-12-06",
+      "open": 1.047,
+      "high": 1.048,
+      "low": 1.047,
+      "close": 1.048,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2022-12"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 1.047,
+        "canon": 1.047,
+        "equal": true
+      },
+      "high": {
+        "baidu": 1.048,
+        "canon": 1.048,
+        "equal": true
+      },
+      "low": {
+        "baidu": 1.047,
+        "canon": 1.047,
+        "equal": true
+      },
+      "close": {
+        "baidu": 1.048,
+        "canon": 1.048,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "588000",
+    "timestamp": "2024-09-27T10:24:00Z",
+    "month": "2024-09",
+    "found": 1,
+    "record": {
+      "symbol": "588000",
+      "market": "cn_a",
+      "timestamp": "2024-09-27T10:24:00Z",
+      "trading_day": "2024-09-27",
+      "open": 0.753,
+      "high": 0.753,
+      "low": 0.752,
+      "close": 0.753,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2024-09"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "high": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "low": {
+        "baidu": 0.752,
+        "canon": 0.752,
+        "equal": true
+      },
+      "close": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "588000",
+    "timestamp": "2024-09-27T10:25:00Z",
+    "month": "2024-09",
+    "found": 1,
+    "record": {
+      "symbol": "588000",
+      "market": "cn_a",
+      "timestamp": "2024-09-27T10:25:00Z",
+      "trading_day": "2024-09-27",
+      "open": 0.753,
+      "high": 0.753,
+      "low": 0.752,
+      "close": 0.753,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2024-09"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "high": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "low": {
+        "baidu": 0.752,
+        "canon": 0.752,
+        "equal": true
+      },
+      "close": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  },
+  {
+    "symbol": "588000",
+    "timestamp": "2024-09-27T10:26:00Z",
+    "month": "2024-09",
+    "found": 1,
+    "record": {
+      "symbol": "588000",
+      "market": "cn_a",
+      "timestamp": "2024-09-27T10:26:00Z",
+      "trading_day": "2024-09-27",
+      "open": 0.753,
+      "high": 0.753,
+      "low": 0.752,
+      "close": 0.753,
+      "volume": 0.0,
+      "amount": 0.0,
+      "available_at": "2026-06-26T15:00:39.908240+00:00",
+      "ingested_at": "2026-06-26T15:00:39.908240+00:00",
+      "source_kind": "baidu_netdisk_etf_archive",
+      "dataset_version": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+      "instrument_type": "etf",
+      "trading_month": "2024-09"
+    },
+    "vs_4ceca": {
+      "open": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "high": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "low": {
+        "baidu": 0.752,
+        "canon": 0.752,
+        "equal": true
+      },
+      "close": {
+        "baidu": 0.753,
+        "canon": 0.753,
+        "equal": true
+      },
+      "volume": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "amount": {
+        "baidu": 0.0,
+        "canon": 0.0,
+        "equal": true
+      },
+      "source_kind": {
+        "baidu": "baidu_netdisk_etf_archive",
+        "canon": "baidu_netdisk_etf_archive",
+        "equal": true
+      },
+      "available_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "ingested_at": {
+        "baidu": "2026-06-26T15:00:39.908240+00:00",
+        "canon": "2026-06-26T15:00:39.908240+00:00",
+        "equal": true
+      },
+      "dataset_version": {
+        "baidu": "bars_cn_a_1m_baidu_netdisk_history_baidu_fund_1m_fund_1m_20080101_20260625_partitioned",
+        "canon": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+        "equal": false
+      }
+    }
+  }
+]

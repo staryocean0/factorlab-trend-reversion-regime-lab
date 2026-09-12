@@ -1,0 +1,44 @@
+{
+  "schema_id": "factorlab_etf_action_source_overlay@2.0",
+  "status": "KNOWN_ACTION_REPAIRED_FULL_SOURCE_QUALIFICATION_NOT_CERTIFIED",
+  "baseline_commit": "ef18bf905e9e427153650d5538a996249bb6a901",
+  "window": {"start":"2021-01-01","end":"2025-12-31"},
+  "source_authority": "This overlay supersedes reliance on old corporate_actions_complete=true for NEW research. Original bytes remain immutable engineering replay inputs, not independently verified complete exchange data.",
+  "historical_price_pack": "data/r1a_carrier_prices/cloud_pack_v1",
+  "raw_price_transformation": "NONE",
+  "complete_corporate_action_calendar_certified": false,
+  "complete_suspension_calendar_certified": false,
+  "microstructure_source_admitted": false,
+  "carriers": {
+    "512100.SH": {
+      "old_manifest":"data/r1a_carrier_prices/cloud_pack_v1/512100.SH.json",
+      "old_actions":"data/r1a_carrier_prices/cloud_pack_v1/prices/512100_actions.csv",
+      "known_effective_actions":[
+        {"event_id":"512100_20220902_CONSOLIDATION","event_type":"share_consolidation","record_date":"2022-09-01","effective_date":"2022-09-02","first_resumed_trading_date":"2022-09-05","new_shares_per_old_share":0.36555,"cash_per_share_cny":null,"status":"CONFIRMED_ACTION","scope":"Add to original raw-return crossing exclusions; do not infer account-specific value from ratio; resulting account shares were rounded upward under the notice.","source_id":"NF_20220824_CONSOLIDATION"},
+        {"event_id":"512100_20250115_DISTRIBUTION","event_type":"cash_distribution","record_date":"2025-01-14","effective_date":"2025-01-15","first_resumed_trading_date":null,"new_shares_per_old_share":1.0,"cash_per_share_cny":0.037,"status":"CONFIRMED_ACTION","source_id":"NF_20250110_DISTRIBUTION"}
+      ],
+      "known_suspensions":[{"start_date":"2022-09-02","end_date":"2022-09-02","resumption_date":"2022-09-05","reason":"share_consolidation","source_id":"NF_20220824_CONSOLIDATION"}],
+      "cancelled_proposals":[{"event_id":"512100_20220803_CANCELLED_SPLIT","proposed_effective_date":"2022-08-03","proposed_new_shares_per_old_share":1.46301,"cancel_notice_date":"2022-08-02","status":"CANCELLED_NOT_APPLIED","effective_factor_applied":1.0,"source_id":"CJ_20220802_CANCELLATION","reason":"The original planned split was cancelled; broker's operational notice says normal trading and subscriptions/redemptions on 2022-08-03. Do not apply the proposal ratio or mark that day halted."}],
+      "full_window_completeness":"NOT_CERTIFIED; verified known correction and old cash distribution, not an exhaustive exchange/issuer event history"
+    },
+    "588000.SH": {
+      "old_manifest":"data/r1a_carrier_prices/cloud_pack_v1/588000.SH.json",
+      "old_actions":"data/r1a_carrier_prices/cloud_pack_v1/prices/588000_actions.csv",
+      "known_effective_actions":[],
+      "known_suspensions":[],
+      "cancelled_proposals":[],
+      "full_window_completeness":"NOT_CERTIFIED; existing source report lists no in-window action, but its empty dividend feed is not independent proof of absence of every split/consolidation/action"
+    }
+  },
+  "sources":[
+    {"source_id":"NF_20220824_CONSOLIDATION","author":"南方基金管理股份有限公司","document_date":"2022-08-24","url":"https://www.cjsc.com.cn/ueditor/jsp/upload/file/20220831/1661915950202075315.pdf","document_role":"Fund-manager notice hosted by broker; primary document, not broker-authored fund decision","inspection":"Parsed text and rendered pages 1 and 2 rechecked during this task; no PDF bytes committed","facts":"record 2022-09-01; consolidate/suspend 2022-09-02; resume 2022-09-05; new/old shares 0.36555"},
+    {"source_id":"NF_20250110_DISTRIBUTION","author":"南方基金管理股份有限公司","document_date":"2025-01-10","url":"https://money.finance.sina.com.cn/fund/go.php/vAkFundInfo_JJGKXX/q/4251404.phtml","document_role":"Verbatim fund-manager disclosure mirrored by financial portal","facts":"record 2025-01-14; ex 2025-01-15; cash 2025-01-20; CNY 0.3700 per 10 units"},
+    {"source_id":"SSE_20250115_CORROBORATION","author":"上海证券交易所","url":"https://www.sse.com.cn/assortment/options/mnjyzxxx/c/c_20250115_10770107.shtml","document_role":"Simulation-contract notice corroborates underlying ex-date only; NOT authority to trade or read option outcomes"},
+    {"source_id":"CJ_20220802_CANCELLATION","author":"长江证券股份有限公司","document_date":"2022-08-02","url":"https://www.95579.com/main/a/20220802/28372.shtml","document_role":"Broker operational notice explicitly citing issuer cancellation; establishes cancelled proposed event for this overlay","facts":"2022-08-03 split cancelled; normal trading and subscription/redemption operations"}
+  ],
+  "not_claimed":["all historic ETF results are invalid","all historic results are unaffected before actual window audit","recorded zero means independently verified exchange no-trade","wall-clock bar labels are synchronized exchange publication times","the overlay admits a reversion backtest"],
+  "R1A_disposition_unchanged":true,
+  "BLACKBOX_query_count":3,
+  "production_authority":false,
+  "fresh_oos":false
+}

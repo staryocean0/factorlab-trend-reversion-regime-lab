@@ -1,0 +1,38 @@
+[
+  {
+    "symbol": "512100",
+    "nav_date": "2025-01-15",
+    "unit_nav": 2.3101,
+    "cumulative_nav": 0.858,
+    "dividend_info": "分红：每份派现金0.037元",
+    "purchase_status": "",
+    "redeem_status": "",
+    "source_kind": "eastmoney_pingzhongdata_snapshot",
+    "source_url": "https://fund.eastmoney.com/pingzhongdata/512100.js",
+    "ingested_at": "2026-08-04T16:13:59.009731+00:00"
+  },
+  {
+    "symbol": "512100",
+    "nav_date": "2026-01-19",
+    "unit_nav": 3.3105,
+    "cumulative_nav": 1.2387,
+    "dividend_info": "分红：每份派现金0.041元",
+    "purchase_status": "",
+    "redeem_status": "",
+    "source_kind": "eastmoney_pingzhongdata_snapshot",
+    "source_url": "https://fund.eastmoney.com/pingzhongdata/512100.js",
+    "ingested_at": "2026-08-04T16:13:59.009731+00:00"
+  },
+  {
+    "symbol": "588000",
+    "nav_date": "2020-11-09",
+    "unit_nav": 1.4853,
+    "cumulative_nav": NaN,
+    "dividend_info": "拆分：每份基金份额折算0.69448528份",
+    "purchase_status": "",
+    "redeem_status": "",
+    "source_kind": "eastmoney_pingzhongdata_snapshot",
+    "source_url": "https://fund.eastmoney.com/pingzhongdata/588000.js",
+    "ingested_at": "2026-08-04T16:14:27.923720+00:00"
+  }
+]

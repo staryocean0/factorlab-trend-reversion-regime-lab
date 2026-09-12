@@ -1,0 +1,257 @@
+{
+  "schema_id": "factorlab_etf_upstream_evidence@1.0",
+  "pack": "data/etf_upstream_evidence_v1",
+  "built_at_utc": "2026-09-12T07:30:28.904878+00:00",
+  "purpose": "source-qualification materials for cloud review; not a strategy or PnL pack",
+  "not_done": [
+    "reupload five-year ETF minute CSV",
+    "repeat share-consolidation repair",
+    "R1_A",
+    "lookahead verdict",
+    "2026 quote reads",
+    "purchase/borrow credentials"
+  ],
+  "source_repositories": {
+    "unified_datahub": {
+      "commit": "4b4d36a16076c347ed7810eeed37391571a3cc3d",
+      "files": {
+        "docs/modules/history/canonical-bars-whitepaper.md": {
+          "sha256": "4641c2a4aa620d48f12d3f046176f12e2ab7d814b963ca3e18e41a880fb75b8e",
+          "bytes": 19073
+        },
+        "src/datahub/storage/query/session_offset_contract.py": {
+          "sha256": "ce1f0aca9586031f9f3f0326517d446fba22c4d477c487dda398a9b6a6262ca8",
+          "bytes": 11304
+        },
+        "docs/contracts/consumption_cards/cn_a_1m_4ceca_identity_time.md": {
+          "sha256": "3a006666213acf5da702a1d37289de1bcd20dd54d10735aeba48a4cea0a69f79",
+          "bytes": 2643
+        },
+        "scripts/import_local_minute_archives.py": {
+          "sha256": "a2980a98cd7f56fb90095f6cb814044e2f2d119b57cd52c998100171e2a00ae7",
+          "bytes": 54108
+        },
+        "src/datahub/core/services/market_indices/transactions_service.py": {
+          "sha256": "e8282d00bfa0c67c9515ed49e120ba15de9a0723257f0dc50887b2401f435b66",
+          "bytes": 33309
+        },
+        "scripts/export_factorlab_unified_index_kline_v3.py": {
+          "sha256": "263770bb5fcae06d53ef26c7261ea35d266cd87a2a299b3e6d654d543f70b607",
+          "bytes": 12023
+        },
+        "docs/modules/history/baidu-netdisk-data-catalog.md": {
+          "sha256": "139e16dc74c9f79da933e393827542d473d456e62d6e50263eea36f2dd0062e0",
+          "bytes": 28018
+        }
+      }
+    },
+    "factor_lab": {
+      "commit": "b39bb12f43a46b165d18db93191a669234077444",
+      "files": {
+        "src/factor_lab/data/unified_kline_v2.py": {
+          "sha256": "2f7887874c6bb152804546f0937517566493c10f638955dbe41a388045b16509",
+          "bytes": 10738
+        }
+      }
+    },
+    "factorlab-trend-reversion-regime-lab": {
+      "commit_at_pack_build": "f3b69da8019786bbc0a8fcf15ff86154041c143c",
+      "files": {
+        "research/r1a_carrier_transport/export_datahub_lake.py": {
+          "sha256": "8f5dd0c6726fbba3844b95021975957e2ff1bf8531838b74301f01efe8f65b78",
+          "bytes": 9125
+        },
+        "docs/ops/evidence/etf_index_measurability_source_20260912/earliest_nonflat_zero_volume_examples.csv": {
+          "sha256": "5ea3c8cbd95a9ffdba907fbbc4f5b765a68fb5b80117c0ccc0504f27f1a0f163",
+          "bytes": 1426
+        }
+      }
+    }
+  },
+  "private_pack": null,
+  "missing_or_unknown": [
+    "vendor zip/CSV original members for the 20 frozen timestamps",
+    "tick/BBO at those 20 timestamps",
+    "certified complete 2021-2025 corporate-action and halt calendars",
+    "resolved volume unit (shares vs lots) for Baidu ETF 1m",
+    "exchange or vendor publication time distinct from 2026-06-26 ingestion for ETF 1m"
+  ],
+  "secret_scan_hits": [],
+  "delivered_files": [
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/NOTES.md",
+      "sha256": "b29bca9c5d60ec715a9ff4f683060dd4fc889a989bfa7da44faf634fdada6273",
+      "bytes": 1220
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/canonical-bars-whitepaper.md",
+      "sha256": "4641c2a4aa620d48f12d3f046176f12e2ab7d814b963ca3e18e41a880fb75b8e",
+      "bytes": 19073
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/canonical-bars-whitepaper_section5.md",
+      "sha256": "f1cf02761ae9aa4ff40968ed10c0de8462dfc8a200c596d156ab8cb68d35567e",
+      "bytes": 4893
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/cn_a_1m_4ceca_identity_time.md",
+      "sha256": "3a006666213acf5da702a1d37289de1bcd20dd54d10735aeba48a4cea0a69f79",
+      "bytes": 2643
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/export_datahub_lake_timestamp.py",
+      "sha256": "41363e63b9bcd6b75e0d67d74875d81875a599d06cf897ab36b17e2614c45ffb",
+      "bytes": 1759
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/session_offset_contract.py",
+      "sha256": "ce1f0aca9586031f9f3f0326517d446fba22c4d477c487dda398a9b6a6262ca8",
+      "bytes": 11304
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/01_timestamp_semantics/session_offset_contract_1m_and_buckets.py",
+      "sha256": "fd007fa03ee3ec9691dcd1a0c2d5e65afdb87c1daf3e0b2c9452e900960808ff",
+      "bytes": 3009
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/STOP_LAYER_AND_UNITS.md",
+      "sha256": "754074726786588379312d719718a6b5cfbcfb4d81d393f00affd0572acbb420",
+      "bytes": 2394
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/baidu-netdisk-data-catalog_etf_1m_units.md",
+      "sha256": "2871f51fd1777b7c02c480006f50e41172d212cb9aaf96bab404849705ead861",
+      "bytes": 1617
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/baidu_fund_1m_history_rows.json",
+      "sha256": "9f014dd05b75c90eb7351bb2b41c6baf4ee5f0d30c195fce905164f6eae3ecd1",
+      "bytes": 40350
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/export_datahub_lake_excerpt.py",
+      "sha256": "3069c61a4f317d1e127a5522a27c3f01b6361b43f494610bd1cd98380042b74b",
+      "bytes": 3279
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/frozen_examples.csv",
+      "sha256": "5ea3c8cbd95a9ffdba907fbbc4f5b765a68fb5b80117c0ccc0504f27f1a0f163",
+      "bytes": 1426
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/import_local_minute_archives_excerpt.py",
+      "sha256": "983728fa4361689481633b4aa82c1cfd2243b63e1e80a387897801c2824b444a",
+      "bytes": 5370
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/lake_4ceca_probe.json",
+      "sha256": "7c48f4872f9bb4bee1751bdf2f560e5e06349db9931ecf2f2f280d88d7f04129",
+      "bytes": 18678
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/lake_4ceca_upstream_rows.csv",
+      "sha256": "d8e42d1798ffeb6351aaed4a5c82d4bb9f84328c343ef7bcc913faf4cb5a5597",
+      "bytes": 4778
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/02_raw_anomaly_samples/lake_4ceca_upstream_rows.json",
+      "sha256": "ea4455689e0f45ac6339e8cc8a264639faab08de31484a3940e6be596af0ed93",
+      "bytes": 12359
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/FIELD_NOTES.md",
+      "sha256": "eef33a48d2aae54d3f5a7c84a0ad697bd6a064654be29bc4eca35d6d1d9bf7a2",
+      "bytes": 2584
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/export_v3_causal_flat_fill.py",
+      "sha256": "dfbec7e1d29d79f171ec8ac7eeebf476da66c3fee6bc575da758f496cdae973f",
+      "bytes": 5213
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/index_1m_observed_and_fill_samples.csv",
+      "sha256": "1cc34f012a49191710899e7b86dbe65406672589950443dea90045383cd304f7",
+      "bytes": 1742
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/index_1m_observed_and_fill_samples.json",
+      "sha256": "35c857a5581bdb7f03920e58c86b37fcf837b6d6a897a14adf4891f55bc3da3a",
+      "bytes": 7759
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/index_3s_input_000852_20210104_0930.json",
+      "sha256": "d0b32860bc0fc1a33e9b8ae247f0b4882925f915da8c793b44ad63235e72af10",
+      "bytes": 3274
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/transactions_service_derive_minute.py",
+      "sha256": "d757707f95a9e5251e74da644d1cc9950ad85ee62b21d02f2622353c5f00b4ed",
+      "bytes": 2746
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/03_index_processing/unified_kline_v2_densify.py",
+      "sha256": "d5d3748e8216dd8912904ce15da731fc95c7b8764cfa5e385eca92e3e9bfd76f",
+      "bytes": 2273
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/COVERAGE.md",
+      "sha256": "b70ae161b5300c0549e7a98632177244c413f3f77482449fb21efdc9edd5060f",
+      "bytes": 2296
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json",
+      "sha256": "164ad91cdb4b787475374e56c278008f31fb677d7e092a194308c9cfe2ed3b26",
+      "bytes": 5142
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/eastmoney_nav_coverage.json",
+      "sha256": "b963ace5c70717e7d632cc3fdd0c4896c8d6101593d1269429c3047e085e0da0",
+      "bytes": 1009
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/eastmoney_nav_event_rows.json",
+      "sha256": "25c7faacb3a604a031a35022b134f1b23a6a580a6a571046d35ad1e8cb047829",
+      "bytes": 1234
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/etf_source_actions_v2_manifest.json",
+      "sha256": "665f20af3e5845e820c3e230fba70ca41649ce8068c2fd94bc0415a4705a8092",
+      "bytes": 1334
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/known_overlay_512100.SH_actions.csv",
+      "sha256": "184b47945b034de1977650fd82bfd4d07f41ba67d0954dd32030ac9c0df5d82a",
+      "bytes": 285
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/known_overlay_588000.SH_actions.csv",
+      "sha256": "3e0ea91b3250fe460aa14646596ae6f56518ffecc94c68d131819c398075920a",
+      "bytes": 43
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/sina_combined_factor_coverage.json",
+      "sha256": "a186ed3d06bc3a2e95e485d753db275fe2ada2ff36535702d79d4af1357df72c",
+      "bytes": 537
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/04_corporate_actions/sina_combined_factor_rows.json",
+      "sha256": "bdedb7b8dc8b1f558c6e99c20b59b2f96b2942aba4143e3295a2100b55eabeeb",
+      "bytes": 5079
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/05_microstructure_inventory/INVENTORY.md",
+      "sha256": "69d590d72796cc68431d04aeb8465c61d0bd33b6ca2537c5276d2d5dc11921a7",
+      "bytes": 1986
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/05_microstructure_inventory/inventory.json",
+      "sha256": "e4fc77768d906ed886f7961426b73375d2c5d49be404839e121637d53607a0a3",
+      "bytes": 3234
+    },
+    {
+      "path": "data/etf_upstream_evidence_v1/README.md",
+      "sha256": "bddb737674aed42f641d6ca80f3f9b9e97ec9fa1c91d4b3557a61adeeeeeb3bf",
+      "bytes": 1144
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "dataset_version": "adjust_factors_cn_a_combined_stock_xdxr_v10_fund_sina_p0_20260816",
+  "local_file": "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/lake/adjustment_factors/dataset_version=adjust_factors_cn_a_combined_stock_xdxr_v10_fund_sina_p0_20260816/factors.parquet",
+  "bytes": 8986098,
+  "sha256": "08aa160696c4e4be9c53b0b5c67597ba24be240520b6370784c05f5b8343f4a4",
+  "rows_for_512100_588000": 12,
+  "tdx_xdxr_v2": {
+    "result": "NO_ROWS",
+    "codes_queried": [
+      "512100",
+      "588000"
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "scope": "metadata and 2024-2025 existence counts only; no 2026 quote rows read; no batch download; no spread-date mining",
+  "carriers": ["512100.SH", "588000.SH"],
+  "index_underlyings": ["000852.SH", "000688.SH"],
+  "channels": [
+    {
+      "question": "timestamped bid1/ask1 for 512100.SH",
+      "found": true,
+      "products": [
+        {
+          "dataset": "fund_cb_l2_quote_change_cn_a_3s_baidu_shidang_20250901_20260828_v1_20260902",
+          "window_declared": ["2025-09-01", "2026-08-28"],
+          "inspected_without_2026_quotes": "2025-12-01",
+          "rows_on_2025-12-01": 4823,
+          "frequency": "quote-change / event; 10-level bid/ask",
+          "covers_2021_2024": false,
+          "access": "unified_datahub/.runtime/live/lake/fund_cb_l2_quote_change_recent_1y/..."
+        }
+      ],
+      "not_found": [
+        "2021-2024 timestamped BBO for 512100",
+        "star50_etf_spot_l2 on inspected 2024-09-27 (588000/588080 only)",
+        "transactions_cn_a_3s_baidu_tdx 2024-2025 ETF partitions: 0 rows for 512100"
+      ]
+    },
+    {
+      "question": "timestamped bid1/ask1 for 588000.SH",
+      "found": true,
+      "products": [
+        {
+          "dataset": "fund_l2_quote_change_star50_etf_20240102_20251231_v1.1_20260906",
+          "window_declared": ["2024-01-02", "2025-12-31"],
+          "inspected_day": "2024-09-27",
+          "rows_on_2024-09-27": 4115,
+          "other_codes_on_that_file": ["588080"],
+          "covers_2021_2023": false
+        },
+        {
+          "dataset": "fund_cb_l2_quote_change_cn_a_3s_baidu_shidang_20250901_20260828_v1_20260902",
+          "inspected_without_2026_quotes": "2025-12-01",
+          "rows_on_2025-12-01": 4975,
+          "covers_2021_2024": false
+        }
+      ]
+    },
+    {
+      "question": "timestamped prints / trades",
+      "found_partial": true,
+      "products": [
+        {
+          "dataset": "fund_cb_tick_trades_cn_a_baidu_shidang_20250901_20260828_v1_20260902",
+          "window_declared": ["2025-09-01", "2026-08-28"],
+          "inspected_without_2026_quotes": "2025-12-01",
+          "rows_on_2025-12-01": {"512100": 10376, "588000": 93639},
+          "covers_2021_2024": false
+        },
+        {
+          "dataset": "transactions_cn_a_3s_baidu_tdx_20240205_20260814_ready_20260816",
+          "symbol_scope_contains_both": true,
+          "etf_partitions_before_2026": 24,
+          "rows_for_512100_or_588000_in_those_24_days": 0,
+          "note": "2026 partitions were not read"
+        }
+      ]
+    },
+    {
+      "question": "index publication records",
+      "found": true,
+      "products": [
+        {
+          "dataset": "market_index_baidu_3s_20000714_20260821_cffex_underlyings_alias_repaired_v4_20260823",
+          "declared_time_range": {
+            "start_time": "2004-01-02T09:30:00Z",
+            "end_time": "2026-08-21T15:00:03Z"
+          },
+          "record_count": 135222990,
+          "symbols_include": ["000852.SH", "000688.SH"],
+          "frequency": "3s",
+          "sample_delivered": "03_index_processing/index_3s_input_000852_20210104_0930.json",
+          "2026_rows_read": false
+        }
+      ]
+    }
+  ],
+  "purchased_or_borrowed": false,
+  "credentials_included": false
+}

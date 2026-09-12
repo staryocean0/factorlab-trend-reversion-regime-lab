@@ -1,0 +1,24 @@
+{
+  "512100": {
+    "min_nav_date": "2016-09-29",
+    "max_nav_date": "2026-08-03",
+    "rows": 2381,
+    "nonempty_dividend_info": 2,
+    "source_kind": "eastmoney_pingzhongdata_snapshot",
+    "source_url": "https://fund.eastmoney.com/pingzhongdata/512100.js",
+    "local_file": "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/staging/fund_nav_full_history_20260804/512100.parquet",
+    "bytes": 46026,
+    "sha256": "88533c5e5030aa009f5169df7d523bb563f987dd02fb2e1e9d58c4cc44d01266"
+  },
+  "588000": {
+    "min_nav_date": "2020-09-28",
+    "max_nav_date": "2026-08-03",
+    "rows": 1398,
+    "nonempty_dividend_info": 1,
+    "source_kind": "eastmoney_pingzhongdata_snapshot",
+    "source_url": "https://fund.eastmoney.com/pingzhongdata/588000.js",
+    "local_file": "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/staging/fund_nav_full_history_20260804/588000.parquet",
+    "bytes": 25950,
+    "sha256": "63789ba50061540a92561a9febe1590c9e71a54d6693e5a605ae8c389c8d0a75"
+  }
+}
