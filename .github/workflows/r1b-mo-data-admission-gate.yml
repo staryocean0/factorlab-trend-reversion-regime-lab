@@ -156,26 +156,20 @@ jobs:
           assert b['confirmation_protocol_frozen'] is False
           print('Conditional planning and synthetic simulations reproduced; no confirmation sample opened.')
           PY
-      - name: Reproduce fixed method-only simulations without reselecting procedures
+      - name: Reproduce fixed method-only simulations and audit exact counts and numeric differences
         env:
           PYTHONPATH: src:.
         run: |
           python research/r1a_method_calibration/study.py --output "$RUNNER_TEMP/r1a-method-replay"
-          python - <<'PY'
-          import json, os
-          from pathlib import Path
-          from research.r1a_method_calibration.study import digest
-          from research.r1a_carrier_transport.audit_public_delivery import compare_json
-          old = Path('docs/ops/evidence/r1a_method_calibration_20260912')
-          new = Path(os.environ['RUNNER_TEMP'])/'r1a-method-replay'
-          a = json.loads((old/'method_receipt.json').read_text())
-          b = json.loads((new/'method_receipt.json').read_text())
-          for k in ['decision','freeze_sha256','seed','joint_model_replicates','synthetic_design_datasets',
-                    'design_count','method_count','inputs','geometry','method_screen','table_rows',
-                    'methods_clearing_limited_screen']:
-              compare_json(b[k], a[k], k)
-          for spec in a['output_csvs']:
-              assert digest(new/spec['path']) == spec['sha256'], spec['path']
-          assert b['real_R1A_means_retested'] is False and b['new_price_data_read'] is False
-          print('Synthetic method and information tables reconciled; no confirmation authorized.')
-          PY
+          python research/r1a_method_calibration/replay_audit.py \
+            --reference docs/ops/evidence/r1a_method_calibration_20260912 \
+            --replay "$RUNNER_TEMP/r1a-method-replay" \
+            --output "$RUNNER_TEMP/r1a-method-replay-audit.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r1a-method-replay-audit-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/r1a-method-replay-audit.json
+            ${{ runner.temp }}/r1a-method-replay
+          if-no-files-found: warn
