@@ -1,49 +1,8 @@
-name: research-regression-gate
+name: legacy-price-statistics-replay
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'research/r1b_mo_data_admission/**'
-      - 'research/r1b_mo_pre_execution/**'
-      - 'research/r1b_mo_outcome/**'
-      - 'research/r1b_mo_backspread/**'
-      - 'research/index_price_validity/**'
-      - 'research/r1_incremental_alpha_attribution/**'
-      - 'research/r1a_carrier_transport/**'
-      - 'research/r1a_endpoint_robustness/**'
-      - 'research/r1a_confirmation_feasibility/**'
-      - 'research/r1a_method_calibration/**'
-      - 'tests/test_r1b_mo_*.py'
-      - 'tests/test_index_price_validity.py'
-      - 'tests/test_r1_incremental_alpha_attribution.py'
-      - 'tests/test_r1a_*.py'
-      - 'docs/governance/R1B_MO_*.json'
-      - 'docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json'
-      - 'docs/governance/R1_INCREMENTAL_ALPHA_ATTRIBUTION_FREEZE@1.0.json'
-      - 'docs/governance/R1A_CARRIER_PRICE_TRANSPORT_FREEZE@1.0.json'
-      - 'docs/governance/R1A_ENDPOINT_PRICE_DIAGNOSTIC_FREEZE@1.0.json'
-      - 'docs/governance/R1A_ENDPOINT_ROBUSTNESS_FREEZE@1.0.json'
-      - 'docs/governance/R1A_CONFIRMATION_FEASIBILITY_FREEZE@1.0.json'
-      - 'docs/governance/R1A_METHOD_CALIBRATION_FREEZE@1.0.json'
-      - 'docs/ops/evidence/r1b_mo_outcome_20260911/**'
-      - 'docs/ops/evidence/r1_incremental_alpha_20260911/**'
-      - 'docs/ops/evidence/r1a_carrier_transport_20260912/**'
-      - 'docs/ops/evidence/r1a_carrier_transport_20260912_local/**'
-      - 'docs/ops/evidence/r1a_carrier_cloud_audit_20260912/**'
-      - 'docs/ops/evidence/r1a_carrier_source_audit_20260912/**'
-      - 'docs/ops/evidence/r1a_cloud_raw_replay_9abe704/**'
-      - 'docs/ops/evidence/r1a_endpoint_diagnostic_20260912/**'
-      - 'docs/ops/evidence/r1a_endpoint_robustness_20260912/**'
-      - 'docs/ops/evidence/r1a_confirmation_feasibility_20260912/**'
-      - 'docs/ops/evidence/r1a_method_calibration_20260912/**'
-      - 'data/r1a_carrier_prices/**'
-      - 'data/manifest.json'
-      - 'data/market/1m/**'
-      - 'data/r1b_research/**'
-      - 'pyproject.toml'
-      - '.github/workflows/r1b-mo-data-admission-gate.yml'
+  workflow_call:
 
 permissions:
   contents: read
@@ -60,13 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           sparse-checkout: |
             pyproject.toml
             src
             shared
             research
             tests
-            docs/governance
+            docs
             docs/ops/evidence/r1b_mo_outcome_20260911
             docs/ops/evidence/r1_incremental_alpha_20260911
             docs/ops/evidence/r1a_carrier_transport_20260912

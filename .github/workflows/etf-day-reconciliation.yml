@@ -1,17 +1,8 @@
 name: etf-day-reconciliation
 on:
   workflow_dispatch:
-  push:
-    branches: [main, audit/etf-day-reconciliation-v1]
-    paths:
-      - '.github/workflows/etf-day-reconciliation.yml'
-      - 'research/etf_day_reconciliation/**'
-      - 'tests/test_etf_day_reconciliation*.py'
-      - 'docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json'
-      - 'docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json'
-      - 'docs/ops/evidence/etf_day_reconciliation_20260912/**'
-      - 'data/etf_microstructure_sample_20251201_v1/**'
-      - 'data/r1a_carrier_prices/cloud_pack_v1/prices/*_2025.csv'
+  workflow_call:
+
 permissions:
   contents: read
 jobs:

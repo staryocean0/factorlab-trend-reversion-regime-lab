@@ -1,14 +1,8 @@
 name: etf-upstream-delivery-regression
 on:
   workflow_dispatch:
-  push:
-    branches: [main, audit/etf-upstream-delivery-v1]
-    paths:
-      - 'data/etf_upstream_evidence_v1/**'
-      - 'research/etf_upstream_review/**'
-      - 'tests/test_etf_upstream_review.py'
-      - 'docs/ops/evidence/etf_upstream_cloud_review_20260912/**'
-      - '.github/workflows/etf-upstream-delivery.yml'
+  workflow_call:
+
 permissions:
   contents: read
 jobs:

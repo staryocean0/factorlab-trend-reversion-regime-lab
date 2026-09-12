@@ -1,14 +1,8 @@
 name: etf-one-day-observation
 on:
   workflow_dispatch:
-  push:
-    branches: [main, audit/etf-one-day-observation-v1]
-    paths:
-      - '.github/workflows/etf-one-day-observation.yml'
-      - 'research/etf_one_day_review/**'
-      - 'tests/test_etf_one_day_review.py'
-      - 'data/etf_microstructure_sample_20251201_v1/**'
-      - 'docs/ops/evidence/etf_one_day_cloud_review_20260912/**'
+  workflow_call:
+
 permissions:
   contents: read
 concurrency:

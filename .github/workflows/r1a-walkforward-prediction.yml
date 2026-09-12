@@ -2,22 +2,7 @@ name: walkforward-prediction-regression
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main, research/r1a-walkforward-prediction-v1]
-    paths:
-      - 'research/r1a_walkforward_prediction/**'
-      - 'research/index_price_validity/core.py'
-      - 'research/r1_incremental_alpha_attribution/core.py'
-      - 'research/r1a_development_noise/study.py'
-      - 'tests/test_r1a_walkforward_prediction.py'
-      - 'tests/test_walkforward_prediction_retained.py'
-      - 'docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json'
-      - 'docs/ops/evidence/r1a_walkforward_prediction_20260912/**'
-      - 'docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv'
-      - 'data/manifest.json'
-      - 'data/market/1m/000852.SH/**'
-      - 'pyproject.toml'
-      - '.github/workflows/r1a-walkforward-prediction.yml'
+  workflow_call:
 
 permissions:
   contents: read
@@ -38,6 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           sparse-checkout-cone-mode: false
           sparse-checkout: |

@@ -2,22 +2,7 @@ name: control-design-regression
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main, research/r1a-causal-control-design-v1]
-    paths:
-      - '.github/workflows/r1a-control-design.yml'
-      - 'research/r1a_control_design/**'
-      - 'tests/test_r1a_control_design.py'
-      - 'tests/test_control_design_retained.py'
-      - 'docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json'
-      - 'docs/ops/evidence/r1a_control_design_20260912/**'
-      - 'docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv'
-      - 'research/r1a_development_noise/study.py'
-      - 'research/index_price_validity/core.py'
-      - 'research/r1_incremental_alpha_attribution/core.py'
-      - 'data/manifest.json'
-      - 'data/market/1m/**'
-      - 'pyproject.toml'
+  workflow_call:
 
 permissions:
   contents: read
@@ -38,6 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           sparse-checkout: |
             pyproject.toml

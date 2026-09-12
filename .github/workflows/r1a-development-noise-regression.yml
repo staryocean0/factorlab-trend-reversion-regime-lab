@@ -1,23 +1,8 @@
 name: development-noise-regression
 on:
   workflow_dispatch:
-  push:
-    branches: [main, research/r1a-development-noise-v1]
-    paths:
-      - 'research/r1a_development_noise/**'
-      - 'research/index_price_validity/core.py'
-      - 'research/r1_incremental_alpha_attribution/core.py'
-      - 'tests/test_r1a_development_noise.py'
-      - 'tests/test_development_noise_retained.py'
-      - 'docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json'
-      - 'docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json'
-      - 'docs/ops/evidence/r1a_development_noise_20260912/**'
-      - 'data/manifest.json'
-      - 'data/market/1m/000852.SH/201*.parquet'
-      - 'data/market/1m/000852.SH/2020.parquet'
-      - 'data/market/1m/000688.SH/2020.parquet'
-      - 'pyproject.toml'
-      - '.github/workflows/r1a-development-noise-regression.yml'
+  workflow_call:
+
 permissions:
   contents: read
 jobs:
@@ -32,6 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           sparse-checkout-cone-mode: false
           sparse-checkout: |

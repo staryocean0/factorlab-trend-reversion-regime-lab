@@ -1,18 +1,8 @@
 name: etf-source-repair-regression
 on:
   workflow_dispatch:
-  push:
-    branches: [main, audit/etf-source-repair-impact-v1]
-    paths:
-      - 'research/etf_source_repair/**'
-      - 'tests/test_etf_source_repair*.py'
-      - 'data/etf_source_actions_v2/**'
-      - 'data/r1a_carrier_prices/cloud_pack_v1/**'
-      - 'docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json'
-      - 'docs/governance/ETF_SOURCE_REPAIR_IMPACT_FREEZE@1.0.json'
-      - 'docs/ops/evidence/etf_source_repair_20260912/**'
-      - '.github/workflows/etf-source-repair.yml'
-      - '.github/workflows/etf-index-measurability.yml'
+  workflow_call:
+
 permissions:
   contents: read
 jobs:
@@ -26,6 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           sparse-checkout-cone-mode: false
           sparse-checkout: |
