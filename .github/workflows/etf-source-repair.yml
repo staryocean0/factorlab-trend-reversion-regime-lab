@@ -1,0 +1,83 @@
+name: etf-source-repair-impact
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/etf-source-repair-impact-v1]
+    paths: ['.github/workflows/etf-source-repair.yml']
+permissions:
+  contents: write
+concurrency:
+  group: etf-source-repair-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  source-impact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: src:.
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /pyproject.toml
+            /src/
+            /shared/
+            /research/
+            /scripts/
+            /.github/
+            /tests/test_etf_source_repair.py
+            /docs/governance/
+            /docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv
+            /docs/ops/evidence/r1a_carrier_transport_20260912_local/
+            /docs/ops/evidence/r1a_endpoint_diagnostic_20260912/
+            /docs/ops/evidence/r1a_carrier_source_audit_20260912/
+            /docs/ops/evidence/etf_index_measurability_20260912/
+            /docs/ops/evidence/etf_index_measurability_source_20260912/
+            /docs/ops/evidence/etf_source_repair_20260912/
+            /data/manifest.json
+            /data/r1a_carrier_prices/cloud_pack_v1/
+            /data/market/1m/000852.SH/202[1-5].parquet
+            /data/market/1m/000688.SH/202[1-5].parquet
+      - name: Fetch immutable baseline tree without unrelated market blobs
+        run: git fetch --no-tags --filter=blob:none --depth=1 origin ef18bf905e9e427153650d5538a996249bb6a901
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e .
+      - name: Test action boundaries and cancellation before impact counts
+        run: python -m pytest -q tests/test_etf_source_repair.py
+      - name: Verify permitted raw source scope
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          actual=sorted(str(p) for p in Path('data').rglob('*.parquet'))
+          assert actual==sorted(f'data/market/1m/{s}/{y}.parquet' for s in ('000852.SH','000688.SH') for y in range(2021,2026))
+          assert len(list(Path('data').rglob('*.csv')))==12
+          assert not Path('data/r1a_carrier_prices/private').exists()
+          PY
+      - name: Audit existing windows and published cohorts only
+        run: python research/etf_source_repair/audit.py --output "$RUNNER_TEMP/etf-source-repair"
+      - name: Persist new evidence once on authorized audit branch
+        if: github.ref == 'refs/heads/audit/etf-source-repair-impact-v1'
+        run: |
+          set -euo pipefail
+          out=docs/ops/evidence/etf_source_repair_20260912
+          if [ ! -e "$out/receipt.json" ]; then
+            mkdir -p "$out"
+            cp "$RUNNER_TEMP/etf-source-repair/"* "$out/"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add --sparse "$out"
+            git commit -m 'audit: retain source-action impact receipts without rewriting history [skip ci]'
+            git push origin HEAD:audit/etf-source-repair-impact-v1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: etf-source-repair-${{ github.run_id }}
+          path: ${{ runner.temp }}/etf-source-repair
+          if-no-files-found: warn
