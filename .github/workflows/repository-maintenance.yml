@@ -1,0 +1,55 @@
+name: repository-maintenance
+on:
+  workflow_dispatch:
+  push:
+    branches: [maintenance/repository-consistency-20260912]
+    paths: ['.github/workflows/repository-maintenance.yml']
+permissions:
+  contents: read
+jobs:
+  baseline-inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: b4d023b100c49c7dbaa44e81417d7a0386a5b004
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/
+            !/docs/ops/evidence/
+      - name: Inventory every tracked component and package non-market source text
+        env:
+          OUT: ${{ runner.temp }}/repo-inventory
+        run: |
+          python - <<'PY'
+          import subprocess,json,os,hashlib,zipfile
+          from pathlib import Path
+          out=Path(os.environ['OUT']);out.mkdir()
+          entries=[]; bundled=[]
+          raw=subprocess.check_output(['git','ls-tree','-r','-l','-z','HEAD'])
+          with zipfile.ZipFile(out/'source_inventory.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for line in raw.split(b'\0'):
+                  if not line: continue
+                  meta,name=line.split(b'\t',1);mode,kind,sha,size=meta.decode().split();name=name.decode()
+                  e=dict(path=name,mode=mode,type=kind,git_blob=sha,bytes=int(size) if size!='-' else None);entries.append(e)
+                  p=Path(name)
+                  if p.is_file() and not p.is_symlink() and not name.startswith(('data/','docs/ops/evidence/')):
+                      b=p.read_bytes()
+                      if len(b)>2000000 or p.suffix in {'.parquet','.zip','.pdf','.csv'}: continue
+                      try: b.decode('utf-8')
+                      except UnicodeDecodeError: continue
+                      assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==sha,name
+                      z.writestr('repository/'+name,b);bundled.append(name)
+              manifest={'baseline':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'entries':entries,'bundled_text_files':bundled,'market_outcomes_computed':False}
+              z.writestr('inventory.json',json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'tracked_files':len(entries),'bundled_text_files':len(bundled),'source_zip_bytes':(out/'source_inventory.zip').stat().st_size}))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: repository-baseline-inventory-${{ github.run_id }}
+          path: ${{ runner.temp }}/repo-inventory/source_inventory.zip
+          if-no-files-found: error
