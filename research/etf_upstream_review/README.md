@@ -15,4 +15,4 @@ Use a fresh output directory. No five-year market pack, outcomes, fitting, 2026 
 
 Only the source-repository versions declared in the supplied manifest are available here. Full files/excerpts and supplied samples are verified, not unseen upstream Git repositories or original vendor archives.
 
-A separately prepared one-day delivery request is `docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md`; it does not start a backtest or buy data. R1_A remains reserved.
+A separately prepared one-day delivery request is `docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md`. The local files are in `data/etf_microstructure_sample_20251201_v1/`. That pack does not start a backtest or buy data. R1_A remains reserved.

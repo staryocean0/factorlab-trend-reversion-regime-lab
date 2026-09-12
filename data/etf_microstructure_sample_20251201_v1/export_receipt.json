@@ -1,0 +1,1601 @@
+{
+  "schema_id": "factorlab_etf_one_day_source_export@1.0",
+  "trading_day": "2025-12-01",
+  "filter": {
+    "etf": "code IN ('512100','588000'); no minute/spread/volume/price filter",
+    "index": "trading_day='2025-12-01' AND symbol IN ('000852.SH','000688.SH'); no other filter"
+  },
+  "transforms": [
+    "SELECT *",
+    "stable ORDER BY native sequence columns",
+    "write parquet zstd"
+  ],
+  "not_done": [
+    "clock shift",
+    "dedupe",
+    "price fill",
+    "quantity=0 rewrite",
+    "ingested_at renamed as exchange publish time",
+    "x10000 conversion",
+    "snapshot reconstruction into a second file"
+  ],
+  "source_identity_probe": {
+    "quote_code_instrument_id": [
+      [
+        "512100",
+        "512100.SSE",
+        4823
+      ],
+      [
+        "588000",
+        "588000.SSE",
+        4975
+      ]
+    ],
+    "trade_code_instrument_id": [
+      [
+        "512100",
+        "512100.SSE",
+        10376
+      ],
+      [
+        "588000",
+        "588000.SSE",
+        93639
+      ]
+    ],
+    "index_symbol_counts": [
+      [
+        "000688.SH",
+        4746
+      ],
+      [
+        "000852.SH",
+        4748
+      ]
+    ]
+  },
+  "files": {
+    "quotes/512100_20251201.parquet": {
+      "path": "quotes/512100_20251201.parquet",
+      "rows": 4823,
+      "bytes": 483080,
+      "sha256": "ecf988184326b719ad614765ccf14523cc8feaac6fb3b39e65648555891fa5e8",
+      "columns": [
+        {
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "name": "自然日",
+          "type": "string"
+        },
+        {
+          "name": "time_raw",
+          "type": "string"
+        },
+        {
+          "name": "last_price_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "volume",
+          "type": "double"
+        },
+        {
+          "name": "amount",
+          "type": "double"
+        },
+        {
+          "name": "trade_count",
+          "type": "int64"
+        },
+        {
+          "name": "iopv_raw",
+          "type": "string"
+        },
+        {
+          "name": "trade_flag_raw",
+          "type": "string"
+        },
+        {
+          "name": "bs_flag_raw",
+          "type": "string"
+        },
+        {
+          "name": "cum_volume",
+          "type": "double"
+        },
+        {
+          "name": "cum_amount",
+          "type": "double"
+        },
+        {
+          "name": "high_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "low_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "open_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "prev_close_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_1",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_2",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_3",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_4",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_5",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_6",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_7",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_8",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_9",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_10",
+          "type": "int64"
+        },
+        {
+          "name": "ask_size_1",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_2",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_3",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_4",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_5",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_6",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_7",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_8",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_9",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_10",
+          "type": "double"
+        },
+        {
+          "name": "bid_price_x10000_1",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_2",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_3",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_4",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_5",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_6",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_7",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_8",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_9",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_10",
+          "type": "int64"
+        },
+        {
+          "name": "bid_size_1",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_2",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_3",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_4",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_5",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_6",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_7",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_8",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_9",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_10",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_total",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_total",
+          "type": "double"
+        },
+        {
+          "name": "market_observed_at",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "session_phase",
+          "type": "string"
+        },
+        {
+          "name": "is_checkpoint",
+          "type": "bool"
+        },
+        {
+          "name": "update_type",
+          "type": "string"
+        },
+        {
+          "name": "event_seq",
+          "type": "int64"
+        },
+        {
+          "name": "valid_from",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "valid_until",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "is_session_last",
+          "type": "bool"
+        },
+        {
+          "name": "instrument_id",
+          "type": "string"
+        },
+        {
+          "name": "instrument_type",
+          "type": "string"
+        },
+        {
+          "name": "exchange",
+          "type": "string"
+        },
+        {
+          "name": "identity_source",
+          "type": "string"
+        },
+        {
+          "name": "trading_day",
+          "type": "string"
+        },
+        {
+          "name": "source_kind",
+          "type": "string"
+        },
+        {
+          "name": "source_day",
+          "type": "string"
+        },
+        {
+          "name": "source_file_sha256",
+          "type": "string"
+        },
+        {
+          "name": "ingested_at",
+          "type": "string"
+        },
+        {
+          "name": "time_authority",
+          "type": "string"
+        },
+        {
+          "name": "receipt_exact_pit",
+          "type": "bool"
+        }
+      ]
+    },
+    "trades/512100_20251201.parquet": {
+      "path": "trades/512100_20251201.parquet",
+      "rows": 10376,
+      "bytes": 260472,
+      "sha256": "44efaef888630a7ef07d8506b3d27d1adf12824d83ff00a2099b447d2570b704",
+      "columns": [
+        {
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "name": "自然日",
+          "type": "string"
+        },
+        {
+          "name": "time_raw",
+          "type": "string"
+        },
+        {
+          "name": "trade_seq_raw",
+          "type": "string"
+        },
+        {
+          "name": "trade_code",
+          "type": "string"
+        },
+        {
+          "name": "order_kind",
+          "type": "string"
+        },
+        {
+          "name": "bs_flag",
+          "type": "string"
+        },
+        {
+          "name": "price_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "volume",
+          "type": "double"
+        },
+        {
+          "name": "ask_order_id",
+          "type": "string"
+        },
+        {
+          "name": "bid_order_id",
+          "type": "string"
+        },
+        {
+          "name": "market_observed_at",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "trade_seq",
+          "type": "int64"
+        },
+        {
+          "name": "instrument_id",
+          "type": "string"
+        },
+        {
+          "name": "instrument_type",
+          "type": "string"
+        },
+        {
+          "name": "exchange",
+          "type": "string"
+        },
+        {
+          "name": "identity_source",
+          "type": "string"
+        },
+        {
+          "name": "trading_day",
+          "type": "string"
+        },
+        {
+          "name": "source_kind",
+          "type": "string"
+        },
+        {
+          "name": "source_day",
+          "type": "string"
+        },
+        {
+          "name": "source_file_sha256",
+          "type": "string"
+        },
+        {
+          "name": "ingested_at",
+          "type": "string"
+        },
+        {
+          "name": "time_authority",
+          "type": "string"
+        },
+        {
+          "name": "receipt_exact_pit",
+          "type": "bool"
+        }
+      ]
+    },
+    "quotes/588000_20251201.parquet": {
+      "path": "quotes/588000_20251201.parquet",
+      "rows": 4975,
+      "bytes": 678007,
+      "sha256": "c096743553b5009e15dc53c5cdcb324017e5361e5d19c5a64308f55f0ae00387",
+      "columns": [
+        {
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "name": "自然日",
+          "type": "string"
+        },
+        {
+          "name": "time_raw",
+          "type": "string"
+        },
+        {
+          "name": "last_price_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "volume",
+          "type": "double"
+        },
+        {
+          "name": "amount",
+          "type": "double"
+        },
+        {
+          "name": "trade_count",
+          "type": "int64"
+        },
+        {
+          "name": "iopv_raw",
+          "type": "string"
+        },
+        {
+          "name": "trade_flag_raw",
+          "type": "string"
+        },
+        {
+          "name": "bs_flag_raw",
+          "type": "string"
+        },
+        {
+          "name": "cum_volume",
+          "type": "double"
+        },
+        {
+          "name": "cum_amount",
+          "type": "double"
+        },
+        {
+          "name": "high_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "low_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "open_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "prev_close_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_1",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_2",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_3",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_4",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_5",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_6",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_7",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_8",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_9",
+          "type": "int64"
+        },
+        {
+          "name": "ask_price_x10000_10",
+          "type": "int64"
+        },
+        {
+          "name": "ask_size_1",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_2",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_3",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_4",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_5",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_6",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_7",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_8",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_9",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_10",
+          "type": "double"
+        },
+        {
+          "name": "bid_price_x10000_1",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_2",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_3",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_4",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_5",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_6",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_7",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_8",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_9",
+          "type": "int64"
+        },
+        {
+          "name": "bid_price_x10000_10",
+          "type": "int64"
+        },
+        {
+          "name": "bid_size_1",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_2",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_3",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_4",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_5",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_6",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_7",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_8",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_9",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_10",
+          "type": "double"
+        },
+        {
+          "name": "ask_size_total",
+          "type": "double"
+        },
+        {
+          "name": "bid_size_total",
+          "type": "double"
+        },
+        {
+          "name": "market_observed_at",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "session_phase",
+          "type": "string"
+        },
+        {
+          "name": "is_checkpoint",
+          "type": "bool"
+        },
+        {
+          "name": "update_type",
+          "type": "string"
+        },
+        {
+          "name": "event_seq",
+          "type": "int64"
+        },
+        {
+          "name": "valid_from",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "valid_until",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "is_session_last",
+          "type": "bool"
+        },
+        {
+          "name": "instrument_id",
+          "type": "string"
+        },
+        {
+          "name": "instrument_type",
+          "type": "string"
+        },
+        {
+          "name": "exchange",
+          "type": "string"
+        },
+        {
+          "name": "identity_source",
+          "type": "string"
+        },
+        {
+          "name": "trading_day",
+          "type": "string"
+        },
+        {
+          "name": "source_kind",
+          "type": "string"
+        },
+        {
+          "name": "source_day",
+          "type": "string"
+        },
+        {
+          "name": "source_file_sha256",
+          "type": "string"
+        },
+        {
+          "name": "ingested_at",
+          "type": "string"
+        },
+        {
+          "name": "time_authority",
+          "type": "string"
+        },
+        {
+          "name": "receipt_exact_pit",
+          "type": "bool"
+        }
+      ]
+    },
+    "trades/588000_20251201.parquet": {
+      "path": "trades/588000_20251201.parquet",
+      "rows": 93639,
+      "bytes": 1990362,
+      "sha256": "4ca92dbe626eaaf7fcc1ed9c20b9645a7485262da85f1bbee1233ed51bca7dad",
+      "columns": [
+        {
+          "name": "code",
+          "type": "string"
+        },
+        {
+          "name": "自然日",
+          "type": "string"
+        },
+        {
+          "name": "time_raw",
+          "type": "string"
+        },
+        {
+          "name": "trade_seq_raw",
+          "type": "string"
+        },
+        {
+          "name": "trade_code",
+          "type": "string"
+        },
+        {
+          "name": "order_kind",
+          "type": "string"
+        },
+        {
+          "name": "bs_flag",
+          "type": "string"
+        },
+        {
+          "name": "price_x10000",
+          "type": "int64"
+        },
+        {
+          "name": "volume",
+          "type": "double"
+        },
+        {
+          "name": "ask_order_id",
+          "type": "string"
+        },
+        {
+          "name": "bid_order_id",
+          "type": "string"
+        },
+        {
+          "name": "market_observed_at",
+          "type": "timestamp[ns]"
+        },
+        {
+          "name": "trade_seq",
+          "type": "int64"
+        },
+        {
+          "name": "instrument_id",
+          "type": "string"
+        },
+        {
+          "name": "instrument_type",
+          "type": "string"
+        },
+        {
+          "name": "exchange",
+          "type": "string"
+        },
+        {
+          "name": "identity_source",
+          "type": "string"
+        },
+        {
+          "name": "trading_day",
+          "type": "string"
+        },
+        {
+          "name": "source_kind",
+          "type": "string"
+        },
+        {
+          "name": "source_day",
+          "type": "string"
+        },
+        {
+          "name": "source_file_sha256",
+          "type": "string"
+        },
+        {
+          "name": "ingested_at",
+          "type": "string"
+        },
+        {
+          "name": "time_authority",
+          "type": "string"
+        },
+        {
+          "name": "receipt_exact_pit",
+          "type": "bool"
+        }
+      ]
+    },
+    "index_3s/000852_20251201.parquet": {
+      "path": "index_3s/000852_20251201.parquet",
+      "rows": 4748,
+      "bytes": 81666,
+      "sha256": "ae8f72b56cc92f0c6d9b94c870a366a696b707ac14f7dda3e06d984f23da4c99",
+      "columns": [
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "index_code",
+          "type": "string"
+        },
+        {
+          "name": "market",
+          "type": "string"
+        },
+        {
+          "name": "instrument_type",
+          "type": "string"
+        },
+        {
+          "name": "exchange",
+          "type": "string"
+        },
+        {
+          "name": "observation_datetime",
+          "type": "string"
+        },
+        {
+          "name": "trading_day",
+          "type": "string"
+        },
+        {
+          "name": "observation_time",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "double"
+        },
+        {
+          "name": "amount",
+          "type": "double"
+        },
+        {
+          "name": "volume",
+          "type": "int32"
+        },
+        {
+          "name": "session_phase",
+          "type": "string"
+        },
+        {
+          "name": "timestamp_mode",
+          "type": "string"
+        },
+        {
+          "name": "source_kind",
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "type": "string"
+        },
+        {
+          "name": "source_archive_sha256",
+          "type": "string"
+        },
+        {
+          "name": "row_index",
+          "type": "int64"
+        },
+        {
+          "name": ".dataset_version",
+          "type": "string"
+        },
+        {
+          "name": "trading_month",
+          "type": "string"
+        }
+      ]
+    },
+    "index_3s/000688_20251201.parquet": {
+      "path": "index_3s/000688_20251201.parquet",
+      "rows": 4746,
+      "bytes": 76128,
+      "sha256": "7007e8dc9bbd8815109dc795e9826fcc91174da408ab8676fdd8173c61bd280d",
+      "columns": [
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "index_code",
+          "type": "string"
+        },
+        {
+          "name": "market",
+          "type": "string"
+        },
+        {
+          "name": "instrument_type",
+          "type": "string"
+        },
+        {
+          "name": "exchange",
+          "type": "string"
+        },
+        {
+          "name": "observation_datetime",
+          "type": "string"
+        },
+        {
+          "name": "trading_day",
+          "type": "string"
+        },
+        {
+          "name": "observation_time",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "double"
+        },
+        {
+          "name": "amount",
+          "type": "double"
+        },
+        {
+          "name": "volume",
+          "type": "int32"
+        },
+        {
+          "name": "session_phase",
+          "type": "string"
+        },
+        {
+          "name": "timestamp_mode",
+          "type": "string"
+        },
+        {
+          "name": "source_kind",
+          "type": "string"
+        },
+        {
+          "name": "source_file",
+          "type": "string"
+        },
+        {
+          "name": "source_archive_sha256",
+          "type": "string"
+        },
+        {
+          "name": "row_index",
+          "type": "int64"
+        },
+        {
+          "name": ".dataset_version",
+          "type": "string"
+        },
+        {
+          "name": "trading_month",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "field_observations": {
+    "quotes/512100_20251201.parquet": {
+      "rows": 4823,
+      "columns": [
+        "code",
+        "自然日",
+        "time_raw",
+        "last_price_x10000",
+        "volume",
+        "amount",
+        "trade_count",
+        "iopv_raw",
+        "trade_flag_raw",
+        "bs_flag_raw",
+        "cum_volume",
+        "cum_amount",
+        "high_x10000",
+        "low_x10000",
+        "open_x10000",
+        "prev_close_x10000",
+        "ask_price_x10000_1",
+        "ask_price_x10000_2",
+        "ask_price_x10000_3",
+        "ask_price_x10000_4",
+        "ask_price_x10000_5",
+        "ask_price_x10000_6",
+        "ask_price_x10000_7",
+        "ask_price_x10000_8",
+        "ask_price_x10000_9",
+        "ask_price_x10000_10",
+        "ask_size_1",
+        "ask_size_2",
+        "ask_size_3",
+        "ask_size_4",
+        "ask_size_5",
+        "ask_size_6",
+        "ask_size_7",
+        "ask_size_8",
+        "ask_size_9",
+        "ask_size_10",
+        "bid_price_x10000_1",
+        "bid_price_x10000_2",
+        "bid_price_x10000_3",
+        "bid_price_x10000_4",
+        "bid_price_x10000_5",
+        "bid_price_x10000_6",
+        "bid_price_x10000_7",
+        "bid_price_x10000_8",
+        "bid_price_x10000_9",
+        "bid_price_x10000_10",
+        "bid_size_1",
+        "bid_size_2",
+        "bid_size_3",
+        "bid_size_4",
+        "bid_size_5",
+        "bid_size_6",
+        "bid_size_7",
+        "bid_size_8",
+        "bid_size_9",
+        "bid_size_10",
+        "ask_size_total",
+        "bid_size_total",
+        "market_observed_at",
+        "session_phase",
+        "is_checkpoint",
+        "update_type",
+        "event_seq",
+        "valid_from",
+        "valid_until",
+        "is_session_last",
+        "instrument_id",
+        "instrument_type",
+        "exchange",
+        "identity_source",
+        "trading_day",
+        "source_kind",
+        "source_day",
+        "source_file_sha256",
+        "ingested_at",
+        "time_authority",
+        "receipt_exact_pit"
+      ],
+      "time_raw": {
+        "first": "84505000",
+        "last": "150002000",
+        "n_nonnull": 4823
+      },
+      "market_observed_at": {
+        "first": "2025-12-01 08:45:05",
+        "last": "2025-12-01 15:00:02",
+        "n_nonnull": 4823
+      },
+      "valid_from": {
+        "first": "2025-12-01 08:45:05",
+        "last": "2025-12-01 15:00:02",
+        "n_nonnull": 4823
+      },
+      "valid_until": {
+        "first": "2025-12-01 09:15:02",
+        "last": "2025-12-01 15:00:00",
+        "n_nonnull": 4823
+      },
+      "ingested_at": {
+        "first": "2026-09-01T19:38:51+08:00",
+        "last": "2026-09-01T19:38:51+08:00",
+        "n_nonnull": 4823
+      },
+      "source_file_sha256": [
+        "f05a329a65e5e8b1142c83bbb8bdadfa3fc68b78effb7bb36768f41585902306"
+      ],
+      "source_kind": {
+        "distinct": {
+          "baidu_user_a_share_tick_shidang": 4823
+        }
+      },
+      "update_type": {
+        "distinct": {
+          "checkpoint": 8,
+          "delta": 4815
+        }
+      },
+      "is_checkpoint": {
+        "true": 8,
+        "false": 4815
+      },
+      "session_phase": {
+        "distinct": {
+          "pre_open": 1,
+          "opening_auction": 48,
+          "pre_open_break": 1,
+          "continuous_am": 2391,
+          "midday_break": 1,
+          "continuous_pm": 2320,
+          "closing_auction": 60,
+          "post_close": 1
+        }
+      },
+      "iopv_raw": {
+        "distinct": {
+          "0": 4823
+        }
+      },
+      "time_raw_1326_hhmm_count": 20,
+      "time_raw_1326_hhmm_first_last": {
+        "first": "132602000",
+        "last": "132659000",
+        "n_nonnull": 20
+      }
+    },
+    "trades/512100_20251201.parquet": {
+      "rows": 10376,
+      "columns": [
+        "code",
+        "自然日",
+        "time_raw",
+        "trade_seq_raw",
+        "trade_code",
+        "order_kind",
+        "bs_flag",
+        "price_x10000",
+        "volume",
+        "ask_order_id",
+        "bid_order_id",
+        "market_observed_at",
+        "trade_seq",
+        "instrument_id",
+        "instrument_type",
+        "exchange",
+        "identity_source",
+        "trading_day",
+        "source_kind",
+        "source_day",
+        "source_file_sha256",
+        "ingested_at",
+        "time_authority",
+        "receipt_exact_pit"
+      ],
+      "time_raw": {
+        "first": "92500650",
+        "last": "145959150",
+        "n_nonnull": 10376
+      },
+      "market_observed_at": {
+        "first": "2025-12-01 09:25:00.650000",
+        "last": "2025-12-01 14:59:59.150000",
+        "n_nonnull": 10376
+      },
+      "ingested_at": {
+        "first": "2026-09-01T19:39:09+08:00",
+        "last": "2026-09-01T19:39:09+08:00",
+        "n_nonnull": 10376
+      },
+      "source_file_sha256": [
+        "f05a329a65e5e8b1142c83bbb8bdadfa3fc68b78effb7bb36768f41585902306"
+      ],
+      "source_kind": {
+        "distinct": {
+          "baidu_user_a_share_tick_shidang": 10376
+        }
+      },
+      "trade_code": {
+        "distinct": {
+          "": 10376
+        }
+      },
+      "time_raw_1326_hhmm_count": 22,
+      "time_raw_1326_hhmm_first_last": {
+        "first": "132601690",
+        "last": "132658260",
+        "n_nonnull": 22
+      }
+    },
+    "quotes/588000_20251201.parquet": {
+      "rows": 4975,
+      "columns": [
+        "code",
+        "自然日",
+        "time_raw",
+        "last_price_x10000",
+        "volume",
+        "amount",
+        "trade_count",
+        "iopv_raw",
+        "trade_flag_raw",
+        "bs_flag_raw",
+        "cum_volume",
+        "cum_amount",
+        "high_x10000",
+        "low_x10000",
+        "open_x10000",
+        "prev_close_x10000",
+        "ask_price_x10000_1",
+        "ask_price_x10000_2",
+        "ask_price_x10000_3",
+        "ask_price_x10000_4",
+        "ask_price_x10000_5",
+        "ask_price_x10000_6",
+        "ask_price_x10000_7",
+        "ask_price_x10000_8",
+        "ask_price_x10000_9",
+        "ask_price_x10000_10",
+        "ask_size_1",
+        "ask_size_2",
+        "ask_size_3",
+        "ask_size_4",
+        "ask_size_5",
+        "ask_size_6",
+        "ask_size_7",
+        "ask_size_8",
+        "ask_size_9",
+        "ask_size_10",
+        "bid_price_x10000_1",
+        "bid_price_x10000_2",
+        "bid_price_x10000_3",
+        "bid_price_x10000_4",
+        "bid_price_x10000_5",
+        "bid_price_x10000_6",
+        "bid_price_x10000_7",
+        "bid_price_x10000_8",
+        "bid_price_x10000_9",
+        "bid_price_x10000_10",
+        "bid_size_1",
+        "bid_size_2",
+        "bid_size_3",
+        "bid_size_4",
+        "bid_size_5",
+        "bid_size_6",
+        "bid_size_7",
+        "bid_size_8",
+        "bid_size_9",
+        "bid_size_10",
+        "ask_size_total",
+        "bid_size_total",
+        "market_observed_at",
+        "session_phase",
+        "is_checkpoint",
+        "update_type",
+        "event_seq",
+        "valid_from",
+        "valid_until",
+        "is_session_last",
+        "instrument_id",
+        "instrument_type",
+        "exchange",
+        "identity_source",
+        "trading_day",
+        "source_kind",
+        "source_day",
+        "source_file_sha256",
+        "ingested_at",
+        "time_authority",
+        "receipt_exact_pit"
+      ],
+      "time_raw": {
+        "first": "84500000",
+        "last": "150003000",
+        "n_nonnull": 4975
+      },
+      "market_observed_at": {
+        "first": "2025-12-01 08:45:00",
+        "last": "2025-12-01 15:00:03",
+        "n_nonnull": 4975
+      },
+      "valid_from": {
+        "first": "2025-12-01 08:45:00",
+        "last": "2025-12-01 15:00:03",
+        "n_nonnull": 4975
+      },
+      "valid_until": {
+        "first": "2025-12-01 09:15:00",
+        "last": "2025-12-01 15:00:00",
+        "n_nonnull": 4975
+      },
+      "ingested_at": {
+        "first": "2026-09-01T19:38:51+08:00",
+        "last": "2026-09-01T19:38:51+08:00",
+        "n_nonnull": 4975
+      },
+      "source_file_sha256": [
+        "f05a329a65e5e8b1142c83bbb8bdadfa3fc68b78effb7bb36768f41585902306"
+      ],
+      "source_kind": {
+        "distinct": {
+          "baidu_user_a_share_tick_shidang": 4975
+        }
+      },
+      "update_type": {
+        "distinct": {
+          "checkpoint": 8,
+          "delta": 4967
+        }
+      },
+      "is_checkpoint": {
+        "true": 8,
+        "false": 4967
+      },
+      "session_phase": {
+        "distinct": {
+          "pre_open": 1,
+          "opening_auction": 169,
+          "pre_open_break": 2,
+          "continuous_am": 2400,
+          "midday_break": 1,
+          "continuous_pm": 2340,
+          "closing_auction": 61,
+          "post_close": 1
+        }
+      },
+      "iopv_raw": {
+        "distinct": {
+          "0": 4975
+        }
+      },
+      "time_raw_1326_hhmm_count": 20,
+      "time_raw_1326_hhmm_first_last": {
+        "first": "132600000",
+        "last": "132657000",
+        "n_nonnull": 20
+      }
+    },
+    "trades/588000_20251201.parquet": {
+      "rows": 93639,
+      "columns": [
+        "code",
+        "自然日",
+        "time_raw",
+        "trade_seq_raw",
+        "trade_code",
+        "order_kind",
+        "bs_flag",
+        "price_x10000",
+        "volume",
+        "ask_order_id",
+        "bid_order_id",
+        "market_observed_at",
+        "trade_seq",
+        "instrument_id",
+        "instrument_type",
+        "exchange",
+        "identity_source",
+        "trading_day",
+        "source_kind",
+        "source_day",
+        "source_file_sha256",
+        "ingested_at",
+        "time_authority",
+        "receipt_exact_pit"
+      ],
+      "time_raw": {
+        "first": "92501090",
+        "last": "145959950",
+        "n_nonnull": 93639
+      },
+      "market_observed_at": {
+        "first": "2025-12-01 09:25:01.090000",
+        "last": "2025-12-01 14:59:59.950000",
+        "n_nonnull": 93639
+      },
+      "ingested_at": {
+        "first": "2026-09-01T19:39:09+08:00",
+        "last": "2026-09-01T19:39:09+08:00",
+        "n_nonnull": 93639
+      },
+      "source_file_sha256": [
+        "f05a329a65e5e8b1142c83bbb8bdadfa3fc68b78effb7bb36768f41585902306"
+      ],
+      "source_kind": {
+        "distinct": {
+          "baidu_user_a_share_tick_shidang": 93639
+        }
+      },
+      "trade_code": {
+        "distinct": {
+          "": 93639
+        }
+      },
+      "time_raw_1326_hhmm_count": 134,
+      "time_raw_1326_hhmm_first_last": {
+        "first": "132601400",
+        "last": "132659890",
+        "n_nonnull": 134
+      }
+    },
+    "index_3s/000852_20251201.parquet": {
+      "rows": 4748,
+      "columns": [
+        "symbol",
+        "index_code",
+        "market",
+        "instrument_type",
+        "exchange",
+        "observation_datetime",
+        "trading_day",
+        "observation_time",
+        "price",
+        "amount",
+        "volume",
+        "session_phase",
+        "timestamp_mode",
+        "source_kind",
+        "source_file",
+        "source_archive_sha256",
+        "row_index",
+        ".dataset_version",
+        "trading_month"
+      ],
+      "observation_datetime": {
+        "first": "2025-12-01T09:25:00Z",
+        "last": "2025-12-01T15:00:06Z",
+        "n_nonnull": 4748
+      },
+      "observation_time": {
+        "first": "09:25:00",
+        "last": "15:00:06",
+        "n_nonnull": 4748
+      },
+      "source_archive_sha256": [
+        "febdd4e2fd7717e1a7650c8147d962989b4dd6fdfaba9b2f15392b397c0ab2d8"
+      ],
+      "source_kind": {
+        "distinct": {
+          "baidu_netdisk_market_index_transaction_3s": 4748
+        }
+      },
+      "session_phase": {
+        "distinct": {
+          "open_call_auction": 1,
+          "continuous_auction": 4741,
+          "close_auction": 6
+        }
+      },
+      "timestamp_mode": {
+        "distinct": {
+          "source_exact_3s": 4748
+        }
+      }
+    },
+    "index_3s/000688_20251201.parquet": {
+      "rows": 4746,
+      "columns": [
+        "symbol",
+        "index_code",
+        "market",
+        "instrument_type",
+        "exchange",
+        "observation_datetime",
+        "trading_day",
+        "observation_time",
+        "price",
+        "amount",
+        "volume",
+        "session_phase",
+        "timestamp_mode",
+        "source_kind",
+        "source_file",
+        "source_archive_sha256",
+        "row_index",
+        ".dataset_version",
+        "trading_month"
+      ],
+      "observation_datetime": {
+        "first": "2025-12-01T09:25:00Z",
+        "last": "2025-12-01T15:00:06Z",
+        "n_nonnull": 4746
+      },
+      "observation_time": {
+        "first": "09:25:00",
+        "last": "15:00:06",
+        "n_nonnull": 4746
+      },
+      "source_archive_sha256": [
+        "febdd4e2fd7717e1a7650c8147d962989b4dd6fdfaba9b2f15392b397c0ab2d8"
+      ],
+      "source_kind": {
+        "distinct": {
+          "baidu_netdisk_market_index_transaction_3s": 4746
+        }
+      },
+      "session_phase": {
+        "distinct": {
+          "open_call_auction": 1,
+          "continuous_auction": 4740,
+          "close_auction": 5
+        }
+      },
+      "timestamp_mode": {
+        "distinct": {
+          "source_exact_3s": 4746
+        }
+      }
+    }
+  },
+  "exported_at_utc": "2026-09-12T07:59:44.398386+00:00"
+}

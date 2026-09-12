@@ -1,0 +1,89 @@
+{
+  "schema_id": "factorlab_etf_one_day_source_delivery@1.0",
+  "pack": "data/etf_microstructure_sample_20251201_v1",
+  "trading_day": "2025-12-01",
+  "purpose": "deliver actual same-day L2 quote-change, tick trades and index 3s rows for cloud field/clock review; not a strategy or PnL pack",
+  "datahub_commit": "4b4d36a16076c347ed7810eeed37391571a3cc3d",
+  "public_delivery": true,
+  "private_pack": null,
+  "not_done": [
+    "reupload five-year ETF minute CSV",
+    "repeat share-consolidation repair",
+    "R1_A",
+    "lead-lag or threshold work",
+    "2026 quote reads",
+    "purchase/borrow credentials",
+    "clock shift or 1m Z inheritance"
+  ],
+  "filters": {
+    "etf": "code IN ('512100','588000'); hive_partitioning=false; no minute/spread/volume/price filter",
+    "index": "trading_day='2025-12-01' AND symbol IN ('000852.SH','000688.SH'); hive_partitioning=false"
+  },
+  "source_partitions": {
+    "fund_cb_l2_quote_change": {
+      "dataset_version": "fund_cb_l2_quote_change_cn_a_3s_baidu_shidang_20250901_20260828_v1_20260902",
+      "relative_path": "fund_cb_l2_quote_change_recent_1y/dataset_version=fund_cb_l2_quote_change_cn_a_3s_baidu_shidang_20250901_20260828_v1_20260902/trading_month=2025-12/trading_day=2025-12-01.parquet",
+      "sha256": "cf834a8f65b123fddc450c1c20104353b2bf579351922b514efa7588d8adfe64",
+      "bytes": 302106108
+    },
+    "fund_cb_tick_trades": {
+      "dataset_version": "fund_cb_tick_trades_cn_a_baidu_shidang_20250901_20260828_v1_20260902",
+      "relative_path": "fund_cb_tick_trades_recent_1y/dataset_version=fund_cb_tick_trades_cn_a_baidu_shidang_20250901_20260828_v1_20260902/trading_month=2025-12/trading_day=2025-12-01.parquet",
+      "sha256": "8264dc516cde7ecb5542a9d10b1b5ddeaa310fae1dad89d035f4aac58a8c5c75",
+      "bytes": 427233729
+    },
+    "market_index_3s": {
+      "dataset_version": "market_index_baidu_3s_20000714_20260821_cffex_underlyings_alias_repaired_v4_20260823",
+      "relative_path": "market_index_transactions/dataset_version=market_index_baidu_3s_20000714_20260821_cffex_underlyings_alias_repaired_v4_20260823/observations.parquet",
+      "sha256": "a2abc93ef0975490aae73c606ca8157a15c44cd182626c7537a9a62494310540",
+      "bytes": 1047166337
+    }
+  },
+  "vendor_archive_sha256_from_product_column": {
+    "etf_day_archive": "f05a329a65e5e8b1142c83bbb8bdadfa3fc68b78effb7bb36768f41585902306",
+    "index_archive": "febdd4e2fd7717e1a7650c8147d962989b4dd6fdfaba9b2f15392b397c0ab2d8",
+    "vendor_7z_on_disk": false
+  },
+  "source_repositories": {
+    "unified_datahub": {
+      "commit": "4b4d36a16076c347ed7810eeed37391571a3cc3d",
+      "files": {
+        "scripts/materialize_fund_cb_l2_recent_1y.py": {
+          "sha256": "faf8eb738e02abadce193f363aeed208011946790de8434f28baaba0599285c7",
+          "bytes": 49025
+        },
+        "docs/planning/fund_cb_l2_quote_change_recent_1y_onboarding_20260901.md": {
+          "sha256": "ef72962296eafd4e7a0fc218434558f26659559b4d61445c203276d869e9a8e7",
+          "bytes": 18894
+        },
+        "src/datahub/core/services/market_indices/transactions_service.py": {
+          "sha256": "e8282d00bfa0c67c9515ed49e120ba15de9a0723257f0dc50887b2401f435b66",
+          "bytes": 33309
+        },
+        "docs/modules/history/baidu-netdisk-data-catalog.md": {
+          "sha256": "139e16dc74c9f79da933e393827542d473d456e62d6e50263eea36f2dd0062e0",
+          "bytes": 28018
+        }
+      }
+    }
+  },
+  "logical_files": {
+    "quotes/512100_20251201.parquet": {"rows": 4823, "bytes": 483080, "sha256": "ecf988184326b719ad614765ccf14523cc8feaac6fb3b39e65648555891fa5e8"},
+    "quotes/588000_20251201.parquet": {"rows": 4975, "bytes": 678007, "sha256": "c096743553b5009e15dc53c5cdcb324017e5361e5d19c5a64308f55f0ae00387"},
+    "trades/512100_20251201.parquet": {"rows": 10376, "bytes": 260472, "sha256": "44efaef888630a7ef07d8506b3d27d1adf12824d83ff00a2099b447d2570b704"},
+    "trades/588000_20251201.parquet": {"rows": 93639, "bytes": 1990362, "sha256": "4ca92dbe626eaaf7fcc1ed9c20b9645a7485262da85f1bbee1233ed51bca7dad"},
+    "index_3s/000852_20251201.parquet": {"rows": 4748, "bytes": 81666, "sha256": "ae8f72b56cc92f0c6d9b94c870a366a696b707ac14f7dda3e06d984f23da4c99"},
+    "index_3s/000688_20251201.parquet": {"rows": 4746, "bytes": 76128, "sha256": "7007e8dc9bbd8815109dc795e9826fcc91174da408ab8676fdd8173c61bd280d"}
+  },
+  "missing_or_unknown": [
+    "vendor 7z/CSV day archive bytes",
+    "tick trade amount",
+    "source_available_at / exchange or vendor publication time",
+    "certified volume unit (shares vs lots)",
+    "certified quote amount unit",
+    "complete 2025-12-01 halt/announcement calendar",
+    "nonzero IOPV / iNAV",
+    "index volume (importer writes null)"
+  ],
+  "secret_scan_hits": []
+}
