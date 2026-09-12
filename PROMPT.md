@@ -1,15 +1,20 @@
-# 接管提示：R1_A 时间前推预测诊断已完成
+# 接管提示：当前 R1_A 价格版本已阶段性收口，转为储备
 
-仓库 staryocean0/factorlab-trend-reversion-regime-lab。先检查 git status，保护改动，安全同步 main。读取 CONTINUE_HERE.md 和 docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md。
+仓库：staryocean0/factorlab-trend-reversion-regime-lab。
+安全检查本地git状态并同步main，不覆盖用户工作。先读CONTINUE_HERE.md和docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md。
 
-最新状态：WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY。
+当前状态：R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED。
+不是待补数据，也不是又有一个设计等待自动执行。跨研究对账、已保存预测误差分解和阶段性去留判断已经完成。
 
-这不是待执行设计：中证1000原2015—2020开发期已经实际完成两版模型比较。2015年645个事件暖启动；2016—2020年1107个原事件全部保留，在七周期生成7749行预测记录。父趋势模型与增加单个R1_A标识的模型使用同一训练样本、固定ridge系数，过去完整标签训练、按年度前推，不重新配对。
+已有数据和原事件身份不变。原预测记录、评分和参数在本轮锁定审计范围内没有实质算术差异；但这不代表原始行情语义或所有统计假设已被独立验证。
+15/30等位置的小幅前推MSE改善主要来自年度平均偏差修正，年内中心化误差没有改善。本轮没有重新训练。指标在每个年度事件样本中恒为1，不能因此推断所有非线性、排序或均值回归均无效。
 
-15/30周期均方误差改善约0.284%/0.287%，但仅3/5和2/5年改善；60周期虽五年及两方向均改善，增强模型仍输给零收益预测。不得把60选成持有期，也不得把bp平方的预测误差改进说成bp交易收益。本轮无统计显著性认证、无新OOS、无实盘授权。
+当前默认没有后续实证任务。不得自动更换模型、lambda、特征、配对、方向、年份、持有周期、费用或期权来寻找通过；不得打开失败严格配对方案的241/17组收益或2026候选数据。
 
-固定诊断已结束，不自动增加模型、交互、指标或调ridge系数来找好结果。R1_A仍是未确认历史线索，不能说已确立，也不能以一个线性模型否定所有可能的信息。更进一步的研究必须另有明确问题和授权。
+储备只针对当前R1_A价格策略版本的连续主动开发，不是永久禁止科学研究或关闭整个项目。以后用户明确授权新的独立问题或可复现错误修复时，应写清研究对象、数据资格、预算与停止条件，并保留旧结论。
 
-已有数据在云端，不需重新交付。2026候选数据保持未打开；原严格对照失败、旧ETF/期权/机制证据和数据全部保留。复现使用 research/r1a_walkforward_prediction/README.md 的命令和新输出目录，不覆盖原receipt。
+历史ETF文件已在云端；无例行本地搬运任务。不要反复请求同一份数据。原R1/R2机制记录和全部历史证据保留，旧R1_B/R2方向/期权关闭身份不重开。
 
-BLACKBOX_query_count=3；禁止#4；production_authority=false；fresh_oos=false；confirmation_protocol_frozen=false；confirmation_clock_started=false；horizon_selected=false。
+仅维护复现时，使用research/r1a_evidence_closeout/README.md中的命令，输出到新目录；不要将复现成功写成策略确认。
+
+BLACKBOX_query_count=3；禁止query #4；production_authority=false；fresh_oos=false；confirmation_clock_started=false；horizon_selected=false。

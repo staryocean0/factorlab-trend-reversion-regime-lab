@@ -1,20 +1,26 @@
-name: r1a-evidence-closeout
+name: evidence-closeout-regression
 
 on:
   workflow_dispatch:
   push:
-    branches: [research/r1a-evidence-closeout-v1]
-    paths: ['.github/workflows/r1a-evidence-closeout.yml']
+    branches: [main, research/r1a-evidence-closeout-v1]
+    paths:
+      - 'research/r1a_evidence_closeout/**'
+      - 'tests/test_r1a_evidence_closeout.py'
+      - 'tests/test_evidence_closeout_retained.py'
+      - 'docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json'
+      - 'docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json'
+      - 'docs/ops/evidence/r1a_evidence_closeout_20260912/**'
+      - 'docs/ops/evidence/r1a_walkforward_prediction_20260912/**'
+      - 'docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv'
+      - 'docs/research/**'
+      - '.github/workflows/r1a-evidence-closeout.yml'
 
 permissions:
-  contents: write
-
-concurrency:
-  group: r1a-evidence-closeout-${{ github.ref }}
-  cancel-in-progress: false
+  contents: read
 
 jobs:
-  existing-evidence-audit:
+  readonly-no-fit-replay:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -32,7 +38,9 @@ jobs:
             /shared/
             /research/r1a_evidence_closeout/
             /tests/test_r1a_evidence_closeout.py
+            /tests/test_evidence_closeout_retained.py
             /docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json
+            /docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json
             /docs/ops/evidence/r1a_walkforward_prediction_20260912/
             /docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv
             /docs/ops/evidence/r1a_evidence_closeout_20260912/
@@ -48,51 +56,34 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Align inherited score-group identifiers before first execution
-        env:
-          RESEARCH_BRANCH: ${{ github.ref_name }}
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('research/r1a_evidence_closeout/audit.py')
-          s=p.read_text()
-          old="'YEAR_SIDE_'+str(year)"
-          assert s.count(old)==1
-          p.write_text(s.replace(old,"'YEAR_'+str(year)"))
-          PY
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add --sparse research/r1a_evidence_closeout/audit.py
-          git commit -m 'fix(audit): align stored year-side score keys before first calculation [skip ci]'
-          git push origin "HEAD:$RESEARCH_BRANCH"
       - name: Install package
         run: python -m pip install -e .
-      - name: Test exact algebra and no-fit boundary
-        run: python -m pytest -q tests/test_r1a_evidence_closeout.py
-      - name: Enforce existing-evidence-only source access
+      - name: Test exact algebra and sealed closeout
+        run: python -m pytest -q tests/test_r1a_evidence_closeout.py tests/test_evidence_closeout_retained.py
+      - name: Enforce no raw-market data or prior fitter
         run: |
           python - <<'PY'
+          import json
           from pathlib import Path
           assert not Path('data').exists()
           assert not list(Path('.').rglob('*.parquet'))
           assert not Path('research/r1a_walkforward_prediction').exists()
           assert not Path('docs/ops/evidence/r1a_control_design_20260912/allocation_ledger.csv').exists()
-          print('No raw market data, prior fitter, selected-control outcomes or 2026 candidate present.')
+          d=json.loads(Path('docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json').read_text())
+          assert d['active_empirical_candidate'] is None
+          assert d['automatic_continuation_authorized'] is False
+          print('Existing evidence only. Reserve is not a zero-alpha statistical verdict.')
           PY
-      - name: Execute frozen reconciliation and error accounting
-        run: python research/r1a_evidence_closeout/audit.py --output docs/ops/evidence/r1a_evidence_closeout_20260912
-      - name: Commit new evidence without overwriting prior studies
-        env:
-          RESEARCH_BRANCH: ${{ github.ref_name }}
+      - name: Reproduce existing-evidence accounting only
         run: |
-          git add --sparse docs/ops/evidence/r1a_evidence_closeout_20260912
-          git commit -m 'audit: retain deterministic R1_A cross-study and forecast-error accounting [skip ci]'
-          git push origin "HEAD:$RESEARCH_BRANCH"
+          python research/r1a_evidence_closeout/audit.py --output "$RUNNER_TEMP/r1a-closeout-replay"
+          python research/r1a_evidence_closeout/verify_replay.py \
+            --reference docs/ops/evidence/r1a_evidence_closeout_20260912 \
+            --replay "$RUNNER_TEMP/r1a-closeout-replay" \
+            --output "$RUNNER_TEMP/r1a-closeout-replay-audit.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r1a-evidence-closeout-${{ github.run_id }}
-          path: |
-            docs/ops/evidence/r1a_evidence_closeout_20260912
-            research/r1a_evidence_closeout
-          if-no-files-found: error
+          name: r1a-closeout-replay-${{ github.run_id }}
+          path: ${{ runner.temp }}/r1a-closeout-replay-audit.json
+          if-no-files-found: warn

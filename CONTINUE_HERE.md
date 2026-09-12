@@ -1,58 +1,60 @@
-# Continue here — reversal / mean-reversion research
+# Continue here — R1_A price research in reserve
 
-## Latest completed experiment
+## Current program disposition
 
-**WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY**.
+**`R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`**
 
-The user-authorized R1_A relative-to-parent walk-forward prediction diagnostic is frozen, implemented, executed and audited. It does NOT merely propose the next experiment. The fixed two-model specification is complete; no automatic feature/model/lambda/horizon search follows.
+The user-authorized cross-study reconciliation and existing forecast-error decomposition have executed. The CURRENT R1_A price-strategy formulation is retained as an unconfirmed historical lead, with automatic active development paused. This is a resource judgment, not proof of zero alpha, closure of the original R1/R2 mechanisms, or termination of the whole reversal/mean-reversion project.
 
 Read first:
-1. `docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md`
-2. `docs/ops/evidence/r1a_walkforward_prediction_20260912/REPORT.md`
-3. `docs/ops/evidence/r1a_walkforward_prediction_20260912/receipt.json`
-4. `docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json`
-5. `research/r1a_walkforward_prediction/README.md`
 
-Freeze `606d25933debcdb986fb19b4489e5c61407b52b3`; decisive code `be103560415ccb4426a6c4ec79bd0df2af85d252`; Actions `34668445944`, job `103485041666`: SUCCESS. Engineering success is not predictive/strategy certification.
+1. `docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md`
+2. `docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json`
+3. `docs/ops/evidence/r1a_evidence_closeout_20260912/receipt.json`
+4. `docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json`
+5. `research/r1a_evidence_closeout/README.md`
 
-## What actually ran
+Audit decision: `EVIDENCE_RECONCILIATION_COMPLETED_NO_NEW_ALPHA_TEST`.
+Freeze: `29bd543948f6de0f0860ecede71a10e78b9f31c8`.
+Decisive code: `d6109a11ec93efa26bbd2eca5ad1f15c1009c9e9`.
+Decisive Actions: `34669948608`, job `103489303243`.
 
-CSI1000 original Development 2015-2020 only, six source partitions. Original 1,752 events preserved: 645 warm-up events in 2015 remain unscored and visible; ALL 1,107 events in information years 2016-2020 are scored at all seven horizons (7,749 rows). Five actual price-prefix checks reproduced known event identities/features exactly. No post2020, ETF, MO or 2026 prices were read.
+## What has been verified
 
-Training uses original eligible event and non-event parent-state rows once each, not selected matched controls. Parent-only and parent+one-R1_A-indicator linear ridge models use identical rows and weights. Lambda=0.001 fixed. Five annual expanding folds x seven horizons x two models =70 successful fits. Per-horizon labels must finish before the fold cutoff; all normalization is past-only. No failed-fit fallback or difficult-event deletion occurred.
+Nineteen pinned existing sources were read: nine historical reports, the original forecast receipt and its eight CSVs, and the original Development event identity file. Raw market data were excluded from this audit checkout. No model fits, new signal generation, new strategy returns or new inference were performed.
 
-The new object is same-outcome prediction-error improvement, NOT event-minus-control return, matched treatment effect, or PnL. The indicator adds a representation relative to the finite feature set; it is not information beyond the entire price history. Original terminal 240-bar cohort limitations and restricted non-event pool remain disclosed.
+All 1,752 original CSI1000 Development events remain accounted for: 645 warm-up and 1,107 scored at all seven horizons. The 7,749 existing forecasts reconcile 126 event score groups and 2,268 numeric fields; maximum field difference is about 7.3e-11. Existing label-maturity/prefix records and 1,225 stored parameter rows were checked. No material discrepancy was detected WITHIN this evidence/arithmetic scope. This is not independent raw-source verification or a proof that every prior methodological assumption was correct.
 
-## Results — do not promote the strongest cell
+## What the decomposition actually shows
 
-| h | Relative event MSE reduction | Positive years | Both directions improve |
-|---:|---:|---:|---|
-| 1 | +0.3333% | 3/5 | yes |
-| 5 | -1.2549% | 1/5 | no |
-| 15 | +0.2837% | 3/5 | yes |
-| 30 | +0.2872% | 2/5 | no |
-| 60 | +0.5953% | 5/5 | yes |
-| 120 | +0.5524% | 4/5 | no |
-| 240 | -0.2623% | 4/5 | no |
+Use e=y-parent prediction and g=enhanced-parent prediction. Existing loss gain equals 2eg-g^2. MSE also decomposes exactly into squared mean residual plus centered residual variance, with ddof=0.
 
-h60 is only a DESCRIPTIVE consistency flag. Enhanced event MSE=9931.1136bp^2 is still above zero forecast MSE=9915.8333bp^2. Do not choose a 60-bar holding period or declare a pass. h15/h30 beat simple pooled references slightly but lack year/side consistency. The baseline is weak: its non-event pooled MSE exceeds zero at every horizon. No universal failure of R1_A or nonlinear prediction is inferred.
+At h15/h30, old total MSE gains are +8.2309/+18.6596 bp^2. Event-count-weighted within-year mean-bias-square reductions are +8.3068/+20.9374 bp^2, while within-year centered-error variance changes contribute -0.0758/-2.2778 bp^2. All seven horizons have negative weighted within-year centered-error improvement. Pooled centering includes between-year effects and is a different decomposition of the same total.
 
-Per horizon, 2/1107 events are outside prior mixed-training coordinate ranges and 11/1107 outside prior background ranges; all remain scored. No prior clock/direction background stratum is missing. These are limited support diagnostics, not identification proof. Daily loss sums preserve all 1218 dates, overlap and tails; no new SE/p-value or fresh-OOS claim exists.
+The added R1_A flag is constant across event rows inside each annual model. It primarily provides a fold-level offset, with shared coefficients also changed by the OLD joint fit. This is not a test of every possible within-event ranking/nonlinear representation. Do not call ex-post group mean correction an attained future predictor or infer economic causation.
 
-## Decision and next boundary
+h15/h30 mean prediction adjustments were negative in 2016-2019 and positive in 2020. Some gains corrected parent-model overforecasting, rather than predicting a larger positive return. Small relative MSE gains alone are not evidence of economic insignificance, and bp^2 is not trading bp.
 
-Do not launch confirmation or execution on this result. Preserve R1_A as an unconfirmed historical lead, not a certified strategy and not disproved in all possible formulations. This fixed walk-forward diagnostic is closed as a completed comparison; no automatic replacement empirical candidate is authorized.
+## Evidence precedence and non-comparability
 
-Any further scientific proposal must independently justify its question and acknowledge weak benchmark quality, representation limits, historical reuse and remaining dependence. Do not continue this run by changing lambda, feature interactions, class weights, warm-up, years, side or horizon until the old history improves. Do not relabel consumed Development as fresh OOS or use the 2026 candidate automatically.
+The early 2021-2025 raw index responses and matched/ETF increments remain recorded. Their target, dates and samples differ from 2016-2020 forward forecast scoring. Retrospective uncertainty checks altered confidence, not the old observed means. Early supported/robust headings are historical context, not current confirmatory authority.
 
-## Preserved work and data
+The complete ten-stage evidence map is `docs/ops/evidence/r1a_evidence_closeout_20260912/cross_study_evidence.csv`. No unequal estimands, years or repeated replays are pooled into a new alpha test.
 
-Old strict past/caliper/exclusive-control design remains closed at design stage; its selected 241/17 paired-return table stays unopened. The new all-event prediction experiment does not revive that contrast. Real-noise decomposition, bounded method/feasibility studies, old Validation/ETF outcomes, all source bytes and freezes remain intact.
+## Default next action
 
-Both ETF endpoint diagnostics remain completed. Original full-path v1 retains PARTIAL_CARRIER_TRANSPORT under its separate definition; that old label is not the global latest research status. The failed primary all-seven-endpoint common cohort remains unopened.
+There is **no automatic next empirical candidate**. Do not append another model, lambda, feature, interaction, matching, horizon, side/year filter, cost/exit or option experiment to this completed chain. Do not compute the failed strict-control scheme's selected 241/17 returns. No confirmation clock has started.
 
-Historical ETF CSVs are already public; no routine local transfer is needed. The known 2026 CSI1000 candidate remains metadata-only with unresolved R1_A-specific exposure. R1/R2 certification and closed R1_B/R2-directional/MO identities remain.
+A later concrete scientific question or reproducible material error can be proposed with explicit user authorization, a clear target, qualified data role, resource budget and stop rule. Preserve all old results and disclose historical reuse. This reserve judgment is not a permanent ban on new authorized research or other project mechanisms.
+
+## Preserved data and authority
+
+All raw data, freezes, original identities/pairs/results and existing regression workflows remain. Historical ETF CSVs are already public; no local transfer is pending. Both ETF endpoint diagnostics remain complete; old full-path v1 keeps PARTIAL_CARRIER_TRANSPORT only under its separate definition. The failed primary all-seven common cohort stays unopened.
+
+The known 2026 CSI1000 candidate remains metadata-only with unresolved R1_A-specific exposure. Do not call it automatically fresh or open it by default. R1/R2 mechanism records and closed R1_B/R2-directional/MO identities are unchanged.
 
 `BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
 
-Use the fresh-directory commands in `research/r1a_walkforward_prediction/README.md`. Read-only regression verifies original identities/counts/flags and audits tightly bounded continuous floating differences without overwriting reference evidence. Reproduction is not a second market experiment.
+## Maintenance only
+
+Use `research/r1a_evidence_closeout/README.md` to reproduce the no-fit accounting into a fresh directory. Replays verify exact identities/counts and tightly bounded numeric differences, never overwrite decisive receipts, and never constitute new research evidence.

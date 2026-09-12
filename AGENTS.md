@@ -1,15 +1,17 @@
 # Reversal / Mean-Reversion Research
 
-Read CONTINUE_HERE.md and docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md.
+Read CONTINUE_HERE.md, docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md and docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json.
 
-Latest completed: WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY. The explicit user-authorized two-model walk-forward experiment actually ran on CSI1000 original 2015-2020 Development only. 645 warm-up events remain visible; all 1107 evaluation events are scored at all seven horizons. No new matched-control return, post2020/ETF/2026 price or significance test was opened.
+Current: R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED. The authorized cross-study reconciliation and no-fit error decomposition actually executed. Do not treat this as another proposal awaiting implementation.
 
-The fixed parent-only vs parent+R1_A ridge comparison is complete. h15/h30 show small pooled MSE reductions with weak cross-year consistency; h60 improves in all five years and both directions but still loses to the zero-return forecast. No best horizon, confirmation protocol or production strategy is selected. Loss improvement in bp^2 is not trading alpha in bp.
+Reserve is a scoped resource judgment, not proof of zero alpha or closure of the entire project. No automatic active empirical candidate remains for the CURRENT R1_A price formulation. A new user-authorized question or reproducible material error requires explicit target/data-role/budget/stop conditions; preserve old evidence. Do not turn the reserve status into a permanent prohibition against future authorized research.
 
-Do not launch a replacement model/feature/lambda/class-weight/year/side/horizon sweep or promote the descriptive flag. R1_A remains unconfirmed, not universally disproved. Any new science needs a separately justified question and authorization, with model-relative estimand and historical-use limitations disclosed.
+The existing forecast arithmetic and original event/parameter identities reconciled. Audit scope excludes raw-source verification and does not establish every prior method's validity. Nine prior reports were reviewed for dates, denominators, units and target differences. Do not pool unequal estimands or count replays as independent evidence.
 
-Preserve original signals, cohorts, Validation pairs and all data/freezes/results. The old strict hard-pruning design and its selected paired-return outcomes remain closed. Do not confuse ordinary statistical replays with new evidence. Zero/past-mean forecast references are diagnostics, not executable strategies.
+The forward model's h15/h30 gains are predominantly within-year average-bias corrections; centered within-year error variance does not improve in the fixed additive specification. The flag is constant on event rows in each annual fold. This does not prove all within-event ranking or nonlinear information absent. Do not convert bp-squared gains to trading bp or equate small MSE percentage with economic irrelevance. Ex-post mean centering is accounting, not a deployable recalibration.
 
-The public historical ETF pack already exists; no repeat transfer. Keep the known 2026 candidate metadata-only pending qualification. R1/R2 certifications and closed R1_B/R2-directional/options remain. No fills, costs/stops/targets, borrow/futures or options rescue.
+No new models, signals, strategy returns, p-values or 2026 prices were used in this closeout. Do not automatically alter lambda, features/interactions, class weights, warm-up, matching, horizon, side/year selection, costs/exits or option structures. Closed strict-control selected-pair outcomes stay unopened.
 
-BLACKBOX_query_count=3; no #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; confirmation_clock_started=false; horizon_selected=false. Use fresh output directories and retain original receipts.
+All raw data, freezes, historical results and R1/R2 mechanism records remain intact. Historical ETF package is public; no repeat local delivery is required. The known 2026 candidate remains metadata-only. Old full-path PARTIAL_CARRIER_TRANSPORT remains scoped to its own protocol, not the current program frontier. Closed R1_B/R2-directional/MO identities stay closed.
+
+BLACKBOX_query_count=3; no #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; confirmation_clock_started=false; horizon_selected=false. Maintenance replays use fresh directories and never overwrite receipts or create new research evidence.

@@ -1,11 +1,11 @@
 # AI entry
 
-Read CONTINUE_HERE.md, AGENTS.md, PROMPT.md and docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md.
+Read CONTINUE_HERE.md and docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md.
 
-Current completed state: WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY.
+Current: **R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED**.
 
-Five annual forward folds and seven horizons, original CSI1000 Development only, actually executed. Small/uneven prediction gains do not promote R1_A; the only descriptive consistency flag loses to zero forecast. No next model sweep or confirmation run is automatically authorized.
+Existing-evidence reconciliation and no-fit forecast error accounting are complete. No automatic next empirical candidate is active. Reserve is a scoped research resource decision, not proof of zero alpha or closure of the entire project.
 
-All original events are accounted for (645 warm-up, 1107 scored). Preserve old source data, signals, pairs, closed strict-control/MO results and frozen receipts. Historical ETF data already exist in cloud. Keep 2026 candidate outcomes unopened.
+Preserve old data, identities, freezes and results. Do not tune a new model or open 2026 data by default. New authorized science requires a specific question, data-role qualification, budget and stop rule. Maintenance replay is not new evidence.
 
-BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; horizon_selected=false.
+BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; no selected horizon or confirmation clock.
