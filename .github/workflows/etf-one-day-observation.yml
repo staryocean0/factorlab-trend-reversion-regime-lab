@@ -2,53 +2,81 @@ name: etf-one-day-observation
 on:
   workflow_dispatch:
   push:
-    branches: [audit/etf-one-day-observation-v1]
-    paths: ['.github/workflows/etf-one-day-observation.yml']
+    branches: [main, audit/etf-one-day-observation-v1]
+    paths:
+      - '.github/workflows/etf-one-day-observation.yml'
+      - 'research/etf_one_day_review/**'
+      - 'tests/test_etf_one_day_review.py'
+      - 'data/etf_microstructure_sample_20251201_v1/**'
+      - 'docs/ops/evidence/etf_one_day_cloud_review_20260912/**'
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: etf-one-day-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  fixed-delivery-intake:
+  source-clock-and-interval-audit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 6004b42b1a6d68e13ec602126292a3709d474b70
-          persist-credentials: false
+          ref: ${{ github.sha }}
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /data/etf_microstructure_sample_20251201_v1/
+            /research/etf_one_day_review/
+            /tests/test_etf_one_day_review.py
+            /docs/ops/evidence/etf_one_day_cloud_review_20260912/
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: python -m pip install 'pyarrow>=19,<22'
-      - name: Verify actual bytes and Parquet metadata
+      - name: Check pure source-clock and session boundaries
+        run: python -m unittest discover -s tests -p test_etf_one_day_review.py -v
+      - name: Verify narrow raw scope
         run: |
           python - <<'PY'
-          import hashlib,json,os,subprocess
           from pathlib import Path
-          import pyarrow.parquet as pq
-          root=Path.cwd(); pack=root/'data/etf_microstructure_sample_20251201_v1'
-          raw=(pack/'manifest.json').read_bytes()
-          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='b7ccaca6bb0ae712922dd81cb84acd0e334d7847'
-          m=json.loads(raw); assert m['trading_day']=='2025-12-01' and len(m['logical_files'])==6
-          actual={str(p.relative_to(pack)) for p in pack.rglob('*.parquet')}
-          assert actual==set(m['logical_files'])
-          results=[]
-          for name,s in m['logical_files'].items():
-              p=pack/name; assert not p.is_symlink() and p.resolve().is_relative_to(pack.resolve())
-              b=p.read_bytes(); assert len(b)==s['bytes'] and hashlib.sha256(b).hexdigest()==s['sha256'],name
-              table=pq.read_table(p); assert table.num_rows==s['rows'],name
-              results.append(dict(path=name,**s,columns=table.num_columns,schema=str(table.schema)))
-          out=Path(os.environ['RUNNER_TEMP'])/'one-day-intake'; out.mkdir()
-          r={'status':'SIX_PARQUET_BYTES_AND_ROWS_VERIFIED_NOT_MARKET_CERTIFICATION','delivery_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'github_run_id':os.environ['GITHUB_RUN_ID'],'manifest_sha256':hashlib.sha256(raw).hexdigest(),'verified_files':results,'total_rows':sum(x['rows'] for x in results),'total_bytes':sum(x['bytes'] for x in results),'full_clone_required':False,'full_source_qualification':False,'returns_computed':False,'post2025_market_rows_read':False}
-          (out/'intake_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
-          print(json.dumps(r,ensure_ascii=False,indent=2))
+          p=Path('data/etf_microstructure_sample_20251201_v1')
+          assert set(Path('data').rglob('*.parquet'))==set(p.rglob('*.parquet'))
+          assert len(list(p.rglob('*.parquet')))==6
+          assert not Path('data/r1a_carrier_prices/cloud_pack_v1').exists()
           PY
+      - name: Read six original files and audit source observation structure
+        run: python research/etf_one_day_review/audit.py --output "$RUNNER_TEMP/day-audit"
+      - name: Compare to retained evidence when present
+        run: |
+          python - <<'PY'
+          import os,hashlib
+          from pathlib import Path
+          old=Path('docs/ops/evidence/etf_one_day_cloud_review_20260912')
+          new=Path(os.environ['RUNNER_TEMP'])/'day-audit'
+          if (old/'receipt.json').exists():
+              assert {p.name for p in old.iterdir() if p.is_file()}=={p.name for p in new.iterdir() if p.is_file()}
+              for p in old.iterdir():
+                  if p.is_file(): assert p.read_bytes()==(new/p.name).read_bytes(),p.name
+              print('Exact retained source-audit replay; not a new market test.')
+          else:
+              print('Initial audit; new evidence will be retained on the audit branch only.')
+          PY
+      - name: Persist initial evidence only on authorized audit branch
+        if: github.ref == 'refs/heads/audit/etf-one-day-observation-v1'
+        run: |
+          set -euo pipefail
+          dest=docs/ops/evidence/etf_one_day_cloud_review_20260912
+          if [[ ! -f "$dest/receipt.json" ]]; then
+            mkdir -p "$dest"
+            cp "$RUNNER_TEMP/day-audit/"* "$dest/"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add --sparse "$dest"
+            git commit -m 'audit: retain fixed-day source observations without strategy outcomes [skip ci]'
+            git push origin HEAD:audit/etf-one-day-observation-v1
+          fi
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: etf-one-day-intake-${{ github.run_id }}
-          path: |
-            data/etf_microstructure_sample_20251201_v1/
-            ${{ runner.temp }}/one-day-intake/intake_receipt.json
-          if-no-files-found: error
+          name: etf-one-day-review-${{ github.run_id }}
+          path: ${{ runner.temp }}/day-audit
+          if-no-files-found: warn
