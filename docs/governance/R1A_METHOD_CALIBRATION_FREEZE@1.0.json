@@ -1,0 +1,89 @@
+{
+  "schema_id": "factorlab_r1a_method_calibration_freeze@1.0",
+  "identity": "rmr_R1A_synthetic_serial_method_information_review_v1",
+  "status": "FROZEN_BEFORE_METHOD_SIMULATIONS",
+  "frozen_on": "2026-09-12",
+  "baseline_commit": "a4b86fc4c0a8a0d8cf18f5d92dac6998b6602e74",
+  "purpose": "Compare a finite list of inference procedures on synthetic outcomes with the disclosed historical exposure geometry, and quantify algebraic limits to control-noise averaging. Do not test real R1_A means again or consume a candidate confirmation sample.",
+  "known_before_freeze": "Historical endpoint means and prior robustness/feasibility results were observed. The old graph estimator rejected a nominal 5% null in 6.8%-22.2% of prior AR(1)=0.6 block simulations. No new simulation below has been run.",
+  "inputs": {
+    "pairs_path": "docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv",
+    "pairs_blob_sha1": "95191091d1a26c360c3efb5ae2d5be9cf194211d",
+    "endpoint_receipt_path": "docs/ops/evidence/r1a_endpoint_diagnostic_20260912/endpoint_receipt.json",
+    "endpoint_receipt_blob_sha1": "89f188522ddd657c8957ec2b85f8d0b57892143b",
+    "availability": "Only the two pinned endpoint_availability.csv files; no endpoint_returns.csv is loaded.",
+    "noise_path": "docs/ops/evidence/r1a_confirmation_feasibility_20260912/planning/historical_noise_NOT_new_tests.csv",
+    "noise_blob_sha1": "6d55ff4eca302c83f3b726f7d1c329487e39a307",
+    "index_manifest_blob_sha1": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "calendar": "Read only trading_day columns from the five hash-verified 2021-2025 CSI1000 1m parquet files. Do not load market OHLC or ETF return ledgers.",
+    "data_role": "Historical nuisance geometry/scales only; 2026 candidate remains metadata-only and is not accessed in this run."
+  },
+  "designs": {
+    "layers": ["INDEX_ALL_FROZEN_PAIRS", "ETF_OBSERVED_ENDPOINTS"],
+    "maps": {"000852.SH": "512100.SH", "000688.SH": "588000.SH"},
+    "horizons": [1, 5, 15, 30, 60, 120, 240],
+    "count": 28,
+    "calendar_block_trading_days": 20,
+    "origin_shift": 0,
+    "sampling": "Original pairs in index layer, pinned horizon-specific eligible pairs in ETF layer. No failed common-primary cohort return table."
+  },
+  "methods": {
+    "GRAPH_T_BASELINE": "Unchanged original union-of-exposure-cliques graph quadratic with n/(n-1), G/(G-1), IID-variance floor, and t[min(n-1,G-1)] critical values. Nonpositive raw graph variance abstains.",
+    "EXPOSURE_SCORE_HAC6": "Let H_ib=1 if pair i touches block b in either role, u_i=y_i-mean(y), q=H' u. Bartlett K_bc=max(1-|b-c|/7,0), fixed six 20-day-block lags. V=n/(n-1)*G/(G-1)*q'Kq/n^2; use max(V,IID variance), same t reference. Empty calendar blocks are retained. This PSD duplicated-incidence score construction overcounts some multi-block contributions and is an adaptation, NOT the standard Newey-West theorem automatically applying to pair observations.",
+    "FIVE_YEAR_GROUP_T": "For each of five original calendar years, use only pairs whose event and control entry/exit dates all lie in that year. Require >=10 pairs in each year. Calculate five group means, equal-weight their mean and estimate SE=sd(group means,ddof=1)/sqrt(5), t[4]. This is a DIFFERENT equal-period estimand in heterogeneous-effect settings; no real group means are computed. Group independence/normality are assumptions to stress-test, not established facts.",
+    "ORACLE_MEAN_NORMAL_REFERENCE": "Known synthetic covariance gives exact full-pair-mean variance; normal critical values. This is an unavailable-in-practice diagnostic benchmark, never eligible for deployment. Gaussian cases are exact; heavy-tail cases remain a normal approximation."
+  },
+  "simulation": {
+    "models": ["IID_GAUSSIAN", "BLOCK_GAUSSIAN_RHO0", "BLOCK_GAUSSIAN_RHO06", "BLOCK_GAUSSIAN_RHO09", "BLOCK_T5_RHO06", "HETEROSKEDASTIC_BLOCK_RHO06", "SIGNED_LEG_REUSE_RHO06"],
+    "repetitions_per_model": 2000,
+    "batch_size": 100,
+    "seed": 2026091207,
+    "burn_in_blocks": 256,
+    "effects_bp_assumed": [2, 4, 6],
+    "geometry": "Event/control exposure uses all 20-trading-day blocks between each entry and exit. Full calendar is shared across roles, horizons, indices and layers.",
+    "unsigned_loads": "B_ib=H_ib/sqrt(number of pair exposure blocks). Fit lambda from already disclosed marginal SD and primary historical SE using the previous independent-block moment equation, clipped to [0,0.95]. This matches nuisance scales only, not observed effects.",
+    "signed_model": "Calendar loads equal d/sqrt(2) times (normalized event-block incidence minus normalized control-block incidence). Idiosyncratic loads similarly use signed event-minus-control entry-clock shocks, with exact reuse shared. This is a stylized outcome model, not a reconstruction of minute prices.",
+    "dependence": "AR(1) block shocks rho=0/0.6/0.9 as named. T5 innovations and idiosyncratic errors have variance one. Heteroskedastic model multiplies block shocks in the latter half of the calendar by 2. Average marginal variance is normalized to the same disclosed SD within every design/DGP; that isolates covariance geometry rather than changing total noise arbitrarily.",
+    "joint_families": "Common block shocks are shared by all 28 designs in each replicate. Pair-specific errors are shared across horizons/layers of the same original pair; signed entry-clock errors are shared wherever reused within index. Independent error universes across indices. Report actual union rejection for each 14-contrast layer and the combined 28 contrasts, not only marginal adjusted p-values.",
+    "null": "mu=0. Two-sided nominal alpha=0.05; family-adjusted intervals use Bonferroni alpha/m. Invalid estimates cannot reject and are counted, including complete-family quantification rate.",
+    "power": "On identical draws add each fixed constant effect 2/4/6bp; calculate probability of a positive family14-adjusted lower bound. This is per-contrast model power on historical-sized geometry, not a future forecast or observed power.",
+    "limits": "No true DGP is inferred. Perfect across-horizon pair-error sharing is one explicit joint scenario, not empirically established. Constant effects make the different group estimand comparable in simulation only. No missingness identification or source validation is supplied by simulation."
+  },
+  "decision_rules": {
+    "severe_size_warning": "95% Wilson Monte Carlo LOWER bound exceeds 0.075 for a nominal 0.05 pointwise or joint-family rejection probability.",
+    "limited_simulation_screen": "A non-oracle method clears this screen only if no pointwise severe warning, every design has >=99% valid estimates, every joint-family MC upper bound <=0.075 across all seven models, and every family has >=99% complete quantification. This is NOT a real-market validity certificate or permission to use it on previously seen R1_A outcomes.",
+    "no_winner_search": "Report all methods/models. Do not change lag, group count, model list, seed, effects or tolerance after outcomes. Failure ends this bounded screening round rather than triggering unbounded estimator shopping."
+  },
+  "information_efficiency": {
+    "fixed_budgets_trading_days": [243, 486],
+    "effects_bp_assumed": [2, 4, 6],
+    "target_power": 0.8,
+    "family_sizes": [1, 14],
+    "required_variance_ratio": "budget / previous normal plug-in required_days (uncrounded formula), capped only for required reduction, not when reporting the ratio. These inherit prior variance assumptions and are NOT final confirmatory sample sizes.",
+    "multiple_controls": "Under equal event/control variance and independent event versus control errors, averaging K equicorrelated controls gives variance ratio [1 + r + (1-r)/K]/2 relative to one independent control. K=[1,2,5,10,infinity], r=[0,0.25,0.5,0.75]. Infinite independent controls can remove at most half of pair variance in this explicit balanced model. This is not a universal bound or a measured R1_A decomposition.",
+    "residualization": "Report required variance reduction without fitting any return-predicting model or claiming a realizable R-squared. No new matching rule is implemented."
+  },
+  "resource_budget": {
+    "one_fixed_run": true,
+    "synthetic_design_datasets": 392000,
+    "joint_model_replicates": 14000,
+    "methods_per_dataset": 4,
+    "actions_job_timeout_minutes": 20,
+    "retry_policy": "Only demonstrable code/test/environment defects may be fixed, preserving all protocol choices and a failure receipt. No adaptive statistical extension."
+  },
+  "references": [
+    "https://www.nber.org/papers/t0055",
+    "https://arxiv.org/abs/1903.01059",
+    "https://collaborate.princeton.edu/en/publications/t-statistic-based-correlation-and-heterogeneity-robust-inference/",
+    "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm"
+  ],
+  "real_R1A_means_retested": false,
+  "confirmation_outcomes_authorized": false,
+  "matching_changed": false,
+  "horizon_selected": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "confirmation_clock_started": false
+}
