@@ -1,0 +1,17 @@
+{
+  "schema_id":"factorlab_known_etf_action_patch@2.0",
+  "status":"KNOWN_ACTIONS_CORRECTED_NOT_FULL_HISTORY_CERTIFICATION",
+  "price_pack":"data/r1a_carrier_prices/cloud_pack_v1",
+  "raw_prices_modified":false,
+  "window":{"start":"2021-01-01","end":"2025-12-31"},
+  "overlay":"docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json",
+  "overlay_sha256":"164ad91cdb4b787475374e56c278008f31fb677d7e092a194308c9cfe2ed3b26",
+  "full_source_qualification_complete":false,
+  "microstructure_research_admitted":false,
+  "known_action_files":[
+    {"symbol":"512100.SH","path":"data/etf_source_actions_v2/512100.SH_actions.csv","sha256":"184b47945b034de1977650fd82bfd4d07f41ba67d0954dd32030ac9c0df5d82a","bytes":285,"rows":2},
+    {"symbol":"588000.SH","path":"data/etf_source_actions_v2/588000.SH_actions.csv","sha256":"3e0ea91b3250fe460aa14646596ae6f56518ffecc94c68d131819c398075920a","bytes":43,"rows":0}
+  ],
+  "cancellations_and_suspensions":"See source overlay. 2022-08-03 proposed split is cancelled, no factor or halt applied; 2022-09-02 consolidation suspension resumes 2022-09-05.",
+  "interpretation":"Header-only 588000 is known-action inventory only, NOT proof of no action in the full window. This is not a replacement admitted carrier-price manifest. Legacy prices/action files remain for exact historic reproduction."
+}
