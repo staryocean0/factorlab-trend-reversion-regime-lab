@@ -1,0 +1,64 @@
+{
+  "schema_id": "factorlab_etf_upstream_cloud_review@1.0",
+  "decision": "UPSTREAM_EXPLANATION_PARTIALLY_VERIFIED_ONE_DAY_QUOTE_DELIVERY_PENDING",
+  "delivery_commit": "7bc9f893cf045e07479f251a8aa3a7c7e012d52a",
+  "manifest_sha256": "f6cd653ecd01a6483bff1ef5a1e776eed64986b6785d8bb9371453577f95ca57",
+  "verified_payload_files": 35,
+  "verified_payload_bytes": 183066,
+  "full_upstream_copies_hash_checked": 3,
+  "excerpt_sections_matched_to_delivered_fulltext": 4,
+  "anomaly_rows_verified": 20,
+  "anomaly_history_matches": 20,
+  "dataset_identity_only_differences": 20,
+  "index_sample_rows": 8,
+  "index_observed_rows": 4,
+  "index_filled_rows": 4,
+  "index_3s_rows": 8,
+  "source_function_probes": {
+    "raw_1m_offset_rejections": 2,
+    "scalar_index_label_cases": 8,
+    "synthetic_prior_close_causality_check": true,
+    "leading_gap_rejected": true,
+    "full_index_aggregation_replayed": false,
+    "production_configuration_reconstructed": false
+  },
+  "legacy_label_decoding_supported_for_fixed_source": true,
+  "native_ETF_trade_bucket_verified": false,
+  "volume_unit": "UNRESOLVED_CONFLICT_SHARES_VS_CATALOG_LOTS_LIMITED_SCOPE",
+  "volume_zero_cause": "UNKNOWN_BELOW_IMPORTED_ARCHIVE_LAYER",
+  "shared_upstream_not_independent_sources": true,
+  "source_repositories_independently_authenticated": false,
+  "archive_vendor_originals_available": false,
+  "exchange_publication_times_verified": false,
+  "available_at_homogeneous_realtime_field": false,
+  "corporate_action_complete": false,
+  "quote_trade_inventory_only": true,
+  "quoted_product_start_is_instrument_start": false,
+  "new_quote_prices_read": false,
+  "post2025_candidate_prices_read": false,
+  "post2025_source_metadata_and_action_rows_present": true,
+  "return_population_opened": false,
+  "new_model_fits": 0,
+  "R1A_reserve_unchanged": true,
+  "production_authority": false,
+  "fresh_oos": false,
+  "BLACKBOX_query_count": 3,
+  "old_values_or_manifests_modified": false,
+  "files": [
+    {
+      "path": "anomaly_comparison.csv",
+      "sha256": "11bacacdf404bc9ba404b984ec924ec58c4c135f42c2c8490936d675e518beb9",
+      "bytes": 2605
+    },
+    {
+      "path": "index_time_channels.csv",
+      "sha256": "ae84a6a23c1e3a0bbc6544a1bf3be2fb252258a227b440e03e2e7d8130d0edf7",
+      "bytes": 1033
+    },
+    {
+      "path": "inventory_assessment.csv",
+      "sha256": "423a72da658c9e10d9ac1bc9c6286403db6efdd21c1ced4466001c55611b8a92",
+      "bytes": 1144
+    }
+  ]
+}
