@@ -1,11 +1,11 @@
 # AI entry
 
-Read CONTINUE_HERE.md, docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md, PROMPT.md and AGENTS.md.
+Read CONTINUE_HERE.md, AGENTS.md and docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md.
 
-Latest task is complete: BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY. No feasible method cleared the entire fixed synthetic screen; no real R1_A means were retested and no 2026 outcomes were opened. R1_A remains an unconfirmed lead, not a closed mechanism.
+Latest: DEVELOPMENT_NOISE_ACCOUNTING_COMPLETED_NOT_ALPHA_TEST.
 
-End the fixed estimator sweep. Any next authorized work needs a concrete Development-only noise/measurement decomposition, not bandwidth, grouping or p-value shopping. That future task has not run in this receipt.
+Actual CSI1000 2015-2020 Development and STAR50 short 2020 context were decomposed. Pair-level event dispersion and calendar-level control exposure concentration are distinct findings. No new inference/alpha PASS; no 2021-2025/ETF/2026 returns opened by this runner.
 
-Historical actual ETF CSVs are available. No routine local transfer. 2026 candidate remains metadata-only; failed primary common-all-horizon cohort remains unopened. Preserve all old source/identity/freeze/evidence states.
+Any next control-baseline redesign requires its own freeze, event-time information boundary and full coverage/balance accounting; do not silently rematch the old Validation ledger or shop p-values. No local data-transfer task is outstanding.
 
-BLACKBOX_query_count=3; no #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; no confirmation clock or selected horizon.
+BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; no confirmation clock.

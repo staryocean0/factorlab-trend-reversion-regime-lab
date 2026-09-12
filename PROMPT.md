@@ -1,37 +1,22 @@
-# 云端研究接管 — 有限方法校准已完成
+# 接管提示：真实开发期噪声分解已完成
 
-仓库 staryocean0/factorlab-trend-reversion-regime-lab。先读 CONTINUE_HERE.md 和 docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md，安全同步主干，不覆盖本地未提交改动。
+仓库：staryocean0/factorlab-trend-reversion-regime-lab。
+先检查 git status，保护本地改动，安全同步 main。先读 CONTINUE_HERE.md 与 docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md。
 
-## 最新实际停点
+当前状态：DEVELOPMENT_NOISE_ACCOUNTING_COMPLETED_NOT_ALPHA_TEST。
+不是等待本地模型补数据。现有历史 ETF 文件已在云端；本轮指数开发数据也已在 GitHub Actions 实际计算。
 
-BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY。
+已完成内容：
+- 中证1000使用原2015—2020开发期，1752组R1_A事件/对照；科创50仅2020短样本，156组。
+- 原信号、阈值与匹配算法不改，另存DEV配对；没有把2021—2025验证期改称开发期，没有重配旧验证样本。
+- 全报七周期事件方差、对照方差、协方差；按真实分钟时钟拆账重复及重叠暴露；分组与假设性多对照测算完整留存。
+- 单个配对中事件腿更波动，但汇总到实际行情日期后，对照的重复、区间重叠造成暴露集中。两种方差不能混同，更不等于已校准的均值标准误。
 
-七个预定模拟模型、28个设计、每模型2000组联合重复，三种可实现方法加一个已知协方差参照，已经执行完成。不要再把它当待设计或未执行的任务。
+精确证据位于 docs/ops/evidence/r1a_development_noise_20260912/。
+复现代码位于 research/r1a_development_noise/。使用新输出目录，不覆盖旧receipt。
 
-HAC6在中等持续相关情景下明显减少误报，但更强持续相关仍不稳健。五年分组法整体多重检验表现较好，但单项误报不满足预定要求，且把目标改成年度等权。没有可实现方法通过全部预定筛查；已知协方差参照不可部署。
+下一项若获授权，应讨论并另行冻结对照基准：事件发生时即可确定、限制或明确计入相同及重叠对照暴露、完整报告事件覆盖与协变量平衡。先做结果盲的可行性检查，不按收益选择设计。改有限样本对照定义属于新测量设计，不能用来追认旧显著性。
+本轮并未实现这一新设计。不要把“已发现集中暴露”写成“已实现降噪”。也不允许为过门槛丢事件、删年份、挑方向或改周期。
 
-未使用真实R1_A收益重新计算p值，没有读取2026行情，也没有消耗新的确认样本。R1_A仍是历史线索，不是已证实策略，也没有判定机制无效。
-
-## 不再无限扩展方法筛选
-
-本轮有限方法筛选到此结束。不能调整分块、滞后、组数、随机种子、模拟情景或判定容忍度，直到出现PASS；也不能拿新方法去反复检验旧R1_A收益。
-
-后续经授权的具体问题应是：在已使用的Development资料中分解事件噪声、对照噪声、方向相反的共同冲击与协方差，确认哪些成分实际主导，以及是否有不依赖未来信息的降噪测量。先单独冻结这种诊断，不能把它当新的独立验证。当前回执尚未执行或冻结这项后续研究。
-
-原样本量假设下，4bp增量在一年内确认需要约94.65%/98.01%的噪声方差减少；这不是实际可达到的R平方。在事件/对照等方差且独立的明确模型中，无限独立对照最多减半噪声；这个条件结论不能冒充真实R1_A噪声分解。
-
-## 数据与边界
-
-历史ETF原文件已在 data/r1a_carrier_prices/cloud_pack_v1/，不要再要求本地模型搬运。隔夜仓2026中证1000分钟候选真实存在，但有重复使用记录，R1_A专属暴露情况未确定，仍只允许元数据层，不打开价格或确认收益。
-
-保留原信号、原配对、方向、两只ETF、七周期、全部旧冻结和结果。失败的主载体七周期共同样本收益表不打开。不开期权，不改交易成本/止损/时段/阈值救活旧身份。没有正式确认协议或观察时钟启动。
-
-BLACKBOX_query_count=3；禁止#4；production_authority=false；fresh_oos=false；horizon_selected=false。
-
-## 复现
-
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src:. python research/r1a_method_calibration/study.py --output /tmp/r1a-method-new
-
-PYTHONPATH=src:. python -m pytest -q tests/test_r1a_*.py
-
-每次使用全新输出目录。回归复算是确定性核验，不是重新获取策略证据。
+不继续更换统计公式寻找历史p值，不启动正式确认，不打开2026候选行情，不返回期权。旧失败身份和数据质量门槛保留。
+BLACKBOX_query_count=3，禁止query #4；production_authority=false；fresh_oos=false；confirmation_protocol_frozen=false。

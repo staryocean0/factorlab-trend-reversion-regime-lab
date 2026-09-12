@@ -1,17 +1,17 @@
 # Reversal / Mean-Reversion Research
 
-Read CONTINUE_HERE.md and docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md.
+Read CONTINUE_HERE.md and docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md.
 
-Latest completed: BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY. The fixed seven-DGP, 28-design, three-method-plus-oracle synthetic sweep actually ran. No real R1_A mean/p-value was retested and no 2026 outcome was read.
+Latest completed: DEVELOPMENT_NOISE_ACCOUNTING_COMPLETED_NOT_ALPHA_TEST. The pre2021 actual event/control dispersion, exact minute exposure, calendar contribution and fixed stratum decomposition has executed. Do not rerun it as new alpha evidence or relabel consumed 2021-2025 Validation as Development.
 
-No feasible method cleared the entire prespecified screen. HAC6 improved moderate-serial cases but not all strong-persistence cases. Five-year group t had acceptable displayed-family behavior in the grid but failed marginal safeguards and changes the target to equal-year means. Oracle behavior is not a deployable estimator. Do not treat simulated worst-case size as real-market size or lower rejection as automatically more information.
+Primary original Development is CSI1000 2015-2020; STAR50 2020 is only a short context. The original signal/threshold/matching code was reused unchanged on a separately labeled DEV cohort. Existing Validation pairs, all old outcomes and source bytes are untouched.
 
-End this fixed estimator sweep; do not tune more lags/groups/seeds/DGP exclusions to generate PASS. A next authorized task would be a separately frozen Development-only decomposition of event/control/signed-common noise, not real-history significance shopping. Any changed estimand or matching is a new disclosed design, never a rewrite of old results.
+Distinguish individual-pair variance, aggregate daily contribution variance and long-run mean uncertainty. Event dispersion dominates at pair level while reused/overlapping controls dominate parts of calendar contribution risk. Do not present overlap weight-energy ratios as measured design effects, ex-post stratum means as causal predictors, or hypothetical extra-control gains as attained performance. The latent economic noise process is not identified.
 
-R1_A remains an unconfirmed historical lead, not disproved or production-ready. Required 94.65%/98.01% one-year variance reductions at assumed 4bp inherit prior planning assumptions. The infinite-controls 50% floor is only an explicit balanced independent-noise model, not measured R1_A truth.
+The generic method sweep is closed. A next authorized design would address event-time-available controls, exact and interval reuse, covariate balance and event coverage before outcomes. It requires a separate freeze and estimand disclosure. Do not silently replace the old contrast, drop difficult events, change horizons, add side/year/regime filters or revisit real-history p-values.
 
-Historical actual ETF CSVs are already public. Do not request repeat delivery. A 2026 CSI1000 candidate exists with repeat-use metadata; R1_A-specific exposure is unresolved. Keep it metadata-only until appropriate source/exposure qualification and final design approval. No confirmation protocol/clock, automation, purchase or account action has started.
+R1_A remains an unconfirmed lead; no formal confirmation protocol/clock or production promotion. 2026 candidates stay metadata-only pending source/exposure and design qualification. The historical ETF pack is already public; no repeat local delivery is needed.
 
-Preserve all source data, old freezes, signals, original pairs/directions/ETF maps/seven horizons and receipts. Do not open the failed primary common-all-horizon ETF cohort. No fills, horizon selection, filters, cost/stop/target/borrow/futures/option rescue. R1/R2 certifications and closed R1_B/R2-directional/MO identities remain.
+Keep old full-path and failed common-cohort gates intact. No fills, signal refit, cost/stop/target/borrow/futures/options rescue. R1/R2 certifications and closed R1_B/R2-directional/MO identities remain.
 
-BLACKBOX_query_count=3; no #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; horizon_selected=false. Use fresh output directories.
+BLACKBOX_query_count=3; no #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; horizon_selected=false. Always use fresh output directories.

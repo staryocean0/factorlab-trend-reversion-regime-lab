@@ -2,66 +2,76 @@
 
 ## Latest completed task
 
-**`BOUNDED_SYNTHETIC_METHOD_REVIEW_COMPLETED_NO_CONFIRMATION_AUTHORITY`**
+**`DEVELOPMENT_NOISE_ACCOUNTING_COMPLETED_NOT_ALPHA_TEST`**
 
-The limited method-only calibration and information-efficiency review has executed. No implementable method clears the complete prespecified synthetic screen; no real R1_A p-value was recalculated and no confirmation sample was opened. R1_A remains an unconfirmed historical lead, not a disproved mechanism.
+The user-authorized real event/control noise decomposition has executed, not merely been proposed. R1_A remains an unconfirmed historical price lead. No new significance test, preferred horizon, confirmed trading edge or production permission was issued.
 
 Read first:
 
-1. `docs/research/R1A_METHOD_CALIBRATION_REVIEW_20260912.md`
-2. `docs/ops/evidence/r1a_method_calibration_20260912/REPORT.md`
-3. `docs/ops/evidence/r1a_method_calibration_20260912/method_receipt.json`
-4. `docs/governance/R1A_METHOD_CALIBRATION_FREEZE@1.0.json`
-5. `research/r1a_method_calibration/README.md`
+1. `docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md`
+2. `docs/ops/evidence/r1a_development_noise_20260912/REPORT.md`
+3. `docs/ops/evidence/r1a_development_noise_20260912/noise_receipt.json`
+4. `docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json`
+5. `research/r1a_development_noise/README.md`
 
-Freeze commit `3032c6567b15c7df705f09101d63ba1caeadd4d1`; decisive code `bd1b4b7fac45bf5075be84a4a666287df4a411b9`; Actions `34662714569`, job `103468357915`: SUCCESS.
+Freeze `6315a8c8f0f31b34b02d40392ea2d5b484ad5f33`; decisive code `ea7baea732a8b664509b168937c9ab45b31f22ad`; Actions `34664796626`, job `103474436130`: SUCCESS.
 
-## Actual execution scope
+## Scope and source boundary
 
-Seven stipulated DGPs x 28 fixed layer/carrier/horizon designs x 2,000 replicates =392,000 design datasets in 14,000 jointly simulated replicate universes. Three feasible methods and a nondeployable oracle are fully reported. There are 784 method cells, 84 directly simulated joint-family checks, 336 information-budget rows and 20 multiple-control assumption rows.
+CSI1000 uses the ORIGINAL Development period 2015-01-05..2020-12-31: 350,561 minutes, 1,462 dates, 1,752 eligible matched events, 1,482 unique controls. STAR50 uses only 2020-07-23..2020-12-31: 156 pairs on 110 dates, a short context check rather than full replication.
 
-The method reader only uses original pair/availability identities, disclosed historical SD/SE values and trading_day columns from five hash-verified 2021-2025 index files. It does not load market OHLC or ETF return ledgers. The decisive checkout excluded ETF outcomes, ETF raw data and new candidate prices. Shared calendar and pair shocks are modeled jointly across layers/horizons; not every possible joint dependence is established.
+Only seven pre2021 index price partitions were read. No 2021-2025/ETF/MO/2026 price or return table was opened by this runner. Do not call the previous 2021-2025 paired Validation ledger a Development set. The old signal engine/thresholds and matching algorithm were reused unchanged inside the Development limits; the new DEV cohort does not replace old pairs. All seven horizons share the same pre2021, 240-bar-complete cohort.
 
-## Findings
+## What was learned
 
-Under imposed AR(0.6) calendar shocks, nominal-5% marginal error across designs is 7.55%-22.65% for the old graph, 2.20%-5.45% for fixed exposure-score HAC6 and 5.20%-7.00% for five-year group t. Under stronger AR(0.9), these become 18.55%-50.30%, 6.15%-19.85% and 9.30%-16.00%.
+Individual CSI1000 pairs, h15/h30:
 
-For the 14-contrast ETF family, AR(0.6) errors are 11.75%/2.40%/1.75%; AR(0.9) errors are 38.60%/10.35%/5.10%. Group t has no severe FAMILY flag but fails marginal safeguards and changes the estimand to equal-year weighting; do not misreport it as failing every joint check. The oracle does well but knows the imposed covariance and cannot be used on real unknown data.
+| Quantity | h15 | h30 |
+|---|---:|---:|
+| Event SD, bp | 70.745 | 99.850 |
+| Control SD, bp | 49.940 | 68.887 |
+| Difference SD, bp | 82.659 | 114.823 |
+| Event-control correlation | 0.0943 | 0.1113 |
+| Event variance contribution | 73.25% | 75.62% |
+| Control variance contribution | 36.50% | 35.99% |
+| Covariance contribution | -9.75% | -11.61% |
 
-No feasible method passes the complete frozen screen. Finite simulation success would not itself certify market validity anyway. All methods quantified every replicate; none obtained low rejection by hiding failed draws.
+These are empirical dispersions, NOT standard errors of a mean or identified unpredictable noise.
 
-Signed event/control loadings with exact reuse behave materially differently from unsigned common-load shocks: old graph size in the signed AR(0.6) case is 4.00%-4.90%. This is a hypothetical cancellation mechanism, not proof of the actual R1_A covariance structure. Do not treat the worst unsigned model as market truth.
+On the actual calendar, aggregate control legs concentrate on repeated/overlapping price intervals. The daily difference-variance accounting becomes event 21.00%/24.55%, control 82.68%/79.30%, covariance -3.68%/-3.85%. This different accounting unit does not contradict the individual-pair table and is not a calibrated mean-variance estimator.
 
-## Information efficiency, explicitly conditional
+25.34% of pairs use repeated control entries, maximum reuse 10. Control minute-weight energy is 2.96x/3.73x the sum of individual-control energies at h15/h30 under a hypothetical independent-equal-minute-shock reference. Distinct overlapping control intervals, not just identical IDs, are a large component. Do not call these measured real-market design effects.
 
-Under the previous normal power/noise assumptions, a 243-day index budget for a true 4bp effect with family14/80% power needs approximately 94.65% (h15) or 98.01% (h30) variance reduction: 18.69x/50.27x information. These are NOT attainable-R-squared claims, forecasts or universal limits.
+The inherited control rule is retrospective: 38.13% of control entry indices occur later than their event; median absolute calendar separation is 49 trading days. About 20% of pairs also have overlapping event/control paths at h15/h30. No future-treatment exclusions or rematching were introduced to remove these cases.
 
-In the explicit balanced independent event/control noise model, averaging infinitely many independent controls can only halve paired variance (2x information). Correlated controls improve less. This does not establish actual R1_A noise composition and no matching was changed.
+The fixed year/direction/clock strata explain only 8.66%/7.36% of difference variance BETWEEN strata; most remains within. Group means are ex-post, not a causal predictor. Tail square concentration is reported without trimming. The measured unequal marginal scales imply only 1.50x/1.48x information from infinitely many independent controls in the expressly independent reference model, not a universal limit or an attained gain.
 
-## Current decision and next boundary
+## Next boundary — control baseline, not another test formula
 
-Do not launch formal confirmation or execution. End this fixed estimator sweep; do not shop more lags, group counts, seeds, model exclusions or real-history p-values. Preserve R1_A as a lead, not a closed mechanism.
+This accounting is complete. The generic estimator sweep remains closed. No new formal confirmation protocol or prospective clock is authorized.
 
-If further work is authorized, the bounded scientific question is **Development-only event/control and signed-common-noise decomposition**, not another significance search. Determine which variance components actually dominate and whether a causally available measurement could materially reduce them without changing the intended target. Any changed target or matching rule is a separately disclosed design. That future study has not run or been frozen by this method receipt.
+Any next proposal should address the control baseline and exposure allocation using only information available at event time, limit or account for both exact and overlapping reuse, and preserve the intended event population or explicitly disclose non-identification. Coverage and covariate balance must be checked before outcomes. Changing the finite matched-pair contrast is a NEW measurement design; it cannot retroactively improve old p-values or turn an ex-post covariance decomposition into a tradable signal.
 
-Keep the known 2026 CSI1000 candidate metadata-only until source/exposure qualification and a defensible final design exist. No confirmation clock, automated collection, purchase or live trade has started.
+This round does not implement that redesign. Do not silently drop difficult events, dates, sides or horizons; do not choose control rules using Validation returns. No ETF/missing-price repair, signal refit, cost/stop/target/option/futures search is implied.
 
-## Available data and preserved history
+## Available data and retained authority
 
-The actual historical ETF pack remains `data/r1a_carrier_prices/cloud_pack_v1/`; no local DataHub/private dependency or routine transfer request remains. A 2026 CSI1000 file exists in the overnight repository, with known repeat-use metadata and unresolved R1_A exposure. Do not claim no 2026 data exist or that it is fresh holdout.
+No local data-transfer task is outstanding: the 2021-2025 ETF CSV pack remains public under `data/r1a_carrier_prices/cloud_pack_v1/`. It was not needed for this pre2021 index-only noise decomposition.
 
-All old signals, pairs, directions, seven horizons, fixed ETF maps, raw bytes and receipts are preserved. Both endpoint diagnostics remain completed; full-path v1 remains PARTIAL_CARRIER_TRANSPORT under its own definition. The primary failed all-seven-endpoint common-cohort ETF table stays unopened. Source zero-volume semantics and missing-outcome selection remain unresolved by synthetic simulations.
+Both ETF endpoint diagnostics remain completed; the separate original full-path v1 remains PARTIAL_CARRIER_TRANSPORT under its own definition. The failed primary all-seven-endpoint common cohort stays unopened. All original evidence, data, signals, Validation pairs and closes are intact.
 
-Earlier decisions: `R1A_CONFIRMATION_FEASIBILITY_REVIEW_20260912.md`, `R1A_ENDPOINT_ROBUSTNESS_REVIEW_20260912.md`, and `R1A_ENDPOINT_METHOD_REVIEW_20260912.md` under `docs/research/`. They are historical evidence, not competing latest instructions.
+A 2026 CSI1000 candidate exists in the overnight repository, with repeat-use metadata and unresolved R1_A exposure; it remains metadata-only. Do not claim no 2026 data exist or call it fresh holdout.
 
-R1/R2 mechanism certification and closed R1_B/R2-directional/MO identities remain unchanged. `BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
+R1/R2 certifications and closed R1_B/R2-directional/MO identities are unchanged. Prior method and feasibility reviews remain available in docs/research, as history rather than competing latest instructions.
 
-## Reproduce — fresh directory only
+`BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
+
+## Reproduce only into a fresh directory
 
 ```bash
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONPATH=src:. \
-  python research/r1a_method_calibration/study.py --output /tmp/r1a-method-new
-PYTHONPATH=src:. python -m pytest -q tests/test_r1a_*.py
+PYTHONPATH=src:. python -m pytest -q tests/test_r1a_development_noise.py tests/test_development_noise_retained.py
+PYTHONPATH=src:. python research/r1a_development_noise/study.py --output /tmp/r1a-dev-noise-new
+PYTHONPATH=src:. python research/r1a_development_noise/verify_replay.py --reference docs/ops/evidence/r1a_development_noise_20260912 --replay /tmp/r1a-dev-noise-new --output /tmp/r1a-dev-noise-audit.json
 ```
 
-Regression replays old experiments only to check reproducibility, not to generate new significance claims. No live data-role probe is needed for ordinary tests.
+A separate narrow readonly regression workflow protects the Development-only input boundary and reproduces these eight tables; the existing broader historical-regression workflow remains intact. Reproduction is not new scientific evidence.
