@@ -1,0 +1,57 @@
+{
+  "schema_id": "factorlab_r1a_evidence_closeout_freeze@1.0",
+  "status": "FROZEN_BEFORE_NEW_DERIVED_ACCOUNTING_NOT_BEFORE_PRIOR_OUTCOMES",
+  "session_date": "2026-09-12",
+  "baseline_commit": "23e5c2bacf2dd1c43c84843aac256f5f41891c43",
+  "identity": "rmr_R1A_cross_study_evidence_and_forecast_accounting_v1",
+  "authorization": "User approved cross-study evidence reconciliation, existing forecast-error decomposition and a stage-level continue/reserve decision. No new empirical model is authorized.",
+  "purpose": "Reconcile what each completed study measures and explain already saved forecast loss changes. Not a new alpha test, model comparison, return backtest or causal identification exercise.",
+  "sources": {
+    "forecast_directory": "docs/ops/evidence/r1a_walkforward_prediction_20260912",
+    "forecast_receipt_git_blob_sha1": "0bdf7738cd2a7e73bb20b85b8613dd2954ae488b",
+    "forecast_csvs": ["event_predictions.csv", "scores.csv", "all_original_event_coverage.csv", "fold_training_audit.csv", "model_parameters.csv", "prefix_identity_audit.csv", "daily_loss_accounting.csv", "loss_lag_products.csv"],
+    "reference_policy": "Use only committed reports, freezes, receipts, original Development identity/features and already produced ledgers at baseline_commit. Pin an explicit allowlist by Git blob SHA1 and SHA256 before executing derived calculations. Verify every forecast CSV against the ORIGINAL receipt. No raw market file, new data acquisition, closed selected-pair outcome or 2026 candidate is read.",
+    "no_raw_market_data": true
+  },
+  "forecast_scope": {
+    "symbol": "000852.SH",
+    "original_consumed_development": "2015-01-05..2020-12-31",
+    "warmup_information_year": 2015,
+    "evaluation_information_years": [2016, 2017, 2018, 2019, 2020],
+    "original_event_count": 1752,
+    "warmup_events": 645,
+    "scored_events_per_horizon": 1107,
+    "horizons": [1, 5, 15, 30, 60, 120, 240],
+    "groups": ["pooled", "every evaluation year", "LONG", "SHORT", "every year x direction"],
+    "no_filtering": "Use every previously scored event at every horizon. Preserve warm-up, terminal cohort limitations and all support flags. No tail trimming or removal of hard events."
+  },
+  "accounting": {
+    "definitions": "y=stored target_bp; p0=stored parent prediction; p1=stored enhanced prediction; e=y-p0; g=p1-p0",
+    "observation_identity": "(y-p0)^2-(y-p1)^2=2*e*g-g^2",
+    "centered_identity": "mean loss gain=(2*mean(e)*mean(g)-mean(g)^2)+(2*Cov(e,g)-Var(g)); use ddof=0 throughout",
+    "bias_variance_identity": "MSE_j=mean(y-pj)^2+Var(y-pj); bias-square reduction plus centered-error-variance reduction equals mean loss gain",
+    "report": ["all observed target and forecast means", "adjustment mean/median/SD/sign fraction", "alignment 2*mean(e*g) and adjustment-square cost", "bias-square and centered-error components", "all seven horizons by all declared groups", "frozen enhanced R1_A coefficient by year/horizon and changes in shared coefficients", "pooled vs within-year decomposition with exact count weights", "zero-forecast and past-mean benchmark loss reconciliation"],
+    "parameter_limit": "An indicator changes a jointly fitted model. The difference between two predictions is NOT simply the enhanced indicator coefficient. Centered-coordinate intercept and scaling must be respected. No parameter is re-estimated. Any unsupported coefficient attribution must be explicitly marked unavailable rather than infer missing feature times.",
+    "interpretation": "Ex-post mean-bias and centered-error bookkeeping is not the classical repeated-training bias/variance/noise decomposition; it identifies neither economic causation nor attainable out-of-sample correction. A positive alignment can arise from correcting overprediction, not stronger positive expected return. Shares can be negative or exceed 100%; no clipping. Small relative MSE changes are not by themselves economic insignificance. No new SE, p-value or CI."
+  },
+  "cross_study_reconciliation": {
+    "fields": ["study identity", "source paths", "data dates and role", "population/denominator", "unit", "target/estimand", "reported result", "limitations", "whether directly comparable to forward event loss", "reason for non-comparability"],
+    "stages": ["raw index price response", "matched-parent return increment", "ETF full-path and endpoint transport", "retrospective robustness", "feasibility and synthetic method screens", "actual Development noise", "strict control-design failure", "walk-forward forecast"],
+    "no_pooling": "Do not average unequal estimands, mix bp and bp^2, count overlapping replays as independent evidence, relabel consumed Validation as Development or model-defined diagnostic failure as universal signal failure.",
+    "audit_scope": "Check committed evidence identities, arithmetic, published score consistency, temporal/cohort accounting and interpretation. This is not an independent raw-source, exchange-provenance or complete signal-engine verification."
+  },
+  "termination": {
+    "material_discrepancy": "Document exact failing input/identity/arithmetic and scope; do not promote conclusions. Repair only the verified error, preserve old evidence, and distinguish evidence repair from retuning.",
+    "no_material_discrepancy": "Publish a reasoned program decision. If previously weak/inconsistent evidence stands, move CURRENT R1_A price-strategy formulation to reserve and pause automatic active development, not claim zero alpha or close all mean-reversion research.",
+    "reopening": "Requires a concrete independently justified question or reproducible material error, explicit authorization, declared resource budget and stop rule. Do not automatically append a model/feature/horizon/cost/option sweep or consume the known 2026 candidate."
+  },
+  "numerics": {"rtol": 1e-9, "atol_bp2": 1e-7, "normalization": "ddof=0", "discrete_fields": "exact equality"},
+  "budget": "One deterministic pass over pinned existing evidence plus synthetic algebra tests and replay. New model fits=0; new signal generation=0; new strategy returns=0; new inference=0. End with evidence table, error decomposition and program-level decision.",
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "confirmation_clock_started": false,
+  "horizon_selected": false,
+  "references": ["https://numpy.org/doc/stable/reference/generated/numpy.var.html", "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html"]
+}
