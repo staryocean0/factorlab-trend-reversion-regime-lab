@@ -1,13 +1,15 @@
 # FactorLab Trend–Reversion Regime Lab
 
-Current frontier: **upstream explanation partially verified; one-day quote delivery pending**.
+Current frontier: **one-day files verified; restricted source-label replay available; terminal interval defect identified; real-time and NAV qualification not granted**.
 
-The user-delivered source materials at `data/etf_upstream_evidence_v1/` were actually read and checked. Fixed legacy bar-time decoding and producer metadata assignments are now documented; this does not certify exchange publication times, every historical unit or complete action records. No new strategy outcomes were computed.
+Read [CONTINUE_HERE.md](CONTINUE_HERE.md) and [one-day cloud review](docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md).
 
-Read [`CONTINUE_HERE.md`](CONTINUE_HERE.md) and [`ETF upstream cloud review`](docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md).
+The six actual Parquet files in `data/etf_microstructure_sample_20251201_v1/` were independently read from the user's fixed delivery commit. 123,307 rows / 3,569,715 bytes, all hashes/row identities checked. No full clone or retransmission is needed.
 
-Next prepared data task: [`2025-12-01 one-day source delivery`](docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md). Only already accessible ETF quotes/trades and corresponding index observations plus source definitions are requested. Existing five-year minute data and already delivered source text need not be retransferred. Inventory metadata is not an admitted quote tape; no purchase, 2026 opening or price-repair backtest follows automatically.
+Source-state checkpoints, stable sequences and restricted continuous label intervals were inspected; raw trade quantity totals equal final quote cumulative quantity for both ETFs. Both final post-close valid intervals are reversed and must not be used as valid intervals. This is a source-product boundary defect, not delivery corruption. Raw files are preserved.
 
-R1_A remains an unconfirmed reserved lead with active development paused. Prior known 512100 action omission was versioned and audited; published samples/means were unchanged. Old source files, research freezes, results and failures are retained. Full source qualification is still incomplete.
+The data support bounded historical source-label checks, not verified exchange receipt-time alignment, nonzero IOPV, complete source history or executable arbitrage. No price-repair return, lead-lag, half-life or threshold experiment was run. No automatic purchase, date expansion or 2026 opening follows.
 
-`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Engineering regression success does not certify a trading strategy.
+R1_A remains an unconfirmed reserved lead with active development paused. Known 512100 action omission was separately repaired; published cohorts and means did not change. All old prices, freezes, outcomes and failures remain.
+
+`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Engineering success is not trading-strategy certification.

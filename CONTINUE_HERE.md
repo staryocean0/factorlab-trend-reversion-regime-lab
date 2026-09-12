@@ -1,39 +1,46 @@
-# Continue here — one-day 2025-12-01 source files delivered; waiting cloud review
+# Continue here — one-day raw delivery and cloud observation audit complete
 
 ## Current frontier
 
-Local pack: `data/etf_microstructure_sample_20251201_v1/`. Cloud still has to hash the six parquet files and decide whether they close the observation gap. The last cloud verdict remains `UPSTREAM_EXPLANATION_PARTIALLY_VERIFIED_ONE_DAY_QUOTE_DELIVERY_PENDING` until that review runs.
+**Day files VERIFIED; restricted source-label replay available; terminal interval defect identified; real-time synchronization and NAV unqualified.**
 
-User delivery `7bc9f893cf045e07479f251a8aa3a7c7e012d52a` contains actual source materials under `data/etf_upstream_evidence_v1/`. Cloud review has executed. Read:
+Read `docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md`, `docs/ops/evidence/etf_one_day_cloud_review_20260912/receipt.json`, and `research/etf_one_day_review/README.md`.
 
-1. `docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md`
-2. `docs/ops/evidence/etf_upstream_cloud_review_20260912/receipt.json`
-3. `docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md` — the request that this pack answers
-4. `data/etf_microstructure_sample_20251201_v1/README.md`
-5. `research/etf_upstream_review/README.md`
+User delivery `6004b42b1a6d68e13ec602126292a3709d474b70` is at `data/etf_microstructure_sample_20251201_v1/`. All six Parquet files were read in fixed sparse checkout: 123,307 rows / 3,569,715 bytes, all hashes, identities and row counts verified. Full clone was not required; the user's aborted clone was not an acceptance result. Do not ask for re-transfer.
 
-35 payload files/183,066 bytes plus manifest verified; 3 full text copies hashed; 4 excerpt blocks match full text; 20 fixed anomalies compared across supplied representations. Code/metadata-only source review and 14 boundary tests passed in run 34681596073. No new strategy prices or returns were read.
+Decisive content audit run `34683088732`, code `54941508126b9499f1a8e6e65ea956d55bd394c2`; initial byte/row intake `34682669751`; 12 boundary tests. No returns, clock-shift fitting, date expansion or model fitting.
 
-## What is now explained, and what is not
+## Concrete findings
 
-The 4ceca legacy bar-Z label denotes Shanghai wall clock under its delivered source contract. The 20 decoded labels match old examples. Do not apply that exception to all Z strings, knowledge timestamps or L2/tick products. The 1m contract rejects nonzero session offsets. The original raw ETF trade-to-bar bucket boundaries are not independently exchange-verified by a higher-frequency aggregation contract.
+Two quotes: 4823/4975 rows, each 8 checkpoints. Two trades: 10376/93639 rows, positive prices/quantities, raw IDs unique; same-time multi-trades preserved. Index 3s: 4748/4746 actual rows. ETF native IDs use .SSE, index aliases .SH; original values unchanged.
 
-All 20 anomalies already occur in the imported Baidu 1m bars: OHLC/volume=0/amount=0 match canonical, only dataset_version differs. These are views of the same upstream, NOT independent vendors. Original zip/CSV members for those 20 timestamps remain unavailable; zero-volume cause remains UNKNOWN. A different date, 2025-12-01, now has L2/tick/index 3s extracts in `data/etf_microstructure_sample_20251201_v1/`; that is not the 20-sample vendor zip. The catalogue says lots on a limited inspected product set while old export says shares; historical units are not certified. Do not multiply guessed factors or reclassify zero records.
+Trade quantity sums exactly equal final quote cum_volume in source units: 296228774 / 2162018305. Internal consistency, NOT independent vendor or absolute shares/lots certification.
 
-Producer assignments are now visible: ETF sample available_at equals the 2026 ingestion time; observed index minutes get same-day 15:30+08:00; filled rows get a synthetic bar label. These are not one homogeneous verified real-time publication field. Prior-close fill code passes bounded synthetic tests, not full production/PIT certification. End-label caps can place a 15:00:03 input in a 15:00 bar. No universal lookahead verdict has been made.
+Restricted [09:30,11:30), [13:00,14:57) observed index target counts are 4738 each. Source-state interval/BBO coverage is 4736/4738 and 4738/4738. The primary's exact-label matches are zero because its quote grid has 2s remainder, not because it has no quote tape. No clock shift is fitted. No carry from breaks or future checkpoints. Coverage is relative to observed source labels, not proof of complete synchronized market observations.
 
-Full action/suspension history remains NOT_CERTIFIED. Supplied NAV/factor rows do not replace issuer notices. The fixed known-action repair and its zero-effect-on-published-cohorts finding remain unchanged.
+Both final post-close valid intervals are reversed: 512100 15:00:02 -> 15:00:00; 588000 15:00:03 -> 15:00:00. Retain raw rows but never use them as valid intervals. This is the materializer's fixed-day-close boundary issue, not delivery corruption. Do not invent next-day or infinite endpoints.
 
-## Exact next material, no repeat transfer
+Fixed 512100 13:26 anomaly: [13:25,13:26) has 0 tick rows, [13:26,13:27) has 22. Do not assign the latter automatically to a legacy end-labelled bar. Native 1m bucket and nonflat-zero-volume cause remain unresolved. No old prices/volumes were changed.
 
-The six logical files are in `data/etf_microstructure_sample_20251201_v1/` (quotes 4823/4975, trades 10376/93639, index 3s 4748/4746). They are filtered source-day extracts, not 1m substitutes. Dictionaries, units, checkpoint/delta notes and same-day action UNKNOWN live in that pack. Cloud should hash the parquet files from a clean checkout; local row counts are not cloud verification.
+## Limits and next scope
 
-Do not request the same five-year OHLCV pack or already delivered whitepaper again. One-day field/clock qualification does not require first certifying every five-year historical action, but it does not grant strategy or NAV-premium authority. No purchase, date expansion, 2026 candidate opening, fabricated quote or automatic outcome calculation.
+Historical source-label state is not exchange receipt-time or independently known live availability. Time since last state change is not quote age. All iopv_raw are 0 and receipt_exact_pit false. Exact publication times, vendor archives, absolute units and complete day action/halt knowledge remain unqualified. Do not claim NAV discounts, lead-lag alpha or real-time profitability.
 
-## Preserved prior results and scope
+There is NO current local retransmission task. Existing one-day records permit further bounded field/quantity/minute-boundary reconciliation if separately authorized. Upstream terminal-state contract correction needs explicit versioning, not invented fills. No automatic broad acquisition, date changes, 2026 opening or new outcome experiments.
 
-R1_A remains `R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`. Closed R1_B/R2-directional/options and failed selected-cohort results remain closed. Known 2026 candidate stays metadata-only.
+## Preserved history
 
-The 512100 2022-09-02 consolidation was separately repaired in `data/etf_source_actions_v2/`; proposed 2022-08-03 split was cancelled. Source-impact audit checked all 3098 pairs/21686 horizon rows; published memberships and 112 mean groups were unchanged. Do not redo it or describe that known action's effect as unquantified.
+The 35-file upstream evidence package and its fixed-source label explanation were accepted earlier; do not request them again. Source-specific bar-Z explanation is not a rule for all timestamps or products. ETF archive available_at represents ingestion; observed index minute available_at is producer day-end; fill rows use synthetic labels. No universal lookahead verdict has been made.
 
-A one-day local quote/trade/index extract exists; it is not yet a cloud-qualified quote surface and grants no economic-deviation identification. No lead-lag, half-life, threshold, horizon, cost or profit test has been run. `BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`.
+Known 512100 consolidation 2022-09-02 (new/old=0.36555) and resumption 2022-09-05 were already versioned. Proposed 2022-08-03 split was cancelled. Prior 3098-pair/21686-window impact audit found no published membership or mean change. Full five-year action completeness remains NOT_CERTIFIED.
+
+R1_A remains `R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`; original R1/R2 mechanisms, closed R1_B/R2-directional/options and failed selected-cohort results remain unchanged. Known 2026 candidate stays metadata-only. `BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`.
+
+## Read-only reproduction
+
+```bash
+python -m unittest discover -s tests -p test_etf_one_day_review.py
+python research/etf_one_day_review/audit.py --output /tmp/etf-one-day-new
+```
+
+Requires pyarrow. Fresh output directories only. Source files and historical evidence are never overwritten. Engineering success is not new market evidence.

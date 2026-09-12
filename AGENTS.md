@@ -1,13 +1,15 @@
 # Trend/reversion research
 
-Read CONTINUE_HERE.md and docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md.
+Read CONTINUE_HERE.md and docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md before acting.
 
-User's upstream materials at data/etf_upstream_evidence_v1/ have been read and hash-verified. Do not keep claiming the whitepaper/session contract is missing. Actual source explanations are scoped: fixed legacy bar Z means Shanghai wall label; ETF archive available_at is ingestion; observed index available_at is producer day-end; filled available_at is a synthetic label. None is automatically a verified real-time publication field. Do not infer a universal lookahead verdict or apply the legacy exception to L2/tick.
+The user's six real 2025-12-01 Parquet files are now independently read and hash/row-verified in the cloud. Do not ask for another clone or upload of this day, the five-year pack or the already-delivered source docs. The prior delivery-pending label is superseded.
 
-Twenty anomalies match imported history/canonical/old fixed examples. This is shared-source lineage, not vendor truth or independent replication. Zero-volume/amount cause and historical shares-versus-lots remain unresolved; missing original vendor archives were not obtained. No guessed volume conversion or price filling.
+Source clock and interval audit is complete, not a trading test. Restricted continuous source-label replay is possible, but all-day event intervals are NOT defect-free: both last post-close rows end at 15:00 before they begin at 15:00:02/03. Raw evidence remains; invalid intervals must not be filled, extended or queried as live states. Existing checks never carry across session phases or backfill future checkpoints.
 
-Next prepared delivery is only 2025-12-01: two ETFs' full-source-day quotes and trades, plus both raw index 3s streams and product-specific dictionaries. See docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md. Inventory counts are not data. No implicit date change, paid access, 2026 opening, NAV premium inference, lead-lag fitting or returns.
+Trade totals match final quote cumulative quantity in raw units for both ETFs. This does not establish shares/lots or independent completeness. The primary quote grid is 2 seconds offset from the index labels; no optimized shift is authorized. Source-interval coverage and time since state change are NOT exchange synchronization or quote age.
 
-Do not repeat prior known-action correction. Effective 512100 consolidation 2022-09-02 (new/old=0.36555), resumption 2022-09-05; 2022-08-03 proposal CANCELLED. Prior all-window impact audit found no published membership/mean change. Full five-year action/suspension completeness remains unverified. Preserve old source bytes/manifests/freezes and research receipts; never inherit old completeness=true for new research.
+The fixed 512100 13:26 case has zero tick rows in [13:25,13:26) and 22 in [13:26,13:27). Neither bin is automatically the original legacy 1m bucket. No old volume or OHLC repair follows from neighbouring prints. Publication times, actual vendor bytes, units, complete action calendars and nonzero IOPV remain unqualified. All iopv_raw in the day are 0; all exact-PIT flags false.
 
-R1_A remains RESERVED_ACTIVE_DEVELOPMENT_PAUSED; closed R1_B/R2/options and failed selected-cohort outcomes remain closed. BLACKBOX_query_count=3, production_authority=false, fresh_oos=false. Engineering evidence replay is not new strategy evidence.
+No new date, 2026 prices, half-life, threshold, lead-lag fitting, return/backtest, purchase or strategy promotion. Further fixed-day quantity/price/bucket reconciliation or upstream terminal contract revision requires bounded explicit scope. No new local data handoff is currently needed.
+
+R1_A remains RESERVED_ACTIVE_DEVELOPMENT_PAUSED. Closed R1_B/R2/options and old failures remain. Known 2022-09-02 action repair and zero impact on published cohorts are already complete; do not repeat them. Full old action completeness=true remains insufficient for new admission. `BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`.
