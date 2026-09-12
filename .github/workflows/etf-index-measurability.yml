@@ -1,20 +1,18 @@
-name: etf-index-measurability
-
+name: etf-index-measurability-regression
 on:
   workflow_dispatch:
   push:
-    branches: [research/etf-index-measurability-v1]
-    paths: ['.github/workflows/etf-index-measurability.yml']
-
+    branches: [main, research/etf-index-measurability-v1]
+    paths:
+      - 'research/etf_index_measurability/**'
+      - 'tests/test_etf*.py'
+      - 'docs/governance/ETF_*'
+      - 'docs/ops/evidence/etf_index_measurability*/**'
+      - '.github/workflows/etf-index-measurability.yml'
 permissions:
-  contents: write
-
-concurrency:
-  group: etf-index-measurability-${{ github.ref }}
-  cancel-in-progress: false
-
+  contents: read
 jobs:
-  measurement-only:
+  readonly-measurement-replay:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -32,53 +30,53 @@ jobs:
             /shared/
             /research/etf_index_measurability/
             /tests/test_etf_index_measurability.py
+            /tests/test_etf_measurement_retained.py
             /docs/governance/ETF_INDEX_MEASURABILITY_FREEZE@1.0.json
+            /docs/governance/ETF_SOURCE_QUALITY_ADVISORY_20260912.json
+            /docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json
             /docs/ops/evidence/r1a_carrier_source_audit_20260912/source_delivery_audit.json
+            /docs/ops/evidence/etf_index_measurability_20260912/
+            /docs/ops/evidence/etf_index_measurability_source_20260912/
             /data/manifest.json
             /data/r1a_carrier_prices/cloud_pack_v1/
-            /data/market/1m/000852.SH/2021.parquet
-            /data/market/1m/000852.SH/2022.parquet
-            /data/market/1m/000852.SH/2023.parquet
-            /data/market/1m/000852.SH/2024.parquet
-            /data/market/1m/000852.SH/2025.parquet
-            /data/market/1m/000688.SH/2021.parquet
-            /data/market/1m/000688.SH/2022.parquet
-            /data/market/1m/000688.SH/2023.parquet
-            /data/market/1m/000688.SH/2024.parquet
-            /data/market/1m/000688.SH/2025.parquet
+            /data/market/1m/000852.SH/202[1-5].parquet
+            /data/market/1m/000688.SH/202[1-5].parquet
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install package
-        run: python -m pip install -e .
-      - name: Test clocks, missingness and nonidentification before measurements
-        run: python -m pytest -q tests/test_etf_index_measurability.py
-      - name: Enforce data and no-outcome scope
+      - run: python -m pip install -e .
+      - name: Test observation boundaries and retained source advisory
+        run: python -m pytest -q tests/test_etf_index_measurability.py tests/test_etf_measurement_retained.py
+      - name: Verify exact source isolation
         run: |
           python - <<'PY'
           from pathlib import Path
           actual=sorted(str(p) for p in Path('data').rglob('*.parquet'))
-          expected=sorted(f'data/market/1m/{s}/{y}.parquet' for s in ('000852.SH','000688.SH') for y in range(2021,2026))
-          assert actual==expected, actual
+          assert actual==sorted(f'data/market/1m/{s}/{y}.parquet' for s in ('000852.SH','000688.SH') for y in range(2021,2026))
           assert len(list(Path('data').rglob('*.csv')))==12
           assert not Path('research/r1a_walkforward_prediction').exists()
-          assert not Path('data/r1b_research').exists()
-          print('Only ten index partitions and twelve delivered ETF/action CSVs; no event ledgers or 2026 prices.')
           PY
-      - name: Execute fixed measurement screen without repair outcomes
-        run: python research/etf_index_measurability/audit.py --output docs/ops/evidence/etf_index_measurability_20260912
-      - name: Retain sealed measurement evidence on the research branch
-        if: github.ref == 'refs/heads/research/etf-index-measurability-v1'
+      - name: Reproduce label-clock measurements without outcomes
         run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add --sparse docs/ops/evidence/etf_index_measurability_20260912
-          git commit -m 'research: retain ETF-index observation limits and measurement receipt [skip ci]'
-          git push origin HEAD:research/etf-index-measurability-v1
+          python research/etf_index_measurability/audit.py --output "$RUNNER_TEMP/etf-measurement" --reference docs/ops/evidence/etf_index_measurability_20260912
+      - name: Reproduce separate source-provenance inspection
+        run: |
+          python research/etf_index_measurability/source_flags.py --output "$RUNNER_TEMP/etf-source"
+          python - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          old=Path('docs/ops/evidence/etf_index_measurability_source_20260912')
+          new=Path(os.environ['RUNNER_TEMP'])/'etf-source'
+          r=json.loads((old/'receipt.json').read_text())
+          for s in r['files']:
+              assert hashlib.sha256((new/s['path']).read_bytes()).hexdigest()==s['sha256']
+          assert json.loads((new/'receipt.json').read_text())==r
+          print('Source supplement reproduced; no strategy or source-completeness promotion.')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: etf-index-measurability-${{ github.run_id }}
-          path: docs/ops/evidence/etf_index_measurability_20260912
-          if-no-files-found: warn
+          name: etf-measurement-replay-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/etf-measurement/receipt.json
+            ${{ runner.temp }}/etf-source/receipt.json

@@ -1,0 +1,48 @@
+{
+  "schema_id": "factorlab_etf_source_quality_advisory@1.0",
+  "status": "VERIFIED_ACTION_LEDGER_OMISSION_AND_MICROSTRUCTURE_IDENTIFICATION_GAP",
+  "discovered_during": "etf_index_relative_price_measurement_screen_v1",
+  "scope": "Superseding source-quality advisory only. Original source bytes, freezes, numerical receipts and R1_A reserve disposition remain unchanged.",
+  "corporate_action_omission": {
+    "symbol": "512100.SH",
+    "old_actions_file": "data/r1a_carrier_prices/cloud_pack_v1/prices/512100_actions.csv",
+    "old_file_sha256": "3009689c6651da784e1da23b92645def7d272936c4ea407c7c3cbe74c5052825",
+    "old_manifest_assertion": "corporate_actions_complete=true; only 2025-01-15 cash distribution listed",
+    "finding": "That completeness assertion is contradicted by a documented 2022 share consolidation.",
+    "record_date": "2022-09-01",
+    "consolidation_and_suspension_date": "2022-09-02",
+    "resumption_date_in_notice": "2022-09-05",
+    "new_shares_per_old_share": 0.36555,
+    "account_rounding": "Notice specifies upward rounding of fractional resulting holdings; do not infer exact account PnL from ratio alone.",
+    "primary_document_author": "南方基金管理股份有限公司",
+    "primary_document_date": "2022-08-24",
+    "document_host": "Broker-hosted copy of fund-manager notice, not a claim that the broker authored the fund action.",
+    "notice_url": "https://www.cjsc.com.cn/ueditor/jsp/upload/file/20220831/1661915950202075315.pdf",
+    "hosting_page": "https://www.cjsc.com.cn/main/a/20220831/28528.shtml",
+    "verified_pages_1_based": [1, 2],
+    "corroborating_operational_notice": "https://www.cjsc.com.cn/main/a/20220829/28517.shtml",
+    "inspection": "PDF parsed text and rendered first two pages inspected on 2026-09-12; no PDF bytes committed.",
+    "data_crosscheck": "All 240 missing ETF labels on the index clock are dated 2022-09-02, consistent with the announced full-day suspension. Do not fabricate those records.",
+    "current_measurement_impact": "Current same-day, same-session, exactly-60-second calculations cannot cross the consolidation. No new repair outcomes are inferred; original measurement summaries are not adjusted or reselected.",
+    "historical_strategy_impact": "NOT_RECOMPUTED_OR_QUANTIFIED. Audit applicable event/control clocks before claiming prior results changed or survived. Do not automatically reopen R1_A or assert that all prior ETF returns are wrong.",
+    "permission": "A later source-ledger repair must be separately versioned with an affected-output inventory; replaying old evidence does not reinstate the old completeness assertion."
+  },
+  "other_source_findings": {
+    "nonflat_zero_volume_on_index_clock": {"512100.SH": 1388, "588000.SH": 7},
+    "zero_volume_interpretation": "Recorded zero is not independently verified absence of exchange trades. OHLC range with zero volume needs source-unit/aggregation/placeholder explanation; no fabricated correction.",
+    "inherited_index_causal_flat_fill_rows": {"000852.SH": 1215, "000688.SH": 1220},
+    "flat_fill_interpretation": "Already present in source, not introduced by this audit. Boolean high_frequency_analysis_eligible does not independently validate synchronous observations.",
+    "availability_field": "Inspected first/last available_at values are 15:30 Shanghai on the corresponding date. Requires source contract interpretation; ingestion timestamps are historical storage metadata, not automatic evidence of trading lookahead."
+  },
+  "data_needed_for_next_measurement_gate": [
+    "Source-level timestamp, bar aggregation, zero-volume/unit and causal-fill semantics plus complete corporate-action/suspension record",
+    "ETF bid/ask with sizes, exchange quote timestamps and last-trade timestamps/conditions; feed sequence or availability metadata",
+    "Corresponding timestamped index publication; for NAV-premium claims, timed IOPV with methodology or auditable basket/cash/action valuation and its uncertainty"
+  ],
+  "no_automatic_repair_strategy_or_purchase": true,
+  "R1A_disposition": "R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED",
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "reversion_outcomes_opened": false
+}

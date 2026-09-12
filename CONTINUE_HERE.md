@@ -1,60 +1,42 @@
-# Continue here — R1_A price research in reserve
+# Continue here — ETF/index observation gate completed
 
-## Current program disposition
+## Latest user-authorized task
 
-**`R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`**
+**MEASUREMENT_SCREEN_COMPLETED_MICROSTRUCTURE_IDENTIFICATION_BLOCKED**.
 
-The user-authorized cross-study reconciliation and existing forecast-error decomposition have executed. The CURRENT R1_A price-strategy formulation is retained as an unconfirmed historical lead, with automatic active development paused. This is a resource judgment, not proof of zero alpha, closure of the original R1/R2 mechanisms, or termination of the whole reversal/mean-reversion project.
+The separate ETF/index relative-price measurability screen actually executed on the existing 2021-2025 package. It is not an R1_A rescue. Read:
 
-Read first:
+1. `docs/research/ETF_INDEX_MEASURABILITY_REVIEW_20260912.md`
+2. `docs/governance/ETF_SOURCE_QUALITY_ADVISORY_20260912.json`
+3. `docs/governance/ETF_INDEX_MEASURABILITY_FREEZE@1.0.json`
+4. `research/etf_index_measurability/README.md`
 
-1. `docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md`
-2. `docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json`
-3. `docs/ops/evidence/r1a_evidence_closeout_20260912/receipt.json`
-4. `docs/governance/R1A_EVIDENCE_CLOSEOUT_FREEZE@1.0.json`
-5. `research/r1a_evidence_closeout/README.md`
+22 source files and 1,165,703 price rows verified; 132 month/year/pooled groups retained. Same-session 60-second valid comparison counts: 281,354 / 288,418 for 512100/588000. Absolute relative CHANGE medians: 3.1607 / 4.8606bp; 71.47% / 78.07% within one .001-CNY reference tick. These are source-representation diagnostics, NOT NAV premiums or reversion returns. A tick is not a spread or hard noise bound.
 
-Audit decision: `EVIDENCE_RECONCILIATION_COMPLETED_NO_NEW_ALPHA_TEST`.
-Freeze: `29bd543948f6de0f0860ecede71a10e78b9f31c8`.
-Decisive code: `d6109a11ec93efa26bbd2eca5ad1f15c1009c9e9`.
-Decisive Actions: `34669948608`, job `103489303243`.
+Initial run 34671961544; separate source-field inspection 34672094043. Both completed. The second inspection was added after schema review revealed fill/as-of fields; original outputs were not revised.
 
-## What has been verified
+## A verified source issue must not be lost
 
-Nineteen pinned existing sources were read: nine historical reports, the original forecast receipt and its eight CSVs, and the original Development event identity file. Raw market data were excluded from this audit checkout. No model fits, new signal generation, new strategy returns or new inference were performed.
+512100's action ledger omits the fund-manager-announced 2022-09-02 share consolidation (new/old shares=0.36555) and suspension, with resumption 2022-09-05. Its only missing day has exactly those 240 index labels. Do NOT fabricate the halted day's prices or continue to cite old corporate_actions_complete=true as verified.
 
-All 1,752 original CSI1000 Development events remain accounted for: 645 warm-up and 1,107 scored at all seven horizons. The 7,749 existing forecasts reconcile 126 event score groups and 2,268 numeric fields; maximum field difference is about 7.3e-11. Existing label-maturity/prefix records and 1,225 stored parameter rows were checked. No material discrepancy was detected WITHIN this evidence/arithmetic scope. This is not independent raw-source verification or a proof that every prior methodological assumption was correct.
+The primary fund-manager notice, hosted by the broker, and inspected pages are recorded in the advisory. Original manifests/action bytes are preserved for reproduction, not endorsed as complete. This screen never bridges days, so no split-crossing return was opened. Prior strategy impact has NOT been quantified; do not declare every old result wrong or every result unaffected. A correction must be separately versioned with affected-output accounting before reuse.
 
-## What the decomposition actually shows
+Index sources also contain 1,215 / 1,220 causal-flat-fill-marked rows. ETF volume=0 with high!=low occurs in 1,388 / 7 on-clock records. Minute labels, positive volume and upstream eligibility flags do not prove exchange synchronization or true no-trade status. As-of and bar/volume source semantics remain a prerequisite.
 
-Use e=y-parent prediction and g=enhanced-parent prediction. Existing loss gain equals 2eg-g^2. MSE also decomposes exactly into squared mean residual plus centered residual variance, with ddof=0.
+## Exact next dependency, not an automatic new strategy
 
-At h15/h30, old total MSE gains are +8.2309/+18.6596 bp^2. Event-count-weighted within-year mean-bias-square reductions are +8.3068/+20.9374 bp^2, while within-year centered-error variance changes contribute -0.0758/-2.2778 bp^2. All seven horizons have negative weighted within-year centered-error improvement. Pooled centering includes between-year effects and is a different decomposition of the same total.
+Resolve source metadata and action-ledger quality, then qualify access to timestamped ETF bid/ask/last trades plus index publication times. NAV-premium claims additionally require timed IOPV/methodology or auditable basket/cash/action valuation. A predeclared small non-event-conditioned period can establish the field/clock chain before any broad acquisition. Do not buy data or use credentials without authorization.
 
-The added R1_A flag is constant across event rows inside each annual model. It primarily provides a fold-level offset, with shared coefficients also changed by the OLD joint fit. This is not a test of every possible within-event ranking/nonlinear representation. Do not call ex-post group mean correction an attained future predictor or infer economic causation.
+Existing minute OHLCV cannot uniquely separate trade-price bounce, true efficient-price movement and index/reference lag. No lead-lag fit, repair markout, threshold selection, half-life, beta/cointegration, trading cost or future candidate was executed. Do not switch to longer horizons or time shifts to bypass the missing observation evidence.
 
-h15/h30 mean prediction adjustments were negative in 2016-2019 and positive in 2020. Some gains corrected parent-model overforecasting, rather than predicting a larger positive return. Small relative MSE gains alone are not evidence of economic insignificance, and bp^2 is not trading bp.
+No routine local re-transfer of the existing five-year pack is needed. Exact commands and minimum fields are in the new module README. Read-only reproduction uses fresh outputs and preserves original receipts.
 
-## Evidence precedence and non-comparability
+## R1_A remains in reserve
 
-The early 2021-2025 raw index responses and matched/ETF increments remain recorded. Their target, dates and samples differ from 2016-2020 forward forecast scoring. Retrospective uncertainty checks altered confidence, not the old observed means. Early supported/robust headings are historical context, not current confirmatory authority.
+**R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED** remains unchanged. Its evidence closeout is `docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md` and its disposition is `docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json`.
 
-The complete ten-stage evidence map is `docs/ops/evidence/r1a_evidence_closeout_20260912/cross_study_evidence.csv`. No unequal estimands, years or repeated replays are pooled into a new alpha test.
+Historical index/ETF responses, matching, robustness and forward prediction have different estimands and dates. They are not fresh confirmations or a single pooled alpha test. R1_A is an unconfirmed lead, not universally disproved. Do not automatically refit/retune it or open the failed strict-control selected-pair outcomes. Old full-path PARTIAL_CARRIER_TRANSPORT remains scoped to that old protocol only.
 
-## Default next action
+All old data, freezes and numerical outcomes remain. R1/R2 mechanism records and closed R1_B/R2-directional/MO identities remain. Known 2026 candidate stays metadata-only.
 
-There is **no automatic next empirical candidate**. Do not append another model, lambda, feature, interaction, matching, horizon, side/year filter, cost/exit or option experiment to this completed chain. Do not compute the failed strict-control scheme's selected 241/17 returns. No confirmation clock has started.
-
-A later concrete scientific question or reproducible material error can be proposed with explicit user authorization, a clear target, qualified data role, resource budget and stop rule. Preserve all old results and disclose historical reuse. This reserve judgment is not a permanent ban on new authorized research or other project mechanisms.
-
-## Preserved data and authority
-
-All raw data, freezes, original identities/pairs/results and existing regression workflows remain. Historical ETF CSVs are already public; no local transfer is pending. Both ETF endpoint diagnostics remain complete; old full-path v1 keeps PARTIAL_CARRIER_TRANSPORT only under its separate definition. The failed primary all-seven common cohort stays unopened.
-
-The known 2026 CSI1000 candidate remains metadata-only with unresolved R1_A-specific exposure. Do not call it automatically fresh or open it by default. R1/R2 mechanism records and closed R1_B/R2-directional/MO identities are unchanged.
-
-`BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
-
-## Maintenance only
-
-Use `research/r1a_evidence_closeout/README.md` to reproduce the no-fit accounting into a fresh directory. Replays verify exact identities/counts and tightly bounded numeric differences, never overwrite decisive receipts, and never constitute new research evidence.
+`BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; no confirmation clock, no selected horizon, no new repair outcomes.

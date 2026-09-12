@@ -1,11 +1,7 @@
 # AI entry
 
-Read CONTINUE_HERE.md and docs/research/R1A_EVIDENCE_CLOSEOUT_REVIEW_20260912.md.
+Read CONTINUE_HERE.md and docs/research/ETF_INDEX_MEASURABILITY_REVIEW_20260912.md.
 
-Current: **R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED**.
+Measurement screen completed; minute observations do not identify efficient-price repair. Read the verified 512100 action-ledger omission advisory before reusing source completeness claims.
 
-Existing-evidence reconciliation and no-fit forecast error accounting are complete. No automatic next empirical candidate is active. Reserve is a scoped research resource decision, not proof of zero alpha or closure of the entire project.
-
-Preserve old data, identities, freezes and results. Do not tune a new model or open 2026 data by default. New authorized science requires a specific question, data-role qualification, budget and stop rule. Maintenance replay is not new evidence.
-
-BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; no selected horizon or confirmation clock.
+R1_A stays reserved; no new empirical candidate/repair outcome or purchase automatically follows. Preserve data and evidence; no repeat transfer of the historical pack. BLACKBOX_query_count=3, no production/fresh-OOS authority.
