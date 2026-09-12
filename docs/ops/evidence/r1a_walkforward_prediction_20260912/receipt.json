@@ -1,0 +1,243 @@
+{
+  "schema_id": "factorlab_r1a_walkforward_prediction_receipt@1.0",
+  "decision": "WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY",
+  "baseline_commit": "442ed108de35e6bc3b9765b203b0c98b4353a20d",
+  "freeze_commit": "606d25933debcdb986fb19b4489e5c61407b52b3",
+  "freeze_sha256": "5e9e2b8f6afdee89e8d23c6bb9fc74a7400212f51f79e91290fb732b3280d3f7",
+  "code_commit": "be103560415ccb4426a6c4ec79bd0df2af85d252",
+  "github_run_id": "34668445944",
+  "sources": [
+    {
+      "path": "data/market/1m/000852.SH/2015.parquet",
+      "sha256": "ee23fb662ec22760fadc17d434601cd41d3e2a89921eb5c50086c24b35239843",
+      "bytes": 1744012,
+      "rows": 58560,
+      "columns_read": [
+        "symbol",
+        "trading_day",
+        "timestamp",
+        "close"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2016.parquet",
+      "sha256": "10d366b78d10a585eae621692e3bc69e4e0aca0c6590959b048e1ddf03e7defb",
+      "bytes": 1579185,
+      "rows": 58241,
+      "columns_read": [
+        "symbol",
+        "trading_day",
+        "timestamp",
+        "close"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2017.parquet",
+      "sha256": "8b9f00e80df51e4ddbc1b7480a6717609964dbfe4bd0cce16990fb7eaac5dcd0",
+      "bytes": 1547761,
+      "rows": 58560,
+      "columns_read": [
+        "symbol",
+        "trading_day",
+        "timestamp",
+        "close"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2018.parquet",
+      "sha256": "9dd97defd07b3417c5c7c029ab5ac6fc6e3b4ac2d68b26dc50ddbc9c89fc58db",
+      "bytes": 1561875,
+      "rows": 58320,
+      "columns_read": [
+        "symbol",
+        "trading_day",
+        "timestamp",
+        "close"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2019.parquet",
+      "sha256": "84a2fd1f5fa7cf018f934b3fbefb30d37d1cbb236e38fdbcca6f9728cfad21ca",
+      "bytes": 1491144,
+      "rows": 58560,
+      "columns_read": [
+        "symbol",
+        "trading_day",
+        "timestamp",
+        "close"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2020.parquet",
+      "sha256": "b15e9a418f651eb4fc0a54b2f7ecf4f61f25616e823e337f49876968f1da7ba7",
+      "bytes": 1547986,
+      "rows": 58320,
+      "columns_read": [
+        "symbol",
+        "trading_day",
+        "timestamp",
+        "close"
+      ]
+    }
+  ],
+  "input_blobs": {
+    "data/manifest.json": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "research/index_price_validity/core.py": "a03bb31ea7f9f883187e6ad26e53df8ad86f4285",
+    "research/r1_incremental_alpha_attribution/core.py": "73c4eaad108e9c56ad5af84a562e89442c192f13",
+    "research/r1a_development_noise/study.py": "c603a25b068f206832e32305f406dde869eaf390",
+    "docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json": "9a3d24da0a1d829d2d604219dedf72a1d49a7a18",
+    "docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv": "d4d06d136fab527e3717575517be50acbe56e542"
+  },
+  "original_events": 1752,
+  "training_population_rows": 146485,
+  "warmup_events": 645,
+  "scored_event_horizon_rows": 7749,
+  "successful_fit_count": 70,
+  "horizon_review": [
+    {
+      "horizon": 1,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": 0.24996291262856596,
+      "relative_mse_reduction": 0.0033326324622373615,
+      "positive_years": 3,
+      "both_sides_positive": true,
+      "enhanced_beats_zero_mse": true,
+      "enhanced_beats_past_mean_mse": true,
+      "descriptive_consistency_NOT_significance": false
+    },
+    {
+      "horizon": 5,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": -14.527211589374089,
+      "relative_mse_reduction": -0.012548730484882364,
+      "positive_years": 1,
+      "both_sides_positive": false,
+      "enhanced_beats_zero_mse": false,
+      "enhanced_beats_past_mean_mse": false,
+      "descriptive_consistency_NOT_significance": false
+    },
+    {
+      "horizon": 15,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": 8.230944496768615,
+      "relative_mse_reduction": 0.002837257325361886,
+      "positive_years": 3,
+      "both_sides_positive": true,
+      "enhanced_beats_zero_mse": true,
+      "enhanced_beats_past_mean_mse": true,
+      "descriptive_consistency_NOT_significance": false
+    },
+    {
+      "horizon": 30,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": 18.659585097695697,
+      "relative_mse_reduction": 0.002871503870303882,
+      "positive_years": 2,
+      "both_sides_positive": false,
+      "enhanced_beats_zero_mse": true,
+      "enhanced_beats_past_mean_mse": true,
+      "descriptive_consistency_NOT_significance": false
+    },
+    {
+      "horizon": 60,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": 59.47805710630458,
+      "relative_mse_reduction": 0.005953406888095536,
+      "positive_years": 5,
+      "both_sides_positive": true,
+      "enhanced_beats_zero_mse": false,
+      "enhanced_beats_past_mean_mse": true,
+      "descriptive_consistency_NOT_significance": true
+    },
+    {
+      "horizon": 120,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": 114.84520823129546,
+      "relative_mse_reduction": 0.005524302527735725,
+      "positive_years": 4,
+      "both_sides_positive": false,
+      "enhanced_beats_zero_mse": false,
+      "enhanced_beats_past_mean_mse": false,
+      "descriptive_consistency_NOT_significance": false
+    },
+    {
+      "horizon": 240,
+      "scored_events": 1107,
+      "mean_loss_improvement_bp2": -111.76509904905294,
+      "relative_mse_reduction": -0.0026228690750100814,
+      "positive_years": 4,
+      "both_sides_positive": false,
+      "enhanced_beats_zero_mse": false,
+      "enhanced_beats_past_mean_mse": false,
+      "descriptive_consistency_NOT_significance": false
+    }
+  ],
+  "prefix_identity_checks_pass": true,
+  "coverage_status_counts": {
+    "SCORED": 7749,
+    "WARMUP_2015_NOT_SCORED": 4515
+  },
+  "files": [
+    {
+      "path": "all_original_event_coverage.csv",
+      "sha256": "4d09c7ffe3ec8b42466dc4c8abfedfcdcdc978124b3f0075ae169fcf6313452a",
+      "bytes": 714521
+    },
+    {
+      "path": "daily_loss_accounting.csv",
+      "sha256": "d1fa5461e0ea336c038883118a1883291ce2f80510bce4feea67b4bb594e3016",
+      "bytes": 397837
+    },
+    {
+      "path": "event_predictions.csv",
+      "sha256": "659c8be07a1bf36bd7b2d0f2df16958864c5e14ef491391843e9e7ad37235993",
+      "bytes": 2140946
+    },
+    {
+      "path": "fold_training_audit.csv",
+      "sha256": "a8ebe451ddd6c0262d119013eefe2343b963462a24b834a0bd6cc8d8583319b9",
+      "bytes": 6518
+    },
+    {
+      "path": "loss_lag_products.csv",
+      "sha256": "1fa244b1f182b459f44ad6adab5a46b50cc84e1e9fd793ca30a511cd3837aa4e",
+      "bytes": 2347
+    },
+    {
+      "path": "model_parameters.csv",
+      "sha256": "37a33ff254817958e6d719ae7a7edaec9cc676b0bca4c062ad822215e0bb898d",
+      "bytes": 120252
+    },
+    {
+      "path": "prefix_identity_audit.csv",
+      "sha256": "54374b70cd6477209ac35585404ab1a3946764a094ef46b93b64941ce40ec8fa",
+      "bytes": 341
+    },
+    {
+      "path": "scores.csv",
+      "sha256": "04750d77dc4d5adb1cde612791e6cbe36b6cfdb8de5a56ec9423575a0e4567b7",
+      "bytes": 96833
+    }
+  ],
+  "table_rows": {
+    "all_original_event_coverage.csv": 12264,
+    "event_predictions.csv": 7749,
+    "scores.csv": 252,
+    "daily_loss_accounting.csv": 8526,
+    "loss_lag_products.csv": 35,
+    "fold_training_audit.csv": 35,
+    "model_parameters.csv": 1225,
+    "prefix_identity_audit.csv": 5
+  },
+  "post2020_price_files_read": [],
+  "ETF_price_files_read": [],
+  "new_matching": false,
+  "signal_refitted": false,
+  "new_significance_test": false,
+  "horizon_selected": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "confirmation_protocol_frozen": false,
+  "confirmation_clock_started": false
+}
