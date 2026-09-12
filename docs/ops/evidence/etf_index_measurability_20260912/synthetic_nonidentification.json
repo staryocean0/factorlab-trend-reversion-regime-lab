@@ -1,0 +1,46 @@
+{
+  "synthetic_only": true,
+  "same_observed_ohlcv": true,
+  "world_A_efficiency": "flat fair value; +/-0.001 trade-price bounce",
+  "world_B_efficiency": "efficient price follows the prints; no trade-price noise",
+  "world_A_fair_close": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "world_B_fair_close": [
+    0.999,
+    1.001,
+    0.999
+  ],
+  "observed_ohlcv": [
+    [
+      0.999,
+      1.001,
+      0.999,
+      0.999,
+      300.0
+    ],
+    [
+      1.001,
+      1.001,
+      0.999,
+      1.001,
+      300.0
+    ],
+    [
+      0.999,
+      1.001,
+      0.999,
+      0.999,
+      300.0
+    ]
+  ],
+  "separate_reference_example": {
+    "ETF_last": 1.001,
+    "index_sample": 100.0,
+    "interpretation_A": "synchronous fair ETF value 1.000, ETF above it",
+    "interpretation_B": "current fair ETF value 1.001, index sample reflects older fair value 1.000"
+  },
+  "conclusion": "OHLCV and sampled index values alone do not identify trade noise versus efficient-price change or reference lag; this is not a claim about actual gap frequency."
+}
