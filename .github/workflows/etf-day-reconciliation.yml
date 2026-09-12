@@ -1,0 +1,54 @@
+name: etf-day-reconciliation
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/etf-day-reconciliation-v1]
+    paths: ['.github/workflows/etf-day-reconciliation.yml']
+permissions:
+  contents: read
+jobs:
+  pinned-day-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json
+            /data/r1a_carrier_prices/cloud_pack_v1/512100.SH.json
+            /data/r1a_carrier_prices/cloud_pack_v1/588000.SH.json
+            /data/r1a_carrier_prices/cloud_pack_v1/prices/512100_2025.csv
+            /data/r1a_carrier_prices/cloud_pack_v1/prices/588000_2025.csv
+      - name: Verify source bytes then export only the authorized day
+        run: |
+          python - <<'PY'
+          import csv,hashlib,json,os
+          from pathlib import Path
+          pack=Path('data/r1a_carrier_prices/cloud_pack_v1')
+          out=Path(os.environ['RUNNER_TEMP'])/'day-intake';out.mkdir()
+          integrity=[]
+          for code in ('512100','588000'):
+              m=json.loads((pack/(code+'.SH.json')).read_text())
+              spec=next(s for s in m['files'] if s['path'].endswith('_2025.csv'))
+              p=Path(spec['path']);raw=p.read_bytes()
+              assert hashlib.sha256(raw).hexdigest()==spec['sha256'] and len(raw)==spec['bytes']
+              with p.open(newline='') as f:
+                  reader=csv.DictReader(f);cols=reader.fieldnames;rows=[r for r in reader if r['timestamp'].startswith('2025-12-01')]
+              assert rows and all(r['symbol']==code+'.SH' for r in rows)
+              dest=out/(code+'_20251201_legacy.csv')
+              with dest.open('w',newline='') as f:
+                  w=csv.DictWriter(f,fieldnames=cols,lineterminator='\n');w.writeheader();w.writerows(rows)
+              integrity.append(dict(spec,day='2025-12-01',day_rows=len(rows),day_sha256=hashlib.sha256(dest.read_bytes()).hexdigest(),day_path=dest.name))
+          (out/'legacy_day_intake.json').write_text(json.dumps(integrity,indent=2)+'\n')
+          print(json.dumps(integrity,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: etf-legacy-day-intake-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/day-intake/
+            docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json
+          if-no-files-found: error
