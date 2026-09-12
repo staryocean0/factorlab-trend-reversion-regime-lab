@@ -1,0 +1,88 @@
+name: development-noise-regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, research/r1a-development-noise-v1]
+    paths:
+      - 'research/r1a_development_noise/**'
+      - 'research/index_price_validity/core.py'
+      - 'research/r1_incremental_alpha_attribution/core.py'
+      - 'tests/test_r1a_development_noise.py'
+      - 'tests/test_development_noise_retained.py'
+      - 'docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json'
+      - 'docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json'
+      - 'docs/ops/evidence/r1a_development_noise_20260912/**'
+      - 'data/manifest.json'
+      - 'data/market/1m/000852.SH/201*.parquet'
+      - 'data/market/1m/000852.SH/2020.parquet'
+      - 'data/market/1m/000688.SH/2020.parquet'
+      - 'pyproject.toml'
+      - '.github/workflows/r1a-development-noise-regression.yml'
+permissions:
+  contents: read
+jobs:
+  reproduce-development-accounting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: src:.
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            pyproject.toml
+            src
+            shared
+            research/index_price_validity
+            research/r1_incremental_alpha_attribution
+            research/r1a_development_noise
+            tests/test_r1a_development_noise.py
+            tests/test_development_noise_retained.py
+            docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json
+            docs/governance/R1A_DEVELOPMENT_NOISE_DECOMPOSITION_FREEZE@1.0.json
+            docs/ops/evidence/r1a_development_noise_20260912
+            data/manifest.json
+            data/market/1m/000852.SH/2015.parquet
+            data/market/1m/000852.SH/2016.parquet
+            data/market/1m/000852.SH/2017.parquet
+            data/market/1m/000852.SH/2018.parquet
+            data/market/1m/000852.SH/2019.parquet
+            data/market/1m/000852.SH/2020.parquet
+            data/market/1m/000688.SH/2020.parquet
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Test identities and retained evidence
+        run: python -m pytest -q tests/test_r1a_development_noise.py tests/test_development_noise_retained.py
+      - name: Enforce original Development price access
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          actual={str(p) for p in Path('data').rglob('*.parquet')}
+          allowed={f'data/market/1m/000852.SH/{y}.parquet' for y in range(2015,2021)}|{'data/market/1m/000688.SH/2020.parquet'}
+          assert actual==allowed
+          assert not Path('data/r1a_carrier_prices').exists()
+          assert not Path('docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv').exists()
+          PY
+      - name: Reproduce actual Development decomposition
+        run: |
+          python research/r1a_development_noise/study.py --output "$RUNNER_TEMP/development-noise-replay"
+          python research/r1a_development_noise/verify_replay.py \
+            --reference docs/ops/evidence/r1a_development_noise_20260912 \
+            --replay "$RUNNER_TEMP/development-noise-replay" \
+            --output "$RUNNER_TEMP/development-noise-audit.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: development-noise-replay-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/development-noise-audit.json
+            ${{ runner.temp }}/development-noise-replay
+          if-no-files-found: warn
