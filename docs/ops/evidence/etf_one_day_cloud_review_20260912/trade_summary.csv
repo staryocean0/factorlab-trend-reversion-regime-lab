@@ -1,0 +1,3 @@
+carrier,records,positive_price_quantity_rows,zero_quantity_rows,first_time,last_time,unique_observation_times,max_trades_same_timestamp,duplicate_nonempty_trade_id_rows,trade_code_counts,all_receipt_exact_pit_false,volume_sum_raw,currency_or_lot_unit_certified
+512100.SH,10376,10376,0,2025-12-01 09:25:00.650000,2025-12-01 14:59:59.150000,5397,100,0,"{"""": 10376}",True,296228774.0,False
+588000.SH,93639,93639,0,2025-12-01 09:25:01.090000,2025-12-01 14:59:59.950000,35290,403,0,"{"""": 93639}",True,2162018305.0,False

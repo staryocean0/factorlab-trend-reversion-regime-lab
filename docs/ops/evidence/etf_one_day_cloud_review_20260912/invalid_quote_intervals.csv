@@ -1,0 +1,3 @@
+carrier,event_seq,session_phase,valid_from,valid_until,duration_ms,disposition
+512100.SH,4822,post_close,2025-12-01 15:00:02,2025-12-01 15:00:00,-2000.0,RETAIN_RAW_DO_NOT_USE_AS_VALID_INTERVAL
+588000.SH,4974,post_close,2025-12-01 15:00:03,2025-12-01 15:00:00,-3000.0,RETAIN_RAW_DO_NOT_USE_AS_VALID_INTERVAL

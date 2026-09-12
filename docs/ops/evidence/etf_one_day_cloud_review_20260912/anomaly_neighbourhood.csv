@@ -1,0 +1,5 @@
+carrier,label_interval_left_closed,label_interval_right_open,recorded_trade_rows,positive_price_quantity_rows,volume_sum_raw_units,min_price_x10000_raw,max_price_x10000_raw,exact_left_boundary_trades,not_legacy_bar_reconstruction
+512100.SH,13:25:00,13:26:00,0,0,0,,,0,True
+512100.SH,13:26:00,13:27:00,22,22,2106300.0,29800,29810,0,True
+588000.SH,13:25:00,13:26:00,111,111,2502000.0,14010,14030,0,True
+588000.SH,13:26:00,13:27:00,134,134,6894000.0,14010,14030,0,True

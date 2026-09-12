@@ -1,0 +1,87 @@
+[
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/README.md",
+    "bytes": 6319,
+    "sha256": "7c17ff2e801aab717cf02c9f6bf542f4b95a80c4bbe2b427b8ebbf7cdceaa45b"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/actions_20251201/KNOWN_ACTIONS.md",
+    "bytes": 1688,
+    "sha256": "2fe7d4284834b648ee7defb3c8fd11be5693b3c5b9f4110ac167dbcc7c2a4994"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/dictionaries/SNAPSHOT_VS_DELTA.md",
+    "bytes": 2898,
+    "sha256": "47cd15d879754b3dad21bdefc24703f3be969ce4022d03664cf31bb79194cfae"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/dictionaries/TIME_AND_UNITS.md",
+    "bytes": 4959,
+    "sha256": "1346f1a9f12990bb7cef001a4c42a5837bb6f2862a91f483f984d1ab3822e2c1"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/dictionaries/baidu_catalog_l2_units.md",
+    "bytes": 1851,
+    "sha256": "b2b34e5923f29763cd9fc522c01725d4816870ec4e6aefa13c33b078e4c76ab3"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/dictionaries/materialize_fund_cb_l2_recent_1y_excerpt.py",
+    "bytes": 7725,
+    "sha256": "58f3133f73d6e17a2c05f62589183dad91e8d45ebf061be81ce67bc5f48179de"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/dictionaries/onboarding_time_schema_excerpt.md",
+    "bytes": 4531,
+    "sha256": "20fea0373d3d3c8cad21b2913296268334687e95506902ba439fea3128e661e9"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/dictionaries/transactions_service_normalize_observation.py",
+    "bytes": 3889,
+    "sha256": "4bad6c8a5c16b88c5df75dcb67f83505582e63c2653d2d61fafc3047a724545d"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/export_one_day.py",
+    "bytes": 8598,
+    "sha256": "da8a23942f202a02f49f1c0630c9f66bee200b60aadca6c44a5f82893975d0a5"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/export_receipt.json",
+    "bytes": 35615,
+    "sha256": "6a9a9c337ac2eb82f803c199a87d540060156f3bc0836e5d258adfa4382410fe"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/index_3s/000688_20251201.parquet",
+    "bytes": 76128,
+    "sha256": "7007e8dc9bbd8815109dc795e9826fcc91174da408ab8676fdd8173c61bd280d"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/index_3s/000852_20251201.parquet",
+    "bytes": 81666,
+    "sha256": "ae8f72b56cc92f0c6d9b94c870a366a696b707ac14f7dda3e06d984f23da4c99"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/manifest.json",
+    "bytes": 4742,
+    "sha256": "559963188f9b2f858f8255e7f107496288f8e2ed884f81a762584ef249853360"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/quotes/512100_20251201.parquet",
+    "bytes": 483080,
+    "sha256": "ecf988184326b719ad614765ccf14523cc8feaac6fb3b39e65648555891fa5e8"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/quotes/588000_20251201.parquet",
+    "bytes": 678007,
+    "sha256": "c096743553b5009e15dc53c5cdcb324017e5361e5d19c5a64308f55f0ae00387"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/trades/512100_20251201.parquet",
+    "bytes": 260472,
+    "sha256": "44efaef888630a7ef07d8506b3d27d1adf12824d83ff00a2099b447d2570b704"
+  },
+  {
+    "path": "data/etf_microstructure_sample_20251201_v1/trades/588000_20251201.parquet",
+    "bytes": 1990362,
+    "sha256": "4ca92dbe626eaaf7fcc1ed9c20b9645a7485262da85f1bbee1233ed51bca7dad"
+  }
+]

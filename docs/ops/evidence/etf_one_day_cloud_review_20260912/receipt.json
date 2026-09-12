@@ -1,0 +1,296 @@
+{
+  "schema_id": "factorlab_one_day_observation_review@1.0",
+  "decision": "DAY_FILES_VERIFIED_LABEL_REPLAY_RESTRICTED_REALTIME_AND_NAV_UNQUALIFIED__SOURCE_INTERVAL_DEFECT_FOUND",
+  "delivery_commit": "6004b42b1a6d68e13ec602126292a3709d474b70",
+  "manifest_sha256": "559963188f9b2f858f8255e7f107496288f8e2ed884f81a762584ef249853360",
+  "trading_day": "2025-12-01",
+  "verified_parquet_files": 6,
+  "verified_market_rows": 123307,
+  "verified_parquet_bytes": 3569715,
+  "quotes": [
+    {
+      "carrier": "512100.SH",
+      "records": 4823,
+      "checkpoints": 8,
+      "delta_rows": 4815,
+      "first_time": "2025-12-01 08:45:05",
+      "last_time": "2025-12-01 15:00:02",
+      "continuous_event_rows": 4711,
+      "continuous_valid_bbo_rows": 4711,
+      "continuous_ms_remainder_hist": "{\"2000\": 4711}",
+      "all_iopv_raw_zero": true,
+      "all_receipt_exact_pit_false": true,
+      "reversed_or_empty_interval_rows": 1,
+      "cum_volume_last_raw": 296228774.0,
+      "source_kind": "baidu_user_a_share_tick_shidang",
+      "time_authority": "historical_market_replay"
+    },
+    {
+      "carrier": "588000.SH",
+      "records": 4975,
+      "checkpoints": 8,
+      "delta_rows": 4967,
+      "first_time": "2025-12-01 08:45:00",
+      "last_time": "2025-12-01 15:00:03",
+      "continuous_event_rows": 4740,
+      "continuous_valid_bbo_rows": 4740,
+      "continuous_ms_remainder_hist": "{\"0\": 4740}",
+      "all_iopv_raw_zero": true,
+      "all_receipt_exact_pit_false": true,
+      "reversed_or_empty_interval_rows": 1,
+      "cum_volume_last_raw": 2162018305.0,
+      "source_kind": "baidu_user_a_share_tick_shidang",
+      "time_authority": "historical_market_replay"
+    }
+  ],
+  "trades": [
+    {
+      "carrier": "512100.SH",
+      "records": 10376,
+      "positive_price_quantity_rows": 10376,
+      "zero_quantity_rows": 0,
+      "first_time": "2025-12-01 09:25:00.650000",
+      "last_time": "2025-12-01 14:59:59.150000",
+      "unique_observation_times": 5397,
+      "max_trades_same_timestamp": 100,
+      "duplicate_nonempty_trade_id_rows": 0,
+      "trade_code_counts": "{\"\": 10376}",
+      "all_receipt_exact_pit_false": true,
+      "volume_sum_raw": 296228774.0,
+      "currency_or_lot_unit_certified": false
+    },
+    {
+      "carrier": "588000.SH",
+      "records": 93639,
+      "positive_price_quantity_rows": 93639,
+      "zero_quantity_rows": 0,
+      "first_time": "2025-12-01 09:25:01.090000",
+      "last_time": "2025-12-01 14:59:59.950000",
+      "unique_observation_times": 35290,
+      "max_trades_same_timestamp": 403,
+      "duplicate_nonempty_trade_id_rows": 0,
+      "trade_code_counts": "{\"\": 93639}",
+      "all_receipt_exact_pit_false": true,
+      "volume_sum_raw": 2162018305.0,
+      "currency_or_lot_unit_certified": false
+    }
+  ],
+  "indices": [
+    {
+      "symbol": "000852.SH",
+      "records": 4748,
+      "first_time": "2025-12-01 09:25:00",
+      "last_time": "2025-12-01 15:00:06",
+      "duplicate_observation_times": 0,
+      "interval_seconds_hist": "{\"174.0\": 1, \"3.0\": 4742, \"300.0\": 1, \"5394.0\": 1, \"6.0\": 2}",
+      "nonpositive_or_invalid_prices": 0,
+      "null_volume_rows": 4748,
+      "timestamp_mode": "{\"source_exact_3s\": 4748}",
+      "exchange_publication_verified": false
+    },
+    {
+      "symbol": "000688.SH",
+      "records": 4746,
+      "first_time": "2025-12-01 09:25:00",
+      "last_time": "2025-12-01 15:00:06",
+      "duplicate_observation_times": 0,
+      "interval_seconds_hist": "{\"177.0\": 1, \"3.0\": 4740, \"300.0\": 1, \"5397.0\": 1, \"6.0\": 2}",
+      "nonpositive_or_invalid_prices": 0,
+      "null_volume_rows": 4746,
+      "timestamp_mode": "{\"source_exact_3s\": 4746}",
+      "exchange_publication_verified": false
+    }
+  ],
+  "index_quote_label_coverage": [
+    {
+      "carrier": "512100.SH",
+      "index_symbol": "000852.SH",
+      "session_phase": "continuous_am",
+      "observed_index_targets": 2399,
+      "exact_quote_label_matches": 0,
+      "source_interval_valid_bbo_matches": 2398,
+      "unmatched_reasons": "{\"no_same_session_state\": 1}",
+      "max_seconds_since_state_change": 4.0,
+      "median_seconds_since_state_change": 1.0,
+      "max_matched_declared_interval_seconds": 6.0,
+      "not_exchange_quote_age": true
+    },
+    {
+      "carrier": "512100.SH",
+      "index_symbol": "000852.SH",
+      "session_phase": "continuous_pm",
+      "observed_index_targets": 2339,
+      "exact_quote_label_matches": 0,
+      "source_interval_valid_bbo_matches": 2338,
+      "unmatched_reasons": "{\"no_same_session_state\": 1}",
+      "max_seconds_since_state_change": 7.0,
+      "median_seconds_since_state_change": 1.0,
+      "max_matched_declared_interval_seconds": 9.0,
+      "not_exchange_quote_age": true
+    },
+    {
+      "carrier": "588000.SH",
+      "index_symbol": "000688.SH",
+      "session_phase": "continuous_am",
+      "observed_index_targets": 2399,
+      "exact_quote_label_matches": 2399,
+      "source_interval_valid_bbo_matches": 2399,
+      "unmatched_reasons": "{}",
+      "max_seconds_since_state_change": 0.0,
+      "median_seconds_since_state_change": 0.0,
+      "max_matched_declared_interval_seconds": 3.0,
+      "not_exchange_quote_age": true
+    },
+    {
+      "carrier": "588000.SH",
+      "index_symbol": "000688.SH",
+      "session_phase": "continuous_pm",
+      "observed_index_targets": 2339,
+      "exact_quote_label_matches": 2339,
+      "source_interval_valid_bbo_matches": 2339,
+      "unmatched_reasons": "{}",
+      "max_seconds_since_state_change": 0.0,
+      "median_seconds_since_state_change": 0.0,
+      "max_matched_declared_interval_seconds": 3.0,
+      "not_exchange_quote_age": true
+    }
+  ],
+  "invalid_intervals": [
+    {
+      "carrier": "512100.SH",
+      "event_seq": 4822,
+      "session_phase": "post_close",
+      "valid_from": "2025-12-01 15:00:02",
+      "valid_until": "2025-12-01 15:00:00",
+      "duration_ms": -2000.0,
+      "disposition": "RETAIN_RAW_DO_NOT_USE_AS_VALID_INTERVAL"
+    },
+    {
+      "carrier": "588000.SH",
+      "event_seq": 4974,
+      "session_phase": "post_close",
+      "valid_from": "2025-12-01 15:00:03",
+      "valid_until": "2025-12-01 15:00:00",
+      "duration_ms": -3000.0,
+      "disposition": "RETAIN_RAW_DO_NOT_USE_AS_VALID_INTERVAL"
+    }
+  ],
+  "anomaly_neighbourhood": [
+    {
+      "carrier": "512100.SH",
+      "label_interval_left_closed": "13:25:00",
+      "label_interval_right_open": "13:26:00",
+      "recorded_trade_rows": 0,
+      "positive_price_quantity_rows": 0,
+      "volume_sum_raw_units": 0,
+      "min_price_x10000_raw": null,
+      "max_price_x10000_raw": null,
+      "exact_left_boundary_trades": 0,
+      "not_legacy_bar_reconstruction": true
+    },
+    {
+      "carrier": "512100.SH",
+      "label_interval_left_closed": "13:26:00",
+      "label_interval_right_open": "13:27:00",
+      "recorded_trade_rows": 22,
+      "positive_price_quantity_rows": 22,
+      "volume_sum_raw_units": 2106300.0,
+      "min_price_x10000_raw": 29800,
+      "max_price_x10000_raw": 29810,
+      "exact_left_boundary_trades": 0,
+      "not_legacy_bar_reconstruction": true
+    },
+    {
+      "carrier": "588000.SH",
+      "label_interval_left_closed": "13:25:00",
+      "label_interval_right_open": "13:26:00",
+      "recorded_trade_rows": 111,
+      "positive_price_quantity_rows": 111,
+      "volume_sum_raw_units": 2502000.0,
+      "min_price_x10000_raw": 14010,
+      "max_price_x10000_raw": 14030,
+      "exact_left_boundary_trades": 0,
+      "not_legacy_bar_reconstruction": true
+    },
+    {
+      "carrier": "588000.SH",
+      "label_interval_left_closed": "13:26:00",
+      "label_interval_right_open": "13:27:00",
+      "recorded_trade_rows": 134,
+      "positive_price_quantity_rows": 134,
+      "volume_sum_raw_units": 6894000.0,
+      "min_price_x10000_raw": 14010,
+      "max_price_x10000_raw": 14030,
+      "exact_left_boundary_trades": 0,
+      "not_legacy_bar_reconstruction": true
+    }
+  ],
+  "complete_vendor_archives_reproduced": false,
+  "source_partition_hashes_independently_verified": false,
+  "clock_shift_fitted": false,
+  "zero_volume_cause_identified": false,
+  "historical_units_certified": false,
+  "exact_receipt_pit_qualified": false,
+  "synchronized_economic_price_identified": false,
+  "nav_premium_qualified": false,
+  "old_prices_or_results_modified": false,
+  "new_strategy_returns_computed": false,
+  "new_model_fits": 0,
+  "R1A_reserve_unchanged": true,
+  "post2025_market_rows_read": false,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "files": [
+    {
+      "path": "anomaly_neighbourhood.csv",
+      "sha256": "482f046aa0eb2ae122e9d5eafbf770f8293167ffbe572cb696547cb8bfab698d",
+      "bytes": 471
+    },
+    {
+      "path": "delivery_payload_hashes.json",
+      "sha256": "c9acfef7d7051d759d5ee37819d5c025187926fbbe9357e1770e3378700f3632",
+      "bytes": 3407
+    },
+    {
+      "path": "file_integrity.csv",
+      "sha256": "5a6f53bed1f978418196c8a6b04230ba049b761f0795300dddf0b5d2fbe5c0eb",
+      "bytes": 794
+    },
+    {
+      "path": "fixed_boundary_probes.csv",
+      "sha256": "6030b582bd1ef1ce4cab00e792e371e56ec370d4cec8455bfc08f2fa48ed4937",
+      "bytes": 1780
+    },
+    {
+      "path": "index_quote_label_coverage.csv",
+      "sha256": "d6663d8f76fd90b8514bde21bba530b1dc693e479da1920f1a0e68ab54ae9214",
+      "bytes": 597
+    },
+    {
+      "path": "index_summary.csv",
+      "sha256": "7a51b9ff11b09a35bea4cf612e586d1c681a029ab6d544c22b063e258cf6813e",
+      "bytes": 527
+    },
+    {
+      "path": "invalid_quote_intervals.csv",
+      "sha256": "54dcb7101dca5d239c457fbf8ec20e1ed22cc5833eae5a69a3a3f916ea1deebd",
+      "bytes": 310
+    },
+    {
+      "path": "quote_phase_audit.csv",
+      "sha256": "d18bfbcf69bf66f47f0c93c6d1af04c62c6059b859dac182a6cf19932ae7b9f4",
+      "bytes": 1454
+    },
+    {
+      "path": "quote_summary.csv",
+      "sha256": "b8648a6390cc8e3037bc40e8066daa0eeea688bdab57e527346198ad2b735d53",
+      "bytes": 607
+    },
+    {
+      "path": "trade_summary.csv",
+      "sha256": "eff3e6a2a1276fdc35d356bebfa49f702125fedeaff3d2d3c336d90b6aa0d1fd",
+      "bytes": 522
+    }
+  ]
+}

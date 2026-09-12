@@ -1,0 +1,5 @@
+carrier,index_symbol,session_phase,observed_index_targets,exact_quote_label_matches,source_interval_valid_bbo_matches,unmatched_reasons,max_seconds_since_state_change,median_seconds_since_state_change,max_matched_declared_interval_seconds,not_exchange_quote_age
+512100.SH,000852.SH,continuous_am,2399,0,2398,"{""no_same_session_state"": 1}",4.0,1.0,6.0,True
+512100.SH,000852.SH,continuous_pm,2339,0,2338,"{""no_same_session_state"": 1}",7.0,1.0,9.0,True
+588000.SH,000688.SH,continuous_am,2399,2399,2399,{},0.0,0.0,3.0,True
+588000.SH,000688.SH,continuous_pm,2339,2339,2339,{},0.0,0.0,3.0,True
