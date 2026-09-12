@@ -1,0 +1,247 @@
+{
+  "schema_id": "factorlab_etf_measurement_source_supplement@1.0",
+  "role": "POST_MEASUREMENT_METADATA_AND_ROW_QUALITY_INSPECTION_NOT_A_NEW_REVERSION_EXPERIMENT",
+  "reason": "Initial schema exposed fill/analysis-eligibility/as-of fields; original summaries are not revised.",
+  "original_measurement_receipt_sha256": "b1e7e37a553dd6aa6c6d4afce9430f0cf51596e3be16e4bbbb84b071832c1738",
+  "sources": [
+    {
+      "path": "data/market/1m/000852.SH/2021.parquet",
+      "sha256": "5ef712873ac9c4665e9eab907d2c04a3deb45e346b54f707876ad9496b9114a4",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2022.parquet",
+      "sha256": "fcec2f93333434d190721024cff5a621f9035a7d0a1cc9b887ab95aced24dc29",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2023.parquet",
+      "sha256": "514e313c1833e9e2e66163544912c439a8ceff88ed86f71db6b372e28da49a11",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2024.parquet",
+      "sha256": "52e1d078fefbb1232b07a8b64682f41654ee171d850c5fe5c928350aba9d6b25",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000852.SH/2025.parquet",
+      "sha256": "aebbf7c7bedb78863455192d6efed7536f785c6558fcecd14b475e276e95e1e6",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000688.SH/2021.parquet",
+      "sha256": "3e9412986bd47dfa8c06eda62b45a603d7740c17d19ec8452e8168c9fa713512",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000688.SH/2022.parquet",
+      "sha256": "79b0f580fff061c35e0111161934a54334226c7fae7d06caf8fa5320c6c68223",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000688.SH/2023.parquet",
+      "sha256": "1a47729868abf718800f825fd56976422dbc5d5d9ec3057cc279abb792d55cc5",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000688.SH/2024.parquet",
+      "sha256": "c55e271a02ee22983a2dc37019b21d6d684ace8383ac8cd9869f51b6bf781a20",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    },
+    {
+      "path": "data/market/1m/000688.SH/2025.parquet",
+      "sha256": "91f8d96cb5bccb2470815854d953eacef98a183fd6d2cfe582161c761633e22c",
+      "columns_read": [
+        "symbol",
+        "timestamp",
+        "trading_day",
+        "causal_flat_fill",
+        "high_frequency_analysis_eligible",
+        "source_minute_count",
+        "source_kind",
+        "signal_price_view",
+        "fill_price_view",
+        "data_contract",
+        "export_frequency",
+        "dataset_version",
+        "export_view_id",
+        "available_at",
+        "ingested_at"
+      ]
+    }
+  ],
+  "row_counts": {
+    "flag_rows": 148,
+    "clock_anomaly_days": 2424,
+    "zero_volume_examples": 20
+  },
+  "original_source_bytes_changed": false,
+  "original_measurement_masks_changed": false,
+  "new_returns_or_signals_computed": false,
+  "R1A_disposition_unchanged": true,
+  "BLACKBOX_query_count": 3,
+  "production_authority": false,
+  "fresh_oos": false,
+  "files": [
+    {
+      "path": "daily_clock_anomalies.csv",
+      "sha256": "617c448935e7ce03be1c155fd1d330fe438068edab9d65edc49ed2f862cbfb46",
+      "bytes": 135798
+    },
+    {
+      "path": "earliest_nonflat_zero_volume_examples.csv",
+      "sha256": "5ea3c8cbd95a9ffdba907fbbc4f5b765a68fb5b80117c0ccc0504f27f1a0f163",
+      "bytes": 1426
+    },
+    {
+      "path": "index_source_flags.csv",
+      "sha256": "f97a7d420d8d787bb80601e2771126d3ff3416fce4573874baf61ba916730916",
+      "bytes": 10690
+    }
+  ]
+}

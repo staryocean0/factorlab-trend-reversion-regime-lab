@@ -1,0 +1,149 @@
+symbol,year,field,value,rows
+000852.SH,2021,causal_flat_fill,False,58076
+000852.SH,2021,causal_flat_fill,True,244
+000852.SH,2021,high_frequency_analysis_eligible,True,58320
+000852.SH,2021,source_minute_count,238,240
+000852.SH,2021,source_minute_count,239,58080
+000852.SH,2021,source_kind,market_index_transaction_derived_1m,58076
+000852.SH,2021,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,244
+000852.SH,2021,signal_price_view,identity_index_point,58320
+000852.SH,2021,fill_price_view,raw_pit,58320
+000852.SH,2021,data_contract,cn_a_session_wall_clock_offset_v1,58320
+000852.SH,2021,export_frequency,1m,58320
+000852.SH,2021,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58320
+000852.SH,2021,export_view_id,1m_official,58320
+000852.SH,2021,available_at_first_and_last,"[""2021-01-04T15:30:00+08:00"", ""2021-12-31T15:30:00+08:00""]",58320
+000852.SH,2021,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58320
+000852.SH,2022,causal_flat_fill,False,57836
+000852.SH,2022,causal_flat_fill,True,244
+000852.SH,2022,high_frequency_analysis_eligible,True,58080
+000852.SH,2022,source_minute_count,237,240
+000852.SH,2022,source_minute_count,239,57840
+000852.SH,2022,source_kind,market_index_transaction_derived_1m,57836
+000852.SH,2022,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,243
+000852.SH,2022,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute_causal_flat_missing_minute,1
+000852.SH,2022,signal_price_view,identity_index_point,58080
+000852.SH,2022,fill_price_view,raw_pit,58080
+000852.SH,2022,data_contract,cn_a_session_wall_clock_offset_v1,58080
+000852.SH,2022,export_frequency,1m,58080
+000852.SH,2022,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58080
+000852.SH,2022,export_view_id,1m_official,58080
+000852.SH,2022,available_at_first_and_last,"[""2022-01-04T15:30:00+08:00"", ""2022-12-30T15:30:00+08:00""]",58080
+000852.SH,2022,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58080
+000852.SH,2023,causal_flat_fill,False,57838
+000852.SH,2023,causal_flat_fill,True,242
+000852.SH,2023,high_frequency_analysis_eligible,True,58080
+000852.SH,2023,source_minute_count,239,58080
+000852.SH,2023,source_kind,market_index_transaction_derived_1m,57838
+000852.SH,2023,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,242
+000852.SH,2023,signal_price_view,identity_index_point,58080
+000852.SH,2023,fill_price_view,raw_pit,58080
+000852.SH,2023,data_contract,cn_a_session_wall_clock_offset_v1,58080
+000852.SH,2023,export_frequency,1m,58080
+000852.SH,2023,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58080
+000852.SH,2023,export_view_id,1m_official,58080
+000852.SH,2023,available_at_first_and_last,"[""2023-01-03T15:30:00+08:00"", ""2023-12-29T15:30:00+08:00""]",58080
+000852.SH,2023,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58080
+000852.SH,2024,causal_flat_fill,False,57838
+000852.SH,2024,causal_flat_fill,True,242
+000852.SH,2024,high_frequency_analysis_eligible,True,58080
+000852.SH,2024,source_minute_count,239,58080
+000852.SH,2024,source_kind,market_index_transaction_derived_1m,57838
+000852.SH,2024,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,242
+000852.SH,2024,signal_price_view,identity_index_point,58080
+000852.SH,2024,fill_price_view,raw_pit,58080
+000852.SH,2024,data_contract,cn_a_session_wall_clock_offset_v1,58080
+000852.SH,2024,export_frequency,1m,58080
+000852.SH,2024,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58080
+000852.SH,2024,export_view_id,1m_official,58080
+000852.SH,2024,available_at_first_and_last,"[""2024-01-02T15:30:00+08:00"", ""2024-12-31T15:30:00+08:00""]",58080
+000852.SH,2024,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58080
+000852.SH,2025,causal_flat_fill,False,58077
+000852.SH,2025,causal_flat_fill,True,243
+000852.SH,2025,high_frequency_analysis_eligible,True,58320
+000852.SH,2025,source_minute_count,239,58320
+000852.SH,2025,source_kind,market_index_transaction_derived_1m,58077
+000852.SH,2025,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,243
+000852.SH,2025,signal_price_view,identity_index_point,58320
+000852.SH,2025,fill_price_view,raw_pit,58320
+000852.SH,2025,data_contract,cn_a_session_wall_clock_offset_v1,58320
+000852.SH,2025,export_frequency,1m,58320
+000852.SH,2025,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58320
+000852.SH,2025,export_view_id,1m_official,58320
+000852.SH,2025,available_at_first_and_last,"[""2025-01-02T15:30:00+08:00"", ""2025-12-31T15:30:00+08:00""]",58320
+000852.SH,2025,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58320
+000688.SH,2021,causal_flat_fill,False,58076
+000688.SH,2021,causal_flat_fill,True,244
+000688.SH,2021,high_frequency_analysis_eligible,True,58320
+000688.SH,2021,source_minute_count,238,240
+000688.SH,2021,source_minute_count,239,58080
+000688.SH,2021,source_kind,market_index_transaction_derived_1m,58076
+000688.SH,2021,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,244
+000688.SH,2021,signal_price_view,identity_index_point,58320
+000688.SH,2021,fill_price_view,raw_pit,58320
+000688.SH,2021,data_contract,cn_a_session_wall_clock_offset_v1,58320
+000688.SH,2021,export_frequency,1m,58320
+000688.SH,2021,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58320
+000688.SH,2021,export_view_id,1m_official,58320
+000688.SH,2021,available_at_first_and_last,"[""2021-01-04T15:30:00+08:00"", ""2021-12-31T15:30:00+08:00""]",58320
+000688.SH,2021,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58320
+000688.SH,2022,causal_flat_fill,False,57836
+000688.SH,2022,causal_flat_fill,True,244
+000688.SH,2022,high_frequency_analysis_eligible,True,58080
+000688.SH,2022,source_minute_count,237,240
+000688.SH,2022,source_minute_count,239,57840
+000688.SH,2022,source_kind,market_index_transaction_derived_1m,57836
+000688.SH,2022,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,243
+000688.SH,2022,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute_causal_flat_missing_minute,1
+000688.SH,2022,signal_price_view,identity_index_point,58080
+000688.SH,2022,fill_price_view,raw_pit,58080
+000688.SH,2022,data_contract,cn_a_session_wall_clock_offset_v1,58080
+000688.SH,2022,export_frequency,1m,58080
+000688.SH,2022,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58080
+000688.SH,2022,export_view_id,1m_official,58080
+000688.SH,2022,available_at_first_and_last,"[""2022-01-04T15:30:00+08:00"", ""2022-12-30T15:30:00+08:00""]",58080
+000688.SH,2022,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58080
+000688.SH,2023,causal_flat_fill,False,57838
+000688.SH,2023,causal_flat_fill,True,242
+000688.SH,2023,high_frequency_analysis_eligible,True,58080
+000688.SH,2023,source_minute_count,239,58080
+000688.SH,2023,source_kind,market_index_transaction_derived_1m,57838
+000688.SH,2023,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,242
+000688.SH,2023,signal_price_view,identity_index_point,58080
+000688.SH,2023,fill_price_view,raw_pit,58080
+000688.SH,2023,data_contract,cn_a_session_wall_clock_offset_v1,58080
+000688.SH,2023,export_frequency,1m,58080
+000688.SH,2023,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58080
+000688.SH,2023,export_view_id,1m_official,58080
+000688.SH,2023,available_at_first_and_last,"[""2023-01-03T15:30:00+08:00"", ""2023-12-29T15:30:00+08:00""]",58080
+000688.SH,2023,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58080
+000688.SH,2024,causal_flat_fill,False,57833
+000688.SH,2024,causal_flat_fill,True,247
+000688.SH,2024,high_frequency_analysis_eligible,False,240
+000688.SH,2024,high_frequency_analysis_eligible,True,57840
+000688.SH,2024,source_minute_count,234,240
+000688.SH,2024,source_minute_count,239,57840
+000688.SH,2024,source_kind,market_index_transaction_derived_1m,57833
+000688.SH,2024,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,247
+000688.SH,2024,signal_price_view,identity_index_point,58080
+000688.SH,2024,fill_price_view,raw_pit,58080
+000688.SH,2024,data_contract,cn_a_session_wall_clock_offset_v1,58080
+000688.SH,2024,export_frequency,1m,58080
+000688.SH,2024,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58080
+000688.SH,2024,export_view_id,1m_official,58080
+000688.SH,2024,available_at_first_and_last,"[""2024-01-02T15:30:00+08:00"", ""2024-12-31T15:30:00+08:00""]",58080
+000688.SH,2024,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58080
+000688.SH,2025,causal_flat_fill,False,58077
+000688.SH,2025,causal_flat_fill,True,243
+000688.SH,2025,high_frequency_analysis_eligible,True,58320
+000688.SH,2025,source_minute_count,239,58320
+000688.SH,2025,source_kind,market_index_transaction_derived_1m,58077
+000688.SH,2025,source_kind,market_index_transaction_derived_1m_causal_flat_missing_minute,243
+000688.SH,2025,signal_price_view,identity_index_point,58320
+000688.SH,2025,fill_price_view,raw_pit,58320
+000688.SH,2025,data_contract,cn_a_session_wall_clock_offset_v1,58320
+000688.SH,2025,export_frequency,1m,58320
+000688.SH,2025,dataset_version,bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824,58320
+000688.SH,2025,export_view_id,1m_official,58320
+000688.SH,2025,available_at_first_and_last,"[""2025-01-02T15:30:00+08:00"", ""2025-12-31T15:30:00+08:00""]",58320
+000688.SH,2025,ingested_at_first_and_last,"[""2026-08-23T04:03:58.401461+00:00"", ""2026-08-23T04:03:58.401461+00:00""]",58320
