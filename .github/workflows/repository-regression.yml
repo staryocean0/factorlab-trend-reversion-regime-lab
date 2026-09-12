@@ -1,0 +1,51 @@
+name: repository-full-regression
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [maintenance/repository-consistency-20260912]
+    paths: ['.github/workflows/repository-regression.yml']
+permissions:
+  contents: read
+jobs:
+  all-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: src:.
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/
+            /data/manifest.json
+            /data/market/1m/
+            /data/r1b_research/
+            /data/r1a_carrier_prices/
+            /data/etf_source_actions_v2/
+            /data/etf_upstream_evidence_v1/
+            /data/etf_microstructure_sample_20251201_v1/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e .
+      - name: Collect every non-archived test
+        run: python -m pytest --collect-only -q > "$RUNNER_TEMP/test-collection.txt"
+      - name: Run all unit and retained-evidence tests, without generating a new study
+        run: python -m pytest -q --junitxml="$RUNNER_TEMP/all-tests.xml"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: all-tests-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/all-tests.xml
+            ${{ runner.temp }}/test-collection.txt
+          if-no-files-found: warn
