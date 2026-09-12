@@ -1,7 +1,7 @@
 # AI entry
 
-Read CONTINUE_HERE.md, AGENTS.md, PROMPT.md and docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md.
+Read CONTINUE_HERE.md, AGENTS.md, PROMPT.md and docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md.
 
-Known ETF action correction and historical impact accounting have completed. The 512100 consolidation omission is corrected in a separate known-action version; the cancelled August split is excluded. Existing published cohort memberships and means are unchanged by this correction.
+The 35 upstream payload files have been verified. Fixed legacy time decoding is supported; source publication and volume semantics are not fully certified. Next prepared material is the exact 2025-12-01 six-stream source day under docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md, not another five-year transfer or backtest.
 
-Full source semantics/exhaustive action qualification remain pending; this is NOT new ETF alpha evidence or full data certification. No routine historical CSV transfer is needed. R1_A remains reserved. No automatic new model, strategy, purchase or 2026 result. BLACKBOX_query_count=3, production_authority=false, fresh_oos=false.
+R1_A remains reserved. Known-action correction/impact already complete. No source/strategy/production/fresh-OOS promotion; BLACKBOX_query_count=3.

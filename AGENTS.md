@@ -1,17 +1,13 @@
 # Trend/reversion research
 
-Read CONTINUE_HERE.md, docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md and docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json before acting.
+Read CONTINUE_HERE.md and docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md.
 
-Latest authorized source-action correction and original-result impact audit are complete. All 3,098 pairs/21,686 horizon rows checked; no included published cohort changes. Do not keep describing the known consolidation's historical impact as unquantified. This is a scoped correction, not full source authentication.
+User's upstream materials at data/etf_upstream_evidence_v1/ have been read and hash-verified. Do not keep claiming the whitepaper/session contract is missing. Actual source explanations are scoped: fixed legacy bar Z means Shanghai wall label; ETF archive available_at is ingestion; observed index available_at is producer day-end; filled available_at is a synthetic label. None is automatically a verified real-time publication field. Do not infer a universal lookahead verdict or apply the legacy exception to L2/tick.
 
-Effective 512100 consolidation: 2022-09-02; new/old units 0.36555; suspended that day, resumed 2022-09-05. The proposed 2022-08-03 split was CANCELLED. Never apply its factor, fake its halt, fill actual halted minutes or fit price adjustments to results.
+Twenty anomalies match imported history/canonical/old fixed examples. This is shared-source lineage, not vendor truth or independent replication. Zero-volume/amount cause and historical shares-versus-lots remain unresolved; missing original vendor archives were not obtained. No guessed volume conversion or price filling.
 
-New known-action files: data/etf_source_actions_v2/. Read manifest with overlay; full source qualification remains false. Preserve original raw pack, old action files, freezes and receipts for engineering history; never treat old corporate_actions_complete=true alone as admission for new research. The old exporter has hardcoded actions and is not newly source-qualified.
+Next prepared delivery is only 2025-12-01: two ETFs' full-source-day quotes and trades, plus both raw index 3s streams and product-specific dictionaries. See docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md. Inventory counts are not data. No implicit date change, paid access, 2026 opening, NAV premium inference, lead-lag fitting or returns.
 
-Remaining source gaps: upstream bar/volume/zero/fill/available_at semantics and exhaustive action/suspension history. Available_at is not uniformly 15:30. An upstream document path quoted in a prior report is not the actual document. Exact limited request is docs/ops/ETF_UPSTREAM_SEMANTICS_HANDOFF_20260912.md; do not request another five-year CSV transfer.
+Do not repeat prior known-action correction. Effective 512100 consolidation 2022-09-02 (new/old=0.36555), resumption 2022-09-05; 2022-08-03 proposal CANCELLED. Prior all-window impact audit found no published membership/mean change. Full five-year action/suspension completeness remains unverified. Preserve old source bytes/manifests/freezes and research receipts; never inherit old completeness=true for new research.
 
-ETF/index measurement remains blocked for efficient-price repair identification without qualified timed quotes/reference evidence. No NAV inference from scaled index, tick-as-spread assumption, lead-lag/half-life/threshold/horizon/repair backtest or purchase follows automatically.
-
-R1_A remains RESERVED_ACTIVE_DEVELOPMENT_PAUSED; original mechanisms and closed R1_B/R2/options preserved. Failed strict-control and primary common-endpoint outcomes stay unopened; no 2026 price opening, model sweep or strategy promotion.
-
-BLACKBOX_query_count=3; production_authority=false; fresh_oos=false. Read-only verification uses retained evidence and baseline hashes. Replays do not become independent research evidence; full reruns require fresh output directories.
+R1_A remains RESERVED_ACTIVE_DEVELOPMENT_PAUSED; closed R1_B/R2/options and failed selected-cohort outcomes remain closed. BLACKBOX_query_count=3, production_authority=false, fresh_oos=false. Engineering evidence replay is not new strategy evidence.

@@ -1,19 +1,13 @@
 # FactorLab Trend–Reversion Regime Lab
 
-## Current frontier
+Current frontier: **upstream explanation partially verified; one-day quote delivery pending**.
 
-**Known ETF action correction and historical impact audit completed; upstream source qualification remains incomplete.**
+The user-delivered source materials at `data/etf_upstream_evidence_v1/` were actually read and checked. Fixed legacy bar-time decoding and producer metadata assignments are now documented; this does not certify exchange publication times, every historical unit or complete action records. No new strategy outcomes were computed.
 
-`KNOWN_ACTION_REPAIRED_PUBLISHED_MEMBERSHIP_UNCHANGED_SOURCE_SEMANTICS_PENDING`
+Read [`CONTINUE_HERE.md`](CONTINUE_HERE.md) and [`ETF upstream cloud review`](docs/research/ETF_UPSTREAM_CLOUD_REVIEW_20260912.md).
 
-The missing 512100 2022-09-02 consolidation/suspension is recorded in `data/etf_source_actions_v2/` and the source overlay. The cancelled 2022-08-03 split is NOT applied. No raw price, old action file, signal or old result was overwritten.
+Next prepared data task: [`2025-12-01 one-day source delivery`](docs/ops/ETF_ONE_DAY_SOURCE_DELIVERY_20251201.md). Only already accessible ETF quotes/trades and corresponding index observations plus source definitions are requested. Existing five-year minute data and already delivered source text need not be retransferred. Inventory metadata is not an admitted quote tape; no purchase, 2026 opening or price-repair backtest follows automatically.
 
-All 3,098 original pairs and 21,686 horizon records were checked. No existing included ETF endpoint/full-path sample changed; all 112 published mean groups are unchanged by this specific correction. Source completeness is still NOT certified; old `corporate_actions_complete=true` is historical input, not new-research admission.
+R1_A remains an unconfirmed reserved lead with active development paused. Prior known 512100 action omission was versioned and audited; published samples/means were unchanged. Old source files, research freezes, results and failures are retained. Full source qualification is still incomplete.
 
-Read `CONTINUE_HERE.md` and `docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md`. Actual corrected known-action files and their hashes are in `data/etf_source_actions_v2/manifest.json`; the complete impact ledger is in `docs/ops/evidence/etf_source_repair_20260912/`.
-
-The ETF/index relative-price direction remains measurement-only and blocked for economic dislocation/repair identification. Existing OHLCV does not provide synchronous bid/ask, trade or reference-valuation evidence. No routine re-transfer of historical CSVs is needed. Precise upstream documentation gaps are listed in `docs/ops/ETF_UPSTREAM_SEMANTICS_HANDOFF_20260912.md`.
-
-R1_A remains an unconfirmed historical lead with active development paused. R1/R2 mechanism records and all closed R1_B/R2-directional/option studies remain preserved. No automatic replacement strategy, confirmation clock, horizon selection or 2026 outcome opening.
-
-`BLACKBOX_query_count=3`; `production_authority=false`; `fresh_oos=false`.
+`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Engineering regression success does not certify a trading strategy.
