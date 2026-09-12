@@ -2,7 +2,6 @@ name: etf-source-repair-regression
 on:
   workflow_dispatch:
   workflow_call:
-
 permissions:
   contents: read
 jobs:
@@ -28,6 +27,7 @@ jobs:
             /.github/
             /tests/test_etf_source_repair.py
             /tests/test_etf_source_repair_retained.py
+            /tests/test_historical_source_impact_adapter.py
             /docs/governance/
             /docs/ops/evidence/r1_incremental_alpha_20260911/matched_pairs.csv
             /docs/ops/evidence/r1a_carrier_transport_20260912_local/
@@ -41,16 +41,18 @@ jobs:
             /data/r1a_carrier_prices/cloud_pack_v1/
             /data/market/1m/000852.SH/202[1-5].parquet
             /data/market/1m/000688.SH/202[1-5].parquet
-      - name: Fetch baseline tree for historical operational-file verification
+      - name: Fetch immutable baseline metadata for the original evidence contract
         run: git fetch --no-tags --filter=blob:none --depth=1 origin ef18bf905e9e427153650d5538a996249bb6a901
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: python -m pip install -e .
-      - name: Test action boundaries and retained impact evidence
-        run: python -m pytest -q tests/test_etf_source_repair.py tests/test_etf_source_repair_retained.py
-      - name: Verify retained scientific inputs and historical workflow identity
-        run: python research/etf_source_repair/verify_retained.py --output "$RUNNER_TEMP/etf-source-impact-regression.json"
+      - name: Test action boundaries, retained evidence and metadata-only compatibility
+        run: python -m pytest -q tests/test_etf_source_repair.py tests/test_etf_source_repair_retained.py tests/test_historical_source_impact_adapter.py
+      - name: Verify current scientific inputs with exact historical operational metadata
+        run: python scripts/verify_historical_source_impact.py --output "$RUNNER_TEMP/etf-source-impact-regression.json"
+      - name: Require compatibility view to leave no checkout modifications
+        run: git diff --exit-code
       - uses: actions/upload-artifact@v4
         if: always()
         with:
