@@ -1,20 +1,33 @@
-name: r1a-walkforward-prediction
+name: walkforward-prediction-regression
 
 on:
   workflow_dispatch:
   push:
-    branches: [research/r1a-walkforward-prediction-v1]
-    paths: ['.github/workflows/r1a-walkforward-prediction.yml']
+    branches: [main, research/r1a-walkforward-prediction-v1]
+    paths:
+      - 'research/r1a_walkforward_prediction/**'
+      - 'research/index_price_validity/core.py'
+      - 'research/r1_incremental_alpha_attribution/core.py'
+      - 'research/r1a_development_noise/study.py'
+      - 'tests/test_r1a_walkforward_prediction.py'
+      - 'tests/test_walkforward_prediction_retained.py'
+      - 'docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json'
+      - 'docs/ops/evidence/r1a_walkforward_prediction_20260912/**'
+      - 'docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv'
+      - 'data/manifest.json'
+      - 'data/market/1m/000852.SH/**'
+      - 'pyproject.toml'
+      - '.github/workflows/r1a-walkforward-prediction.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: r1a-walkforward-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  forward-diagnostic:
+  forward-replay:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -36,9 +49,11 @@ jobs:
             /research/r1a_development_noise/
             /research/r1a_walkforward_prediction/
             /tests/test_r1a_walkforward_prediction.py
+            /tests/test_walkforward_prediction_retained.py
             /docs/governance/INDEX_PRICE_VALIDITY_FREEZE@1.0.json
             /docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json
             /docs/ops/evidence/r1a_development_noise_20260912/development_pairs.csv
+            /docs/ops/evidence/r1a_walkforward_prediction_20260912/
             /data/manifest.json
             /data/market/1m/000852.SH/2015.parquet
             /data/market/1m/000852.SH/2016.parquet
@@ -51,37 +66,27 @@ jobs:
           python-version: '3.11'
       - name: Install package
         run: python -m pip install -e .
-      - name: Verify mature labels and fixed forecast boundaries
-        run: python -m pytest -q tests/test_r1a_walkforward_prediction.py
-      - name: Verify original Development-only data access
+      - name: Verify prediction boundaries and sealed evidence
+        run: python -m pytest -q tests/test_r1a_walkforward_prediction.py tests/test_walkforward_prediction_retained.py
+      - name: Verify original Development-only price access
         run: |
           python - <<'PY'
           from pathlib import Path
           files = sorted(str(p) for p in Path('data').rglob('*.parquet'))
-          expected = [f'data/market/1m/000852.SH/{year}.parquet' for year in range(2015,2021)]
-          assert files == expected, files
+          assert files == [f'data/market/1m/000852.SH/{y}.parquet' for y in range(2015,2021)], files
           assert not list(Path('data').rglob('*.csv'))
-          assert not Path('docs/ops/evidence/r1a_development_noise_20260912/development_leg_returns_NOT_confirmation.csv').exists()
           assert not Path('docs/ops/evidence/r1a_control_design_20260912/allocation_ledger.csv').exists()
-          print('Six original Development partitions only; no ETF, Validation or 2026 prices.')
+          print('Six pre2021 price files only; retained forecast evidence is a replay reference.')
           PY
-      - name: Execute frozen expanding-year forecast diagnostic
-        run: python research/r1a_walkforward_prediction/study.py --output docs/ops/evidence/r1a_walkforward_prediction_20260912
-      - name: Retain decisive forecast evidence
-        if: github.ref == 'refs/heads/research/r1a-walkforward-prediction-v1'
-        env:
-          BRANCH: ${{ github.ref_name }}
+      - name: Reproduce original forward forecasts without retuning
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add --sparse docs/ops/evidence/r1a_walkforward_prediction_20260912
-          if ! git diff --cached --quiet; then
-            git commit -m 'research: retain fixed walk-forward predictions and all-event coverage [skip ci]'
-            git push origin "HEAD:$BRANCH"
-          fi
+          python research/r1a_walkforward_prediction/study.py --output "$RUNNER_TEMP/r1a-forward-replay"
+          python research/r1a_walkforward_prediction/verify_replay.py \
+            --reference docs/ops/evidence/r1a_walkforward_prediction_20260912 \
+            --replay "$RUNNER_TEMP/r1a-forward-replay" --output "$RUNNER_TEMP/r1a-forward-replay-audit.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r1a-walkforward-${{ github.run_id }}
-          path: docs/ops/evidence/r1a_walkforward_prediction_20260912
+          name: r1a-forward-audit-${{ github.run_id }}
+          path: ${{ runner.temp }}/r1a-forward-replay-audit.json
           if-no-files-found: warn

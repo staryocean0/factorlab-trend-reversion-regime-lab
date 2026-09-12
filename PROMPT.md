@@ -1,24 +1,15 @@
-# 接管提示：对照分配设计检查已完成
+# 接管提示：R1_A 时间前推预测诊断已完成
 
-仓库：staryocean0/factorlab-trend-reversion-regime-lab。
-先检查 git status，保护用户改动，安全同步 main。读取 CONTINUE_HERE.md 与 docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md。
+仓库 staryocean0/factorlab-trend-reversion-regime-lab。先检查 git status，保护改动，安全同步 main。读取 CONTINUE_HERE.md 和 docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md。
 
-当前状态：CONTROL_ALLOCATION_DESIGN_SCREEN_COMPLETED_NO_OUTCOMES。
-已执行的是一个固定对照方案的设计检查，不是又一次收益检验。方案在覆盖率和事件总体保留上失败；R1_A 信号本身没有因此关闭。
+最新状态：WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY。
 
-实际结果：
-中证1000原开发期1752个事件，只用过去成熟对照时1645个可配；加入固定相似度要求剩414个；再禁止整个240-bar区间重复占用，剩241个。科创50仅2020短样本，156个事件对应122、27、17个。
-所有未匹配事件均保留在分母和明细中，没有补零收益。241个事件内部配对很好，但相对原1752个事件，其父趋势漂移、效率、年龄和短长波动比分布明显改变，不能代表原事件总体。
+这不是待执行设计：中证1000原2015—2020开发期已经实际完成两版模型比较。2015年645个事件暖启动；2016—2020年1107个原事件全部保留，在七周期生成7749行预测记录。父趋势模型与增加单个R1_A标识的模型使用同一训练样本、固定ridge系数，过去完整标签训练、按年度前推，不重新配对。
 
-还有一个无需收益的容量证明：同年、完整240-bar、包含端点且禁止共用任何观测点，意味着每年最多floor(分钟记录数/241)个对照。对中证1000逐年再受事件数上限约束，总共最多1230/1752=70.21%，即使不限制相似度也不可能达到本方案80%覆盖门槛。这个上界只针对本方案的约束组合，不是所有研究方法的上限。
+15/30周期均方误差改善约0.284%/0.287%，但仅3/5和2/5年改善；60周期虽五年及两方向均改善，增强模型仍输给零收益预测。不得把60选成持有期，也不得把bp平方的预测误差改进说成bp交易收益。本轮无统计显著性认证、无新OOS、无实盘授权。
 
-证据：docs/ops/evidence/r1a_control_design_20260912/。
-代码和复现：research/r1a_control_design/README.md。
-冻结：docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json。
+固定诊断已结束，不自动增加模型、交互、指标或调ridge系数来找好结果。R1_A仍是未确认历史线索，不能说已确立，也不能以一个线性模型否定所有可能的信息。更进一步的研究必须另有明确问题和授权。
 
-不要继续调大0.5相似度界限、降低80%门槛、删除2015、选更短周期或换用诊断版本来制造通过。不要把241/17组的新配对收益打开后当原策略整体结果。本轮没有证明降噪、统计有效性或策略盈利，也没有重新计算历史p值。
+已有数据在云端，不需重新交付。2026候选数据保持未打开；原严格对照失败、旧ETF/期权/机制证据和数据全部保留。复现使用 research/r1a_walkforward_prediction/README.md 的命令和新输出目录，不覆盖原receipt。
 
-下一步若继续，应先区分“离线、结果盲的归因对照”与“事件发生时可用的预测基准”，明确完整事件总体的比较目标及其识别假设。离线对照不必是实盘信号输入；本次的过去成熟和全区间互斥是新增方案要求，不是验证指数价格预测能力的普遍必要条件。目前没有冻结或授权一个替代实证候选，不能直接重设计再看收益。
-
-不需要本地模型再搬历史数据；ETF实际CSV已在云端。只复现时使用新的输出目录，不能覆盖旧receipt。2026候选行情继续保持未打开，正式确认时钟未启动。
-保留原信号、旧事件/对照、ETF结果、开发期噪声分解及所有失败身份。BLACKBOX_query_count=3，禁止query #4；production_authority=false；fresh_oos=false；confirmation_protocol_frozen=false。
+BLACKBOX_query_count=3；禁止#4；production_authority=false；fresh_oos=false；confirmation_protocol_frozen=false；confirmation_clock_started=false；horizon_selected=false。

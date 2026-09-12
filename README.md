@@ -1,32 +1,25 @@
 # FactorLab Trend–Reversion Regime Lab
 
-Research separating mechanism, price response, counterfactual baseline, observation quality, noise, inference and execution.
+Reversal / mean-reversion research, separating mechanism, prices, prediction, attribution, inference and execution.
 
-## Latest completed gate
+## Latest completed experiment
 
-**CONTROL_ALLOCATION_DESIGN_SCREEN_COMPLETED_NO_OUTCOMES**.
+**WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY**.
 
-The fixed event-time-available control design has executed on original pre2021 Development data and is closed without new return analysis. Only 241/1752 CSI1000 events and 17/156 STAR50 short-context events satisfy its combined maturity, covariate-caliper and exclusive-240-bar rules. Matched covariates look close inside the retained pairs, but the retained event population differs materially from the original population.
+R1_A relative-to-parent walk-forward prediction has executed on original CSI1000 2015-2020 Development. 2015 is disclosed warm-up (645 events); all 1107 events in 2016-2020 were predicted at seven horizons using past-matured labels and training-only preprocessing. Two fixed ridge models compare parent features against the same features plus the unchanged R1_A indicator. No new matching or post2020 data is used.
 
-Loss decomposition is retained: CSI1000 1645 past-nearest -> 414 inside the fixed quality bound -> 241 interval-exclusive; STAR50 122 -> 27 -> 17. Shadows diagnose losses, not alternative trading candidates. Moreover, the same-year inclusive-240-bar disjoint constraints imply an optimistic CSI1000 capacity ceiling of 1230/1752=70.21%, below the 80% design gate even before similarity requirements.
-
-This closes a restrictive comparison design, not R1_A. It does not prove zero alpha, achieve variance reduction, or authorize reopening historical significance searches. No newly assigned return, Validation/ETF/2026 outcome or confirmation clock was opened.
+The h15/h30 pooled MSE reductions are only about 0.284%/0.287%, with positive improvement in 3/5 and 2/5 years. h60 improves in all five years and both directions but remains worse than a zero-return forecast. These are prediction-error differences, not bp of alpha. No horizon selection, causal proof, fresh confirmation, statistical certification or execution authority follows. The fixed diagnostic is complete, not an invitation to tune until it passes.
 
 ## Read first
 
 - [Current handoff](CONTINUE_HERE.md)
-- [Control design review and capacity proof](docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md)
-- [Complete design evidence](docs/ops/evidence/r1a_control_design_20260912/REPORT.md)
-- [Frozen design contract](docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json)
-- [Reproduction instructions](research/r1a_control_design/README.md)
-- [Previous real-noise decomposition](docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md)
+- [Forward prediction interpretation](docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md)
+- [Complete decisive forecast evidence](docs/ops/evidence/r1a_walkforward_prediction_20260912/REPORT.md)
+- [Frozen protocol](docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json)
+- [Code and replay commands](research/r1a_walkforward_prediction/README.md)
 
-Before any replacement, distinguish offline attribution from event-time forecasting and state what identifies an all-event parent-continuation baseline. No replacement empirical candidate is currently authorized.
+R1_A remains an unconfirmed historical lead. Old source bytes, event/pair ledgers, freezes, strict-control failure, real-noise decomposition, method/feasibility screens and ETF/option results remain intact. R1/R2 mechanism certifications and closed R1_B/R2-directional/MO identities are unchanged.
 
-## Preserved research and data
+The historical ETF CSV pack is already cloud-readable. No routine local data transfer is required. The known 2026 CSI1000 candidate remains metadata-only with unresolved R1_A-specific exposure. Both ETF endpoint diagnostics are complete; PARTIAL_CARRIER_TRANSPORT remains only the older full-path protocol's separate status.
 
-R1_A remains an unconfirmed historical price lead. R1/R2 certifications and closed R1_B/R2-directional/MO identities remain unchanged. Both ETF endpoint diagnostics are complete; original full-path v1 separately remains PARTIAL_CARRIER_TRANSPORT. Old data, pairs, freezes, outcomes and statistical limitations are retained.
-
-The real historical ETF pack is already cloud-readable under `data/r1a_carrier_prices/cloud_pack_v1/`; no routine local delivery remains. The known 2026 CSI1000 file is an unopened metadata-only candidate, not automatically fresh holdout.
-
-BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; horizon_selected=false.
+BLACKBOX_query_count=3; no query #4; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false; confirmation_clock_started=false; horizon_selected=false.

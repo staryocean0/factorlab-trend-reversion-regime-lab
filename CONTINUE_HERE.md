@@ -1,60 +1,58 @@
 # Continue here — reversal / mean-reversion research
 
-## Latest completed task
+## Latest completed experiment
 
-**CONTROL_ALLOCATION_DESIGN_SCREEN_COMPLETED_NO_OUTCOMES**.
+**WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY**.
 
-The user-authorized next gate has executed. The fixed `rmr_R1A_past_mature_caliper_interval_exclusive_design_v1` is closed at the design stage: coverage and retention of the original event population fail. Do not open its selected-pair returns or reinterpret this as R1_A alpha failure.
+The user-authorized R1_A relative-to-parent walk-forward prediction diagnostic is frozen, implemented, executed and audited. It does NOT merely propose the next experiment. The fixed two-model specification is complete; no automatic feature/model/lambda/horizon search follows.
 
 Read first:
+1. `docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md`
+2. `docs/ops/evidence/r1a_walkforward_prediction_20260912/REPORT.md`
+3. `docs/ops/evidence/r1a_walkforward_prediction_20260912/receipt.json`
+4. `docs/governance/R1A_WALKFORWARD_PREDICTION_FREEZE@1.0.json`
+5. `research/r1a_walkforward_prediction/README.md`
 
-1. `docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md`
-2. `docs/ops/evidence/r1a_control_design_20260912/REPORT.md`
-3. `docs/ops/evidence/r1a_control_design_20260912/design_receipt.json`
-4. `docs/governance/R1A_CAUSAL_CONTROL_DESIGN_FREEZE@1.0.json`
-5. `research/r1a_control_design/README.md`
+Freeze `606d25933debcdb986fb19b4489e5c61407b52b3`; decisive code `be103560415ccb4426a6c4ec79bd0df2af85d252`; Actions `34668445944`, job `103485041666`: SUCCESS. Engineering success is not predictive/strategy certification.
 
-Freeze `6ebbb80e93cd0e5d783438c41f6fe310381a3e68`; decisive code `6b453cef4546890a4576c79ef77f51b40a5cb905`; Actions `34666939631`, job `103480639603`: SUCCESS. A read-only replay at `ab03c3a415088116147d50c40ad3ad409127c08b`, Actions `34667157622`, also succeeded. Engineering SUCCESS is not a scientific PASS.
+## What actually ran
 
-## Actual result
+CSI1000 original Development 2015-2020 only, six source partitions. Original 1,752 events preserved: 645 warm-up events in 2015 remain unscored and visible; ALL 1,107 events in information years 2016-2020 are scored at all seven horizons (7,749 rows). Five actual price-prefix checks reproduced known event identities/features exactly. No post2020, ETF, MO or 2026 prices were read.
 
-Original Development event populations and features were verified unchanged: CSI1000 2015-2020 has 1,752 events and 144,733 candidate controls; STAR50 short 2020 context has 156 events and 7,673 candidates. The latter is not an independent full-period confirmation.
+Training uses original eligible event and non-event parent-state rows once each, not selected matched controls. Parent-only and parent+one-R1_A-indicator linear ridge models use identical rows and weights. Lambda=0.001 fixed. Five annual expanding folds x seven horizons x two models =70 successful fits. Per-horizon labels must finish before the fold cutoff; all normalization is past-only. No failed-fit fallback or difficult-event deletion occurred.
 
-| Scope | Past nearest shadow | Add fixed quality shadow | Primary: add exclusive 240-bar intervals |
-|---|---:|---:|---:|
-| CSI1000 | 1,645 / 1,752 = 93.89% | 414 / 1,752 = 23.63% | 241 / 1,752 = 13.76% |
-| STAR50 context | 122 / 156 = 78.21% | 27 / 156 = 17.31% | 17 / 156 = 10.90% |
+The new object is same-outcome prediction-error improvement, NOT event-minus-control return, matched treatment effect, or PnL. The indicator adds a representation relative to the finite feature set; it is not information beyond the entire price history. Original terminal 240-bar cohort limitations and restricted non-event pool remain disclosed.
 
-Only the last column is the proposed design. Shadows diagnose availability loss, not alternatives eligible for automatic promotion. CSI1000 no-match reasons are exactly 107 with no mature same-year/direction/clock candidate, 1,231 with no candidate inside the four-component 0.5 prefix-scale caliper, and 173 blocked by already allocated intervals. All original events remain in the denominator and ledger.
+## Results — do not promote the strongest cell
 
-Every primary match respects maturity, caliper and zero control-control interval overlap. But selected-event composition is strongly shifted: pooled CSI1000 original-event-SD shifts are -0.532 (parent drift), -0.657 (parent efficiency), +0.681 (log parent age), and -0.321 (local volatility ratio). Paired event-control SMDs below 0.02 do not make those 241 events representative of all 1,752.
+| h | Relative event MSE reduction | Positive years | Both directions improve |
+|---:|---:|---:|---|
+| 1 | +0.3333% | 3/5 | yes |
+| 5 | -1.2549% | 1/5 | no |
+| 15 | +0.2837% | 3/5 | yes |
+| 30 | +0.2872% | 2/5 | no |
+| 60 | +0.5953% | 5/5 | yes |
+| 120 | +0.5524% | 4/5 | no |
+| 240 | -0.2623% | 4/5 | no |
 
-A further analytical implication, reproduced by the replay auditor, is that the same-year inclusive [c,c+240] disjoint rule can cover at most sum_year min(events_year,floor(price_rows_year/241)) events: 1,230/1,752 = 70.21% for CSI1000, even before matching quality. Thus its 80% overall coverage requirement is incompatible with this constraint conjunction. This is not a universal limit for other designs, and the actual greedy allocation is not claimed globally optimal.
+h60 is only a DESCRIPTIVE consistency flag. Enhanced event MSE=9931.1136bp^2 is still above zero forecast MSE=9915.8333bp^2. Do not choose a 60-bar holding period or declare a pass. h15/h30 beat simple pooled references slightly but lack year/side consistency. The baseline is weak: its non-event pooled MSE exceeds zero at every horizon. No universal failure of R1_A or nonlinear prediction is inferred.
 
-## Source and outcome boundary
+Per horizon, 2/1107 events are outside prior mixed-training coordinate ranges and 11/1107 outside prior background ranges; all remain scored. No prior clock/direction background stratum is missing. These are limited support diagnostics, not identification proof. Daily loss sums preserve all 1218 dates, overlap and tails; no new SE/p-value or fresh-OOS claim exists.
 
-Only seven pre2021 index price partitions were read to reconstruct the original causal feature stream. The old structural event compiler accesses historical close/first-passage logic; do not falsely claim it never accesses rows after earlier events. The new allocator receives identity/time/covariates only, and no newly assigned paired returns, p-values or realized noise estimates are evaluated.
+## Decision and next boundary
 
-No 2021-2025, ETF, MO or 2026 prices/return ledgers were present in the decisive checkout. The separately named Development allocations do not replace Validation pairs, original signals or historical results. Unit-incidence overlap/energy is geometry, not measured variance reduction or independence.
+Do not launch confirmation or execution on this result. Preserve R1_A as an unconfirmed historical lead, not a certified strategy and not disproved in all possible formulations. This fixed walk-forward diagnostic is closed as a completed comparison; no automatic replacement empirical candidate is authorized.
 
-## Current boundary
+Any further scientific proposal must independently justify its question and acknowledge weak benchmark quality, representation limits, historical reuse and remaining dependence. Do not continue this run by changing lambda, feature interactions, class weights, warm-up, years, side or horizon until the old history improves. Do not relabel consumed Development as fresh OOS or use the 2026 candidate automatically.
 
-Stop the fixed hard-pruning design; do not widen 0.5, lower 80%, remove 2015, select a shorter horizon, switch to a shadow or compute returns for only the 241/17 selected pairs to manufacture success. The previous generic statistical-method sweep remains closed. No formal confirmation protocol or clock has started.
+## Preserved work and data
 
-Before proposing any other baseline, explicitly distinguish (a) retrospective, outcome-blind attribution and (b) an event-time forecasting benchmark, while preserving the original all-event target or admitting it is not identified. An offline attribution control need not be a live-trade input. The strict maturity/exclusivity requirements here were new design choices, not universal laws of price validity. Do not create another estimator sweep or pretend that lower overlap alone solves noisy event outcomes.
+Old strict past/caliper/exclusive-control design remains closed at design stage; its selected 241/17 paired-return table stays unopened. The new all-event prediction experiment does not revive that contrast. Real-noise decomposition, bounded method/feasibility studies, old Validation/ETF outcomes, all source bytes and freezes remain intact.
 
-The next task is an estimand/identification decision under explicit assumptions, not an authorized empirical candidate. This review does not freeze or execute a replacement. R1_A remains an unconfirmed historical lead, not a closed price mechanism.
+Both ETF endpoint diagnostics remain completed. Original full-path v1 retains PARTIAL_CARRIER_TRANSPORT under its separate definition; that old label is not the global latest research status. The failed primary all-seven-endpoint common cohort remains unopened.
 
-## Preserved lineage and data
+Historical ETF CSVs are already public; no routine local transfer is needed. The known 2026 CSI1000 candidate remains metadata-only with unresolved R1_A-specific exposure. R1/R2 certification and closed R1_B/R2-directional/MO identities remain.
 
-The real Development noise decomposition is retained under `docs/research/R1A_DEVELOPMENT_NOISE_REVIEW_20260912.md` and `docs/ops/evidence/r1a_development_noise_20260912/`. Individual event dispersion, concentrated calendar control exposure and uncertainty of the mean remain separate quantities.
+`BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
 
-Both ETF endpoint diagnostics remain complete. Original full-path v1 retains its separate PARTIAL_CARRIER_TRANSPORT status. The failed primary all-seven-endpoint common cohort stays unopened. All data, original pair/outcome ledgers, freezes and previous statistical/feasibility findings remain intact.
-
-No routine local data transfer is required: actual historical ETF CSVs are in `data/r1a_carrier_prices/cloud_pack_v1/`. The known 2026 CSI1000 candidate in the overnight repository remains metadata-only, with unresolved R1_A-specific exposure; do not call it automatically fresh holdout.
-
-R1/R2 mechanism certifications and closed R1_B/R2-directional/MO identities are unchanged. `BLACKBOX_query_count=3`; no #4; `production_authority=false`; `fresh_oos=false`; `confirmation_protocol_frozen=false`; `confirmation_clock_started=false`; `horizon_selected=false`.
-
-## Reproduce without reopening the design
-
-Use the fresh-directory commands in `research/r1a_control_design/README.md`. The read-only `control-design-regression` workflow preserves seven-file Development source isolation and verifies exact allocation IDs/counts/flags and tightly bounded continuous differences. Reproduction is not new research evidence.
+Use the fresh-directory commands in `research/r1a_walkforward_prediction/README.md`. Read-only regression verifies original identities/counts/flags and audits tightly bounded continuous floating differences without overwriting reference evidence. Reproduction is not a second market experiment.

@@ -1,9 +1,11 @@
 # AI entry
 
-Read CONTINUE_HERE.md, AGENTS.md and docs/research/R1A_CAUSAL_CONTROL_DESIGN_REVIEW_20260912.md.
+Read CONTINUE_HERE.md, AGENTS.md, PROMPT.md and docs/research/R1A_WALKFORWARD_PREDICTION_REVIEW_20260912.md.
 
-Latest completed: CONTROL_ALLOCATION_DESIGN_SCREEN_COMPLETED_NO_OUTCOMES. The fixed past-mature/caliper/exclusive-240-bar comparison design is closed after coverage and event-population retention failure; its new paired returns are unopened. This is not R1_A signal invalidity.
+Current completed state: WALKFORWARD_PREDICTION_DIAGNOSTIC_COMPLETED_NO_CONFIRMATION_AUTHORITY.
 
-No automatic caliper relaxation, threshold/horizon search, selected-pair return test or replacement candidate. Distinguish offline attribution from event-time forecasting before further baseline design. All old evidence remains.
+Five annual forward folds and seven horizons, original CSI1000 Development only, actually executed. Small/uneven prediction gains do not promote R1_A; the only descriptive consistency flag loses to zero forecast. No next model sweep or confirmation run is automatically authorized.
 
-No historical data transfer required. 2026 remains metadata-only. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; confirmation_protocol_frozen=false.
+All original events are accounted for (645 warm-up, 1107 scored). Preserve old source data, signals, pairs, closed strict-control/MO results and frozen receipts. Historical ETF data already exist in cloud. Keep 2026 candidate outcomes unopened.
+
+BLACKBOX_query_count=3; production_authority=false; fresh_oos=false; horizon_selected=false.
