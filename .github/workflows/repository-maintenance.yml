@@ -34,6 +34,15 @@ jobs:
           python-version: '3.11'
       - name: Apply exactly the maintenance migration
         run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('docs/archive/repository_maintenance_20260912/apply.py')
+          text=p.read_text()
+          old="write(ARCHIVE+'/README.md'"
+          new="write(ARCHIVE+'/ARCHIVE_INDEX.md'"
+          assert text.count(old)==1
+          p.write_text(text.replace(old,new))
+          PY
           python docs/archive/repository_maintenance_20260912/apply.py
           python scripts/repository_consistency.py --render
           rm .github/workflows/repository-maintenance.yml
