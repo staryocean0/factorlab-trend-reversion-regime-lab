@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       full_regression:
-        description: Run all tests and the retained source/closeout replays
+        description: Run all tests and all ten frozen historical/source workflow replays
         type: boolean
         default: false
 permissions:
@@ -73,3 +73,27 @@ jobs:
     needs: consistency
     if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
     uses: ./.github/workflows/r1a-evidence-closeout.yml
+  known-action-impact-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/etf-source-repair.yml
+  measurement-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/etf-index-measurability.yml
+  development-noise-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/r1a-development-noise-regression.yml
+  closed-design-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/r1a-control-design.yml
+  frozen-prediction-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/r1a-walkforward-prediction.yml
+  legacy-price-statistics-replay:
+    needs: consistency
+    if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
+    uses: ./.github/workflows/legacy-price-statistics-replay.yml
