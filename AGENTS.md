@@ -1,13 +1,17 @@
 # Trend/reversion research
 
-Read CONTINUE_HERE.md, docs/research/ETF_INDEX_MEASURABILITY_REVIEW_20260912.md and docs/governance/ETF_SOURCE_QUALITY_ADVISORY_20260912.json.
+Read CONTINUE_HERE.md, docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md and docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json before acting.
 
-Latest completed task is a separate ETF/index measurability gate, not R1_A development. Label-clock change magnitudes are measurable; true economic deviation/repair is not identified with the admitted minute OHLCV alone. No repair outcome or strategy is authorized automatically.
+Latest authorized source-action correction and original-result impact audit are complete. All 3,098 pairs/21,686 horizon rows checked; no included published cohort changes. Do not keep describing the known consolidation's historical impact as unquantified. This is a scoped correction, not full source authentication.
 
-IMPORTANT: the old 512100 action ledger omits the documented 2022-09-02 share consolidation/suspension. Do not treat its completeness boolean as verified. Preserve old bytes/receipts, qualify and version any future correction, and audit impact before claiming old results changed or survived. Missing halted-day records must not be filled. Report the existing index causal-flat-fill and nonflat-zero-volume provenance issues honestly.
+Effective 512100 consolidation: 2022-09-02; new/old units 0.36555; suspended that day, resumed 2022-09-05. The proposed 2022-08-03 split was CANCELLED. Never apply its factor, fake its halt, fill actual halted minutes or fit price adjustments to results.
 
-No shift/correlation tuning, NAV claims from a scaled index, spread claims from tick size, half-life, threshold, horizon or execution searches. Need documented quote/trade/index as-of times and source semantics; NAV-premium claims also need timed reference valuation. Existing minute pack need not be retransferred. No purchases or credential circumvention.
+New known-action files: data/etf_source_actions_v2/. Read manifest with overlay; full source qualification remains false. Preserve original raw pack, old action files, freezes and receipts for engineering history; never treat old corporate_actions_complete=true alone as admission for new research. The old exporter has hardcoded actions and is not newly source-qualified.
 
-R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED stays unchanged. Keep its original forecasts, pairs, failures and closeout; no automatic replacement model or old selected-pair outcomes. R1/R2 mechanism records and closed R1_B/R2-directional/options remain. 2026 stays unopened.
+Remaining source gaps: upstream bar/volume/zero/fill/available_at semantics and exhaustive action/suspension history. Available_at is not uniformly 15:30. An upstream document path quoted in a prior report is not the actual document. Exact limited request is docs/ops/ETF_UPSTREAM_SEMANTICS_HANDOFF_20260912.md; do not request another five-year CSV transfer.
 
-BLACKBOX_query_count=3; no production/fresh-OOS/confirmation-clock authority. Fresh output directories only; engineering replay is not new empirical evidence.
+ETF/index measurement remains blocked for efficient-price repair identification without qualified timed quotes/reference evidence. No NAV inference from scaled index, tick-as-spread assumption, lead-lag/half-life/threshold/horizon/repair backtest or purchase follows automatically.
+
+R1_A remains RESERVED_ACTIVE_DEVELOPMENT_PAUSED; original mechanisms and closed R1_B/R2/options preserved. Failed strict-control and primary common-endpoint outcomes stay unopened; no 2026 price opening, model sweep or strategy promotion.
+
+BLACKBOX_query_count=3; production_authority=false; fresh_oos=false. Read-only verification uses retained evidence and baseline hashes. Replays do not become independent research evidence; full reruns require fresh output directories.

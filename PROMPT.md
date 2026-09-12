@@ -1,13 +1,20 @@
-# 接手任务边界
+# 接管提示：ETF已知行动修复完成，剩下是来源资格
 
-仓库 staryocean0/factorlab-trend-reversion-regime-lab。先读 CONTINUE_HERE.md、ETF_INDEX_MEASURABILITY_REVIEW_20260912.md 和 ETF_SOURCE_QUALITY_ADVISORY_20260912.json。
+接管 staryocean0/factorlab-trend-reversion-regime-lab，安全同步main，不覆盖用户未提交工作。先读CONTINUE_HERE.md和docs/research/ETF_SOURCE_REPAIR_IMPACT_REVIEW_20260912.md。
 
-新的ETF/指数可测量性筛查已完成，没有运行回归收益策略。不要把本说明理解成自动授权下载/采购或继续新策略。
+不要重做已完成的任务：512100 2022-09-02份额合并已经在data/etf_source_actions_v2/及来源overlay中补入；2022-08-03拆分提案已取消，不得纳入有效调整。3,098组旧配对、21,686行周期记录的影响已核实：已发表样本不变，旧均值不变；三行只是新增排除原因。停牌日不补行情。
 
-有一项已验证的问题：512100于2022-09-02合并份额并停牌，2022-09-05恢复，原行动表遗漏此事。原公告依据已记录，缺失240条ETF时间戳恰在停牌日，不能补造。旧文件保留，不再把corporate_actions_complete=true当成事实。另有零成交量与OHLC非平价并存、指数已补齐分钟及available_at口径问题。
+完整源数据资格仍未通过。不得把“已知遗漏修复”写成两只ETF 2021—2025完整行动/停牌及交易所时钟已认证；588000空表不等于完整无事件证明。原manifest中的complete=true和旧导出器硬编码不能用于新研究准入。
 
-若用户明确授权后续来源修复：保护工作区，同步main；核查合法源数据合同和完整分红/拆分/合并/停牌账本，建立新版本，不覆盖旧manifest和回执；先做受影响输出和边界范围审计，不为救R1_A调整参数。
+用户要求进一步补本地材料时，仅执行docs/ops/ETF_UPSTREAM_SEMANTICS_HANDOFF_20260912.md中的明确缺口：上游分钟/墙钟字典与版本、固定零成交量非平价样例的原始字段与聚合规则、指数causal_flat_fill及available_at语义、完整行动来源范围。公开权限不明的内容不得直接放公共Git；账号token等凭据不得交付。缺证据写UNKNOWN，不修改价格凑一致。
 
-若用户明确授权补充报价资料：先确认既有权限能否提供预先选定的小段完整非事件条件化ETF买一卖一/规模/最后成交时间、指数发布时间，以及IOPV方法与发布时间或篮子现金估值依据。带来源序号、修订和时区/分钟聚合/volume单位说明。不要先买五年L2，不要传账号token，不要重传已有一分钟CSV冒充新资料。
+现有五年ETF CSV已在云端，不要重复上传；本任务不授权数据采购、L1历史批量下载、2026收益、R1_A重启或任何策略参数调整。
 
-R1_A保持储备；不重开其模型、匹配或旧期权。不打开2026候选，不选择持有期，不运行修复收益直到另行冻结获准。BLACKBOX_query_count=3，production_authority=false，fresh_oos=false。
+维护验证：
+
+```bash
+PYTHONPATH=src:. python -m pytest -q tests/test_etf_source_repair.py tests/test_etf_source_repair_retained.py
+PYTHONPATH=src:. python research/etf_source_repair/verify_retained.py
+```
+
+原始数据、旧冻结和旧结果全部保留。R1_A继续储备，ETF相对定价研究仍需来源/同步报价依据；BLACKBOX_query_count=3，production_authority=false，fresh_oos=false。
