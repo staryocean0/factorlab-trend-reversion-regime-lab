@@ -1,15 +1,15 @@
 # FactorLab Trend–Reversion Regime Lab
 
-Current frontier: **one-day files verified; restricted source-label replay available; terminal interval defect identified; real-time and NAV qualification not granted**.
+Current frontier: **fixed-day field reconciliation complete; source-label consumer restricted; intraday synchronization and original minute semantics not certified**.
 
-Read [CONTINUE_HERE.md](CONTINUE_HERE.md) and [one-day cloud review](docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md).
+Read [CONTINUE_HERE.md](CONTINUE_HERE.md) and [fixed-day reconciliation](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md).
 
-The six actual Parquet files in `data/etf_microstructure_sample_20251201_v1/` were independently read from the user's fixed delivery commit. 123,307 rows / 3,569,715 bytes, all hashes/row identities checked. No full clone or retransmission is needed.
+Six2025-12-01 source Parquet files are already cloud-verified. Further accounting completed9798 quote events and1928 legacy-minute boundary scenarios. Day-end quantities agree, but many same-label intraday cumulative quantities do not; the four fixed minute conventions do not fully reproduce oldOHLC. No fitted time shift, guessed quantity conversion or source-data overwrite was used.
 
-Source-state checkpoints, stable sequences and restricted continuous label intervals were inspected; raw trade quantity totals equal final quote cumulative quantity for both ETFs. Both final post-close valid intervals are reversed and must not be used as valid intervals. This is a source-product boundary defect, not delivery corruption. Raw files are preserved.
+[Restricted consumer contract](docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json) prevents reversed-terminal and cross-phase intervals from being used. This is a read-only local consumer restriction, not a repaired upstream DataHub product or real-time execution authority.
 
-The data support bounded historical source-label checks, not verified exchange receipt-time alignment, nonzero IOPV, complete source history or executable arbitrage. No price-repair return, lead-lag, half-life or threshold experiment was run. No automatic purchase, date expansion or 2026 opening follows.
+No further local transfer is currently requested. This finite audit is finished; no automatic date expansion, acquisition, returns or NAV-premium experiment follows. New studies must explicitly qualify their source assumptions.
 
-R1_A remains an unconfirmed reserved lead with active development paused. Known 512100 action omission was separately repaired; published cohorts and means did not change. All old prices, freezes, outcomes and failures remain.
+R1_A remains an unconfirmed reserved lead with active development paused. The prior known512100 action correction did not change published cohorts or means. All historical sources, freezes, results and failures are retained.
 
-`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Engineering success is not trading-strategy certification.
+`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Reproducibility is not strategy certification.

@@ -1,46 +1,37 @@
-# Continue here — one-day raw delivery and cloud observation audit complete
+# Continue here — fixed-day field reconciliation completed
 
-## Current frontier
+Latest task is complete: **day-end quantity equality does not establish intraday synchronization; legacy minutes are not fully reproduced; a restricted read-only source-label consumer is implemented.**
 
-**Day files VERIFIED; restricted source-label replay available; terminal interval defect identified; real-time synchronization and NAV unqualified.**
+Read:
+1. `docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md`
+2. `docs/ops/evidence/etf_day_reconciliation_20260912/receipt.json`
+3. `docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json`
+4. `research/etf_day_reconciliation/README.md`
 
-Read `docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md`, `docs/ops/evidence/etf_one_day_cloud_review_20260912/receipt.json`, and `research/etf_one_day_review/README.md`.
+## Actual completion
 
-User delivery `6004b42b1a6d68e13ec602126292a3709d474b70` is at `data/etf_microstructure_sample_20251201_v1/`. All six Parquet files were read in fixed sparse checkout: 123,307 rows / 3,569,715 bytes, all hashes, identities and row counts verified. Full clone was not required; the user's aborted clone was not an acceptance result. Do not ask for re-transfer.
+Freeze `17d87322e4ca8bac4e1299d2c76a4b05b886c9bc`; decisive run `34684308732`, code `fef8578c3caffd523f6db7f26c5a0f947de2be0a`. Eight CSVs plus receipt. Original six Parquet files and only 2025-12-01 legacy CSV observations enter calculations. All original raw bytes remain unchanged.
 
-Decisive content audit run `34683088732`, code `54941508126b9499f1a8e6e65ea956d55bd394c2`; initial byte/row intake `34682669751`; 12 boundary tests. No returns, clock-shift fitting, date expansion or model fitting.
+9,798 quote/tick accounting rows; 482 original fixed-day legacy rows times four predeclared minute conventions = 1,928 rows. Full phase and boundary accounting retained. No fitted multiplier, selected bucket or clock shift.
 
-## Concrete findings
+Continuous quote cumulative quantity exceeds the sum of recorded ticks at-or-before the quote label in 629/4,711 (512100) and 3,508/4,740 (588000) events; no negative differences. Final-day quantities remain equal. This is a representation mismatch inside each ETF's feeds, not an ETF/index lead-lag signal or proof of physical latency.
 
-Two quotes: 4823/4975 rows, each 8 checkpoints. Two trades: 10376/93639 rows, positive prices/quantities, raw IDs unique; same-time multi-trades preserved. Index 3s: 4748/4746 actual rows. ETF native IDs use .SSE, index aliases .SH; original values unchanged.
+Under the declared price divisor, complete OHLC matches for [t-60s,t) are 158/235 and 77/237 printed minutes; all four scenario tables preserved, none certified as vendor truth. Raw-unit quantity inequality is not a data-error verdict because units remain unresolved. 512100 13:26 has no prints in the prior minute and different high/low/close in the next minute's22 prints; neither scenario reconstructs that legacy bar. Do not guess a repair.
 
-Trade quantity sums exactly equal final quote cum_volume in source units: 296228774 / 2162018305. Internal consistency, NOT independent vendor or absolute shares/lots certification.
+## Restricted consumer, not upstream repair
 
-Restricted [09:30,11:30), [13:00,14:57) observed index target counts are 4738 each. Source-state interval/BBO coverage is 4736/4738 and 4738/4738. The primary's exact-label matches are zero because its quote grid has 2s remainder, not because it has no quote tape. No clock shift is fitted. No carry from breaks or future checkpoints. Coverage is relative to observed source labels, not proof of complete synchronized market observations.
+`RestrictedSourceView` rejects reversed/empty/unknown intervals, future checkpoints, cross-phase carry, and fallback to an older state when the latest event is invalid. Consumer ends are clipped at declared phase boundaries; raw ends are not changed. 9,451 source events queryable within scope, 345 outside scope, two reversed terminal intervals retained but rejected. Two primary phase-end intervals clipped only in the consumer view. Observed-index-label coverage remains4736/4738 and4738/4738.
 
-Both final post-close valid intervals are reversed: 512100 15:00:02 -> 15:00:00; 588000 15:00:03 -> 15:00:00. Retain raw rows but never use them as valid intervals. This is the materializer's fixed-day-close boundary issue, not delivery corruption. Do not invent next-day or infinite endpoints.
+DataHub producer and source Parquet have NOT been patched. Source-label replay, offline valid_until and timestamp equality are NOT exact receipt-time/PIT, exchange synchronization, missing-message certification or executable prices.
 
-Fixed 512100 13:26 anomaly: [13:25,13:26) has 0 tick rows, [13:26,13:27) has 22. Do not assign the latter automatically to a legacy end-labelled bar. Native 1m bucket and nonflat-zero-volume cause remain unresolved. No old prices/volumes were changed.
+## Current stop
 
-## Limits and next scope
+This finite field/bucket accounting is finished; do not endlessly rerun it or try new shifts/bucket conventions until one matches. Existing sources are usable for explicitly limited historical observation, not automatically a unified realtime or vendor-certified minute feed. Exact publication times, original vendor members, units, complete action calendars and nonzero IOPV remain unqualified. No returns, date expansion, 2026 opening, acquisition or new empirical candidate follows automatically.
 
-Historical source-label state is not exchange receipt-time or independently known live availability. Time since last state change is not quote age. All iopv_raw are 0 and receipt_exact_pit false. Exact publication times, vendor archives, absolute units and complete day action/halt knowledge remain unqualified. Do not claim NAV discounts, lead-lag alpha or real-time profitability.
-
-There is NO current local retransmission task. Existing one-day records permit further bounded field/quantity/minute-boundary reconciliation if separately authorized. Upstream terminal-state contract correction needs explicit versioning, not invented fills. No automatic broad acquisition, date changes, 2026 opening or new outcome experiments.
+No new local transfer task. Five-year CSVs, source docs and the six day files are already delivered. A new study must separately state its estimand and source assumptions before authorization; missing source facts cannot be filled by optimizing an alignment.
 
 ## Preserved history
 
-The 35-file upstream evidence package and its fixed-source label explanation were accepted earlier; do not request them again. Source-specific bar-Z explanation is not a rule for all timestamps or products. ETF archive available_at represents ingestion; observed index minute available_at is producer day-end; fill rows use synthetic labels. No universal lookahead verdict has been made.
+R1_A remains `R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`; closed R1_B/R2/options and selected-cohort failures remain closed. Known512100 2022-09-02 consolidation/new-old0.36555 and prior published-result zero-impact audit are complete;2022-08-03 proposal was cancelled. Do not repeat that repair. Original sources/manifests/freezes/receipts remain intact; old complete=true does not admit new studies.
 
-Known 512100 consolidation 2022-09-02 (new/old=0.36555) and resumption 2022-09-05 were already versioned. Proposed 2022-08-03 split was cancelled. Prior 3098-pair/21686-window impact audit found no published membership or mean change. Full five-year action completeness remains NOT_CERTIFIED.
-
-R1_A remains `R1A_CURRENT_PRICE_FORMULATION_RESERVED_ACTIVE_DEVELOPMENT_PAUSED`; original R1/R2 mechanisms, closed R1_B/R2-directional/options and failed selected-cohort results remain unchanged. Known 2026 candidate stays metadata-only. `BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`.
-
-## Read-only reproduction
-
-```bash
-python -m unittest discover -s tests -p test_etf_one_day_review.py
-python research/etf_one_day_review/audit.py --output /tmp/etf-one-day-new
-```
-
-Requires pyarrow. Fresh output directories only. Source files and historical evidence are never overwritten. Engineering success is not new market evidence.
+`BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`. Engineering replay is not independent strategy evidence.

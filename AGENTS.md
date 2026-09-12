@@ -1,15 +1,15 @@
 # Trend/reversion research
 
-Read CONTINUE_HERE.md and docs/research/ETF_ONE_DAY_CLOUD_REVIEW_20260912.md before acting.
+Read CONTINUE_HERE.md and docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md.
 
-The user's six real 2025-12-01 Parquet files are now independently read and hash/row-verified in the cloud. Do not ask for another clone or upload of this day, the five-year pack or the already-delivered source docs. The prior delivery-pending label is superseded.
+Latest fixed-day quantity/price/minute-boundary accounting is complete. All original sources remain unchanged. No new local retransmission is needed. Six Parquet files, source docs and five-year legacy CSVs are already in the cloud.
 
-Source clock and interval audit is complete, not a trading test. Restricted continuous source-label replay is possible, but all-day event intervals are NOT defect-free: both last post-close rows end at 15:00 before they begin at 15:00:02/03. Raw evidence remains; invalid intervals must not be filled, extended or queried as live states. Existing checks never carry across session phases or backfill future checkpoints.
+Day-end quantity equality does not imply intraday equality: continuous quote cum_volume is above recorded tick sums at the same source label in629/4711 and3508/4740 cases. This is not economic ETF/index lead-lag or a calibrated latency estimate. Do not fit a shift to hide it.
 
-Trade totals match final quote cumulative quantity in raw units for both ETFs. This does not establish shares/lots or independent completeness. The primary quote grid is 2 seconds offset from the index labels; no optimized shift is authorized. Source-interval coverage and time since state change are NOT exchange synchronization or quote age.
+All four declared minute scenarios retained; none fully reproduces old OHLC or is newly certified as vendor truth. Raw-unit quantity mismatch does not certify an error or justify multiplying all old volumes. The13:26 anomaly is not reconstructed; no source prices, volumes or historical results may be overwritten with nearby prints.
 
-The fixed 512100 13:26 case has zero tick rows in [13:25,13:26) and 22 in [13:26,13:27). Neither bin is automatically the original legacy 1m bucket. No old volume or OHLC repair follows from neighbouring prints. Publication times, actual vendor bytes, units, complete action calendars and nonzero IOPV remain unqualified. All iopv_raw in the day are 0; all exact-PIT flags false.
+RestrictedSourceView is an offline consumer contract, not a DataHub patch or live execution API. Reject reversed/empty/unknown intervals, no future checkpoint/backfill, no cross-phase carry, no fallback to old states after an invalid latest event. Clip only consumer ends at declared phase boundaries. Retain original post-close reversed rows; do not invent an end.
 
-No new date, 2026 prices, half-life, threshold, lead-lag fitting, return/backtest, purchase or strategy promotion. Further fixed-day quantity/price/bucket reconciliation or upstream terminal contract revision requires bounded explicit scope. No new local data handoff is currently needed.
+This finite audit has ended. No automatic new fit, bucket search, date expansion,2026 price reading, purchase, returns, NAV premium or strategy promotion. Unproven publication times/units/source completeness remain explicit usage limits. New empirical scope requires its own authorization and assumptions.
 
-R1_A remains RESERVED_ACTIVE_DEVELOPMENT_PAUSED. Closed R1_B/R2/options and old failures remain. Known 2022-09-02 action repair and zero impact on published cohorts are already complete; do not repeat them. Full old action completeness=true remains insufficient for new admission. `BLACKBOX_query_count=3`, `production_authority=false`, `fresh_oos=false`.
+R1_A reserved and active development paused. ClosedR1_B/R2/options remain closed. Prior known512100 action correction and zero published-cohort impact complete; cancelled2022-08-03 split must not be applied. Preserve all old source bytes, manifests, freezes and receipts. BLACKBOX_query_count=3; production_authority=false; fresh_oos=false.

@@ -6,23 +6,29 @@ on:
     paths:
       - '.github/workflows/etf-day-reconciliation.yml'
       - 'research/etf_day_reconciliation/**'
-      - 'tests/test_etf_day_reconciliation.py'
+      - 'tests/test_etf_day_reconciliation*.py'
       - 'docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json'
+      - 'docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json'
+      - 'docs/ops/evidence/etf_day_reconciliation_20260912/**'
+      - 'data/etf_microstructure_sample_20251201_v1/**'
+      - 'data/r1a_carrier_prices/cloud_pack_v1/prices/*_2025.csv'
 permissions:
-  contents: write
+  contents: read
 jobs:
-  fixed-day-field-accounting:
+  readonly-field-accounting:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
+          persist-credentials: false
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /docs/governance/ETF_DAY_RECONCILIATION_FREEZE@1.0.json
+            /docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json
             /research/etf_day_reconciliation/
-            /tests/test_etf_day_reconciliation.py
+            /tests/test_etf_day_reconciliation*.py
             /docs/ops/evidence/etf_day_reconciliation_20260912/
             /data/etf_microstructure_sample_20251201_v1/
             /data/r1a_carrier_prices/cloud_pack_v1/512100.SH.json
@@ -33,44 +39,36 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install 'pyarrow>=19,<22'
-      - name: Test exact accounting and conservative interval boundaries
-        run: python -m unittest discover -s tests -p test_etf_day_reconciliation.py -v
-      - name: Verify narrow source scope
+      - name: Test arithmetic, restricted intervals and sealed evidence
+        run: python -m unittest discover -s tests -p 'test_etf_day_reconciliation*.py' -v
+      - name: Verify narrow source scope and consumer contract
         run: |
           python - <<'PY'
+          import json
           from pathlib import Path
+          from research.etf_day_reconciliation.audit import PHASES
           p=Path('data/etf_microstructure_sample_20251201_v1')
           assert set(Path('data').rglob('*.parquet'))==set(p.rglob('*.parquet'))
           assert len(list(p.rglob('*.parquet')))==6
           assert not Path('data/market').exists()
+          c=json.loads(Path('docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json').read_text())
+          assert c['continuous_phases']=={k:list(v) for k,v in PHASES.items()}
+          assert not c['upstream_DataHub_repaired'] and not c['production_authority']
           PY
-      - name: Reconcile source fields without returns or fitted alignments
+      - name: Reproduce fixed source accounting without returns
         run: python research/etf_day_reconciliation/audit.py --output "$RUNNER_TEMP/reconciliation"
-      - name: Compare retained evidence when present
+      - name: Require exact retained-table and receipt replay
         run: |
           python - <<'PY'
-          import os,hashlib
+          import os
           from pathlib import Path
           old=Path('docs/ops/evidence/etf_day_reconciliation_20260912')
           new=Path(os.environ['RUNNER_TEMP'])/'reconciliation'
-          if old.exists():
-              assert {p.name for p in old.iterdir()}=={p.name for p in new.iterdir()}
-              for p in old.iterdir(): assert p.read_bytes()==(new/p.name).read_bytes(),p.name
-              print('EXACT_REPLAY_PASS_NOT_STRATEGY_EVIDENCE')
-          else: print('INITIAL_RECONCILIATION_NO_PRIOR_RECEIPT')
+          assert old.is_dir()
+          assert {p.name for p in old.iterdir()}=={p.name for p in new.iterdir()}
+          for p in old.iterdir(): assert p.read_bytes()==(new/p.name).read_bytes(),p.name
+          print('EXACT_REPLAY_PASS_NOT_STRATEGY_EVIDENCE')
           PY
-      - name: Retain initial result only on the bounded audit branch
-        if: github.ref == 'refs/heads/audit/etf-day-reconciliation-v1'
-        run: |
-          if [ ! -e docs/ops/evidence/etf_day_reconciliation_20260912 ]; then
-            mkdir -p docs/ops/evidence/etf_day_reconciliation_20260912
-            cp "$RUNNER_TEMP/reconciliation/"* docs/ops/evidence/etf_day_reconciliation_20260912/
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add docs/ops/evidence/etf_day_reconciliation_20260912
-            git commit -m 'audit: retain fixed-day field discrepancies without changing raw data [skip ci]'
-            git push origin HEAD:audit/etf-day-reconciliation-v1
-          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:

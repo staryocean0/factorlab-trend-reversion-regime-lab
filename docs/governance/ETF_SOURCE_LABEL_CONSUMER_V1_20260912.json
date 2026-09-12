@@ -1,0 +1,23 @@
+{
+  "schema_id": "factorlab_restricted_source_label_consumer@1.0",
+  "implementation": "research/etf_day_reconciliation/audit.py:RestrictedSourceView",
+  "input_pack": "data/etf_microstructure_sample_20251201_v1",
+  "day": "2025-12-01",
+  "purpose": "Offline source-label inspection only; not a live execution or synchronized-price API",
+  "continuous_phases": {"continuous_am": ["09:30:00", "11:30:00"], "continuous_pm": ["13:00:00", "14:57:00"]},
+  "interval_closure": "left closed, right open",
+  "require_same_phase_checkpoint": true,
+  "reject_bad_latest_event_without_older_fallback": true,
+  "reject_unknown_empty_or_reversed_end": true,
+  "effective_end": "min(original valid_until, declared continuous phase end)",
+  "mutate_original_end": false,
+  "backfill_future_checkpoint": false,
+  "carry_across_break_or_auction": false,
+  "extend_terminal_interval": false,
+  "upstream_DataHub_repaired": false,
+  "source_publication_certified": false,
+  "exact_realtime_asof": false,
+  "source_unit_certified": false,
+  "nav_premium_authority": false,
+  "production_authority": false
+}
