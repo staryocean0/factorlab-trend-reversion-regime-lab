@@ -2,9 +2,10 @@ name: etf-index-measurability-regression
 on:
   workflow_dispatch:
   push:
-    branches: [main, research/etf-index-measurability-v1]
+    branches: [main, research/etf-index-measurability-v1, audit/etf-source-repair-impact-v1]
     paths:
       - 'research/etf_index_measurability/**'
+      - 'research/etf_source_repair/verify_legacy_inventory.py'
       - 'tests/test_etf*.py'
       - 'docs/governance/ETF_*'
       - 'docs/ops/evidence/etf_index_measurability*/**'
@@ -32,9 +33,11 @@ jobs:
             /src/
             /shared/
             /research/etf_index_measurability/
+            /research/etf_source_repair/verify_legacy_inventory.py
             /tests/test_etf_index_measurability.py
             /tests/test_etf_measurement_retained.py
             /tests/test_etf_measurement_replay_precision.py
+            /tests/test_etf_replay_inventory.py
             /docs/governance/ETF_INDEX_MEASURABILITY_FREEZE@1.0.json
             /docs/governance/ETF_SOURCE_QUALITY_ADVISORY_20260912.json
             /docs/governance/R1A_PRICE_RESEARCH_DISPOSITION_20260912.json
@@ -45,12 +48,14 @@ jobs:
             /data/r1a_carrier_prices/cloud_pack_v1/
             /data/market/1m/000852.SH/202[1-5].parquet
             /data/market/1m/000688.SH/202[1-5].parquet
+      - name: Fetch original inventory commit without unrelated data blobs
+        run: git fetch --no-tags --filter=blob:none --depth=1 origin 410a064bf73f3631cdba8a85302fc6fa32c80955
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: python -m pip install -e .
-      - name: Test observation boundaries, exact evidence and quantile rounding guard
-        run: python -m pytest -q tests/test_etf_index_measurability.py tests/test_etf_measurement_retained.py tests/test_etf_measurement_replay_precision.py
+      - name: Test observation, precision and commit-specific inventory guards
+        run: python -m pytest -q tests/test_etf_index_measurability.py tests/test_etf_measurement_retained.py tests/test_etf_measurement_replay_precision.py tests/test_etf_replay_inventory.py
       - name: Verify exact source isolation
         run: |
           python - <<'PY'
@@ -60,10 +65,10 @@ jobs:
           assert len(list(Path('data').rglob('*.csv')))==12
           assert not Path('research/r1a_walkforward_prediction').exists()
           PY
-      - name: Reproduce and audit all label-clock measurements without outcomes
+      - name: Reproduce numerical evidence and verify both versioned inventories
         run: |
           python research/etf_index_measurability/audit.py --output "$RUNNER_TEMP/etf-measurement"
-          python research/etf_index_measurability/verify_replay.py --reference docs/ops/evidence/etf_index_measurability_20260912 --replay "$RUNNER_TEMP/etf-measurement" --output "$RUNNER_TEMP/etf-measurement-replay-audit.json"
+          python research/etf_source_repair/verify_legacy_inventory.py --reference docs/ops/evidence/etf_index_measurability_20260912 --replay "$RUNNER_TEMP/etf-measurement" --output "$RUNNER_TEMP/etf-measurement-replay-audit.json"
       - name: Reproduce separate source-provenance inspection
         run: |
           python research/etf_index_measurability/source_flags.py --output "$RUNNER_TEMP/etf-source"

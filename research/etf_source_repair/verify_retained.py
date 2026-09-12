@@ -1,14 +1,14 @@
-"""Read-only retained impact regression, not another raw-market experiment.
+"""Read-only retained impact regression, not another market experiment.
 
-Verify all decisive evidence hashes, every mounted baseline input, independently
-reconstruct action-crossing/membership accounting, and audit published deltas.
-The initial decisive run performed the source replay. This guard does not repeat
-its full OHLC quantile computation or claim independent source authentication.
+All scientific inputs remain current-byte exact. The one operational workflow
+which must evolve is checked from its immutable baseline Git object, with the
+current digest separately reported. No history or decisive result is replaced.
 """
 from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -16,6 +16,8 @@ import pandas as pd
 EVIDENCE='docs/ops/evidence/etf_source_repair_20260912'
 OVERLAY='docs/governance/ETF_ACTION_SOURCE_OVERLAY_V2_20260912.json'
 FREEZE='docs/governance/ETF_SOURCE_REPAIR_IMPACT_FREEZE@1.0.json'
+BASE='ef18bf905e9e427153650d5538a996249bb6a901'
+HISTORICAL_OPERATIONAL_INPUT='.github/workflows/etf-index-measurability.yml'
 
 
 def require(ok, message):
@@ -30,16 +32,24 @@ def digest(p):
 def verify(root: Path) -> dict:
     root=Path(root).resolve(); ev=root/EVIDENCE
     r=json.loads((ev/'receipt.json').read_text()); o=json.loads((root/OVERLAY).read_text())
+    require(r['baseline_commit']==BASE,'baseline changed')
     require(digest(root/OVERLAY)==r['overlay_sha256'],'overlay changed')
     require(digest(root/FREEZE)==r['freeze_sha256'],'freeze changed')
     for s in r['files']:
         p=ev/s['path']; require(p.is_file() and p.stat().st_size==s['bytes'] and digest(p)==s['sha256'],'evidence changed '+s['path'])
-    pins=pd.read_csv(ev/'pinned_input_integrity.csv')
+    pins=pd.read_csv(ev/'pinned_input_integrity.csv'); operational=[]
     for s in pins.itertuples(index=False):
         p=root/s.path
-        require(p.is_file() and not p.is_symlink() and p.stat().st_size==s.bytes and digest(p)==s.sha256,'baseline input changed '+s.path)
-        raw=p.read_bytes(); blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+        require(p.is_file() and not p.is_symlink(),'baseline input missing '+s.path)
+        if s.path==HISTORICAL_OPERATIONAL_INPUT:
+            raw=subprocess.check_output(['git','show',BASE+':'+s.path],cwd=root)
+            operational.append({'path':s.path,'historical_commit':BASE,'historical_sha256':hashlib.sha256(raw).hexdigest(),'current_sha256':digest(p),'role':'operational workflow, not numerical/source input'})
+        else:
+            raw=p.read_bytes()
+        require(len(raw)==s.bytes and hashlib.sha256(raw).hexdigest()==s.sha256,'baseline input changed '+s.path)
+        blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
         require(blob==s.git_blob_sha1,'baseline git identity changed '+s.path)
+    require(len(operational)==1,'historical operational input not verified')
     w=pd.read_csv(ev/'endpoint_window_audit.csv',float_precision='round_trip')
     require(len(w)==21686 and not w.duplicated(['pair_id','horizon']).any(),'endpoint denominator/identity')
     require(set(w.horizon)=={1,5,15,30,60,120,240},'horizon changed')
@@ -49,7 +59,6 @@ def verify(root: Path) -> dict:
             for leg in ('event','control'):
                 en=w[leg+'_entry_timestamp'].str[:10]; ex=w[leg+'_exit_timestamp'].str[:10]
                 expected |= w.carrier.eq(carrier).to_numpy() & (en<action['effective_date']).to_numpy() & (ex>=action['effective_date']).to_numpy()
-    # Existing action crossings were already excluded; added dates may only remove.
     require(np.array_equal(w.new_eligible.to_numpy(),w.old_eligible.to_numpy() & ~expected),'incorrect revised eligibility')
     require(not w.membership_changed.any() and not (w.old_eligible!=w.new_eligible).any(),'unexpected changed cohort')
     require(int(w.new_action_crossing.sum())==3 and w.loc[w.new_action_crossing,'pair_id'].nunique()==2,'new action boundary counts')
@@ -76,15 +85,14 @@ def verify(root: Path) -> dict:
     require(aug.present_etf_labels==240 and not aug.confirmed_halt and not aug.confirmed_effective_action,'cancelled proposal incorrectly applied')
     require(sep.present_etf_labels==0 and sep.confirmed_halt,'suspension not retained')
     require(o['complete_corporate_action_calendar_certified'] is False and o['microstructure_source_admitted'] is False,'false full-source admission')
-    data=root/'data/etf_source_actions_v2'
-    spec=json.loads((data/'manifest.json').read_text())
+    data=root/'data/etf_source_actions_v2'; spec=json.loads((data/'manifest.json').read_text())
     require(spec['full_source_qualification_complete'] is False,'v2 falsely claims admission')
     require(spec['overlay_sha256']==r['overlay_sha256'],'v2 overlay link drift')
     for s in spec['known_action_files']:
         p=root/s['path']; require(p.stat().st_size==s['bytes'] and digest(p)==s['sha256'],'v2 action bytes differ')
         require(len(pd.read_csv(p))==s['rows'],'v2 action rows differ')
     require(r['new_model_fits']==0 and r['new_return_population_opened'] is False and r['original_source_bytes_modified'] is False,'scope breach')
-    return {'status':'RETAINED_EVIDENCE_AND_BASELINE_INPUT_REGRESSION_PASS','pinned_inputs':len(pins),'endpoint_windows':len(w),'published_groups':len(x),'intraday_groups':len(m),'new_model_fits':0,'new_market_experiment':False,'full_source_qualification_complete':False}
+    return {'status':'RETAINED_EVIDENCE_AND_BASELINE_INPUT_REGRESSION_PASS','pinned_inputs':len(pins),'current_scientific_and_other_inputs_exact':len(pins)-len(operational),'operational_inputs_verified_at_baseline':operational,'endpoint_windows':len(w),'published_groups':len(x),'intraday_groups':len(m),'new_model_fits':0,'new_market_experiment':False,'full_source_qualification_complete':False}
 
 
 if __name__=='__main__':
