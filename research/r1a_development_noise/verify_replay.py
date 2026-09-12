@@ -29,7 +29,7 @@ def compare(a, b, path='root'):
 
 
 def table(old:Path,new:Path) -> dict:
-    dtype={'symbol':str,'calendar_year':str,'pair_id':str,'day':str}
+    dtype={'symbol':str,'calendar_year':str,'pair_id':str,'day':str,'K':str}
     a=pd.read_csv(old,dtype=dtype); b=pd.read_csv(new,dtype=dtype)
     require(a.shape==b.shape and list(a.columns)==list(b.columns),'table structure: '+old.name)
     deltas={}
