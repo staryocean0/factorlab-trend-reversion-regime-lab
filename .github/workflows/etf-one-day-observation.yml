@@ -1,0 +1,54 @@
+name: etf-one-day-observation
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/etf-one-day-observation-v1]
+    paths: ['.github/workflows/etf-one-day-observation.yml']
+permissions:
+  contents: read
+jobs:
+  fixed-delivery-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 6004b42b1a6d68e13ec602126292a3709d474b70
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /data/etf_microstructure_sample_20251201_v1/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'pyarrow>=19,<22'
+      - name: Verify actual bytes and Parquet metadata
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          import pyarrow.parquet as pq
+          root=Path.cwd(); pack=root/'data/etf_microstructure_sample_20251201_v1'
+          raw=(pack/'manifest.json').read_bytes()
+          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='b7ccaca6bb0ae712922dd81cb84acd0e334d7847'
+          m=json.loads(raw); assert m['trading_day']=='2025-12-01' and len(m['logical_files'])==6
+          actual={str(p.relative_to(pack)) for p in pack.rglob('*.parquet')}
+          assert actual==set(m['logical_files'])
+          results=[]
+          for name,s in m['logical_files'].items():
+              p=pack/name; assert not p.is_symlink() and p.resolve().is_relative_to(pack.resolve())
+              b=p.read_bytes(); assert len(b)==s['bytes'] and hashlib.sha256(b).hexdigest()==s['sha256'],name
+              table=pq.read_table(p); assert table.num_rows==s['rows'],name
+              results.append(dict(path=name,**s,columns=table.num_columns,schema=str(table.schema)))
+          out=Path(os.environ['RUNNER_TEMP'])/'one-day-intake'; out.mkdir()
+          r={'status':'SIX_PARQUET_BYTES_AND_ROWS_VERIFIED_NOT_MARKET_CERTIFICATION','delivery_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'github_run_id':os.environ['GITHUB_RUN_ID'],'manifest_sha256':hashlib.sha256(raw).hexdigest(),'verified_files':results,'total_rows':sum(x['rows'] for x in results),'total_bytes':sum(x['bytes'] for x in results),'full_clone_required':False,'full_source_qualification':False,'returns_computed':False,'post2025_market_rows_read':False}
+          (out/'intake_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(r,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: etf-one-day-intake-${{ github.run_id }}
+          path: |
+            data/etf_microstructure_sample_20251201_v1/
+            ${{ runner.temp }}/one-day-intake/intake_receipt.json
+          if-no-files-found: error
