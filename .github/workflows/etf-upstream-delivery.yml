@@ -1,0 +1,51 @@
+name: etf-upstream-delivery-audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/etf-upstream-delivery-v1]
+    paths:
+      - '.github/workflows/etf-upstream-delivery.yml'
+permissions:
+  contents: read
+jobs:
+  delivered-file-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 7bc9f893cf045e07479f251a8aa3a7c7e012d52a
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /data/etf_upstream_evidence_v1/
+      - name: Validate actual delivered bytes and exact file inventory
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          root=Path.cwd(); pack=root/'data/etf_upstream_evidence_v1'; path=pack/'manifest.json'
+          raw=path.read_bytes()
+          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='991324900aab5be6690790c0843cb5b020f50944'
+          m=json.loads(raw); specs=m['delivered_files']; names=[x['path'] for x in specs]
+          assert len(names)==len(set(names))
+          for s in specs:
+              p=(root/s['path']).resolve()
+              assert p.is_relative_to(pack.resolve()) and p.is_file() and not (root/s['path']).is_symlink()
+              b=p.read_bytes()
+              assert len(b)==s['bytes'] and hashlib.sha256(b).hexdigest()==s['sha256'],s['path']
+          actual={str(p.relative_to(root)) for p in pack.rglob('*') if p.is_file()}
+          assert actual==set(names)|{'data/etf_upstream_evidence_v1/manifest.json'}
+          out=Path(os.environ['RUNNER_TEMP'])/'etf-upstream'; out.mkdir()
+          r={'status':'DELIVERED_BYTES_VERIFIED_NOT_SOURCE_CERTIFICATION','delivery_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'manifest_sha256':hashlib.sha256(raw).hexdigest(),'manifest_git_blob':'991324900aab5be6690790c0843cb5b020f50944','verified_payload_files':len(specs),'verified_payload_bytes':sum(s['bytes'] for s in specs),'source_repo_versions_declared':{k:v.get('commit',v.get('commit_at_pack_build')) for k,v in m['source_repositories'].items()},'source_repo_commits_independently_fetched':False,'price_pack_loaded':False,'strategy_outcomes_read':False,'new_model_fits':0}
+          (out/'integrity_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(r,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: etf-upstream-verified-${{ github.run_id }}
+          path: |
+            data/etf_upstream_evidence_v1/
+            ${{ runner.temp }}/etf-upstream/integrity_receipt.json
+          if-no-files-found: error
