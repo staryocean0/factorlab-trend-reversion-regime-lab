@@ -6,46 +6,41 @@ on:
     paths:
       - '.github/workflows/etf-upstream-delivery.yml'
 permissions:
-  contents: read
+  contents: write
 jobs:
-  delivered-file-integrity:
+  upstream-source-review:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      PYTHONPATH: .
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 7bc9f893cf045e07479f251a8aa3a7c7e012d52a
-          persist-credentials: false
+          ref: ${{ github.sha }}
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /data/etf_upstream_evidence_v1/
-      - name: Validate actual delivered bytes and exact file inventory
-        shell: bash
-        run: |
-          python - <<'PY'
-          import hashlib,json,os,subprocess
-          from pathlib import Path
-          root=Path.cwd(); pack=root/'data/etf_upstream_evidence_v1'; path=pack/'manifest.json'
-          raw=path.read_bytes()
-          assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()=='991324900aab5be6690790c0843cb5b020f50944'
-          m=json.loads(raw); specs=m['delivered_files']; names=[x['path'] for x in specs]
-          assert len(names)==len(set(names))
-          for s in specs:
-              p=(root/s['path']).resolve()
-              assert p.is_relative_to(pack.resolve()) and p.is_file() and not (root/s['path']).is_symlink()
-              b=p.read_bytes()
-              assert len(b)==s['bytes'] and hashlib.sha256(b).hexdigest()==s['sha256'],s['path']
-          actual={str(p.relative_to(root)) for p in pack.rglob('*') if p.is_file()}
-          assert actual==set(names)|{'data/etf_upstream_evidence_v1/manifest.json'}
-          out=Path(os.environ['RUNNER_TEMP'])/'etf-upstream'; out.mkdir()
-          r={'status':'DELIVERED_BYTES_VERIFIED_NOT_SOURCE_CERTIFICATION','delivery_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'manifest_sha256':hashlib.sha256(raw).hexdigest(),'manifest_git_blob':'991324900aab5be6690790c0843cb5b020f50944','verified_payload_files':len(specs),'verified_payload_bytes':sum(s['bytes'] for s in specs),'source_repo_versions_declared':{k:v.get('commit',v.get('commit_at_pack_build')) for k,v in m['source_repositories'].items()},'source_repo_commits_independently_fetched':False,'price_pack_loaded':False,'strategy_outcomes_read':False,'new_model_fits':0}
-          (out/'integrity_receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
-          print(json.dumps(r,ensure_ascii=False,indent=2))
-          PY
-      - uses: actions/upload-artifact@v4
+            /research/etf_upstream_review/
+            /tests/test_etf_upstream_review.py
+            /docs/ops/evidence/etf_upstream_cloud_review_20260912/
+      - uses: actions/setup-python@v5
         with:
-          name: etf-upstream-verified-${{ github.run_id }}
-          path: |
-            data/etf_upstream_evidence_v1/
-            ${{ runner.temp }}/etf-upstream/integrity_receipt.json
+          python-version: '3.11'
+      - name: Unit tests including synthetic actual-source-function boundaries
+        run: python -m unittest discover -s tests -p test_etf_upstream_review.py -v
+      - name: Run fixed-file lineage and time-channel audit without strategy outcomes
+        run: python research/etf_upstream_review/audit.py --output docs/ops/evidence/etf_upstream_cloud_review_20260912
+      - name: Retain new evidence only on the audit branch
+        if: github.ref == 'refs/heads/audit/etf-upstream-delivery-v1'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse docs/ops/evidence/etf_upstream_cloud_review_20260912
+          git commit -m 'audit: retain upstream source review without promoting market evidence [skip ci]'
+          git push origin HEAD:audit/etf-upstream-delivery-v1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: etf-upstream-review-${{ github.run_id }}
+          path: docs/ops/evidence/etf_upstream_cloud_review_20260912/
           if-no-files-found: error
