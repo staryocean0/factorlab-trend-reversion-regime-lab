@@ -16,9 +16,7 @@
 
 ## 2. M5/M6 证据与表示
 
-M5 已完整收口：在 admitted 1m/5m exact views 上，CSI1000 primary、预注册 T2 sensitivity 与 STAR50 independent replication 都反驳原 extreme-slope exhaustion H1；extreme absolute slope 表现为更高 persistence、更低 reversal。
-
-M6 因此选择**三桶 + 连续 strength**，而不是把任一研究 T2 固化成正式五桶：
+M5 在 admitted 1m/5m exact views 上完整收口：CSI1000 primary、T2 sensitivity 与 STAR50 replication 都反驳原 extreme-slope exhaustion H1。M6 因此冻结为：
 
 ```text
 state             = DOWN | SIDEWAYS | UP
@@ -32,46 +30,34 @@ V1 stable semantics 不包含 `STRONG_UP/STRONG_DOWN`、five-bucket state、T2 �
 
 Machine authority：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
 
-正式 consumer schema：`regime_state_consumer_v1`。
-正式 snapshot schema：`trend_regime_snapshot@1.0`。
+`regime_state_consumer_v1` / `trend_regime_snapshot@1.0` 已实现 immutable identity、append-only ingest、publication/receipt causality、as-of visibility、expiry、latest-expired/unavailable no-fallback、provider/source receipt identity 与 M6 representation fields。
 
-调用面：
+当前 runtime admission 仅两指数的 `trend_1m_official_v1` / `trend_5m_offset0_v1`。其余 M3 profiles 当前 `STATE_NOT_ADMITTED`；caller 不得扩张 registry。
 
-```text
-query_regime(symbol, as_of, bar_interval, profile_id=None)
-```
+## 4. M8 Strategy-Layer Integration Validation（PASS，scope-limited）
 
-M7 已实现：
+Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-- deterministic immutable snapshot identity；
-- append-only ingest；
-- identical duplicate 幂等、conflicting duplicate 拒绝；
-- publication/receipt causality；
-- as-of 只看当时 consumer 已收到的 snapshot；
-- explicit `valid_until` expiry；
-- latest expired / latest unavailable 均不回退旧 snapshot；
-- unavailable 不泄露 state/score/strength；
-- provider/source/admission/source-receipt identity；
-- M6 state/score/strength schema identity；
-- `production_authority=false`、`trading_action_authority=false`。
+M8 没有新建策略，而是验证**分层所有权**：
 
-## 4. Provider admission 边界
+- CSI1000 私仓已有真实 read-only Layer2 consumer adapter：不做 value transformation、不改 threshold、不改策略；其真实 Layer3 orchestration kernel 负责 state adapter、owner waterfall 与 conflict arbitration。
+- M7 trend snapshot 与上述“Layer2 只读输入 → Layer3 组合/仲裁”边界兼容；没有安装新策略 plugin，也没有修改外部仓。
+- STAR50 仓已有真实 append-only risk-state consumer，但其示例明确 `actual_external_consumer_connected=False`；所以 M8 只把它认证为**并行 Layer2 risk provider boundary**，不虚构已连接的策略 caller。
+- Synthetic integration 验证 1m/5m 状态可以冲突并保持独立；trend/risk 分开上送；expired/unavailable 不回退、不变 SIDEWAYS；未准入 15m 在到达上层前就 fail closed。
+- Layer2 stable payload 不产生 T2/strong/five-bucket/global-state，也不产生 BUY/SELL、position/order、strategy selection 或 route。
 
-当前 V1 provider registry 固定为 DataHub `factorlab_unified_index_kline_v3_20260824`，两指数只接纳：
+因此 M8 的 PASS 是**接口与所有权边界验证**，不是 live/production integration certification。
 
-- `trend_1m_official_v1`
-- `trend_5m_offset0_v1`
+## 5. 当前证据与部署限制
 
-M3 其余 engineering profiles 没有被删除，但在当前 runtime source admission 下必须 `STATE_NOT_ADMITTED`。V1 registry 不能由 query caller 或 constructor 自行扩张；未来扩张必须有新的 exact source receipt 和 versioned governance。
+- persistence/strength empirical certification 仍只覆盖 admitted 1m/5m 与 CSI1000/STAR50；
+- 15m/60m 和 phase profiles 没有同等级认证；
+- STAR50 没有已证明的 external strategy caller connection；
+- 2025 Holdout 从未打开，M5 outcome 不重开；
+- `production_authority=false`、`fresh_oos=false`。
 
-`source_receipt_id` 必须是非空字符串。`valid_until` 属于 component/provider publication layer，而不是 query caller 参数。
+## 6. 唯一下一步：M9
 
-## 5. 证据范围仍然有限
+M9 只处理 release/version/documentation/governance：schema/version matrix、examples、migration/changelog、evidence lineage、known limitations 与 release policy。
 
-M5 persistence/strength evidence certification 目前只覆盖 admitted 1m/5m 与 CSI1000/STAR50。15m/60m 和 phase profiles 不得被描述为已获得同等级实证认证。2025 protocol Holdout 从未打开；M5 outcome 不重开；`fresh_oos=false`。
-
-## 6. 唯一下一步：M8
-
-M8 只做上层 caller integration validation：验证不同策略层调用者如何安全读取 M7 snapshot，并由上层自行处理多周期组合、风险状态组合和动作映射。
-
-M8 不改变 M6 representation、M7 lifecycle/provider admission，也不能把 `UP/DOWN/strength` 变成组件内部 BUY/SELL/仓位规则。M9 才处理 release/version/migration governance。
+M9 不得扩大 source admission、重开 M5、改变 M6/M7、把 M8 说成 production deployment，或授予 production authority。
