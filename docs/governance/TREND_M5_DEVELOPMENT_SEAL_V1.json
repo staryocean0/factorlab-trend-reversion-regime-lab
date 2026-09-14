@@ -1,0 +1,61 @@
+{
+  "schema_id": "trend_m5_development_seal@1.0",
+  "milestone": "M5-3",
+  "status": "SEALED_BEFORE_PRIMARY_VALIDATION",
+  "created_from_head": "2ac4b5330220062e586ec02913454f809a33d839",
+  "protocol_change_allowed": false,
+  "validation_rows_read": false,
+  "holdout_rows_read": false,
+  "validation_run_performed": false,
+  "holdout_run_performed": false,
+  "h1_adjudicated": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "sealed_contracts": [
+    {"path": "docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json", "git_blob": "52f519da5a3d60550458afea833d21b18115a845", "schema_id": "trend_five_bucket_protocol_m4@1.0"},
+    {"path": "docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json", "git_blob": "6e88f7ba15b7c4bf9ec12b2e50c67dc365d173b7", "schema_id": "trend_m5_source_profile_admission@1.0"},
+    {"path": "docs/governance/TREND_M5_DEVELOPMENT_ADEQUACY_V1.json", "git_blob": "490f667f2c347bd2df32bbeb66a8aba231557e92", "schema_id": "trend_m5_development_adequacy_receipt@1.0"}
+  ],
+  "sealed_code": [
+    {"path": "scripts/m5_development_adequacy.py", "git_blob": "cddadecc48782ff468df019346d211ffb5856d1f"},
+    {"path": "scripts/m5_development_adequacy_core.py", "git_blob": "389ed4ce1cad3812596daceda78b38d6e080b057"},
+    {"path": "src/factor_lab/market_state/trend_regime_baseline.py", "git_blob": "25309a1dfc2dd8b93e777747a24c6843e086bc7d"},
+    {"path": "src/factor_lab/market_state/trend_regime_profiles.py", "git_blob": "6d192667434c1406bfbc5e6c8e88bc48c2bc2231"},
+    {"path": "src/factor_lab/data/session_offset_defaults.py", "git_blob": "dc94ca08f2b3cb780dba4593bc5e600dc82e05a9"},
+    {"path": "src/regime_lab/market_data.py", "git_blob": "408201b19fe439fb14b1c7c4e600e9a4d442ffa8"}
+  ],
+  "sealed_data_identity": {
+    "local_manifest_path": "data/manifest.json",
+    "local_manifest_git_blob": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "source_export": "factorlab_unified_index_kline_v3_20260824",
+    "datahub_export_manifest_sha256": "c46f2da6c3df016ca054e183e37267dc472097450fcdd6644c22aa0084c15749",
+    "views": {
+      "1m_official": "aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423",
+      "5m_offset_0": "d3101e6adf7a3e85b11f7c3503a6161f3ab363f7edd90ac8cba451ffe409c46a"
+    },
+    "admitted_profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"],
+    "not_admitted_anchor_intervals": ["15m", "60m"]
+  },
+  "sealed_development_run": {
+    "workflow_run_id": 34812469153,
+    "head": "7069d2afc1c2137c14a16003dcfd5ebf9c21376f",
+    "artifact_id": 10334954106,
+    "artifact_digest": "sha256:95eb49298359959cd4ebf82fc21eca8d79e61e932f0d550fbb3c09efd56b3147",
+    "development_start": "2020-07-23",
+    "development_end": "2022-12-30"
+  },
+  "clock_contract": {
+    "timezone": "Asia/Shanghai",
+    "runtime_available_at": "bar_end",
+    "raw_historical_available_at_role": "provenance_only",
+    "measured_feed_latency_claimed": false
+  },
+  "next_allowed_step": {
+    "milestone": "M5-4",
+    "scope": "run primary T2=4 Validation once on admitted 1m/5m anchors under the sealed identities",
+    "validation_may_run_once": true,
+    "holdout_still_locked": true,
+    "protocol_change_allowed": false,
+    "sealed_code_change_allowed_before_validation": false
+  }
+}
