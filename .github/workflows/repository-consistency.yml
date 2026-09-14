@@ -40,6 +40,8 @@ jobs:
           python-version: '3.11'
       - name: Install package and maintenance dependencies
         run: python -m pip install -e '.[maintenance]'
+      - name: Probe M7 consumer SHA256
+        run: sha256sum src/factor_lab/market_state/trend_regime_consumer.py
       - name: Check repository-wide component, source and workflow consistency
         run: python scripts/repository_consistency.py --check --output "$RUNNER_TEMP/repository-consistency.json"
       - name: Test maintenance guards and current M2-M7 trend contracts
