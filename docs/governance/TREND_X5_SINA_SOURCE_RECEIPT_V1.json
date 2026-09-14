@@ -1,0 +1,38 @@
+{
+  "schema_id": "trend_x5_sina_source_receipt@1.0",
+  "stage": "X5_CROSS_CARRIER_EXPANSION",
+  "status": "SOURCE_ACQUIRED_CLOCK_GATE_PASS_BEFORE_STATISTICS",
+  "sealed_on": "2026-09-14",
+  "provider": "Sina public CN market K-line endpoint",
+  "endpoint_family": "quotes.sina.cn/cn/api/json_v2.php/CN_MarketData.getKLineData",
+  "period": "5m",
+  "complete_window": {"start":"2026-08-17","end":"2026-09-14","trading_days":21,"rows_per_carrier":1008},
+  "clock_contract": {
+    "expected_rows_per_day": 48,
+    "expected_first_close": "09:35",
+    "expected_last_morning_close": "11:30",
+    "expected_first_afternoon_close": "13:05",
+    "expected_last_close": "15:00",
+    "step_minutes": 5,
+    "matches_m3_5m_offset0_clock": true,
+    "bad_days_all_carriers": 0
+  },
+  "raw_files": [
+    {"symbol":"000852.SH","raw_rows":1023,"first_timestamp":"2026-08-14 13:50:00","last_timestamp":"2026-09-14 15:00:00","sha256":"b0bba0290465d76f7b68554653c578a4cbb6bbd567fc9baebc7152f23d8abc9f","bytes":153781},
+    {"symbol":"000688.SH","raw_rows":1023,"first_timestamp":"2026-08-14 13:50:00","last_timestamp":"2026-09-14 15:00:00","sha256":"e7828c7e1261c8e398cf22c6d8a808702358c7e0f6a64c2b6bf40620d41914bf","bytes":151873},
+    {"symbol":"000300.SH","raw_rows":1023,"first_timestamp":"2026-08-14 13:50:00","last_timestamp":"2026-09-14 15:00:00","sha256":"4fafc07eeced4a54d18e7491f47130526384345aad21888efd18158926f9441a","bytes":153864},
+    {"symbol":"000905.SH","raw_rows":1023,"first_timestamp":"2026-08-14 13:50:00","last_timestamp":"2026-09-14 15:00:00","sha256":"50a81ed26fc20203b2dcc4e3bc4d86e245bea07299e5cb449262454f697f317c","bytes":153662},
+    {"symbol":"000016.SH","raw_rows":1023,"first_timestamp":"2026-08-14 13:50:00","last_timestamp":"2026-09-14 15:00:00","sha256":"ffcd23d33f1df659e1da994a3c77a2c0f7448ba94065dc153b16f205d3948a95","bytes":152730}
+  ],
+  "source_identity": {
+    "DataHub_exact_source_identity": false,
+    "M3_5m_offset0_clock_aligned": true,
+    "research_role": "independent-source replication only",
+    "runtime_admission_effect": "none"
+  },
+  "market_outcome_statistics_computed_at_receipt_seal": false,
+  "parameter_tuning_performed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "next_action": "compute the once-only predeclared X5 five-carrier statistics from the sealed complete window"
+}
