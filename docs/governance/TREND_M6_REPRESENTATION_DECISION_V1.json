@@ -1,0 +1,108 @@
+{
+  "schema_id": "trend_m6_representation_decision@1.0",
+  "milestone": "M6",
+  "status": "PASS_FROZEN_THREE_BUCKET_PLUS_CONTINUOUS_STRENGTH",
+  "decision_id": "trend_representation_m6_v1",
+  "selected_option": "THREE_BUCKET_PLUS_CONTINUOUS_STRENGTH",
+  "selected_representation_schema_id": "trend_regime_three_bucket_plus_continuous_strength@1.0",
+  "state_scheme_id": "trend_regime_three_bucket@1.0",
+  "state_enum": ["DOWN", "SIDEWAYS", "UP"],
+  "state_boundary_authority": {
+    "baseline_schema_id": "trend_regime_three_bucket_baseline@1.0",
+    "t1": 2.0,
+    "down": "slope_t < -2.0",
+    "sideways": "-2.0 <= slope_t <= 2.0",
+    "up": "slope_t > 2.0"
+  },
+  "continuous_strength": {
+    "directional_score_field": "directional_score",
+    "directional_score_definition": "exact frozen M2 slope_t from log_close_ols_slope_t@1.0",
+    "strength_field": "strength",
+    "strength_definition": "abs(directional_score)",
+    "strength_definition_id": "absolute_log_close_ols_slope_t@1.0",
+    "caller_tunable": false,
+    "normalized_to_unit_interval": false,
+    "distribution_quantile_based": false
+  },
+  "formal_product_state_exclusions": [
+    "STRONG_DOWN",
+    "STRONG_UP"
+  ],
+  "t2_product_policy": {
+    "formal_product_t2": null,
+    "caller_may_supply_t2": false,
+    "stable_consumer_may_emit_strong_state": false,
+    "m4_m5_t2_values_role": "historical preregistered research thresholds only",
+    "research_thresholds_retained": [3.0, 4.0, 5.0]
+  },
+  "evidence_basis": {
+    "m5_closeout_path": "docs/governance/TREND_M5_CLOSEOUT_V1.json",
+    "m5_closeout_git_blob": "9ced88d69ed6791b65f7e8f17b269ee5269ac1e2",
+    "headline": "The exhaustion H1 was contradicted; slope extremeness showed robust persistence/reversal information on admitted 1m/5m views across CSI1000 primary, T2 sensitivity, and STAR50 replication.",
+    "why_continuous_not_formal_five_bucket": [
+      "T2=3,4,5 all produced the same qualitative persistence result, so M5 supports a continuous extremeness/strength dimension rather than a uniquely privileged product cutoff.",
+      "15m/60m anchors and phase profiles were NOT_ADMITTED_NOT_EXECUTED, so a universal five-state semantic is not empirically certified across the full M3 profile surface.",
+      "5-bar direction-adjusted return did not show the same stable evidence as persistence/reversal, so a STRONG state must not acquire trading or alpha semantics.",
+      "Continuous strength preserves information and avoids arbitrary discretization while the three-bucket state preserves the already-frozen directional contract."
+    ]
+  },
+  "evidence_scope": {
+    "empirically_supported_strength_intervals": ["1m", "5m"],
+    "empirically_supported_carriers": ["000852.SH", "000688.SH"],
+    "not_empirically_certified_intervals": ["15m", "60m"],
+    "phase_profiles_empirically_certified": false,
+    "fresh_oos": false,
+    "production_authority": false
+  },
+  "rejected_options": [
+    {
+      "option": "FORMAL_FIVE_BUCKET",
+      "decision": "REJECTED_FOR_V1",
+      "reason": "evidence supports continuous extremeness but does not identify a uniquely privileged T2 or certify all intervals/profiles"
+    },
+    {
+      "option": "THREE_BUCKET_PLUS_FIVE_BUCKET_DIAGNOSTIC_PRODUCT_EXTENSION",
+      "decision": "REJECTED_FOR_V1_STABLE_API",
+      "reason": "research five-bucket artifacts remain preserved, but exposing them in the stable product would leak an arbitrary T2 and create parallel state semantics before broader profile certification"
+    }
+  ],
+  "research_artifact_policy": {
+    "m4_m5_five_bucket_artifacts_retained": true,
+    "may_be_used_for_historical_research_audit": true,
+    "may_be_returned_by_m7_stable_consumer": false,
+    "may_be_promoted_later": "only through a new representation schema/version and new predeclared evidence; never by silently changing M6 v1"
+  },
+  "m7_contract_requirements": {
+    "snapshot_must_include": [
+      "state",
+      "directional_score",
+      "strength",
+      "representation_schema_id",
+      "state_scheme_id",
+      "strength_definition_id"
+    ],
+    "state_must_be_three_bucket_only": true,
+    "directional_score_must_equal_frozen_slope_t": true,
+    "strength_must_equal_abs_directional_score": true,
+    "t2_must_not_be_caller_parameter": true,
+    "strong_state_fields_forbidden": true,
+    "no_global_multi_interval_state": true,
+    "production_authority": false
+  },
+  "authority": {
+    "measurement": true,
+    "strategy_selection": false,
+    "parameter_selection": false,
+    "routing": false,
+    "trading_action": false,
+    "production": false
+  },
+  "locked_objects": [
+    {"path":"docs/governance/TREND_M5_CLOSEOUT_V1.json","git_blob":"9ced88d69ed6791b65f7e8f17b269ee5269ac1e2"},
+    {"path":"src/factor_lab/market_state/trend_regime_baseline.py","git_blob":"25309a1dfc2dd8b93e777747a24c6843e086bc7d"},
+    {"path":"src/factor_lab/market_state/trend_regime_representation.py","git_blob":"677571f4a31a8e935f448cb8a5f6b05b1e5accef"}
+  ],
+  "m5_outcome_reopen_allowed": false,
+  "holdout_read_allowed": false,
+  "next_allowed_step": "M7 stable consumer implementation only"
+}
