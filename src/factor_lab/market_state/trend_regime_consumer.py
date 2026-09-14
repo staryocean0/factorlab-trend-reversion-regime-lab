@@ -62,10 +62,14 @@ class TrendProviderAdmission:
     production_authority: bool = False
 
     def __post_init__(self) -> None:
-        if not self.provider_id or not self.source_dataset_id or not self.admission_receipt_id:
-            raise ValueError("provider admission identity is incomplete")
-        if not self.admitted_symbols or not self.admitted_profiles:
-            raise ValueError("provider admission cannot be empty")
+        if (
+            self.provider_id != CURRENT_PROVIDER_ID
+            or self.source_dataset_id != CURRENT_SOURCE_DATASET_ID
+            or self.admission_receipt_id != CURRENT_ADMISSION_RECEIPT_ID
+            or self.admitted_symbols != SUPPORTED_SYMBOLS
+            or self.admitted_profiles != CURRENT_ADMITTED_PROFILES
+        ):
+            raise ValueError("M7 V1 provider admission is frozen")
         if self.production_authority:
             raise ValueError("M7 provider admission has no production authority")
 
@@ -137,7 +141,7 @@ class TrendRegimeSnapshot:
                 raise ValueError("snapshot strength drift")
         elif any(value is not None for value in (self.state, self.directional_score, self.strength)):
             raise ValueError("unavailable snapshot must suppress state and strength")
-        if not self.source_receipt_id:
+        if not isinstance(self.source_receipt_id, str) or not self.source_receipt_id.strip():
             raise ValueError("source_receipt_id is required")
         if self.production_authority or self.trading_action_authority:
             raise ValueError("M7 snapshot may not grant production/trading authority")
@@ -173,18 +177,17 @@ def build_trend_regime_snapshot(
     published_at: datetime | str,
     valid_until: datetime | str,
     source_receipt_id: str,
-    admission: TrendProviderAdmission | None = None,
 ) -> TrendRegimeSnapshot:
-    registry = admission or current_provider_admission()
+    registry = current_provider_admission()
     if symbol not in SUPPORTED_SYMBOLS:
         raise ValueError("unsupported trend symbol")
+    if not isinstance(source_receipt_id, str) or not source_receipt_id.strip():
+        raise ValueError("source_receipt_id is required")
     profile = resolve_trend_profile(bar_interval=measurement.bar_interval, profile_id=measurement.profile_id)
     if measurement.layer1_view_id != profile.layer1_view_id:
         raise ValueError("measurement/profile view mismatch")
     if not registry.admits(symbol=symbol, profile_id=profile.profile_id):
         raise ValueError("provider/profile is not admitted")
-    if registry.provider_id != CURRENT_PROVIDER_ID or registry.source_dataset_id != CURRENT_SOURCE_DATASET_ID:
-        raise ValueError("provider/source dataset is not the frozen M7 admission")
 
     state = score = strength = None
     if measurement.status == STATUS_AVAILABLE:
@@ -215,7 +218,7 @@ def build_trend_regime_snapshot(
         provider_id=registry.provider_id,
         source_dataset_id=registry.source_dataset_id,
         admission_receipt_id=registry.admission_receipt_id,
-        source_receipt_id=str(source_receipt_id),
+        source_receipt_id=source_receipt_id.strip(),
         measurement_schema_id=measurement.schema_id,
         estimator_id=measurement.estimator_id,
         estimator_version=measurement.estimator_version,
@@ -267,8 +270,8 @@ class RegimeQueryResult:
 class TrendSnapshotStore:
     """Append-only snapshot index; latest expired/unavailable never falls back."""
 
-    def __init__(self, *, admission: TrendProviderAdmission | None = None) -> None:
-        self.admission = admission or current_provider_admission()
+    def __init__(self) -> None:
+        self.admission = current_provider_admission()
         self._times: dict[tuple[str, str], list[datetime]] = {}
         self._records: dict[tuple[str, str], list[tuple[datetime, TrendRegimeSnapshot]]] = {}
         self._ids: dict[str, str] = {}
