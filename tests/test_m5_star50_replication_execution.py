@@ -7,6 +7,7 @@ from scripts.m5_v6_replication_execution import CARRIER, PROFILES, replication_l
 ROOT = Path(__file__).resolve().parents[1]
 EXECUTION = ROOT / "docs/governance/TREND_M5_STAR50_REPLICATION_EXECUTION_V1.json"
 RECEIPT = ROOT / "docs/governance/TREND_M5_STAR50_REPLICATION_V1.json"
+CLOSEOUT = ROOT / "docs/governance/TREND_M5_CLOSEOUT_V1.json"
 PRIMARY = ROOT / "docs/governance/TREND_M5_PRIMARY_VALIDATION_V1.json"
 SENSITIVITY = ROOT / "docs/governance/TREND_M5_T2_SENSITIVITY_V1.json"
 
@@ -73,6 +74,22 @@ def test_replication_receipt_is_clear_and_separate():
         assert item["ci95"][0] > 0.0
         assert item["reversal10_strong_minus_moderate"] < 0.0
         assert item["reversal10_ci95"][1] < 0.0
+
+
+def test_m5_closeout_is_complete_and_only_m6_is_next():
+    payload = json.loads(CLOSEOUT.read_text(encoding="utf-8"))
+    assert payload["status"] == "M5_COMPLETE_H1_CONTRADICTED_ROBUST_ON_ADMITTED_1M_5M"
+    assert len(payload["evidence_chain"]) == 6
+    assert payload["scope_limits"]["admitted_intervals"] == ["1m", "5m"]
+    assert payload["scope_limits"]["not_admitted_anchor_intervals"] == ["15m", "60m"]
+    assert payload["scope_limits"]["phase_sensitivity_profiles"] == "NOT_ADMITTED_NOT_EXECUTED"
+    assert payload["scope_limits"]["holdout_opened"] is False
+    assert payload["scope_limits"]["local_resampling_used"] is False
+    assert payload["scope_limits"]["carrier_pooling_used"] is False
+    assert payload["m5_outcome_work_reopen_allowed"] is False
+    assert payload["next_allowed_step"] == "M6 representation decision only"
+    assert payload["representation_decision_pending"] is True
+    assert payload["trading_semantics"] is False
 
 
 def test_replication_profiles_and_labels_are_fixed():
