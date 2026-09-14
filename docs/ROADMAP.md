@@ -59,7 +59,7 @@ M9 已冻结：
 - pre-M7 internal usage → V1 migration；
 - M2→M9 evidence lineage；
 - known limitations；
-- `docs/RELEASE.md`、`docs/API_EXAMPLES.md`、`CHANGELOG.md`；
+- `docs/governance/TREND_V1_RELEASE.md`、`docs/governance/TREND_V1_API_EXAMPLES.md`、`docs/governance/TREND_V1_CHANGELOG.md`；
 - release gate：必须保持 M6/M7/M8 语义、runtime admission、`production_authority=false`、`fresh_oos=false`，且不得重开 M5/Holdout。
 
 以后如果新增 15m/60m、phase profile、formal STRONG state、global state 或任何 strategy/action authority，必须按 M9 SemVer/governance 重新立项；不能改写 V1 历史 snapshot。
