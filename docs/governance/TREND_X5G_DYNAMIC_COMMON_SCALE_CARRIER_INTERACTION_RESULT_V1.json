@@ -1,0 +1,127 @@
+{
+  "schema_id": "trend_x5g_dynamic_common_scale_carrier_interaction_result@1.0",
+  "status": "X5G_COMPLETE_CROSS_CARRIER_ALIGNMENT_IMPROVED_STABLE_TEMPORAL_REPRESENTATION_NOT_ESTABLISHED",
+  "research_scope": "representation-layer strength diagnostics only",
+  "source_window": {"start": "2026-01-05", "end": "2026-09-14"},
+  "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "aligned_measurements_per_carrier": 661,
+  "common_evaluation": {
+    "warmup_measurements": 320,
+    "start": "2026-05-15 15:00:00",
+    "end": "2026-09-14 15:00:00",
+    "measurements_per_carrier": 341,
+    "eligible_months": ["2026-05", "2026-06", "2026-07", "2026-08", "2026-09"]
+  },
+  "causal_identity": {
+    "current_score_used_to_estimate_own_common_scale": false,
+    "current_score_used_to_estimate_own_carrier_component": false,
+    "future_information_used": false,
+    "common_factor_for_each_carrier_uses_other_four_carriers_only": true,
+    "carrier_component_uses_own_past_residuals_only": true
+  },
+  "raw_same_window": {
+    "cross_carrier_median_strength_range": 1.4846663594592386,
+    "cross_carrier_median_strength_max_to_min": 1.5206571674460383,
+    "median_within_carrier_monthly_max_to_min": 3.3911750186099208,
+    "within_carrier_monthly_max_to_min": {
+      "000852.SH": 3.150595358246777,
+      "000688.SH": 3.3911750186099208,
+      "000300.SH": 1.2464383043357037,
+      "000905.SH": 8.362352055935633,
+      "000016.SH": 8.233690775940639
+    },
+    "monthly_cell_max_to_min": 16.319292548103732
+  },
+  "candidates": {
+    "COMMON20_CARRIER120": {
+      "common_window": 20,
+      "carrier_window": 120,
+      "cross_carrier_median_strength_range": 0.2947013472983889,
+      "cross_carrier_median_strength_max_to_min": 1.329596065613468,
+      "range_reduction_vs_raw": 0.8015033172801678,
+      "median_within_carrier_monthly_max_to_min": 2.1656798541401656,
+      "temporal_ratio_reduction_vs_raw": 0.3613777400884779,
+      "carriers_with_lower_monthly_ratio_than_raw": 4,
+      "monthly_cell_max_to_min": 4.167533768978581,
+      "common_scale_monthly_max_to_min": 1.4268703617443856,
+      "gates": {"cross_carrier_scale": true, "temporal": true, "breadth": true, "interaction": false},
+      "all_stability_gates_pass": false
+    },
+    "COMMON40_CARRIER120": {
+      "common_window": 40,
+      "carrier_window": 120,
+      "cross_carrier_median_strength_range": 0.21175667518752295,
+      "cross_carrier_median_strength_max_to_min": 1.2345747470269388,
+      "range_reduction_vs_raw": 0.857370867307419,
+      "median_within_carrier_monthly_max_to_min": 3.4133755919704063,
+      "temporal_ratio_reduction_vs_raw": -0.006546572571056952,
+      "carriers_with_lower_monthly_ratio_than_raw": 3,
+      "monthly_cell_max_to_min": 8.535762940239705,
+      "common_scale_monthly_max_to_min": 1.626778316685346,
+      "gates": {"cross_carrier_scale": true, "temporal": false, "breadth": false, "interaction": false},
+      "all_stability_gates_pass": false
+    },
+    "COMMON40_CARRIER240": {
+      "common_window": 40,
+      "carrier_window": 240,
+      "cross_carrier_median_strength_range": 0.20871799807175928,
+      "cross_carrier_median_strength_max_to_min": 1.2430881022317157,
+      "range_reduction_vs_raw": 0.8594175743648015,
+      "median_within_carrier_monthly_max_to_min": 4.221512363893987,
+      "temporal_ratio_reduction_vs_raw": -0.24485240093105842,
+      "carriers_with_lower_monthly_ratio_than_raw": 3,
+      "monthly_cell_max_to_min": 9.497090140458779,
+      "common_scale_monthly_max_to_min": 1.626778316685346,
+      "gates": {"cross_carrier_scale": true, "temporal": false, "breadth": false, "interaction": false},
+      "all_stability_gates_pass": false
+    },
+    "COMMON80_CARRIER240": {
+      "common_window": 80,
+      "carrier_window": 240,
+      "cross_carrier_median_strength_range": 0.28860615650606136,
+      "cross_carrier_median_strength_max_to_min": 1.336297585963004,
+      "range_reduction_vs_raw": 0.805608745246184,
+      "median_within_carrier_monthly_max_to_min": 4.712999609667994,
+      "temporal_ratio_reduction_vs_raw": -0.389783654280369,
+      "carriers_with_lower_monthly_ratio_than_raw": 0,
+      "monthly_cell_max_to_min": 15.004867097277,
+      "common_scale_monthly_max_to_min": 1.4128717254880145,
+      "gates": {"cross_carrier_scale": true, "temporal": false, "breadth": false, "interaction": false},
+      "all_stability_gates_pass": false
+    }
+  },
+  "primary_decision": {
+    "all_candidates_pass_cross_carrier_scale_gate": true,
+    "any_candidate_passes_all_stability_gates": false,
+    "best_near_candidate": "COMMON20_CARRIER120",
+    "stable_normalized_strength_representation_established": false,
+    "carrier_time_interaction_resolved": false,
+    "interpretation": "Strictly causal dynamic common plus slow carrier normalization robustly improves cross-carrier strength alignment, but does not establish stable within-carrier temporal scale. Longer windows lag regime changes and worsen temporal instability; the shortest preregistered candidate still fails the interaction gate."
+  },
+  "post_hoc_full_month_diagnostic_not_used_for_primary_decision": {
+    "months": ["2026-06", "2026-07", "2026-08", "2026-09"],
+    "raw_median_within_carrier_monthly_max_to_min": 1.6005748080498612,
+    "COMMON20_CARRIER120_median_within_carrier_monthly_max_to_min": 1.6040272878254505,
+    "raw_monthly_cell_max_to_min": 2.7611998821354593,
+    "COMMON20_CARRIER120_monthly_cell_max_to_min": 2.282611176299465,
+    "interpretation": "The apparent primary-window temporal improvement of COMMON20_CARRIER120 is largely driven by the partial May regime-shift segment; on full June-September months temporal stability is approximately unchanged while cell dispersion improves modestly."
+  },
+  "normalized_strength_decision": {
+    "cross_carrier_dynamic_diagnostic_supported": true,
+    "stable_temporal_representation_established": false,
+    "product_strength_semantics_change_supported": false,
+    "state_boundary_use_supported": false,
+    "recommended_next_research_question": "Test explicitly adaptive regime-shift-aware strength scale estimators or change-point response rules without changing V1 state semantics."
+  },
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "strategy_logic_used": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
