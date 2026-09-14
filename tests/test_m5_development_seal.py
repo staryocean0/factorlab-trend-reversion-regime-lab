@@ -54,3 +54,14 @@ def test_development_run_and_source_identity_are_frozen():
     assert data["not_admitted_anchor_intervals"] == ["15m", "60m"]
     assert data["views"]["1m_official"] == "aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423"
     assert data["views"]["5m_offset_0"] == "d3101e6adf7a3e85b11f7c3503a6161f3ab363f7edd90ac8cba451ffe409c46a"
+
+
+def test_admission_does_not_shrink_the_registered_primary_family():
+    seal = json.loads(SEAL.read_text(encoding="utf-8"))
+    family = seal["planned_primary_family_policy"]
+    assert family["planned_contrasts"] == 8
+    assert family["executable_admitted_contrasts"] == 4
+    assert family["not_admitted_contrasts"] == 4
+    assert family["not_admitted_pvalue"] == 1.0
+    assert family["holm_family_size_remains"] == 8
+    assert family["family_shrinkage_after_admission_forbidden"] is True
