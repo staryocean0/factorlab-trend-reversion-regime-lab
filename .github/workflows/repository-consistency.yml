@@ -60,6 +60,7 @@ jobs:
           tests/test_m6_representation_decision.py
           tests/test_trend_regime_consumer.py
           tests/test_m7_consumer_hardening.py
+          tests/test_m7_consumer_contract.py
           --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
       - name: Validate setup shell syntax
         run: bash -n .codex/cloud_setup.sh
