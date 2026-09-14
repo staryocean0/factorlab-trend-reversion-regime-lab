@@ -12,9 +12,9 @@
 
 未来工程收敛为**可被策略调用的趋势状态识别组件**，不是独立交易策略，也不直接输出买卖、仓位或 Layer 4 指令。
 
-M0 产品定位、M1 consumer 合同与 **M2 三桶基线冻结**均已完成。当前唯一下一阶段是 **M3 多 K 线级别参数化**；M3 完成前不进入五桶协议或极端斜率实证。
+M0 产品定位、M1 consumer 合同、M2 三桶基线和 **M3 多 K 线级别参数化**均已完成。当前唯一下一阶段是 **M4 五桶假设与实验协议冻结**；M4 只预注册实验，不运行 M5 实证。
 
-M2 已冻结 `trend_regime_three_bucket_baseline@1.0`：20 根 completed/available K 线、log-close OLS signed slope t-score、`T1=2.0`，并用因果/缺失回归测试保证 future/unpublished bar 不泄漏。详见 [M2 三桶基线](docs/THREE_BUCKET_BASELINE.md)。
+M2 冻结 `trend_regime_three_bucket_baseline@1.0`：20 根 completed/available K 线、log-close OLS signed slope t-score、`T1=2.0`。M3 在不改数学的前提下把它绑定到 `1m/5m/15m/60m` 共 10 个 DataHub Layer-1 V3 profiles，并对 view/cadence/as-of 做 fail-closed admission。多周期状态独立并存，不产生 `global_state`。
 
 ## 入口
 
