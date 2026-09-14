@@ -55,6 +55,7 @@ jobs:
           tests/test_m5_development_seal.py
           tests/test_m5_primary_validation_execution.py
           tests/test_m5_primary_validation_receipt.py
+          tests/test_m5_t2_sensitivity_execution.py
           --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
       - name: Validate setup shell syntax
         run: bash -n .codex/cloud_setup.sh
@@ -108,6 +109,45 @@ jobs:
     timeout-minutes: 20
     steps:
       - run: echo "M5-4 primary validation consumed; rerun forbidden by TREND_M5_PRIMARY_VALIDATION_EXECUTION_V1.json"
+
+  m5-t2-sensitivity:
+    needs: consistency
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[m5-t2-sensitivity]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/
+            /data/manifest.json
+            /data/market/1m/000852.SH/2022.parquet
+            /data/market/1m/000852.SH/2023.parquet
+            /data/market/1m/000852.SH/2024.parquet
+            /data/market/5m/000852.SH/2022.parquet
+            /data/market/5m/000852.SH/2023.parquet
+            /data/market/5m/000852.SH/2024.parquet
+            !/docs/ops/evidence/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package and maintenance dependencies
+        run: python -m pip install -e '.[maintenance]'
+      - name: Run preregistered T2=3/5 Validation sensitivity once
+        run: python scripts/m5_v5_sensitivity_runner.py --output "$RUNNER_TEMP/m5-t2-sensitivity.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m5-t2-sensitivity-${{ github.run_id }}
+          path: ${{ runner.temp }}/m5-t2-sensitivity.json
+          if-no-files-found: error
 
   full-regression:
     needs: consistency
