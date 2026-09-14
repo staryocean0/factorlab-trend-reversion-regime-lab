@@ -10,11 +10,13 @@
 
 ## 新产品定位
 
-未来工程收敛为**可被策略调用的趋势状态识别组件**，不是独立交易策略，也不直接输出买卖、仓位或 Layer 4 指令。当前只完成 M0 定位与路线图；下一阶段是 M1 接口合同审计。详见 [当前白皮书](docs/WHITEPAPER.md) 与 [执行路线图](docs/ROADMAP.md)。
+未来工程收敛为**可被策略调用的趋势状态识别组件**，不是独立交易策略，也不直接输出买卖、仓位或 Layer 4 指令。
+
+M0 定位/路线图与 M1 接口合同审计均已完成。当前唯一下一阶段是 **M2 三桶基线冻结与可复现性**；M2 完成前不进入多周期 profile 或五桶实证。详见 [当前白皮书](docs/WHITEPAPER.md)、[执行路线图](docs/ROADMAP.md)、[M1 API 合同](docs/API_CONTRACT.md) 与 [M1 Gap 审计](docs/API_GAP_ANALYSIS.md)。
 
 ## 入口
 
-[当前状态与下一步边界](CONTINUE_HERE.md) · [当前组件白皮书](docs/WHITEPAPER.md) · [执行路线图](docs/ROADMAP.md) · [组件索引](docs/COMPONENTS.md) · [测试与工作流](docs/TESTING.md) · [数据用途说明](docs/DATA.md)
+[当前状态与下一步边界](CONTINUE_HERE.md) · [当前组件白皮书](docs/WHITEPAPER.md) · [执行路线图](docs/ROADMAP.md) · [M1 API 合同](docs/API_CONTRACT.md) · [M1 Gap 审计](docs/API_GAP_ANALYSIS.md) · [组件索引](docs/COMPONENTS.md) · [测试与工作流](docs/TESTING.md) · [数据用途说明](docs/DATA.md)
 
 当前没有已确认策略或自动续开的实验。已完成的研究、数据修正和审计可复现，但复现通过不增加市场证据。请勿将归档快照或旧manifest中的complete=true作为新的研究准入。
 
