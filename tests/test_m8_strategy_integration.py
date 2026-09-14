@@ -1,6 +1,6 @@
 """M8 synthetic integration checks against real upper-layer caller contracts.
 
-No market data or strategy outcome is computed here.  The tests prove that the
+No market data or strategy outcome is computed here. The tests prove that the
 M7 trend consumer can be consumed as a read-only Layer-2 input while any
 cross-interval/risk composition remains outside Layer 2.
 """
@@ -70,7 +70,6 @@ def test_csi1000_upper_layer_keeps_multi_interval_states_separate():
     five = snapshot(symbol="000852.SH", when=dt(10, 0), interval="5m", profile_id="trend_5m_offset0_v1", state="DOWN", slope_t=-4.0)
     consumer.ingest(one, received_at=dt(10, 0, 2))
     consumer.ingest(five, received_at=dt(10, 0, 3))
-
     at = dt(10, 0, 30)
     q1 = consumer.query_regime("000852.SH", at, "1m").to_dict()
     q5 = consumer.query_regime("000852.SH", at, "5m", "trend_5m_offset0_v1").to_dict()
@@ -88,16 +87,20 @@ def test_star50_trend_and_risk_remain_parallel_layer2_inputs():
     trend = snapshot(symbol="000688.SH", when=dt(10, 0), interval="1m", profile_id="trend_1m_official_v1", state="DOWN", slope_t=-3.75)
     consumer.ingest(trend, received_at=dt(10, 0, 2))
     trend_view = consumer.query_regime("000688.SH", dt(10, 0, 30), "1m").to_dict()
+    # Mirrors the real state_degree_consumer_d5 as_of() envelope: risk state is
+    # inside snapshot, while availability/authority remain top-level.
     risk_view = {
-        "schema": "state_degree_research_consumer_d5_v1",
+        "symbol": "000688.SH",
+        "as_of": dt(10, 0, 30).isoformat(),
         "status": "AVAILABLE",
-        "state": "UNSAFE",
+        "reason": "AVAILABLE",
+        "snapshot": {"state": "UNSAFE", "state_basis": "CLOSE_CONFIRMED"},
         "production_authority": False,
     }
     envelope = strategy_input_envelope(trend_by_interval={"1m": trend_view}, risk=risk_view)
 
     assert envelope["trend_by_interval"]["1m"]["snapshot"]["state"] == "DOWN"
-    assert envelope["risk"]["state"] == "UNSAFE"
+    assert envelope["risk"]["snapshot"]["state"] == "UNSAFE"
     assert "fused_state" not in envelope
     assert "action" not in envelope
     assert "position" not in envelope
@@ -112,7 +115,6 @@ def test_expired_or_unavailable_trend_is_not_substituted_with_sideways():
     consumer.ingest(old, received_at=dt(10, 0, 2))
     consumer.ingest(newer, received_at=dt(10, 5, 2))
     expired = consumer.query_regime("000852.SH", dt(10, 6), "1m").to_dict()
-
     assert expired["status"] == STATUS_UNAVAILABLE
     assert expired["reason"] == REASON_LATEST_SNAPSHOT_EXPIRED
     assert expired["snapshot"] is None
