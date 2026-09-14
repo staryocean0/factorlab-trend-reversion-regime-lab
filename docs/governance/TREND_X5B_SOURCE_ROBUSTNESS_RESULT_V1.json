@@ -1,0 +1,47 @@
+{
+  "schema_id": "trend_x5b_source_robustness_result@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5B_SOURCE_ROBUSTNESS",
+  "status": "SOURCE_ROBUST_FOR_5M_STATE_SEMANTICS",
+  "freeze_ref": "docs/governance/TREND_X5B_SOURCE_ROBUSTNESS_FREEZE_V1.json",
+  "window": {"start":"2026-08-17","end":"2026-09-14"},
+  "fixed_measurement": {"lookback_bars":20,"price_transform":"log_close","estimator":"log_close_ols_slope_t@1.0","t1":2.0,"states":["DOWN","SIDEWAYS","UP"]},
+  "sources": ["Sina public 5m","Eastmoney public 5m"],
+  "results": [
+    {
+      "symbol":"000852.SH","common_close_rows":1008,"missing_sina":0,"missing_eastmoney":0,
+      "close_abs_diff_median":0.0020000000004074536,"close_abs_diff_q95":0.005000000000109139,"close_abs_diff_max":1.6530000000002474,"close_relative_diff_q95":6.612049542790224e-7,
+      "measurement_count":989,"slope_t_pearson":0.9999994322071591,"slope_t_abs_diff_median":0.00017990464441508536,"slope_t_abs_diff_q95":0.0014636741254180016,
+      "state_exact_agreement":1.0,"state_disagreement_count":0,"opposite_direction_disagreement_count":0,"opposite_direction_disagreement_rate":0.0,
+      "near_threshold_share_of_disagreements":null,"sina_abs_slope_t_q90":10.458028931331,"eastmoney_abs_slope_t_q90":10.457089703567316,"abs_slope_t_q90_difference":0.0009392277636841584,
+      "confusion_sina_rows_eastmoney_cols":{"DOWN":{"DOWN":371,"SIDEWAYS":0,"UP":0},"SIDEWAYS":{"DOWN":0,"SIDEWAYS":277,"UP":0},"UP":{"DOWN":0,"SIDEWAYS":0,"UP":341}}
+    },
+    {
+      "symbol":"000688.SH","common_close_rows":1008,"missing_sina":0,"missing_eastmoney":0,
+      "close_abs_diff_median":0.00200000000018008,"close_abs_diff_q95":0.005000000000109139,"close_abs_diff_max":0.42400000000020555,"close_relative_diff_q95":3.1170340617395815e-6,
+      "measurement_count":989,"slope_t_pearson":0.999999409007389,"slope_t_abs_diff_median":0.0007342772788003771,"slope_t_abs_diff_q95":0.003538147955908675,
+      "state_exact_agreement":1.0,"state_disagreement_count":0,"opposite_direction_disagreement_count":0,"opposite_direction_disagreement_rate":0.0,
+      "near_threshold_share_of_disagreements":null,"sina_abs_slope_t_q90":9.899653700275547,"eastmoney_abs_slope_t_q90":9.90057322795943,"abs_slope_t_q90_difference":0.000919527683883814,
+      "confusion_sina_rows_eastmoney_cols":{"DOWN":{"DOWN":442,"SIDEWAYS":0,"UP":0},"SIDEWAYS":{"DOWN":0,"SIDEWAYS":267,"UP":0},"UP":{"DOWN":0,"SIDEWAYS":0,"UP":280}}
+    }
+  ],
+  "decision_rule_pass": true,
+  "interpretation": [
+    "The two public sources share all 1008 expected 5m close timestamps on both carriers after minute-level timestamp normalization.",
+    "Point-value source differences exist, so source identities are not interchangeable and neither source is promoted to DataHub exact identity.",
+    "Despite those point-value differences, 20-bar slope_t is nearly identical across sources: Pearson correlation is about 0.9999994 and q95 absolute slope_t difference is below 0.004 on both carriers.",
+    "All 989 state classifications per carrier agree exactly across Sina and Eastmoney, with zero DOWN-versus-UP disagreements.",
+    "For this 5m measurement definition, observed public-vendor differences do not create state-semantic instability; this does not certify other intervals or other providers."
+  ],
+  "calibration_implication": {
+    "vendor_specific_5m_t1_required_by_x5b": false,
+    "source_identity_can_be_merged": false,
+    "remaining_primary_uncertainty": "cross-interval scale/semantics rather than 5m carrier/vendor-specific calibration"
+  },
+  "parameter_tuning_performed": false,
+  "trading_return_metrics_computed": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
