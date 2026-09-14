@@ -113,6 +113,10 @@
       "sha256": "53665163b4722ab125e71220f93bfebc841a22ce1ea46bf5e0d4a9159b8fba3b"
     },
     {
+      "path": "src/factor_lab/market_state/trend_regime_baseline.py",
+      "sha256": "4c3cf358e7037d1206e8cf9268191f3a498a4332b10d87ca5eb729667aea95d7"
+    },
+    {
       "path": "src/factor_lab/observability/__init__.py",
       "sha256": "fd8ee3e2aff135fe95a1d0a7c48bf0513629d4c1b81feeece68044ecf83ec482"
     },
