@@ -8,11 +8,11 @@
 > [状态源](REPOSITORY_STATE.json) · [最新研究解释](research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
 <!-- END GENERATED STATUS -->
 
-> 本白皮书定义**未来产品定位与工程边界**；上方状态块定义当前证据/数据 authority。二者不能混写：建立路线图不等于既有研究获得新的市场证据或 production authority。
+> 本白皮书定义**产品定位与工程边界**；上方状态块定义当前证据/数据 authority。二者不能混写：完成工程里程碑不等于既有研究获得新的市场证据或 production authority。
 
 ## 1. 产品定位：这是状态识别组件，不是交易策略
 
-本仓未来的核心交付是一个可被多个策略调用的**趋势状态识别组件（Layer 2 component）**。它回答的是：
+本仓核心交付是一个可被多个策略调用的**趋势状态识别组件（Layer 2 component）**。它回答的是：
 
 > 在指定证券、指定 `as_of`、指定 K 线级别/配置下，当前价格序列属于什么趋势状态，趋势强度是多少，这个状态在什么时间边界内有效？
 
@@ -53,44 +53,57 @@
 
 长周期策略可以选择长周期 profile；短周期策略可以选择短周期 profile。**策略选择配置，组件保持同一套接口。**
 
-## 4. 目标调用模型
+M3 将正式冻结 `bar_interval` 与 profile 的绑定和 admission 规则；在 M3 Gate 前，不能把候选周期写成已经全部支持。
 
-以下只是合同方向，正式字段在路线图 M1 冻结，当前不把示意当成已经实现的 API：
+## 4. 目标调用模型与 M1 合同
+
+M1 已冻结逻辑调用边界，详见 [API_CONTRACT.md](API_CONTRACT.md)：
 
 ```text
 query_regime(
     symbol,
     as_of,
-    bar_interval | profile,
-) -> RegimeSnapshot
+    profile,
+) -> RegimeQueryResult
 ```
 
-`RegimeSnapshot` 至少应能表达：
+稳定 consumer 目标至少表达：
 
 - `symbol`
 - `as_of / decision_time`
 - `bar_interval / profile / model_version`
 - 离散 `state`
-- 原始斜率或等价趋势度量
-- 可跨配置解释的 `strength` / normalized strength（若经验证可定义）
-- 实际采用的阈值版本
+- 原始趋势度量与可解释强度
+- 实际采用的阈值/估计器版本
 - `published_at / valid_until` 或等价时间边界
 - `availability / reason`
 - schema/version
 
-目标行为参考风险识别 consumer 的关键约束：**只读、as-of、缺失/过期显式返回、不可悄悄回退到更老状态、调用者不能通过接口重写历史。**
+M1 已冻结的关键行为是：**只读、as-of、缺失/过期显式返回、最新状态过期不可悄悄回退到更老状态、调用者不能通过接口重写历史。**
 
-## 5. 当前三桶基线
+正式 consumer facade / snapshot store 仍属于 M7；M2 当前落地的是底层 measurement primitive，不应被误写成 M7 已完成。
 
-现有直觉基线是按趋势斜率 `s` 与横盘阈值 `T1 > 0` 分三类：
+## 5. 已冻结的三桶基线（M2）
 
-- `DOWN`：`s < -T1`
-- `SIDEWAYS`：`-T1 <= s <= T1`
-- `UP`：`s > T1`
+M2 已冻结 [三桶趋势状态基线](THREE_BUCKET_BASELINE.md) `trend_regime_three_bucket_baseline@1.0`。
 
-三桶首先承担的是**状态描述**，不是收益预测。正式实现前还必须冻结斜率定义、回看窗口、归一化方式、K 线完成规则、阈值尺度以及 causality/as-of 约束。
+核心定义：
 
-三桶是后续研究的基线。五桶若没有稳定增量，组件应允许继续保留三桶，而不是为了“更细”而强行升级。
+- 最近 20 根在 `as_of` 时刻已经结束且已经可用的 K 线；
+- 价格变换 `y_i = ln(close_i)`；
+- `x_i=0,...,19` 上的 OLS signed slope t-score 作为唯一主状态 authority；
+- `T1=2.0`；
+- `DOWN`：`s < -2.0`；
+- `SIDEWAYS`：`-2.0 <= s <= 2.0`；
+- `UP`：`s > 2.0`。
+
+`slope_t` 在这里是**无量纲趋势几何强度分数**，不应因为名称带 t 就直接解释为独立同分布误差假设下的显著性 p-value。
+
+completed/as-of 规则同样已经冻结：只有 `bar_end <= as_of` 且 `available_at <= as_of` 的 bar 可见；少于 20 根或最近窗口含坏/非正 close 时 fail closed，不跳过、不回填、不插值。future/unpublished bar 不能改变较早查询结果。
+
+20-bar 与 `T1=2.0` 是在收益/五桶实验之前冻结的工程参考锚点，**不是本轮通过收益搜索得到的最优参数**。BDCI、DII、signed efficiency 等继续作为辅助诊断，不参与三桶主状态投票。
+
+M2 没有绑定具体 `bar_interval`。跨周期 cadence、数据 admission，以及同一 `T1` 是否能在不同 K 线周期直接共用，属于 M3。
 
 ## 6. 五桶候选：把“极端趋势”单独作为研究对象
 
@@ -149,7 +162,7 @@ query_regime(
 
 `src/regime_lab/market_data.py`、`src/factor_lab`、`shared`、`research/etf_day_reconciliation/audit.py` 等当前代码仍按原来的历史证据和用途理解。旧分钟、逐笔、报价、指数 3 秒数据的量纲、同步和可用性限制继续以 [DATA.md](DATA.md) 与冻结研究报告为准。
 
-本白皮书只规定：**从现在开始，新工程应围绕“可调用状态组件”收敛。** 它不宣称现有代码已经完成该接口，也不把现有历史研究结果自动升级成五桶或多周期证据。
+本白皮书只规定：**新工程围绕“可调用状态组件”收敛。** M1/M2 的工程完成不会把现有历史研究结果自动升级成五桶、多周期或生产证据。
 
 ## 10. 路线图与执行纪律
 
@@ -165,10 +178,10 @@ query_regime(
 - 负结果是允许结果；五桶验证失败就保留三桶/连续强度。
 - 不为了某个策略的回测收益修改状态定义后再反过来声称组件“客观识别”了趋势。
 
-本轮只完成 M0 文档定位，不启动 M1 之后的代码或实证工作。
+当前进度：**M0 PASS、M1 PASS、M2 PASS；唯一下一步是 M3 多 K 线级别参数化。** M3 不启动 `T2` 或五桶实证。
 
 ## 11. 维护规范
 
-[状态源](REPOSITORY_STATE.json)同步生成入口与本白皮书状态块；[测试说明](TESTING.md)定义执行层级。业务状态/证据 authority 变化仍必须同步正式状态、模块和测试，不能靠改白皮书文字制造新证据。
+[状态源](REPOSITORY_STATE.json)仍统一管理正式科学状态块；[测试说明](TESTING.md)定义执行层级。产品路线图、API 与基线正文可以随里程碑演进，但业务状态/证据 authority 变化必须通过正式状态源、模块和测试，不能靠改白皮书文字制造新证据。
 
 历史白皮书和报告作为冻结研究快照保留原字节：[历史资料索引](research/README.md)、[归档索引](archive/README.md)。源数据附带白皮书是上游文档，不是本项目当前组件白皮书。
