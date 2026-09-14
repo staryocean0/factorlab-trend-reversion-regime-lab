@@ -1,0 +1,86 @@
+{
+  "schema_id": "trend_x5g_dynamic_common_scale_carrier_interaction_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5G_STATISTICS",
+  "research_only": true,
+  "objective": "Test whether X5F residual carrier-by-time scale interaction can be reduced by a strictly causal leave-one-carrier-out common scale plus a slow carrier component, serving normalized_strength diagnostics only.",
+  "primary_source": {
+    "provider": "Sina public index kline retained by X5C",
+    "bar_interval": "60m_native",
+    "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "window": {"start": "2026-01-05", "end": "2026-09-14"},
+    "old_m4_m5_2025_holdout_included": false,
+    "runtime_admission_effect": "none"
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(slope_t)",
+    "v1_state_boundary_t1": 2.0,
+    "v1_state_boundary_must_not_change": true,
+    "v1_strength_semantics_must_not_change": true
+  },
+  "causal_decomposition": {
+    "epsilon": 1e-08,
+    "log_strength": "log(abs(slope_t)+epsilon)",
+    "leave_one_carrier_out_common_observation": "q_minus_i[u] = median_j!=i(log_strength[j,u])",
+    "common_scale_at_t": "median(q_minus_i[u] for u in the W common measurements strictly before t)",
+    "carrier_residual_history": "r_i[u] = log_strength[i,u] - common_scale_i[u]",
+    "slow_carrier_component_at_t": "median(r_i[u] for u in the K carrier measurements strictly before t)",
+    "normalized_strength_at_t": "exp(log_strength[i,t] - common_scale_i[t] - slow_carrier_component_i[t])",
+    "current_t_used_to_estimate_own_scale": false,
+    "future_information_allowed": false,
+    "state_boundary_use": "forbidden"
+  },
+  "candidates": [
+    {"id": "COMMON20_CARRIER120", "common_window": 20, "carrier_window": 120},
+    {"id": "COMMON40_CARRIER120", "common_window": 40, "carrier_window": 120},
+    {"id": "COMMON40_CARRIER240", "common_window": 40, "carrier_window": 240},
+    {"id": "COMMON80_CARRIER240", "common_window": 80, "carrier_window": 240}
+  ],
+  "fair_evaluation": {
+    "common_warmup_measurements": 320,
+    "all_candidates_evaluated_on_same_post_warmup_rows": true,
+    "minimum_month_measurements_for_monthly_scale_metric": 20,
+    "no_candidate_selection_or_refit_from_2026_results": true
+  },
+  "baselines": [
+    "V1 raw abs(slope_t) on the same common evaluation rows",
+    "X5F static carrier plus calendar-month common-time decomposition as descriptive prior evidence only",
+    "X5E causal rolling median-abs findings as prior diagnostic evidence only"
+  ],
+  "primary_metrics": [
+    "cross_carrier_median_strength_range",
+    "cross_carrier_median_strength_max_to_min",
+    "within_carrier_monthly_median_strength_max_to_min",
+    "median_within_carrier_monthly_max_to_min",
+    "monthly_cross_carrier_median_strength_range",
+    "residual_monthly_cell_factor_max_to_min",
+    "carrier_component_time_variation",
+    "common_scale_time_variation"
+  ],
+  "stability_gate": {
+    "cross_carrier_scale_gate": "candidate range reduction versus same-window raw >= 50%",
+    "temporal_gate": "median within-carrier monthly max/min improves by >= 10% versus same-window raw",
+    "breadth_gate": "at least 4 of 5 carriers have lower monthly max/min than raw",
+    "interaction_gate": "residual monthly-cell factor max/min < X5F value 2.4080",
+    "rule": "A stable normalized_strength representation is established only if all gates pass for at least one preregistered candidate. Otherwise retain research-diagnostic status only."
+  },
+  "decision_constraints": {
+    "product_adoption_allowed": false,
+    "state_boundary_change_allowed": false,
+    "strength_semantics_change_allowed": false,
+    "x6_version_bump_allowed": false
+  },
+  "forbidden": [
+    "trading_returns",
+    "strategy_metrics",
+    "BUY_SELL",
+    "position_or_order_logic",
+    "runtime_admission_expansion",
+    "opening_old_2025_holdout",
+    "changing_v1_state_boundary",
+    "changing_v1_strength_semantics"
+  ],
+  "production_authority": false,
+  "fresh_oos": false
+}
