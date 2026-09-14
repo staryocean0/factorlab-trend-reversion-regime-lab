@@ -10,43 +10,57 @@
 
 ## 当前产品口径
 
-本仓工程定位：**供策略调用的趋势状态识别组件**，不是独立交易策略，不直接输出买卖、仓位、订单或 Layer 4 指令。三桶基线已经在 M2 冻结；五桶“极端斜率可能更易耗竭”仍只是待验证假设。
+本仓工程定位：**供策略调用的趋势状态识别组件**，不是独立交易策略，不直接输出买卖、仓位、订单或 Layer 4 指令。M2 三桶基线和 M3 多周期 profile 均已冻结；五桶“极端斜率可能更易耗竭”仍只是待验证假设。
 
-接管顺序：先读 [执行路线图](docs/ROADMAP.md)、[M1 API 合同](docs/API_CONTRACT.md)、[M1/M2 Gap 审计](docs/API_GAP_ANALYSIS.md) 与 [M2 三桶基线](docs/THREE_BUCKET_BASELINE.md)，再读 [当前组件白皮书](docs/WHITEPAPER.md)。
+接管顺序：先读 [执行路线图](docs/ROADMAP.md)、[M1 API 合同](docs/API_CONTRACT.md)、[M1/M2 Gap 审计](docs/API_GAP_ANALYSIS.md) 与 [M2 三桶基线](docs/THREE_BUCKET_BASELINE.md)，再读当前源码 `src/factor_lab/market_state/trend_regime_profiles.py`。
 
-## 已完成：M2 三桶基线冻结与可复现性
+## 已完成：M3 多 K 线级别参数化
 
-M2 已落地 `src/factor_lab/market_state/trend_regime_baseline.py`，冻结 `trend_regime_three_bucket_baseline@1.0`：
+M3 已落地 `src/factor_lab/market_state/trend_regime_profiles.py`，将 M2 的 20-bar / `T1=2.0` 三桶 measurement 绑定到 DataHub Layer-1 V3 wall-clock views。
 
-- 主状态 authority：20 根已完成/已可用 K 线上的 log-close OLS signed slope t-score；
-- `T1=2.0`；`s<-2` 为 DOWN，`-2<=s<=2` 为 SIDEWAYS，`s>2` 为 UP；
-- `bar_end <= as_of` 且 `available_at <= as_of` 才可参与计算；
-- 少于 20 根、坏/非正 close 均 fail closed，不跳过、不回填、不插值；
-- 未来或尚未发布的 bar 不得改变较早 `as_of`；
-- BDCI/DII 等仍是辅助诊断，不参与三桶主状态投票；
-- 20-bar 与 `T1=2.0` 在 `@1.0` 中禁止静默修改。
+首批 engineering admission：
 
-这是一项**新冻结基线**，不是伪称恢复本仓无法取回的旧 `trend_continuity_regime.py`。M2 没有做收益优化，也没有给五桶任何新证据或 production authority。
+- `1m`：1 个 profile，`trend_1m_official_v1`；
+- `5m`：5 个 offset profiles；
+- `15m`：2 个 offset profiles；
+- `60m`：2 个 offset profiles；
+- 合计 10 个 versioned profiles。
 
-对应回归位于 `tests/test_trend_regime_baseline.py`，覆盖边界、涨/平/跌、价格尺度不变性、future/unpublished bar 隔离、缺失 fail-closed、输入顺序、timezone/重复 bar 以及参数冻结。
+关键规则：
 
-## 唯一下一步：M3 多 K 线级别参数化
+- `1m` 当前只有唯一 admitted view，可只传 `bar_interval=1m`；
+- `5m/15m/60m` 有多个合法 view，必须显式给 `profile_id`，组件不暗选相位；
+- FactorLab 不在本层 local-resample K 线；profile 直接绑定 Layer-1 immutable `close_times`；
+- visible row 必须满足 `bar_end <= as_of` 与 `available_at <= as_of`；
+- selected 20-bar window 若偏离 profile grid，返回 `OFF_PROFILE_GRID`；cadence 缺口返回 `CADENCE_GAP`；不插值、不回填；
+- future wrong-view row 对更早 `as_of` 不可见；当前 visible wrong-view row 则拒绝；
+- 所有 profile 继续使用 M2 `lookback=20` 与 `T1=2.0`，M3 没有按周期调参；
+- 同一 `as_of` 不同周期可同时返回不同状态；multi-interval envelope 顶层没有 `state/global_state`，多周期聚合属于策略层。
 
-下一次会话只推进路线图 **M3**。
+对应回归：`tests/test_trend_regime_profiles.py`。
 
-M3 要解决：
+M3 是工程 admission，不是预测有效性、收益或生产认证；既有 `production_authority=false`、`fresh_oos=false` 不变。
 
-1. `bar_interval` 与 versioned `profile` 的绑定方式；
-2. 首批实际可 admission 的周期集合，而不是先验承诺全部 `1m/5m/15m/60m`；
-3. 各周期 completed-bar / session / cadence-gap 规则；
-4. `T1=2.0` 的无量纲 slope t-score 在不同周期下是否可直接共用，还是需要不同 profile/version；
-5. 同一 `as_of` 下不同周期状态并存的稳定表示；
-6. provider/data admission 与 fail-closed 行为。
+## 唯一下一步：M4 五桶假设与实验协议冻结
 
-M3 Gate：每个正式支持的周期都能独立、因果、可复现地产生状态；组件不把多个周期擅自合成为一个“总趋势”。
+下一次会话只推进路线图 **M4**，而且只做**预注册协议**，不运行 M5 实证。
 
-**M3 不设计 `T2`，不运行五桶极端斜率实证，不进入 M4/M5。**
+M4 必须在读取结果之前冻结：
 
-最近完成的历史字段对账和受限读取证据仍保持原状态；M2/M3 工程工作不自动改变 `production_authority=false`、`fresh_oos=false` 或既有科学证据状态。历史研究报告、冻结文件和原始数据保持原路径与原字节。
+1. `T2` 的候选定义/选择方法；
+2. 纳入哪些 M3 profiles；
+3. development / validation / holdout 切分；
+4. forward horizons；
+5. `STRONG_UP vs UP`、`STRONG_DOWN vs DOWN` 的持续时间、转移概率、方向延续率；
+6. reversal probability / time-to-first-reversal；
+7. forward adverse / favorable excursion；
+8. `T2` 稳健性与最小样本量；
+9. 停止条件和负结果处理规则。
+
+M4 Gate：协议在 M5 结果出现之前冻结，禁止看完结果再改 `T2`、horizon、样本切分或挑 profile。
+
+**M4 不运行五桶实证，不把 `STRONG_UP/STRONG_DOWN` 写成正式产品状态，不进入 M5。**
+
+历史字段对账和受限读取证据保持原状态；M2/M3/M4 工程与研究协议工作不自动改变既有科学 authority。历史报告、冻结文件和原始数据保持原路径与原字节。
 
 修改当前证据状态时只编辑 [状态源](docs/REPOSITORY_STATE.json)，再运行 `python scripts/repository_consistency.py --render` 和 `--check`。产品路线图/API/基线正文可随里程碑演进，但生成的科学状态块仍由状态源统一管理。
