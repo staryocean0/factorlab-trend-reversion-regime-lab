@@ -1,0 +1,42 @@
+{
+  "schema_id": "trend_x5_cross_carrier_source_search@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5_CROSS_CARRIER_EXPANSION",
+  "status": "X5_STARTED_ADDITIONAL_EXACT_VIEW_SOURCES_NOT_YET_LOCATED",
+  "search_date": "2026-09-14",
+  "scope": "currently accessible GitHub repositories under staryocean0",
+  "goal": "locate auditable exact-view multi-interval sources for materially different additional index families before any generality or calibration claim",
+  "existing_carriers": ["000852.SH", "000688.SH"],
+  "minimum_generality_target": 5,
+  "candidate_searches": [
+    {"symbol":"000300.SH","name":"CSI300","queries":["000300.SH","000300","CSI300","沪深300"],"status":"SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_SCOPE"},
+    {"symbol":"000905.SH","name":"CSI500","queries":["000905.SH","CSI500","中证500"],"status":"SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_SCOPE"},
+    {"symbol":"000016.SH","name":"SSE50","queries":["000016.SH","SSE50","上证50"],"status":"SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_SCOPE"}
+  ],
+  "interpretation": [
+    "No exact-view source for the three first expansion candidates was located in the currently accessible GitHub scope.",
+    "This does not prove the data does not exist in DataHub, local storage, another private repository, or another upstream system.",
+    "X5 therefore cannot yet satisfy the planned five-index-family generality target from repository evidence alone."
+  ],
+  "required_upstream_data_contract": {
+    "preferred_views": ["1m_official","5m_offset_0","5m_offset_1","5m_offset_2","5m_offset_3","5m_offset_4","15m_offset_5","15m_offset_10","60m_offset_30","60m_offset_45"],
+    "minimum_fields": ["symbol","timestamp","trading_day","close","dataset_version","export_view_id","export_frequency","data_contract"],
+    "exact_view_required": true,
+    "local_resampling_as_substitute": false,
+    "minimum_common_window_preference": "multi-year window shared across carriers, with a Development/Validation split frozen before X5 statistics",
+    "runtime_admission_effect": "none until independently governed"
+  },
+  "current_blocker": "additional carrier exact-view sources must be located or delivered before X5 empirical execution",
+  "v1_effect": {
+    "representation_changed": false,
+    "runtime_admission_changed": false,
+    "release_pointer_changed": false
+  },
+  "governance": {
+    "production_authority": false,
+    "fresh_oos": false,
+    "old_m4_m5_2025_holdout_read": false,
+    "m5_outcomes_reopened": false
+  },
+  "next_action": "locate or obtain exact-view source packages for at least three additional materially different index families; once available, freeze an X5 source-admission-for-research receipt and common research windows before computing cross-carrier statistics"
+}
