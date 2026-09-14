@@ -1,0 +1,65 @@
+{
+  "schema_id": "trend_x5d_development_calibration_receipt@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5D_INTERVAL_CALIBRATION_COMPARISON",
+  "status": "DEVELOPMENT_PARAMETERS_SEALED_BEFORE_CANDIDATE_EXTERNAL_EVALUATION",
+  "method": "docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_METHOD_V1.json",
+  "development_window": {"start":"2020-07-23","end":"2020-12-31","old_m4_m5_2025_holdout_included":false},
+  "development_sources": {
+    "000852.SH": {
+      "5m":"trend_x2_data/csi1000/5m_offset_0.parquet",
+      "15m":"trend_x2_data/csi1000/15m_offset_5.parquet",
+      "60m":"trend_x2_data/csi1000/60m_offset_30.parquet"
+    },
+    "000688.SH": {
+      "5m":"trend_x2_data/star50/5m_offset_0.parquet",
+      "15m":"trend_x2_data/star50/15m_offset_5.parquet",
+      "60m":"trend_x2_data/star50/60m_offset_30.parquet"
+    }
+  },
+  "development_measurements": {
+    "5m":{"000852.SH":5261,"000688.SH":5261},
+    "15m":{"000852.SH":1521,"000688.SH":1521},
+    "60m":{"000852.SH":201,"000688.SH":201}
+  },
+  "reference_5m_sideways_target": 0.2382626877019578,
+  "interval_specific_t1": {
+    "5m":{"t1":1.9988985578142828,"development_carrier_median_sideways":0.2382626877019578,"target_abs_error":0.0},
+    "15m":{"t1":1.935140887201867,"development_carrier_median_sideways":0.23833004602235372,"target_abs_error":0.0000673583203959216},
+    "60m":{"t1":1.22249655297343,"development_carrier_median_sideways":0.23880597014925375,"target_abs_error":0.0005432824472959563}
+  },
+  "normalization_primary_median_abs": {
+    "interval_scales":{"5m":4.46621642165605,"15m":4.626317631251446,"60m":2.836324421996242},
+    "universal_normalized_t1":0.44780633341059867,
+    "equivalent_raw_t1":{"5m":2.0,"15m":2.071694335643516,"60m":1.2701240397770726}
+  },
+  "normalization_sensitivity": {
+    "MAD_about_median": {
+      "interval_scales":{"5m":4.421185486596217,"15m":4.555130682569201,"60m":2.757606042099643},
+      "universal_normalized_t1":0.4523673584977228,
+      "equivalent_raw_t1":{"5m":2.0,"15m":2.0605924344857587,"60m":1.2474509610419757}
+    },
+    "abs_slope_t_q75": {
+      "interval_scales":{"5m":7.5676609266102615,"15m":8.020103959371374,"60m":5.6442413217241985},
+      "universal_normalized_t1":0.26428245390426713,
+      "equivalent_raw_t1":{"5m":2.0,"15m":2.1195727549499956,"60m":1.4916739469331353}
+    }
+  },
+  "separation_audit": {
+    "prior_2026_raw_v1_baseline_evidence_was_already_known_from_x5_x5c": true,
+    "prior_2026_raw_v1_data_used_to_fit_any_x5d_parameter": false,
+    "candidate_transformed_2026_evaluation_computed_before_this_receipt": false,
+    "trading_returns_read_or_used": false,
+    "future_return_optimization": false
+  },
+  "interpretation_before_external_candidate_evaluation": [
+    "Both independent calibration families leave 15m close to the V1 numeric threshold of 2.0.",
+    "Both primary interval-specific and robust-normalized calibrations imply a materially lower 60m raw-equivalent threshold, about 1.22 to 1.27, before reading candidate-transformed 2026 evaluation metrics.",
+    "The q75 sensitivity normalizer gives a higher 60m equivalent threshold near 1.49 and is retained as a sensitivity check rather than selected ex post."
+  ],
+  "v1_action": "NO_CHANGE",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
