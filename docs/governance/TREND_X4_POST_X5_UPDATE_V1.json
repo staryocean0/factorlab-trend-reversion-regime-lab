@@ -1,0 +1,54 @@
+{
+  "schema_id": "trend_x4_post_x5_calibration_update@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X4_CALIBRATION_DECISION_UPDATE_AFTER_X5",
+  "status": "INSUFFICIENT_EVIDENCE_OVERALL_WITH_5M_CARRIER_AND_SOURCE_ROBUSTNESS",
+  "date": "2026-09-14",
+  "relationship_to_prior_x4": "additive evidence update; does not rewrite the prior X4 decision artifact or V1 semantics",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "new_evidence": [
+    {
+      "authority": "docs/governance/TREND_X5_FIVE_CARRIER_5M_RESULT_V1.json",
+      "result": "five-index clock-aligned independent-source 5m replication shows tight SIDEWAYS occupancy and highly stable one-step state persistence"
+    },
+    {
+      "authority": "docs/governance/TREND_X5B_SOURCE_ROBUSTNESS_RESULT_V1.json",
+      "result": "Sina versus Eastmoney 5m comparison on CSI1000 and STAR50 gives 100% state agreement and near-identical slope_t despite non-identical point values"
+    },
+    {
+      "authority": "docs/governance/TREND_X5_EASTMONEY_EQUIVALENCE_RESULT_V1.json",
+      "result": "public-source values are not DataHub exact identity, so independent-source robustness cannot be used to expand runtime admission"
+    }
+  ],
+  "what_is_now_better_supported": [
+    "At 5m offset0 clock geometry, the current three-state semantics are reasonably robust across CSI1000, STAR50, CSI300, CSI500 and SSE50 on the common recent window.",
+    "Observed Sina/Eastmoney point-value differences do not justify provider-specific 5m T1 calibration under the frozen 20-bar/T1=2 definition.",
+    "Same-interval phase dispersion remains much smaller than the previously observed cross-interval dispersion, so phase-specific calibration is not the leading hypothesis."
+  ],
+  "what_is_not_yet_supported": [
+    "T1=2 as a universal threshold across 1m, 5m, 15m and 60m.",
+    "Raw abs(slope_t) as a directly comparable strength scale across different lookbacks or intervals.",
+    "Any 15m/60m calibration conclusion for the three newly added carriers using M3 exact-view identities.",
+    "Runtime admission for Sina, Eastmoney, or any new carrier/profile.",
+    "A universal market-wide law from the 21-trading-day X5 replication window."
+  ],
+  "calibration_family_status": {
+    "UNIVERSAL_FIXED_T1": "NOT_ESTABLISHED",
+    "INTERVAL_SPECIFIC_T1": "PLAUSIBLE_LEADING_CANDIDATE_NOT_YET_ESTABLISHED",
+    "PROFILE_SPECIFIC_T1": "NOT_SUPPORTED_AS_DEFAULT_BY_PHASE_EVIDENCE",
+    "NORMALIZED_SCORE_PLUS_UNIVERSAL_SEMANTIC_THRESHOLD": "PLAUSIBLE_CANDIDATE_NOT_YET_ESTABLISHED",
+    "INSUFFICIENT_EVIDENCE": "CURRENT_DECISION"
+  },
+  "next_required_evidence": [
+    "broader cross-carrier evidence at 15m/60m with exact or explicitly governed clock/source semantics",
+    "longer-window 60m sample adequacy sufficient to avoid the prior UP-direction underpower",
+    "direct comparison of interval-specific thresholding versus score normalization using state-semantic comparability rather than trading returns"
+  ],
+  "v1_action": "NO_CHANGE",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "x6_readiness": "NOT_READY_FOR_SEMANTIC_VERSION_CHANGE"
+}
