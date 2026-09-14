@@ -1,0 +1,60 @@
+{
+  "schema_id": "trend_x3_state_dynamics_invariance_freeze@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X3_STATE_DYNAMICS_INVARIANCE",
+  "status": "FROZEN_BEFORE_X3_STATISTICS",
+  "freeze_date": "2026-09-14",
+  "purpose": "test whether the same nominal DOWN/SIDEWAYS/UP state has comparable temporal meaning across carrier interval and phase before any calibration decision",
+  "research_window": {
+    "start": "2020-07-23",
+    "end": "2020-12-31",
+    "role": "Development-only matched exact-view window",
+    "old_m4_m5_2025_holdout_included": false,
+    "fresh_oos": false
+  },
+  "fixed_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "t1": 2.0,
+    "state_enum": ["DOWN", "SIDEWAYS", "UP"],
+    "use_x2_sensitivity_parameters": false,
+    "reason": "X3 first tests temporal semantics of the unchanged V1 candidate; sensitivity cannot replace the fixed baseline"
+  },
+  "profiles": [
+    "1m_official",
+    "5m_offset_0", "5m_offset_1", "5m_offset_2", "5m_offset_3", "5m_offset_4",
+    "15m_offset_5", "15m_offset_10",
+    "60m_offset_30", "60m_offset_45"
+  ],
+  "metrics": {
+    "state_episode_duration": "consecutive completed-profile bars in the exact same DOWN/SIDEWAYS/UP state",
+    "one_step_transition_matrix": "P(next state | current state) over available consecutive profile observations",
+    "directional_family": {"UP":"UP","DOWN":"DOWN","SIDEWAYS":"non_directional"},
+    "directional_survival_h": "for an origin in UP or DOWN, all next 1..h states must remain in the same directional family; SIDEWAYS breaks survival but is not counted as opposite-direction reversal",
+    "opposite_direction_entry_h": "for an origin in UP or DOWN, whether the opposite directional state appears at least once within the next h profile bars; intervening SIDEWAYS is allowed",
+    "horizons_bars": [1,3,5,10,20]
+  },
+  "comparison_plan": {
+    "same_interval_phase_primary": true,
+    "matched_profile_cross_carrier": true,
+    "cross_interval": true,
+    "cross_interval_caveat": "a bar horizon is profile-relative and not equal wall-clock time across intervals; report interval results separately and do not treat h=5 as the same elapsed time for 1m and 60m"
+  },
+  "minimum_support": {
+    "one_step_origins_per_state": 50,
+    "directional_origins_per_direction_horizon": 50,
+    "underpowered_label": "UNDERPOWERED_DESCRIPTIVE_ONLY",
+    "do_not_pool_phases_or_carriers_to_rescue_power": true
+  },
+  "forbidden": [
+    "trading return optimization",
+    "BUY SELL position order route semantics",
+    "changing V1 T1 or lookback during X3",
+    "promoting legacy exact views to runtime admission",
+    "opening the old M4/M5 2025 Holdout",
+    "claiming universal temporal semantics from two carriers"
+  ],
+  "production_authority": false,
+  "runtime_admission_change_forbidden": true,
+  "next_after_x3": "combine X2 distribution evidence and X3 temporal-semantics evidence for a provisional calibration-family decision; universal claims still require X5 cross-carrier expansion"
+}
