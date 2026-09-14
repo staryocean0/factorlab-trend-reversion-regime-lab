@@ -10,9 +10,20 @@
 
 ## 当前状态
 
-本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M8 PASS**；M8 是 scope-limited integration-boundary PASS。当前唯一下一步：**M9 — release / version / documentation / governance**。
+本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M9 PASS**；原路线图已经收口。
 
-接管必读：`docs/ROADMAP.md`、`docs/API_CONTRACT.md`、`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`、`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
+Component release identity：`factorlab.layer2.trend_regime@1.0.0`。
+
+接管必读：
+
+- `docs/ROADMAP.md`
+- `docs/API_CONTRACT.md`
+- `docs/RELEASE.md`
+- `docs/API_EXAMPLES.md`
+- `CHANGELOG.md`
+- `docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`
+- `docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`
+- `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 
 ## 正式产品与 consumer
 
@@ -26,28 +37,45 @@ strength          = abs(directional_score)
 
 M7 lifecycle 已冻结：immutable/append-only、receipt-causal as-of、expiry、latest-expired/unavailable no-fallback、stable source/provider identities。当前 runtime admission 仍只包括两指数 `trend_1m_official_v1` / `trend_5m_offset0_v1`；其他 M3 profiles fail closed。
 
-## M8 已完成
+## M8 边界保持不变
 
-Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
+- CSI1000 私仓存在真实 read-only Layer2 adapter 与 Layer3 orchestration kernel；M7 trend snapshot 与该 ownership boundary 兼容。
+- STAR50 存在真实 parallel risk-state provider，但没有被证明存在 connected external strategy caller。
+- 多周期组合、trend/risk 融合、冲突仲裁、策略选择和最终动作全部在 Layer2 之外。
 
-- CSI1000 私仓存在真实 read-only Layer2 adapter 与 Layer3 orchestration kernel；M8 验证 M7 trend snapshot 与这个 ownership boundary 兼容。
-- STAR50 存在真实 `state_degree_consumer_d5` risk-state provider，但其示例明确 `actual_external_consumer_connected=False`；因此只能作为并行 Layer2 risk boundary，不得声称已有真实策略 caller 接线。
-- Synthetic tests 验证多周期状态分离、trend/risk namespace 分离、expired/unavailable 不补成 SIDEWAYS、15m 未准入在上层之前 fail closed、Layer2 不产生任何 strategy/action 字段。
-- 外部仓库没有被修改，没有 market outcome、M5 reopen 或 Holdout read。
+## M9 已完成
 
-M8 的 PASS 是 interface/ownership compatibility，不是 live/production integration certification，也没有安装新策略 plugin。
+Machine authority：`docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`。
+
+已冻结：
+
+- component semantic version `1.0.0`；
+- stable schema/API compatibility matrix；
+- patch/minor/major rules；
+- migration；
+- M2→M9 evidence lineage；
+- API examples、changelog、known limitations；
+- release gate 与 forbidden release actions。
+
+仓库 `pyproject.toml` distribution 仍为 `0.1.0`，因为它包含超出 trend component stable surface 的历史研究/维护模块；不要把 package version 当成 component SemVer authority。
 
 ## 仍然禁止
 
 - 重跑 M5 或读取 2025 Holdout；
-- 修改 M6 representation 或 M7 lifecycle/admission；
-- 扩张 15m/60m/phase provider admission；
-- 在 Layer2 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
-- 把 STAR50 说成已经连接外部策略 caller；
-- 把工程完成解释成 `production_authority=true` 或 `fresh_oos=true`。
+- 修改 M6 representation 或 M7 lifecycle/admission 而不升级版本；
+- 无新 exact source receipt 就扩张 15m/60m/phase provider admission；
+- 在 Layer2 输出 `global_state`、交易动作、position/order、strategy selection/routing；
+- 把 STAR50 说成已经连接 external strategy caller；
+- 把 M8 说成 live deployment certification；
+- 把 release 动作解释成 `production_authority=true` 或 `fresh_oos=true`。
 
-## M9 唯一任务
+## 后续如何继续
 
-只做 release/version/governance 收口：schema/version compatibility matrix、API examples、changelog/migration、evidence lineage、known limitations、release policy 与 CI/release governance。
+没有自动 M10。后续需求先分类：
 
-M9 不得通过“发布”动作改变已经冻结的研究结论、representation、consumer runtime admission 或 authority。
+- 不改语义的 bugfix/docs/test → V1 patch；
+- 向后兼容的新 admitted source/profile → 新 exact receipt + minor version；
+- 改 state/T1/estimator/strength/snapshot lifecycle、引入 formal strong/global/action semantics → new major version；
+- production/live/OOS certification → 独立治理项目，不由 component SemVer 自动授予。
+
+历史 V1 snapshots 不得原地改写。
