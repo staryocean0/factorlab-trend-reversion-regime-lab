@@ -1,0 +1,153 @@
+{
+  "schema_id": "trend_five_bucket_protocol_m4@1.0",
+  "protocol_id": "trend_five_bucket_exhaustion_m4_v1",
+  "status": "FROZEN_BEFORE_M5_OUTCOMES",
+  "production_authority": false,
+  "fresh_oos": false,
+  "hypothesis": {
+    "id": "H1_EXTREME_SLOPE_EXHAUSTION",
+    "statement": "Within the same bar interval and direction, extreme absolute slope states may be less persistent and more reversal-prone than moderate trend states.",
+    "trading_semantics": false
+  },
+  "state_scheme": {
+    "baseline_schema_id": "trend_regime_three_bucket_baseline@1.0",
+    "score": "log_close_ols_slope_t@1.0",
+    "t1": 2.0,
+    "primary_t2": 4.0,
+    "sensitivity_t2": [3.0, 5.0],
+    "t2_selection_rule": "primary_t2_is_fixed_at_2x_t1; sensitivity_values_are_1.5x_and_2.5x_t1; no outcome-based replacement",
+    "buckets": {
+      "STRONG_DOWN": "s < -T2",
+      "DOWN": "-T2 <= s < -T1",
+      "SIDEWAYS": "-T1 <= s <= T1",
+      "UP": "T1 < s <= T2",
+      "STRONG_UP": "s > T2"
+    }
+  },
+  "carriers": {
+    "primary": "000852.SH",
+    "replication": ["000688.SH"],
+    "pooling_rule": "never_pool_carriers_to_rescue_a_weak_or_underpowered_primary_result"
+  },
+  "sample_calendar": {
+    "common_start": "2020-07-23",
+    "common_end": "2025-12-31",
+    "development": {"start": "2020-07-23", "end": "2022-12-30"},
+    "validation": {"start": "2023-01-03", "end": "2024-12-31"},
+    "locked_historical_holdout": {"start": "2025-01-02", "end": "2025-12-31"},
+    "holdout_label": "protocol_holdout_not_fresh_oos",
+    "pre_common_csi1000_history_role": "excluded_from_primary_m5_inference"
+  },
+  "profiles": {
+    "anchor_selection_rule": "minimum_session_offset_minutes_within_each_m3_interval; research_anchor_only_not_product_default",
+    "anchors": [
+      "trend_1m_official_v1",
+      "trend_5m_offset0_v1",
+      "trend_15m_offset5_v1",
+      "trend_60m_offset30_v1"
+    ],
+    "phase_sensitivity": [
+      "trend_5m_offset1_v1",
+      "trend_5m_offset2_v1",
+      "trend_5m_offset3_v1",
+      "trend_5m_offset4_v1",
+      "trend_15m_offset10_v1",
+      "trend_60m_offset45_v1"
+    ],
+    "admission_rule": "profile_must_have_exact_m3_layer1_view_identity_and_causal_source_receipt; otherwise NOT_ADMITTED",
+    "local_resampling_allowed": false,
+    "substitution_allowed": false
+  },
+  "event_definition": {
+    "unit": "five_bucket_state_episode_entry",
+    "episode_start": "first available bar whose five-bucket state differs from the immediately previous available bar state",
+    "compared_states": ["UP", "STRONG_UP", "DOWN", "STRONG_DOWN"],
+    "unavailable_breaks_episode": true,
+    "bridge_missing_state": false,
+    "forward_outcomes_may_cross_split_boundary": false
+  },
+  "forward_horizons_bars": [1, 3, 5, 10, 20],
+  "primary_horizon_bars": 5,
+  "reversal_horizons_bars": [5, 10, 20],
+  "primary_reversal_horizon_bars": 10,
+  "metrics": {
+    "primary": {
+      "directional_survival_5bar": "probability all states through bars 1..5 remain in the same directional family above/below T1",
+      "contrast": "strong_minus_moderate_within_direction",
+      "h1_sign": "negative"
+    },
+    "secondary_confirmatory": {
+      "reversal_probability_10bar": "probability of first entry into the opposite directional family within 10 bars; H1 strong-minus-moderate sign positive",
+      "direction_adjusted_return_5bar": "d * log(close_t+5 / close_t), d=+1 for up states and -1 for down states; H1 strong-minus-moderate sign negative"
+    },
+    "secondary_descriptive": [
+      "exact_bucket_episode_duration",
+      "directional_family_episode_duration",
+      "one_bar_transition_matrix",
+      "episode_exit_destination_matrix",
+      "continuation_rate_at_1_3_5_10_20_bars",
+      "direction_adjusted_return_at_1_3_5_10_20_bars",
+      "reversal_probability_at_5_10_20_bars",
+      "time_to_first_opposite_direction_state_with_20bar_right_censoring",
+      "close_based_MFE_at_5_10_20_bars",
+      "close_based_MAE_at_5_10_20_bars"
+    ],
+    "excursion_definition": {
+      "path_value": "R_k=d*log(close_t+k/close_t)",
+      "mfe": "max(0,max_k R_k)",
+      "mae": "max(0,-min_k R_k)",
+      "uses_intrabar_high_low": false
+    }
+  },
+  "minimum_sample": {
+    "validation_primary_episode_starts_per_group": 100,
+    "holdout_primary_episode_starts_per_group": 50,
+    "secondary_10_20bar_episode_starts_per_group": 50,
+    "phase_sensitivity_validation_episode_starts_per_group": 50,
+    "underpowered_action": "mark_UNDERPOWERED; do_not_lower_T2; do_not_pool_profiles_or_carriers; do_not_shorten_primary_horizon"
+  },
+  "inference": {
+    "resampling_unit": "ISO_calendar_week_of_episode_start",
+    "bootstrap_replicates": 5000,
+    "bootstrap_seed": 20260914,
+    "confidence_interval": 0.95,
+    "primary_family": "8 planned directional_survival_5bar contrasts = 4 anchor intervals x 2 directions on 000852.SH",
+    "unavailable_or_underpowered_primary_hypothesis_pvalue": 1.0,
+    "multiple_testing": "Holm family-wise adjustment at alpha=0.05 over the 8 planned primary contrasts",
+    "effect_size_guard": "primary directional-survival strong-minus-moderate point estimate must be <= -0.05 to count as practically meaningful support"
+  },
+  "decision_rules": {
+    "validation_support_per_interval_direction": "primary adjusted test supports H1 and directional-survival contrast <= -0.05; at least one secondary confirmatory metric has the H1 direction without a statistically clear opposite result",
+    "holdout_unlock": "holdout may be evaluated only after validation artifacts and code/config identities are sealed; validation failure or underpower cannot be rescued by opening holdout",
+    "holdout_confirmation": "same primary contrast sign, point estimate <= -0.05, and unadjusted 95% block-bootstrap CI excludes zero in the H1 direction",
+    "phase_robustness": "anchor sign should agree with a majority of admitted sensitivity profiles for that interval; no admitted sensitivity profile may show a statistically clear opposite primary effect",
+    "cross_carrier_rule": "000688.SH is reported separately; it cannot rescue 000852.SH. Universal five-bucket semantics require qualitatively consistent replication rather than pooled significance.",
+    "asymmetry_rule": "UP and DOWN directions are judged separately; no averaging is allowed to hide directional asymmetry"
+  },
+  "execution_order": [
+    "1_validate_source_and_profile_admission_without_outcomes",
+    "2_run_development_pipeline_and_sample_adequacy_checks_without_changing_protocol",
+    "3_seal_code_config_and_development_receipt",
+    "4_run_primary_T2_4_validation_once",
+    "5_run_predeclared_T2_3_and_T2_5_validation_sensitivity_without_promoting_them_to_primary",
+    "6_if_and_only_if_validation_support_rule_passes_unlock_primary_T2_4_holdout_once",
+    "7_report_replication_and_phase_sensitivity_without_using_them_to_redefine_primary_result"
+  ],
+  "stop_and_negative_result_rules": [
+    "No T2, horizon, split, carrier, anchor profile, endpoint, or sample threshold may change after validation outcomes are visible.",
+    "If primary T2=4 is negative, H1 is not supported; T2=3 or T2=5 cannot replace it as the headline result.",
+    "If primary T2=4 is underpowered, result is INCONCLUSIVE; do not lower T2 or pool offsets/carriers to manufacture power.",
+    "If extreme states are more persistent, record H1_CONTRADICTED rather than re-labeling the effect as exhaustion.",
+    "A statistical difference does not imply BUY/SELL/position semantics.",
+    "M4 freezes protocol only; M5 is the first milestone allowed to compute these outcomes."
+  ],
+  "forbidden_in_m4": [
+    "forward_return_computation",
+    "transition_probability_computation",
+    "episode_count_by_five_bucket",
+    "T2_tuning_from_observed_distribution",
+    "reversal_or_excursion_computation",
+    "holdout_reading",
+    "trading_action_mapping"
+  ]
+}
