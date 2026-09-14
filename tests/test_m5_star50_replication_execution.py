@@ -6,6 +6,7 @@ from scripts.m5_v6_replication_execution import CARRIER, PROFILES, replication_l
 
 ROOT = Path(__file__).resolve().parents[1]
 EXECUTION = ROOT / "docs/governance/TREND_M5_STAR50_REPLICATION_EXECUTION_V1.json"
+RECEIPT = ROOT / "docs/governance/TREND_M5_STAR50_REPLICATION_V1.json"
 PRIMARY = ROOT / "docs/governance/TREND_M5_PRIMARY_VALIDATION_V1.json"
 SENSITIVITY = ROOT / "docs/governance/TREND_M5_T2_SENSITIVITY_V1.json"
 
@@ -14,13 +15,16 @@ def _git_blob(path: str) -> str:
     return subprocess.check_output(["git", "hash-object", str(ROOT / path)], text=True).strip()
 
 
-def test_replication_contract_is_frozen_before_read():
+def test_replication_contract_is_consumed_once_and_holdout_stays_closed():
     payload = json.loads(EXECUTION.read_text(encoding="utf-8"))
-    assert payload["status"] == "FROZEN_BEFORE_REPLICATION_READ"
-    assert payload["replication_consumed"] is False
-    assert payload["replication_rows_read"] is False
+    assert payload["status"] == "CONSUMED_AFTER_ONE_STAR50_REPLICATION"
+    assert payload["replication_consumed"] is True
+    assert payload["replication_rows_read"] is True
+    assert payload["replication_rerun_allowed"] is False
     assert payload["holdout_rows_read"] is False
     assert payload["holdout_unlock_allowed"] is False
+    assert payload["holdout_permanently_blocked_by_primary_support_rule"] is True
+    assert payload["m5_outcome_work_reopen_allowed"] is False
     assert payload["carrier"] == CARRIER == "000688.SH"
     assert payload["t2"] == 4.0
     assert payload["new_primary_family_created"] is False
@@ -44,6 +48,31 @@ def test_replication_locked_objects_match():
     payload = json.loads(EXECUTION.read_text(encoding="utf-8"))
     for item in payload["locked_objects"]:
         assert _git_blob(item["path"]) == item["git_blob"], item["path"]
+
+
+def test_replication_receipt_is_clear_and_separate():
+    payload = json.loads(RECEIPT.read_text(encoding="utf-8"))
+    assert payload["status"] == "PASS_EXECUTED_CLEAR_QUALITATIVE_REPLICATION"
+    assert payload["overall_replication_conclusion"] == "CLEAR_QUALITATIVE_REPLICATION_OF_PRIMARY_CONTRADICTION"
+    assert payload["replication_counts"] == {
+        "executable_contrasts": 4,
+        "point_estimate_same_direction": 4,
+        "statistically_clear_same_direction": 4,
+        "statistically_clear_opposite_direction": 0,
+        "h1_contradicted": 4,
+        "h1_direction": 0,
+    }
+    assert payload["remaining_robustness_reporting"]["phase_sensitivity_profiles"] == "NOT_ADMITTED_NOT_EXECUTED"
+    assert payload["remaining_robustness_reporting"]["anchor_15m_60m"] == "NOT_ADMITTED_NOT_EXECUTED"
+    assert payload["remaining_robustness_reporting"]["pooling_with_csi1000"] is False
+    assert payload["holdout_rows_read"] is False
+    assert payload["holdout_unlocked"] is False
+    for item in payload["executable_replication_contrasts"]:
+        assert item["status"] == "REPLICATION_H1_CONTRADICTED"
+        assert item["strong_minus_moderate"] > 0.0
+        assert item["ci95"][0] > 0.0
+        assert item["reversal10_strong_minus_moderate"] < 0.0
+        assert item["reversal10_ci95"][1] < 0.0
 
 
 def test_replication_profiles_and_labels_are_fixed():
