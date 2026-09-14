@@ -1,6 +1,6 @@
-# 趋势状态识别组件 API 合同（M1–M7 已冻结）
+# 趋势状态识别组件 API 合同（M1–M8 已冻结）
 
-> 状态：**M7 stable consumer 已实现并通过 conformance tests。** 本文定义当前 V1 调用面、snapshot lifecycle 与 fail-closed provider admission。
+> 状态：**M7 stable consumer 已实现；M8 已验证其上层集成所有权边界。** M8 不改变 M7 的调用面、snapshot lifecycle 或 provider admission。
 >
 > `production_authority=false`、`fresh_oos=false`。组件不输出买卖、仓位、订单、策略路由或多周期总趋势。
 
@@ -15,9 +15,7 @@ query_regime(
 ) -> RegimeQueryResult
 ```
 
-Caller 只拥有：`symbol`、timezone-aware `as_of`、`bar_interval`，以及需要时的 `profile_id`。
-
-Caller 不得传入：lookback、estimator、T1/T2、normalization、provider admission、publication/validity policy、strategy action。
+Caller 只拥有 `symbol`、timezone-aware `as_of`、`bar_interval` 以及需要时的 `profile_id`。Caller 不得传入 lookback、estimator、T1/T2、normalization、provider admission、publication/validity policy 或 strategy action。
 
 ## 2. 正式产品表示
 
@@ -29,85 +27,60 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-representation schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。
-
-稳定 API 禁止 `STRONG_UP/STRONG_DOWN`、five-bucket state、T2 与 `global_state`。M4/M5 五桶只属于历史研究证据。
+representation schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。稳定 API 禁止 `STRONG_UP/STRONG_DOWN`、five-bucket state、T2 与 `global_state`。
 
 ## 3. Consumer / Snapshot schema
 
-Consumer schema：`regime_state_consumer_v1`。
-Snapshot schema：`trend_regime_snapshot@1.0`。
+Consumer schema：`regime_state_consumer_v1`。Snapshot schema：`trend_regime_snapshot@1.0`。
 
-AVAILABLE snapshot 至少包含：
-
-- `snapshot_id`
-- `symbol / bar_interval / profile_id / layer1_view_id`
-- `decision_time / observation_time / measurement_available_at`
-- `published_at / valid_until`
-- `state / directional_score / strength`
-- `representation_schema_id / state_scheme_id / strength_definition_id`
-- `provider_id / source_dataset_id / admission_receipt_id / source_receipt_id`
-- measurement schema/estimator identity
-- `production_authority=false`
+AVAILABLE snapshot 至少包含 snapshot identity、symbol/interval/profile/view、decision/observation/publication/expiry clocks、`state/directional_score/strength`、representation identities、provider/source/receipt identities、measurement estimator identity，以及 `production_authority=false`。
 
 Unavailable 查询返回 `snapshot=null`，不得把不可用伪装成 SIDEWAYS 或泄露旧 state/score/strength。
 
 ## 4. Snapshot lifecycle
 
-M7 runtime 已实现：
+M7 runtime 已实现：immutable snapshot、append-only ingest、duplicate identity guard、publication-before-receipt causality、receipt/source ordering、as-of receipt visibility、expiry，以及 **latest-expired / latest-explicit-unavailable no fallback**。
 
-- snapshot immutable；
-- ingest append-only；
-- identical duplicate 幂等；conflicting duplicate 拒绝；
-- `received_at < published_at` 拒绝；
-- receipt 全局倒序拒绝；同 symbol/profile source decision-time 倒序拒绝；
-- as-of 只看 `consumer_received_at <= as_of` 的记录；
-- `as_of >= valid_until` 时最新 snapshot 过期；
-- **latest-expired no fallback**；
-- 最新 explicit unavailable 同样 no fallback。
-
-`valid_until` 是 component/provider publication layer 拥有的因果坐标，不是 query caller 参数。Consumer 强制 validity window，但不自行猜测 Layer-1 交易日完整性。
+`valid_until` 属于 component/provider publication layer，不是 query caller 参数。Consumer 不自行猜测 Layer1 交易日完整性。
 
 ## 5. 当前 provider admission
 
 当前 V1 registry 冻结为：
 
-- provider: `datahub`
-- source dataset: `factorlab_unified_index_kline_v3_20260824`
-- symbols: `000688.SH`, `000852.SH`
-- profiles: `trend_1m_official_v1`, `trend_5m_offset0_v1`
-- admission receipt: `trend_m5_source_profile_admission_v1_20260914`
+- provider `datahub`
+- dataset `factorlab_unified_index_kline_v3_20260824`
+- symbols `000688.SH`, `000852.SH`
+- profiles `trend_1m_official_v1`, `trend_5m_offset0_v1`
+- admission receipt `trend_m5_source_profile_admission_v1_20260914`
 
-M3 engineering registry 中其他 profiles 仍可作为工程定义存在，但在当前 runtime provider admission 下必须返回 `STATE_NOT_ADMITTED`。不得由 caller 或 constructor 自行扩张 V1 registry；以后扩张必须有新的 source admission / versioned governance。
+其他 M3 engineering profiles 在当前 runtime 下 fail closed 为 `STATE_NOT_ADMITTED`。不得由 caller/constructor 扩张 V1 registry。
 
 ## 6. Fail-closed reason families
 
-包括但不限于：
-
-- `NO_PUBLISHED_SNAPSHOT`
-- `LATEST_SNAPSHOT_EXPIRED`
-- `UNSUPPORTED_SYMBOL`
-- `UNSUPPORTED_PROFILE`
-- `STATE_NOT_ADMITTED`
-- `INSUFFICIENT_HISTORY`
-- `SOURCE_UNAVAILABLE`
-- `OUTSIDE_SUPPORTED_TIME`
-- `MEASUREMENT_INVALID`
-- `CADENCE_GAP`
-- `OFF_PROFILE_GRID`
+包括 `NO_PUBLISHED_SNAPSHOT`、`LATEST_SNAPSHOT_EXPIRED`、`UNSUPPORTED_SYMBOL`、`UNSUPPORTED_PROFILE`、`STATE_NOT_ADMITTED`、`INSUFFICIENT_HISTORY`、`SOURCE_UNAVAILABLE`、`OUTSIDE_SUPPORTED_TIME`、`MEASUREMENT_INVALID`、`CADENCE_GAP`、`OFF_PROFILE_GRID`。
 
 ## 7. Immutability / identity
 
-`snapshot_id` 由 provider/source、symbol、interval/profile/view 与 decision time 的稳定坐标确定。同 identity 内容不能改写；修改 estimator、T1、representation、profile/view 或 provider/source admission 必须通过新的版本/身份表达，而不是覆盖历史 snapshot。
+`snapshot_id` 绑定 provider/source、symbol、interval/profile/view 与 decision time。同 identity 内容不得改写。Estimator、T1、representation、profile/view 或 provider/source admission 改变必须新版本；`source_receipt_id` 必须是非空字符串。
 
-`source_receipt_id` 必须是非空字符串，不能被隐式字符串化为伪 receipt。
+## 8. M8 上层集成边界
 
-## 8. 多周期与策略边界
+Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-同一 as-of 可以存在不同 interval 的独立 snapshot。Layer 2 不产生 `global_state`。多周期投票、风险状态组合、策略选择和 BUY/SELL/仓位映射属于 M8 及更上层，不属于本组件。
+M8 验证并冻结以下所有权规则：
+
+1. Layer2 trend snapshot 是只读输入；caller 不在 Layer2 adapter 中修改 value/threshold/state semantics。
+2. 同一 as-of 的 1m/5m snapshot 可以不同，必须分别上送；Layer2 不创建 `global_state`。
+3. trend 与 risk 是并行 Layer2 namespaces；融合、冲突仲裁、选择属于 Layer3 或更高层。
+4. `UNAVAILABLE` / expired 不能被 caller 转成 SIDEWAYS 来补值。
+5. 任何 BUY/SELL、position/order、strategy/plugin selection、routing 都在 Layer2 之外。
+6. M8 不创建 production wiring，也不授权 production。
+
+CSI1000 私仓已有真实 read-only Layer2 adapter 和 Layer3 orchestration kernel，M8 验证与其所有权模型兼容。STAR50 仓已有真实 risk-state consumer，但其示例明确没有 external consumer connected，因此这里只认证为并行 risk-provider boundary，**不声称存在已部署的 STAR50 策略 caller**。
 
 ## 9. Governance
 
 M7 machine contract：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
+M8 machine contract：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-M7 不重开 M5 outcome，不读取 2025 Holdout，不改变 M6 representation。**唯一下一步是 M8 策略层调用集成验证。**
+M8 不重开 M5、读取 Holdout、改变 M6/M7、修改外部仓或扩大 provider admission。**唯一下一步是 M9 release/version/documentation/governance。**
