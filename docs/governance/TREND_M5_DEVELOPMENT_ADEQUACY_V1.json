@@ -1,0 +1,23 @@
+{
+  "schema_id":"trend_m5_development_adequacy_receipt@1.0",
+  "milestone":"M5-2",
+  "status":"PASS_SAMPLE_ADEQUACY_ONLY_VALIDATION_LOCKED",
+  "protocol":"trend_five_bucket_protocol_m4@1.0",
+  "development":{"start":"2020-07-23","end":"2022-12-30"},
+  "run":{"id":34812469153,"head":"7069d2afc1c2137c14a16003dcfd5ebf9c21376f","artifact_id":10334954106,"artifact_digest":"sha256:95eb49298359959cd4ebf82fc21eca8d79e61e932f0d550fbb3c09efd56b3147"},
+  "primary_floor_complete5_each_group":100,
+  "secondary_floor_each_group":50,
+  "results":[
+    {"carrier":"000852.SH","profile":"trend_1m_official_v1","up":{"moderate5":6012,"strong5":3003},"down":{"moderate5":5912,"strong5":2891},"primary_floor_met":true,"secondary_10_20_floor_met":true},
+    {"carrier":"000852.SH","profile":"trend_5m_offset0_v1","up":{"moderate5":1157,"strong5":549},"down":{"moderate5":1202,"strong5":587},"primary_floor_met":true,"secondary_10_20_floor_met":true},
+    {"carrier":"000688.SH","profile":"trend_1m_official_v1","up":{"moderate5":5805,"strong5":2746},"down":{"moderate5":6319,"strong5":3084},"primary_floor_met":true,"secondary_10_20_floor_met":true},
+    {"carrier":"000688.SH","profile":"trend_5m_offset0_v1","up":{"moderate5":1105,"strong5":546},"down":{"moderate5":1267,"strong5":631},"primary_floor_met":true,"secondary_10_20_floor_met":true}
+  ],
+  "validation_rows_read":false,
+  "holdout_rows_read":false,
+  "market_outcomes_computed":false,
+  "h1_adjudicated":false,
+  "production_authority":false,
+  "fresh_oos":false,
+  "next_allowed_step":"M5-3 seal code/config/Development receipt before Validation"
+}
