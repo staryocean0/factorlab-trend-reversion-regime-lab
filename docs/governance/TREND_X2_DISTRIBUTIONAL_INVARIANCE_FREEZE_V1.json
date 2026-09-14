@@ -10,6 +10,7 @@
     "start": "2020-07-23",
     "end": "2020-12-31",
     "role": "Development-only matched exact-view window",
+    "measurement_window_rule": "each reported 20-bar OLS window must be fully contained inside the research window; no pre-window warm-up bars are used, so both carriers start symmetrically",
     "old_m4_m5_2025_holdout_included": false,
     "fresh_oos": false
   },
@@ -46,6 +47,8 @@
     "t1": 2.0,
     "states": ["DOWN", "SIDEWAYS", "UP"],
     "strength": "abs(slope_t)",
+    "row_order": "ascending source timestamp within each exact view",
+    "invalid_nonpositive_close": "exclude the affected 20-bar measurement exactly as unavailable; do not forward fill",
     "local_resampling_allowed": false,
     "profile_substitution_allowed": false
   },
