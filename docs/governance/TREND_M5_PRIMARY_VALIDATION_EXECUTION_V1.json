@@ -29,7 +29,8 @@
     {"path":"scripts/m5_validation_bootstrap.py","git_blob":"856f63881157f57413af5e0ea63312c9c0d46f16"},
     {"path":"scripts/m5_primary_validation_core.py","git_blob":"84e586caa8936e1cfc70c719109f49bb7576914b"},
     {"path":"scripts/m5_validation_durations.py","git_blob":"a1c148f27aebae4e4cebb9349509de86ba081b51"},
-    {"path":"scripts/m5_v4_execution.py","git_blob":"077acb62cade8bbe98f8c809d19b0be19d8e512d"},
+    {"path":"scripts/m5_validation_transitions.py","git_blob":"1cbc661380912ea7eb3d6106ec119f6f91b63b71"},
+    {"path":"scripts/m5_v4_execution.py","git_blob":"642d3e33bc240bab4e56c3f8cff7519175ebadd3"},
     {"path":"scripts/m5_v4_runner.py","git_blob":"a552adac59a7016d04b577b77d79a9e8411dbcc2"}
   ],
   "next_allowed_action": "run_primary_validation_once_only"
