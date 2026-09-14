@@ -15,6 +15,7 @@
 - **X5B — COMPLETE**：5m Sina ↔ Eastmoney source robustness。
 - **X5C — COMPLETE**：五指数 15m/60m 跨 carrier + 60m 长窗口；60m underpower 已解除，但 heterogeneity 持续。
 - **X5D — COMPLETE / `INSUFFICIENT_EVIDENCE`**：静态 interval-specific T1 与静态 robust normalization 均未形成外部语义支配。
+- **X5E — COMPLETE / NO ADOPTION**：60m temporal scale nonstationarity 得到支持；causal rolling normalization 强化 cross-carrier strength comparability，但没有同时建立 temporal stability 与 state-semantic non-inferiority。
 - **X6 — HOLD / NOT READY**：不做 representation / SemVer 变更。
 
 V1 release pointer `release/trend-regime-v1.0.0` 必须继续指向原 M9 gated commit `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`；Post-V1 研究提交不得移动它。
@@ -33,26 +34,9 @@ strength          = abs(directional_score)
 
 ## 已建立的 Post-V1 结论
 
-### 1. Phase 不是主要不稳定源
+### Phase 与 5m
 
-X2/X3 的 2020-07-23 至 2020-12-31 Development-only exact-view 研究显示：同一 interval 内 phase dispersion 总体较小；5m offset0–4 尤其稳定。跨 interval 差异明显大于 phase 差异。
-
-### 2. 5m 对 carrier 与 public source 较稳健
-
-X5 五指数 5m（CSI1000、STAR50、CSI300、CSI500、SSE50）结果：
-
-- SIDEWAYS occupancy range ≈ **3.13pp**；
-- one-step self-transition range ≈ **1.23–1.87pp**；
-- 5-bar directional survival range：DOWN ≈ **6.54pp**、UP ≈ **2.81pp**。
-
-X5B 在 CSI1000 / STAR50 上比较 Sina 与 Eastmoney：
-
-- slope_t Pearson ≈ **0.9999994**；
-- slope_t abs-diff q95 < **0.004**；
-- 三桶状态 **100% 一致**；
-- DOWN ↔ UP disagreement = **0**。
-
-因此当前没有证据支持 carrier-specific、phase-specific 或 provider-specific 的 5m T1。
+X2/X3 显示同一 interval 内 phase dispersion 总体较小，5m offset0–4 尤其稳定；跨 interval 差异明显大于 phase 差异。X5 五指数 5m 的 SIDEWAYS occupancy range ≈ **3.13pp**，one-step self-transition range ≈ **1.23–1.87pp**。X5B 中 Sina vs Eastmoney 的 slope_t Pearson ≈ **0.9999994**，三桶状态 **100% 一致**。目前没有证据支持 carrier-specific、phase-specific 或 provider-specific 5m T1。
 
 ## X5C — 15m / 60m Cross-Carrier — COMPLETE
 
@@ -76,11 +60,7 @@ Result：`docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_RESULT_V1.json`
 | DOWN survival5 | ≈ 7.80pp | ≈ 14.75pp |
 | UP survival5 | ≈ 9.02pp | ≈ 10.44pp |
 
-60m 所有预注册 directional metrics 的最小 origins = **181**，已超过 adequate threshold 100；因此早先的 60m UP underpower 不再是主要解释。
-
-同一 2026-08-17 至 2026-09-14 日历切片中，60m 的 score/occupancy dispersion 仍显著高于 5m/15m，进一步支持 interval effect。
-
-同时，60m 月度 SIDEWAYS occupancy 在单 carrier 内也高度漂移，说明不能把“强制占比恒定”当作正确 calibration 的定义。
+60m 所有预注册 directional metrics 的最小 origins = **181**，已超过 adequate threshold 100；早先的 60m UP underpower 不再是主要解释。
 
 ## X5D — Static Calibration Comparison — COMPLETE
 
@@ -90,35 +70,80 @@ Development receipt：`docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_RECEIPT
 Result：`docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_RESULT_V1.json`  
 Decision update：`docs/governance/TREND_X4_POST_X5D_UPDATE_V1.json`
 
-参数只使用 2020 Development exact-view 数据拟合；2026 五指数只用于外部 candidate evaluation，没有使用交易收益。
+参数只使用 2020 Development exact-view 数据拟合；2026 五指数只用于外部 candidate evaluation，没有使用交易收益。Development 拟合得到 interval-specific `T1_60m≈1.2225`，primary median-abs normalization 等价 `T1_60m≈1.2701`。两种独立方法都说明 60m raw score scale 与短周期不同，但在 2026 外部样本上没有全面语义优势：interval-specific T1 为 **9 改善 / 7 恶化**，primary median-abs normalization 为 **10 改善 / 5 恶化 / 1 持平**；所有候选无严格 Pareto dominance，因此静态 calibration 不采纳。
 
-Development 5m 参考 SIDEWAYS target = **0.2382626877**。
+## X5E — 60m Temporal Scale Stability & Causal Normalization — COMPLETE
 
-拟合得到：
+Protocol：`docs/governance/TREND_X5E_60M_TEMPORAL_SCALE_CAUSAL_NORMALIZATION_PROTOCOL_V1.json`  
+Result：`docs/governance/TREND_X5E_60M_TEMPORAL_SCALE_CAUSAL_NORMALIZATION_RESULT_V1.json`  
+Decision update：`docs/governance/TREND_X4_POST_X5E_UPDATE_V1.json`
+
+X5E 只研究表示层。没有计算收益、没有策略指标、没有扩大 runtime admission、没有修改 V1。研究只使用 X5C retained Sina native 60m 数据中的 **2026-01-05 至 2026-09-14** 行；旧 M4/M5 governed 2025 Holdout 未读取。候选严格 causal：在时点 `t` 的 scale 只能使用 `t-1` 及更早 slope_t，窗口预注册为 **40 / 80 / 120 measurements**。normalized semantic threshold 固定沿用 X5D 2020 Development 已封存值 `0.44780633341059867`，没有利用 2026 再拟合参数。
+
+### X5E-1：60m temporal scale nonstationarity 得到支持
+
+按月计算 `median(abs(slope_t))`，五指数 2026 月度最大/最小比：
+
+- CSI1000：**2.50×**；
+- STAR50：**2.76×**；
+- CSI300：**3.32×**；
+- CSI500：**1.61×**；
+- SSE50：**1.63×**。
+
+因此“一个静态 60m scale 在全年稳定”不受该窗口支持。
+
+### X5E-2：causal normalization 很强地改善 cross-carrier strength scale
+
+为公平比较，V1 与全部候选都限制在 120-score warmup 后的共同窗口 **2026-03-02 15:00 至 2026-09-14 15:00**，每 carrier **541 measurements**。
+
+五指数 carrier-median strength 的横截面 range：
+
+| 表示 | cross-carrier range | 相对 raw 降幅 |
+|---|---:|---:|
+| V1 raw `abs(slope_t)` | 1.4307 | — |
+| causal median-abs 40 | 0.1052 | ≈ 92.7% |
+| causal median-abs 80 | 0.0778 | ≈ 94.6% |
+| causal median-abs 120 | 0.0573 | ≈ 96.0% |
+
+所以 rolling causal scale 对 **cross-carrier strength-level alignment** 很有效。
+
+### X5E-3：但 temporal stability 没有被解决
+
+单 carrier 月度 median-strength 最大/最小比，在五指数之间取中位数：
 
 ```text
-interval-specific T1:
-5m  ≈ 1.9989
-15m ≈ 1.9351
-60m ≈ 1.2225
-
-primary median-abs normalization equivalent raw T1:
-5m  = 2.0000
-15m ≈ 2.0717
-60m ≈ 1.2701
+V1 raw              ≈ 1.694
+causal medabs 40     ≈ 1.689
+causal medabs 80     ≈ 2.056
+causal medabs 120    ≈ 1.990
 ```
 
-两种独立方法都在 Development 上指向“60m raw-equivalent threshold 应低于 2”，但它们没有干净转移到 2026：
+40-bar 几乎没有改善，80/120 反而更差。因此“cross-carrier scale 对齐”与“within-carrier temporal stability”是两个不同问题，不能混为一谈。
 
-- interval-specific T1 相对 V1：16 个 15m+60m 事前语义 dispersion 指标中 **9 改善 / 7 恶化**；
-- primary median-abs normalization：**10 改善 / 5 恶化 / 1 持平**；
-- MAD normalization：**9 / 7**；
-- q75 normalization：**7 / 9**；
-- 所有候选之间 **无严格 Pareto dominance**。
+### X5E-4：动态 state-boundary normalization 仍有语义 trade-off
 
-60m 静态 calibration 虽把 SIDEWAYS carrier dispersion 从约 **12.4pp** 降至约 **6.8pp**，却明显恶化部分 reversal/persistence 指标；DOWN opposite-entry10 dispersion 从 V1 的约 **5.2pp** 上升到约 **11%–12%**。候选同时改变约 **10%–15%** 的 60m 状态分类。
+在事前定义的 8 个 60m cross-carrier state-semantic dispersion 指标上：
 
-q75 normalization 将 cross-interval strength-level range 从 raw 的约 **0.506** 降至约 **0.157**，说明 strength scaling 值得继续研究；但它没有同步支配 state semantics，因此不能据此改变状态边界或 strength 定义。
+- causal median-abs 40：**5 改善 / 3 恶化**；
+- causal median-abs 80：**3 改善 / 5 恶化**；
+- causal median-abs 120：**5 改善 / 3 恶化**。
+
+40/120 的恶化集中在 SIDEWAYS self-transition 与 DOWN/UP 的 opposite-entry10；没有任何候选严格 Pareto-dominates V1。候选相对 V1 改写约 **2.4%–12.8%** 的状态，但所有 carrier 的 DOWN↔UP opposite-direction disagreement 都为 **0**：变化只发生在 directional ↔ SIDEWAYS 边界，不改变 slope_t 的方向符号。
+
+动态 raw-equivalent T1 也不是小幅微调。例如 40-bar 候选跨 carrier 的 q10/q90 极值约 **0.75–3.91**，进一步说明它是实质性的动态 representation change，而不是把固定 `T1=2` 略作修正。
+
+### X5E 决策
+
+```text
+TEMPORAL_SCALE_NONSTATIONARITY       = SUPPORTED_ON_2026_FIVE_CARRIER_WINDOW
+CAUSAL_STATE_BOUNDARY_NORMALIZATION  = NOT SUPPORTED FOR ADOPTION
+CAUSAL_STRENGTH_SCALE_NORMALIZATION  = PROMISING CROSS-CARRIER DIAGNOSTIC
+TEMPORAL_STABILITY_OF_NORMALIZATION  = NOT ESTABLISHED
+V1_ACTION                            = NO CHANGE
+X6                                  = HOLD / NOT READY
+```
+
+因此下一阶段如果继续，不应再让 rolling scale 直接接管 DOWN/SIDEWAYS/UP 边界。更合理的研究方向是：**strength-only temporal scale estimator**，或把 60m scale 分解为 carrier effect、time/regime effect 与 clock/source effect；只有未来预注册候选同时达到 state-semantic non-inferiority，才重新讨论 state-boundary representation。
 
 ## 当前 calibration 判断
 
@@ -127,22 +152,14 @@ UNIVERSAL_FIXED_T1                  = CURRENT_V1_BASELINE, NOT UNIVERSAL LAW
 STATIC_INTERVAL_SPECIFIC_T1         = NOT SUPPORTED FOR ADOPTION
 PROFILE_SPECIFIC_T1                 = NOT SUPPORTED AS DEFAULT
 STATIC_NORMALIZED_SCORE             = NOT SUPPORTED FOR ADOPTION
-NORMALIZED_STRENGTH_SCALE           = PROMISING DIAGNOSTIC, NOT PRODUCT SEMANTICS
+CAUSAL_STATE_BOUNDARY_NORMALIZATION = NOT SUPPORTED FOR ADOPTION
+CAUSAL_STRENGTH_SCALE_NORMALIZATION = PROMISING DIAGNOSTIC, TEMPORAL STABILITY NOT ESTABLISHED
 CURRENT_DECISION                    = INSUFFICIENT_EVIDENCE
 ```
-
-当前 60m 问题已经从“样本太少”升级为：**interval scale + temporal/regime nonstationarity + clock/source identity** 的联合问题。
 
 ## X6 — Representation / Version Decision — HOLD
 
 当前 action：**NO V1 CHANGE / NO ADMISSION EXPANSION / NO X6 VERSION BUMP**。
-
-如果继续研究 normalization，下一步必须：
-
-1. 明确区分 **state-boundary normalization** 与 **strength-scale normalization**；
-2. 使用 causal / out-of-time 方法，不能拿 2026 evaluation 再拟合一个静态阈值；
-3. 不通过强制固定 SIDEWAYS occupancy 抹掉真实市场 regime 信息；
-4. 优先增加 governed/exact 60m clock 证据，或预注册新的因果 normalization protocol。
 
 ## 全程冻结边界
 
