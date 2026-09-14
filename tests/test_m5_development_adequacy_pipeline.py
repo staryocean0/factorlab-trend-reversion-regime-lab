@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from scripts import m5_development_adequacy as study
 from scripts.m5_development_adequacy_core import episode_adequacy, five_bucket
 
@@ -27,3 +30,16 @@ def test_episode_adequacy_counts_availability_without_outcomes():
     assert result["episode_counts"]["STRONG_UP"]["complete_20"] == 1
     assert result["episode_counts"]["DOWN"]["complete_20"] == 1
     assert result["episode_counts"]["STRONG_DOWN"]["total"] == 0
+
+
+def test_real_development_receipt_keeps_future_splits_locked():
+    root = Path(__file__).resolve().parents[1]
+    receipt = json.loads((root / "docs/governance/TREND_M5_DEVELOPMENT_ADEQUACY_V1.json").read_text())
+    assert receipt["status"] == "PASS_SAMPLE_ADEQUACY_ONLY_VALIDATION_LOCKED"
+    assert len(receipt["results"]) == 4
+    assert all(item["primary_floor_met"] and item["secondary_10_20_floor_met"] for item in receipt["results"])
+    assert receipt["validation_rows_read"] is False
+    assert receipt["holdout_rows_read"] is False
+    assert receipt["market_outcomes_computed"] is False
+    assert receipt["h1_adjudicated"] is False
+    assert receipt["next_allowed_step"].startswith("M5-3")
