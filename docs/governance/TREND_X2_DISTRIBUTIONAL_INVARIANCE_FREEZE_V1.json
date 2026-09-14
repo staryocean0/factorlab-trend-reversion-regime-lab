@@ -1,0 +1,78 @@
+{
+  "schema_id": "trend_x2_distributional_invariance_freeze@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X2_DISTRIBUTIONAL_INVARIANCE",
+  "status": "FROZEN_BEFORE_X2_STATISTICS",
+  "freeze_date": "2026-09-14",
+  "purpose": "measure cross-carrier cross-interval and same-interval phase dispersion under the unchanged V1 candidate math before any calibration",
+  "carriers": ["000852.SH", "000688.SH"],
+  "research_window": {
+    "start": "2020-07-23",
+    "end": "2020-12-31",
+    "role": "Development-only matched exact-view window",
+    "old_m4_m5_2025_holdout_included": false,
+    "fresh_oos": false
+  },
+  "profiles": [
+    {"profile_id":"trend_1m_official_v1","view_id":"1m_official","interval":"1m"},
+    {"profile_id":"trend_5m_offset0_v1","view_id":"5m_offset_0","interval":"5m"},
+    {"profile_id":"trend_5m_offset1_v1","view_id":"5m_offset_1","interval":"5m"},
+    {"profile_id":"trend_5m_offset2_v1","view_id":"5m_offset_2","interval":"5m"},
+    {"profile_id":"trend_5m_offset3_v1","view_id":"5m_offset_3","interval":"5m"},
+    {"profile_id":"trend_5m_offset4_v1","view_id":"5m_offset_4","interval":"5m"},
+    {"profile_id":"trend_15m_offset5_v1","view_id":"15m_offset_5","interval":"15m"},
+    {"profile_id":"trend_15m_offset10_v1","view_id":"15m_offset_10","interval":"15m"},
+    {"profile_id":"trend_60m_offset30_v1","view_id":"60m_offset_30","interval":"60m"},
+    {"profile_id":"trend_60m_offset45_v1","view_id":"60m_offset_45","interval":"60m"}
+  ],
+  "source_roles": {
+    "000852.SH": {
+      "repository": "staryocean0/factorlab-two-wave-strategy-lab",
+      "manifest": "data/manifest.json",
+      "role": "legacy Development exact-view candidate",
+      "runtime_admission_effect": "none"
+    },
+    "000688.SH": {
+      "repository": "staryocean0/factorlab-star50-filter-lab",
+      "manifest": "data/manifest.json",
+      "role": "legacy Development exact-view candidate",
+      "runtime_admission_effect": "none"
+    }
+  },
+  "fixed_measurement": {
+    "lookback_bars": 20,
+    "price_transform": "log_close",
+    "estimator": "log_close_ols_slope_t@1.0",
+    "t1": 2.0,
+    "states": ["DOWN", "SIDEWAYS", "UP"],
+    "strength": "abs(slope_t)",
+    "local_resampling_allowed": false,
+    "profile_substitution_allowed": false
+  },
+  "statistics": {
+    "per_carrier_profile": [
+      "available_measurement_count",
+      "slope_t_median",
+      "slope_t_mad",
+      "slope_t_q05_q25_q75_q95",
+      "abs_slope_t_q50_q75_q90_q95",
+      "DOWN_SIDEWAYS_UP_occupancy"
+    ],
+    "same_interval_phase": [
+      "occupancy_range_across_phases",
+      "median_slope_t_range_across_phases",
+      "abs_slope_t_q90_range_across_phases"
+    ],
+    "matched_profile_cross_carrier": [
+      "occupancy_absolute_difference",
+      "median_slope_t_absolute_difference",
+      "abs_slope_t_q90_absolute_difference"
+    ]
+  },
+  "calibration_forbidden_during_x2_fixed_baseline": true,
+  "trading_return_metrics_forbidden": true,
+  "buy_sell_semantics_forbidden": true,
+  "runtime_admission_change_forbidden": true,
+  "production_authority": false,
+  "next_after_fixed_baseline": "only after result artifact is sealed may the predeclared lookback/T1 diagnostic sensitivity be run"
+}
