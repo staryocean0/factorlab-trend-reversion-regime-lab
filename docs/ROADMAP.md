@@ -13,9 +13,10 @@
 - **X4 — `INSUFFICIENT_EVIDENCE`**：不修改 V1。
 - **X5 — COMPLETE**：五指数 5m external replication。
 - **X5B — COMPLETE**：5m Sina ↔ Eastmoney source robustness。
-- **X5C — COMPLETE**：五指数 15m/60m 跨 carrier + 60m 长窗口；60m underpower 已解除，但 heterogeneity 持续。
-- **X5D — COMPLETE / `INSUFFICIENT_EVIDENCE`**：静态 interval-specific T1 与静态 robust normalization 均未形成外部语义支配。
-- **X5E — COMPLETE / NO ADOPTION**：60m temporal scale nonstationarity 得到支持；causal rolling normalization 强化 cross-carrier strength comparability，但没有同时建立 temporal stability 与 state-semantic non-inferiority。
+- **X5C — COMPLETE**：五指数 15m/60m + 60m 长窗口；underpower 已解除，60m heterogeneity 持续。
+- **X5D — COMPLETE / NO ADOPTION**：静态 interval-specific T1 与静态 normalization 无外部语义支配。
+- **X5E — COMPLETE / NO ADOPTION**：60m temporal scale nonstationarity 得到支持；causal rolling normalization 只改善 cross-carrier strength scale，未建立 temporal stability。
+- **X5F — COMPLETE / DIAGNOSTIC ONLY**：60m scale 分解出 carrier + common-time 两个真实一阶成分；cross-carrier normalized_strength diagnostic 获得支持，但 stable temporal representation 仍未建立。
 - **X6 — HOLD / NOT READY**：不做 representation / SemVer 变更。
 
 V1 release pointer `release/trend-regime-v1.0.0` 必须继续指向原 M9 gated commit `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`；Post-V1 研究提交不得移动它。
@@ -28,132 +29,132 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-稳定入口：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。
+稳定入口：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m offset0。Post-V1 public/legacy research source 不产生 runtime admission。
 
-当前 runtime admission 仍只有两指数 `000852.SH` / `000688.SH` 的 `trend_1m_official_v1` 与 `trend_5m_offset0_v1`。其他 M3 profiles 继续 fail closed；Post-V1 public/legacy research source 不产生 runtime admission。
+## 已建立的 Post-V1 基础结论
 
-## 已建立的 Post-V1 结论
+X2/X3 显示：同一 interval 内 phase dispersion 总体较小，跨 interval 差异明显更大。X5/X5B 又显示 5m 在五指数和两个公开 provider 之间相当稳定；目前没有证据支持 carrier-specific / phase-specific / provider-specific 的 5m T1。
 
-### Phase 与 5m
+X5C 将 60m 扩到五指数 2026-01-05 至 2026-09-14、每 carrier 661 measurements，最小 directional origins = 181。样本不足不再是主要解释，但 60m SIDEWAYS occupancy cross-carrier range 仍约 12.41pp，survival5 DOWN/UP range 约 14.75pp / 10.44pp。
 
-X2/X3 显示同一 interval 内 phase dispersion 总体较小，5m offset0–4 尤其稳定；跨 interval 差异明显大于 phase 差异。X5 五指数 5m 的 SIDEWAYS occupancy range ≈ **3.13pp**，one-step self-transition range ≈ **1.23–1.87pp**。X5B 中 Sina vs Eastmoney 的 slope_t Pearson ≈ **0.9999994**，三桶状态 **100% 一致**。目前没有证据支持 carrier-specific、phase-specific 或 provider-specific 5m T1。
+X5D 用 2020 Development 拟合静态 calibration，再用 2026 五指数外部评价。interval-specific `T1_60m≈1.2225` 与 median-abs normalization 等价 `T1_60m≈1.2701` 都不能全面改善 persistence/reversal 语义，因此不采纳。
 
-## X5C — 15m / 60m Cross-Carrier — COMPLETE
+X5E 证明 60m raw strength 具有明显时间尺度漂移：五指数 monthly `median(abs(slope_t))` 最大/最小比约 1.61×–3.32×。40/80/120-bar strictly-causal rolling normalization 可把 cross-carrier median-strength range 压低约 92.7%–96.0%，但 within-carrier monthly stability 没有一致改善，动态 state boundary 也存在语义 trade-off，因此仍不修改 V1。
 
-Protocol：`docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_PROTOCOL_V1.json`  
-Source receipt：`docs/governance/TREND_X5C_SINA_15M_60M_SOURCE_RECEIPT_V1.json`  
-Result：`docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_RESULT_V1.json`
+## X5F — 60m Strength Scale Decomposition — COMPLETE
 
-五指数 independent-source native-clock 研究：
+Protocol：`docs/governance/TREND_X5F_60M_STRENGTH_SCALE_DECOMPOSITION_PROTOCOL_V1.json`  
+Method：`docs/governance/TREND_X5F_DECOMPOSITION_METHOD_V1.json`  
+Clock/source identifiability：`docs/governance/TREND_X5F_CLOCK_SOURCE_IDENTIFIABILITY_RECEIPT_V1.json`  
+Result：`docs/governance/TREND_X5F_60M_STRENGTH_SCALE_DECOMPOSITION_RESULT_V1.json`  
+Decision update：`docs/governance/TREND_X4_POST_X5F_UPDATE_V1.json`
 
-- 15m：2026-06-17 至 2026-09-14，63 个完整交易日，每 carrier 989 measurements；
-- 60m：2026-01-05 至 2026-09-14，170 个完整交易日，每 carrier 661 measurements；
-- 旧 M4/M5 2025 Holdout 未读取；
-- public native 15m/60m 不是 M3/DataHub exact profile identity，不改变 runtime admission。
+X5F 仍只研究表示层的 strength scale；不算收益、不做策略选择、不改 state boundary、不改变 V1 `strength=abs(slope_t)`。
 
-固定 V1 `20-bar slope_t / T1=2`：
+### X5F-1：carrier 与 common-time 都是真实一阶成分
 
-| 指标 | 15m 跨 carrier range | 60m 跨 carrier range |
-|---|---:|---:|
-| abs(slope_t) q90 | ≈ 1.26 | ≈ 3.37 |
-| SIDEWAYS occupancy | ≈ 4.65pp | ≈ 12.41pp |
-| DOWN survival5 | ≈ 7.80pp | ≈ 14.75pp |
-| UP survival5 | ≈ 9.02pp | ≈ 10.44pp |
-
-60m 所有预注册 directional metrics 的最小 origins = **181**，已超过 adequate threshold 100；早先的 60m UP underpower 不再是主要解释。
-
-## X5D — Static Calibration Comparison — COMPLETE
-
-Protocol：`docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_PROTOCOL_V1.json`  
-Calibration method：`docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_METHOD_V1.json`  
-Development receipt：`docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_RECEIPT_V1.json`  
-Result：`docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_RESULT_V1.json`  
-Decision update：`docs/governance/TREND_X4_POST_X5D_UPDATE_V1.json`
-
-参数只使用 2020 Development exact-view 数据拟合；2026 五指数只用于外部 candidate evaluation，没有使用交易收益。Development 拟合得到 interval-specific `T1_60m≈1.2225`，primary median-abs normalization 等价 `T1_60m≈1.2701`。两种独立方法都说明 60m raw score scale 与短周期不同，但在 2026 外部样本上没有全面语义优势：interval-specific T1 为 **9 改善 / 7 恶化**，primary median-abs normalization 为 **10 改善 / 5 恶化 / 1 持平**；所有候选无严格 Pareto dominance，因此静态 calibration 不采纳。
-
-## X5E — 60m Temporal Scale Stability & Causal Normalization — COMPLETE
-
-Protocol：`docs/governance/TREND_X5E_60M_TEMPORAL_SCALE_CAUSAL_NORMALIZATION_PROTOCOL_V1.json`  
-Result：`docs/governance/TREND_X5E_60M_TEMPORAL_SCALE_CAUSAL_NORMALIZATION_RESULT_V1.json`  
-Decision update：`docs/governance/TREND_X4_POST_X5E_UPDATE_V1.json`
-
-X5E 只研究表示层。没有计算收益、没有策略指标、没有扩大 runtime admission、没有修改 V1。研究只使用 X5C retained Sina native 60m 数据中的 **2026-01-05 至 2026-09-14** 行；旧 M4/M5 governed 2025 Holdout 未读取。候选严格 causal：在时点 `t` 的 scale 只能使用 `t-1` 及更早 slope_t，窗口预注册为 **40 / 80 / 120 measurements**。normalized semantic threshold 固定沿用 X5D 2020 Development 已封存值 `0.44780633341059867`，没有利用 2026 再拟合参数。
-
-### X5E-1：60m temporal scale nonstationarity 得到支持
-
-按月计算 `median(abs(slope_t))`，五指数 2026 月度最大/最小比：
-
-- CSI1000：**2.50×**；
-- STAR50：**2.76×**；
-- CSI300：**3.32×**；
-- CSI500：**1.61×**；
-- SSE50：**1.63×**。
-
-因此“一个静态 60m scale 在全年稳定”不受该窗口支持。
-
-### X5E-2：causal normalization 很强地改善 cross-carrier strength scale
-
-为公平比较，V1 与全部候选都限制在 120-score warmup 后的共同窗口 **2026-03-02 15:00 至 2026-09-14 15:00**，每 carrier **541 measurements**。
-
-五指数 carrier-median strength 的横截面 range：
-
-| 表示 | cross-carrier range | 相对 raw 降幅 |
-|---|---:|---:|
-| V1 raw `abs(slope_t)` | 1.4307 | — |
-| causal median-abs 40 | 0.1052 | ≈ 92.7% |
-| causal median-abs 80 | 0.0778 | ≈ 94.6% |
-| causal median-abs 120 | 0.0573 | ≈ 96.0% |
-
-所以 rolling causal scale 对 **cross-carrier strength-level alignment** 很有效。
-
-### X5E-3：但 temporal stability 没有被解决
-
-单 carrier 月度 median-strength 最大/最小比，在五指数之间取中位数：
+五指数 × 9 个 2026 calendar months 上，以 monthly `median(abs(slope_t))` 为 scale cell，对 log-scale 做 robust two-way decomposition：
 
 ```text
-V1 raw              ≈ 1.694
-causal medabs 40     ≈ 1.689
-causal medabs 80     ≈ 2.056
-causal medabs 120    ≈ 1.990
+log(scale) = grand + carrier_effect + common_time_effect + residual
 ```
 
-40-bar 几乎没有改善，80/120 反而更差。因此“cross-carrier scale 对齐”与“within-carrier temporal stability”是两个不同问题，不能混为一谈。
+balanced log-cell ANOVA 的描述性方差分解：
 
-### X5E-4：动态 state-boundary normalization 仍有语义 trade-off
+- carrier ≈ **27.4%**
+- common-time ≈ **32.4%**
+- residual / carrier×time interaction ≈ **40.2%**
+- carrier + time 合计解释 ≈ **59.9%**
 
-在事前定义的 8 个 60m cross-carrier state-semantic dispersion 指标上：
+因此 60m scale 不能只解释成“某个指数天生更大”，也不能只解释成“某个月波动更大”；两者都重要，而且交互残差仍很大。
 
-- causal median-abs 40：**5 改善 / 3 恶化**；
-- causal median-abs 80：**3 改善 / 5 恶化**；
-- causal median-abs 120：**5 改善 / 3 恶化**。
-
-40/120 的恶化集中在 SIDEWAYS self-transition 与 DOWN/UP 的 opposite-entry10；没有任何候选严格 Pareto-dominates V1。候选相对 V1 改写约 **2.4%–12.8%** 的状态，但所有 carrier 的 DOWN↔UP opposite-direction disagreement 都为 **0**：变化只发生在 directional ↔ SIDEWAYS 边界，不改变 slope_t 的方向符号。
-
-动态 raw-equivalent T1 也不是小幅微调。例如 40-bar 候选跨 carrier 的 q10/q90 极值约 **0.75–3.91**，进一步说明它是实质性的动态 representation change，而不是把固定 `T1=2` 略作修正。
-
-### X5E 决策
+全样本 robust carrier multiplicative factors 约为：
 
 ```text
-TEMPORAL_SCALE_NONSTATIONARITY       = SUPPORTED_ON_2026_FIVE_CARRIER_WINDOW
-CAUSAL_STATE_BOUNDARY_NORMALIZATION  = NOT SUPPORTED FOR ADOPTION
-CAUSAL_STRENGTH_SCALE_NORMALIZATION  = PROMISING CROSS-CARRIER DIAGNOSTIC
-TEMPORAL_STABILITY_OF_NORMALIZATION  = NOT ESTABLISHED
-V1_ACTION                            = NO CHANGE
-X6                                  = HOLD / NOT READY
+CSI1000  1.000
+STAR50   1.148
+CSI300   0.764
+CSI500   1.124
+SSE50    0.802
 ```
 
-因此下一阶段如果继续，不应再让 rolling scale 直接接管 DOWN/SIDEWAYS/UP 边界。更合理的研究方向是：**strength-only temporal scale estimator**，或把 60m scale 分解为 carrier effect、time/regime effect 与 clock/source effect；只有未来预注册候选同时达到 state-semantic non-inferiority，才重新讨论 state-boundary representation。
+common-time factor 从 2026-01 的约 **0.626** 到 2026-06 的约 **1.248**，最大/最小约 **1.99×**。carrier factor 最大/最小约 **1.50×**。
 
-## 当前 calibration 判断
+### X5F-2：同样本 cross-carrier alignment 很强，但这不是 adoption 证据
+
+完整样本中，carrier median-strength max/min 从 raw 的约 **1.514×** 降到 decomposition-normalized 的约 **1.039×**。由于 time/carrier factors 同样使用该样本估计，这只能算描述性压缩，不能当外部验证。
+
+### X5F-3：leave-one-carrier-out 仍显示真实 transfer benefit
+
+固定 Jan–Apr 为训练、May–Sep 为评价。对每个 held-out carrier：
+
+- held-out carrier factor 只使用该 carrier 的 Jan–Apr；
+- May–Sep common-time factor只使用另外四个 carrier；
+- held-out carrier 的 May–Sep 未来数据不参与 factor 估计。
+
+May–Sep raw carrier median-strength range ≈ **1.470**、max/min ≈ **1.494×**；LOO normalization 后 range ≈ **0.270**、max/min ≈ **1.301×**。range 压缩约 **81.6%**。
+
+这说明 carrier + common-time decomposition 对 cross-carrier normalized_strength diagnostic 有真实 transfer value，而不只是同样本机械对齐。
+
+### X5F-4：但 stable temporal representation 仍未建立
+
+Jan–Apr 与 May–Sep 分别估计 carrier factor：rank correlation ≈ **0.70**，最大单 carrier multiplicative factor drift ≈ **1.242×**（约 24%），中位 log-factor drift ≈ 0.073。
+
+更关键的是，LOO 后 held-out carrier 的 May–Sep monthly normalized-strength max/min 仍约：
+
+```text
+CSI1000  1.576×
+STAR50   2.015×
+CSI300   2.394×
+CSI500   1.488×
+SSE50    1.475×
+```
+
+完整 two-way decomposition 后 residual cell factor 仍约 **0.754–1.816**，max/min ≈ **2.41×**。所以简单 `carrier × common-time` 只解决了主要的一阶尺度差异，未消除 carrier×time interaction。
+
+### X5F-5：regime 与 clock/source 的可识别边界
+
+没有独立的外生 regime label，因此 common-time factor **不能**被重命名为已识别的 causal regime effect。按 V1 state 分组的 residual strength 只能做描述，不能作为独立 regime 证据。
+
+Clock/source audit 中，STAR50 DataHub `60m_offset30` 与 `offset45` 在 2026 有重叠，因此可在同一 provider 下识别 scope-limited clock-phase effect。满足最小样本 gate 的月份里，offset45/offset30 scale ratio 中位数约 **0.956**，月度 ratio max/min ≈ **1.114×**：存在 clock-phase scale effect，但量级小于主 carrier/time 变化且本身也时变。
+
+Sina native 60m 与 DataHub offset30/45 同时改变 provider 与 clock，只能标为 `confounded_source_clock`；纯 provider effect 和 five-carrier clock effect **未识别**。
+
+## X5F 决策
+
+```text
+60M_CARRIER_SCALE_EFFECT                  = SUPPORTED
+60M_COMMON_TIME_SCALE_EFFECT              = SUPPORTED
+CARRIER_TIME_INTERACTION_RESIDUAL         = MATERIAL
+CROSS_CARRIER_NORMALIZED_STRENGTH         = SUPPORTED_RESEARCH_ONLY_DIAGNOSTIC
+STABLE_TEMPORAL_NORMALIZED_STRENGTH       = NOT ESTABLISHED
+INDEPENDENT_CAUSAL_REGIME_EFFECT          = NOT IDENTIFIED
+PURE_PROVIDER_EFFECT                      = NOT IDENTIFIED
+V1_STATE                                  = NO CHANGE
+V1_STRENGTH                               = NO CHANGE
+X6                                        = HOLD / NOT READY
+```
+
+因此可以保留一个 research-only 候选：
+
+```text
+normalized_strength_diag
+  = raw abs(slope_t)
+    / governed_carrier_scale
+    / governed_common_time_scale
+```
+
+但它不是 V1 产品输出，也不能改写 DOWN/SIDEWAYS/UP。下一步若继续，应研究 **carrier×time interaction / causal common-scale estimator / 更完整的 same-clock cross-provider 与 same-provider multi-clock 证据**，而不是重新调 T1。
+
+## 当前总体判断
 
 ```text
 UNIVERSAL_FIXED_T1                  = CURRENT_V1_BASELINE, NOT UNIVERSAL LAW
 STATIC_INTERVAL_SPECIFIC_T1         = NOT SUPPORTED FOR ADOPTION
-PROFILE_SPECIFIC_T1                 = NOT SUPPORTED AS DEFAULT
 STATIC_NORMALIZED_SCORE             = NOT SUPPORTED FOR ADOPTION
 CAUSAL_STATE_BOUNDARY_NORMALIZATION = NOT SUPPORTED FOR ADOPTION
-CAUSAL_STRENGTH_SCALE_NORMALIZATION = PROMISING DIAGNOSTIC, TEMPORAL STABILITY NOT ESTABLISHED
+CROSS_CARRIER_STRENGTH_NORMALIZATION= SUPPORTED RESEARCH DIAGNOSTIC ONLY
+STABLE_TEMPORAL_STRENGTH_REPRESENTATION = NOT ESTABLISHED
 CURRENT_DECISION                    = INSUFFICIENT_EVIDENCE
 ```
 
