@@ -40,9 +40,12 @@ Keep this body.
 def test_current_product_docs_have_explicit_lifecycle():
     s = state()
     for path in (
+        "CHANGELOG.md",
         "docs/ROADMAP.md",
         "docs/API_CONTRACT.md",
+        "docs/API_EXAMPLES.md",
         "docs/API_GAP_ANALYSIS.md",
+        "docs/RELEASE.md",
         "docs/THREE_BUCKET_BASELINE.md",
     ):
         assert lifecycle(path, s) == "CURRENT_PRODUCT_DOCUMENTATION"
@@ -60,13 +63,38 @@ def test_m9_component_release_governance_is_fail_closed_and_non_production():
     assert contract["release_pointer_branch"] == "release/trend-regime-v1.0.0"
     assert contract["roadmap_complete"] is True
     assert contract["automatic_next_milestone"] is None
-    assert contract["stable_public_surface"]["state_enum"] == ["DOWN", "SIDEWAYS", "UP"]
+
+    surface = contract["stable_public_surface"]
+    assert surface["call"] == "query_regime(symbol, as_of, bar_interval, profile_id=None)"
+    assert surface["state_enum"] == ["DOWN", "SIDEWAYS", "UP"]
+    assert surface["strength"] == "abs(directional_score)"
+
     assert contract["current_runtime_admission"]["profiles"] == [
         "trend_1m_official_v1",
         "trend_5m_offset0_v1",
     ]
+    assert len(contract["current_runtime_admission"]["not_admitted_in_v1"]) == 8
     assert contract["python_distribution"]["is_component_semver_authority"] is False
     assert contract["python_distribution"]["repository_pyproject_version"] == "0.1.0"
+
+    major = "\n".join(contract["compatibility_policy"]["major_release_required"])
+    for phrase in (
+        "state enum or T1",
+        "estimator or directional_score",
+        "strength definition",
+        "snapshot identity or expiry/no-fallback",
+        "formal T2",
+        "Layer2 global_state",
+        "production_authority=false",
+    ):
+        assert phrase in major
+
+    assert [row["milestone"] for row in contract["evidence_lineage"]] == [
+        "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9"
+    ]
+    for row in contract["evidence_lineage"]:
+        assert (ROOT / row["authority"]).is_file()
+
     assert contract["market_outcomes_computed"] is False
     assert contract["m5_outcome_reopened"] is False
     assert contract["holdout_read"] is False
