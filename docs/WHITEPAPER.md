@@ -14,14 +14,16 @@
 
 本仓核心交付是供多个上层调用者使用的 **Layer 2 趋势状态识别组件**。它描述指定 `symbol + as_of + bar_interval/profile` 下的趋势状态与连续强度，不输出买卖、仓位、订单、策略选择或 Layer 4 动作。
 
-## 2. 已冻结工程
+## 2. 已冻结工程与研究流程
 
 - M2：20-bar `log(close)` OLS signed slope t-score，`T1=2.0`，completed/available、fail closed；
 - M3：1m×1、5m×5、15m×2、60m×2 共 10 个 versioned Layer-1 view profiles；不同周期独立并存，无 `global_state`；
 - M4：五桶研究协议在 outcome 前冻结，primary `T2=4.0`、sensitivity `3/5`、Development/Validation/Holdout split、episode unit、horizons、sample floors、week-cluster bootstrap、Holm family 与 negative-result rule 全部预注册；
 - M5-1：当前 active exact source 只准入两指数 `1m_official` 与 `5m_offset_0`；15m/60m 与 phase sensitivity source fail closed；
 - M5-2：Development 样本量 Gate PASS；
-- M5-3：code/config/source/data/run identities 在 Validation 前 seal。
+- M5-3：code/config/source/data/run identities 在 Validation 前 seal；
+- M5-4：primary `T2=4` one-shot Validation 已消费并封存；
+- M5-5：预注册 `T2=3/5` Validation sensitivity 已消费并封存。
 
 ## 3. M4 原始 H1
 
@@ -33,7 +35,7 @@ Primary family 预注册为 `4 intervals × 2 directions = 8`，Holm FWER alpha=
 
 ## 4. M5-4 Primary T2=4 Validation：H1 被反驳
 
-真实运行只读取 CSI1000 `000852.SH` 的 Validation `2023-01-03`–`2024-12-31`，仅执行 admitted 1m/5m；2025 Holdout、STAR50 replication、T2=3/5 sensitivity 均未运行。
+真实运行只读取 CSI1000 `000852.SH` Validation `2023-01-03`–`2024-12-31`，仅执行 admitted 1m/5m；2025 Holdout、STAR50 replication、T2=3/5 sensitivity 当时均未运行。
 
 | interval | direction | moderate survival5 | strong survival5 | Strong-Moderate | 95% CI |
 |---|---|---:|---:|---:|---|
@@ -42,17 +44,45 @@ Primary family 预注册为 `4 intervals × 2 directions = 8`，Holm FWER alpha=
 | 5m | UP | 0.5079 | 0.8901 | +0.3822 | [+0.3531,+0.4119] |
 | 5m | DOWN | 0.5082 | 0.8755 | +0.3673 | [+0.3388,+0.3948] |
 
-所有可执行 primary contrasts 的方向都与 H1 相反，而且 CI 全部严格高于 0。因此 M5-4 的正式 headline 是：
+所有可执行 primary contrasts 的方向都与 H1 相反，而且 CI 全部严格高于 0。因此正式 headline 是：
 
 **`H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS`。**
 
-10-bar reversal secondary 也一致反向：Strong-Moderate 约为 `-0.236` 至 `-0.251`，95% CI 全部严格小于 0。换言之，在当前冻结定义与 CSI1000 Validation 上，extreme slope state 表现为**更强的短期趋势持续性与更低的反转概率**，而不是耗竭。
+10-bar reversal Strong-Moderate 约为 `-0.236` 至 `-0.251`，95% CI 全部严格小于 0。冻结定义下 extreme slope state 表现为**更强的短期趋势持续性与更低的反转概率**，而不是耗竭。
 
-5-bar direction-adjusted return 差异很小且 CI 跨 0，因此不承担 headline 解释。
+Primary support rule 未通过，所以 2025 protocol Holdout 保持关闭；M5-4 one-shot execution 已 consumed，rerun 被 CI 禁止。
 
-## 5. 这个结果不意味着什么
+## 5. M5-5 T2=3/5 Sensitivity：反证对阈值稳健
 
-M5-4 的反证不自动意味着：
+M5-5 使用完全相同的 CSI1000 Validation split、相同 admitted 1m/5m views、相同 episode/endpoint/bootstrap 定义，只替换为 M4 预注册的 sensitivity `T2=3.0` 与 `T2=5.0`。它不建立新 primary family，也不能改写 T2=4 headline。
+
+`T2=3`：
+
+| interval | direction | Strong-Moderate survival5 | 95% CI | reversal10 Strong-Moderate |
+|---|---|---:|---|---:|
+| 1m | UP | +0.4045 | [+0.3903,+0.4179] | -0.2627 |
+| 1m | DOWN | +0.4110 | [+0.4005,+0.4220] | -0.2684 |
+| 5m | UP | +0.4095 | [+0.3805,+0.4400] | -0.2512 |
+| 5m | DOWN | +0.4147 | [+0.3864,+0.4432] | -0.2854 |
+
+`T2=5`：
+
+| interval | direction | Strong-Moderate survival5 | 95% CI | reversal10 Strong-Moderate |
+|---|---|---:|---|---:|
+| 1m | UP | +0.3572 | [+0.3436,+0.3711] | -0.2190 |
+| 1m | DOWN | +0.3459 | [+0.3329,+0.3587] | -0.2247 |
+| 5m | UP | +0.3477 | [+0.3179,+0.3781] | -0.1996 |
+| 5m | DOWN | +0.3382 | [+0.3098,+0.3673] | -0.2206 |
+
+结果是 **8/8 sensitivity contrasts = `SENSITIVITY_H1_CONTRADICTED`，0/8 朝 H1 方向**。因此当前 CSI1000 证据表明：extreme slope 的更高短期持续性/更低反转率对 `T2=3/4/5` 均稳健，原 exhaustion H1 的失败不是 T2=4 单点阈值造成。
+
+5-bar direction-adjusted return 并不呈现同等稳定的方向，因此不能把上述状态持续性差异直接翻译成收益规则。
+
+M5-5 one-shot execution 同样已 consumed，rerun 被 CI 禁止；Holdout 仍保持关闭。
+
+## 6. 这个结果不意味着什么
+
+M5-4/M5-5 的反证不自动意味着：
 
 - 正式五桶一定优于三桶+连续强度；
 - `STRONG_UP` 应买入或卖出；
@@ -60,29 +90,21 @@ M5-4 的反证不自动意味着：
 - 任何收益或仓位规则已被验证；
 - 组件已获得 production authority。
 
-它只改变研究认识：原“极端斜率=更可能耗竭”的假设不成立；极端斜率反而可能是一个**持续性强度**语义候选。是否值得成为正式产品状态，要等 M5 完成后由 M6 裁决。
+它只改变研究认识：原“极端斜率=更可能耗竭”的假设不成立；极端斜率反而是一个**持续性强度**语义候选。是否值得成为正式产品状态，要等 M5 完成后由 M6 裁决。
 
-## 6. Holdout 与一次性执行纪律
+## 7. Source / Holdout 边界继续不变
 
-Primary T2=4 Validation 没有任何 `VALIDATION_SUPPORT` contrast，因此 M4 的 Holdout unlock 条件未满足。2025 protocol Holdout 保持关闭，不能为了寻找支持而读取。
+15m/60m 与 phase-offset profiles 仍为 `NOT_ADMITTED`；没有 current active exact-view receipt 时不得本地 resample、换 offset 或用 legacy 近似补齐。
 
-One-time primary Validation execution contract 已标记 `CONSUMED_AFTER_ONE_PRIMARY_VALIDATION`，CI 已禁用第二次 M5-4 运行。
+Primary Validation 没有 `VALIDATION_SUPPORT` contrast，因此 M4 的 Holdout unlock 条件未满足。2025 protocol Holdout 对本次 H1 support 路径保持关闭，不能为了寻找支持而读取。Sensitivity 结果也不能改变这一点。
 
-15m/60m 仍为 `NOT_ADMITTED`，按 raw p=1.0 留在完整 8 项 Holm family，不能通过 source admission 后缩小 multiplicity penalty。
+## 8. 唯一下一步：M5-6 Cross-carrier Replication / Remaining Robustness
 
-## 7. 当前唯一下一步：M5-5
+只允许按 M4 step 7 做剩余独立 replication/reporting：STAR50 `000688.SH` 只能使用 M5-1 已 admitted 的 1m official / 5m offset0 exact views；不能与 CSI1000 pooling，不能改写 CSI1000 T2=4 headline，不能 rescue 原 exhaustion H1，也不能打开 Holdout。Phase-sensitivity profiles 没有 exact current receipt 时继续 fail closed。
 
-只允许运行预注册 `T2=3.0 / 5.0` Validation sensitivity，以回答反证是否对阈值敏感。它不能：
+M5-6 完成并收口 M5 后，M6 才裁决最终表示：三桶+连续强度、正式五桶、或三桶主状态+五桶诊断扩展。
 
-- 替代 T2=4 headline；
-- rescue 原 exhaustion H1；
-- 改 split/profile/horizon/endpoint/sample floor；
-- 解锁 Holdout；
-- 与 STAR50 pooling 制造支持。
-
-STAR50 replication 仍应独立报告。M5 完成后，M6 才裁决最终表示：三桶+连续强度、正式五桶、或三桶主状态+五桶诊断扩展。
-
-## 8. Consumer 与产品边界
+## 9. Consumer 与产品边界
 
 M7 才实现正式 `regime_state_consumer_v1` facade、snapshot store、expiry/no-fallback 和 conformance tests；M8 才做上层调用集成；M9 负责版本、migration 与发布治理。
 
