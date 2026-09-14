@@ -10,7 +10,8 @@
 - **M1 — PASS**：完成参考 consumer 审计，冻结 [API 合同](API_CONTRACT.md) 并形成 [Gap List](API_GAP_ANALYSIS.md)。
 - **M2 — PASS**：冻结 [三桶趋势状态基线](THREE_BUCKET_BASELINE.md)：20-bar log-close OLS signed slope t-score，`T1=2.0`，completed-bar/as-of 与 fail-closed。
 - **M3 — PASS**：完成多 K 线级别参数化，首批 admission 为 `1m/5m/15m/60m`，绑定 10 个 DataHub Layer-1 V3 profiles；完成 cadence/view/as-of 与多周期并存回归。
-- **唯一下一步：M4**。M4 只冻结五桶实验协议，不读取/运行 M5 实证结果。
+- **M4 — PASS**：五桶实验协议已在任何 M5 outcome 计算之前冻结，详见 [M4 协议](governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md) 与 [机器合同](governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json)。
+- **唯一下一步：M5**。M5 只能按 M4 冻结协议执行，不允许先看结果再改阈值、切分、profile、horizon 或样本门槛。
 
 ---
 
@@ -84,87 +85,78 @@ bar_interval + profile_id + as_of
 
 - 只有一个 admitted view 的 interval 可省略 `profile_id`；当前只有 `1m` 满足。
 - `5m/15m/60m` 存在多个合法 view，必须显式指定 `profile_id`。
-- 组件禁止自行选择“默认相位”，避免制造上游不存在的唯一默认。
+- 组件禁止自行选择“默认相位”。
 - profile 与 interval 不匹配直接拒绝。
 
 ### 数学与阈值
 
-所有首批 profile 继续复用：
-
-- `lookback_bars=20`
-- `T1=2.0`
-- `log_close_ols_slope_t@1.0`
-
-这不是声称 `T1=2.0` 已被证明对所有周期最优，而是避免在 M3 未经实证 Gate 就按周期调参。若未来需要不同阈值，必须升 profile/estimator 版本。
+所有首批 profile 继续复用 `lookback_bars=20`、`T1=2.0`、`log_close_ols_slope_t@1.0`。这不是声称该阈值对所有周期最优，而是避免未经实证 Gate 就按周期调参。
 
 ### Cadence / as-of admission
 
 - `bar_end <= as_of` 且 `available_at <= as_of` 才 visible；
 - visible row 的 `view_id` 必须匹配 profile；
-- selected 20-bar window 的 Asia/Shanghai bar-end 必须落在 profile 的 immutable `close_times`；
-- 同 session 内 cadence 必须连续；跨 session 时必须从当日最后 grid point 接到下一可见 session 的第一 grid point；
-- 缺口返回 `UNAVAILABLE / CADENCE_GAP`；
-- 错误时钟返回 `UNAVAILABLE / OFF_PROFILE_GRID`；
+- selected 20-bar window 必须落在 profile immutable `close_times`；
+- 缺口 `CADENCE_GAP`，错误时钟 `OFF_PROFILE_GRID`；
 - 不插值、不 forward-fill、不本地 resample；
-- 未来错误 view 不得污染更早 `as_of`。
-
-完整交易日是否因节假日/整日数据缺失而缺席，不能仅靠 Layer-2 时间戳猜测；最终由 Layer-1 provider/receipt admission 负责跨交易日完整性。
-
-### 多周期并存
-
-`measure_multi_interval_trend_regimes_as_of(...)` 只返回独立 `measurements[]`，顶层故意没有 `state/global_state`。例如同一时刻 `1m=DOWN, 5m=SIDEWAYS, 15m=UP, 60m=UP` 完全合法；如何组合属于策略层。
-
-### 实现与测试
-
-- `src/factor_lab/market_state/trend_regime_profiles.py`
-- `tests/test_trend_regime_profiles.py`
-- schemas：`trend_regime_profile_registry@1.0`、`trend_regime_profile_measurement@1.0`、`trend_regime_multi_interval_measurement@1.0`
+- 多周期结果独立并存，顶层无 `global_state`。
 
 ### Gate
-**PASS。** 每个 admitted profile 绑定真实 Layer-1 V3 view；不存在隐式 resample/default phase；cadence 缺口 fail closed；多周期结果独立并存；M2 数学没有静默漂移；无交易/production authority。
+**PASS。** 每个 admitted profile 绑定真实 Layer-1 V3 view；不存在隐式 resample/default phase；cadence 缺口 fail closed；M2 数学没有静默漂移。
 
 ---
 
-## M4 — 五桶假设与实验协议冻结
+## M4 — 五桶假设与实验协议冻结（PASS）
 
-### 目标
-在不改变正式三桶基线的前提下，定义五桶候选并**先冻结检验协议，再看结果**。
+### 核心假设 H1
+极端绝对斜率可能比中等趋势斜率更难持续，更容易衰减、横盘或反转。该假设不包含任何交易动作语义。
 
-设 `0 < T1 < T2`：
+### 已冻结协议
 
-- `STRONG_DOWN`：`s < -T2`
-- `DOWN`：`-T2 <= s < -T1`
-- `SIDEWAYS`：`-T1 <= s <= T1`
-- `UP`：`T1 < s <= T2`
-- `STRONG_UP`：`s > T2`
+机器合同：`trend_five_bucket_protocol_m4@1.0`。
 
-### 核心假设 H1：极端斜率耗竭
-非常高的绝对斜率可能比中等趋势斜率更难持续，更容易衰减、横盘或反转。`STRONG_UP/STRONG_DOWN` 可能是与普通趋势不同的末端/耗竭状态，而不是“更强的入场信号”。
+- `T1=2.0` 保持不变；主 `T2=4.0`；敏感性仅 `T2=3.0/5.0`；
+- primary carrier=`000852.SH`，replication=`000688.SH`，禁止池化 rescue；
+- 公共历史窗口 `2020-07-23`–`2025-12-31`；
+- Development=`2020-07-23`–`2022-12-30`；
+- Validation=`2023-01-03`–`2024-12-31`；
+- locked historical holdout=`2025-01-02`–`2025-12-31`，明确不是 fresh OOS；
+- 每个 interval 的研究 anchor 用最小 session offset 机械选择：1m official、5m offset0、15m offset5、60m offset30；其余 M3 profiles 只做 phase sensitivity；
+- source/profile 不满足 M3 identity/receipt admission 时记 `NOT_ADMITTED`，禁止本地 resample 或替代；
+- 统计单位为五桶 state episode entry，不把每根 bar 当独立样本；
+- horizons=`1/3/5/10/20 bars`，primary horizon=5，primary reversal horizon=10；
+- primary endpoint=`5-bar directional survival`，比较 `Strong-Moderate`，H1 预测负值；
+- secondary confirmatory=`10-bar reversal probability` 与 `5-bar direction-adjusted return`；
+- 预注册 duration、transition、time-to-first-reversal、MFE/MAE 等描述指标；
+- validation 主指标每组至少 100 episodes，holdout 每组至少 50；不足即 `UNDERPOWERED`，不得降 T2 或池化制造 power；
+- week-cluster bootstrap 5000 次，seed=`20260914`，95% CI；
+- primary family 固定为 `4 anchor intervals × 2 directions = 8`，Holm FWER `alpha=0.05`；
+- practical guard：primary survival contrast 必须 `<=-5pp`；
+- validation 未通过不得解锁 holdout；T2=3/5 不能替代 T2=4 headline；
+- 负结果允许为 `H1_NOT_SUPPORTED / INCONCLUSIVE_UNDERPOWERED / H1_CONTRADICTED / NOT_ADMITTED`。
 
-即使 H1 成立，状态到买卖/仓位的映射仍属于策略层。
+### M4 本轮明确没有做
 
-### M4 必须预注册
-
-- `T2` 候选的选择方法与候选集合；
-- 哪些 admitted M3 profiles 进入研究；
-- development / validation / holdout 切分；
-- forward horizons；
-- 状态持续时间、下一状态转移概率、方向延续率；
-- reversal probability / time-to-first-reversal；
-- forward adverse / favorable excursion；
-- `T2` 稳健性；
-- 样本量/最小事件数与停止条件；
-- 负结果处理规则。
+没有计算 forward return、transition/reversal probability、五桶 episode 数量、MFE/MAE，也没有读取 holdout outcome。因此 M4 没有产生任何新的五桶市场证据。
 
 ### Gate
-协议必须在读取 M5 结果之前冻结；不得看到结果后改 `T2`、改 horizon、改样本切分或挑 profile 来救结论。
+**PASS。** 协议已在 M5 outcome 之前冻结，并有机器可读合同与 CI invariant tests；M5 不能通过事后换参数、样本、profile、horizon 或门槛来救结论。
 
 ---
 
 ## M5 — 极端斜率持续性实证
 
 ### 目标
-按 M4 预注册协议正式检验 H1。
+严格按 M4 冻结协议正式检验 H1。
+
+### 固定执行纪律
+1. 先做 source/profile admission，不计算 outcome；
+2. 仅在 development 做管线与样本充足性检查；
+3. 封存代码/config/development receipt；
+4. 主 `T2=4` validation 只运行一次；
+5. 再运行预注册 `T2=3/5` sensitivity，不改 primary；
+6. 只有 validation 通过预注册支持规则才解锁 holdout；
+7. replication 与 phase sensitivity 不得改写 primary。
 
 ### Gate
 只有极端桶相对普通趋势桶出现稳定、可复现且有实际量级的差异，五桶才进入候选产品语义；否则保留三桶或连续强度。
@@ -205,4 +197,4 @@ bar_interval + profile_id + as_of
 1. **组件不是策略。** 不直接给买卖、仓位或订单。
 2. **参数决定语境。** 状态必须绑定 K 线级别/配置版本。
 3. **强度先连续、分桶后验证。** 五桶不能因为直觉合理就提前获得产品语义。
-4. **策略匹配在接口层解决。** 不为每个策略复制状态识别代码。
+4. **策略匹配在接口层解决。** 不为每个策略复制状态识别代码；策略选择 profile，组件返回有版本的状态描述。
