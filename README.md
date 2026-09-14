@@ -35,9 +35,9 @@ M9 已冻结 component compatibility、migration、API examples、changelog、ev
 ## V1 文档入口
 
 - `docs/API_CONTRACT.md`
-- `docs/API_EXAMPLES.md`
-- `docs/RELEASE.md`
-- `CHANGELOG.md`
+- `docs/governance/TREND_V1_API_EXAMPLES.md`
+- `docs/governance/TREND_V1_RELEASE.md`
+- `docs/governance/TREND_V1_CHANGELOG.md`
 - `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 - `CONTINUE_HERE.md`
 
