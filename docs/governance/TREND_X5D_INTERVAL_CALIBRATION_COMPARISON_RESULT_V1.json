@@ -1,0 +1,90 @@
+{
+  "schema_id": "trend_x5d_interval_calibration_comparison_result@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5D_INTERVAL_CALIBRATION_COMPARISON",
+  "status": "X5D_COMPLETE_NO_STATIC_CALIBRATION_FAMILY_DOMINATES",
+  "protocol": "docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_PROTOCOL_V1.json",
+  "calibration_method": "docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_METHOD_V1.json",
+  "calibration_receipt": "docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_RECEIPT_V1.json",
+  "development_fit": {
+    "window":"2020-07-23..2020-12-31",
+    "carriers":["000852.SH","000688.SH"],
+    "reference_5m_sideways_target":0.2382626877019578,
+    "interval_specific_t1":{"5m":1.9988985578142828,"15m":1.935140887201867,"60m":1.22249655297343},
+    "primary_normalized_equivalent_raw_t1":{"5m":2.0,"15m":2.071694335643516,"60m":1.2701240397770726}
+  },
+  "external_evaluation": {
+    "source":"Sina public native-clock independent-source research data",
+    "carriers":["000852.SH","000688.SH","000300.SH","000905.SH","000016.SH"],
+    "windows":{"5m":"2026-08-17..2026-09-14","15m":"2026-06-17..2026-09-14","60m":"2026-01-05..2026-09-14"},
+    "trading_returns_computed":false
+  },
+  "semantic_dispersion_comparison_vs_v1": {
+    "metric_count":16,
+    "metrics":"for 15m and 60m: SIDEWAYS occupancy range; DOWN/SIDEWAYS/UP one-step self-transition ranges; DOWN/UP survival5 ranges; DOWN/UP opposite-entry10 ranges",
+    "INTERVAL_SPECIFIC_T1":{"improved":9,"worsened":7,"same":0,"strictly_dominates_v1":false},
+    "NORMALIZED_MEDIAN_ABS":{"improved":10,"worsened":5,"same":1,"strictly_dominates_v1":false},
+    "NORMALIZED_MAD":{"improved":9,"worsened":7,"same":0,"strictly_dominates_v1":false},
+    "NORMALIZED_Q75":{"improved":7,"worsened":9,"same":0,"strictly_dominates_v1":false},
+    "any_pairwise_strict_pareto_dominance_among_all_candidates":false
+  },
+  "key_60m_external_metrics": {
+    "V1_RAW": {
+      "carrier_median_sideways":0.292,
+      "sideways_dispersion":0.12405446293494704,
+      "survival5_dispersion":{"DOWN":0.14754973106804403,"UP":0.10440007924104688},
+      "opposite_entry10_dispersion":{"DOWN":0.0516,"UP":0.1081},
+      "max_state_change_vs_v1":0.0
+    },
+    "INTERVAL_SPECIFIC_T1": {
+      "carrier_median_sideways":0.177,
+      "sideways_dispersion":0.0681,
+      "survival5_dispersion":{"DOWN":0.1570,"UP":0.0787},
+      "opposite_entry10_dispersion":{"DOWN":0.1151,"UP":0.1767},
+      "max_state_change_vs_v1":0.14977307110438728
+    },
+    "NORMALIZED_MEDIAN_ABS": {
+      "carrier_median_sideways":0.1831,
+      "sideways_dispersion":0.0681,
+      "survival5_dispersion":{"DOWN":0.1609,"UP":0.0743},
+      "opposite_entry10_dispersion":{"DOWN":0.1196,"UP":0.1702},
+      "max_state_change_vs_v1":0.1422087745839637
+    },
+    "NORMALIZED_Q75": {
+      "carrier_median_sideways":0.2133,
+      "sideways_dispersion":0.0832,
+      "survival5_dispersion":{"DOWN":0.1708,"UP":0.0991},
+      "opposite_entry10_dispersion":{"DOWN":0.1119,"UP":0.1284},
+      "max_state_change_vs_v1":0.10136157337367625
+    }
+  },
+  "strength_scale_diagnostic": {
+    "V1_RAW_cross_interval_carrier_median_level_range":0.5061629780324721,
+    "INTERVAL_SPECIFIC_T1_cross_interval_carrier_median_level_range":0.5061629780324721,
+    "NORMALIZED_MEDIAN_ABS_cross_interval_level_range":0.4648093773476114,
+    "NORMALIZED_MAD_cross_interval_level_range":0.49414559035103023,
+    "NORMALIZED_Q75_cross_interval_level_range":0.15686574326106395,
+    "within_interval_strength_rank_correlation_vs_raw_for_all_positive_normalizers":1.0
+  },
+  "transfer_findings": [
+    "Both Development calibration families independently suggested lowering the 60m raw-equivalent threshold from 2.0 to roughly 1.22-1.27, but this static 2020 calibration did not transfer cleanly to the 2026 five-carrier evaluation.",
+    "Lower 60m thresholds materially reduce cross-carrier SIDEWAYS occupancy dispersion, but they worsen several co-primary reversal/persistence dispersion metrics, especially DOWN opposite-entry10 dispersion.",
+    "The 2026 carrier-median 60m SIDEWAYS occupancy falls to roughly 17.7-18.3% under the primary calibrated candidates, farther from the contemporaneous 5m/15m levels than the V1 raw 60m value; occupancy matching in Development is therefore not temporally stable.",
+    "Q75 normalization substantially improves numerical strength-scale comparability across intervals, but it does not dominate state-semantic metrics and cannot justify a representation change by itself.",
+    "Because the candidates change around 10-15% of 60m state assignments without consistent semantic improvement, a static interval threshold or static interval normalization is not supported for adoption."
+  ],
+  "selected_outcome": "INSUFFICIENT_EVIDENCE",
+  "candidate_dispositions": {
+    "KEEP_V1_RAW_UNIVERSAL_T1":"KEEP_AS_CURRENT_PRODUCT_BASELINE_NOT_REESTABLISHED_AS_UNIVERSAL_LAW",
+    "ADOPT_INTERVAL_SPECIFIC_T1_AS_RESEARCH_CANDIDATE":"NOT_SELECTED_STATIC_TRANSFER_MIXED",
+    "ADOPT_ROBUST_NORMALIZED_SCORE_AS_RESEARCH_CANDIDATE":"NOT_SELECTED_STATIC_TRANSFER_MIXED_STRENGTH_SCALING_PROMISING",
+    "INSUFFICIENT_EVIDENCE":"SELECTED"
+  },
+  "next_scientific_question": "The remaining 60m problem appears to include temporal/regime nonstationarity in addition to interval scale. Any next normalization study must preserve regime information rather than forcing constant occupancy and must be causal/out-of-time.",
+  "v1_action":"NO_CHANGE",
+  "x6_readiness":"NOT_READY_FOR_SEMANTIC_VERSION_CHANGE",
+  "runtime_admission_changed":false,
+  "v1_parameter_changed":false,
+  "production_authority":false,
+  "fresh_oos":false
+}
