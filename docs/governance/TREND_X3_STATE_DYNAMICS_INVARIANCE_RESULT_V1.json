@@ -1,0 +1,53 @@
+{
+  "schema_id": "trend_x3_state_dynamics_invariance_result@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X3_STATE_DYNAMICS_INVARIANCE",
+  "status": "X3_COMPLETE_INTERVAL_HETEROGENEITY_WITH_PHASE_STABILITY",
+  "execution_date": "2026-09-14",
+  "freeze_ref": "docs/governance/TREND_X3_STATE_DYNAMICS_INVARIANCE_FREEZE_V1.json",
+  "research_window": {"start":"2020-07-23","end":"2020-12-31","role":"Development-only matched exact-view window"},
+  "measurement": {"lookback_bars":20,"estimator":"log_close_ols_slope_t@1.0","t1":2.0,"local_resampling_used":false},
+  "state_transition_statistics_computed": true,
+  "market_return_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "summary_by_profile": [
+    {"carrier":"000852.SH","view_id":"1m_official","measurements":26381,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":14},"self_transition":{"DOWN":0.9412,"SIDEWAYS":0.8091,"UP":0.9420},"survival_5":{"DOWN":0.7225,"UP":0.7301},"opposite_entry_10":{"DOWN":0.2422,"UP":0.2478}},
+    {"carrier":"000852.SH","view_id":"5m_offset_0","measurements":5261,"episode_median":{"DOWN":15,"SIDEWAYS":4,"UP":14},"self_transition":{"DOWN":0.9432,"SIDEWAYS":0.8235,"UP":0.9439},"survival_5":{"DOWN":0.7303,"UP":0.7420},"opposite_entry_10":{"DOWN":0.2100,"UP":0.2209}},
+    {"carrier":"000852.SH","view_id":"5m_offset_1","measurements":5041,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":15},"self_transition":{"DOWN":0.9434,"SIDEWAYS":0.8292,"UP":0.9429},"survival_5":{"DOWN":0.7321,"UP":0.7386},"opposite_entry_10":{"DOWN":0.1990,"UP":0.2235}},
+    {"carrier":"000852.SH","view_id":"5m_offset_2","measurements":5041,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":14},"self_transition":{"DOWN":0.9429,"SIDEWAYS":0.8273,"UP":0.9431},"survival_5":{"DOWN":0.7302,"UP":0.7412},"opposite_entry_10":{"DOWN":0.2030,"UP":0.2221}},
+    {"carrier":"000852.SH","view_id":"5m_offset_3","measurements":5041,"episode_median":{"DOWN":13,"SIDEWAYS":4,"UP":14},"self_transition":{"DOWN":0.9417,"SIDEWAYS":0.8235,"UP":0.9416},"survival_5":{"DOWN":0.7270,"UP":0.7319},"opposite_entry_10":{"DOWN":0.2065,"UP":0.2397}},
+    {"carrier":"000852.SH","view_id":"5m_offset_4","measurements":5041,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":14.5},"self_transition":{"DOWN":0.9425,"SIDEWAYS":0.8228,"UP":0.9431},"survival_5":{"DOWN":0.7307,"UP":0.7367},"opposite_entry_10":{"DOWN":0.2057,"UP":0.2357}},
+    {"carrier":"000852.SH","view_id":"15m_offset_5","measurements":1521,"episode_median":{"DOWN":15.5,"SIDEWAYS":4,"UP":13.5},"self_transition":{"DOWN":0.9409,"SIDEWAYS":0.8305,"UP":0.9342},"survival_5":{"DOWN":0.7235,"UP":0.6951},"opposite_entry_10":{"DOWN":0.2017,"UP":0.2141}},
+    {"carrier":"000852.SH","view_id":"15m_offset_10","measurements":1521,"episode_median":{"DOWN":15.5,"SIDEWAYS":5,"UP":15},"self_transition":{"DOWN":0.9411,"SIDEWAYS":0.8283,"UP":0.9397},"survival_5":{"DOWN":0.7140,"UP":0.7127},"opposite_entry_10":{"DOWN":0.2149,"UP":0.2119}},
+    {"carrier":"000852.SH","view_id":"60m_offset_30","measurements":201,"episode_median":{"DOWN":5,"SIDEWAYS":4,"UP":5},"self_transition":{"DOWN":0.8947,"SIDEWAYS":0.8171,"UP":0.8333},"survival_5":{"DOWN":0.5000,"UP":0.3095},"opposite_entry_10":{"DOWN":0.4028,"UP":0.6905},"support":{"DOWN":"OK_72_ORIGINS","UP":"UNDERPOWERED_DESCRIPTIVE_ONLY_42_ORIGINS"}},
+    {"carrier":"000852.SH","view_id":"60m_offset_45","measurements":201,"episode_median":{"DOWN":5,"SIDEWAYS":4,"UP":5},"self_transition":{"DOWN":0.8987,"SIDEWAYS":0.8148,"UP":0.8250},"survival_5":{"DOWN":0.4800,"UP":0.3250},"opposite_entry_10":{"DOWN":0.4400,"UP":0.7000},"support":{"DOWN":"OK_75_ORIGINS","UP":"UNDERPOWERED_DESCRIPTIVE_ONLY_40_ORIGINS"}},
+    {"carrier":"000688.SH","view_id":"1m_official","measurements":26381,"episode_median":{"DOWN":13,"SIDEWAYS":4,"UP":13},"self_transition":{"DOWN":0.9415,"SIDEWAYS":0.8282,"UP":0.9387},"survival_5":{"DOWN":0.7292,"UP":0.7137},"opposite_entry_10":{"DOWN":0.2099,"UP":0.2251}},
+    {"carrier":"000688.SH","view_id":"5m_offset_0","measurements":5261,"episode_median":{"DOWN":15,"SIDEWAYS":4,"UP":13},"self_transition":{"DOWN":0.9467,"SIDEWAYS":0.8198,"UP":0.9428},"survival_5":{"DOWN":0.7520,"UP":0.7274},"opposite_entry_10":{"DOWN":0.1924,"UP":0.2159}},
+    {"carrier":"000688.SH","view_id":"5m_offset_1","measurements":5041,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":13},"self_transition":{"DOWN":0.9489,"SIDEWAYS":0.8205,"UP":0.9421},"survival_5":{"DOWN":0.7565,"UP":0.7243},"opposite_entry_10":{"DOWN":0.1909,"UP":0.2126}},
+    {"carrier":"000688.SH","view_id":"5m_offset_2","measurements":5041,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":12},"self_transition":{"DOWN":0.9470,"SIDEWAYS":0.8135,"UP":0.9413},"survival_5":{"DOWN":0.7539,"UP":0.7216},"opposite_entry_10":{"DOWN":0.1921,"UP":0.2140}},
+    {"carrier":"000688.SH","view_id":"5m_offset_3","measurements":5041,"episode_median":{"DOWN":13,"SIDEWAYS":4,"UP":13},"self_transition":{"DOWN":0.9443,"SIDEWAYS":0.8047,"UP":0.9418},"survival_5":{"DOWN":0.7452,"UP":0.7198},"opposite_entry_10":{"DOWN":0.1890,"UP":0.2219}},
+    {"carrier":"000688.SH","view_id":"5m_offset_4","measurements":5041,"episode_median":{"DOWN":14,"SIDEWAYS":4,"UP":13},"self_transition":{"DOWN":0.9464,"SIDEWAYS":0.8083,"UP":0.9423},"survival_5":{"DOWN":0.7516,"UP":0.7207},"opposite_entry_10":{"DOWN":0.1905,"UP":0.2193}},
+    {"carrier":"000688.SH","view_id":"15m_offset_5","measurements":1521,"episode_median":{"DOWN":16,"SIDEWAYS":4,"UP":14},"self_transition":{"DOWN":0.9481,"SIDEWAYS":0.8081,"UP":0.9386},"survival_5":{"DOWN":0.7573,"UP":0.7311},"opposite_entry_10":{"DOWN":0.2061,"UP":0.2441}},
+    {"carrier":"000688.SH","view_id":"15m_offset_10","measurements":1521,"episode_median":{"DOWN":18,"SIDEWAYS":4,"UP":13.5},"self_transition":{"DOWN":0.9513,"SIDEWAYS":0.8131,"UP":0.9411},"survival_5":{"DOWN":0.7641,"UP":0.7280},"opposite_entry_10":{"DOWN":0.1994,"UP":0.2398}},
+    {"carrier":"000688.SH","view_id":"60m_offset_30","measurements":201,"episode_median":{"DOWN":12,"SIDEWAYS":4.5,"UP":12},"self_transition":{"DOWN":0.9247,"SIDEWAYS":0.8167,"UP":0.8936},"survival_5":{"DOWN":0.6667,"UP":0.5106},"opposite_entry_10":{"DOWN":0.1778,"UP":0.4255},"support":{"DOWN":"OK_90_ORIGINS","UP":"UNDERPOWERED_DESCRIPTIVE_ONLY_47_ORIGINS"}},
+    {"carrier":"000688.SH","view_id":"60m_offset_45","measurements":201,"episode_median":{"DOWN":13,"SIDEWAYS":4,"UP":11},"self_transition":{"DOWN":0.9255,"SIDEWAYS":0.8167,"UP":0.8913},"survival_5":{"DOWN":0.6703,"UP":0.5000},"opposite_entry_10":{"DOWN":0.1868,"UP":0.4565},"support":{"DOWN":"OK_91_ORIGINS","UP":"UNDERPOWERED_DESCRIPTIVE_ONLY_46_ORIGINS"}}
+  ],
+  "same_interval_phase_findings": [
+    "5m phase dispersion is very small on both carriers: self-transition ranges are at most about 1.9 percentage points, five-bar directional-survival ranges about 1.1 points, and ten-bar opposite-entry ranges about 1.9 points.",
+    "15m phase dispersion is similarly small, with five-bar survival ranges below about 1.8 percentage points.",
+    "60m phase dispersion also remains small relative to its cross-carrier differences, although the short matched window makes UP-direction horizon metrics underpowered."
+  ],
+  "cross_carrier_findings": [
+    "For 1m/5m/15m, matched-profile differences in five-bar directional survival are generally a few percentage points; the largest observed value is about 5.0 percentage points on 15m DOWN.",
+    "For 60m, matched-carrier differences are much larger: DOWN five-bar survival differs by about 16.7-19.0 percentage points, while UP differs by about 17.5-20.1 points but is underpowered under the preregistered minimum-origin rule.",
+    "60m ten-bar opposite-direction entry also differs strongly across carriers: DOWN differs by about 22.5-25.3 points; UP differs by about 24.3-26.5 points but is underpowered.",
+    "Episode medians at 60m differ sharply (CSI1000 directional episodes about 5 bars versus STAR50 about 11-13 bars), but there are only 5-9 directional episodes per profile, so this is descriptive rather than sufficient calibration evidence."
+  ],
+  "interpretation": "X3 reinforces the X2 pattern: same-interval phase choice is not the main source of heterogeneity in the matched Development window. Interval and carrier interaction, especially at 60m, is the dominant unresolved issue. The evidence is insufficient to authorize a universal fixed numeric scale across all intervals, but also insufficient to select a final alternative calibration because only two carriers are available and 60m directional support is limited.",
+  "next_allowed_step": "record X4 calibration-family decision as INSUFFICIENT_EVIDENCE for a final universal or profile-specific parameterization, then execute X5 cross-carrier source expansion before any representation or runtime change"
+}
