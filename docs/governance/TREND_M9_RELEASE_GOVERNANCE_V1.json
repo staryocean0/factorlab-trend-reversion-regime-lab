@@ -1,0 +1,133 @@
+{
+  "schema_id": "trend_m9_release_governance@1.0",
+  "milestone": "M9",
+  "status": "FROZEN_RELEASE_CANDIDATE_V1",
+  "component_id": "factorlab.layer2.trend_regime",
+  "component_release_version": "1.0.0",
+  "git_tag": "trend-regime-v1.0.0",
+  "release_channel": "stable_component_contract",
+  "python_distribution": {
+    "name": "factorlab-trend-reversion-regime-lab",
+    "repository_pyproject_version": "0.1.0",
+    "is_component_semver_authority": false,
+    "reason": "the repository distribution contains historical research and maintenance modules outside the stable trend component surface"
+  },
+  "stable_public_surface": {
+    "call": "query_regime(symbol, as_of, bar_interval, profile_id=None)",
+    "consumer_schema_id": "regime_state_consumer_v1",
+    "snapshot_schema_id": "trend_regime_snapshot@1.0",
+    "representation_schema_id": "trend_regime_three_bucket_plus_continuous_strength@1.0",
+    "state_scheme_id": "trend_regime_three_bucket@1.0",
+    "strength_definition_id": "absolute_log_close_ols_slope_t@1.0",
+    "state_enum": ["DOWN", "SIDEWAYS", "UP"],
+    "directional_score": "frozen M2 slope_t",
+    "strength": "abs(directional_score)"
+  },
+  "current_runtime_admission": {
+    "provider_id": "datahub",
+    "source_dataset_id": "factorlab_unified_index_kline_v3_20260824",
+    "admission_receipt_id": "trend_m5_source_profile_admission_v1_20260914",
+    "symbols": ["000688.SH", "000852.SH"],
+    "profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"],
+    "not_admitted_in_v1": [
+      "trend_5m_offset1_v1",
+      "trend_5m_offset2_v1",
+      "trend_5m_offset3_v1",
+      "trend_5m_offset4_v1",
+      "trend_15m_offset5_v1",
+      "trend_15m_offset10_v1",
+      "trend_60m_offset30_v1",
+      "trend_60m_offset45_v1"
+    ]
+  },
+  "compatibility_policy": {
+    "patch_release": [
+      "documentation clarification without semantic change",
+      "tests and CI hardening",
+      "internal refactor that preserves public schemas fields and lifecycle behavior"
+    ],
+    "minor_release": [
+      "additive caller capability that preserves the existing query contract",
+      "additive provider/profile admission only with a new exact source admission receipt and unchanged existing behavior",
+      "additive optional metadata only when older V1 callers can ignore it safely"
+    ],
+    "major_release_required": [
+      "change to state enum or T1 directional boundaries",
+      "change to estimator or directional_score definition",
+      "change to strength definition",
+      "change to required query arguments or meaning",
+      "change to immutable snapshot identity or expiry/no-fallback semantics",
+      "introduction of formal T2 or STRONG_UP/STRONG_DOWN product states",
+      "introduction of Layer2 global_state strategy selection routing or trading action",
+      "change from production_authority=false without independent governance"
+    ],
+    "schema_rule": "a semantic change must receive a new schema/version identity; historical V1 snapshots are never rewritten"
+  },
+  "migration_policy": {
+    "from_pre_m7_internal_usage": [
+      "replace direct internal measurement reads with TrendRegimeConsumer.query_regime",
+      "treat UNAVAILABLE as missing state rather than SIDEWAYS",
+      "do not fall back after latest expiry or latest explicit unavailable",
+      "do not pass lookback estimator T1 T2 validity policy or strategy action into the consumer"
+    ],
+    "five_bucket_research_artifacts": "not a prior stable product API and therefore not a V1 migration source; retain only for historical research audit",
+    "future_breaking_change": "publish a new major component version and migration note; never silently mutate V1"
+  },
+  "evidence_lineage": [
+    {"milestone":"M2","role":"three-bucket baseline math","authority":"src/factor_lab/market_state/trend_regime_baseline.py"},
+    {"milestone":"M3","role":"interval/profile and causal Layer1 view binding","authority":"src/factor_lab/market_state/trend_regime_profiles.py"},
+    {"milestone":"M4","role":"pre-outcome five-bucket research protocol","authority":"docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json"},
+    {"milestone":"M5","role":"empirical closeout and source admission evidence","authority":"docs/governance/TREND_M5_CLOSEOUT_V1.json"},
+    {"milestone":"M6","role":"formal three-bucket plus continuous-strength representation","authority":"docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json"},
+    {"milestone":"M7","role":"stable consumer snapshot lifecycle and provider admission","authority":"docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json"},
+    {"milestone":"M8","role":"upper-layer ownership and integration-boundary validation","authority":"docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json"},
+    {"milestone":"M9","role":"release compatibility migration lineage and governance","authority":"docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json"}
+  ],
+  "known_limitations": [
+    "15m 60m and phase profiles are not admitted in the current V1 runtime registry",
+    "M5 empirical strength evidence is limited to admitted 1m and 5m views on CSI1000 and STAR50",
+    "STAR50 has a real parallel risk-state provider but no proven connected external strategy caller",
+    "M8 validates interface and ownership boundaries but not live deployment",
+    "2025 protocol Holdout was not opened and fresh_oos remains false",
+    "Layer2 does not own a complete trading-calendar authority beyond admitted provider receipts",
+    "this release grants no BUY SELL position order routing strategy-selection or production authority"
+  ],
+  "release_gate": {
+    "required": [
+      "repository consistency passes",
+      "M2 through M9 contract tests pass",
+      "M6 M7 M8 frozen semantics remain unchanged",
+      "new_market_outcomes_computed=false",
+      "M5 validation sensitivity replication jobs remain disabled or skipped",
+      "historical full-replay jobs remain opt-in and are not triggered by release finalization",
+      "release notes disclose non-production and limited runtime admission"
+    ],
+    "forbidden": [
+      "reopen M5 outcomes",
+      "read the 2025 Holdout",
+      "expand runtime admission without a new exact source receipt",
+      "map state or strength directly to a trading action",
+      "claim live or production integration",
+      "claim fresh OOS certification"
+    ]
+  },
+  "release_artifacts": [
+    "docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json",
+    "docs/RELEASE.md",
+    "docs/API_EXAMPLES.md",
+    "CHANGELOG.md"
+  ],
+  "locked_upstream": {
+    "m6_contract_blob": "38cdcb02728f8830721fd40d455b4faccc5cc20e",
+    "m7_contract_blob": "daf3b97d74a6533afc6e2d78647d34eed5b9f56b",
+    "m8_contract_blob": "3a16547c033d9b4513b43c1fb35aca332ef9551c",
+    "trend_consumer_blob": "6ec31839a9497ad96fd59e9503c73ed1984569fa",
+    "trend_consumer_sha256": "5088c3a8e54348fa53d244ee52e64f520b0d0082a181d5c1142a90247d0468fc"
+  },
+  "market_outcomes_computed": false,
+  "m5_outcome_reopened": false,
+  "holdout_read": false,
+  "fresh_oos": false,
+  "production_authority": false,
+  "trading_action_authority": false
+}
