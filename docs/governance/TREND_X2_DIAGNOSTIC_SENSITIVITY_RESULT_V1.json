@@ -1,0 +1,71 @@
+{
+  "schema_id": "trend_x2_diagnostic_sensitivity_result@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X2_DIAGNOSTIC_SENSITIVITY",
+  "status": "COMPLETE_NO_PRODUCT_PARAMETER_SELECTION",
+  "execution_date": "2026-09-14",
+  "research_window": {"start":"2020-07-23","end":"2020-12-31","role":"Development-only matched exact-view window"},
+  "lookback_grid": [10,20,40],
+  "t1_grid": [1.5,2.0,2.5],
+  "design": "full diagnostic grid; no trading-return objective and no winner selection",
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "same_interval_phase_max_occupancy_range_across_grid": [
+    {"carrier":"000852.SH","interval":"5m","max_range":0.0160},
+    {"carrier":"000852.SH","interval":"15m","max_range":0.0112},
+    {"carrier":"000852.SH","interval":"60m","max_range":0.0379},
+    {"carrier":"000688.SH","interval":"5m","max_range":0.0096},
+    {"carrier":"000688.SH","interval":"15m","max_range":0.0235},
+    {"carrier":"000688.SH","interval":"60m","max_range":0.0348}
+  ],
+  "cross_carrier_max_mean_occupancy_difference_across_grid": [
+    {"interval":"1m","max_abs_diff":0.0636},
+    {"interval":"5m","max_abs_diff":0.0274},
+    {"interval":"15m","max_abs_diff":0.0674},
+    {"interval":"60m","max_abs_diff":0.1575}
+  ],
+  "cross_carrier_abs_q90_mean_difference_by_lookback": [
+    {"lookback":10,"1m":1.3427,"5m":0.1513,"15m":0.5221,"60m":0.2429},
+    {"lookback":20,"1m":1.0662,"5m":0.2227,"15m":0.9748,"60m":1.1457},
+    {"lookback":40,"1m":0.4752,"5m":0.2672,"15m":2.3562,"60m":3.3454}
+  ],
+  "t1_2_interval_summary_by_lookback": [
+    {"lookback":10,"carrier":"000852.SH","interval":"1m","sideways":0.3173,"abs_q90":8.9077},
+    {"lookback":10,"carrier":"000852.SH","interval":"5m","sideways":0.3513,"abs_q90":7.6100},
+    {"lookback":10,"carrier":"000852.SH","interval":"15m","sideways":0.3325,"abs_q90":7.6673},
+    {"lookback":10,"carrier":"000852.SH","interval":"60m","sideways":0.3673,"abs_q90":6.9806},
+    {"lookback":10,"carrier":"000688.SH","interval":"1m","sideways":0.3724,"abs_q90":7.5650},
+    {"lookback":10,"carrier":"000688.SH","interval":"5m","sideways":0.3515,"abs_q90":7.4587},
+    {"lookback":10,"carrier":"000688.SH","interval":"15m","sideways":0.3034,"abs_q90":8.1895},
+    {"lookback":10,"carrier":"000688.SH","interval":"60m","sideways":0.3294,"abs_q90":7.2235},
+    {"lookback":20,"carrier":"000852.SH","interval":"1m","sideways":0.2343,"abs_q90":11.5326},
+    {"lookback":20,"carrier":"000852.SH","interval":"5m","sideways":0.2465,"abs_q90":11.0403},
+    {"lookback":20,"carrier":"000852.SH","interval":"15m","sideways":0.2659,"abs_q90":11.1645},
+    {"lookback":20,"carrier":"000852.SH","interval":"60m","sideways":0.4055,"abs_q90":7.8683},
+    {"lookback":20,"carrier":"000688.SH","interval":"1m","sideways":0.2583,"abs_q90":10.4664},
+    {"lookback":20,"carrier":"000688.SH","interval":"5m","sideways":0.2292,"abs_q90":10.8176},
+    {"lookback":20,"carrier":"000688.SH","interval":"15m","sideways":0.2239,"abs_q90":12.1393},
+    {"lookback":20,"carrier":"000688.SH","interval":"60m","sideways":0.3035,"abs_q90":9.0140},
+    {"lookback":40,"carrier":"000852.SH","interval":"1m","sideways":0.1697,"abs_q90":15.8245},
+    {"lookback":40,"carrier":"000852.SH","interval":"5m","sideways":0.1649,"abs_q90":15.9567},
+    {"lookback":40,"carrier":"000852.SH","interval":"15m","sideways":0.1562,"abs_q90":14.9343},
+    {"lookback":40,"carrier":"000852.SH","interval":"60m","sideways":0.3867,"abs_q90":7.6322},
+    {"lookback":40,"carrier":"000688.SH","interval":"1m","sideways":0.1760,"abs_q90":15.3492},
+    {"lookback":40,"carrier":"000688.SH","interval":"5m","sideways":0.1519,"abs_q90":16.2239},
+    {"lookback":40,"carrier":"000688.SH","interval":"15m","sideways":0.1352,"abs_q90":17.2904},
+    {"lookback":40,"carrier":"000688.SH","interval":"60m","sideways":0.2293,"abs_q90":10.9777}
+  ],
+  "findings": [
+    "Same-interval phase dispersion remains small across the full diagnostic grid; phase choice is not the dominant source of heterogeneity in this window.",
+    "Cross-carrier occupancy divergence is smallest for 5m and largest for 60m across the tested grid.",
+    "Changing lookback materially changes the slope-t scale: abs(slope_t) q90 rises strongly from lookback 10 to 40 on 1m/5m/15m, so strength values from different lookback definitions are not numerically interchangeable.",
+    "The 60m profile behaves differently from shorter intervals and its carrier divergence becomes large at lookback 20/40; this supports further interval-level calibration research rather than a universal-threshold claim.",
+    "No T1 or lookback is selected by this diagnostic. V1 remains lookback=20 and T1=2.0."
+  ],
+  "next_allowed_step": "freeze and execute X3 state-dynamics invariance using the unchanged V1 fixed baseline first; do not promote any calibration before X3 and cross-carrier expansion"
+}
