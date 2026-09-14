@@ -1,9 +1,9 @@
 {
   "schema_id": "trend_m5_star50_replication_execution@1.0",
   "milestone": "M5-6",
-  "status": "FROZEN_BEFORE_REPLICATION_READ",
-  "replication_consumed": false,
-  "replication_rows_read": false,
+  "status": "CONSUMED_AFTER_ONE_STAR50_REPLICATION",
+  "replication_consumed": true,
+  "replication_rows_read": true,
   "holdout_rows_read": false,
   "holdout_unlock_allowed": false,
   "carrier": "000688.SH",
@@ -14,15 +14,25 @@
   "t1": 2.0,
   "t2": 4.0,
   "csi1000_primary_headline": "H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS",
+  "replication_headline": "CLEAR_QUALITATIVE_REPLICATION_OF_PRIMARY_CONTRADICTION",
   "replication_role": "separate_cross_carrier_qualitative_replication_not_primary_not_pooled",
   "new_primary_family_created": false,
   "pooling_with_csi1000_allowed": false,
   "primary_headline_change_allowed": false,
   "primary_validation_rerun_allowed": false,
   "sensitivity_rerun_allowed": false,
+  "replication_rerun_allowed": false,
   "phase_profiles_executable": false,
   "phase_profiles_status": "NOT_ADMITTED",
   "protocol_change_allowed": false,
+  "pre_read_execution_contract_git_blob": "51b6c4654c1f5e2eaba32b4a0c35299d369f8630",
+  "consumed_run": {
+    "workflow_run_id": 34818480455,
+    "head": "e6ce522e5860378f3cfeb2ddf28103d3ccf4fdf4",
+    "artifact_id": 10336884322,
+    "artifact_digest": "sha256:4ce675ec89d72c1a92d1fe1d4cb810ab9f624fec509cdf4623441b90e96e7940",
+    "result_receipt": "docs/governance/TREND_M5_STAR50_REPLICATION_V1.json"
+  },
   "locked_objects": [
     {"path":"docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json","git_blob":"52f519da5a3d60550458afea833d21b18115a845"},
     {"path":"docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json","git_blob":"6e88f7ba15b7c4bf9ec12b2e50c67dc365d173b7"},
@@ -39,12 +49,7 @@
     {"path":"scripts/m5_v6_replication_execution.py","git_blob":"45c8e235186b2364b4a7d547d6d9030672fcf864"},
     {"path":"scripts/m5_v6_replication_runner.py","git_blob":"9605528a2fb265a816df91b1b175539a484171d9"}
   ],
-  "replication_labels": {
-    "ci95_above_zero": "REPLICATION_H1_CONTRADICTED",
-    "ci95_below_zero": "REPLICATION_H1_DIRECTION",
-    "ci95_crosses_zero": "REPLICATION_MIXED_OR_NULL",
-    "underpowered": "REPLICATION_INCONCLUSIVE_UNDERPOWERED"
-  },
-  "qualitative_consistency_rule": "report point-estimate and CI sign agreement with the consumed CSI1000 contradiction; no pooled estimator, no new primary significance family",
-  "next_allowed_action": "run_STAR50_T2_4_replication_once_only"
+  "holdout_permanently_blocked_by_primary_support_rule": true,
+  "m5_outcome_work_reopen_allowed": false,
+  "next_allowed_action": "M6 representation decision only; do not reopen M5 outcomes or holdout"
 }
