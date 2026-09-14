@@ -1,0 +1,39 @@
+{
+  "schema_id": "trend_m5_primary_validation_receipt@1.0",
+  "milestone": "M5-4",
+  "status": "PASS_EXECUTED_H1_CONTRADICTED",
+  "execution_contract_pre_read_git_blob": "4fa6b5eee9582be7b147abf52988f01d3254a672",
+  "run": {
+    "workflow_run_id": 34814912150,
+    "head": "4aecd9b88a171eb51a63462bfe10eaa8168f34dc",
+    "artifact_id": 10335368583,
+    "artifact_digest": "sha256:acf170aab180478c73fb2dcc09ec5610c06e7276e566ee2fc7a134082e2dc045"
+  },
+  "carrier": "000852.SH",
+  "primary_t2": 4.0,
+  "validation": {"start": "2023-01-03", "end": "2024-12-31"},
+  "overall_conclusion": "H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS",
+  "supporting_contrasts": [],
+  "executable_primary_contrasts": [
+    {"interval":"1m","direction":"UP","status":"H1_CONTRADICTED","moderate_n":4836,"strong_n":2348,"moderate_survival5":0.5014474772539289,"strong_survival5":0.8867120954003407,"strong_minus_moderate":0.3852646181464118,"ci95":[0.37335274088719883,0.396867556149892],"raw_p":1.0,"holm_adjusted_p":1.0,"reversal10_strong_minus_moderate":-0.24759117803300912,"reversal10_ci95":[-0.2605590016443746,-0.23517665898140186]},
+    {"interval":"1m","direction":"DOWN","status":"H1_CONTRADICTED","moderate_n":5069,"strong_n":2454,"moderate_survival5":0.5137107910830538,"strong_survival5":0.8932355338223309,"strong_minus_moderate":0.37952474273927705,"ci95":[0.36813157383931516,0.39075506191903764],"raw_p":1.0,"holm_adjusted_p":1.0,"reversal10_strong_minus_moderate":-0.2507086991005455,"reversal10_ci95":[-0.2619670377739359,-0.23928051078636733]},
+    {"interval":"5m","direction":"UP","status":"H1_CONTRADICTED","moderate_n":949,"strong_n":446,"moderate_survival5":0.5079030558482613,"strong_survival5":0.8901345291479821,"strong_minus_moderate":0.38223147329972074,"ci95":[0.35308170873282546,0.4119300153259219],"raw_p":1.0,"holm_adjusted_p":1.0,"reversal10_strong_minus_moderate":-0.23706096103049232,"reversal10_ci95":[-0.26922558863684687,-0.20473105341493802]},
+    {"interval":"5m","direction":"DOWN","status":"H1_CONTRADICTED","moderate_n":1041,"strong_n":514,"moderate_survival5":0.5081652257444764,"strong_survival5":0.8754863813229572,"strong_minus_moderate":0.3673211555784808,"ci95":[0.3388461171208988,0.39475679595054713],"raw_p":1.0,"holm_adjusted_p":1.0,"reversal10_strong_minus_moderate":-0.23595988592232103,"reversal10_ci95":[-0.2660081515410762,-0.20707860733625738]}
+  ],
+  "not_admitted_primary_contrasts": [
+    {"interval":"15m","direction":"UP","raw_p":1.0,"holm_adjusted_p":1.0},
+    {"interval":"15m","direction":"DOWN","raw_p":1.0,"holm_adjusted_p":1.0},
+    {"interval":"60m","direction":"UP","raw_p":1.0,"holm_adjusted_p":1.0},
+    {"interval":"60m","direction":"DOWN","raw_p":1.0,"holm_adjusted_p":1.0}
+  ],
+  "interpretation": "Under the frozen T2=4 protocol, extreme-slope states were materially more persistent and less reversal-prone than moderate trend states on every executable CSI1000 interval/direction; this contradicts the preregistered exhaustion H1 and has no trading-action semantics.",
+  "validation_rows_read": true,
+  "holdout_rows_read": false,
+  "holdout_unlocked": false,
+  "holdout_permanently_blocked_by_primary_support_rule": true,
+  "sensitivity_t2_3_5_run": false,
+  "replication_000688_run": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "next_allowed_step": "M5-5 predeclared T2=3/5 Validation sensitivity; it cannot replace or rescue the T2=4 headline conclusion; Holdout remains locked"
+}
