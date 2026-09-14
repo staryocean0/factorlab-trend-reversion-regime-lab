@@ -8,7 +8,8 @@
 
 - **M0 — PASS**：产品定位、白皮书与路线图已落库。
 - **M1 — PASS**：已完成参考 consumer 审计，冻结 [API 合同](API_CONTRACT.md) 并形成 [Gap List](API_GAP_ANALYSIS.md)。
-- **唯一下一步：M2**。M2 完成前不得自动进入 M3–M9。
+- **M2 — PASS**：已冻结 [三桶趋势状态基线](THREE_BUCKET_BASELINE.md)，落地 signed log-close OLS slope t-score、20-bar 窗口、`T1=2.0`、completed-bar/as-of 与 fail-closed 回归测试。
+- **唯一下一步：M3**。M3 完成前不得自动进入 M4–M9。
 
 ---
 
@@ -44,27 +45,39 @@
 
 ---
 
-## M2 — 三桶基线冻结与可复现性
+## M2 — 三桶基线冻结与可复现性（PASS）
 
 ### 目标
-先把现有三桶定义做成可信基线，再讨论五桶。
+先把三桶定义做成可信、可复现且因果安全的基线，再讨论多周期和五桶。
 
-### 基线语义
-设斜率/趋势强度为 `s`，横盘阈值为 `T1 > 0`：
+### 已冻结基线
 
-- `DOWN`：`s < -T1`
-- `SIDEWAYS`：`-T1 <= s <= T1`
-- `UP`：`s > T1`
+详细规格见 `docs/THREE_BUCKET_BASELINE.md`。本版 `trend_regime_three_bucket_baseline@1.0` 冻结：
 
-### 要冻结的内容
-- 斜率的数学定义与价格变换；
-- 回看窗口、K 线完成规则、缺失处理；
-- 阈值尺度是否需要随 K 线级别归一化；
-- causality / as-of 规则；
-- 回归测试样例。
+- 价格变换：`log(close)`；
+- 回看：最近 **20 根**在 `as_of` 已结束且已可用的 bar；
+- 主 authority：log-close OLS 的 signed slope t-score；
+- 横盘阈值：`T1=2.0`；
+- `DOWN`：`s < -2.0`；
+- `SIDEWAYS`：`-2.0 <= s <= 2.0`；
+- `UP`：`s > 2.0`；
+- 缺失/坏 close、少于 20 根可用 bar 均 fail closed；
+- 未来或尚未发布 bar 对更早 `as_of` 不可见；
+- BDCI/DII 等保留为诊断，不参与主状态投票。
+
+这是一项**新冻结的显式基线**，不是伪称恢复一个本仓无法取回的旧 `trend_continuity_regime.py` 实现。`20` 与 `2.0` 是在收益/五桶实验之前冻结的工程参考锚点，不是本轮通过绩效搜索挑出的最优参数。
+
+### 实现与测试
+
+- `src/factor_lab/market_state/trend_regime_baseline.py`
+- `tests/test_trend_regime_baseline.py`
+
+回归测试覆盖三桶边界、合成涨/平/跌、价格尺度不变性、future/unpublished bar 不可见、少 bar/坏 close fail-closed、输入顺序不变、timezone 与重复 bar 防线，以及冻结参数不得静默漂移。
 
 ### Gate
-给定同一份输入、同一配置、同一 `as_of`，结果可重复且无未来数据泄漏。
+**PASS。** 给定同一份输入、同一冻结版本、同一 `as_of`，结果唯一可重复；未来信息不能改变当前结果；坏值不通过跳过、回填或插值伪造状态。
+
+M2 刻意没有绑定 `bar_interval`：没有 interval 就不能可靠判断 cadence gap，也不能声称 `T1=2.0` 已跨 1m/5m/15m/60m 具有同等含义。这些属于 M3。
 
 ---
 
