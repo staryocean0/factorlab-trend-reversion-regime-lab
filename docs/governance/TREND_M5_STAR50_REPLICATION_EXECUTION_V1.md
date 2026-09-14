@@ -9,3 +9,5 @@ Replication 复用冻结的 5-bar directional survival、10-bar reversal probabi
 每个 contrast：primary survival CI 全部大于 0 标记 `REPLICATION_H1_CONTRADICTED`；全部小于 0 标记 `REPLICATION_H1_DIRECTION`；跨 0 标记 mixed/null；样本不足标记 underpowered。这些标签只用于独立复制报告，不能改写 CSI1000 headline、不能 rescue H1，也不能解锁 Holdout。
 
 15m/60m 与 phase profiles 仍按 M5-1 `NOT_ADMITTED` 报告，不进行 local resampling、offset substitution 或 legacy promotion。2025 Holdout 不进入 checkout。
+
+Preflight head 仅用于让 repository-consistency 在所有冻结件落库后完整验收；本说明文件不属于机器 locked objects，不改变任何研究参数或数据身份。
