@@ -1,0 +1,83 @@
+{
+  "schema_id": "trend_m7_consumer_contract@1.0",
+  "milestone": "M7",
+  "status": "PASS_STABLE_CONSUMER_V1",
+  "consumer_schema_id": "regime_state_consumer_v1",
+  "snapshot_schema_id": "trend_regime_snapshot@1.0",
+  "representation_schema_id": "trend_regime_three_bucket_plus_continuous_strength@1.0",
+  "public_query": {
+    "call": "query_regime(symbol, as_of, bar_interval, profile_id=None)",
+    "caller_owned": ["symbol", "timezone_aware_as_of", "bar_interval", "profile_id_when_required"],
+    "caller_forbidden": ["lookback", "estimator", "T1", "T2", "provider_admission", "validity_policy", "strategy_action"]
+  },
+  "formal_state": {
+    "enum": ["DOWN", "SIDEWAYS", "UP"],
+    "directional_score": "exact frozen M2 slope_t",
+    "strength": "abs(directional_score)",
+    "strong_states_allowed": false,
+    "global_multi_interval_state_allowed": false
+  },
+  "snapshot_required_fields": [
+    "snapshot_id", "symbol", "bar_interval", "profile_id", "layer1_view_id",
+    "decision_time", "observation_time", "measurement_available_at",
+    "published_at", "valid_until", "status", "reason",
+    "state", "directional_score", "strength",
+    "provider_id", "source_dataset_id", "admission_receipt_id", "source_receipt_id",
+    "measurement_schema_id", "estimator_id", "estimator_version",
+    "representation_schema_id", "state_scheme_id", "strength_definition_id"
+  ],
+  "lifecycle": {
+    "snapshot_immutable": true,
+    "append_only_ingest": true,
+    "identical_duplicate_idempotent": true,
+    "conflicting_duplicate_rejected": true,
+    "received_before_published_rejected": true,
+    "out_of_order_receipt_rejected": true,
+    "out_of_order_source_snapshot_rejected": true,
+    "as_of_visibility_basis": "consumer_received_at <= as_of",
+    "available_window": "published and received, then as_of < valid_until",
+    "latest_expired_no_fallback": true,
+    "latest_explicit_unavailable_no_fallback": true,
+    "unavailable_snapshot_suppresses_state_and_strength": true,
+    "valid_until_owner": "component/provider publication layer; never a query caller parameter"
+  },
+  "current_provider_admission": {
+    "provider_id": "datahub",
+    "source_dataset_id": "factorlab_unified_index_kline_v3_20260824",
+    "admission_receipt_id": "trend_m5_source_profile_admission_v1_20260914",
+    "symbols": ["000688.SH", "000852.SH"],
+    "profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"],
+    "registry_frozen_in_v1": true,
+    "constructor_expansion_allowed": false,
+    "m3_engineering_profiles_not_in_current_admission_return": "STATE_NOT_ADMITTED"
+  },
+  "unavailable_reason_families": [
+    "NO_PUBLISHED_SNAPSHOT", "LATEST_SNAPSHOT_EXPIRED", "UNSUPPORTED_SYMBOL",
+    "UNSUPPORTED_PROFILE", "STATE_NOT_ADMITTED", "INSUFFICIENT_HISTORY",
+    "SOURCE_UNAVAILABLE", "OUTSIDE_SUPPORTED_TIME", "MEASUREMENT_INVALID",
+    "CADENCE_GAP", "OFF_PROFILE_GRID"
+  ],
+  "forbidden_stable_output_semantics": [
+    "T2", "STRONG_UP", "STRONG_DOWN", "five_bucket_state", "global_state",
+    "BUY", "SELL", "position", "order", "strategy_selection", "routing"
+  ],
+  "authority": {
+    "measurement": true,
+    "snapshot_read": true,
+    "strategy_selection": false,
+    "parameter_selection": false,
+    "routing": false,
+    "trading_action": false,
+    "production": false
+  },
+  "locked_objects": [
+    {"path":"src/factor_lab/market_state/trend_regime_consumer.py","git_blob":"6ec31839a9497ad96fd59e9503c73ed1984569fa","sha256":"5088c3a8e54348fa53d244ee52e64f520b0d0082a181d5c1142a90247d0468fc"},
+    {"path":"docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json","git_blob":"38cdcb02728f8830721fd40d455b4faccc5cc20e"},
+    {"path":"docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json","git_blob":"6e88f7ba15b7c4bf9ec12b2e50c67dc365d173b7"}
+  ],
+  "m5_outcome_reopen_allowed": false,
+  "holdout_read_allowed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "next_allowed_step": "M8 strategy-layer integration validation only; M7 consumer semantics remain read-only and unchanged"
+}
