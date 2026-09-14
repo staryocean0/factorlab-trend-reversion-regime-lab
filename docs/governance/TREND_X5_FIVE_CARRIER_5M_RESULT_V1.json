@@ -1,0 +1,80 @@
+{
+  "schema_id": "trend_x5_five_carrier_5m_replication_result@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5_CROSS_CARRIER_EXPANSION",
+  "status": "X5_FIVE_CARRIER_5M_EXTERNAL_REPLICATION_COMPLETE",
+  "source_freeze": "docs/governance/TREND_X5_SOURCE_FALLBACK_V1.json",
+  "source_receipt": "docs/governance/TREND_X5_SINA_SOURCE_RECEIPT_V1.json",
+  "source_identity": "Sina clock-aligned independent-source replication; not DataHub exact-source identity",
+  "window": {"start":"2026-08-17","end":"2026-09-14","trading_days":21},
+  "measurement": {"lookback_bars":20,"estimator":"log_close_ols_slope_t@1.0","t1":2.0,"states":["DOWN","SIDEWAYS","UP"],"strength":"abs(slope_t)"},
+  "per_carrier": [
+    {
+      "symbol":"000852.SH","input_rows":1008,"measurement_count":989,
+      "slope_t_median":-0.16266662725214368,"slope_t_mad":3.8992265543476052,"abs_slope_t_q90":10.458028931331,
+      "occupancy":{"DOWN":0.3751263902932255,"SIDEWAYS":0.2800808897876643,"UP":0.3447927199191102},
+      "one_step_self_transition":{"DOWN":0.9407008086253369,"SIDEWAYS":0.8231046931407943,"UP":0.9205882352941176},
+      "directional_dynamics":{"DOWN":{"survival_5":0.7115902964959568,"survival_5_origins":371,"opposite_entry_10":0.23848238482384823,"opposite_entry_10_origins":369},"UP":{"survival_5":0.6517857142857143,"survival_5_origins":336,"opposite_entry_10":0.2767857142857143,"opposite_entry_10_origins":336}}
+    },
+    {
+      "symbol":"000688.SH","input_rows":1008,"measurement_count":989,
+      "slope_t_median":-1.332339797375967,"slope_t_mad":3.74729172197228,"abs_slope_t_q90":9.899653700275547,
+      "occupancy":{"DOWN":0.44691607684529827,"SIDEWAYS":0.2699696663296259,"UP":0.28311425682507585},
+      "one_step_self_transition":{"DOWN":0.9389140271493213,"SIDEWAYS":0.8202247191011236,"UP":0.9247311827956989},
+      "directional_dynamics":{"DOWN":{"survival_5":0.7398190045248869,"survival_5_origins":442,"opposite_entry_10":0.18493150684931506,"opposite_entry_10_origins":438},"UP":{"survival_5":0.6487455197132617,"survival_5_origins":279,"opposite_entry_10":0.3154121863799283,"opposite_entry_10_origins":279}}
+    },
+    {
+      "symbol":"000300.SH","input_rows":1008,"measurement_count":989,
+      "slope_t_median":-0.6702542026995669,"slope_t_mad":3.8696612881881323,"abs_slope_t_q90":9.469211936935398,
+      "occupancy":{"DOWN":0.3943377148634985,"SIDEWAYS":0.27401415571284127,"UP":0.3316481294236603},
+      "one_step_self_transition":{"DOWN":0.9282051282051282,"SIDEWAYS":0.8185185185185185,"UP":0.9329268292682927},
+      "directional_dynamics":{"DOWN":{"survival_5":0.6958762886597938,"survival_5_origins":388,"opposite_entry_10":0.2402088772845953,"opposite_entry_10_origins":383},"UP":{"survival_5":0.676829268292683,"survival_5_origins":328,"opposite_entry_10":0.3018292682926829,"opposite_entry_10_origins":328}}
+    },
+    {
+      "symbol":"000905.SH","input_rows":1008,"measurement_count":989,
+      "slope_t_median":-0.3884474852069254,"slope_t_mad":3.813743496354424,"abs_slope_t_q90":9.081731405069371,
+      "occupancy":{"DOWN":0.3862487360970677,"SIDEWAYS":0.2659251769464105,"UP":0.34782608695652173},
+      "one_step_self_transition":{"DOWN":0.93717277486911,"SIDEWAYS":0.8098859315589354,"UP":0.924198250728863},
+      "directional_dynamics":{"DOWN":{"survival_5":0.7120418848167539,"survival_5_origins":382,"opposite_entry_10":0.23218997361477572,"opposite_entry_10_origins":379},"UP":{"survival_5":0.6548672566371682,"survival_5_origins":339,"opposite_entry_10":0.2861356932153392,"opposite_entry_10_origins":339}}
+    },
+    {
+      "symbol":"000016.SH","input_rows":1008,"measurement_count":989,
+      "slope_t_median":-0.2073137045571158,"slope_t_mad":3.739393793914819,"abs_slope_t_q90":9.621839241521021,
+      "occupancy":{"DOWN":0.34984833164812945,"SIDEWAYS":0.2972699696663296,"UP":0.3528816986855409},
+      "one_step_self_transition":{"DOWN":0.9219653179190751,"SIDEWAYS":0.825938566552901,"UP":0.9283667621776505},
+      "directional_dynamics":{"DOWN":{"survival_5":0.6744186046511628,"survival_5_origins":344,"opposite_entry_10":0.2359882005899705,"opposite_entry_10_origins":339},"UP":{"survival_5":0.6762177650429799,"survival_5_origins":349,"opposite_entry_10":0.2521489971346705,"opposite_entry_10_origins":349}}
+    }
+  ],
+  "cross_carrier_dispersion": {
+    "slope_t_median_range":1.1696731701238232,
+    "slope_t_mad_range":0.15983276043278627,
+    "abs_slope_t_q90_range":1.376297526261629,
+    "occupancy_range":{"DOWN":0.09706774519716882,"SIDEWAYS":0.031344792719919135,"UP":0.06976744186046507},
+    "one_step_self_transition_range":{"DOWN":0.018735490706261793,"SIDEWAYS":0.016052634993965587,"UP":0.012338593974175138},
+    "directional_dynamics_range":{"DOWN":{"survival_5":0.06540039987372415,"opposite_entry_10":0.05527737043528025},"UP":{"survival_5":0.028083748579421308,"opposite_entry_10":0.06326318924525781}}
+  },
+  "sample_adequacy": {
+    "all_predeclared_directional_horizon_origin_counts_at_least_50": true,
+    "underpowered_directional_metrics": []
+  },
+  "interpretation": [
+    "Across five materially different index families on the same recent 5m window, SIDEWAYS occupancy is tightly clustered: range about 3.13 percentage points.",
+    "One-step self-transition is highly stable across carriers: cross-carrier ranges are about 1.23 to 1.87 percentage points depending on state.",
+    "Five-bar directional survival and ten-bar opposite-direction entry vary by several percentage points but do not show the large semantic dispersion seen previously across intervals, especially 60m.",
+    "DOWN and UP occupancy differ more across carriers than SIDEWAYS occupancy; the short common calendar window contains carrier-specific directional regimes, so directional occupancy is not treated as a threshold-calibration target by itself.",
+    "The result strengthens evidence that the 5m measurement/state semantics are reasonably carrier-robust, but it does not prove T1=2 or lookback=20 universal across intervals or data providers."
+  ],
+  "calibration_implication": {
+    "carrier_specific_5m_t1_required_by_x5": false,
+    "introduce_carrier_specific_5m_calibration_now": false,
+    "overall_x4_decision_after_x5": "INSUFFICIENT_EVIDENCE",
+    "remaining_primary_uncertainty": "cross-interval scale and semantics, especially 60m; exact-view evidence for additional carriers is still absent"
+  },
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "parameter_tuning_performed": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
