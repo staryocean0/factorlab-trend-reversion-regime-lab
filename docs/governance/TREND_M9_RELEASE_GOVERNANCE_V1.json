@@ -1,10 +1,12 @@
 {
   "schema_id": "trend_m9_release_governance@1.0",
   "milestone": "M9",
-  "status": "FROZEN_RELEASE_CANDIDATE_V1",
+  "status": "PASS_STABLE_COMPONENT_V1_RELEASE_GOVERNANCE",
   "component_id": "factorlab.layer2.trend_regime",
   "component_release_version": "1.0.0",
-  "git_tag": "trend-regime-v1.0.0",
+  "canonical_git_tag": "trend-regime-v1.0.0",
+  "release_pointer_branch": "release/trend-regime-v1.0.0",
+  "release_ref_policy": "the release pointer must reference a main commit that passed the M9 gate; if a Git tag is later created it must point to the same gated commit and must not redefine semantics",
   "release_channel": "stable_component_contract",
   "python_distribution": {
     "name": "factorlab-trend-reversion-regime-lab",
@@ -95,7 +97,7 @@
   "release_gate": {
     "required": [
       "repository consistency passes",
-      "M2 through M9 contract tests pass",
+      "default M2 through M8 tests plus M9 release-governance invariants pass",
       "M6 M7 M8 frozen semantics remain unchanged",
       "new_market_outcomes_computed=false",
       "M5 validation sensitivity replication jobs remain disabled or skipped",
@@ -129,5 +131,7 @@
   "holdout_read": false,
   "fresh_oos": false,
   "production_authority": false,
-  "trading_action_authority": false
+  "trading_action_authority": false,
+  "roadmap_complete": true,
+  "automatic_next_milestone": null
 }
