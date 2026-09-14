@@ -1,0 +1,46 @@
+{
+  "schema_id": "trend_m5_t2_sensitivity_receipt@1.0",
+  "milestone": "M5-5",
+  "status": "PASS_EXECUTED_SENSITIVITY_REINFORCES_PRIMARY_CONTRADICTION",
+  "execution_contract_pre_read_git_blob": "6d0a3f3217a1769f3736b2082635fdb6547785cf",
+  "run": {
+    "workflow_run_id": 34816576915,
+    "head": "9e622c653a5510e73444a00f76881050946ffd1a",
+    "artifact_id": 10336711547,
+    "artifact_digest": "sha256:4c654375daa971c9aa028dc29fea1f1facab889cb29104a1b740f7e34efc575c"
+  },
+  "carrier": "000852.SH",
+  "validation": {"start": "2023-01-03", "end": "2024-12-31"},
+  "primary_t2_headline": 4.0,
+  "primary_headline_conclusion_unchanged": "H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS",
+  "sensitivity_role": "robustness_only_not_primary_no_headline_replacement",
+  "overall_sensitivity_conclusion": "T2_3_AND_T2_5_ALL_EXECUTABLE_CONTRASTS_H1_CONTRADICTED",
+  "t2_3": [
+    {"interval":"1m","direction":"UP","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":4227,"strong_n":2504,"moderate_survival5":0.45209368346344925,"strong_survival5":0.856629392971246,"strong_minus_moderate":0.4045357095077967,"ci95":[0.39034389112757817,0.4179224567139214],"reversal10_strong_minus_moderate":-0.26271275634877267,"reversal10_ci95":[-0.2774036846615149,-0.24883288935656186]},
+    {"interval":"1m","direction":"DOWN","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":4474,"strong_n":2619,"moderate_survival5":0.46490835940992403,"strong_survival5":0.8759068346697213,"strong_minus_moderate":0.41099847525979727,"ci95":[0.4004855340017571,0.4220084969180634],"reversal10_strong_minus_moderate":-0.26835522941570994,"reversal10_ci95":[-0.27986521277221493,-0.25702481741197897]},
+    {"interval":"5m","direction":"UP","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":861,"strong_n":495,"moderate_survival5":0.43902439024390244,"strong_survival5":0.8484848484848485,"strong_minus_moderate":0.40946045824094607,"ci95":[0.3805025173464217,0.4399659733714433],"reversal10_strong_minus_moderate":-0.2512019146165487,"reversal10_ci95":[-0.28472255348607456,-0.21893232963267303]},
+    {"interval":"5m","direction":"DOWN","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":919,"strong_n":530,"moderate_survival5":0.44940152339499456,"strong_survival5":0.8641509433962264,"strong_minus_moderate":0.4147494200012319,"ci95":[0.386405083707165,0.44316520764645895],"reversal10_strong_minus_moderate":-0.2854209867164884,"reversal10_ci95":[-0.31709112932946165,-0.25431991046615465]}
+  ],
+  "t2_5": [
+    {"interval":"1m","direction":"UP","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":4755,"strong_n":2209,"moderate_survival5":0.552260778128286,"strong_survival5":0.9094612947034857,"strong_minus_moderate":0.3572005165751997,"ci95":[0.34356990531121734,0.3710906367689547],"reversal10_strong_minus_moderate":-0.2190156986117875,"reversal10_ci95":[-0.23313288365057544,-0.20478176040620757]},
+    {"interval":"1m","direction":"DOWN","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":4962,"strong_n":2277,"moderate_survival5":0.5671100362756953,"strong_survival5":0.9130434782608695,"strong_minus_moderate":0.3459334419851742,"ci95":[0.33287879755183997,0.3586701912702185],"reversal10_strong_minus_moderate":-0.2247014636872923,"reversal10_ci95":[-0.23748246097147005,-0.21189669450253845]},
+    {"interval":"5m","direction":"UP","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":924,"strong_n":413,"moderate_survival5":0.553030303030303,"strong_survival5":0.9007263922518159,"strong_minus_moderate":0.34769608922151296,"ci95":[0.3178965003939686,0.37811973268302973],"reversal10_strong_minus_moderate":-0.1995927801012547,"reversal10_ci95":[-0.23740806237228898,-0.16203805938300206]},
+    {"interval":"5m","direction":"DOWN","status":"SENSITIVITY_H1_CONTRADICTED","moderate_n":1003,"strong_n":459,"moderate_survival5":0.5702891326021934,"strong_survival5":0.9084967320261438,"strong_minus_moderate":0.3382075994239504,"ci95":[0.30981847502004656,0.3672667334904653],"reversal10_strong_minus_moderate":-0.22056054060042096,"reversal10_ci95":[-0.2496090053167009,-0.19366213932723106]}
+  ],
+  "sensitivity_counts": {
+    "planned_executable_contrasts": 8,
+    "h1_contradicted": 8,
+    "h1_direction": 0,
+    "mixed_or_underpowered": 0
+  },
+  "interpretation": "Across both preregistered sensitivity thresholds T2=3 and T2=5, extreme-slope states remained materially more persistent and less reversal-prone than moderate trend states on every executable CSI1000 interval/direction. This reinforces robustness of the T2=4 contradiction but does not create a new primary result or trading-action semantics.",
+  "validation_rows_read": true,
+  "holdout_rows_read": false,
+  "holdout_unlocked": false,
+  "primary_validation_rerun": false,
+  "replication_000688_run": false,
+  "protocol_changed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "next_allowed_step": "M5-6 preregistered cross-carrier replication/remaining robustness reporting only; phase profiles remain NOT_ADMITTED and Holdout remains blocked"
+}
