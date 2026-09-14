@@ -42,7 +42,7 @@ jobs:
         run: python -m pip install -e '.[maintenance]'
       - name: Check repository-wide component, source and workflow consistency
         run: python scripts/repository_consistency.py --check --output "$RUNNER_TEMP/repository-consistency.json"
-      - name: Test maintenance guards and current M2/M3/M4/M5 contracts
+      - name: Test maintenance guards and current M2-M6 trend contracts
         run: >-
           python -m pytest -q
           tests/test_repository_consistency.py
@@ -57,6 +57,7 @@ jobs:
           tests/test_m5_primary_validation_receipt.py
           tests/test_m5_t2_sensitivity_execution.py
           tests/test_m5_star50_replication_execution.py
+          tests/test_m6_representation_decision.py
           --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
       - name: Validate setup shell syntax
         run: bash -n .codex/cloud_setup.sh
