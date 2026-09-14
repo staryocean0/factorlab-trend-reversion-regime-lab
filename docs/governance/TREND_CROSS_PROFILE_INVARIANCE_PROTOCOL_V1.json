@@ -1,0 +1,134 @@
+{
+  "schema_id": "trend_cross_profile_invariance_protocol@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "status": "AUTHORIZED_PROTOCOL_FROZEN_BEFORE_MARKET_OUTCOMES",
+  "authorized_by_user_on": "2026-09-14",
+  "relationship_to_v1": {
+    "v1_component_release": "factorlab.layer2.trend_regime@1.0.0",
+    "v1_release_pointer_must_not_move_for_this_research": true,
+    "v1_semantics_modified": false,
+    "runtime_admission_modified": false,
+    "production_authority": false,
+    "fresh_oos": false
+  },
+  "research_question": "Which parts of the current trend-regime measurement are invariant across carrier, bar interval, and phase, and which parts require governed profile-specific calibration?",
+  "candidate_measurement_family": {
+    "price_transform": "log_close",
+    "estimator": "log_close_ols_slope_t@1.0",
+    "current_v1_lookback_bars": 20,
+    "current_v1_t1": 2.0,
+    "current_v1_state_enum": ["DOWN", "SIDEWAYS", "UP"],
+    "current_v1_strength": "abs(slope_t)",
+    "status": "candidate_for_invariance_testing_not_assumed_universal"
+  },
+  "dimensions": {
+    "carrier": "index identity / market structure",
+    "interval": ["1m", "5m", "15m", "60m"],
+    "phase": [
+      "1m_official",
+      "5m_offset_0", "5m_offset_1", "5m_offset_2", "5m_offset_3", "5m_offset_4",
+      "15m_offset_5", "15m_offset_10",
+      "60m_offset_30", "60m_offset_45"
+    ],
+    "market_regime_strata": ["broad historical subperiods", "volatility strata", "trend/sideways occupancy strata"]
+  },
+  "evidence_levels": {
+    "engineering_computable": "profile exists in versioned registry and causal grid checks are defined",
+    "historical_research_available": "an exact-view historical source with auditable identity exists for a predeclared research window",
+    "runtime_admitted": "stable consumer has an exact source admission receipt and may return the profile"
+  },
+  "stages": [
+    {
+      "id": "X1_SOURCE_PROFILE_INVENTORY",
+      "goal": "inventory exact historical views, source roles, date coverage and governance restrictions without reading market outcomes",
+      "market_outcomes_allowed": false,
+      "parameter_tuning_allowed": false,
+      "output": "docs/governance/TREND_CROSS_PROFILE_SOURCE_INVENTORY_V1.json"
+    },
+    {
+      "id": "X2_DISTRIBUTIONAL_INVARIANCE",
+      "goal": "test whether raw slope_t and V1 T1=2 state occupancy are stable across carrier/interval/phase before any calibration",
+      "metrics": [
+        "slope_t median and robust scale",
+        "slope_t quantiles",
+        "DOWN SIDEWAYS UP occupancy under fixed T1=2",
+        "absolute slope_t quantiles",
+        "same-interval phase dispersion",
+        "carrier dispersion within matched profile"
+      ],
+      "fixed_baseline_first": true,
+      "parameter_tuning_allowed": false
+    },
+    {
+      "id": "X3_STATE_DYNAMICS_INVARIANCE",
+      "goal": "test whether the same nominal state has comparable temporal meaning across profiles",
+      "metrics": [
+        "state duration distribution",
+        "one-step transition matrix",
+        "directional-family survival at predeclared bar horizons",
+        "opposite-direction entry probability at predeclared bar horizons"
+      ],
+      "trading_returns_required": false,
+      "buy_sell_semantics_forbidden": true
+    },
+    {
+      "id": "X4_CALIBRATION_DECISION",
+      "goal": "select the narrowest calibration family supported by X2/X3 evidence",
+      "candidate_decisions": [
+        "UNIVERSAL_FIXED_T1",
+        "INTERVAL_SPECIFIC_T1",
+        "PROFILE_SPECIFIC_T1",
+        "NORMALIZED_SCORE_PLUS_UNIVERSAL_SEMANTIC_THRESHOLD",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "rule": "prefer the simplest family that preserves comparable state occupancy and state-dynamics meaning across admitted research profiles; do not optimize for trading return"
+    },
+    {
+      "id": "X5_CROSS_CARRIER_EXPANSION",
+      "goal": "repeat the frozen invariance protocol on additional structurally different broad/style indices before claiming generality",
+      "minimum_target": "at least 5 materially distinct index families if exact-view sources are available",
+      "candidate_carriers_not_yet_admitted": ["000300.SH", "000905.SH", "000016.SH"],
+      "candidate_status": "source availability not yet established"
+    },
+    {
+      "id": "X6_REPRESENTATION_VERSION_DECISION",
+      "goal": "decide whether evidence justifies keeping V1 unchanged, a backward-compatible metadata/minor extension, or a new major representation",
+      "must_preserve_historical_v1_snapshots": true
+    }
+  ],
+  "predeclared_diagnostics": {
+    "lookback_sensitivity_bars": [10, 20, 40],
+    "role": "diagnostic only until X4; V1 lookback remains 20",
+    "t1_sensitivity": [1.5, 2.0, 2.5],
+    "role_t1": "diagnostic grid for stability analysis; not a product threshold selection by outcome maximization",
+    "same_interval_phase_is_primary_invariance_test": true,
+    "cross_interval_comparison_requires_separate_reporting": true
+  },
+  "decision_principles": [
+    "Do not assume slope_t standardization automatically creates cross-profile semantic invariance.",
+    "Do not use a single carrier or a single phase to establish universal thresholds.",
+    "Do not pool profiles to hide material phase heterogeneity.",
+    "Do not tune thresholds on future trading returns.",
+    "If a universal numeric threshold fails, retain a unified method/semantic layer and allow governed profile calibration rather than forcing false universality.",
+    "Any calibrated profile must retain explicit profile/version identity."
+  ],
+  "data_governance": {
+    "old_m4_m5_2025_holdout_must_not_be_opened_as_part_of_this_program": true,
+    "m5_primary_validation_must_not_be_rerun": true,
+    "m5_t2_sensitivity_must_not_be_rerun": true,
+    "m5_star50_replication_must_not_be_rerun": true,
+    "legacy_exact_views_may_be_inventory_candidates": true,
+    "legacy_exact_views_do_not_gain_runtime_admission_from_research_use": true,
+    "no_local_resampling_for_runtime_admission": true,
+    "new_market_outcomes_computed_at_protocol_freeze": false
+  },
+  "forbidden_claims_before_completion": [
+    "T1=2 is universal across all intervals",
+    "20 bars is universal across all intervals",
+    "strength is directly comparable across all profiles",
+    "all M3 profiles are empirically certified",
+    "legacy development views are runtime admitted",
+    "cross-profile invariance implies BUY SELL position order routing or strategy selection"
+  ],
+  "next_action": "execute X1 source/profile inventory and freeze eligible research windows before reading profile outcome statistics"
+}
