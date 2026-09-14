@@ -1,35 +1,10 @@
-# 趋势状态识别组件 API 合同（M1–M6 冻结，M7 待实现）
+# 趋势状态识别组件 API 合同（M1–M7 已冻结）
 
-> 状态：**consumer 边界、M2 三桶数学、M3 interval/profile 语义、M6 正式表示均已冻结；M7 只负责 consumer/snapshot lifecycle 实现，不再讨论 state representation。**
+> 状态：**M7 stable consumer 已实现并通过 conformance tests。** 本文定义当前 V1 调用面、snapshot lifecycle 与 fail-closed provider admission。
 >
-> 本文不授予 production authority。`production_authority=false`、`fresh_oos=false`。
+> `production_authority=false`、`fresh_oos=false`。组件不输出买卖、仓位、订单、策略路由或多周期总趋势。
 
-## 1. 组件职责
-
-本组件是 Layer 2 趋势状态识别组件。它回答：
-
-> 对指定 `symbol + as_of + bar_interval/profile`，当前是否存在已知且仍有效的趋势状态；若存在，方向状态、连续方向分数与强度是什么，来自哪个测量与时间坐标？
-
-它不回答买卖、仓位、订单、策略路由或应该选择哪个交易工具。
-
-## 2. 与 measurement plane 的关系
-
-`src/factor_lab/market_state/timing_layer2_measurement_plane.py` 仍是 Layer 2 measurement authority root；trend consumer 只能安全读取并包装 measurement，不建立平行 Layer 2。
-
-权责固定：
-
-- measurement = true
-- strategy selection = false
-- parameter selection = false
-- routing = false
-- trading action = false
-- production = false
-
-稳定输出不得带 `position`、`action`、`selected_*`、`tool_owner`、`responsible_tool` 等策略字段。
-
-## 3. V1 逻辑调用面
-
-M7 consumer 的调用面冻结为：
+## 1. 正式调用面
 
 ```text
 query_regime(
@@ -40,54 +15,13 @@ query_regime(
 ) -> RegimeQueryResult
 ```
 
-### 3.1 Caller-owned selection
+Caller 只拥有：`symbol`、timezone-aware `as_of`、`bar_interval`，以及需要时的 `profile_id`。
 
-调用者拥有：
+Caller 不得传入：lookback、estimator、T1/T2、normalization、provider admission、publication/validity policy、strategy action。
 
-- `symbol`
-- timezone-aware `as_of`
-- `bar_interval`
-- 当该 interval 有多个可执行 Layer-1 views 时显式选择 `profile_id`
+## 2. 正式产品表示
 
-### 3.2 Component-owned semantics
-
-调用者不得通过 stable API 自由传入：
-
-- lookback/window
-- estimator / price transform
-- `T1`
-- **任何 `T2` / strong-state threshold**
-- normalization / quantile gate
-- bar-completion/session/cadence 规则
-- source/provider priority
-- state scheme
-- publication / validity 规则
-
-这些由 versioned component/profile 持有。M6 已明确：V1 stable API **没有正式 T2**。
-
-## 4. M2 三桶 measurement
-
-`trend_regime_three_bucket_baseline@1.0`：
-
-- 最近 20 根 completed + available bars
-- `log(close)`
-- `log_close_ols_slope_t@1.0`
-- `T1=2.0`
-- `DOWN: slope_t < -2`
-- `SIDEWAYS: -2 <= slope_t <= 2`
-- `UP: slope_t > 2`
-
-坏值/少历史均 fail closed；future/unpublished bar 不可影响更早 `as_of`。
-
-## 5. M6 正式产品表示
-
-机器 authority：`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`。
-
-正式 representation schema：
-
-`trend_regime_three_bucket_plus_continuous_strength@1.0`
-
-正式输出由三个核心量组成：
+Machine authority：`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`。
 
 ```text
 state             = DOWN | SIDEWAYS | UP
@@ -95,171 +29,85 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-语义：
+representation schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。
 
-- `state` 表示方向类别；
-- `directional_score` 保留 signed trend geometry；
-- `strength` 表示 non-negative absolute trend geometry magnitude；
-- `directional_score` 不是 iid t-test 显著性；
-- `strength` 不是收益预测概率，也不是交易 conviction。
+稳定 API 禁止 `STRONG_UP/STRONG_DOWN`、five-bucket state、T2 与 `global_state`。M4/M5 五桶只属于历史研究证据。
 
-### 5.1 V1 禁止的正式状态
+## 3. Consumer / Snapshot schema
 
-以下**不是 V1 product state**：
+Consumer schema：`regime_state_consumer_v1`。
+Snapshot schema：`trend_regime_snapshot@1.0`。
 
-- `STRONG_UP`
-- `STRONG_DOWN`
-- 任意 five-bucket state enum
-
-M4/M5 的五桶/T2=3/4/5 只保留为 research artifacts。M7 stable consumer 不得返回 `strong_state`、`five_bucket_state`、`T2` 等字段。
-
-### 5.2 为什么选择连续 strength
-
-M5 在 CSI1000 primary、T2=3/5 sensitivity、STAR50 replication 上都表明：absolute slope extremeness 与更高 persistence / 更低 reversal 稳定相关；但 `T2=3/4/5` 都给出同一方向证据，因此没有识别出一个有独特产品意义的 cutoff。M6 因此保留连续信息，而不把研究阈值升级成正式五桶。
-
-## 6. M3 interval/profile 语义
-
-M3 engineering registry 仍包含：
-
-- `1m`：1 个 profile
-- `5m`：5 个 offset profiles
-- `15m`：2 个 offset profiles
-- `60m`：2 个 offset profiles
-
-规则不变：
-
-- 当前 `1m` 唯一 view 可省略 `profile_id`；
-- 多 view interval 不得暗选相位；
-- profile/interval 不匹配直接拒绝；
-- FactorLab 不在本层 local-resample；
-- M3 profiles 保持 `20 bars + T1=2.0`。
-
-注意：**engineering profile registry 不等于当前 provider/source admission。** M5 当前 active exact source 只对两 carrier 的 1m official / 5m offset0 完成实证准入；15m/60m 与 phase profiles 仍未获得 M5 persistence certification。M7 provider acceptance 必须继续 fail closed。
-
-## 7. `regime_state_consumer_v1` 最小 envelope
-
-```json
-{
-  "schema": "regime_state_consumer_v1",
-  "symbol": "000852.SH",
-  "as_of": "2026-09-14T10:15:00+08:00",
-  "bar_interval": "5m",
-  "profile": "trend_5m_offset0_v1",
-  "status": "AVAILABLE | UNAVAILABLE",
-  "reason": "<reason-code>",
-  "snapshot": null,
-  "production_authority": false
-}
-```
-
-`AVAILABLE` 时，snapshot 至少包含：
+AVAILABLE snapshot 至少包含：
 
 - `snapshot_id`
-- `symbol`
-- `bar_interval`
-- `profile`
-- `decision_time`
-- `observation_time`
-- `published_at`
-- `valid_until`
-- `representation_schema_id = trend_regime_three_bucket_plus_continuous_strength@1.0`
-- `state_scheme_id = trend_regime_three_bucket@1.0`
-- `strength_definition_id = absolute_log_close_ols_slope_t@1.0`
-- `state = DOWN | SIDEWAYS | UP`
-- `directional_score = slope_t`
-- `strength = abs(directional_score)`
-- source/provider identity
-- measurement-only authority
+- `symbol / bar_interval / profile_id / layer1_view_id`
+- `decision_time / observation_time / measurement_available_at`
+- `published_at / valid_until`
+- `state / directional_score / strength`
+- `representation_schema_id / state_scheme_id / strength_definition_id`
+- `provider_id / source_dataset_id / admission_receipt_id / source_receipt_id`
+- measurement schema/estimator identity
+- `production_authority=false`
 
-M7 才实现 snapshot store/index 与正式 `valid_until`/expiry 行为；M2/M3/M6 primitives 不能被误称为 consumer 已完成。
+Unavailable 查询返回 `snapshot=null`，不得把不可用伪装成 SIDEWAYS 或泄露旧 state/score/strength。
 
-## 8. Availability / fail-closed
+## 4. Snapshot lifecycle
 
-`status` 只允许：
+M7 runtime 已实现：
 
-- `AVAILABLE`
-- `UNAVAILABLE`
+- snapshot immutable；
+- ingest append-only；
+- identical duplicate 幂等；conflicting duplicate 拒绝；
+- `received_at < published_at` 拒绝；
+- receipt 全局倒序拒绝；同 symbol/profile source decision-time 倒序拒绝；
+- as-of 只看 `consumer_received_at <= as_of` 的记录；
+- `as_of >= valid_until` 时最新 snapshot 过期；
+- **latest-expired no fallback**；
+- 最新 explicit unavailable 同样 no fallback。
 
-不可用不能伪装成 `SIDEWAYS` 或其他状态。
+`valid_until` 是 component/provider publication layer 拥有的因果坐标，不是 query caller 参数。Consumer 强制 validity window，但不自行猜测 Layer-1 交易日完整性。
 
-V1 至少保留以下 reason families：
+## 5. 当前 provider admission
+
+当前 V1 registry 冻结为：
+
+- provider: `datahub`
+- source dataset: `factorlab_unified_index_kline_v3_20260824`
+- symbols: `000688.SH`, `000852.SH`
+- profiles: `trend_1m_official_v1`, `trend_5m_offset0_v1`
+- admission receipt: `trend_m5_source_profile_admission_v1_20260914`
+
+M3 engineering registry 中其他 profiles 仍可作为工程定义存在，但在当前 runtime provider admission 下必须返回 `STATE_NOT_ADMITTED`。不得由 caller 或 constructor 自行扩张 V1 registry；以后扩张必须有新的 source admission / versioned governance。
+
+## 6. Fail-closed reason families
+
+包括但不限于：
 
 - `NO_PUBLISHED_SNAPSHOT`
 - `LATEST_SNAPSHOT_EXPIRED`
-- `INSUFFICIENT_HISTORY`
-- `SOURCE_UNAVAILABLE`
 - `UNSUPPORTED_SYMBOL`
 - `UNSUPPORTED_PROFILE`
+- `STATE_NOT_ADMITTED`
+- `INSUFFICIENT_HISTORY`
+- `SOURCE_UNAVAILABLE`
 - `OUTSIDE_SUPPORTED_TIME`
 - `MEASUREMENT_INVALID`
-- `STATE_NOT_ADMITTED`
 - `CADENCE_GAP`
 - `OFF_PROFILE_GRID`
 
-state 与 `directional_score` 若不满足 frozen M2 T1 boundary，也属于 invalid measurement，必须 fail closed，不能静默重分类。
+## 7. Immutability / identity
 
-## 9. As-of / causality
+`snapshot_id` 由 provider/source、symbol、interval/profile/view 与 decision time 的稳定坐标确定。同 identity 内容不能改写；修改 estimator、T1、representation、profile/view 或 provider/source admission 必须通过新的版本/身份表达，而不是覆盖历史 snapshot。
 
-正式 snapshot 只有在：
+`source_receipt_id` 必须是非空字符串，不能被隐式字符串化为伪 receipt。
 
-```text
-published_at <= as_of < valid_until
-```
+## 8. 多周期与策略边界
 
-且全部输入在 `decision_time` 已经可知时，才能返回 `AVAILABLE`。
+同一 as-of 可以存在不同 interval 的独立 snapshot。Layer 2 不产生 `global_state`。多周期投票、风险状态组合、策略选择和 BUY/SELL/仓位映射属于 M8 及更上层，不属于本组件。
 
-M2/M3 前缀规则：
+## 9. Governance
 
-```text
-bar_end <= as_of
-available_at <= as_of
-```
+M7 machine contract：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
 
-未来/尚未发布 row 不可见；visible wrong-view row 属于 provider/profile mismatch。
-
-## 10. Latest-expired no fallback
-
-若 `as_of` 前最新 snapshot 已过期：
-
-```text
-status = UNAVAILABLE
-reason = LATEST_SNAPSHOT_EXPIRED
-snapshot = null
-```
-
-禁止回退更老 snapshot。
-
-## 11. Snapshot immutability / versioning
-
-- 已发布 snapshot 必须有稳定 identity；
-- 同 identity 内容不得改写；
-- estimator、T1、representation schema、profile/view 改变都必须新版本；
-- query 返回只读/副本语义；
-- M7 应采用 append-only 或等价不可变存储。
-
-M6 V1 不允许通过修改 `T2` 来“升级”成五桶。未来如正式引入五桶，必须新建 representation schema/version 并重新做结果前证据流程。
-
-## 12. 多周期语义
-
-同一 `as_of` 可以同时存在不同 interval 的不同 `state / directional_score / strength`。
-
-M3/M6 都不定义顶层 `global_state`。多周期投票、权重、综合趋势与交易解释属于策略层。
-
-## 13. Provider admission
-
-capability registry 中出现 asset/source ref 不等于当前可执行。正式 provider 至少满足：
-
-1. implementation/artifact 可解析；
-2. source identity / receipt 可验证；
-3. clocks 可映射到因果 measurement coordinate；
-4. profile/view 明确接纳；
-5. provider acceptance 通过。
-
-不满足必须 fail closed。
-
-## 14. 后续边界
-
-- **M6 已 PASS**：正式表示冻结为“三桶 + 连续 strength”；
-- **M7 唯一下一步**：实现本文 consumer、snapshot lifecycle、provider acceptance 与 conformance tests；
-- M7 不得重新打开 M5 outcome、重新调 T2、读取 Holdout或改变 M6 representation；
-- M8 才做上层调用集成；M9 做版本/发布治理。
+M7 不重开 M5 outcome，不读取 2025 Holdout，不改变 M6 representation。**唯一下一步是 M8 策略层调用集成验证。**
