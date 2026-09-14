@@ -4,7 +4,15 @@
 >
 > 执行纪律：**一次会话只推进当前里程碑；未通过当前 Gate，不自动进入下一阶段。** 历史研究证据保持原样，不用新定位重写旧结果。
 
-## M0 — 定位与路线图（本轮）
+## 当前进度
+
+- **M0 — PASS**：产品定位、白皮书与路线图已落库。
+- **M1 — PASS**：已完成参考 consumer 审计，冻结 [API 合同](API_CONTRACT.md) 并形成 [Gap List](API_GAP_ANALYSIS.md)。
+- **唯一下一步：M2**。M2 完成前不得自动进入 M3–M9。
+
+---
+
+## M0 — 定位与路线图（PASS）
 
 ### 目标
 把仓库从“可能被误解为一套趋势/反转交易策略”校正为：**供上层策略调用的趋势状态识别组件**。
@@ -20,25 +28,19 @@
 
 ---
 
-## M1 — 参考组件审计与接口合同
+## M1 — 参考组件审计与接口合同（PASS）
 
 ### 目标
 参考 `staryocean0/factorlab-star50-filter-lab` 的风险识别 consumer 范式，核查本仓现有实现，形成稳定的**调用合同草案**；只定义接口，不改状态算法。
 
-### 要回答的问题
-1. 调用者必须提供什么？
-2. 返回值必须包含什么？
-3. `as_of`、发布时间、有效期、缺失/过期状态如何表达？
-4. 哪些参数属于策略可选配置，哪些属于组件内部版本？
-5. 如何做到调用者无法把未来数据或已过期状态误当成当前状态？
-
-### 计划交付
-- `docs/API_CONTRACT.md`
-- 当前代码与目标接口的 gap list
-- 最小 schema 草案，例如 `regime_state_consumer_v1`
+### 已完成交付
+- `docs/API_CONTRACT.md`：冻结 `regime_state_consumer_v1` 的调用 envelope、as-of/expiry/no-fallback、snapshot/provenance、authority 与参数所有权。
+- `docs/API_GAP_ANALYSIS.md`：现有 measurement plane 到稳定 trend consumer 的 gap list。
+- 已确认现有 `timing_layer2_measurement_plane.py` 是 measurement authority 根，不另建平行 Layer 2。
+- 已确认 capability registry 中的 frozen asset/source refs 不自动等于当前 checkout 的可执行 provider，未来 profile 必须 admission/fail-closed。
 
 ### Gate
-接口能够在**不知道任何具体策略逻辑**的情况下独立成立；接口本身不含交易动作语义。
+**PASS。** 接口能够在不知道任何具体策略逻辑的情况下独立成立；接口本身不含交易动作语义；三桶公式、多周期 profile 和五桶假设仍留给后续 Gate。
 
 ---
 
