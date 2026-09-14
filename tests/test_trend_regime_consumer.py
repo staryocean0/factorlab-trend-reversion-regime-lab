@@ -166,7 +166,7 @@ def test_source_and_receipt_order_are_append_only():
         store.ingest(earlier, received_at=dt(10, 5, 3))
 
     other = snapshot(
-        when=dt(10, 10),
+        when=dt(10, 3),
         interval="5m",
         profile_id="trend_5m_offset0_v1",
     )
