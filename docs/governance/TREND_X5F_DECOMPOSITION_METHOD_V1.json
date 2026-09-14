@@ -1,0 +1,50 @@
+{
+  "schema_id": "trend_x5f_decomposition_method@1.0",
+  "status": "FROZEN_BEFORE_X5F_DECOMPOSITION_STATISTICS",
+  "primary_window": {"start": "2026-01-05", "end": "2026-09-14"},
+  "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "cell_construction": {
+    "time_cell": "calendar_month",
+    "minimum_measurements_per_carrier_month": 40,
+    "cell_scale_statistic": "median(abs(slope_t))",
+    "response": "log(cell_scale_statistic + 1e-8)"
+  },
+  "robust_two_way_decomposition": {
+    "algorithm": "iterative median polish",
+    "iterations": 50,
+    "carrier_update": "median over months of response - grand - time_effect",
+    "time_update": "median over carriers of response - grand - carrier_effect",
+    "identifiability": "recenter carrier and time effects to zero median each iteration and absorb centers into grand",
+    "normalized_strength": "abs(slope_t) / exp(grand + carrier_effect + time_effect_for_month)"
+  },
+  "variance_diagnostics": {
+    "balanced_cell_matrix": true,
+    "method": "standard balanced two-way ANOVA sums of squares on log cell-scale matrix for descriptive variance fractions; robust median-polish factors remain the normalization estimator",
+    "reported": ["carrier_fraction", "time_fraction", "residual_fraction", "joint_explained_fraction"]
+  },
+  "out_of_time_split": {
+    "training_months": ["2026-01", "2026-02", "2026-03", "2026-04"],
+    "evaluation_months": ["2026-05", "2026-06", "2026-07", "2026-08", "2026-09"],
+    "carrier_factor_stability": "compare carrier relative log-scale factors estimated separately in train and evaluation months"
+  },
+  "leave_one_carrier_out": {
+    "common_time_estimation": "for each held-out carrier and evaluation month, estimate common-time effect from the other four carriers only",
+    "heldout_carrier_factor": "estimate from held-out carrier training months only",
+    "evaluation": "apply held-out carrier training factor plus other-carrier evaluation-month time factor to May-Sep held-out observations",
+    "future_heldout_information_forbidden": true
+  },
+  "state_conditional_description": {
+    "states": ["DOWN", "SIDEWAYS", "UP"],
+    "state_definition": "unchanged V1 T1=2 on raw slope_t",
+    "interpretation": "descriptive only; not an independent regime decomposition because state is derived from the same score"
+  },
+  "clock_source_audit": {
+    "search_before_statistics": true,
+    "eligible_comparison": "same carrier with overlapping timestamps under an alternate source or alternate 60m clock",
+    "if_source_and_clock_differ_together": "label effect confounded_source_clock",
+    "if_no_eligible_overlap": "CLOCK_SOURCE_COMPONENT_NOT_IDENTIFIED"
+  },
+  "forbidden": ["trading_returns", "strategy_logic", "state_boundary_change", "v1_strength_change", "runtime_admission_change", "old_2025_holdout"],
+  "production_authority": false,
+  "fresh_oos": false
+}
