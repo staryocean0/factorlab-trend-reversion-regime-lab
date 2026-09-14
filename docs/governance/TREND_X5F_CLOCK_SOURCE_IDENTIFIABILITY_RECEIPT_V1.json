@@ -1,0 +1,53 @@
+{
+  "schema_id": "trend_x5f_clock_source_identifiability_receipt@1.0",
+  "status": "IDENTIFIABILITY_AUDIT_COMPLETE_BEFORE_X5F_DECOMPOSITION_STATISTICS",
+  "primary_2026_source": "Sina public 60m native-clock",
+  "alternate_assets": {
+    "STAR50_DataHub_60m_offset30": {
+      "local_retained_asset": "trend_x2_data/star50/60m_offset_30.parquet",
+      "rows": 2952,
+      "first_timestamp": "2020-07-23T11:00:00Z",
+      "last_timestamp": "2026-08-21T14:30:00Z",
+      "overlaps_primary_2026_window": true
+    },
+    "STAR50_DataHub_60m_offset45": {
+      "local_retained_asset": "trend_x2_data/star50/60m_offset_45.parquet",
+      "rows": 2952,
+      "first_timestamp": "2020-07-23T11:15:00Z",
+      "last_timestamp": "2026-08-21T14:45:00Z",
+      "overlaps_primary_2026_window": true
+    },
+    "CSI1000_DataHub_60m_offset30": {
+      "last_timestamp": "2020-12-31 06:30:00+00:00",
+      "overlaps_primary_2026_window": false
+    },
+    "CSI1000_DataHub_60m_offset45": {
+      "last_timestamp": "2020-12-31 06:45:00+00:00",
+      "overlaps_primary_2026_window": false
+    }
+  },
+  "identifiable_components": {
+    "STAR50_same_provider_clock_phase_effect": {
+      "comparison": "DataHub offset30 vs DataHub offset45",
+      "provider_held_constant": true,
+      "clock_phase_differs": true,
+      "label": "clock_phase_effect"
+    },
+    "STAR50_sina_vs_datahub": {
+      "comparison": "Sina native 60m vs DataHub offset30/offset45",
+      "provider_held_constant": false,
+      "clock_phase_held_constant": false,
+      "label": "confounded_source_clock"
+    }
+  },
+  "not_identified": [
+    "pure_provider_effect_at_identical_60m_clock_in_2026",
+    "five-carrier clock/source effect",
+    "2026 CSI1000 DataHub-vs-Sina 60m effect"
+  ],
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
