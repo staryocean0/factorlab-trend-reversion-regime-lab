@@ -1,0 +1,43 @@
+{
+  "schema_id": "trend_x5b_source_robustness_freeze@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5B_SOURCE_ROBUSTNESS",
+  "status": "FROZEN_BEFORE_SOURCE_ROBUSTNESS_STATISTICS",
+  "freeze_date": "2026-09-14",
+  "trigger": "X5 source-equivalence audit found identical close clocks but nonzero close-value differences across public/DataHub sources",
+  "research_question": "Do realistic vendor/source differences on the same 5m clock materially change slope_t geometry or DOWN/SIDEWAYS/UP state assignment?",
+  "carriers": ["000852.SH","000688.SH"],
+  "sources": [
+    {"id":"sina_public_5m","role":"X5 five-carrier replication source"},
+    {"id":"eastmoney_public_5m","role":"independent public-source comparator"}
+  ],
+  "window": {"start":"2026-08-17","end":"2026-09-14","role":"common complete-clock window"},
+  "clock": "M3 5m_offset0 close clock; source rows must align one-to-one before score comparison",
+  "fixed_measurement": {"lookback_bars":20,"price_transform":"log_close","estimator":"log_close_ols_slope_t@1.0","t1":2.0,"states":["DOWN","SIDEWAYS","UP"],"strength":"abs(slope_t)"},
+  "predeclared_metrics": [
+    "close timestamp coverage agreement",
+    "absolute and relative close difference distribution",
+    "slope_t Pearson correlation",
+    "slope_t median absolute difference and q95 absolute difference",
+    "state exact agreement rate",
+    "state confusion matrix",
+    "directional-family agreement rate",
+    "fraction of disagreements whose either-source abs(slope_t) lies within 0.5 of T1",
+    "abs(slope_t) q90 difference"
+  ],
+  "decision_rule": {
+    "source_robust_for_state_semantics": "exact state agreement >= 0.95 and no systematic opposite-direction disagreement pattern; near-threshold disagreements may be reported separately",
+    "source_sensitive": "otherwise label source sensitivity and do not treat cross-provider profile values as interchangeable"
+  },
+  "forbidden": [
+    "choosing a preferred source based on trend outcomes",
+    "changing T1 or lookback",
+    "trading-return computation",
+    "runtime admission expansion",
+    "claiming public sources are DataHub exact identities"
+  ],
+  "production_authority": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "fresh_oos": false
+}
