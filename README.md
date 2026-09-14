@@ -12,17 +12,21 @@
 
 未来工程收敛为**可被策略调用的趋势状态识别组件**，不是独立交易策略，也不直接输出买卖、仓位或 Layer 4 指令。
 
-M0 产品定位、M1 consumer 合同、M2 三桶基线、M3 多 K 线级别参数化和 **M4 五桶实验协议冻结**均已完成。路线图唯一下一阶段是 **M5 极端斜率持续性实证**，若继续推进只能按 M4 冻结协议执行。
+M0–M4 已完成；**M5 正在进行中，M5-1 source/profile admission 已完成。** 当前 exact current source 只准入两指数的 `1m_official` 与 `5m_offset_0`；M4 anchor 中的 15m/60m 因缺少 current active exact-view receipt 而 `NOT_ADMITTED`，不得本地重采样或用 legacy 文件近似替代。
 
-M2 冻结 `trend_regime_three_bucket_baseline@1.0`：20 根 completed/available K 线、log-close OLS signed slope t-score、`T1=2.0`。M3 把它绑定到 `1m/5m/15m/60m` 共 10 个 DataHub Layer-1 V3 profiles。M4 在任何五桶 outcome 被计算前冻结：primary `T2=4.0`、`T2=3/5` sensitivity、载体/日期切分、anchor profiles、horizons、episode 单位、primary/secondary endpoints、样本门槛、week-cluster bootstrap、Holm 多重检验、holdout unlock 与负结果规则。
+M5-1 没有计算五桶 episode 数、survival、forward return、transition/reversal、MFE/MAE，也没有读取 Validation/Holdout outcome，因此尚无新的五桶市场结论。
 
-M4 没有计算 forward return、transition/reversal probability、五桶 episode 数或 MFE/MAE，因此没有新增五桶市场证据。
+历史归档 `available_at` 按已冻结的数据所有者澄清只表示 historical retrieval availability；M5 causal replay 将 completed bar 的 runtime visibility 映射为 `runtime_available_at = bar_end`，同时保留 raw historical `available_at` 作为 provenance，不声称测得 feed latency。
+
+## 当前唯一下一步
+
+**M5-2 — Development pipeline + sample-adequacy checks，仅限已 admitted 的 1m/5m anchors。** Validation 与 Holdout 继续锁定；Development code/config/receipt 封存前不得读取 Validation outcome。
 
 ## 入口
 
-[当前状态与下一步边界](CONTINUE_HERE.md) · [当前组件白皮书](docs/WHITEPAPER.md) · [执行路线图](docs/ROADMAP.md) · [M1 API 合同](docs/API_CONTRACT.md) · [Gap 审计](docs/API_GAP_ANALYSIS.md) · [M2 三桶基线](docs/THREE_BUCKET_BASELINE.md) · [M4 冻结协议](docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md) · [M4 机器合同](docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json) · [组件索引](docs/COMPONENTS.md) · [测试与工作流](docs/TESTING.md) · [数据用途说明](docs/DATA.md)
+[当前状态与下一步边界](CONTINUE_HERE.md) · [当前组件白皮书](docs/WHITEPAPER.md) · [执行路线图](docs/ROADMAP.md) · [M1 API 合同](docs/API_CONTRACT.md) · [Gap 审计](docs/API_GAP_ANALYSIS.md) · [M2 三桶基线](docs/THREE_BUCKET_BASELINE.md) · [M4 冻结协议](docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md) · [M5-1 admission receipt](docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.md) · [M5-1 machine receipt](docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json) · [测试与工作流](docs/TESTING.md) · [数据用途说明](docs/DATA.md)
 
-当前没有已确认交易策略，也没有由状态源登记的 active empirical candidate。M5 是路线图下一里程碑；若后续获得执行授权，必须遵循冻结协议，不能根据结果调整 primary 定义。工程基线、数据修正和审计可复现，但复现通过不增加市场证据，也不改变 `production_authority=false`。
+当前没有已确认交易策略。M5 研究必须继续遵循冻结协议，不能根据后续结果修改 primary T2、split、profile、horizon 或样本门槛。工程/准入通过不自动改变 `production_authority=false`、`fresh_oos=false` 或既有 scientific status。
 
 ## 本地环境
 
