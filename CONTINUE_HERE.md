@@ -18,9 +18,9 @@ Component release identity：`factorlab.layer2.trend_regime@1.0.0`。
 
 - `docs/ROADMAP.md`
 - `docs/API_CONTRACT.md`
-- `docs/RELEASE.md`
-- `docs/API_EXAMPLES.md`
-- `CHANGELOG.md`
+- `docs/governance/TREND_V1_RELEASE.md`
+- `docs/governance/TREND_V1_API_EXAMPLES.md`
+- `docs/governance/TREND_V1_CHANGELOG.md`
 - `docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`
 - `docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`
 - `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
