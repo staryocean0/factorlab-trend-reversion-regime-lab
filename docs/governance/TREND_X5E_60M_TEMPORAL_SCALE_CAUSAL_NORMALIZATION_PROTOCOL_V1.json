@@ -1,0 +1,73 @@
+{
+  "schema_id": "trend_x5e_60m_temporal_scale_causal_normalization_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5E_STATISTICS",
+  "research_question": "Is 60m slope_t scale materially time-varying, and can a strictly causal rolling normalization improve cross-carrier and temporal semantic comparability without using trading outcomes or changing V1?",
+  "scope": {
+    "interval": "60m",
+    "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "evaluation_source": "Sina native 60m independent-source research data retained by X5C",
+    "evaluation_window": ["2026-01-05", "2026-09-14"],
+    "old_2025_holdout_read": false,
+    "runtime_admission_effect": "none"
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "v1_raw_t1": 2.0,
+    "states": ["DOWN", "SIDEWAYS", "UP"]
+  },
+  "causal_normalization": {
+    "primary_scale_estimator": "rolling_median_abs_prior_scores",
+    "candidate_windows_measurements": [40, 80, 120],
+    "causality": "scale_at_t_uses_only_scores_strictly_before_t",
+    "normalized_semantic_threshold": 0.44780633341059867,
+    "threshold_authority": "TREND_X5D_DEVELOPMENT_CALIBRATION_RECEIPT_V1.json 2020 Development median-abs normalization",
+    "no_2026_parameter_fit": true,
+    "raw_equivalent_t1_t": "normalized_semantic_threshold * causal_scale_t"
+  },
+  "fair_evaluation": {
+    "common_warmup": 120,
+    "compare_candidates_only_where_all_40_80_120_scales_available": true,
+    "v1_baseline_restricted_to_same_timestamps": true
+  },
+  "temporal_scale_diagnostics": [
+    "monthly_median_abs_slope_t",
+    "monthly_abs_slope_t_q75",
+    "max_to_min_monthly_median_abs_ratio",
+    "rolling_scale_q10_q50_q90",
+    "raw_equivalent_t1_q10_q50_q90"
+  ],
+  "state_semantic_metrics": [
+    "sideways_occupancy",
+    "one_step_self_transition_by_state",
+    "directional_survival_5_by_direction",
+    "opposite_direction_entry_10_by_direction"
+  ],
+  "comparison_outputs": [
+    "cross_carrier_range_for_each_state_semantic_metric",
+    "per_carrier_monthly_sideways_range",
+    "state_change_fraction_vs_v1",
+    "opposite_direction_disagreement_vs_v1",
+    "normalized_strength_cross_carrier_range",
+    "normalized_strength_monthly_scale_drift"
+  ],
+  "decision_rule": {
+    "no_weighted_objective": true,
+    "no_trading_outcome_objective": true,
+    "adoption_requires_strict_semantic_non_dominance_failure_absent": "A causal candidate may only become a representation candidate if it does not materially worsen any preregistered semantic-dispersion family and improves at least one scale-comparability family; otherwise retain V1 and report diagnostic value only.",
+    "if_candidates_trade_off_metrics": "INSUFFICIENT_EVIDENCE_NO_V1_CHANGE",
+    "x6_default": "HOLD"
+  },
+  "forbidden": {
+    "trading_returns": true,
+    "strategy_selection": true,
+    "buy_sell": true,
+    "position_or_order": true,
+    "global_state": true,
+    "runtime_admission_change": true,
+    "v1_parameter_change": true,
+    "open_old_2025_holdout": true
+  },
+  "production_authority": false,
+  "fresh_oos": false
+}
