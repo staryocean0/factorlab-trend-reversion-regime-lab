@@ -7,9 +7,10 @@
 ## 当前进度
 
 - **M0 — PASS**：产品定位、白皮书与路线图已落库。
-- **M1 — PASS**：已完成参考 consumer 审计，冻结 [API 合同](API_CONTRACT.md) 并形成 [Gap List](API_GAP_ANALYSIS.md)。
-- **M2 — PASS**：已冻结 [三桶趋势状态基线](THREE_BUCKET_BASELINE.md)，落地 signed log-close OLS slope t-score、20-bar 窗口、`T1=2.0`、completed-bar/as-of 与 fail-closed 回归测试。
-- **唯一下一步：M3**。M3 完成前不得自动进入 M4–M9。
+- **M1 — PASS**：完成参考 consumer 审计，冻结 [API 合同](API_CONTRACT.md) 并形成 [Gap List](API_GAP_ANALYSIS.md)。
+- **M2 — PASS**：冻结 [三桶趋势状态基线](THREE_BUCKET_BASELINE.md)：20-bar log-close OLS signed slope t-score，`T1=2.0`，completed-bar/as-of 与 fail-closed。
+- **M3 — PASS**：完成多 K 线级别参数化，首批 admission 为 `1m/5m/15m/60m`，绑定 10 个 DataHub Layer-1 V3 profiles；完成 cadence/view/as-of 与多周期并存回归。
+- **唯一下一步：M4**。M4 只冻结五桶实验协议，不读取/运行 M5 实证结果。
 
 ---
 
@@ -18,85 +19,109 @@
 ### 目标
 把仓库从“可能被误解为一套趋势/反转交易策略”校正为：**供上层策略调用的趋势状态识别组件**。
 
-### 交付
-- `docs/WHITEPAPER.md`：组件使命、边界、调用模型、参数维度、三桶基线、五桶研究假设。
-- `docs/ROADMAP.md`：后续阶段、交付物与 Gate。
-
 ### Gate
-- 明确组件不是策略，不直接输出买卖、仓位、订单。
-- 明确同一时刻在不同 K 线级别可有不同状态，不存在脱离参数的唯一“市场状态”。
-- 明确“五桶”目前只是待验证研究假设。
+- 组件不是策略，不直接输出买卖、仓位、订单。
+- 同一时刻在不同 K 线级别可有不同状态。
+- 五桶只是待验证研究假设。
 
 ---
 
 ## M1 — 参考组件审计与接口合同（PASS）
 
-### 目标
-参考 `staryocean0/factorlab-star50-filter-lab` 的风险识别 consumer 范式，核查本仓现有实现，形成稳定的**调用合同草案**；只定义接口，不改状态算法。
-
-### 已完成交付
+### 已完成
 - `docs/API_CONTRACT.md`：冻结 `regime_state_consumer_v1` 的调用 envelope、as-of/expiry/no-fallback、snapshot/provenance、authority 与参数所有权。
-- `docs/API_GAP_ANALYSIS.md`：现有 measurement plane 到稳定 trend consumer 的 gap list。
-- 已确认现有 `timing_layer2_measurement_plane.py` 是 measurement authority 根，不另建平行 Layer 2。
-- 已确认 capability registry 中的 frozen asset/source refs 不自动等于当前 checkout 的可执行 provider，未来 profile 必须 admission/fail-closed。
+- `docs/API_GAP_ANALYSIS.md`：measurement plane 到稳定 trend consumer 的 gap list。
+- 确认 `timing_layer2_measurement_plane.py` 是 measurement authority 根，不另建平行 Layer 2。
+- capability registry 的历史 asset/source ref 不自动等于当前可执行 provider，必须 admission/fail-closed。
 
 ### Gate
-**PASS。** 接口能够在不知道任何具体策略逻辑的情况下独立成立；接口本身不含交易动作语义；三桶公式、多周期 profile 和五桶假设仍留给后续 Gate。
+**PASS。** 接口在不知道任何具体策略逻辑时也能独立成立，且不含交易动作语义。
 
 ---
 
 ## M2 — 三桶基线冻结与可复现性（PASS）
 
-### 目标
-先把三桶定义做成可信、可复现且因果安全的基线，再讨论多周期和五桶。
-
 ### 已冻结基线
 
-详细规格见 `docs/THREE_BUCKET_BASELINE.md`。本版 `trend_regime_three_bucket_baseline@1.0` 冻结：
+详细规格见 `docs/THREE_BUCKET_BASELINE.md`。`trend_regime_three_bucket_baseline@1.0`：
 
-- 价格变换：`log(close)`；
-- 回看：最近 **20 根**在 `as_of` 已结束且已可用的 bar；
-- 主 authority：log-close OLS 的 signed slope t-score；
-- 横盘阈值：`T1=2.0`；
-- `DOWN`：`s < -2.0`；
-- `SIDEWAYS`：`-2.0 <= s <= 2.0`；
-- `UP`：`s > 2.0`；
-- 缺失/坏 close、少于 20 根可用 bar 均 fail closed；
-- 未来或尚未发布 bar 对更早 `as_of` 不可见；
-- BDCI/DII 等保留为诊断，不参与主状态投票。
-
-这是一项**新冻结的显式基线**，不是伪称恢复一个本仓无法取回的旧 `trend_continuity_regime.py` 实现。`20` 与 `2.0` 是在收益/五桶实验之前冻结的工程参考锚点，不是本轮通过绩效搜索挑出的最优参数。
-
-### 实现与测试
-
-- `src/factor_lab/market_state/trend_regime_baseline.py`
-- `tests/test_trend_regime_baseline.py`
-
-回归测试覆盖三桶边界、合成涨/平/跌、价格尺度不变性、future/unpublished bar 不可见、少 bar/坏 close fail-closed、输入顺序不变、timezone 与重复 bar 防线，以及冻结参数不得静默漂移。
+- `log(close)`；
+- 最近 20 根已结束且已可用 bar；
+- log-close OLS signed slope t-score 为唯一三桶 authority；
+- `T1=2.0`；
+- `DOWN: s<-2`；`SIDEWAYS: -2<=s<=2`；`UP: s>2`；
+- 缺失/坏 close、少于 20 根均 fail closed；
+- future/unpublished bar 不影响较早 `as_of`；
+- BDCI/DII 等只作诊断，不参与主状态投票。
 
 ### Gate
-**PASS。** 给定同一份输入、同一冻结版本、同一 `as_of`，结果唯一可重复；未来信息不能改变当前结果；坏值不通过跳过、回填或插值伪造状态。
-
-M2 刻意没有绑定 `bar_interval`：没有 interval 就不能可靠判断 cadence gap，也不能声称 `T1=2.0` 已跨 1m/5m/15m/60m 具有同等含义。这些属于 M3。
+**PASS。** 同输入、同版本、同 `as_of` 结果唯一可重复；无未来数据泄漏；参数不可在 `@1.0` 内静默漂移。
 
 ---
 
-## M3 — 多 K 线级别参数化
+## M3 — 多 K 线级别参数化（PASS）
 
-### 目标
-让组件真正成为“可供不同持仓周期策略调用”的工具，而不是只有一个固定时间尺度的分类器。
+### 核心决定
 
-### 首批研究级别
-候选：`1m / 5m / 15m / 60m`。最终支持集合以数据完整性与 M2 定义为准，不在文档中先验承诺全部可生产使用。
+M3 不重新调 M2 数学，而是把 M2 measurement 绑定到 DataHub 已登记的 Layer-1 V3 wall-clock views。稳定查询坐标变为：
 
-### 调用原则
-- 策略显式选择 `bar_interval` / `profile`；
-- 同一时刻允许 `5m=UP`、`60m=SIDEWAYS` 等并存；
-- 组件不擅自把多个周期合成为一个“总趋势”；
-- 多周期组合权重属于上层策略逻辑。
+```text
+bar_interval + profile_id + as_of
+```
+
+其中 `profile_id` 代表同一 K 线周期下的具体 wall-clock 相位/view。FactorLab 不在本层自己 resample K 线。
+
+### 首批 admitted intervals / profiles
+
+- `1m`：`trend_1m_official_v1` → `1m_official`
+- `5m`：`trend_5m_offset0_v1` … `trend_5m_offset4_v1` → `5m_offset_0` … `5m_offset_4`
+- `15m`：`trend_15m_offset5_v1` / `trend_15m_offset10_v1`
+- `60m`：`trend_60m_offset30_v1` / `trend_60m_offset45_v1`
+
+合计 10 个 versioned profiles。
+
+### Profile 选择规则
+
+- 只有一个 admitted view 的 interval 可省略 `profile_id`；当前只有 `1m` 满足。
+- `5m/15m/60m` 存在多个合法 view，必须显式指定 `profile_id`。
+- 组件禁止自行选择“默认相位”，避免制造上游不存在的唯一默认。
+- profile 与 interval 不匹配直接拒绝。
+
+### 数学与阈值
+
+所有首批 profile 继续复用：
+
+- `lookback_bars=20`
+- `T1=2.0`
+- `log_close_ols_slope_t@1.0`
+
+这不是声称 `T1=2.0` 已被证明对所有周期最优，而是避免在 M3 未经实证 Gate 就按周期调参。若未来需要不同阈值，必须升 profile/estimator 版本。
+
+### Cadence / as-of admission
+
+- `bar_end <= as_of` 且 `available_at <= as_of` 才 visible；
+- visible row 的 `view_id` 必须匹配 profile；
+- selected 20-bar window 的 Asia/Shanghai bar-end 必须落在 profile 的 immutable `close_times`；
+- 同 session 内 cadence 必须连续；跨 session 时必须从当日最后 grid point 接到下一可见 session 的第一 grid point；
+- 缺口返回 `UNAVAILABLE / CADENCE_GAP`；
+- 错误时钟返回 `UNAVAILABLE / OFF_PROFILE_GRID`；
+- 不插值、不 forward-fill、不本地 resample；
+- 未来错误 view 不得污染更早 `as_of`。
+
+完整交易日是否因节假日/整日数据缺失而缺席，不能仅靠 Layer-2 时间戳猜测；最终由 Layer-1 provider/receipt admission 负责跨交易日完整性。
+
+### 多周期并存
+
+`measure_multi_interval_trend_regimes_as_of(...)` 只返回独立 `measurements[]`，顶层故意没有 `state/global_state`。例如同一时刻 `1m=DOWN, 5m=SIDEWAYS, 15m=UP, 60m=UP` 完全合法；如何组合属于策略层。
+
+### 实现与测试
+
+- `src/factor_lab/market_state/trend_regime_profiles.py`
+- `tests/test_trend_regime_profiles.py`
+- schemas：`trend_regime_profile_registry@1.0`、`trend_regime_profile_measurement@1.0`、`trend_regime_multi_interval_measurement@1.0`
 
 ### Gate
-每个支持级别均有独立可复现状态，且阈值/强度定义在不同级别间具有可解释性。
+**PASS。** 每个 admitted profile 绑定真实 Layer-1 V3 view；不存在隐式 resample/default phase；cadence 缺口 fail closed；多周期结果独立并存；M2 数学没有静默漂移；无交易/production authority。
 
 ---
 
@@ -114,113 +139,70 @@ M2 刻意没有绑定 `bar_interval`：没有 interval 就不能可靠判断 cad
 - `STRONG_UP`：`s > T2`
 
 ### 核心假设 H1：极端斜率耗竭
-非常高的绝对斜率可能比中等趋势斜率**更难持续**，更容易进入衰减、横盘或反转。因此 `STRONG_UP/STRONG_DOWN` 可能不是“更强的趋势入场信号”，而是一个与普通 `UP/DOWN` 不同的末端/耗竭状态。
+非常高的绝对斜率可能比中等趋势斜率更难持续，更容易衰减、横盘或反转。`STRONG_UP/STRONG_DOWN` 可能是与普通趋势不同的末端/耗竭状态，而不是“更强的入场信号”。
 
-注意：这只是状态统计假设。即使 H1 成立，`STRONG_UP` 是否卖出、`STRONG_DOWN` 是否买入/减仓，仍由具体策略决定，组件不得写死交易动作。
+即使 H1 成立，状态到买卖/仓位的映射仍属于策略层。
 
-### 预注册指标
-至少比较：
-- 状态持续时间与下一状态转移概率；
-- 与方向一致的 forward return / continuation rate；
-- 反转概率与到首次反转的时间；
+### M4 必须预注册
+
+- `T2` 候选的选择方法与候选集合；
+- 哪些 admitted M3 profiles 进入研究；
+- development / validation / holdout 切分；
+- forward horizons；
+- 状态持续时间、下一状态转移概率、方向延续率；
+- reversal probability / time-to-first-reversal；
 - forward adverse / favorable excursion；
-- 不同 `bar_interval`、不同 forward horizon 下的稳定性；
-- `T2` 改变后的稳健性。
+- `T2` 稳健性；
+- 样本量/最小事件数与停止条件；
+- 负结果处理规则。
 
 ### Gate
-实验定义在结果读取前冻结；阈值选择、样本切分和停止条件有记录，不能看到结果后任意改桶救结论。
+协议必须在读取 M5 结果之前冻结；不得看到结果后改 `T2`、改 horizon、改样本切分或挑 profile 来救结论。
 
 ---
 
 ## M5 — 极端斜率持续性实证
 
 ### 目标
-正式检验 H1，而不是凭直觉把五桶升级为产品语义。
-
-### 关键比较
-- `STRONG_UP` vs `UP` 的延续率/反转率；
-- `STRONG_DOWN` vs `DOWN` 的延续率/反转率；
-- 分 K 线级别、分持有 horizon；
-- development / validation 分离；
-- 必要时检查指数间异质性，但不以挑指数获得正结果。
+按 M4 预注册协议正式检验 H1。
 
 ### Gate
-只有当“极端桶”相对普通趋势桶出现稳定、可复现且具有实际量级的差异，五桶才进入候选产品语义；否则保留三桶，或把强度仅作为连续字段输出。
+只有极端桶相对普通趋势桶出现稳定、可复现且有实际量级的差异，五桶才进入候选产品语义；否则保留三桶或连续强度。
 
 ---
 
 ## M6 — 三桶 / 五桶 / 连续强度架构裁决
 
-### 目标
-根据 M5 证据决定正式输出，而不是提前决定必须五桶。
-
-### 允许的裁决
-1. 保留三桶 + 连续 `strength`；
+允许的正式裁决：
+1. 三桶 + 连续强度；
 2. 正式五桶；
-3. 三桶作为稳定主状态，五桶仅作实验/诊断扩展。
+3. 三桶主状态 + 五桶研究/诊断扩展。
 
-### Gate
-裁决必须能解释：为什么这种表示对不同 K 线级别与策略调用者更稳健，而不只是样本内更好看。
+裁决必须跨周期/样本具有解释力，不能只因为样本内更好看。
 
 ---
 
 ## M7 — 稳定 Consumer API 与测试
 
-### 目标
-把已裁决状态模型封装成真正可调用的独立组件。
-
-### 目标能力
-- 参数化查询：`symbol + as_of + bar_interval/profile`；
-- 返回状态、原始/归一化强度、所用配置版本、时间边界和 availability；
-- 只读、不可回写历史；
-- 缺失/过期不回退为旧状态；
-- schema/version 固定；
-- 单元、因果前缀一致性与接口兼容测试。
-
-### Gate
-上层策略只依赖公开 contract，不需要知道组件内部研究代码路径。
+目标：把已裁决状态模型封装成 `symbol + as_of + bar_interval/profile` 的稳定只读 consumer；缺失/过期不回退，schema/version 固定，并有 prefix-causality/兼容测试。
 
 ---
 
 ## M8 — 策略匹配与集成验证
 
-### 目标
-验证“一个组件，多种策略配置”的实际可用性。
-
-### 首批集成对象
-- 中证1000既有择时策略/中轴逻辑；
-- 需要趋势环境过滤的其他策略；
-- 与风险识别组件并存时的接口兼容性。
-
-### 原则
-趋势状态组件只回答“在给定配置下，当前是什么状态/强度”；风险组件回答风险属性；**如何把两者映射成交易动作属于策略层**。
-
-### Gate
-至少两个不同周期/持仓逻辑的调用者可通过不同配置使用同一组件，而无需复制或魔改组件代码。
+趋势组件只回答状态/强度；风险组件回答风险属性；具体策略组合两者并决定交易动作。至少两个不同持仓周期的调用者应能复用同一组件而无需复制代码。
 
 ---
 
 ## M9 — 发布、版本与治理
 
-### 目标
-形成可长期维护的独立工具。
-
-### 交付
-- 稳定 schema 与版本策略；
-- API 使用示例；
-- 配置/profile 清单；
-- 研究证据到生产语义的追踪表；
-- changelog / migration 说明；
-- CI 与文档一致性检查。
-
-### Gate
-任何策略都可以从公开文档知道：如何调用、返回值是什么意思、哪些结论已验证、哪些只是研究状态。
+形成稳定 schema、API 示例、profile 清单、证据追踪、changelog/migration 与 CI/文档一致性治理。
 
 ---
 
 ## 全程不变的四条原则
 
 1. **组件不是策略。** 不直接给买卖、仓位或订单。
-2. **参数决定语境。** 状态必须绑定 K 线级别/配置版本，不能脱离参数说“市场就是上涨”。
+2. **参数决定语境。** 状态必须绑定 K 线级别/配置版本。
 3. **强度先连续、分桶后验证。** 五桶不能因为直觉合理就提前获得产品语义。
-4. **策略匹配在接口层解决。** 不为每个策略复制一套状态识别代码；策略选择 profile，组件返回有版本的状态描述。
+4. **策略匹配在接口层解决。** 不为每个策略复制状态识别代码。
