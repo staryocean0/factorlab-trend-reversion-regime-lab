@@ -1,6 +1,6 @@
-# 趋势状态 Consumer：当前 Gap List（已吸收 M2/M3/M4）
+# 趋势状态 Consumer：当前 Gap List（已吸收 M2–M5-1）
 
-> 本文追踪当前仓库距离最终 `regime_state_consumer_v1` 仍有哪些差距。M2/M3 已解决 measurement/profile 问题；M4 已冻结五桶实验协议，但五桶证据仍未产生，也不等于 M7 consumer 已实现。
+> 本文追踪当前仓库距离最终 `regime_state_consumer_v1` 仍有哪些差距。M5-1 已完成 source/profile admission，但没有读取 Validation/Holdout outcome，也没有产生五桶市场证据。
 
 ## 1. 当前结论
 
@@ -8,74 +8,92 @@
 
 - Layer-2 measurement-plane authority 边界；
 - M2 三桶数学与 as-of/fail-closed 基线；
-- M3 `1m/5m/15m/60m` 的 10 个 versioned profiles；
-- view/cadence admission；
-- 同一 `as_of` 多周期独立并存表达；
-- M4 在结果之前冻结的五桶 H1 实验协议与机器可读合同。
+- M3 10 个 versioned profile registry；
+- M4 结果前冻结的五桶实验协议；
+- M5-1 source/profile admission receipt：两指数的 `1m_official` / `5m_offset_0` 已准入；15m/60m 与 phase-sensitivity profiles 当前 fail closed。
 
-正确演进路径仍是：
+正确演进路径：
 
 ```text
-existing Layer-2 measurement plane
-        +
-M2/M3 frozen trend measurements/profiles
+M2/M3 frozen measurement/profile
         +
 M4 frozen five-bucket protocol
         +
-M5 evidence + M6 representation decision
-        +
-M7 stable as-of consumer facade
+M5-1 exact source/profile admission
+        ↓
+M5-2 development pipeline + sample adequacy
+        ↓
+sealed development receipt
+        ↓
+M5 validation / conditional holdout / replication
+        ↓
+M6 representation decision → M7 consumer
 ```
 
 ## 2. 已解决项
 
 | ID | 原 Gap | 解决状态 |
 |---|---|---|
-| G05 | caller 与 component 参数所有权未通过公开 API 固化 | **M3 RESOLVED**：caller 选 `bar_interval/profile_id`；lookback/estimator/T1/grid 由 versioned profile 持有 |
-| G06 | 三桶数学语义未冻结 | **M2 RESOLVED**：20-bar log-close OLS signed slope t-score，`T1=2.0` |
-| G07 | completed-bar/lookback/normalization/T1 未冻结 | **M2 RESOLVED**：completed+available prefix、20 bars、log-close、T1=2、坏值 fail closed |
-| G08 | 多周期 profile 未冻结 | **M3 RESOLVED**：1m×1、5m×5、15m×2、60m×2，共 10 profiles |
-| G15 | interval cadence 缺口无法判定 | **M3 RESOLVED（session grid 层）**：`CADENCE_GAP/OFF_PROFILE_GRID` fail closed；整日交易日缺失仍归 Layer-1 receipt |
-| G16 | 多周期是否自动合成总趋势不明确 | **M3 RESOLVED**：multi-interval envelope 无 `state/global_state`，聚合属于策略层 |
-| G18 | 五桶实验可被结果驱动改阈值/切分/profile/horizon | **M4 RESOLVED**：`trend_five_bucket_protocol_m4@1.0` 已冻结 primary T2、sensitivity、样本切分、anchors、endpoints、sample guards、bootstrap、Holm、holdout unlock 和负结果规则 |
+| G05 | caller/component 参数所有权 | **M3 RESOLVED**：caller 选 interval/profile；低层语义由 versioned profile 持有 |
+| G06 | 三桶数学未冻结 | **M2 RESOLVED**：20-bar log-close OLS signed slope t-score，`T1=2.0` |
+| G07 | completed-bar/lookback/T1 未冻结 | **M2 RESOLVED** |
+| G08 | 多周期 profile 未冻结 | **M3 RESOLVED**：1m×1、5m×5、15m×2、60m×2 |
+| G15 | interval cadence gap | **M3 RESOLVED（session grid 层）**：`CADENCE_GAP/OFF_PROFILE_GRID` fail closed |
+| G16 | 多周期总趋势歧义 | **M3 RESOLVED**：无 `global_state` |
+| G18 | 五桶协议可事后改口 | **M4 RESOLVED**：T2/splits/profiles/endpoints/sample guards/holdout rule 已冻结 |
+| G19 | M5 是否会把“文件存在”直接当 source admission | **M5-1 RESOLVED**：建立 `TREND_M5_SOURCE_PROFILE_ADMISSION_V1`，只接受 current active exact-view lineage；legacy 文件不自动升级 |
 
 ## 3. 仍未解决的核心 Gap
 
-| ID | Gap | 当前证据 | 目标 | 归属里程碑 |
+| ID | Gap | 当前证据 | 目标 | 归属 |
 |---|---|---|---|---|
-| G01 | 没有正式公开 trend consumer entrypoint | 目前是 measurement primitives/wrappers | `query_regime` / `as_of` facade | M7 |
-| G02 | `regime_state_consumer_v1` 尚未代码实现 | schema/contract 已文档冻结 | 稳定 consumer envelope | M7 |
-| G03 | 没有正式 snapshot lifecycle/store | M2/M3 有 `observation_time/available_at`，无 consumer `published_at/valid_until` store | immutable snapshot + expiry/no-fallback | M7 |
-| G04 | consumer 缺失/过期语义尚未代码化 | contract 已冻结，measurement 有 fail-closed | consumer `AVAILABLE/UNAVAILABLE + reason` | M7 |
-| G09 | 五桶没有正式市场证据 | **M4 protocol 已冻结，但尚未运行 M5** | 按冻结协议完成 validation/holdout/replication，再由 M6 裁决 | M5–M6 |
-| G10 | capability registry 不等于可执行 provider | 历史 capability/source refs 与当前 checkout 不完全一致；M4 要求 exact profile receipt admission | provider acceptance/receipt admission | M5 source admission + M7/M9 |
-| G11 | 没有 trend snapshot identity/append-only history | measurement result 不是发布事件存储 | stable snapshot ID + immutable history | M7 |
-| G12 | 没有 consumer conformance/expiry/no-fallback tests | M2/M3 已有 prefix/cadence tests；M4 有 protocol invariant tests | consumer contract regression suite | M7 |
-| G13 | 组件索引尚未登记正式 callable consumer 生命周期 | 当前仍是 support/measurement 工程 | owner/version/status/migration | M7/M9 |
-| G14 | strategy integration 尚未证明 | 尚无两个不同持仓逻辑只依赖公开 consumer contract | 多调用者集成，不复制组件代码 | M8 |
-| G17 | 跨完整交易日缺失的完整性 authority 不在 Layer-2 | M3 只能验证 wall-clock grid 与 session edge | Layer-1 calendar/provider receipt admission | M5/M7/M9 与上游协同 |
+| G01 | 没有正式公开 trend consumer entrypoint | measurement primitives/wrappers | `query_regime/as_of` facade | M7 |
+| G02 | `regime_state_consumer_v1` 尚未代码实现 | contract 已冻结 | 稳定 consumer envelope | M7 |
+| G03 | 没有正式 snapshot lifecycle/store | measurement clocks 有，consumer lifecycle 无 | immutable snapshot + expiry/no-fallback | M7 |
+| G04 | consumer 缺失/过期语义未代码化 | 文档冻结 | runtime unavailable reasons | M7 |
+| G09 | 五桶没有正式市场证据 | M4 已冻结协议；M5-1 仅 source admission | development→validation→conditional holdout→M6 | M5–M6 |
+| G10 | runtime provider/source admission 不完整 | **PARTIAL**：M5-1 已准入两指数 1m/5m；15m/60m 和 phase sensitivity 无 current active exact receipt | 为未准入 profile 提供 exact current source receipt，或保持 NOT_ADMITTED | M5/M7/M9 |
+| G11 | 没有 trend snapshot identity/append-only history | measurement result 不是发布事件 | stable snapshot ID + immutable history | M7 |
+| G12 | 没有 consumer conformance/expiry/no-fallback tests | M2/M3/M4/M5-1 有底层/治理 tests | consumer contract suite | M7 |
+| G13 | 正式 callable consumer 生命周期未登记 | support/measurement 工程 | owner/version/status/migration | M7/M9 |
+| G14 | strategy integration 尚未证明 | 无两个调用者只依赖公开 consumer | 多调用者集成 | M8 |
+| G17 | 跨完整交易日缺失 authority 不在 Layer-2 | session grid 可查，整日 source completeness 仍需 receipt | Layer-1 calendar/provider receipt | M5/M7/M9 |
+| G20 | historical retrieval `available_at` 与 decision-time visibility 语义可能混用 | **M5-1 已冻结 adapter contract**：raw historical `available_at` 只作 provenance，runtime completed-bar visibility=`bar_end`；但 M5 pipeline 尚未实现/验收 | 在 M5-2 loader/pipeline 中强制该语义并回归测试 | M5-2 |
 
-## 4. M2–M4 关键架构判断
+## 4. M5-1 的关键裁决
 
-### 4.1 不重写 measurement plane
-现有 measurement plane 继续作为“能测什么、来自哪里”的 authority 根。后续只在其上冻结状态语义和消费合同。
+### 4.1 当前可用的 exact current source
 
-### 4.2 不把 capability registry 当 runtime provider registry
-`asset_id exists` 不等于 `provider executable + causal + accepted + current`。M5 必须先 source/profile admission；拿不到 exact view/receipt 就 `NOT_ADMITTED`，不能本地补造。
+DataHub `factorlab_unified_index_kline_v3_20260824` 的 active cross-index archive 对 `000852.SH` 与 `000688.SH` 都提供：
 
-### 4.3 不按周期提前调参
-M3 的 10 个 profiles 全部保留 M2 `20 bars + T1=2.0`。M4 只增加研究用 primary `T2=4.0` 与固定 `3/5` sensitivity，不允许 outcome-driven 调整。
+- `1m_official`：ADMITTED；
+- `5m_offset_0`：ADMITTED；
+- 完整覆盖 M4 公共窗口 `2020-07-23`–`2025-12-31`；
+- identity lineage 保留 `dataset_version/export_view_id/export_frequency/data_contract`。
 
-### 4.4 不自动聚合时间尺度
-不同 timeframe 的状态可以冲突。Layer 2 只返回独立 measurements；如何组合属于 strategy layer。
+### 4.2 当前不能准入的 profile
 
-### 4.5 五桶协议不等于五桶成立
-M4 只保证 M5 无法事后改口。`STRONG_UP/STRONG_DOWN` 是否值得获得稳定产品语义，必须等待 M5 证据并由 M6 裁决。
+- `15m_offset_5 / 60m_offset_30` anchors：NOT_ADMITTED；
+- 其余 M4 phase-sensitivity profiles：NOT_ADMITTED。
 
-## 5. 下一唯一任务
+原因不是结果表现，而是 current source Gate：STAR50 exact 15m/60m 只存在于被明确标成非当前 research input 的 legacy `development/`；CSI1000 two-wave exact multi-view shipped rows截止 2020-12-31。M4 禁止通过本地 resampling/substitution 解决。
 
-**M5 — 极端斜率持续性实证。**
+### 4.3 时钟语义
 
-M5 必须严格读取 `docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json` 执行：先 source/profile admission，再 development 管线与样本量检查、封存 receipt，然后 primary `T2=4` validation 一次；只有 validation 达到预注册支持规则才允许解锁 holdout。`T2=3/5`、phase sensitivity 和 STAR50 replication 都不能替代 CSI1000 primary。
+归档 `available_at` 是 historical retrieval availability，不是盘中 feed latency。M5-1 冻结：
 
-M5 不得修改 M4 protocol version。M5 完成前不得进入 M6 架构裁决。
+```text
+bar_end = exact export-view timestamp
+runtime_available_at = bar_end
+raw historical available_at = provenance only
+```
+
+该规则将在 M5-2 pipeline 中被代码化；不声称测得真实 feed latency。
+
+## 5. 唯一下一任务
+
+**M5-2 — Development pipeline + sample-adequacy checks，仅限 admitted 1m/5m anchors。**
+
+M5-2 可以读取 M4 Development split 并计算 development 样本充足性，但不得读取 Validation outcome；必须封存 code/config/development receipt 后才能进入一次性的 primary Validation。15m/60m 继续 fail closed，除非未来出现符合 M4 的 current active exact-view receipt。
+
+M5 完成前不得进入 M6。
