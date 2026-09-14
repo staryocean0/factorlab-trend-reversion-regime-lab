@@ -6,10 +6,13 @@
 
 - component id：`factorlab.layer2.trend_regime`
 - component version：`1.0.0`
-- planned Git tag：`trend-regime-v1.0.0`
+- canonical Git tag name：`trend-regime-v1.0.0`
+- release pointer branch：`release/trend-regime-v1.0.0`
 - machine authority：`docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 - `production_authority=false`
 - `fresh_oos=false`
+
+Release pointer 必须指向已经通过 M9 Gate 的 `main` commit，且不得 force-move。若以后补建 canonical Git tag，它必须指向同一个 gated commit，不能借 tag/release 动作改变任何语义。
 
 `pyproject.toml` 中仓库 distribution 仍为 `0.1.0`。该 distribution 包含大量历史研究、回放和维护代码，因此 **不是** trend component 的 semantic-version authority；M9 不把这些非趋势模块一并宣称为 1.0 stable。
 
@@ -95,10 +98,10 @@ V1 的可追溯链为：
 
 ## 8. Release gate
 
-只有在以下全部成立时才可创建 `trend-regime-v1.0.0` tag/release：
+只有在以下全部成立时才可创建/移动 `release/trend-regime-v1.0.0` release pointer，并保留 `trend-regime-v1.0.0` canonical tag 名：
 
 - repository consistency PASS；
-- M2–M9 默认 contract tests PASS；
+- 默认 M2–M8 tests + M9 release-governance invariants PASS；
 - M6/M7/M8 frozen semantics 未改变；
 - `new_market_outcomes_computed=false`；
 - M5 outcome jobs 仍 disabled/skipped；
