@@ -54,8 +54,12 @@ def test_m9_component_release_governance_is_fail_closed_and_non_production():
     )
 
     assert contract["schema_id"] == "trend_m9_release_governance@1.0"
+    assert contract["status"] == "PASS_STABLE_COMPONENT_V1_RELEASE_GOVERNANCE"
     assert contract["component_release_version"] == "1.0.0"
-    assert contract["git_tag"] == "trend-regime-v1.0.0"
+    assert contract["canonical_git_tag"] == "trend-regime-v1.0.0"
+    assert contract["release_pointer_branch"] == "release/trend-regime-v1.0.0"
+    assert contract["roadmap_complete"] is True
+    assert contract["automatic_next_milestone"] is None
     assert contract["stable_public_surface"]["state_enum"] == ["DOWN", "SIDEWAYS", "UP"]
     assert contract["current_runtime_admission"]["profiles"] == [
         "trend_1m_official_v1",
