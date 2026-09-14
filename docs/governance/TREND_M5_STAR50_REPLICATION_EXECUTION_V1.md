@@ -10,4 +10,4 @@ Replication 复用冻结的 5-bar directional survival、10-bar reversal probabi
 
 15m/60m 与 phase profiles 仍按 M5-1 `NOT_ADMITTED` 报告，不进行 local resampling、offset substitution 或 legacy promotion。2025 Holdout 不进入 checkout。
 
-Preflight head 仅用于让 repository-consistency 在所有冻结件落库后完整验收；本说明文件不属于机器 locked objects，不改变任何研究参数或数据身份。
+Preflight repository-consistency 已在所有冻结件落库后通过；本次 trigger 只启动一次 STAR50 replication，不改变机器 locked objects。
