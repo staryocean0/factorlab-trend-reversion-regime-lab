@@ -10,39 +10,38 @@
 
 ## 当前状态
 
-本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M9 PASS**；V1 release 已冻结。
+本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M9 PASS**，V1 release 已冻结。
 
-Component release identity：`factorlab.layer2.trend_regime@1.0.0`。
+Component：`factorlab.layer2.trend_regime@1.0.0`。
 
-2026-09-14 用户明确授权新的独立 Post-V1 研究计划：**Cross-Profile Invariance & Calibration Study**。它不是自动 M10，也不会静默修改 V1。
+2026-09-14 用户显式授权独立的 Post-V1 **Cross-Profile Invariance & Calibration Study**。它不是自动 M10，不修改 V1。
 
 当前研究进度：
 
 - X1 source/profile inventory — **COMPLETE**
-- X2 fixed-baseline distributional invariance — **COMPLETE**
-- X2 preregistered lookback/T1 diagnostic sensitivity — **COMPLETE**
+- X2 distributional invariance + preregistered sensitivity — **COMPLETE**
 - X3 state-dynamics invariance — **COMPLETE**
-- X4 provisional calibration-family decision — **COMPLETE / `INSUFFICIENT_EVIDENCE` / NO V1 CHANGE**
-- X5 five-carrier 5m external replication — **COMPLETE**
+- X4 calibration-family decision — **`INSUFFICIENT_EVIDENCE` / NO V1 CHANGE**
+- X5 five-carrier 5m replication — **COMPLETE**
 - X5B 5m source robustness — **COMPLETE**
+- X5C five-carrier 15m/60m + long-window 60m — **COMPLETE**
+- X5D static interval-specific T1 vs static robust normalization — **COMPLETE / `INSUFFICIENT_EVIDENCE`**
 - X6 representation version decision — **HOLD / NOT READY**
 
-V1 release pointer `release/trend-regime-v1.0.0` 继续固定在 M9 通过提交 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`；Post-V1 研究提交不得移动它。
+V1 release pointer `release/trend-regime-v1.0.0` 必须继续固定在 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`；Post-V1 research commits 不得移动它。
 
 ## 接管必读
 
 - `docs/ROADMAP.md`
-- `docs/governance/TREND_V1_STAGE_CLOSEOUT_V1.md`
 - `docs/governance/TREND_CROSS_PROFILE_INVARIANCE_PROTOCOL_V1.json`
-- `docs/governance/TREND_CROSS_PROFILE_SOURCE_INVENTORY_V1.json`
-- `docs/governance/TREND_X2_DISTRIBUTIONAL_INVARIANCE_RESULT_V1.json`
-- `docs/governance/TREND_X2_DIAGNOSTIC_SENSITIVITY_RESULT_V1.json`
-- `docs/governance/TREND_X3_STATE_DYNAMICS_INVARIANCE_RESULT_V1.json`
-- `docs/governance/TREND_X4_CALIBRATION_FAMILY_DECISION_V1.json`
-- `docs/governance/TREND_X5_SINA_SOURCE_RECEIPT_V1.json`
-- `docs/governance/TREND_X5_FIVE_CARRIER_5M_RESULT_V1.json`
-- `docs/governance/TREND_X5B_SOURCE_ROBUSTNESS_RESULT_V1.json`
-- `docs/governance/TREND_X4_POST_X5_UPDATE_V1.json`
+- `docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_PROTOCOL_V1.json`
+- `docs/governance/TREND_X5C_SINA_15M_60M_SOURCE_RECEIPT_V1.json`
+- `docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_RESULT_V1.json`
+- `docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_PROTOCOL_V1.json`
+- `docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_METHOD_V1.json`
+- `docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_RECEIPT_V1.json`
+- `docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_RESULT_V1.json`
+- `docs/governance/TREND_X4_POST_X5D_UPDATE_V1.json`
 - `docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`
 - `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 
@@ -56,86 +55,98 @@ strength          = abs(directional_score)
 
 入口：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。
 
-当前 runtime admission 仍只包括两指数 `trend_1m_official_v1` / `trend_5m_offset0_v1`；其他 M3 profiles fail closed。Post-V1 的 Sina/Eastmoney 研究数据不获得 runtime admission。
+Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m offset0；Post-V1 public/native-clock 研究数据不获得 admission。
 
-## Post-V1 目前真正证明到哪里
+## 现在真正知道什么
 
-V1 原 empirical certification 只覆盖 CSI1000 / STAR50 的 1m official 与 5m offset0。Post-V1 研究把证据进一步扩展，但**没有**证明 `20 bars`、`T1=2` 或 raw `abs(slope_t)` scale 跨所有 interval / phase / carrier 普适。
+### 5m
 
-### X2/X3：两指数 × 多周期/多 phase
+5m 是目前最稳的一层：五指数 cross-carrier replication 中 SIDEWAYS occupancy range ≈ **3.13pp**，one-step self-transition range ≈ **1.23–1.87pp**。Sina vs Eastmoney 在 CSI1000/STAR50 上 slope_t Pearson ≈ **0.9999994**，三桶状态 **100% 一致**。
 
-2020-07-23 至 2020-12-31 Development-only exact-view 结果显示：
+因此目前没有证据要求 5m carrier-specific / phase-specific / provider-specific T1。
 
-- 同一 interval 内 phase 差异总体较小；5m offset0–4 phase dispersion 尤其小；
-- 跨 interval 差异明显大于 phase 差异；
-- 60m 的 score scale、SIDEWAYS occupancy、carrier dispersion 与短周期差异最明显；
-- lookback 10→20→40 会明显改变 slope-t 数值尺度，因此 raw strength 不应跨不同 lookback 直接比较；
-- 60m 部分 UP horizon origins 低于预注册最小样本要求，只能 `UNDERPOWERED_DESCRIPTIVE_ONLY`。
+### 15m
 
-X4 因此选择 `INSUFFICIENT_EVIDENCE`，没有修改 V1。
+X5C 五指数 15m external replication 有 63 个完整交易日、每 carrier 989 measurements。固定 V1 `20-bar slope_t / T1=2` 时：
 
-### X5：五指数 5m external replication
+- abs(slope_t) q90 cross-carrier range ≈ **1.26**；
+- SIDEWAYS occupancy range ≈ **4.65pp**；
+- directional survival5 range ≈ **7.8–9.0pp**。
 
-五指数：`000852.SH`、`000688.SH`、`000300.SH`、`000905.SH`、`000016.SH`。
+15m 仍比 60m 稳定得多。
 
-统一窗口：2026-08-17 至 2026-09-14，共 21 个完整交易日；每个指数 1008 根 5m bar、989 个有效 measurement。Sina 5m close clock 与 M3 `5m_offset0` 时钟完全对齐，但 source identity 不是 DataHub exact identity。
+### 60m
 
-固定 `lookback=20 / slope_t / T1=2`：
+X5C 五指数 60m 使用 2026-01-05 至 2026-09-14，170 个完整交易日、每 carrier 661 measurements；所有预注册 directional metric 最小 origins = **181**，早先的 UP underpower 已解除。
 
-- SIDEWAYS occupancy 跨五指数 range ≈ **3.13 个百分点**；
-- one-step self-transition 跨指数 range ≈ **1.23–1.87 个百分点**；
-- 5-bar directional survival range：DOWN ≈ **6.54 个百分点**，UP ≈ **2.81 个百分点**；
-- 10-bar opposite-direction entry range：DOWN ≈ **5.53 个百分点**，UP ≈ **6.33 个百分点**；
-- 所有预注册 directional metrics 的 origin count 均 ≥ 50。
+但 heterogeneity 仍明显：
 
-这强化了“5m 三桶语义具有较强 cross-carrier robustness”的证据，但不等于证明 T1=2 跨 interval 普适。
+- abs(slope_t) q90 range ≈ **3.37**；
+- SIDEWAYS occupancy range ≈ **12.41pp**；
+- survival5 range：DOWN ≈ **14.75pp**、UP ≈ **10.44pp**。
 
-### X5B：5m source robustness
+因此 60m 的问题是真实存在的，不再能主要归因于样本太短。
 
-CSI1000 / STAR50，Sina vs Eastmoney，同一 2026-08-17 至 2026-09-14 5m clock：
+## X5D 得到了什么
 
-- 每个指数 1008 个共同 close timestamps；
-- source point values 存在微小差异，所以 source identity 不能合并；
-- slope_t Pearson correlation ≈ **0.9999994**；
-- slope_t absolute-difference q95 < **0.004**；
-- 每个指数 989 个三桶状态，**state agreement = 100%**；
-- DOWN↔UP opposite-direction disagreements = **0**。
+X5D 参数只从 2020 Development exact-view 数据拟合，2026 五指数仅做外部 evaluation，没有读取交易收益。
 
-因此当前没有证据支持 provider-specific 5m T1；但 public source 仍不能冒充 DataHub exact source，也不会扩大 runtime admission。
-
-## 当前 calibration 判断
-
-Post-X5 update 仍然保持：
+Development 拟合：
 
 ```text
-UNIVERSAL_FIXED_T1                              = NOT_ESTABLISHED
-INTERVAL_SPECIFIC_T1                            = PLAUSIBLE_LEADING_CANDIDATE_NOT_YET_ESTABLISHED
-PROFILE_SPECIFIC_T1                             = NOT_SUPPORTED_AS_DEFAULT_BY_PHASE_EVIDENCE
-NORMALIZED_SCORE_PLUS_UNIVERSAL_SEMANTIC_THRESHOLD = PLAUSIBLE_CANDIDATE_NOT_YET_ESTABLISHED
-CURRENT_DECISION                                = INSUFFICIENT_EVIDENCE
+interval-specific T1:
+5m  ≈ 1.9989
+15m ≈ 1.9351
+60m ≈ 1.2225
+
+median-abs normalization equivalent raw T1:
+5m  = 2.0000
+15m ≈ 2.0717
+60m ≈ 1.2701
 ```
 
-研究不确定性已经明显从“每个 carrier / phase / provider 是否各自调参”收缩到：**跨 interval 的尺度和状态语义，尤其 60m。**
+两种方法在 Development 上都认为 60m 数值标尺不同，但在 2026 外部样本上没有形成全面优势：
 
-## X6 为什么 HOLD
+- interval-specific T1：16 个语义 dispersion 指标 **9 改善 / 7 恶化**；
+- primary median-abs normalization：**10 改善 / 5 恶化 / 1 持平**；
+- MAD normalization：**9 / 7**；
+- q75 normalization：**7 / 9**；
+- 任意候选之间都没有严格 Pareto dominance。
 
-在以下证据补齐之前，不做 representation version change：
+静态 60m calibration 会把 SIDEWAYS carrier dispersion 从约 **12.4pp** 降到约 **6.8pp**，但会恶化若干 persistence/reversal 指标；例如 DOWN opposite-entry10 dispersion 从 V1 约 **5.2pp** 上升到约 **11%–12%**。同时约 **10%–15%** 的 60m 状态会被改写。
 
-1. 15m/60m 更广的 cross-carrier 证据，且 clock/source semantics 必须显式治理；
-2. 更长窗口的 60m 样本，消除之前 UP-direction underpower；
-3. 直接比较 `INTERVAL_SPECIFIC_T1` 与 `NORMALIZED_SCORE`，评价标准是状态语义可比性，不是交易收益。
+q75 normalization 对数值 strength scale 很有效：cross-interval strength-level range 从 raw ≈ **0.506** 降到 ≈ **0.157**；但 state semantics 并未同步改善，因此不能把它直接升级成产品 strength 定义。
 
-所以当前动作是 **保持 V1 不变，继续收集跨 interval 证据**，而不是为了结束研究强行选参数或发布 V2。
+## 当前结论
+
+```text
+UNIVERSAL_FIXED_T1          = current V1 baseline, not a proven universal law
+STATIC_INTERVAL_SPECIFIC_T1 = not supported for adoption
+PROFILE_SPECIFIC_T1         = not supported as default
+STATIC_NORMALIZED_SCORE     = not supported for adoption
+NORMALIZED_STRENGTH_SCALE   = promising diagnostic only
+CURRENT_DECISION            = INSUFFICIENT_EVIDENCE
+X6                           = HOLD / NOT READY
+```
+
+60m 剩余问题现在应理解为：**interval scale + temporal/regime nonstationarity + clock/source identity**，不是简单“把 T1 从 2 改成 1.2”就能解决。
+
+## 下一研究边界
+
+如果继续 normalization：
+
+1. 分开研究 state-boundary normalization 与 strength-scale normalization；
+2. 必须 causal / out-of-time，不得拿 2026 evaluation 重新拟合静态阈值；
+3. 不能通过强制固定 SIDEWAYS occupancy 抹掉真实 regime 信息；
+4. 优先获得更多 governed/exact 60m clock 证据，或预注册新的因果 normalization protocol。
 
 ## 仍然禁止
 
 - 重跑 M5 primary / T2 sensitivity / STAR50 replication；
 - 打开旧 M4/M5 2025 Holdout；
-- 修改冻结的 M6 representation、M7 lifecycle、M8 integration boundary 或 M9 release governance；
-- 把 legacy/public research source 写成 runtime admitted；
-- 把 source clock alignment 写成 DataHub exact-source identity；
+- 修改冻结的 M6/M7/M8/M9 semantics；
+- 把 public/native-clock research source 写成 runtime admitted 或 DataHub exact identity；
 - 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
-- 把 `production_authority` 或 `fresh_oos` 改成 true；
-- 从 21 个交易日的 X5 窗口外推市场普适定律。
+- 把 `production_authority=false` 或 `fresh_oos=false` 改成 true。
 
-历史 V1 snapshots 永不原地改写。未来 calibration/normalization 若改变 T1、lookback 或 strength semantics，必须先形成新的版本化 representation decision。
+历史 V1 snapshots 永不原地改写。未来任何 T1、lookback、estimator、strength semantics 改动都必须经过新的版本化 representation decision。
