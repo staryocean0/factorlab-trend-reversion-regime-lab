@@ -14,6 +14,8 @@
 
 本仓交付的是 **Layer 2 趋势状态识别组件**。它描述指定 `symbol + as_of + bar_interval/profile` 下的趋势方向和连续强度，不承担买卖、仓位、订单、策略路由或多周期总趋势语义。
 
+M9 component release identity：`factorlab.layer2.trend_regime@1.0.0`。仓库 Python distribution 仍为 `0.1.0`，因为其范围还包含历史研究/回放/维护模块，不能把这些模块一并宣称为 stable 1.0 API。
+
 ## 2. M5/M6 证据与表示
 
 M5 在 admitted 1m/5m exact views 上完整收口：CSI1000 primary、T2 sensitivity 与 STAR50 replication 都反驳原 extreme-slope exhaustion H1。M6 因此冻结为：
@@ -38,26 +40,42 @@ Machine authority：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
 
 Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-M8 没有新建策略，而是验证**分层所有权**：
+- CSI1000 私仓已有真实 read-only Layer2 consumer adapter / Layer3 orchestration boundary，M7 trend snapshot 与该所有权模型兼容。
+- STAR50 仓已有真实 append-only risk-state consumer，但其示例明确没有 connected external strategy caller；所以这里只认证为并行 Layer2 risk-provider boundary。
+- Synthetic integration 验证多周期状态可保持不同、trend/risk namespace 分离、expired/unavailable 不被补成 SIDEWAYS、未准入 profile 在上层前 fail closed。
+- Layer2 不产生策略选择、路由、仓位、订单或交易动作。
 
-- CSI1000 私仓已有真实 read-only Layer2 consumer adapter：不做 value transformation、不改 threshold、不改策略；其真实 Layer3 orchestration kernel 负责 state adapter、owner waterfall 与 conflict arbitration。
-- M7 trend snapshot 与上述“Layer2 只读输入 → Layer3 组合/仲裁”边界兼容；没有安装新策略 plugin，也没有修改外部仓。
-- STAR50 仓已有真实 append-only risk-state consumer，但其示例明确 `actual_external_consumer_connected=False`；所以 M8 只把它认证为**并行 Layer2 risk provider boundary**，不虚构已连接的策略 caller。
-- Synthetic integration 验证 1m/5m 状态可以冲突并保持独立；trend/risk 分开上送；expired/unavailable 不回退、不变 SIDEWAYS；未准入 15m 在到达上层前就 fail closed。
-- Layer2 stable payload 不产生 T2/strong/five-bucket/global-state，也不产生 BUY/SELL、position/order、strategy selection 或 route。
+因此 M8 的 PASS 是接口/所有权边界验证，不是 live/production integration certification。
 
-因此 M8 的 PASS 是**接口与所有权边界验证**，不是 live/production integration certification。
+## 5. M9 Release / Version / Governance（PASS）
 
-## 5. 当前证据与部署限制
+Machine authority：`docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`。
 
-- persistence/strength empirical certification 仍只覆盖 admitted 1m/5m 与 CSI1000/STAR50；
-- 15m/60m 和 phase profiles 没有同等级认证；
-- STAR50 没有已证明的 external strategy caller connection；
-- 2025 Holdout 从未打开，M5 outcome 不重开；
+M9 把 M0–M8 已冻结的技术与研究边界整理成稳定发布合同，而不是新增模型能力。已经冻结：
+
+- component semantic version `1.0.0`；
+- stable query/schema compatibility matrix；
+- patch/minor/major 变更规则；
+- pre-M7 internal usage → V1 migration；
+- M2→M9 evidence lineage；
+- API examples / changelog / release policy；
+- known limitations；
+- release gate 与 forbidden release actions。
+
+Semantic change 必须新 schema/version identity；历史 V1 snapshots 永不原地重写。新增 profile/provider admission 也必须有新的 exact source admission receipt 和版本化治理。
+
+## 6. V1 证据与部署限制
+
+- persistence/strength empirical certification 只覆盖 admitted 1m/5m 与 CSI1000/STAR50；
+- 15m/60m 和 phase profiles 没有同等级认证，也没有进入 V1 runtime admission；
+- STAR50 没有已证明的 connected external strategy caller；
+- M8 不是 live deployment certification；
+- 2025 protocol Holdout 未打开；
+- Layer2 不自行声明完整交易日日历 authority；
 - `production_authority=false`、`fresh_oos=false`。
 
-## 6. 唯一下一步：M9
+## 7. 路线图收口
 
-M9 只处理 release/version/documentation/governance：schema/version matrix、examples、migration/changelog、evidence lineage、known limitations 与 release policy。
+M0–M9 已完成。后续变化必须按 M9 SemVer/source-admission/authority governance 重新立项，而不是静默扩大 V1 或自动进入未定义的 M10。
 
-M9 不得扩大 source admission、重开 M5、改变 M6/M7、把 M8 说成 production deployment，或授予 production authority。
+发布动作本身不能改变研究结论、representation、consumer lifecycle、runtime admission 或 authority。
