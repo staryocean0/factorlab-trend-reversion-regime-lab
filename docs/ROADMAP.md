@@ -11,8 +11,8 @@
 - **M2 — PASS**：冻结 20-bar log-close OLS signed slope t-score 三桶基线，`T1=2.0`。
 - **M3 — PASS**：冻结 `1m/5m/15m/60m` versioned profile registry、view/cadence/as-of 边界。
 - **M4 — PASS**：结果前冻结五桶实验协议。
-- **M5 — IN PROGRESS**：M5-1 source/profile admission PASS（partial）；M5-2 Development adequacy PASS；M5-3 seal PASS；**M5-4 primary `T2=4` Validation 已执行一次并在全部可执行 primary contrasts 上得到 `H1_CONTRADICTED`**。
-- **唯一下一步：M5-5 — 预注册 `T2=3/5` Validation sensitivity。** 它不能替代/救援 T2=4 headline；Holdout 保持锁定。
+- **M5 — IN PROGRESS**：M5-1 admission PASS（partial）；M5-2 Development adequacy PASS；M5-3 seal PASS；M5-4 primary `T2=4` Validation 得到全部可执行 contrasts `H1_CONTRADICTED`；**M5-5 `T2=3/5` sensitivity 也在 8/8 可执行 sensitivity contrasts 上继续反驳 H1**。
+- **唯一下一步：M5-6 — cross-carrier replication / remaining robustness reporting。** 不得池化 rescue，不得读取 Holdout，不得补造未准入 phase profiles。
 
 ---
 
@@ -50,38 +50,46 @@ H1：同 interval/同方向下，极端绝对斜率状态可能比中等趋势�
 
 机器结果：`docs/governance/TREND_M5_PRIMARY_VALIDATION_V1.json`。
 
-只读取 CSI1000 `000852.SH` Validation=`2023-01-03`–`2024-12-31`，只执行 admitted 1m/5m；15m/60m 仍 `NOT_ADMITTED` 并以 raw p=`1.0` 留在完整 8 项 Holm family。真实 run=`34814912150`。
+CSI1000 `000852.SH` Validation=`2023-01-03`–`2024-12-31`，admitted 1m/5m 四个 primary 5-bar directional-survival Strong-Moderate contrast 为 `+0.3673` 至 `+0.3853`，95% CI 全部严格大于 0；10-bar reversal contrast 为 `-0.2360` 至 `-0.2507`，CI 全部严格小于 0。
 
-Primary 5-bar directional survival 的 Strong-Moderate：
+正式 headline：**`H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS`**。Primary support rule 未通过，因此 2025 Holdout 不得解锁；one-shot primary job 已 consumed 并禁止 rerun。
 
-| interval | direction | contrast | 95% CI | 结论 |
-|---|---|---:|---|---|
-| 1m | UP | +0.3853 | [+0.3734,+0.3969] | H1_CONTRADICTED |
-| 1m | DOWN | +0.3795 | [+0.3681,+0.3908] | H1_CONTRADICTED |
-| 5m | UP | +0.3822 | [+0.3531,+0.4119] | H1_CONTRADICTED |
-| 5m | DOWN | +0.3673 | [+0.3388,+0.3948] | H1_CONTRADICTED |
+### M5-5 — T2=3/5 Validation Sensitivity（PASS：反证对阈值稳健）
 
-M4 H1 预测 contrast 为负；实际所有可执行 contrast 均显著为正，意味着 extreme slope state 的短期 directional survival 明显高于 moderate trend state。10-bar reversal secondary 同样是 Strong-Moderate 约 `-0.236` 至 `-0.251`，CI 全部低于 0，即 strong state 更少反转。
+机器结果：`docs/governance/TREND_M5_T2_SENSITIVITY_V1.json`。真实 run=`34816576915`。
 
-因此正式 headline：**`H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS`**。这不是交易动作结论，也不等于已经决定最终采用五桶。
+Sensitivity 仍只使用同一 CSI1000 Validation 与 admitted 1m/5m，不建立新 primary family，也不允许 headline replacement。
 
-Primary support rule 未通过，所以 2025 protocol Holdout **不得解锁**。One-time primary Validation execution 已 consumed，二次运行被 CI 禁用。
+`T2=3` 的 4 个 survival Strong-Moderate contrasts 为：
 
-### M5-5 — T2=3/5 Validation Sensitivity（唯一下一步）
+- 1m UP `+0.4045`，95% CI `[+0.3903,+0.4179]`；
+- 1m DOWN `+0.4110`，95% CI `[+0.4005,+0.4220]`；
+- 5m UP `+0.4095`，95% CI `[+0.3805,+0.4400]`；
+- 5m DOWN `+0.4147`，95% CI `[+0.3864,+0.4432]`。
 
-只允许执行 M4 已预注册的 `T2=3.0 / 5.0` sensitivity，使用相同 Validation split 与同一 admitted 1m/5m source/profile identities。
+`T2=5` 的 4 个 contrasts 为：
 
-约束：
+- 1m UP `+0.3572`，95% CI `[+0.3436,+0.3711]`；
+- 1m DOWN `+0.3459`，95% CI `[+0.3329,+0.3587]`；
+- 5m UP `+0.3477`，95% CI `[+0.3179,+0.3781]`；
+- 5m DOWN `+0.3382`，95% CI `[+0.3098,+0.3673]`。
 
-- sensitivity 不能替代 T2=4 headline；
-- 不能用更好看的 sensitivity 结果 rescue H1；
-- 不能因此打开 Holdout；
-- 不能改 split、profile、horizon、endpoint 或 sample floor；
-- STAR50 replication 仍是后续独立步骤，不能池化。
+因此 **8/8 sensitivity contrasts = `SENSITIVITY_H1_CONTRADICTED`，0/8 朝 H1 方向**。10-bar reversal 也全部保持 Strong-Moderate 为负约 `-0.200` 至 `-0.285`。说明原 exhaustion H1 的反证并非 `T2=4` 单点阈值现象。
 
-### M5 后续
+M5-5 不能替代 primary headline，也不能打开 Holdout；one-shot sensitivity job 已 consumed，rerun 将被 CI 禁止。
 
-完成 M5-5 后，按冻结顺序报告 replication/可执行 robustness；Holdout 对本次 H1 support 路径保持关闭。M5 收口后才进入 M6 表示层裁决。
+### M5-6 — Cross-carrier Replication / Remaining Robustness（唯一下一步）
+
+按 M4 step 7，只允许做剩余独立 replication/reporting：
+
+- STAR50 `000688.SH` 独立报告，不能与 CSI1000 池化；
+- 只使用 M5-1 admitted 的 1m official / 5m offset0 exact views；
+- replication headline 仍围绕 frozen primary `T2=4`，不能改变 CSI1000 headline；
+- phase-sensitivity profiles 继续 `NOT_ADMITTED`，除非存在 current active exact-view receipt；
+- 不读取 2025 Holdout；
+- replication 即使方向不同，也只能作为外部一致性信息，不能 rescue 原 H1。
+
+M5-6 完成后收口 M5，再进入 M6 表示层裁决。
 
 ---
 
