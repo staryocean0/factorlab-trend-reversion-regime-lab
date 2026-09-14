@@ -1,0 +1,44 @@
+{
+  "schema_id": "trend_x5c_sina_15m_60m_source_receipt@1.0",
+  "stage": "X5C_15M_60M_CROSS_CARRIER",
+  "status": "SOURCE_ACQUIRED_CLOCK_QC_PASS_BEFORE_X5C_STATISTICS",
+  "sealed_on": "2026-09-14",
+  "provider": "Sina public CN market K-line endpoint",
+  "endpoint_family": "quotes.sina.cn/cn/api/json_v2.php/CN_MarketData.getKLineData",
+  "carriers": ["000852.SH","000688.SH","000300.SH","000905.SH","000016.SH"],
+  "views": {
+    "15m_native": {
+      "complete_window": {"start":"2026-06-17","end":"2026-09-14","trading_days":63,"rows_per_carrier":1008},
+      "close_times": ["09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00"],
+      "bad_days_all_carriers": 0,
+      "m3_exact_profile_identity": false,
+      "reason": "native Sina 15m clock is not the M3 15m_offset_5 or 15m_offset_10 clock"
+    },
+    "60m_native": {
+      "complete_window": {"start":"2026-01-05","end":"2026-09-14","trading_days":170,"rows_per_carrier":680},
+      "close_times": ["10:30","11:30","14:00","15:00"],
+      "bad_days_all_carriers": 0,
+      "m3_exact_profile_identity": false,
+      "reason": "native Sina 60m clock is not the M3 60m_offset_30 or 60m_offset_45 clock",
+      "old_m4_m5_2025_holdout_included": false
+    }
+  },
+  "raw_files": [
+    {"symbol":"000852.SH","period":"15m","raw_rows":1023,"sha256":"8242710f8791efabf47d3baca23d5752d0e9ec7f3ceb8a370c44decea3ced8d6"},
+    {"symbol":"000852.SH","period":"60m","raw_rows":1023,"sha256":"30779ffcd06f8d38c9e6be6a8722522085dcf5fbed9576fe6a304320fbf68566"},
+    {"symbol":"000688.SH","period":"15m","raw_rows":1023,"sha256":"5743284f0ae2f3c1b8f17f16190eef4b28584098149864708cfa0c9e01af66c5"},
+    {"symbol":"000688.SH","period":"60m","raw_rows":1023,"sha256":"99857670da9968d42d2c3e9b71dabc6374153f4597eacdf6085240f146011ab3"},
+    {"symbol":"000300.SH","period":"15m","raw_rows":1023,"sha256":"2faa3167314ce72eb32d05c9c3f5bd0501b822b5a6a248c5574b4fd169ff7cf2"},
+    {"symbol":"000300.SH","period":"60m","raw_rows":1023,"sha256":"b4303142d6a93757946ec02acf9c622f8328774792588789f60216217b0901ee"},
+    {"symbol":"000905.SH","period":"15m","raw_rows":1023,"sha256":"454dcb12b47d890834ce14a6712c0c659f8649a5a0da47237871a882d5ba3a63"},
+    {"symbol":"000905.SH","period":"60m","raw_rows":1023,"sha256":"616849a3a9800aff8462ea3f4363e79eba9a12436d2ebd94b985d7050f75635e"},
+    {"symbol":"000016.SH","period":"15m","raw_rows":1023,"sha256":"e407f5cf947e7bcd2d91b47abbc62a3f7883196937307828619f228cd82cb0c4"},
+    {"symbol":"000016.SH","period":"60m","raw_rows":1023,"sha256":"5328021284b9af8ad44d6ffdb8d8b467df7d4f6cfbc58b5ff2b9e07b7baf5d63"}
+  ],
+  "research_role": "five-carrier native-clock independent-source replication; complements but does not replace the two-carrier DataHub/M3 exact-view anchor",
+  "runtime_admission_effect": "none",
+  "market_statistics_computed_at_receipt_seal": false,
+  "parameter_tuning_performed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
