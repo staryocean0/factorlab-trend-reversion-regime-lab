@@ -1,0 +1,33 @@
+{
+  "schema_id": "trend_x4_post_x5g_update@1.0",
+  "status": "DYNAMIC_COMMON_SCALE_IMPROVES_CROSS_CARRIER_ALIGNMENT_STABLE_TEMPORAL_REPRESENTATION_NOT_ESTABLISHED",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "evidence_added": {
+    "strictly_causal_leave_one_carrier_out_common_scale": true,
+    "slow_carrier_component": true,
+    "all_preregistered_candidates_reduce_cross_carrier_range_by_at_least_80_percent": true,
+    "any_candidate_passes_all_stability_gates": false,
+    "longer_windows_worsen_temporal_stability": true,
+    "shortest_candidate_fails_interaction_gate": true
+  },
+  "calibration_family_status": {
+    "UNIVERSAL_FIXED_T1": "CURRENT_V1_BASELINE_NOT_PROVEN_UNIVERSAL_LAW",
+    "STATIC_INTERVAL_SPECIFIC_T1": "NOT_SUPPORTED_FOR_ADOPTION",
+    "STATIC_NORMALIZED_SCORE": "NOT_SUPPORTED_FOR_ADOPTION",
+    "CAUSAL_STATE_BOUNDARY_NORMALIZATION": "NOT_SUPPORTED_FOR_ADOPTION",
+    "CAUSAL_STRENGTH_SCALE_NORMALIZATION": "SUPPORTED_AS_CROSS_CARRIER_DIAGNOSTIC_ONLY",
+    "DYNAMIC_COMMON_PLUS_SLOW_CARRIER_NORMALIZATION": "CROSS_CARRIER_ALIGNMENT_SUPPORTED_TEMPORAL_STABILITY_NOT_ESTABLISHED",
+    "INSUFFICIENT_EVIDENCE": "CURRENT_DECISION"
+  },
+  "scientific_interpretation": "X5G strengthens the case that much of 60m strength scale is common and carrier-normalizable, but the unresolved component is not removed by simple fixed-window causal smoothing. The residual behaves like regime-shift or carrier-by-regime interaction rather than stationary measurement noise.",
+  "next_research_priority": "Adaptive regime-shift-aware strength-only scale estimation or change-point response, still without state-boundary modification.",
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
