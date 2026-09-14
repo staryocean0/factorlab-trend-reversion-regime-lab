@@ -10,11 +10,11 @@
 
 ## 当前状态
 
-本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M7 PASS**。当前唯一下一步：**M8 — 策略层调用集成验证**。
+本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M8 PASS**；M8 是 scope-limited integration-boundary PASS。当前唯一下一步：**M9 — release / version / documentation / governance**。
 
-接管必读：`docs/ROADMAP.md`、`docs/API_CONTRACT.md`、`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`、`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
+接管必读：`docs/ROADMAP.md`、`docs/API_CONTRACT.md`、`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`、`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-## 当前正式表示
+## 正式产品与 consumer
 
 ```text
 state             = DOWN | SIDEWAYS | UP
@@ -22,33 +22,32 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-V1 stable API 不包含 T2、`STRONG_UP/STRONG_DOWN`、five-bucket state 或 `global_state`。
+入口：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。
 
-## M7 已完成
+M7 lifecycle 已冻结：immutable/append-only、receipt-causal as-of、expiry、latest-expired/unavailable no-fallback、stable source/provider identities。当前 runtime admission 仍只包括两指数 `trend_1m_official_v1` / `trend_5m_offset0_v1`；其他 M3 profiles fail closed。
 
-正式入口：
+## M8 已完成
 
-```text
-query_regime(symbol, as_of, bar_interval, profile_id=None)
-```
+Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-已实现 `regime_state_consumer_v1` + `trend_regime_snapshot@1.0`：immutable identity、append-only ingest、publication/receipt causality、as-of visibility、expiry、latest-expired/unavailable no-fallback、source/provider receipt identity 与 fail-closed admission。
+- CSI1000 私仓存在真实 read-only Layer2 adapter 与 Layer3 orchestration kernel；M8 验证 M7 trend snapshot 与这个 ownership boundary 兼容。
+- STAR50 存在真实 `state_degree_consumer_d5` risk-state provider，但其示例明确 `actual_external_consumer_connected=False`；因此只能作为并行 Layer2 risk boundary，不得声称已有真实策略 caller 接线。
+- Synthetic tests 验证多周期状态分离、trend/risk namespace 分离、expired/unavailable 不补成 SIDEWAYS、15m 未准入在上层之前 fail closed、Layer2 不产生任何 strategy/action 字段。
+- 外部仓库没有被修改，没有 market outcome、M5 reopen 或 Holdout read。
 
-当前 V1 provider registry 固定为 DataHub exact source，两指数只接纳 `trend_1m_official_v1` / `trend_5m_offset0_v1`。15m/60m 与其他 phase profiles 在当前 runtime registry 下 `STATE_NOT_ADMITTED`。Registry 不能由 caller/constructor 自行扩权。
-
-`source_receipt_id` 必须非空；`valid_until` 属于 component/provider publication layer，不是 query caller knob。
+M8 的 PASS 是 interface/ownership compatibility，不是 live/production integration certification，也没有安装新策略 plugin。
 
 ## 仍然禁止
 
-- 重跑 M5 outcome 或读取 2025 Holdout；
-- 修改 M6 representation；
-- 修改 M7 snapshot identity / expiry-no-fallback / current provider admission；
-- 在组件内输出 BUY/SELL/position/order/strategy routing；
-- 声称 15m/60m 已获得与 1m/5m 相同的 empirical certification；
+- 重跑 M5 或读取 2025 Holdout；
+- 修改 M6 representation 或 M7 lifecycle/admission；
+- 扩张 15m/60m/phase provider admission；
+- 在 Layer2 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
+- 把 STAR50 说成已经连接外部策略 caller；
 - 把工程完成解释成 `production_authority=true` 或 `fresh_oos=true`。
 
-## M8 唯一任务
+## M9 唯一任务
 
-选择至少两个真实上层 caller 做集成/conformance 验证：它们只能读取 M7 snapshot，并在策略层自行决定多周期组合、风险状态组合和动作映射。M8 应证明调用边界稳定，而不是修改趋势组件语义。
+只做 release/version/governance 收口：schema/version compatibility matrix、API examples、changelog/migration、evidence lineage、known limitations、release policy 与 CI/release governance。
 
-M8 完成前不进入 M9。
+M9 不得通过“发布”动作改变已经冻结的研究结论、representation、consumer runtime admission 或 authority。
