@@ -32,6 +32,7 @@ jobs:
             /*
             !/data/
             /data/README.md
+            /data/manifest.json
             !/docs/ops/evidence/
             /docs/ops/evidence/etf_day_reconciliation_20260912/receipt.json
       - uses: actions/setup-python@v5
@@ -51,6 +52,7 @@ jobs:
           tests/test_five_bucket_protocol.py
           tests/test_m5_source_profile_admission.py
           tests/test_m5_development_adequacy_pipeline.py
+          tests/test_m5_development_seal.py
           --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
       - name: Validate setup shell syntax
         run: bash -n .codex/cloud_setup.sh
