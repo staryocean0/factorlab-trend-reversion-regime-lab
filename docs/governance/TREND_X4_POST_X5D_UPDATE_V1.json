@@ -1,0 +1,43 @@
+{
+  "schema_id": "trend_x4_post_x5d_calibration_update@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X4_CALIBRATION_DECISION_UPDATE_AFTER_X5D",
+  "status": "INSUFFICIENT_EVIDENCE_STATIC_INTERVAL_CALIBRATION_NOT_ADOPTED",
+  "date": "2026-09-14",
+  "relationship_to_prior_decisions": "additive evidence update; does not rewrite prior X4/X5 artifacts or V1 semantics",
+  "prior_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_decision": "INSUFFICIENT_EVIDENCE",
+  "new_authorities": [
+    "docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_RESULT_V1.json",
+    "docs/governance/TREND_X5D_DEVELOPMENT_CALIBRATION_RECEIPT_V1.json",
+    "docs/governance/TREND_X5D_INTERVAL_CALIBRATION_COMPARISON_RESULT_V1.json"
+  ],
+  "what_is_now_established": [
+    "The prior 60m sample-size limitation is no longer the main obstacle in the five-carrier independent-source track; 60m directional metrics have at least 181 origins per carrier/direction metric.",
+    "15m is materially more stable across carriers than 60m under the unchanged 20-bar slope_t/T1=2 baseline.",
+    "60m heterogeneity persists on a longer 2026 window and is not explained away by the earlier short two-carrier sample.",
+    "A static interval-specific threshold fit on 2020 Development data does not transfer cleanly to 2026 five-carrier state semantics.",
+    "Static robust interval normalization improves some scale and carrier-dispersion diagnostics but does not consistently improve persistence/reversal semantics.",
+    "No X5D candidate strictly Pareto-dominates V1 or the other candidates on the predeclared state-semantic dispersion metrics."
+  ],
+  "current_family_status": {
+    "UNIVERSAL_FIXED_T1": "CURRENT_V1_BASELINE_NOT_ESTABLISHED_AS_UNIVERSAL_LAW",
+    "INTERVAL_SPECIFIC_T1": "STATIC_FORM_NOT_SUPPORTED_FOR_ADOPTION",
+    "PROFILE_SPECIFIC_T1": "NOT_SUPPORTED_AS_DEFAULT",
+    "STATIC_NORMALIZED_SCORE_PLUS_UNIVERSAL_THRESHOLD": "NOT_SUPPORTED_FOR_ADOPTION_STATE_SEMANTICS_MIXED",
+    "NORMALIZED_STRENGTH_SCALE": "PROMISING_NUMERIC_DIAGNOSTIC_REQUIRES_SEPARATE_SEMANTIC_STUDY",
+    "INSUFFICIENT_EVIDENCE": "CURRENT_DECISION"
+  },
+  "scientific_implication": "The unresolved 60m issue is not only interval scale; temporal/regime nonstationarity and clock/source identity are material. A future method must not force constant state occupancy and must be causal and out-of-time.",
+  "next_research_boundary": [
+    "Do not fit another static T1 grid to the 2026 evaluation window.",
+    "If normalization is studied further, separate state-boundary normalization from strength-scale normalization and preserve regime information.",
+    "Prefer additional exact/governed 60m clock evidence or a causal predeclared normalization study before any representation-version decision."
+  ],
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
