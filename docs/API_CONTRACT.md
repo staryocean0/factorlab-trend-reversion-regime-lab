@@ -1,6 +1,8 @@
-# 趋势状态识别组件 API 合同（M1–M8 已冻结）
+# 趋势状态识别组件 API 合同（M1–M9 已冻结）
 
-> 状态：**M7 stable consumer 已实现；M8 已验证其上层集成所有权边界。** M8 不改变 M7 的调用面、snapshot lifecycle 或 provider admission。
+> 状态：**M9 已完成 V1 release governance。** M7 stable consumer 与 M8 上层所有权边界保持不变。
+>
+> Component release：`factorlab.layer2.trend_regime@1.0.0`。
 >
 > `production_authority=false`、`fresh_oos=false`。组件不输出买卖、仓位、订单、策略路由或多周期总趋势。
 
@@ -67,20 +69,38 @@ M7 runtime 已实现：immutable snapshot、append-only ingest、duplicate ident
 
 Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-M8 验证并冻结以下所有权规则：
-
 1. Layer2 trend snapshot 是只读输入；caller 不在 Layer2 adapter 中修改 value/threshold/state semantics。
 2. 同一 as-of 的 1m/5m snapshot 可以不同，必须分别上送；Layer2 不创建 `global_state`。
 3. trend 与 risk 是并行 Layer2 namespaces；融合、冲突仲裁、选择属于 Layer3 或更高层。
 4. `UNAVAILABLE` / expired 不能被 caller 转成 SIDEWAYS 来补值。
-5. 任何 BUY/SELL、position/order、strategy/plugin selection、routing 都在 Layer2 之外。
+5. BUY/SELL、position/order、strategy/plugin selection、routing 全部在 Layer2 之外。
 6. M8 不创建 production wiring，也不授权 production。
 
-CSI1000 私仓已有真实 read-only Layer2 adapter 和 Layer3 orchestration kernel，M8 验证与其所有权模型兼容。STAR50 仓已有真实 risk-state consumer，但其示例明确没有 external consumer connected，因此这里只认证为并行 risk-provider boundary，**不声称存在已部署的 STAR50 策略 caller**。
+CSI1000 私仓已有真实 read-only Layer2 adapter 和 Layer3 orchestration kernel，M8 验证与其所有权模型兼容。STAR50 仓已有真实 risk-state consumer，但未证明有 connected external strategy caller；不能扩大表述。
 
-## 9. Governance
+## 9. M9 version / compatibility contract
 
-M7 machine contract：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
-M8 machine contract：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
+Machine authority：`docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`。
 
-M8 不重开 M5、读取 Holdout、改变 M6/M7、修改外部仓或扩大 provider admission。**唯一下一步是 M9 release/version/documentation/governance。**
+Component semantic version：`1.0.0`。仓库 `pyproject.toml` distribution 仍是 `0.1.0`，因为其还包含大量历史研究和维护模块，**不作为 trend component semantic-version authority**。
+
+Compatibility rule：
+
+- **1.0.x patch**：只能做文档、测试/CI、内部重构且公共语义完全不变。
+- **1.x minor**：只能做向后兼容增量；新增 provider/profile 必须先有新的 exact source admission receipt，旧 caller 行为不变。
+- **new major**：state enum/T1、estimator、directional score、strength、required query semantics、snapshot identity、expiry/no-fallback、formal T2/STRONG state、Layer2 global state、strategy/action authority 任一发生语义变化。
+
+任何 semantic change 必须获得新 schema/version identity；历史 V1 snapshots 永不原地改写。
+
+迁移、API examples、known limitations、evidence lineage 和 release gate 分别见：
+
+- `docs/RELEASE.md`
+- `docs/API_EXAMPLES.md`
+- `CHANGELOG.md`
+- `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
+
+## 10. Governance closeout
+
+M0–M9 已完成。后续新增能力不属于“继续执行 M10”，而应按 M9 SemVer/governance 新建立版本化变更。
+
+V1 不得通过发布动作重开 M5、读取 2025 Holdout、扩大当前 source admission、引入 five-bucket product semantics，或把 `production_authority` / `fresh_oos` 改为 true。
