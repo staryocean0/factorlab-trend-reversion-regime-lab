@@ -11,3 +11,5 @@ Holm family 始终保持 M4 的 8 个 planned contrasts：1m/5m/15m/60m × UP/DO
 每个可执行 interval/direction 只有在：primary sample floor 通过、Holm adjusted p<=0.05、primary contrast<=-0.05，且至少一个 adequate secondary point estimate 符合 H1 方向，同时没有 adequate secondary 的 95% CI 完全落在反方向时，才记为 `VALIDATION_SUPPORT`。Primary 95% CI 完全大于 0 才记 `H1_CONTRADICTED`；样本不足记 `INCONCLUSIVE_UNDERPOWERED`；其他情况记 `H1_NOT_SUPPORTED`。
 
 同一次运行还输出 M4 预注册 descriptive metrics，但它们不改变上述 support rule。M5-4 完成后只允许进入 M5-5 预注册 `T2=3/5` Validation sensitivity；Holdout 仍锁定。
+
+Execution trigger: armed once under the frozen machine contract; no sealed identity changed by this line.
