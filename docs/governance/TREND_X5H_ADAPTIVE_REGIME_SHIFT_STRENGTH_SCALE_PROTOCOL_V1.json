@@ -1,0 +1,99 @@
+{
+  "schema_id": "trend_x5h_adaptive_regime_shift_strength_scale_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5H_STATISTICS",
+  "research_only": true,
+  "objective": "Test strictly-causal regime-shift-aware strength-only scale estimators after X5G showed fixed-window lag; do not change V1 state or strength semantics.",
+  "source": {
+    "provider": "Sina public index kline",
+    "bar_interval": "60m_native",
+    "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "window": {"start": "2026-01-05", "end": "2026-09-14"},
+    "old_m4_m5_2025_holdout_included": false,
+    "runtime_admission_effect": "none"
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(slope_t)",
+    "v1_state_boundary_t1": 2.0,
+    "state_boundary_use": "forbidden"
+  },
+  "causal_common_scale": {
+    "base": "for target carrier h at t, median of the other four carriers' prior-only rolling median strength",
+    "slow_window": 20,
+    "fast_window": 5,
+    "current_target_score_used": false,
+    "future_information_used": false
+  },
+  "causal_carrier_component": {
+    "slow_window": 120,
+    "fast_window": 20,
+    "residual_definition": "raw_strength / common_scale",
+    "current_target_residual_used": false
+  },
+  "preregistered_candidates": {
+    "X5G_BASE_COMMON20_CARRIER120": {
+      "common": "slow20",
+      "carrier": "slow120",
+      "adaptive": false
+    },
+    "ADAPT_CARRIER_BLEND_1P5": {
+      "common": "slow20",
+      "carrier": "geometric_blend_fast20_slow120",
+      "blend_weight": "min(1, abs(log(fast20/slow120))/log(1.5))",
+      "adaptive": true
+    },
+    "ADAPT_COMMON_BLEND_1P5": {
+      "common": "geometric_blend_fast5_slow20",
+      "common_blend_weight": "min(1, abs(log(fast5/slow20))/log(1.5))",
+      "carrier": "slow120",
+      "adaptive": true
+    },
+    "ADAPT_DUAL_BLEND_1P5": {
+      "common": "geometric_blend_fast5_slow20",
+      "common_blend_weight": "min(1, abs(log(fast5/slow20))/log(1.5))",
+      "carrier": "geometric_blend_fast20_slow120",
+      "carrier_blend_weight": "min(1, abs(log(fast20/slow120))/log(1.5))",
+      "adaptive": true
+    },
+    "ADAPT_CARRIER_RESET_1P5": {
+      "common": "slow20",
+      "carrier": "fast20 if fast20/slow120 outside [2/3,1.5], otherwise slow120",
+      "adaptive": true
+    }
+  },
+  "evaluation": {
+    "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+    "september_extension": {"start": "2026-09-01", "end": "2026-09-14", "role": "forward extension diagnostic only, no candidate selection"},
+    "common_warmup": 320,
+    "metrics": [
+      "cross_carrier_median_strength_range",
+      "median_within_carrier_monthly_max_to_min",
+      "carriers_improved_vs_raw_temporal_ratio",
+      "monthly_cell_max_to_min",
+      "trigger_or_blend_activity_fraction"
+    ]
+  },
+  "decision_gates": {
+    "cross_carrier": "range reduction versus raw >= 0.75",
+    "temporal": "median within-carrier monthly max/min reduced by >= 0.10 versus raw on June-August",
+    "breadth": "at least 4 of 5 carriers have lower June-August monthly max/min than raw",
+    "interaction": "June-August monthly-cell max/min reduced by >= 0.10 versus X5G_BASE_COMMON20_CARRIER120",
+    "stable_research_candidate_requires_all_gates": true,
+    "product_adoption_allowed": false,
+    "x6_version_bump_allowed": false
+  },
+  "forbidden": [
+    "trading_returns",
+    "strategy_selection",
+    "BUY_SELL",
+    "position_or_order_logic",
+    "runtime_admission_expansion",
+    "opening_old_2025_holdout",
+    "changing_v1_state_boundary",
+    "changing_v1_strength_semantics",
+    "post_result_candidate_or_threshold_tuning"
+  ],
+  "production_authority": false,
+  "fresh_oos": false
+}
