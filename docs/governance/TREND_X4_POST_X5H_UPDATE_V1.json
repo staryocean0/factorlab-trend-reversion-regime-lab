@@ -1,0 +1,38 @@
+{
+  "schema_id": "trend_x4_post_x5h_update@1.0",
+  "status": "PRIMARY_RESEARCH_CANDIDATE_FOUND_BUT_MECHANISM_AND_TURNOVER_REQUIRE_PROSPECTIVE_VALIDATION",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "x5h_primary_result": {
+    "gate_qualified_candidate": "ADAPT_DUAL_BLEND_1P5",
+    "all_preregistered_primary_gates_pass": true,
+    "primary_months": ["2026-06", "2026-07", "2026-08"]
+  },
+  "post_hoc_limits": {
+    "pure_fast_5_20_matches_or_exceeds_dual_on_scale_metrics": true,
+    "specific_regime_shift_mechanism_identified": false,
+    "dual_scale_turnover_multiple_vs_x5g_base_median": 3.2124,
+    "turnover_was_preregistered_gate": false,
+    "september_extension_used_for_selection": false
+  },
+  "representation_status": {
+    "CROSS_CARRIER_STRENGTH_NORMALIZATION": "SUPPORTED_RESEARCH_DIAGNOSTIC",
+    "ADAPTIVE_DUAL_BLEND": "PROMOTED_TO_PROSPECTIVE_REPLICATION_CANDIDATE_ONLY",
+    "PURE_FAST_5_20": "POST_HOC_MECHANISM_COMPARATOR_REQUIRES_PREREGISTRATION",
+    "STABLE_TEMPORAL_PRODUCT_STRENGTH": "NOT_ESTABLISHED",
+    "CAUSAL_STATE_BOUNDARY_NORMALIZATION": "NOT_SUPPORTED"
+  },
+  "next_required_evidence": [
+    "preregister dual blend versus pure-fast and slow baselines before new evaluation",
+    "add explicit scale-turnover/jitter non-inferiority gate",
+    "use fresh or structurally independent validation window/source/carrier set",
+    "do not use state or trading outcomes to select the strength estimator"
+  ],
+  "v1_action": "NO_CHANGE",
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "x6_readiness": "HOLD_NOT_READY",
+  "production_authority": false,
+  "fresh_oos": false
+}
