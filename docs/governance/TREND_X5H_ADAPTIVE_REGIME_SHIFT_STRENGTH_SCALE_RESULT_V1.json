@@ -1,0 +1,133 @@
+{
+  "schema_id": "trend_x5h_adaptive_regime_shift_strength_scale_result@1.0",
+  "status": "X5H_COMPLETE_PRIMARY_GATE_CANDIDATE_FOUND_MECHANISM_AND_TURNOVER_NOT_RESOLVED",
+  "research_scope": "representation-layer strength diagnostics only",
+  "source_window": {"start": "2026-01-05", "end": "2026-09-14"},
+  "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "aligned_measurements_per_carrier": 661,
+  "primary_evaluation": {
+    "months": ["2026-06", "2026-07", "2026-08"],
+    "measurements_per_carrier": 260,
+    "reason": "complete calendar months only; avoids the partial-May effect identified after X5G"
+  },
+  "september_extension": {
+    "start": "2026-09-01",
+    "end": "2026-09-14",
+    "measurements_per_carrier": 40,
+    "role": "forward extension diagnostic only; not used for primary candidate selection"
+  },
+  "raw_primary": {
+    "cross_carrier_median_strength_range": 2.1942,
+    "median_within_carrier_monthly_max_to_min": 1.5066,
+    "monthly_cell_max_to_min": 2.7612
+  },
+  "preregistered_candidates": {
+    "X5G_BASE_COMMON20_CARRIER120": {
+      "cross_carrier_range": 0.3386,
+      "range_reduction_vs_raw": 0.8457,
+      "temporal_ratio": 1.3432,
+      "temporal_reduction_vs_raw": 0.1085,
+      "carriers_improved": 2,
+      "monthly_cell_max_to_min": 2.1273,
+      "all_gates_pass": false
+    },
+    "ADAPT_CARRIER_BLEND_1P5": {
+      "cross_carrier_range": 0.1508,
+      "range_reduction_vs_raw": 0.9313,
+      "temporal_ratio": 1.6165,
+      "temporal_reduction_vs_raw": -0.0730,
+      "carriers_improved": 1,
+      "monthly_cell_max_to_min": 2.0336,
+      "interaction_reduction_vs_x5g_base": 0.0441,
+      "all_gates_pass": false
+    },
+    "ADAPT_COMMON_BLEND_1P5": {
+      "cross_carrier_range": 0.3191,
+      "range_reduction_vs_raw": 0.8546,
+      "temporal_ratio": 1.6360,
+      "temporal_reduction_vs_raw": -0.0859,
+      "carriers_improved": 3,
+      "monthly_cell_max_to_min": 2.2571,
+      "interaction_reduction_vs_x5g_base": -0.0610,
+      "all_gates_pass": false
+    },
+    "ADAPT_DUAL_BLEND_1P5": {
+      "cross_carrier_range": 0.1370,
+      "range_reduction_vs_raw": 0.9375,
+      "temporal_ratio": 1.1604,
+      "temporal_reduction_vs_raw": 0.2298,
+      "carriers_improved": 5,
+      "monthly_cell_max_to_min": 1.3560,
+      "interaction_reduction_vs_x5g_base": 0.3626,
+      "common_blend_mean_weight": 0.7608,
+      "common_blend_fraction_ge_0_5": 0.7446,
+      "carrier_blend_mean_weight": 0.7078,
+      "carrier_blend_fraction_ge_0_5": 0.7038,
+      "gates": {"cross_carrier": true, "temporal": true, "breadth": true, "interaction": true},
+      "all_gates_pass": true
+    },
+    "ADAPT_CARRIER_RESET_1P5": {
+      "cross_carrier_range": 0.1438,
+      "range_reduction_vs_raw": 0.9345,
+      "temporal_ratio": 1.6856,
+      "temporal_reduction_vs_raw": -0.1188,
+      "carriers_improved": 2,
+      "monthly_cell_max_to_min": 2.1302,
+      "interaction_reduction_vs_x5g_base": -0.0014,
+      "reset_activity_fraction": 0.55,
+      "all_gates_pass": false
+    }
+  },
+  "primary_decision": {
+    "gate_qualified_research_candidate": "ADAPT_DUAL_BLEND_1P5",
+    "number_of_gate_qualified_candidates": 1,
+    "research_candidate_advances": true,
+    "product_adoption": false,
+    "interpretation": "Dual fast/slow blending passes all preregistered June-August research gates, but this alone does not establish a product-stable representation."
+  },
+  "september_forward_extension": {
+    "raw_cross_carrier_range": 1.5041,
+    "ADAPT_DUAL_BLEND_1P5_cross_carrier_range": 0.4418,
+    "ADAPT_DUAL_BLEND_1P5_range_reduction_vs_raw": 0.7063,
+    "interpretation": "The dual candidate preserves material cross-carrier improvement in the September extension, but the reduction is below the 75% primary cross-carrier gate if that gate were applied; September was not a selection sample."
+  },
+  "post_hoc_mechanism_diagnostic_not_used_for_primary_decision": {
+    "PURE_FAST_COMMON5_CARRIER20": {
+      "cross_carrier_range": 0.13535,
+      "range_reduction_vs_raw": 0.93832,
+      "temporal_ratio": 1.14702,
+      "temporal_reduction_vs_raw": 0.23866,
+      "carriers_improved": 5,
+      "monthly_cell_max_to_min": 1.31996,
+      "interaction_reduction_vs_x5g_base": 0.37951,
+      "september_cross_carrier_range": 0.31458,
+      "september_range_reduction_vs_raw": 0.79085
+    },
+    "finding": "Pure fast 5/20 is at least as good as the adaptive dual blend on the post-hoc diagnostics, while the preregistered dual blend spends most observations with blend weight >=0.5. Therefore X5H does not identify a specific sparse regime-shift mechanism; the result may primarily reflect short-memory scaling."
+  },
+  "post_hoc_scale_turnover_diagnostic_not_used_for_primary_decision": {
+    "X5G_BASE_COMMON20_CARRIER120": {"median_abs_log_scale_change": 0.03461, "median_q95_abs_log_scale_change": 0.23996},
+    "ADAPT_DUAL_BLEND_1P5": {"median_abs_log_scale_change": 0.11119, "median_q95_abs_log_scale_change": 0.53097, "median_change_multiple_vs_base": 3.2124, "q95_multiple_vs_base": 2.2127},
+    "PURE_FAST_COMMON5_CARRIER20": {"median_abs_log_scale_change": 0.11751, "median_q95_abs_log_scale_change": 0.50607, "median_change_multiple_vs_base": 3.3950, "q95_multiple_vs_base": 2.1090},
+    "finding": "The improved monthly scale metrics are purchased with substantially higher per-measurement scale turnover, which was not a preregistered gate and must be tested prospectively before any stable representation claim."
+  },
+  "normalized_strength_decision": {
+    "gate_qualified_research_candidate_exists": true,
+    "specific_regime_shift_mechanism_identified": false,
+    "stable_temporal_product_representation_established": false,
+    "product_strength_semantics_change_supported": false,
+    "state_boundary_use_supported": false,
+    "recommended_next_research_question": "Prospectively compare adaptive dual blend versus pure-fast and slow baselines with an explicit scale-turnover/jitter gate and a fresh or structurally independent validation window."
+  },
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "strategy_logic_used": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
