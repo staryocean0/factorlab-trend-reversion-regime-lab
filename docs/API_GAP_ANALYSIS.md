@@ -1,10 +1,10 @@
-# 趋势状态 Consumer：当前 Gap List（已吸收 M2–M5-2）
+# 趋势状态 Consumer：当前 Gap List（已吸收 M2–M5-3）
 
-> 本文追踪当前仓库距离最终 `regime_state_consumer_v1` 仍有哪些差距。M5-2 已完成 Development sample adequacy，但 Validation/Holdout 仍未读取，五桶 H1 尚未检验。
+> 本文追踪当前仓库距离最终 `regime_state_consumer_v1` 仍有哪些差距。M5-3 已在任何 Validation outcome 前完成 code/config/Development seal；Validation/Holdout 仍未读取，五桶 H1 尚未检验。
 
 ## 1. 当前结论
 
-当前已经具备：M2 三桶数学、M3 versioned profiles、M4 预注册五桶协议、M5-1 exact source/profile admission，以及 M5-2 Development-only sample adequacy。
+当前已经具备：M2 三桶数学、M3 versioned profiles、M4 预注册五桶协议、M5-1 exact source/profile admission、M5-2 Development-only sample adequacy，以及 **M5-3 byte-identity seal**。
 
 当前路径：
 
@@ -12,10 +12,12 @@
 M5-1 exact source admission
         +
 M5-2 Development sample adequacy
-        ↓
+        +
 M5-3 code/config/Development seal
         ↓
-M5 primary Validation / conditional holdout
+M5-4 one-shot primary T2=4 Validation
+        ↓
+M5-5 predeclared sensitivity / conditional holdout
         ↓
 M6 representation decision → M7 consumer
 ```
@@ -32,7 +34,8 @@ M6 representation decision → M7 consumer
 | G16 | 多周期总趋势歧义 | **M3 RESOLVED**：无 `global_state` |
 | G18 | 五桶协议可事后改口 | **M4 RESOLVED** |
 | G19 | “文件存在”被误当 source admission | **M5-1 RESOLVED**：current active exact-view receipt 才能准入 |
-| G20 | historical retrieval `available_at` 与 decision-time visibility 混用 | **M5-1/M5-2 RESOLVED**：raw historical `available_at` 仅 provenance；Development pipeline 使用 completed exact-view bars，并未把历史 retrieval time 当盘中延迟 |
+| G20 | historical retrieval `available_at` 与 decision-time visibility 混用 | **M5-1/M5-2 RESOLVED**：raw historical `available_at` 仅 provenance；replay clock 使用 completed exact-view bar end |
+| G21 | Validation 前 code/config/Development identity 未 seal | **M5-3 RESOLVED**：`TREND_M5_DEVELOPMENT_SEAL_V1.json` 固定 contracts、code blobs、data manifest、DataHub source SHA256、Development run/artifact；CI 用 `git hash-object` 守卫 |
 
 ## 3. 仍未解决的核心 Gap
 
@@ -42,36 +45,45 @@ M6 representation decision → M7 consumer
 | G02 | `regime_state_consumer_v1` 未代码实现 | contract 已冻结 | stable envelope | M7 |
 | G03 | 无 snapshot lifecycle/store | measurement clocks 有 | immutable snapshot + expiry/no-fallback | M7 |
 | G04 | consumer unavailable/expiry 未代码化 | 文档合同 | runtime semantics | M7 |
-| G09 | 五桶没有正式市场证据 | M5-2 只证明 Development 样本量足够 | Validation→conditional holdout→M6 | M5–M6 |
+| G09 | 五桶没有正式市场证据 | M5-1/2/3 只完成准入、样本量与 seal | primary Validation→conditional holdout→M6 | M5–M6 |
 | G10 | source admission 不完整 | 1m/5m admitted；15m/60m、phase sensitivity NOT_ADMITTED | exact current receipts 或继续 fail closed | M5/M7/M9 |
 | G11 | 无 trend snapshot identity/history | measurement 不是发布事件 | stable snapshot ID | M7 |
 | G12 | 无 consumer conformance suite | 当前仅底层/研究治理 tests | expiry/no-fallback/compatibility tests | M7 |
 | G13 | callable consumer 生命周期未登记 | support/measurement 工程 | owner/version/status/migration | M7/M9 |
 | G14 | strategy integration 未证明 | 无两个独立 caller | 多调用者集成 | M8 |
 | G17 | 完整交易日 source completeness authority 不在 Layer-2 | session grid 可验 | Layer-1 calendar/provider receipt | M5/M7/M9 |
-| G21 | Validation 前 code/config/Development identity 尚未正式 seal | M5-2 run 与 artifact 已有 identity，但还未形成不可覆盖 seal contract | 冻结 code blob/config/source/run/dataset identities，并保持 Validation locked | **M5-3** |
+| G22 | primary `T2=4` Validation 尚未执行/裁决 | M5-3 seal 已具备，Validation rows 未读 | sealed identities 下 one-shot Validation，固定 8-contrast Holm family，形成不可覆盖 receipt | **M5-4** |
 
-## 4. M5-2 Development Sample Adequacy
+## 4. M5-3 Seal 的关键约束
 
-只读取 `2020-07-23`–`2022-12-30`，只运行 M5-1 admitted 的 1m/5m anchors。
+机器 authority：`docs/governance/TREND_M5_DEVELOPMENT_SEAL_V1.json`。
 
-主 5-bar 完整 episode-entry 数：
+Seal 固定了：
 
-| carrier/profile | UP moderate | UP strong | DOWN moderate | DOWN strong |
-|---|---:|---:|---:|---:|
-| 000852.SH / 1m | 6012 | 3003 | 5912 | 2891 |
-| 000852.SH / 5m | 1157 | 549 | 1202 | 587 |
-| 000688.SH / 1m | 5805 | 2746 | 6319 | 3084 |
-| 000688.SH / 5m | 1105 | 546 | 1267 | 631 |
+- M4 protocol；
+- M5-1 source/profile admission；
+- M5-2 Development receipt；
+- M5-2 entrypoint/core；
+- M2 slope baseline；
+- M3 profile registry；
+- Layer-1 clock contract；
+- market-data reader；
+- `data/manifest.json`；
+- DataHub export/view SHA256；
+- Development run/head/artifact digest。
 
-四个组合的 primary floor=100 与 10/20-bar secondary floor=50 均通过。该结果只回答“样本够不够”，没有计算 H1 primary/secondary outcomes。
+默认 CI 对 sealed paths 重新计算 Git blob identity；byte drift 会直接失败。
 
-证据：`docs/governance/TREND_M5_DEVELOPMENT_ADEQUACY_V1.json`；真实 run `34812469153`。
+M5-3 没有读取 Validation/Holdout，也没有计算 H1 outcome。
 
-## 5. 唯一下一任务
+## 5. Primary family 不因 admission 缩小
 
-**M5-3 — Code / Config / Development Seal。**
+M4 预注册 primary family 固定为 `4 intervals × 2 directions = 8`。M5-1 只使 1m/5m 可执行；15m/60m 对应的 4 个 planned contrasts 仍保留在 family 中，并按 M4 `unavailable_or_underpowered_primary_hypothesis_pvalue=1.0` 进入 Holm。不得在看到 source admission 后把 family 缩成 4。
 
-只允许冻结 M5 pipeline code hash、M4 config identity、M5-1 admission identity、M5-2 run/artifact/dataset identity，以及仍为 locked 的 Validation/Holdout 状态。**M5-3 不运行 Validation。**
+## 6. 唯一下一任务
+
+**M5-4 — one-shot primary `T2=4.0` Validation。**
+
+只允许读取 `2023-01-03`–`2024-12-31`，使用 seal 中的 code/config/source identities，执行 admitted 1m/5m anchors；15m/60m 继续 NOT_ADMITTED；Holm family size=8；Holdout 保持 locked。M5-4 不得同轮运行 `T2=3/5` sensitivity 或打开 holdout。
 
 M5 完成前不得进入 M6。
