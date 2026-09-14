@@ -2,16 +2,17 @@
 
 > 本路线图定义未来工作的**执行顺序**。它不是收益研究结论，也不把任何尚未验证的假设写成策略规则。
 >
-> 执行纪律：**一次会话只推进当前里程碑；未通过当前 Gate，不自动进入下一阶段。** 历史研究证据保持原样，不用新定位重写旧结果。
+> 执行纪律：**一次会话只推进当前里程碑/当前冻结子步骤；未通过当前 Gate，不自动进入下一阶段。** 历史研究证据保持原样，不用新定位重写旧结果。
 
 ## 当前进度
 
 - **M0 — PASS**：产品定位、白皮书与路线图已落库。
 - **M1 — PASS**：完成参考 consumer 审计，冻结 [API 合同](API_CONTRACT.md) 并形成 [Gap List](API_GAP_ANALYSIS.md)。
 - **M2 — PASS**：冻结 [三桶趋势状态基线](THREE_BUCKET_BASELINE.md)：20-bar log-close OLS signed slope t-score，`T1=2.0`，completed-bar/as-of 与 fail-closed。
-- **M3 — PASS**：完成多 K 线级别参数化，首批 admission 为 `1m/5m/15m/60m`，绑定 10 个 DataHub Layer-1 V3 profiles；完成 cadence/view/as-of 与多周期并存回归。
+- **M3 — PASS**：完成多 K 线级别参数化，首批 profile registry 为 `1m/5m/15m/60m` 共 10 个 Layer-1 V3 profiles。
 - **M4 — PASS**：五桶实验协议已在任何 M5 outcome 计算之前冻结，详见 [M4 协议](governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md) 与 [机器合同](governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json)。
-- **唯一下一步：M5**。M5 只能按 M4 冻结协议执行，不允许先看结果再改阈值、切分、profile、horizon 或样本门槛。
+- **M5 — IN PROGRESS**：**M5-1 source/profile admission 已 PASS（partial admission）**。两指数的 1m official 与 5m offset0 已准入；15m/60m anchors 及 phase-sensitivity profiles 因缺少 current active exact-view receipt 而 fail closed。详见 [M5-1 receipt](governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.md)。
+- **唯一下一步：M5-2**。只允许 Development pipeline + sample-adequacy checks；Validation 与 Holdout 仍锁定。
 
 ---
 
@@ -42,18 +43,7 @@
 
 ## M2 — 三桶基线冻结与可复现性（PASS）
 
-### 已冻结基线
-
-详细规格见 `docs/THREE_BUCKET_BASELINE.md`。`trend_regime_three_bucket_baseline@1.0`：
-
-- `log(close)`；
-- 最近 20 根已结束且已可用 bar；
-- log-close OLS signed slope t-score 为唯一三桶 authority；
-- `T1=2.0`；
-- `DOWN: s<-2`；`SIDEWAYS: -2<=s<=2`；`UP: s>2`；
-- 缺失/坏 close、少于 20 根均 fail closed；
-- future/unpublished bar 不影响较早 `as_of`；
-- BDCI/DII 等只作诊断，不参与主状态投票。
+`trend_regime_three_bucket_baseline@1.0` 冻结：`log(close)`、最近 20 根 completed/available bar、log-close OLS signed slope t-score、`T1=2.0`，并对缺失/坏值/future data fail closed。BDCI/DII 等只作诊断。
 
 ### Gate
 **PASS。** 同输入、同版本、同 `as_of` 结果唯一可重复；无未来数据泄漏；参数不可在 `@1.0` 内静默漂移。
@@ -62,115 +52,78 @@
 
 ## M3 — 多 K 线级别参数化（PASS）
 
-### 核心决定
-
-M3 不重新调 M2 数学，而是把 M2 measurement 绑定到 DataHub 已登记的 Layer-1 V3 wall-clock views。稳定查询坐标变为：
-
-```text
-bar_interval + profile_id + as_of
-```
-
-其中 `profile_id` 代表同一 K 线周期下的具体 wall-clock 相位/view。FactorLab 不在本层自己 resample K 线。
-
-### 首批 admitted intervals / profiles
-
-- `1m`：`trend_1m_official_v1` → `1m_official`
-- `5m`：`trend_5m_offset0_v1` … `trend_5m_offset4_v1` → `5m_offset_0` … `5m_offset_4`
-- `15m`：`trend_15m_offset5_v1` / `trend_15m_offset10_v1`
-- `60m`：`trend_60m_offset30_v1` / `trend_60m_offset45_v1`
-
-合计 10 个 versioned profiles。
-
-### Profile 选择规则
-
-- 只有一个 admitted view 的 interval 可省略 `profile_id`；当前只有 `1m` 满足。
-- `5m/15m/60m` 存在多个合法 view，必须显式指定 `profile_id`。
-- 组件禁止自行选择“默认相位”。
-- profile 与 interval 不匹配直接拒绝。
-
-### 数学与阈值
-
-所有首批 profile 继续复用 `lookback_bars=20`、`T1=2.0`、`log_close_ols_slope_t@1.0`。这不是声称该阈值对所有周期最优，而是避免未经实证 Gate 就按周期调参。
-
-### Cadence / as-of admission
-
-- `bar_end <= as_of` 且 `available_at <= as_of` 才 visible；
-- visible row 的 `view_id` 必须匹配 profile；
-- selected 20-bar window 必须落在 profile immutable `close_times`；
-- 缺口 `CADENCE_GAP`，错误时钟 `OFF_PROFILE_GRID`；
-- 不插值、不 forward-fill、不本地 resample；
-- 多周期结果独立并存，顶层无 `global_state`。
+M3 把 M2 measurement 绑定到 DataHub Layer-1 V3 wall-clock views，调用坐标为 `bar_interval + profile_id + as_of`。Registry 包含：1m×1、5m×5、15m×2、60m×2。所有 profile 继续复用 `lookback=20 / T1=2.0 / log_close_ols_slope_t@1.0`；不本地 resample；cadence/view 错误 fail closed；多周期结果独立并存，无 `global_state`。
 
 ### Gate
-**PASS。** 每个 admitted profile 绑定真实 Layer-1 V3 view；不存在隐式 resample/default phase；cadence 缺口 fail closed；M2 数学没有静默漂移。
+**PASS。** profile/view/cadence/as-of 边界已冻结且不含交易语义。
 
 ---
 
 ## M4 — 五桶假设与实验协议冻结（PASS）
 
-### 核心假设 H1
-极端绝对斜率可能比中等趋势斜率更难持续，更容易衰减、横盘或反转。该假设不包含任何交易动作语义。
+H1：同 interval/同方向下，极端绝对斜率状态可能比中等趋势状态更难持续、更易衰减或反转。
 
-### 已冻结协议
+机器合同 `trend_five_bucket_protocol_m4@1.0` 冻结：
 
-机器合同：`trend_five_bucket_protocol_m4@1.0`。
+- `T1=2.0`；primary `T2=4.0`；sensitivity=`3.0/5.0`；
+- primary carrier=`000852.SH`；replication=`000688.SH`；禁止池化 rescue；
+- Development=`2020-07-23`–`2022-12-30`；Validation=`2023-01-03`–`2024-12-31`；locked historical holdout=`2025-01-02`–`2025-12-31`；
+- anchors：1m official、5m offset0、15m offset5、60m offset30；
+- source/profile 不满足 exact view + causal receipt 就 `NOT_ADMITTED`；禁止 resample/substitution；
+- episode-entry 统计单位；horizons 1/3/5/10/20；primary endpoint=5-bar directional survival；
+- week-cluster bootstrap 5000、Holm FWER、样本门槛与 holdout unlock 规则均冻结。
 
-- `T1=2.0` 保持不变；主 `T2=4.0`；敏感性仅 `T2=3.0/5.0`；
-- primary carrier=`000852.SH`，replication=`000688.SH`，禁止池化 rescue；
-- 公共历史窗口 `2020-07-23`–`2025-12-31`；
-- Development=`2020-07-23`–`2022-12-30`；
-- Validation=`2023-01-03`–`2024-12-31`；
-- locked historical holdout=`2025-01-02`–`2025-12-31`，明确不是 fresh OOS；
-- 每个 interval 的研究 anchor 用最小 session offset 机械选择：1m official、5m offset0、15m offset5、60m offset30；其余 M3 profiles 只做 phase sensitivity；
-- source/profile 不满足 M3 identity/receipt admission 时记 `NOT_ADMITTED`，禁止本地 resample 或替代；
-- 统计单位为五桶 state episode entry，不把每根 bar 当独立样本；
-- horizons=`1/3/5/10/20 bars`，primary horizon=5，primary reversal horizon=10；
-- primary endpoint=`5-bar directional survival`，比较 `Strong-Moderate`，H1 预测负值；
-- secondary confirmatory=`10-bar reversal probability` 与 `5-bar direction-adjusted return`；
-- 预注册 duration、transition、time-to-first-reversal、MFE/MAE 等描述指标；
-- validation 主指标每组至少 100 episodes，holdout 每组至少 50；不足即 `UNDERPOWERED`，不得降 T2 或池化制造 power；
-- week-cluster bootstrap 5000 次，seed=`20260914`，95% CI；
-- primary family 固定为 `4 anchor intervals × 2 directions = 8`，Holm FWER `alpha=0.05`；
-- practical guard：primary survival contrast 必须 `<=-5pp`；
-- validation 未通过不得解锁 holdout；T2=3/5 不能替代 T2=4 headline；
-- 负结果允许为 `H1_NOT_SUPPORTED / INCONCLUSIVE_UNDERPOWERED / H1_CONTRADICTED / NOT_ADMITTED`。
-
-### M4 本轮明确没有做
-
-没有计算 forward return、transition/reversal probability、五桶 episode 数量、MFE/MAE，也没有读取 holdout outcome。因此 M4 没有产生任何新的五桶市场证据。
+M4 未计算任何 forward outcome。
 
 ### Gate
-**PASS。** 协议已在 M5 outcome 之前冻结，并有机器可读合同与 CI invariant tests；M5 不能通过事后换参数、样本、profile、horizon 或门槛来救结论。
+**PASS。** 评价口径已在 M5 outcome 之前锁定。
 
 ---
 
-## M5 — 极端斜率持续性实证
+## M5 — 极端斜率持续性实证（IN PROGRESS）
 
-### 目标
-严格按 M4 冻结协议正式检验 H1。
+### M5-1 — Source / Profile Admission（PASS，partial admission）
 
-### 固定执行纪律
-1. 先做 source/profile admission，不计算 outcome；
-2. 仅在 development 做管线与样本充足性检查；
-3. 封存代码/config/development receipt；
-4. 主 `T2=4` validation 只运行一次；
-5. 再运行预注册 `T2=3/5` sensitivity，不改 primary；
-6. 只有 validation 通过预注册支持规则才解锁 holdout；
-7. replication 与 phase sensitivity 不得改写 primary。
+机器 receipt：`docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json`。
 
-### Gate
+已确认当前 active cross-index source 为 DataHub `factorlab_unified_index_kline_v3_20260824` 的受限历史 archive，并冻结历史 `available_at` 语义：raw historical retrieval time 只作 provenance；M5 causal replay 的 completed-bar runtime visibility 使用 `runtime_available_at = bar_end`，该映射依据已冻结的数据所有者澄清，不声称测得真实 feed latency。
+
+Anchor 裁决：
+
+| carrier | 1m official | 5m offset0 | 15m offset5 | 60m offset30 |
+|---|---|---|---|---|
+| `000852.SH` | ADMITTED | ADMITTED | NOT_ADMITTED | NOT_ADMITTED |
+| `000688.SH` | ADMITTED | ADMITTED | NOT_ADMITTED | NOT_ADMITTED |
+
+原因：当前 active cross-index catalog 对两指数存在完整的 exact `1m_official` / `5m_offset_0` lineage 与 2020-07-23–2025-12-31 覆盖；15m/60m 只有 legacy/旧研究 exact files，没有 current active exact-view receipt。所有 phase-sensitivity profiles 当前也保持 `NOT_ADMITTED`。
+
+本裁决没有删除 M4 planned hypotheses，也没有修改 T2/horizon/split。Legacy 文件没有因为“存在”而自动获得新研究准入。
+
+M5-1 明确未计算：五桶 episode counts、survival、forward returns、transition/reversal、MFE/MAE、Validation/Holdout outcomes。
+
+### M5-2 — Development Pipeline + Sample Adequacy（唯一下一步）
+
+只允许对已 admitted 的 `1m/5m` anchors：
+
+1. 建立冻结 M4 五桶 development pipeline；
+2. 检查 source/profile/cadence 与 split 边界；
+3. 计算 Development 样本充足性；
+4. 封存 code/config/development receipt。
+
+**M5-2 仍不得读取 Validation outcome。** 15m/60m 不得通过本地 resample、换 offset、池化 carrier 来补齐。
+
+### 后续仍被冻结的顺序
+
+只有 M5-2 封存后，才可能进入 primary `T2=4` Validation；Validation 后才运行预注册 sensitivity；只有 Validation 满足 M4 support rule 才允许解锁 Holdout。
+
+### M5 最终 Gate
 只有极端桶相对普通趋势桶出现稳定、可复现且有实际量级的差异，五桶才进入候选产品语义；否则保留三桶或连续强度。
 
 ---
 
 ## M6 — 三桶 / 五桶 / 连续强度架构裁决
 
-允许的正式裁决：
-1. 三桶 + 连续强度；
-2. 正式五桶；
-3. 三桶主状态 + 五桶研究/诊断扩展。
-
-裁决必须跨周期/样本具有解释力，不能只因为样本内更好看。
+允许的正式裁决：1) 三桶 + 连续强度；2) 正式五桶；3) 三桶主状态 + 五桶研究/诊断扩展。M5 完成前不得进入 M6。
 
 ---
 
@@ -182,7 +135,7 @@ bar_interval + profile_id + as_of
 
 ## M8 — 策略匹配与集成验证
 
-趋势组件只回答状态/强度；风险组件回答风险属性；具体策略组合两者并决定交易动作。至少两个不同持仓周期的调用者应能复用同一组件而无需复制代码。
+趋势组件只回答状态/强度；风险组件回答风险属性；具体策略组合两者并决定交易动作。
 
 ---
 
