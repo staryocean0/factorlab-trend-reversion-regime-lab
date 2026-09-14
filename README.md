@@ -10,20 +10,30 @@
 
 ## 当前产品状态
 
-M0–M6 已完成。M6 正式表示冻结为：
+**M0–M7 已完成。** 本仓是 Layer 2 趋势状态识别组件，不是交易策略。
+
+正式表示：
 
 ```text
-state = DOWN | SIDEWAYS | UP
-directional_score = slope_t
-strength = abs(directional_score)
+state             = DOWN | SIDEWAYS | UP
+directional_score = frozen M2 slope_t
+strength          = abs(directional_score)
 ```
 
-schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。
+Stable consumer：`regime_state_consumer_v1`；snapshot：`trend_regime_snapshot@1.0`。
 
-M5 evidence 支持连续 extremeness/strength，但没有识别唯一 T2 cutoff。因此 V1 不采用正式 five-bucket state；M4/M5 的 T2=3/4/5 仅保留为 research artifacts。
+正式入口：
 
-当前 empirical support 范围仍是 admitted 1m/5m、CSI1000/STAR50；15m/60m 与 phase profiles 尚未获得同等级认证。`fresh_oos=false`、`production_authority=false`。
+```text
+query_regime(symbol, as_of, bar_interval, profile_id=None)
+```
 
-唯一下一步：**M7 stable consumer implementation**。
+M7 已实现 immutable/append-only snapshot lifecycle、causal receipt visibility、expiry、latest-expired/unavailable no-fallback、deterministic snapshot identity 和 fail-closed provider admission。
 
-入口：[接管](CONTINUE_HERE.md) · [路线图](docs/ROADMAP.md) · [API 合同](docs/API_CONTRACT.md) · [M6 决策](docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.md)
+当前 V1 runtime source 只接纳两指数的 `trend_1m_official_v1` 与 `trend_5m_offset0_v1`；15m/60m 与其他 phase profiles 在当前 provider registry 下返回 `STATE_NOT_ADMITTED`。V1 stable output 不含 T2、`STRONG_*`、five-bucket state、`global_state` 或交易动作字段。
+
+`production_authority=false`、`fresh_oos=false` 保持不变。
+
+**唯一下一步：M8 — 策略层调用集成验证。**
+
+入口：[接管](CONTINUE_HERE.md) · [路线图](docs/ROADMAP.md) · [API 合同](docs/API_CONTRACT.md) · [M7 合同](docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.md)
