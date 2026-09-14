@@ -14,7 +14,14 @@
 
 Component release identity：`factorlab.layer2.trend_regime@1.0.0`。
 
-2026-09-14 用户明确授权了一个新的独立 Post-V1 研究计划：**Cross-Profile Invariance & Calibration Study**。它不是自动 M10，也不会静默修改 V1。
+2026-09-14 用户明确授权新的独立 Post-V1 研究计划：**Cross-Profile Invariance & Calibration Study**。它不是自动 M10，也不会静默修改 V1。
+
+当前研究进度：
+
+- X1 source/profile inventory — **COMPLETE**
+- X2 fixed-baseline distributional invariance — **COMPLETE**
+- X2 preregistered lookback/T1 diagnostic sensitivity — **COMPLETE**
+- X3 state-dynamics invariance — **PROTOCOL FROZEN / NEXT**
 
 接管必读：
 
@@ -22,13 +29,14 @@ Component release identity：`factorlab.layer2.trend_regime@1.0.0`。
 - `docs/governance/TREND_V1_STAGE_CLOSEOUT_V1.md`
 - `docs/governance/TREND_CROSS_PROFILE_INVARIANCE_PROTOCOL_V1.json`
 - `docs/governance/TREND_CROSS_PROFILE_SOURCE_INVENTORY_V1.json`
-- `docs/API_CONTRACT.md`
-- `docs/governance/TREND_V1_RELEASE.md`
+- `docs/governance/TREND_X2_DISTRIBUTIONAL_INVARIANCE_FREEZE_V1.json`
+- `docs/governance/TREND_X2_DISTRIBUTIONAL_INVARIANCE_RESULT_V1.json`
+- `docs/governance/TREND_X2_DIAGNOSTIC_SENSITIVITY_RESULT_V1.json`
+- `docs/governance/TREND_X3_STATE_DYNAMICS_INVARIANCE_FREEZE_V1.json`
 - `docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`
-- `docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`
 - `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 
-## V1 正式产品与 consumer
+## V1 正式产品
 
 ```text
 state             = DOWN | SIDEWAYS | UP
@@ -38,82 +46,59 @@ strength          = abs(directional_score)
 
 入口：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。
 
-M7 lifecycle 已冻结：immutable/append-only、receipt-causal as-of、expiry、latest-expired/unavailable no-fallback、stable source/provider identities。当前 runtime admission 仍只包括两指数 `trend_1m_official_v1` / `trend_5m_offset0_v1`；其他 M3 profiles fail closed。
+当前 runtime admission 仍只包括两指数 `trend_1m_official_v1` / `trend_5m_offset0_v1`；其他 M3 profiles fail closed。
 
-## V1 当前真正证明了什么
+## 当前真正证明到哪里
 
-科学证据只覆盖：
+V1 empirical certification 只覆盖 CSI1000 / STAR50 的 1m official 与 5m offset0。它没有证明 `20 bars`、`T1=2` 或 raw strength 在所有 interval / phase / carrier 上普适。
 
-- `000852.SH`（CSI1000）；
-- `000688.SH`（STAR50）；
-- 1m official；
-- 5m offset0。
+X1 进一步确认：两个现有指数都保存有可审计的多周期、多 phase exact-view 历史资产，但这些 legacy research sources **不等于 runtime admission**。
 
-M5 证明：在这些已准入视图上，极端 `|slope_t|` 比 moderate trend 更持续、反转更少；原 exhaustion H1 被反驳。
+## X2 已得到的第一轮结果
 
-V1 **没有证明** `20 bars`、`T1=2`、strength scale 在所有 interval / phase / carrier 上具有相同含义。
+研究窗口固定为 2020-07-23 至 2020-12-31，只做 Development-only matched exact-view 诊断；未打开旧 2025 Holdout。
 
-## Post-V1 Cross-Profile 研究
+固定 `lookback=20 / T1=2` 下：
 
-Protocol：`docs/governance/TREND_CROSS_PROFILE_INVARIANCE_PROTOCOL_V1.json`。
+- 同 interval 不同 phase 的 occupancy / score 差异总体很小；
+- 5m offset0–4 在两个指数上的最大 phase occupancy range 均低于约 1%；
+- 跨 interval 的差异明显比 phase 差异大，60m 最突出；
+- CSI1000 60m SIDEWAYS 约 40%，1m/5m 约 23%–25%；
+- STAR50 60m SIDEWAYS 约 30%，5m/15m 约 22%–23%；
+- 两指数 60m matched-profile occupancy 差异可到约 10 个百分点；
+- 60m 短窗口每 phase 只有 201 个 available measurements，因此只能作为反对“简单普适性”的初步证据，不能直接定 calibration。
 
-研究目标不是强迫所有 profile 共用同一数字，而是判断：
+预注册 sensitivity `lookback=[10,20,40] × T1=[1.5,2.0,2.5]` 后：
 
-- 哪些部分可以统一；
-- 哪些必须 interval-specific；
-- 哪些必须 phase/profile-specific；
-- 是否需要 normalized strength 才能跨 profile 比较。
+- phase dispersion 仍较小；
+- 5m 的 cross-carrier occupancy 差异最稳定、最小；
+- 60m 的 cross-carrier occupancy 差异最大，网格中最大约 15.8 个百分点；
+- lookback 会显著改变 slope-t 数值尺度，特别是 1m/5m/15m 的 `abs(slope_t)` q90 随 lookback 增长明显上升；
+- 没有选择新的 T1/lookback，V1 仍是 20 / 2.0。
 
-### X1 — COMPLETE
+当前最合理的研究优先级因此是：**interval-level calibration / normalization 是否必要**，而不是先给每个 phase 单独调阈值。
 
-`docs/governance/TREND_CROSS_PROFILE_SOURCE_INVENTORY_V1.json` 已完成 source metadata 审计，未读取 market rows、未算 outcome、未调参。
+## 下一步：X3 state-dynamics invariance
 
-结果：
+协议已经冻结：`docs/governance/TREND_X3_STATE_DYNAMICS_INVARIANCE_FREEZE_V1.json`。
 
-- engineering registry：10 个 profile；
-- runtime admitted：仍仅 1m official / 5m offset0；
-- STAR50 legacy development 保存完整 1m、5m offset0–4、15m offset5/10、60m offset30/45 exact views，覆盖 2020-07-23 至 2026-08-21；
-- CSI1000 two-wave legacy 保存匹配 exact views，覆盖 2015-01-05 至 2020-12-31；
-- 两指数第一轮 matched Development-only 研究窗口可取 2020-07-23 至 2020-12-31；
-- 当前 GitHub 可访问仓库中尚未定位 `000300.SH`、`000905.SH`、`000016.SH` exact-view source。
+继续固定 V1 `20 bars / T1=2`，比较：
 
-Legacy exact view 可以成为新研究候选材料，但不会因此获得 runtime admission。
+- state episode duration；
+- one-step transition matrix；
+- directional survival at 1/3/5/10/20 profile bars；
+- opposite-direction entry probability。
 
-### 当前下一步 — X2 Distributional Invariance
-
-先保持：
-
-```text
-lookback = 20
-score = slope_t
-T1 = 2.0
-```
-
-逐 carrier / interval / phase 比较 slope-t 分布、`abs(slope_t)` 分布、三桶 occupancy、phase dispersion 与 carrier dispersion。固定基线结果出来以前禁止调 T1/lookback。
-
-之后才允许执行协议中预声明的 diagnostic sensitivity：
-
-```text
-lookback = [10, 20, 40]
-T1       = [1.5, 2.0, 2.5]
-```
-
-这些只是 invariance diagnostic，不是按结果优化产品参数。
-
-## M8 边界保持不变
-
-- CSI1000 私仓存在真实 read-only Layer2 adapter 与 Layer3 orchestration kernel；
-- STAR50 有真实 parallel risk-state provider，但没有被证明存在 connected external strategy caller；
-- 多周期组合、trend/risk 融合、冲突仲裁、策略选择和最终动作全部在 Layer2 之外。
+X3 不计算交易收益，不调产品参数。跨 interval 的 bar horizon 不等同真实时间，所以按 interval 分开报告。
 
 ## 仍然禁止
 
 - 重跑 M5 primary / T2 sensitivity / STAR50 replication；
-- 读取旧 M4/M5 2025 Holdout；
-- 研究结果未完成就修改 M6 representation、M7 lifecycle 或 runtime admission；
-- 把 legacy development source 写成 runtime admitted；
-- 在 Layer2 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
+- 打开旧 M4/M5 2025 Holdout；
+- 在 X2/X3 结果未形成版本化 decision 前修改 M6 representation、M7 lifecycle 或 runtime admission；
+- 把 legacy research source 写成 runtime admitted；
+- 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
 - 把 `production_authority` 或 `fresh_oos` 改成 true；
-- 把两个指数的结果外推成普适市场规律。
+- 用两个指数外推普适市场规律。
 
-如果 X2–X5 最终否定统一 T1/lookback，必须通过新的 versioned representation/calibration decision 处理，历史 V1 snapshots 不得原地改写。
+V1 release pointer 不随 Post-V1 研究提交移动。任何未来 calibration/normalization 若改变 T1、lookback 或 strength semantics，必须通过新的版本化 representation decision，历史 V1 snapshots 不得原地改写。
