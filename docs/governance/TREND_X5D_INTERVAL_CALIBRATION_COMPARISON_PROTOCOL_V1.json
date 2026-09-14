@@ -1,0 +1,70 @@
+{
+  "schema_id": "trend_x5d_interval_calibration_comparison_protocol@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5D_INTERVAL_CALIBRATION_COMPARISON",
+  "status": "FROZEN_BEFORE_X5D_COMPARISON",
+  "research_question": "Does interval-specific thresholding or robust score normalization better preserve comparable three-state semantics across 5m/15m/60m without using trading returns?",
+  "prerequisite": "X5C must provide adequate cross-carrier 15m/60m evidence; X5D may remain HOLD if 60m support is inadequate",
+  "candidate_families": {
+    "V1_RAW_UNIVERSAL_T1": {
+      "score": "slope_t",
+      "threshold": 2.0,
+      "role": "unchanged baseline"
+    },
+    "INTERVAL_SPECIFIC_T1": {
+      "score": "slope_t",
+      "calibration_unit": "interval only, never carrier/phase/provider",
+      "threshold_estimation": "estimate one symmetric T1 per interval from Development calibration data to match the predeclared reference SIDEWAYS occupancy target",
+      "reference_target": "median 5m SIDEWAYS occupancy across Development carriers under V1 T1=2",
+      "no_return_optimization": true
+    },
+    "ROBUST_NORMALIZED_SCORE": {
+      "raw_score": "slope_t",
+      "normalizer": "interval-level robust scale estimated from Development calibration data",
+      "primary_scale": "median(abs(slope_t))",
+      "sensitivity_scales": ["MAD_about_median", "abs_slope_t_q75"],
+      "normalized_score": "slope_t / interval_scale",
+      "universal_threshold_estimation": "derive one symmetric normalized threshold from the 5m Development reference, then keep it fixed for 15m/60m evaluation",
+      "no_return_optimization": true
+    }
+  },
+  "data_split_rule": {
+    "calibration_and_evaluation_must_be_separate_in_time_or_source": true,
+    "old_m4_m5_2025_holdout_forbidden": true,
+    "five_carrier_recent_external_source_may_be_evaluation_only_if_not_used_to_fit_candidate_parameters": true,
+    "source_identity_and_clock_identity_reported_separately": true
+  },
+  "predeclared_evaluation_metrics": [
+    "cross-carrier SIDEWAYS occupancy dispersion by interval",
+    "cross-carrier one-step self-transition dispersion by state",
+    "cross-carrier directional survival dispersion",
+    "cross-carrier opposite-direction entry dispersion",
+    "same-interval phase dispersion where available",
+    "subperiod drift of occupancy and persistence",
+    "fraction of state assignments changed versus V1 raw baseline",
+    "monotonicity of strength ordering within interval"
+  ],
+  "decision_rule": {
+    "primary_objective": "state-semantic comparability, not return performance",
+    "prefer_simpler_family_if_tied": true,
+    "carrier_specific_or_phase_specific_thresholds_not_allowed_as_X5D_candidates": true,
+    "outcomes": [
+      "KEEP_V1_RAW_UNIVERSAL_T1",
+      "ADOPT_INTERVAL_SPECIFIC_T1_AS_RESEARCH_CANDIDATE",
+      "ADOPT_ROBUST_NORMALIZED_SCORE_AS_RESEARCH_CANDIDATE",
+      "INSUFFICIENT_EVIDENCE"
+    ]
+  },
+  "forbidden": [
+    "future-return optimization",
+    "grid searching thresholds for strategy PnL",
+    "using evaluation data to refit candidate parameters",
+    "promoting any X5D candidate into V1 without a later versioned representation decision",
+    "runtime admission expansion",
+    "production authority"
+  ],
+  "v1_action_at_protocol_freeze": "NO_CHANGE",
+  "production_authority": false,
+  "fresh_oos": false,
+  "runtime_admission_changed": false
+}
