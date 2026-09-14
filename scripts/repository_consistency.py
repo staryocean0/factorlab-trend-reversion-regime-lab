@@ -4,6 +4,10 @@
 --check validates the Git index, current worktree text, source syntax, local
 imports, workflow contracts, and baseline preservation. Historical source
 snapshots are deliberately not rewritten or treated as current instructions.
+
+A small set of current product documents is status-managed rather than
+body-generated: their scientific status block still comes from the repository
+state, while the roadmap/API/product body may evolve milestone by milestone.
 """
 from __future__ import annotations
 import argparse
@@ -20,6 +24,24 @@ from urllib.parse import unquote
 STATE = 'docs/REPOSITORY_STATE.json'
 BASELINE = 'docs/maintenance/BASELINE_COMPONENTS.json'
 AUTO_WORKFLOW = '.github/workflows/repository-consistency.yml'
+
+STATUS_ONLY_DOCUMENTS = frozenset({
+    'README.md',
+    'CONTINUE_HERE.md',
+    'docs/WHITEPAPER.md',
+})
+CURRENT_PRODUCT_DOCUMENTS = frozenset({
+    'docs/ROADMAP.md',
+    'docs/API_CONTRACT.md',
+    'docs/API_GAP_ANALYSIS.md',
+    'docs/THREE_BUCKET_BASELINE.md',
+})
+_STATUS_PATTERN = re.compile(
+    r'<!-- GENERATED: edit docs/REPOSITORY_STATE\.json, then --render -->'
+    r'.*?'
+    r'<!-- END GENERATED STATUS -->',
+    re.DOTALL,
+)
 
 
 def require(ok: bool, message: str) -> None:
@@ -44,11 +66,10 @@ def blob(raw: bytes) -> str:
     return hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
 
 
-def document_text(path: str, body: str, state: dict) -> str:
-    title, _, rest = body.strip().partition('\n')
+def status_block(path: str, state: dict) -> str:
     ref = os.path.relpath(STATE, str(PurePosixPath(path).parent))
     report = os.path.relpath(state['latest_review'], str(PurePosixPath(path).parent))
-    block = '\n'.join([
+    return '\n'.join([
         '<!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->',
         '> 当前：固定日来源对账已完成；现有数据仅限明确约束的历史观察。',
         '> R1_A当前价格版本储备、主动开发暂停；没有新的本地交付任务或已授权实证候选。',
@@ -59,7 +80,24 @@ def document_text(path: str, body: str, state: dict) -> str:
         '> [状态源](' + ref + ') · [最新研究解释](' + report + ')',
         '<!-- END GENERATED STATUS -->',
     ])
-    return title + '\n\n' + block + '\n\n' + rest.strip() + '\n'
+
+
+def document_text(path: str, body: str, state: dict) -> str:
+    title, _, rest = body.strip().partition('\n')
+    return title + '\n\n' + status_block(path, state) + '\n\n' + rest.strip() + '\n'
+
+
+def status_only_text(path: str, body: str, state: dict) -> str:
+    """Refresh only the generated authority block in a current product document."""
+
+    replacement = status_block(path, state)
+    if _STATUS_PATTERN.search(body):
+        rendered = _STATUS_PATTERN.sub(replacement, body, count=1)
+        return rendered if rendered.endswith('\n') else rendered + '\n'
+    title, sep, rest = body.strip().partition('\n')
+    require(bool(title), 'status-only document must have a title: ' + path)
+    suffix = rest.strip() if sep else ''
+    return title + '\n\n' + replacement + ('\n\n' + suffix if suffix else '') + '\n'
 
 
 def local_target(path: str, target: str) -> str | None:
@@ -77,6 +115,8 @@ def local_target(path: str, target: str) -> str | None:
 def lifecycle(path: str, state: dict) -> str:
     if path in state['generated_documents'] or path == STATE:
         return 'CURRENT_GENERATED_AUTHORITY'
+    if path in CURRENT_PRODUCT_DOCUMENTS:
+        return 'CURRENT_PRODUCT_DOCUMENTATION'
     if path.startswith('docs/archive/'):
         return 'ARCHIVED_HISTORICAL_SOURCE'
     if path.startswith('data/'):
@@ -179,8 +219,9 @@ def check(root: Path) -> dict:
     doc_links = 0
     for path, body in state['generated_documents'].items():
         require(path in names, 'generated document not tracked: ' + path)
-        wanted = document_text(path, body, state)
-        require((root / path).read_text(encoding='utf-8') == wanted, 'generated document drift: ' + path)
+        current = (root / path).read_text(encoding='utf-8')
+        wanted = status_only_text(path, current, state) if path in STATUS_ONLY_DOCUMENTS else document_text(path, body, state)
+        require(current == wanted, 'generated document drift: ' + path)
         for target in re.findall(r'\[[^\]]*\]\(([^\s)]+)\)', wanted):
             rel = local_target(path, target)
             if rel is not None:
@@ -242,7 +283,9 @@ def main() -> None:
             target = (root / path).resolve()
             require(target.is_relative_to(root) and not (root / path).is_symlink(), 'unsafe generated document path')
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(document_text(path, body, state), encoding='utf-8')
+            current = target.read_text(encoding='utf-8') if target.exists() else body
+            text = status_only_text(path, current, state) if path in STATUS_ONLY_DOCUMENTS else document_text(path, body, state)
+            target.write_text(text, encoding='utf-8')
         print('Rendered', len(state['generated_documents']), 'documents; run --check after staging intended changes.')
         return
     result = check(root)
