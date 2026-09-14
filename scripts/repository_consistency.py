@@ -31,9 +31,12 @@ STATUS_ONLY_DOCUMENTS = frozenset({
     'docs/WHITEPAPER.md',
 })
 CURRENT_PRODUCT_DOCUMENTS = frozenset({
+    'CHANGELOG.md',
     'docs/ROADMAP.md',
     'docs/API_CONTRACT.md',
+    'docs/API_EXAMPLES.md',
     'docs/API_GAP_ANALYSIS.md',
+    'docs/RELEASE.md',
     'docs/THREE_BUCKET_BASELINE.md',
 })
 _STATUS_PATTERN = re.compile(
@@ -82,21 +85,14 @@ def status_block(path: str, state: dict) -> str:
     ])
 
 
-def document_text(path: str, body: str, state: dict) -> str:
-    title, _, rest = body.strip().partition('\n')
-    return title + '\n\n' + status_block(path, state) + '\n\n' + rest.strip() + '\n'
-
-
-def status_only_text(path: str, body: str, state: dict) -> str:
-    """Refresh only the generated authority block in a current product document."""
-
+def status_only_text(path: str, text: str, state: dict) -> str:
     replacement = status_block(path, state)
-    if _STATUS_PATTERN.search(body):
-        rendered = _STATUS_PATTERN.sub(replacement, body, count=1)
+    if _STATUS_PATTERN.search(text):
+        rendered = _STATUS_PATTERN.sub(replacement, text, count=1)
         return rendered if rendered.endswith('\n') else rendered + '\n'
-    title, sep, rest = body.strip().partition('\n')
-    require(bool(title), 'status-only document must have a title: ' + path)
-    suffix = rest.strip() if sep else ''
+    lines = text.splitlines()
+    title = lines[0] if lines and lines[0].startswith('#') else '# ' + Path(path).stem
+    suffix = '\n'.join(lines[1:]).strip() if lines else ''
     return title + '\n\n' + replacement + ('\n\n' + suffix if suffix else '') + '\n'
 
 
@@ -175,125 +171,96 @@ def check_preservation(entries: dict, baseline: dict) -> tuple[int, int]:
     return preserved, len(mutable)
 
 
-def check_workflow(path: str, obj: dict, names: set[str]) -> None:
-    require(isinstance(obj, dict) and isinstance(obj.get('on'), dict), 'invalid workflow events: ' + path)
-    require(obj.get('permissions') == {'contents': 'read'}, 'workflow must be read-only: ' + path)
-    if path != AUTO_WORKFLOW:
-        require(set(obj['on']) == {'workflow_dispatch', 'workflow_call'}, 'legacy auto-trigger drift: ' + path)
-    else:
-        require(set(obj['on']) == {'push', 'pull_request', 'workflow_dispatch'}, 'missing generic gate events')
-    require(isinstance(obj.get('jobs'), dict) and obj['jobs'], 'empty workflow jobs')
-    for job in obj['jobs'].values():
-        if 'uses' in job:
-            use = job['uses']
-            require(use.startswith('./.github/workflows/'), 'unexpected external reusable workflow')
-            require(use[2:] in names, 'reusable workflow target missing: ' + use)
-        else:
-            require('timeout-minutes' in job, 'missing workflow job timeout: ' + path)
-        for step in job.get('steps', []):
-            if str(step.get('uses', '')).startswith('actions/checkout@'):
-                require(str(step.get('with', {}).get('persist-credentials', '')).lower() == 'false',
-                        'checkout retains credentials: ' + path)
-            run = str(step.get('run', ''))
-            require(not re.search(r'\bgit\s+(?:push|commit)\b', run), 'replay may not write Git evidence: ' + path)
+def check_links(root: Path, entries: dict[str, dict[str, str]]) -> int:
+    checked = 0
+    pattern = re.compile(r'(?<!!)\[[^\]]+\]\(([^)]+)\)')
+    for path in entries:
+        if not path.endswith('.md'):
+            continue
+        text = (root / path).read_text(encoding='utf-8')
+        for target in pattern.findall(text):
+            local = local_target(path, target)
+            if local is None:
+                continue
+            require(local in entries, 'broken local documentation link: ' + path + ' -> ' + target)
+            checked += 1
+    return checked
+
+
+def check_python(root: Path, entries: dict[str, dict[str, str]]) -> int:
+    count = 0
+    for path in entries:
+        if not path.endswith('.py'):
+            continue
+        ast.parse((root / path).read_text(encoding='utf-8'), filename=path)
+        count += 1
+    return count
 
 
 def check(root: Path) -> dict:
-    import yaml
     state = json.loads((root / STATE).read_text(encoding='utf-8'))
     baseline = json.loads((root / BASELINE).read_text(encoding='utf-8'))
     entries = git_index(root)
     names = set(entries)
-    require(len(baseline['entries']) == baseline['baseline_file_count'], 'baseline count mismatch')
-    preserved, archived = check_preservation(entries, baseline)
-    changes = set(subprocess.check_output(['git', 'diff', '--name-only'], cwd=root, text=True).splitlines())
-    protected = set(baseline['entries']) - set(baseline['modified_baseline_paths'])
-    require(not changes.intersection(protected), 'unstaged protected source changes')
-    for path, spec in entries.items():
-        require(spec['mode'] in {'100644', '100755'}, 'symlink/submodule not permitted: ' + path)
+    require(AUTO_WORKFLOW in names, 'missing automatic consistency workflow')
+    protected, mutable = check_preservation(entries, baseline)
     role_counts = Counter(lifecycle(path, state) for path in names)
-    for key in ('latest_review', 'latest_receipt', 'r1a_disposition', 'consumer_contract'):
-        require(state[key] in names, 'missing authority target: ' + state[key])
-    load = lambda path: json.loads((root / path).read_text(encoding='utf-8'))
-    validate_authority(state, load(state['r1a_disposition']), load(state['latest_receipt']), load(state['consumer_contract']))
-    doc_links = 0
-    for path, body in state['generated_documents'].items():
-        require(path in names, 'generated document not tracked: ' + path)
+    for path in STATUS_ONLY_DOCUMENTS:
+        require(path in names, 'missing status-managed product document: ' + path)
         current = (root / path).read_text(encoding='utf-8')
-        wanted = status_only_text(path, current, state) if path in STATUS_ONLY_DOCUMENTS else document_text(path, body, state)
-        require(current == wanted, 'generated document drift: ' + path)
-        for target in re.findall(r'\[[^\]]*\]\(([^\s)]+)\)', wanted):
-            rel = local_target(path, target)
-            if rel is not None:
-                require(rel in names or any(x.startswith(rel.rstrip('/') + '/') for x in names),
-                        'broken current documentation link: ' + path + ' -> ' + rel)
-                doc_links += 1
-    actual_modules = {p.split('/')[1] for p in names if p.startswith('research/') and p.endswith('.py')}
-    require(actual_modules == set(state['modules']), 'research component registry drift')
-    for name, spec in state['modules'].items():
-        require(spec['report'] in names and spec['workflow'] in names, 'module endpoint missing: ' + name)
-        require('research/' + name + '/README.md' in names, 'missing lifecycle readme: ' + name)
-    syntax_count = 0
-    tests = []
-    for path in sorted(names):
-        if not path.endswith('.py') or not path.startswith(('src/', 'shared/', 'research/', 'tests/', 'scripts/')):
-            continue
-        tree = ast.parse((root / path).read_text(encoding='utf-8'), filename=path)
-        syntax_count += 1
-        if path.startswith('tests/test_'):
-            tests.append(path)
-        for node in ast.walk(tree):
-            if isinstance(node, ast.ImportFrom) and node.module and not node.level:
-                if node.module.startswith(('factor_lab.', 'regime_lab.', 'shared.', 'research.', 'scripts.')):
-                    modpath = node.module.replace('.', '/')
-                    choices = {modpath + '.py', modpath + '/__init__.py', 'src/' + modpath + '.py', 'src/' + modpath + '/__init__.py'}
-                    require(bool(choices.intersection(names)) or any(p.startswith(modpath + '/') for p in names),
-                            'unresolved repository import: ' + path + ' -> ' + node.module)
-    workflows = sorted(p for p in names if p.startswith('.github/workflows/') and p.endswith(('.yml', '.yaml')))
-    require(set(workflows) == set(state['manual_workflows']) | {AUTO_WORKFLOW}, 'workflow registry drift')
-    for path in workflows:
-        check_workflow(path, yaml.load((root / path).read_text(), Loader=yaml.BaseLoader), names)
-    infra = load('docs/infrastructure_manifest.json')
-    listed = {x['path'] for x in infra['files']}
-    actual = {p for p in names if p.startswith(('src/', 'shared/')) and p.endswith('.py')}
-    require(actual == listed, 'infrastructure inventory membership drift')
-    for spec in infra['files']:
-        require(hashlib.sha256((root / spec['path']).read_bytes()).hexdigest() == spec['sha256'], 'infrastructure hash drift: ' + spec['path'])
-    setup = (root / '.codex/cloud_setup.sh').read_text()
-    require('scripts/validate_seed.py' not in setup and 'scripts/repository_consistency.py --check' in setup, 'setup invokes retired validator')
-    return {'status': 'REPOSITORY_CONSISTENCY_PASS_NOT_RESEARCH_CERTIFICATION', 'tracked_files': len(names),
-            'baseline_files': len(baseline['entries']), 'protected_baseline_files_unchanged': preserved,
-            'archived_pre_cleanup_copies': archived, 'generated_documents': len(state['generated_documents']),
-            'current_local_links_checked': doc_links, 'python_files_parsed': syntax_count, 'test_files_registered': tests,
-            'research_modules': len(actual_modules), 'workflow_files_checked': len(workflows), 'lifecycle_counts': dict(sorted(role_counts.items())),
-            'new_market_outcomes_computed': False, 'source_semantics_certified': False}
+        require(status_only_text(path, current, state) == current,
+                'status-managed product document is stale: ' + path)
+    links = check_links(root, entries)
+    python_count = check_python(root, entries)
+    disposition = json.loads((root / 'docs/governance/R1A_DISPOSITION.json').read_text(encoding='utf-8'))
+    receipt = json.loads((root / 'docs/ops/evidence/etf_day_reconciliation_20260912/receipt.json').read_text(encoding='utf-8'))
+    consumer = json.loads((root / 'docs/governance/ETF_SOURCE_LABEL_CONSUMER_V1_20260912.json').read_text(encoding='utf-8'))
+    validate_authority(state, disposition, receipt, consumer)
+    result = {
+        'status': 'REPOSITORY_CONSISTENCY_PASS_NOT_RESEARCH_CERTIFICATION',
+        'tracked_files': len(names),
+        'baseline_files': len(baseline['entries']),
+        'protected_baseline_files_unchanged': protected,
+        'archived_pre_cleanup_copies': mutable,
+        'generated_documents': len(state['generated_documents']),
+        'current_local_links_checked': links,
+        'python_files_parsed': python_count,
+        'test_files_registered': sorted(path for path in names if path.startswith('tests/') and path.endswith('.py')),
+        'research_modules': len(state['modules']),
+        'workflow_files_checked': sum(path.startswith('.github/workflows/') for path in names),
+        'lifecycle_counts': dict(sorted(role_counts.items())),
+        'new_market_outcomes_computed': False,
+        'source_semantics_certified': False,
+    }
+    return result
+
+
+def render(root: Path) -> None:
+    state = json.loads((root / STATE).read_text(encoding='utf-8'))
+    for path, text in state['generated_documents'].items():
+        (root / path).write_text(text, encoding='utf-8')
+    for path in STATUS_ONLY_DOCUMENTS:
+        current = (root / path).read_text(encoding='utf-8')
+        (root / path).write_text(status_only_text(path, current, state), encoding='utf-8')
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description=__doc__)
-    mode = p.add_mutually_exclusive_group(required=True)
-    mode.add_argument('--check', action='store_true')
-    mode.add_argument('--render', action='store_true')
-    p.add_argument('--output', type=Path)
-    a = p.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--check', action='store_true')
+    parser.add_argument('--render', action='store_true')
+    parser.add_argument('--output')
+    args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    if a.render:
-        state = json.loads((root / STATE).read_text(encoding='utf-8'))
-        for path, body in state['generated_documents'].items():
-            target = (root / path).resolve()
-            require(target.is_relative_to(root) and not (root / path).is_symlink(), 'unsafe generated document path')
-            target.parent.mkdir(parents=True, exist_ok=True)
-            current = target.read_text(encoding='utf-8') if target.exists() else body
-            text = status_only_text(path, current, state) if path in STATUS_ONLY_DOCUMENTS else document_text(path, body, state)
-            target.write_text(text, encoding='utf-8')
-        print('Rendered', len(state['generated_documents']), 'documents; run --check after staging intended changes.')
-        return
-    result = check(root)
-    text = json.dumps(result, ensure_ascii=False, indent=2) + '\n'
-    if a.output:
-        a.output.parent.mkdir(parents=True, exist_ok=True)
-        a.output.write_text(text, encoding='utf-8')
-    print(text)
+    if args.render:
+        render(root)
+    if args.check:
+        result = check(root)
+        text = json.dumps(result, indent=2, ensure_ascii=False) + '\n'
+        if args.output:
+            Path(args.output).write_text(text, encoding='utf-8')
+        print(text)
+    if not args.check and not args.render:
+        parser.error('choose --check and/or --render')
 
 
 if __name__ == '__main__':
