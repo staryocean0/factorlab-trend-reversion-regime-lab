@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from factor_lab.market_state.trend_regime_profiles import resolve_trend_profile
@@ -9,6 +8,7 @@ from scripts.m5_development_adequacy_core import build_state_series
 from scripts.m5_primary_validation_core import analyze_profile
 from scripts.m5_validation_bootstrap import holm_adjust
 from scripts.m5_validation_durations import duration_summaries
+from scripts.m5_validation_transitions import transition_summaries
 
 CARRIER = "000852.SH"
 CONTEXT_START = "2022-12-30"
@@ -64,6 +64,7 @@ def execute_validation(root: Path, protocol: dict):
             raise ValueError(f"Validation read crossed frozen boundary: {years}")
         states, diagnostics = build_state_series(frame, close_times=profile.close_times, t1=t1, t2=t2)
         metrics = analyze_profile(frame, states, validation_start=validation_start, validation_end=validation_end)
+        metrics.update(transition_summaries(frame, states, validation_start=validation_start, validation_end=validation_end))
         metrics["descriptive"].update(duration_summaries(frame, states, validation_start=validation_start, validation_end=validation_end))
         profile_results[frequency] = {
             "profile_id": profile_id,
