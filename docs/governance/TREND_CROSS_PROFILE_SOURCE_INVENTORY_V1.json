@@ -1,0 +1,130 @@
+{
+  "schema_id": "trend_cross_profile_source_inventory@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X1_SOURCE_PROFILE_INVENTORY",
+  "status": "X1_COMPLETE_SOURCE_METADATA_INVENTORIED_NO_MARKET_OUTCOMES",
+  "inventory_date": "2026-09-14",
+  "source_metadata_only": true,
+  "market_data_rows_read": false,
+  "market_outcomes_computed": false,
+  "parameter_tuning_performed": false,
+  "runtime_admission_changed": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "evidence_levels_are_distinct": [
+    "ENGINEERING_COMPUTABLE",
+    "HISTORICAL_RESEARCH_AVAILABLE",
+    "RUNTIME_ADMITTED"
+  ],
+  "engineering_registry": {
+    "repository": "staryocean0/factorlab-trend-reversion-regime-lab",
+    "authority": "src/factor_lab/market_state/trend_regime_profiles.py",
+    "profiles": [
+      "trend_1m_official_v1",
+      "trend_5m_offset0_v1",
+      "trend_5m_offset1_v1",
+      "trend_5m_offset2_v1",
+      "trend_5m_offset3_v1",
+      "trend_5m_offset4_v1",
+      "trend_15m_offset5_v1",
+      "trend_15m_offset10_v1",
+      "trend_60m_offset30_v1",
+      "trend_60m_offset45_v1"
+    ],
+    "note": "registry existence proves computability/binding only, not empirical certification or runtime admission"
+  },
+  "current_runtime_admission": {
+    "authority": "docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json",
+    "symbols": ["000852.SH", "000688.SH"],
+    "profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"],
+    "all_other_registry_profiles": "STATE_NOT_ADMITTED"
+  },
+  "carrier_inventory": [
+    {
+      "symbol": "000688.SH",
+      "name": "STAR50",
+      "current_active_runtime_profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"],
+      "historical_exact_view_source": {
+        "repository": "staryocean0/factorlab-star50-filter-lab",
+        "manifest": "data/manifest.json",
+        "source_export": "factorlab_unified_index_kline_v3_20260824",
+        "coverage_start": "2020-07-23",
+        "coverage_end": "2026-08-21",
+        "views_found": [
+          "1m_official",
+          "5m_offset_0", "5m_offset_1", "5m_offset_2", "5m_offset_3", "5m_offset_4",
+          "15m_offset_5", "15m_offset_10",
+          "60m_offset_30", "60m_offset_45"
+        ],
+        "role": "LEGACY_DEVELOPMENT_EXACT_VIEW_CANDIDATE",
+        "runtime_admitted_by_this_inventory": false,
+        "governance_warning": "data/README.md states legacy development is not the current research input; use in the new program requires an explicit research-window/source-role freeze and cannot imply runtime admission"
+      }
+    },
+    {
+      "symbol": "000852.SH",
+      "name": "CSI1000",
+      "current_active_runtime_profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"],
+      "historical_exact_view_source": {
+        "repository": "staryocean0/factorlab-two-wave-strategy-lab",
+        "manifest": "data/manifest.json",
+        "coverage_start": "2015-01-05",
+        "coverage_end": "2020-12-31",
+        "views_found": [
+          "1m_official",
+          "5m_offset_0", "5m_offset_1", "5m_offset_2", "5m_offset_3", "5m_offset_4",
+          "15m_offset_5", "15m_offset_10",
+          "60m_offset_30", "60m_offset_45"
+        ],
+        "role": "LEGACY_DEVELOPMENT_EXACT_VIEW_CANDIDATE",
+        "post_2020_rows_included": false,
+        "runtime_admitted_by_this_inventory": false,
+        "governance_warning": "legacy/two-wave source ends 2020-12-31 and cannot be treated as current full-window validation evidence"
+      }
+    }
+  ],
+  "matched_cross_carrier_research_opportunity": {
+    "profiles_with_exact_legacy_views_on_both_existing_carriers": [
+      "1m_official",
+      "5m_offset_0", "5m_offset_1", "5m_offset_2", "5m_offset_3", "5m_offset_4",
+      "15m_offset_5", "15m_offset_10",
+      "60m_offset_30", "60m_offset_45"
+    ],
+    "candidate_common_legacy_window_without_old_2025_holdout": {
+      "start": "2020-07-23",
+      "end": "2020-12-31"
+    },
+    "interpretation": "sufficient for an initial Development-only phase/invariance diagnostic, not sufficient for broad universality or fresh OOS claims"
+  },
+  "additional_carrier_search": [
+    {
+      "symbol": "000300.SH",
+      "candidate_name": "CSI300",
+      "status": "SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_REPOSITORIES",
+      "runtime_admitted": false
+    },
+    {
+      "symbol": "000905.SH",
+      "candidate_name": "CSI500",
+      "status": "SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_REPOSITORIES",
+      "runtime_admitted": false
+    },
+    {
+      "symbol": "000016.SH",
+      "candidate_name": "SSE50",
+      "status": "SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_REPOSITORIES",
+      "runtime_admitted": false
+    }
+  ],
+  "x1_conclusion": [
+    "The existing two carriers contain enough preserved exact-view metadata to begin a Development-only cross-phase/cross-interval diagnostic without inventing bars.",
+    "The evidence base is still only two carriers, so it cannot establish a universal cross-index law.",
+    "Runtime admission remains intentionally narrower than historical research availability.",
+    "Additional structurally different carriers are still required before any generality claim."
+  ],
+  "next_stage": {
+    "id": "X2_DISTRIBUTIONAL_INVARIANCE",
+    "gate_before_execution": "freeze exact Development research window and source-role policy for legacy exact views; do not use the old M4/M5 2025 Holdout",
+    "first_question": "under fixed 20-bar slope_t and T1=2, how different are score distributions and three-state occupancy across the 10 matched profiles and the two existing carriers?"
+  }
+}
