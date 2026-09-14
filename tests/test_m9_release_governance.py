@@ -142,9 +142,9 @@ def test_m9_release_gate_cannot_reopen_research_or_grant_authority():
 
 
 def test_m9_human_release_docs_preserve_non_strategy_boundary():
-    release = (ROOT / "docs/RELEASE.md").read_text(encoding="utf-8")
-    examples = (ROOT / "docs/API_EXAMPLES.md").read_text(encoding="utf-8")
-    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    release = (ROOT / "docs/governance/TREND_V1_RELEASE.md").read_text(encoding="utf-8")
+    examples = (ROOT / "docs/governance/TREND_V1_API_EXAMPLES.md").read_text(encoding="utf-8")
+    changelog = (ROOT / "docs/governance/TREND_V1_CHANGELOG.md").read_text(encoding="utf-8")
 
     assert "trend-regime-v1.0.0" in release
     assert "production_authority=false" in release
