@@ -1,0 +1,24 @@
+{
+  "schema_id": "trend_x5_eastmoney_equivalence_result@1.0",
+  "stage": "X5_CROSS_CARRIER_EXPANSION",
+  "status": "CLOCK_EQUIVALENT_VALUE_NOT_EXACT_SOURCE_EQUIVALENCE_FAILED",
+  "checked_on": "2026-09-14",
+  "candidate_source": "Eastmoney public 5m index kline",
+  "reference_source": "retained DataHub exact STAR50 views",
+  "carrier": "000688.SH",
+  "overlap": {"start":"2026-08-03","end":"2026-08-21"},
+  "results": [
+    {"view_id":"5m_offset_0","reference_points":720,"common_timestamps":720,"missing_timestamps":0,"nonzero_close_differences":72,"max_absolute_close_difference":0.7300000000000182},
+    {"view_id":"15m_offset_5","reference_points":210,"common_timestamps":210,"missing_timestamps":0,"nonzero_close_differences":20,"max_absolute_close_difference":0.5599999999999454},
+    {"view_id":"15m_offset_10","reference_points":210,"common_timestamps":210,"missing_timestamps":0,"nonzero_close_differences":24,"max_absolute_close_difference":0.6099999999999},
+    {"view_id":"60m_offset_30","reference_points":30,"common_timestamps":30,"missing_timestamps":0,"nonzero_close_differences":2,"max_absolute_close_difference":0.1899999999998272},
+    {"view_id":"60m_offset_45","reference_points":30,"common_timestamps":30,"missing_timestamps":0,"nonzero_close_differences":3,"max_absolute_close_difference":0.0500000000001819}
+  ],
+  "interpretation": "All tested M3 close clocks exist in the external 5m source, but close values are not pointwise identical to the retained DataHub source. Therefore external public rows are clock-aligned independent-source evidence, not DataHub exact-view identity, and cannot satisfy runtime source admission or the derived-M3 exact-equivalence gate.",
+  "derived_m3_15m_60m_equivalence_gate": "FAIL",
+  "runtime_admission_effect": "none",
+  "parameter_tuning_performed": false,
+  "market_outcome_statistics_computed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
