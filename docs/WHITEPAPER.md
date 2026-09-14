@@ -8,7 +8,7 @@
 > [状态源](REPOSITORY_STATE.json) · [最新研究解释](research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
 <!-- END GENERATED STATUS -->
 
-> 本白皮书定义**产品定位与工程边界**；上方状态块定义当前证据/数据 authority。二者不能混写：完成工程里程碑不等于获得新的市场证据或 production authority。
+> 本白皮书定义**产品定位与工程边界**；上方状态块定义当前证据/数据 authority。二者不能混写：完成工程或协议里程碑不等于获得新的市场证据或 production authority。
 
 ## 1. 产品定位：Layer 2 状态组件，不是交易策略
 
@@ -16,49 +16,35 @@
 
 > 在指定证券、`as_of`、K 线级别和 versioned profile 下，当前可见价格序列属于什么趋势状态、趋势强度是多少、该测量来自哪个时间/数据坐标？
 
-它不回答买卖方向、仓位、订单、策略选择或 Layer 4 动作。上层策略可以把 `UP / SIDEWAYS / DOWN` 映射成完全不同的交易逻辑；这种映射始终属于策略层。
+它不回答买卖方向、仓位、订单、策略选择或 Layer 4 动作。状态到交易动作的映射始终属于策略层。
 
 ## 2. 当前完成状态
-
-截至 M3：
 
 - **M0 PASS**：产品定位与路线图；
 - **M1 PASS**：consumer/as-of/schema/availability 合同；
 - **M2 PASS**：三桶数学与因果基线；
 - **M3 PASS**：多 K 线级别/profile 参数化与 cadence admission；
-- **下一唯一里程碑：M4**，只冻结五桶实验协议，不运行 M5 实证。
+- **M4 PASS**：五桶 H1 实验协议已在任何 M5 outcome 被计算之前冻结；
+- **下一唯一里程碑：M5**，严格按 M4 协议执行极端斜率持续性实证。
 
-详细执行状态见 [ROADMAP.md](ROADMAP.md)。
+详细状态见 [ROADMAP.md](ROADMAP.md)。M4 协议见 [TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md](governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md) 和 [机器合同](governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json)。
 
 ## 3. M2 已冻结的三桶基线
 
-`trend_regime_three_bucket_baseline@1.0` 冻结：
+`trend_regime_three_bucket_baseline@1.0`：
 
 - 最近 20 根 `bar_end <= as_of` 且 `available_at <= as_of` 的已完成/已可用 K 线；
 - `y_i = ln(close_i)`；
 - `x_i = 0,...,19` 上的 OLS signed slope t-score 作为唯一三桶 authority；
 - `T1 = 2.0`；
-- `DOWN: s < -2`；
-- `SIDEWAYS: -2 <= s <= 2`；
-- `UP: s > 2`；
+- `DOWN: s < -2`；`SIDEWAYS: -2 <= s <= 2`；`UP: s > 2`；
 - 少于 20 根、坏/非正 close 均 fail closed，不跳过、不回填、不插值；
 - future/unpublished bar 不能改变更早 `as_of`；
 - BDCI/DII/signed efficiency 等只作为辅助诊断，不参与主状态投票。
 
-`slope_t` 在这里是无量纲趋势几何强度分数，不应直接解释为独立同分布误差假设下的正式显著性检验。
+`slope_t` 是无量纲趋势几何强度分数，不应直接解释为 IID 假设下的正式显著性检验。
 
-完整规格见 [THREE_BUCKET_BASELINE.md](THREE_BUCKET_BASELINE.md)。
-
-## 4. M3：时间尺度与 profile 已正式分离
-
-不存在脱离时间尺度的唯一趋势状态。同一 `as_of` 完全可能出现：
-
-```text
-1m = DOWN
-5m = SIDEWAYS
-15m = UP
-60m = UP
-```
+## 4. M3：时间尺度与 profile 分离
 
 M3 把调用坐标冻结为：
 
@@ -66,130 +52,126 @@ M3 把调用坐标冻结为：
 bar_interval + profile_id + as_of
 ```
 
-其中 `bar_interval` 表示策略需要的时间尺度，`profile_id` 表示该周期下具体使用的 Layer-1 wall-clock view/相位。
-
-### 4.1 为什么不能只传 interval
-
-当前 DataHub Layer-1 V3 并非每个周期都有唯一 view：
+首批 admission：
 
 - `1m`：1 个 official view；
 - `5m`：offset 0/1/2/3/4，共 5 个 view；
 - `15m`：offset 5/10，共 2 个 view；
 - `60m`：offset 30/45，共 2 个 view。
 
-因此当前首批 admission 为 4 个 interval、10 个 versioned profiles。只有 `1m` 因为唯一 view 可以省略 `profile_id`；`5m/15m/60m` 必须显式指定 profile。组件禁止暗选“默认相位”。
+合计 10 个 versioned profiles。只有 `1m` 因为唯一 view 可以省略 `profile_id`；`5m/15m/60m` 必须显式指定 profile。组件禁止暗选默认相位。
 
-### 4.2 不在 Layer 2 本地重采样
+这些 profile 直接绑定 DataHub Layer-1 V3 immutable `close_times`。FactorLab 本层不自行把 1m 拼成更高周期，也不拥有 bar construction authority。
 
-这些 profile 直接读取 `src/factor_lab/data/session_offset_defaults.py` 的 `unified_kline_variants_v3()`，绑定 DataHub 已登记的 immutable `close_times`。FactorLab 本层不自行把 1m 拼成 5m/15m/60m，也不拥有 bar construction authority。
-
-### 4.3 M3 不按周期调 M2 参数
-
-所有首批 profile 继续使用：
-
-- `lookback_bars=20`
-- `T1=2.0`
-- `log_close_ols_slope_t@1.0`
-
-这不等于已经证明 `2.0` 是每个周期的最优阈值；它表示在没有新的研究 Gate 前，不为了“看起来更合理”而先做按周期调参。未来如需不同阈值，必须升 profile/estimator 版本。
+所有 profiles 继续复用 M2 `lookback_bars=20 / T1=2.0 / log_close_ols_slope_t@1.0`。这不是证明阈值对所有周期最优，而是避免未经研究 Gate 就按周期调参。
 
 ## 5. M3 cadence / view / as-of admission
 
-M3 在 M2 可见性规则之外增加：
-
-- visible row 必须声明与 profile 完全一致的 `view_id`；
-- selected 20-bar window 的 `bar_end` 必须落在该 profile 的 Asia/Shanghai immutable `close_times`；
-- 同 session 内必须连续；
-- 跨 session 时必须从该 profile 当日最后 grid point 接到下一可见 session 的第一 grid point；
-- 缺口：`UNAVAILABLE / CADENCE_GAP`；
-- 错误时钟：`UNAVAILABLE / OFF_PROFILE_GRID`；
+- visible row 必须匹配 profile `view_id`；
+- selected 20-bar window 必须落在 profile immutable clock grid；
+- cadence 缺口返回 `CADENCE_GAP`；错误时钟返回 `OFF_PROFILE_GRID`；
 - 不插值、不 forward-fill、不本地 resample；
-- future wrong-view row 不可污染较早 `as_of`；visible wrong-view row 则拒绝。
+- future wrong-view row 不污染更早 `as_of`；
+- 多周期结果独立并存，顶层没有 `global_state`。
 
-仅凭 bar 时间戳不能区分法定休市与整日数据源缺失，因此跨交易日完整性最终仍应由 Layer-1 provider/receipt admission 负责，而不是 Layer-2 自行伪造交易日历 authority。
+完整交易日缺失是否属于节假日还是 source 丢失，最终仍由 Layer-1 provider/receipt admission 负责。
 
-实现位于：
+## 6. M4：五桶协议已经冻结，但五桶尚未被验证
 
-- `src/factor_lab/market_state/trend_regime_baseline.py`
-- `src/factor_lab/market_state/trend_regime_profiles.py`
+H1：在相同 interval/profile 和相同方向内，极端绝对斜率状态可能比中等趋势状态更难持续、更容易衰减、横盘或进入反向趋势。
 
-回归位于：
+M4 沿用 `T1=2.0`，冻结：
 
-- `tests/test_trend_regime_baseline.py`
-- `tests/test_trend_regime_profiles.py`
+- primary `T2=4.0`；
+- sensitivity 仅 `T2=3.0/5.0`；
+- 五桶边界：`STRONG_DOWN / DOWN / SIDEWAYS / UP / STRONG_UP`；
+- primary carrier=`000852.SH`，replication=`000688.SH`，禁止池化 rescue；
+- 公共历史窗口 `2020-07-23`–`2025-12-31`；
+- Development=`2020-07-23`–`2022-12-30`；
+- Validation=`2023-01-03`–`2024-12-31`；
+- locked historical holdout=`2025-01-02`–`2025-12-31`，明确不是 fresh OOS；
+- 研究 anchor profiles：1m official、5m offset0、15m offset5、60m offset30；其他 M3 profiles 只做 phase sensitivity；
+- source/profile 没有 exact Layer-1 view/clock/receipt 时必须 `NOT_ADMITTED`，禁止本地 resample 或换相位替代；
+- 主统计单位是五桶 state episode entry，不把每根 bar 当 IID 事件；
+- horizons=`1/3/5/10/20 bars`，primary horizon=5，primary reversal horizon=10；
+- primary endpoint=`5-bar directional survival`，Strong-Moderate，H1 预测负值；
+- secondary confirmatory=`10-bar reversal probability` 与 `5-bar direction-adjusted return`；
+- duration、transition、time-to-first-reversal、MFE/MAE 均预注册；
+- validation 主指标每组至少 100 episodes，holdout 每组至少 50；
+- ISO-week cluster bootstrap 5000 次，seed=`20260914`，95% CI；
+- primary family=`4 intervals × 2 directions = 8`，Holm FWER `alpha=0.05`；
+- practical guard：primary survival contrast 必须 `<=-5pp`；
+- validation 未通过不得解锁 holdout；
+- `T2=3/5` 不能替代 `T2=4` headline；
+- 负结果明确允许 `H1_NOT_SUPPORTED / INCONCLUSIVE_UNDERPOWERED / H1_CONTRADICTED / NOT_ADMITTED`。
 
-## 6. 多周期输出不产生“总趋势”
+这些规则由 `docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json` 和 `tests/test_five_bucket_protocol.py` 固定。
 
-`trend_regime_multi_interval_measurement@1.0` 只返回独立 `measurements[]`。顶层故意没有：
+## 7. M4 没有产生新的市场证据
 
-- `state`
-- `global_state`
-- timeframe voting
-- timeframe weights
-- BUY/SELL/position
+M4 明确没有：
 
-多周期如何组合，必须由策略层决定。这一点与风险识别组件的架构边界一致：趋势组件描述趋势状态，风险组件描述风险属性，上层策略组合两者后再决定交易动作。
+- 计算五桶 episode 数；
+- 计算 forward return；
+- 计算 transition/reversal probability；
+- 计算 time-to-first-reversal；
+- 计算 MFE/MAE；
+- 读取 locked holdout outcome；
+- 根据 observed distribution 调 T2。
 
-## 7. M1 consumer 合同仍未被提前实现成生产 consumer
+所以 M4 的 PASS 只表示**研究协议已在结果之前冻结**，不表示 H1 已获得支持。
 
-M1 已冻结 `regime_state_consumer_v1` 的最终安全语义：只读、as-of、显式 unavailable/expiry、最新状态过期不得回退旧状态、snapshot/provenance/version 不可被调用者改写。
+## 8. M5 的固定执行纪律
 
-M2/M3 当前仍属于 measurement-side primitive/profile contract；M7 才实现正式 consumer facade、snapshot store/index、`valid_until` 和 conformance tests。不能把 M3 measurement wrapper 宣称成已经完成的生产 consumer。
+M5 必须按协议顺序：
 
-## 8. 五桶仍只是研究假设
+1. source/profile admission，不算 outcome；
+2. development 管线与样本量检查，协议字段不变；
+3. 封存代码/config/development receipt；
+4. `T2=4` validation 一次；
+5. `T2=3/5` validation sensitivity，但不改 primary；
+6. 只有 validation 达到 support rule 才解锁 `T2=4` holdout；
+7. 最后报告 STAR50 replication 与 phase sensitivity，不用它们改写 CSI1000 primary。
 
-候选定义：
+若 source 不足、样本不足或 H1 不成立，必须按冻结负结果规则停止，不能通过改 T2、horizon、split 或 profile 来补救。
 
-- `STRONG_DOWN: s < -T2`
-- `DOWN: -T2 <= s < -T1`
-- `SIDEWAYS: -T1 <= s <= T1`
-- `UP: T1 < s <= T2`
-- `STRONG_UP: s > T2`
+## 9. 三桶、五桶与连续强度的最终架构仍由 M6 裁决
 
-核心 H1：极端绝对斜率可能比普通趋势斜率更容易耗竭、横盘或反转。
-
-当前没有证据把 H1 当成事实，更不能把 `STRONG_UP = SELL` 或 `STRONG_DOWN = BUY` 写进组件。即使未来 H1 成立，交易映射仍属于策略层。
-
-M4 只允许先冻结：`T2` 候选、纳入 profiles、样本切分、forward horizons、持续时间/转移概率/方向延续率、reversal probability、time-to-first-reversal、adverse/favorable excursion、稳健性、最小样本量和停止条件。**协议冻结前不得运行 M5。**
-
-## 9. 三桶、五桶与连续强度的最终架构仍由证据决定
-
-未来允许三种裁决：
+允许三种最终结果：
 
 1. 三桶 + 连续强度；
 2. 正式五桶；
 3. 三桶主状态 + 五桶研究/诊断扩展。
 
-负结果是允许结果。五桶如果没有稳定增量，就保留三桶，不为了“更细”强行升级产品语义。
+即使 M5 发现统计差异，也不能直接推出任何交易动作。M6 只裁决状态表示是否值得进入正式组件语义。
 
-## 10. 证据与历史边界
+## 10. M1 consumer 合同仍未被提前实现成生产 consumer
 
-本仓此前关于中证1000、科创50、趋势反转、均值回归、ETF/指数来源对账等研究继续保留，不能因为产品方向更新而回写旧结论。
+M1 已冻结 `regime_state_consumer_v1` 的安全语义：只读、as-of、显式 unavailable/expiry、最新状态过期不得回退旧状态、snapshot/provenance/version 不可被调用者改写。
 
-M0–M3 的工程工作不会自动改变：
+M2–M4 仍属于 measurement/profile/research-protocol 层；M7 才实现正式 consumer facade、snapshot store/index、`valid_until` 和 conformance tests。
+
+## 11. 证据与历史边界
+
+M0–M4 不自动改变：
 
 - `production_authority=false`
 - `fresh_oos=false`
 - 既有 scientific status
-- 历史报告/冻结证据的字节内容与结论
+- 历史报告/冻结证据的结论
 
 旧分钟、逐笔、报价、指数 3 秒数据的量纲、同步和可用性限制继续服从 [DATA.md](DATA.md) 与冻结研究报告。
 
-## 11. 路线图与执行纪律
+## 12. 路线图与执行纪律
 
 顺序固定：
 
 `M0 定位 → M1 接口 → M2 三桶 → M3 多周期 → M4 五桶协议 → M5 实证 → M6 架构裁决 → M7 Consumer API → M8 策略集成 → M9 发布治理`
 
-纪律：
+纪律：一次会话只推进当前里程碑；当前 Gate 没过不跳阶段；先冻结评价口径再看结果；负结果允许；不得为某个结果事后修改状态定义。
 
-- 一次会话只推进当前里程碑；
-- 当前 Gate 没过，不自动跳阶段；
-- 先冻结评价口径，再看会影响结论的结果；
-- 不为某个策略的回测收益修改状态定义后再反称组件“客观识别”了趋势。
+**当前唯一下一步：M5 极端斜率持续性实证，且必须严格执行 M4 protocol v1。**
 
-**当前唯一下一步：M4 五桶假设与实验协议冻结。M4 不运行 M5 实证。**
-
-## 12. 维护规范
+## 13. 维护规范
 
 [状态源](REPOSITORY_STATE.json)统一管理科学状态块；产品路线图/API/基线正文可以按里程碑演进，但 evidence authority 变化必须通过正式状态源、裁决和测试，不能靠修改白皮书文字制造新证据。
