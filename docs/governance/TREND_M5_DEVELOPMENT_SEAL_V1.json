@@ -50,9 +50,19 @@
     "raw_historical_available_at_role": "provenance_only",
     "measured_feed_latency_claimed": false
   },
+  "planned_primary_family_policy": {
+    "planned_contrasts": 8,
+    "planned_intervals": ["1m", "5m", "15m", "60m"],
+    "directions": ["UP", "DOWN"],
+    "executable_admitted_contrasts": 4,
+    "not_admitted_contrasts": 4,
+    "not_admitted_pvalue": 1.0,
+    "holm_family_size_remains": 8,
+    "family_shrinkage_after_admission_forbidden": true
+  },
   "next_allowed_step": {
     "milestone": "M5-4",
-    "scope": "run primary T2=4 Validation once on admitted 1m/5m anchors under the sealed identities",
+    "scope": "run primary T2=4 Validation once on admitted 1m/5m anchors; retain the full 8-contrast Holm family with 15m/60m NOT_ADMITTED contrasts assigned p=1.0",
     "validation_may_run_once": true,
     "holdout_still_locked": true,
     "protocol_change_allowed": false,
