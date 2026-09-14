@@ -1,0 +1,95 @@
+{
+  "schema_id": "trend_m8_strategy_integration@1.0",
+  "milestone": "M8",
+  "status": "PASS_INTEGRATION_BOUNDARIES_VALIDATED_WITH_EXPLICIT_STAR50_CALLER_GAP",
+  "validation_mode": "synthetic_contract_integration_no_market_data",
+  "production_authority": false,
+  "fresh_oos": false,
+  "market_outcomes_computed": false,
+  "holdout_read": false,
+  "m5_outcome_reopened": false,
+  "external_repositories_modified": false,
+  "m7_semantics_modified": false,
+  "m6_representation_modified": false,
+  "trend_consumer": {
+    "contract_path": "docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json",
+    "consumer_path": "src/factor_lab/market_state/trend_regime_consumer.py",
+    "consumer_git_blob": "6ec31839a9497ad96fd59e9503c73ed1984569fa",
+    "consumer_sha256": "5088c3a8e54348fa53d244ee52e64f520b0d0082a181d5c1142a90247d0468fc",
+    "stable_fields": ["state", "directional_score", "strength"],
+    "current_runtime_profiles": ["trend_1m_official_v1", "trend_5m_offset0_v1"]
+  },
+  "external_boundaries": [
+    {
+      "id": "CSI1000_LAYER3_CALLER_BOUNDARY",
+      "repository": "staryocean0/csi1000-timing-strategy-private",
+      "role": "REAL_EXISTING_UPPER_LAYER_CONSUMER_AND_ORCHESTRATION_CONTRACT",
+      "read_only_adapter": {
+        "path": "runtime/src/factor_lab/market_state/timing_layer2_consumer_adapters.py",
+        "git_blob": "f8c2b37c84768fa5eac7529a3375015cf65d306b",
+        "contract": {
+          "read_only": true,
+          "value_transformation": false,
+          "thresholds": false,
+          "strategy_mutation": false,
+          "production_authority": false
+        }
+      },
+      "layer3_orchestration": {
+        "path": "runtime/src/factor_lab/market_state/timing_layer3_orchestration.py",
+        "git_blob": "d0ea7e21b3a9cd18e42d6397b020c96c9dce1565",
+        "owns": ["state_adapter", "owner_waterfall", "conflict_arbitration"],
+        "position_output": false,
+        "production_authority": false
+      },
+      "m8_claim": "M7 trend snapshots are compatible with the existing read-only Layer2-to-Layer3 ownership boundary; M8 does not install or mutate a strategy plugin."
+    },
+    {
+      "id": "STAR50_PARALLEL_RISK_BOUNDARY",
+      "repository": "staryocean0/factorlab-star50-filter-lab",
+      "role": "REAL_PARALLEL_LAYER2_RISK_PROVIDER_NOT_CLAIMED_AS_STRATEGY_CALLER",
+      "risk_consumer": {
+        "path": "research/state_degree_consumer_d5/consumer.py",
+        "git_blob": "b8454ee2a3970c1349496c2bf3997ff0cd209f23",
+        "append_only": true,
+        "latest_expired_no_fallback": true,
+        "production_authority": false
+      },
+      "example_boundary": {
+        "path": "research/state_degree_consumer_d5/example_consumer.py",
+        "git_blob": "27127d47660510b9214016b48a8ff94aab6811a4",
+        "actual_external_consumer_connected": false
+      },
+      "m8_claim": "Trend and risk may be handed upward as separate Layer2 namespaces. No existing STAR50 external strategy caller is claimed or invented."
+    }
+  ],
+  "integration_invariants": {
+    "trend_layer2_read_only": true,
+    "risk_and_trend_namespaces_separate": true,
+    "multi_interval_trend_states_remain_separate": true,
+    "layer2_global_state_forbidden": true,
+    "direct_layer2_state_to_trade_action_forbidden": true,
+    "unavailable_or_expired_must_not_become_sideways": true,
+    "caller_threshold_mutation_forbidden": true,
+    "caller_value_transformation_forbidden_at_layer2_adapter": true,
+    "local_resampling_forbidden": true,
+    "profile_substitution_forbidden": true,
+    "layer3_owns_composition_conflict_and_selection": true,
+    "final_action_mapping_remains_above_layer2": true
+  },
+  "validated_synthetic_cases": [
+    "CSI1000 simultaneous 1m UP and 5m DOWN remain distinct upper-layer inputs",
+    "STAR50 trend DOWN and risk UNSAFE remain separate inputs without fused state or action",
+    "latest expired trend remains UNAVAILABLE and does not fall back or become SIDEWAYS",
+    "15m unadmitted profile remains STATE_NOT_ADMITTED before strategy composition",
+    "stable trend snapshot contains no T2 strong-state global-state or trading-action fields"
+  ],
+  "scope_limitations": {
+    "deployed_external_wiring_created": false,
+    "star50_external_strategy_caller_found": false,
+    "star50_gap_evidence": "example_consumer.py explicitly reports actual_external_consumer_connected=False",
+    "no_claim_of_live_or_production_integration": true,
+    "current_runtime_admission_unchanged": true
+  },
+  "next_allowed_step": "M9 release versioning documentation and governance only"
+}
