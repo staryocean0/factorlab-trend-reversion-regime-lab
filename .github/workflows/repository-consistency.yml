@@ -101,6 +101,7 @@ jobs:
           if-no-files-found: error
 
   m5-primary-validation:
+    needs: consistency
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[m5-primary-validation]')
     runs-on: ubuntu-latest
     timeout-minutes: 20
