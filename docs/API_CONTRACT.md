@@ -94,9 +94,9 @@ Compatibility rule：
 
 迁移、API examples、known limitations、evidence lineage 和 release gate 分别见：
 
-- `docs/RELEASE.md`
-- `docs/API_EXAMPLES.md`
-- `CHANGELOG.md`
+- `docs/governance/TREND_V1_RELEASE.md`
+- `docs/governance/TREND_V1_API_EXAMPLES.md`
+- `docs/governance/TREND_V1_CHANGELOG.md`
 - `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 
 ## 10. Governance closeout
