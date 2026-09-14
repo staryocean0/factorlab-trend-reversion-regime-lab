@@ -13,8 +13,9 @@
 - **M4 — PASS**：五桶研究协议在 outcome 前冻结。
 - **M5 — PASS**：CSI1000 primary、T2 sensitivity、STAR50 replication 收口；原 extreme-slope exhaustion H1 被稳健反驳。
 - **M6 — PASS**：正式表示为三桶 + 连续 strength。
-- **M7 — PASS**：stable `regime_state_consumer_v1`、immutable snapshot、append-only lifecycle、expiry/no-fallback 与 provider admission 已实现并进入默认 CI。
-- **唯一下一步：M8 — 策略层调用集成验证。**
+- **M7 — PASS**：stable consumer、immutable snapshot、append-only lifecycle、expiry/no-fallback 与 provider admission。
+- **M8 — PASS（scope-limited）**：真实外部边界 + synthetic integration 验证完成；STAR50 没有被虚构成已连接的策略 caller。
+- **唯一下一步：M9 — 发布、版本与治理。**
 
 ## M6 正式表示
 
@@ -30,37 +31,25 @@ schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。V1 stable AP
 
 Machine authority：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
 
-正式调用面：
+正式调用面：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。当前 V1 provider admission 仅两指数的 `trend_1m_official_v1` 与 `trend_5m_offset0_v1`；其余 M3 engineering profiles fail closed。Consumer 保持 immutable/append-only、receipt-causal、latest-expired/unavailable no-fallback、`production_authority=false`。
 
-```text
-query_regime(symbol, as_of, bar_interval, profile_id=None)
-```
+## M8 策略层调用集成验证（PASS）
 
-已实现：
+Machine authority：`docs/governance/TREND_M8_STRATEGY_INTEGRATION_V1.json`。
 
-- immutable `trend_regime_snapshot@1.0` + deterministic snapshot ID；
-- append-only ingest；相同 duplicate 幂等、冲突 duplicate 拒绝；
-- `received_at >= published_at`，receipt/source snapshot 禁止倒序；
-- as-of 只读取当时 consumer 已收到的 snapshot；
-- latest expired => `LATEST_SNAPSHOT_EXPIRED`，禁止 fallback；
-- latest explicit unavailable 同样禁止 fallback；
-- unavailable 不泄露 state/score/strength；
-- 当前 V1 provider registry 固定为 DataHub exact source，两指数仅 `trend_1m_official_v1` 与 `trend_5m_offset0_v1`；其余 M3 engineering profiles 返回 `STATE_NOT_ADMITTED`；
-- provider registry 不能由 caller/constructor 自行扩张；
-- `source_receipt_id` 必须为非空字符串；
-- `production_authority=false`、无交易动作 authority。
+验证边界：
 
-M7 不读取市场 outcome，不重开 M5，不打开 2025 Holdout。
+- CSI1000 私仓存在真实 read-only Layer2 adapter 与 Layer3 orchestration kernel；M7 snapshot 与该“Layer2 只读输入 → Layer3 组合/仲裁”边界兼容；
+- STAR50 仓存在真实 append-only risk-state consumer，但其示例明确 `actual_external_consumer_connected=False`，因此 M8 只把它作为并行 Layer2 risk provider，不声称已有外部策略接线；
+- synthetic integration 验证 1m/5m 可保持不同状态、trend/risk 保持独立 namespace、expired 不回退/不变 SIDEWAYS、15m 在上层之前 fail closed；
+- Layer2 不产生 `global_state`、BUY/SELL、position/order、strategy selection 或 route；
+- 外部仓库未修改，没有 market outcome、M5 reopen 或 Holdout read。
 
-## M8 — 策略层调用集成验证（唯一下一步）
+M8 的 PASS 是**接口与所有权边界验证**，不是 live/production integration certification，也没有安装新的策略 plugin。
 
-M8 只验证上层 caller 如何安全消费 M7 snapshot。趋势组件继续只描述状态/强度；多周期综合、与风险状态组合、策略选择和交易动作全部属于上层。
+## M9 — 发布、版本与治理（唯一下一步）
 
-M8 不得修改 M6 representation、M7 snapshot lifecycle/provider admission，也不得把 state/strength 直接写成 BUY/SELL/仓位规则。
-
-## M9 — 发布、版本与治理
-
-负责稳定版本、migration/changelog、证据追踪和发布治理。
+负责稳定版本、migration/changelog、API 示例、证据追踪、兼容性矩阵与发布治理。M9 不得借发布流程扩大当前 provider admission、重开 M5 outcome 或赋予 production authority。
 
 ## 全程不变原则
 
