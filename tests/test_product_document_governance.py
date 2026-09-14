@@ -110,3 +110,53 @@ def test_m9_component_release_governance_is_fail_closed_and_non_production():
     assert "fresh_oos=false" in release
     assert "STATE_NOT_ADMITTED" in release
     assert "trend-regime-v1.0.0" in release
+
+
+def test_post_v1_cross_profile_research_is_fail_closed_and_does_not_mutate_v1():
+    gov = ROOT / "docs/governance"
+    protocol = json.loads((gov / "TREND_CROSS_PROFILE_INVARIANCE_PROTOCOL_V1.json").read_text(encoding="utf-8"))
+    inventory = json.loads((gov / "TREND_CROSS_PROFILE_SOURCE_INVENTORY_V1.json").read_text(encoding="utf-8"))
+    freeze = json.loads((gov / "TREND_X2_DISTRIBUTIONAL_INVARIANCE_FREEZE_V1.json").read_text(encoding="utf-8"))
+    result = json.loads((gov / "TREND_X2_DISTRIBUTIONAL_INVARIANCE_RESULT_V1.json").read_text(encoding="utf-8"))
+    sensitivity = json.loads((gov / "TREND_X2_DIAGNOSTIC_SENSITIVITY_RESULT_V1.json").read_text(encoding="utf-8"))
+    x3 = json.loads((gov / "TREND_X3_STATE_DYNAMICS_INVARIANCE_FREEZE_V1.json").read_text(encoding="utf-8"))
+
+    assert protocol["status"] == "AUTHORIZED_PROTOCOL_FROZEN_BEFORE_MARKET_OUTCOMES"
+    assert protocol["relationship_to_v1"]["v1_semantics_modified"] is False
+    assert protocol["relationship_to_v1"]["runtime_admission_modified"] is False
+    assert protocol["relationship_to_v1"]["v1_release_pointer_must_not_move_for_this_research"] is True
+
+    assert inventory["status"] == "X1_COMPLETE_SOURCE_METADATA_INVENTORIED_NO_MARKET_OUTCOMES"
+    assert inventory["market_data_rows_read"] is False
+    assert inventory["runtime_admission_changed"] is False
+
+    assert freeze["fixed_measurement"]["lookback_bars"] == 20
+    assert freeze["fixed_measurement"]["t1"] == 2.0
+    assert freeze["research_window"]["old_m4_m5_2025_holdout_included"] is False
+
+    assert result["status"] == "X2_FIXED_BASELINE_COMPLETE"
+    assert result["market_outcomes_computed"] is False
+    assert result["trading_return_metrics_computed"] is False
+    assert result["parameter_tuning_performed"] is False
+    assert result["runtime_admission_changed"] is False
+    phase_max = max(row["max_occupancy_range"] for row in result["same_interval_phase_dispersion"])
+    assert phase_max < 0.04
+    by_view = {row["view_id"]: row for row in result["matched_profile_cross_carrier"]}
+    assert by_view["60m_offset_30"]["max_occupancy_abs_diff"] > by_view["5m_offset_0"]["max_occupancy_abs_diff"]
+
+    assert sensitivity["status"] == "COMPLETE_NO_PRODUCT_PARAMETER_SELECTION"
+    assert sensitivity["lookback_grid"] == [10, 20, 40]
+    assert sensitivity["t1_grid"] == [1.5, 2.0, 2.5]
+    assert sensitivity["v1_parameter_changed"] is False
+    assert sensitivity["runtime_admission_changed"] is False
+    sens_by_interval = {row["interval"]: row["max_abs_diff"] for row in sensitivity["cross_carrier_max_mean_occupancy_difference_across_grid"]}
+    assert sens_by_interval["60m"] > sens_by_interval["5m"]
+
+    assert x3["status"] == "FROZEN_BEFORE_X3_STATISTICS"
+    assert x3["fixed_measurement"]["lookback_bars"] == 20
+    assert x3["fixed_measurement"]["t1"] == 2.0
+    assert x3["research_window"]["old_m4_m5_2025_holdout_included"] is False
+    assert x3["runtime_admission_change_forbidden"] is True
+
+    for obj in (protocol["relationship_to_v1"], inventory, result, sensitivity, x3):
+        assert obj["production_authority"] is False
