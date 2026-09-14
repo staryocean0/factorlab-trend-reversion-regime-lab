@@ -8,38 +8,17 @@
 > [状态源](REPOSITORY_STATE.json) · [最新研究解释](research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)
 <!-- END GENERATED STATUS -->
 
-> 本白皮书定义产品定位与当前研究证据。完成 M5/M6 不自动授予 production authority，也不产生 fresh OOS 结论。
+> 本白皮书定义产品定位与当前证据。工程里程碑完成不自动授予 production authority，也不产生 fresh OOS 结论。
 
 ## 1. 产品定位
 
-本仓核心交付是 **Layer 2 趋势状态识别组件**。它描述指定 `symbol + as_of + bar_interval/profile` 下的趋势方向和强度，不承担上层策略语义。
+本仓交付的是 **Layer 2 趋势状态识别组件**。它描述指定 `symbol + as_of + bar_interval/profile` 下的趋势方向和连续强度，不承担买卖、仓位、订单、策略路由或多周期总趋势语义。
 
-## 2. 里程碑状态
+## 2. M5/M6 证据与表示
 
-- M0–M4：PASS；
-- M5：PASS，empirical evidence closed；
-- **M6：PASS，representation frozen**；
-- **M7：唯一下一步，stable consumer implementation**。
+M5 已完整收口：在 admitted 1m/5m exact views 上，CSI1000 primary、预注册 T2 sensitivity 与 STAR50 independent replication 都反驳原 extreme-slope exhaustion H1；extreme absolute slope 表现为更高 persistence、更低 reversal。
 
-## 3. M5 最终证据
-
-M4 原始 H1 认为 extreme absolute slope 可能更易耗竭。M5 在 admitted 1m/5m exact views 上稳定得到相反结果：
-
-- CSI1000 primary `T2=4`：4/4 executable primary contrasts H1_CONTRADICTED；
-- CSI1000 predeclared `T2=3/5` sensitivity：8/8 executable contrasts H1_CONTRADICTED；
-- STAR50 independent `T2=4` replication：4/4 contrasts clear qualitative replication。
-
-因此 absolute slope extremeness 对当前 evidence scope 是有支持的 **persistence/strength descriptor 候选**。但 5-bar direction-adjusted return 没有与 persistence/reversal 同等级的稳定证据，所以不能把 strength 直接解释为收益规则。
-
-M5 scope：empirical certification 当前只覆盖 1m/5m、CSI1000/STAR50；15m/60m 与 phase profiles `NOT_ADMITTED_NOT_EXECUTED`；2025 Holdout 从未打开；`fresh_oos=false`。
-
-## 4. M6 Representation Decision
-
-Machine authority：`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`。
-
-M6 选择：**THREE_BUCKET_PLUS_CONTINUOUS_STRENGTH**。
-
-正式 V1 representation：
+M6 因此选择**三桶 + 连续 strength**，而不是把任一研究 T2 固化成正式五桶：
 
 ```text
 state             = DOWN | SIDEWAYS | UP
@@ -47,54 +26,52 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。
+V1 stable semantics 不包含 `STRONG_UP/STRONG_DOWN`、five-bucket state、T2 或 `global_state`。
 
-### 4.1 state
+## 3. M7 Stable Consumer（PASS）
 
-`state` 继续完全继承 M2：
+Machine authority：`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
 
-- DOWN: `slope_t < -2`
-- SIDEWAYS: `-2 <= slope_t <= 2`
-- UP: `slope_t > 2`
+正式 consumer schema：`regime_state_consumer_v1`。
+正式 snapshot schema：`trend_regime_snapshot@1.0`。
 
-M6 不改变 20-bar lookback、log-close OLS estimator 或 `T1=2.0`。
+调用面：
 
-### 4.2 directional score / strength
+```text
+query_regime(symbol, as_of, bar_interval, profile_id=None)
+```
 
-`directional_score` 精确等于 M2 `slope_t`，保留符号；`strength` 等于其绝对值。M6 不做 quantile normalization、unit-interval scaling 或新的拟合。
+M7 已实现：
 
-`strength` 表达趋势几何强度，不是收益概率、置信概率或独立误差假设下的统计显著性。
+- deterministic immutable snapshot identity；
+- append-only ingest；
+- identical duplicate 幂等、conflicting duplicate 拒绝；
+- publication/receipt causality；
+- as-of 只看当时 consumer 已收到的 snapshot；
+- explicit `valid_until` expiry；
+- latest expired / latest unavailable 均不回退旧 snapshot；
+- unavailable 不泄露 state/score/strength；
+- provider/source/admission/source-receipt identity；
+- M6 state/score/strength schema identity；
+- `production_authority=false`、`trading_action_authority=false`。
 
-## 5. 为什么 V1 不采用正式五桶
+## 4. Provider admission 边界
 
-M5 的关键事实是 `T2=3/4/5` 全部得到同一 qualitative persistence 关系。这说明 evidence 支持连续 slope extremeness，而没有识别一个具有独特产品意义的 cutoff。
+当前 V1 provider registry 固定为 DataHub `factorlab_unified_index_kline_v3_20260824`，两指数只接纳：
 
-同时：
+- `trend_1m_official_v1`
+- `trend_5m_offset0_v1`
 
-- 15m/60m 和 phase profiles 尚无同等级 evidence；
-- return evidence 没有 persistence/reversal 那么稳定；
-- 固定五桶会损失连续信息并把 research threshold 升级为 product semantics。
+M3 其余 engineering profiles 没有被删除，但在当前 runtime source admission 下必须 `STATE_NOT_ADMITTED`。V1 registry 不能由 query caller 或 constructor 自行扩张；未来扩张必须有新的 exact source receipt 和 versioned governance。
 
-因此 V1 formal state enum **不包含 `STRONG_UP / STRONG_DOWN`**。M4/M5 five-bucket assets 继续保留用于 research audit，但 M7 stable consumer 不返回 five-bucket/strong-state 字段，也不接受 caller T2。
+`source_receipt_id` 必须是非空字符串。`valid_until` 属于 component/provider publication layer，而不是 query caller 参数。
 
-以后如要正式引入五桶，必须创建新的 representation schema/version，并重新进行结果前 evidence 流程；不能静默修改 M6 V1。
+## 5. 证据范围仍然有限
 
-## 6. M6 evidence certification 边界
+M5 persistence/strength evidence certification 目前只覆盖 admitted 1m/5m 与 CSI1000/STAR50。15m/60m 和 phase profiles 不得被描述为已获得同等级实证认证。2025 protocol Holdout 从未打开；M5 outcome 不重开；`fresh_oos=false`。
 
-M6 representation 的数学定义可以包装冻结 M2/M3 measurement，但 persistence/strength 的 empirical certification 当前只覆盖 admitted 1m/5m 与两个 carrier。15m/60m 和 phase profiles 不得被描述为已经获得相同实证认证。
+## 6. 唯一下一步：M8
 
-`production_authority=false`、`fresh_oos=false` 保持不变。
+M8 只做上层 caller integration validation：验证不同策略层调用者如何安全读取 M7 snapshot，并由上层自行处理多周期组合、风险状态组合和动作映射。
 
-## 7. M7 唯一下一步
-
-M7 实现：
-
-- `query_regime(symbol, as_of, bar_interval, profile_id)`；
-- immutable snapshot + stable identity；
-- publication/expiry + latest-expired no fallback；
-- provider/profile fail-closed admission；
-- M6 fields：`state / directional_score / strength / representation_schema_id / state_scheme_id / strength_definition_id`；
-- stable API 禁止 T2、STRONG_*、five-bucket state；
-- multi-interval 无 `global_state`。
-
-M7 不重开 M5 outcome，不改变 M6 representation。M8 才做上层集成，M9 做 release/version governance。
+M8 不改变 M6 representation、M7 lifecycle/provider admission，也不能把 `UP/DOWN/strength` 变成组件内部 BUY/SELL/仓位规则。M9 才处理 release/version/migration governance。
