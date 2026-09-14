@@ -1,0 +1,41 @@
+{
+  "schema_id": "trend_x5d_development_calibration_method@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5D_INTERVAL_CALIBRATION_COMPARISON",
+  "status": "FROZEN_BEFORE_DEVELOPMENT_SCORE_READ",
+  "development_window": {"start":"2020-07-23","end":"2020-12-31","old_m4_m5_2025_holdout_included":false},
+  "development_carriers": ["000852.SH","000688.SH"],
+  "anchor_profiles": {"5m":"5m_offset_0","15m":"15m_offset_5","60m":"60m_offset_30"},
+  "fixed_score_generation": {"lookback_bars":20,"price_transform":"log_close","estimator":"log_close_ols_slope_t@1.0"},
+  "reference_target": {
+    "definition": "median across Development carriers of P(abs(slope_t)<=2.0) on 5m_offset_0",
+    "role": "SIDEWAYS occupancy target only; not a trading target"
+  },
+  "interval_specific_t1_fit": {
+    "candidate_thresholds": "sorted unique absolute Development slope_t values pooled across the two carriers within each interval anchor profile, plus 0",
+    "objective": "minimize absolute difference between carrier-median SIDEWAYS occupancy at candidate T1 and the 5m reference target",
+    "tie_break": "smallest candidate T1",
+    "one_threshold_per_interval": true,
+    "carrier_phase_provider_specific_thresholds": false
+  },
+  "robust_normalization_fit": {
+    "primary_scale": "median across Development carriers of each carrier median(abs(slope_t)) within interval anchor",
+    "primary_universal_normalized_threshold": "2.0 / primary_5m_scale",
+    "primary_equivalent_raw_threshold_by_interval": "primary_universal_normalized_threshold * primary_interval_scale",
+    "sensitivity_scales": {
+      "MAD_about_median": "median across carriers of median(abs(slope_t - median_carrier_slope_t))",
+      "abs_slope_t_q75": "median across carriers of carrier q75(abs(slope_t))"
+    },
+    "sensitivity_universal_threshold": "2.0 / corresponding 5m sensitivity scale",
+    "positive_scale_required": true
+  },
+  "evaluation_separation": {
+    "development_parameters_sealed_before_2026_candidate_evaluation": true,
+    "2026_five_carrier_data_not_used_to_fit_parameters": true,
+    "trading_returns_not_read": true
+  },
+  "production_authority": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "fresh_oos": false
+}
