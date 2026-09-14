@@ -1,0 +1,59 @@
+{
+  "schema_id": "trend_x5c_15m_60m_cross_carrier_result@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5C_15M_60M_CROSS_CARRIER",
+  "status": "X5C_COMPLETE_15M_RELATIVELY_STABLE_60M_MATERIALLY_HETEROGENEOUS",
+  "protocol": "docs/governance/TREND_X5C_15M_60M_CROSS_CARRIER_PROTOCOL_V1.json",
+  "source_receipt": "docs/governance/TREND_X5C_SINA_15M_60M_SOURCE_RECEIPT_V1.json",
+  "fixed_measurement": {"lookback_bars":20,"estimator":"log_close_ols_slope_t@1.0","t1":2.0,"state_enum":["DOWN","SIDEWAYS","UP"]},
+  "five_carrier_full_windows": {
+    "15m_native": {"start":"2026-06-17","end":"2026-09-14","trading_days":63,"rows_per_carrier":1008,"measurements_per_carrier":989,"minimum_directional_metric_origins":314},
+    "60m_native": {"start":"2026-01-05","end":"2026-09-14","trading_days":170,"rows_per_carrier":680,"measurements_per_carrier":661,"minimum_directional_metric_origins":181,"old_m4_m5_2025_holdout_included":false}
+  },
+  "cross_carrier_dispersion_full_window": {
+    "15m": {
+      "abs_slope_t_q90_range":1.2598159019475528,
+      "sideways_occupancy_range":0.046511627906976716,
+      "one_step_self_transition_range":{"DOWN":0.01451925948044186,"SIDEWAYS":0.06973759700455961,"UP":0.024406904827840914},
+      "directional_survival_5_range":{"DOWN":0.07804372982520247,"UP":0.09015046616818978}
+    },
+    "60m": {
+      "abs_slope_t_q90_range":3.368748705086734,
+      "sideways_occupancy_range":0.12405446293494704,
+      "one_step_self_transition_range":{"DOWN":0.039259259259259216,"SIDEWAYS":0.04411901585430178,"UP":0.03506416323655659},
+      "directional_survival_5_range":{"DOWN":0.14754973106804403,"UP":0.10440007924104688}
+    }
+  },
+  "matched_recent_calendar_2026_08_17_to_2026_09_14": {
+    "5m": {"abs_slope_t_q90_range":1.3762975262614212,"sideways_occupancy_range":0.031344792719919135,"measurements_per_carrier":989},
+    "15m": {"abs_slope_t_q90_range":1.2439439052289094,"sideways_occupancy_range":0.04731861198738169,"measurements_per_carrier":317},
+    "60m": {"abs_slope_t_q90_range":4.008999103659705,"sideways_occupancy_range":0.23076923076923078,"measurements_per_carrier":65,"role":"same-calendar scale diagnostic only; short recent 60m slice is not the powered 60m evidence track"}
+  },
+  "monthly_60m_sideways_occupancy_range_by_carrier": {
+    "000852.SH":0.3087431693989071,
+    "000688.SH":0.2863636363636364,
+    "000300.SH":0.4990892531876139,
+    "000905.SH":0.24206349206349206,
+    "000016.SH":0.26190476190476186
+  },
+  "interpretation": [
+    "The prior 60m underpower problem is resolved for this external-source track: every five-carrier 60m directional metric has at least 181 origins, above the predeclared adequate threshold of 100.",
+    "15m cross-carrier dispersion remains moderate and broadly consistent with the earlier finding that interval-internal semantics are much more stable than the problematic 60m case.",
+    "60m remains materially more heterogeneous than 15m: its cross-carrier abs(slope_t) q90 range is about 3.37, SIDEWAYS occupancy range about 12.4 percentage points, and 5-bar directional-survival dispersion about 10.4 to 14.8 percentage points.",
+    "The same-calendar recent comparison strengthens the interval effect: 60m cross-carrier scale/occupancy dispersion is much larger than 5m/15m even under the same market dates.",
+    "Monthly 60m SIDEWAYS occupancy varies strongly within each carrier, so occupancy matching alone cannot define semantic correctness; persistence/reversal comparability must remain co-primary in X5D.",
+    "Sina native 15m/60m clocks are independent-source research identities, not M3/DataHub exact-view identities and do not change runtime admission."
+  ],
+  "x5d_readiness": {
+    "adequate_15m_support": true,
+    "adequate_60m_support": true,
+    "proceed_to_interval_specific_t1_vs_normalized_score_comparison": true
+  },
+  "market_return_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "parameter_tuning_performed": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
