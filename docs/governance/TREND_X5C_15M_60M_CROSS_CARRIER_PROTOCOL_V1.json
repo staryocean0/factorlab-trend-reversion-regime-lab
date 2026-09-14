@@ -1,0 +1,78 @@
+{
+  "schema_id": "trend_x5c_15m_60m_cross_carrier_protocol@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5C_15M_60M_CROSS_CARRIER",
+  "status": "FROZEN_BEFORE_NEW_X5C_STATISTICS",
+  "authorized_context": "user explicitly identified 15m/60m, especially 60m cross-carrier and long-window evidence as the next research priority on 2026-09-14",
+  "research_questions": [
+    "Do 15m and 60m slope_t/state semantics remain comparable across materially different index carriers?",
+    "Is the 60m heterogeneity observed in the two-carrier exact-view study persistent with broader carriers and longer windows?",
+    "Can interval effects be separated from phase, carrier, and source effects?"
+  ],
+  "fixed_measurement_first": {
+    "lookback_bars": 20,
+    "price_transform": "log_close",
+    "estimator": "log_close_ols_slope_t@1.0",
+    "t1": 2.0,
+    "state_enum": ["DOWN", "SIDEWAYS", "UP"],
+    "strength": "abs(slope_t)",
+    "parameter_tuning_allowed": false
+  },
+  "evidence_tracks": {
+    "A_exact_view_anchor": {
+      "carriers": ["000852.SH", "000688.SH"],
+      "profiles": ["15m_offset_5", "15m_offset_10", "60m_offset_30", "60m_offset_45"],
+      "role": "M3/DataHub exact-view anchor using already governed historical sources",
+      "holdout_rule": "do not open the old M4/M5 2025 Holdout"
+    },
+    "B_five_carrier_external_replication": {
+      "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+      "role": "independent public-source replication with explicit clock/source identity",
+      "rule": "native or clock-projected views must be labeled separately from DataHub exact identities"
+    },
+    "C_long_window_60m": {
+      "priority": "highest",
+      "goal": "obtain enough 60m origins per carrier/direction to eliminate the prior underpowered UP-direction diagnostics",
+      "minimum_directional_origins_per_carrier": 100,
+      "preferred_directional_origins_per_carrier": 200
+    }
+  },
+  "predeclared_metrics": [
+    "slope_t median MAD q05 q25 q75 q95 and abs(slope_t) q50 q75 q90 q95",
+    "DOWN SIDEWAYS UP occupancy at fixed T1=2",
+    "one-step self-transition by state",
+    "state episode duration median and q90",
+    "directional survival at 1 3 5 and 10 profile bars",
+    "opposite-direction entry within 5 and 10 profile bars",
+    "cross-carrier dispersion within each interval and clock identity",
+    "phase dispersion within carrier/interval where multiple phases exist",
+    "calendar-subperiod stability when the source window is long enough"
+  ],
+  "sample_rules": {
+    "underpowered_directional_origins_lt": 50,
+    "adequate_directional_origins_gte": 100,
+    "preferred_directional_origins_gte": 200,
+    "do_not_pool_carriers_to_rescue_power": true,
+    "do_not_pool_phases_to_rescue_power": true
+  },
+  "source_governance": {
+    "source_identity_must_be_explicit": true,
+    "clock_identity_must_be_explicit": true,
+    "clock_aligned_public_source_is_not_DataHub_exact_identity": true,
+    "research_clock_projection_may_select_closes_only_if_the_target_close_times_are_predeclared_and_no_ohlcv_resampling_is claimed": true,
+    "runtime_admission_effect": "none"
+  },
+  "forbidden": [
+    "trading return optimization",
+    "choosing a threshold from future return performance",
+    "calling public-source views DataHub exact identities",
+    "opening the old M4/M5 2025 Holdout",
+    "changing V1 runtime admission",
+    "changing V1 T1/lookback/state semantics during X5C",
+    "BUY SELL position order routing or strategy semantics"
+  ],
+  "production_authority": false,
+  "fresh_oos": false,
+  "runtime_admission_changed": false,
+  "next_action": "audit available 15m/60m source lengths and clock geometry, seal eligible windows, then compute X5C fixed-baseline statistics"
+}
