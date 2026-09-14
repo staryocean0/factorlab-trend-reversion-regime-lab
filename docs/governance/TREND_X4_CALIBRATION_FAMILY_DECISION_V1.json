@@ -1,0 +1,63 @@
+{
+  "schema_id": "trend_x4_calibration_family_decision@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X4_CALIBRATION_DECISION",
+  "status": "PASS_DECISION_INSUFFICIENT_EVIDENCE_NO_V1_CHANGE",
+  "decision_date": "2026-09-14",
+  "selected_decision": "INSUFFICIENT_EVIDENCE",
+  "candidate_decisions_considered": [
+    "UNIVERSAL_FIXED_T1",
+    "INTERVAL_SPECIFIC_T1",
+    "PROFILE_SPECIFIC_T1",
+    "NORMALIZED_SCORE_PLUS_UNIVERSAL_SEMANTIC_THRESHOLD",
+    "INSUFFICIENT_EVIDENCE"
+  ],
+  "evidence": {
+    "x2_fixed": "docs/governance/TREND_X2_DISTRIBUTIONAL_INVARIANCE_RESULT_V1.json",
+    "x2_sensitivity": "docs/governance/TREND_X2_DIAGNOSTIC_SENSITIVITY_RESULT_V1.json",
+    "x3_state_dynamics": "docs/governance/TREND_X3_STATE_DYNAMICS_INVARIANCE_RESULT_V1.json"
+  },
+  "supported_conclusions": [
+    "Same-interval phase effects are comparatively small on the two existing carriers across the matched Development window.",
+    "Cross-interval heterogeneity is materially larger than phase heterogeneity; 60m is the clearest outlier under the current 20-bar/T1=2 scale.",
+    "Changing lookback materially changes the numeric slope-t strength scale, so raw strength values from different lookback definitions are not interchangeable.",
+    "State-dynamics evidence also shows much larger carrier divergence at 60m than at 1m/5m/15m."
+  ],
+  "why_not_universal_fixed_t1": [
+    "Fixed T1=2 produces materially different occupancy and strength distributions across intervals, especially 60m.",
+    "The same nominal 60m states show materially different persistence/reversal dynamics across the two carriers."
+  ],
+  "why_not_interval_specific_t1_yet": [
+    "Only two carriers are represented.",
+    "The matched common historical window is short and ends 2020-12-31 because the preserved CSI1000 full profile set does not extend farther.",
+    "60m has only 201 measurements per phase in the matched window, and UP horizon metrics are underpowered under the preregistered support rule.",
+    "A threshold change could mask a deeper score-normalization issue and must not be selected before broader carrier evidence."
+  ],
+  "why_not_profile_specific_t1": [
+    "Same-interval phase dispersion is small relative to interval/carrier dispersion, so current evidence does not justify phase-by-phase threshold proliferation.",
+    "Profile-specific calibration would add complexity without evidence that phase identity is the dominant source of heterogeneity."
+  ],
+  "why_not_normalized_score_yet": [
+    "Normalization is a plausible candidate because score scale varies with lookback and interval, but no normalization family has yet been preregistered and validated across additional carriers.",
+    "Choosing a normalization transform now would be a new model-selection step rather than a conclusion forced by the current two-carrier evidence."
+  ],
+  "v1_effect": {
+    "representation_changed": false,
+    "lookback_changed": false,
+    "t1_changed": false,
+    "strength_definition_changed": false,
+    "runtime_admission_changed": false,
+    "release_pointer_changed": false,
+    "historical_v1_snapshots_rewritten": false
+  },
+  "governance": {
+    "production_authority": false,
+    "fresh_oos": false,
+    "old_m4_m5_2025_holdout_read": false,
+    "m5_outcomes_reopened": false,
+    "trading_semantics": false
+  },
+  "next_required_stage": "X5_CROSS_CARRIER_EXPANSION",
+  "x5_gate": "locate and audit exact-view sources for materially different additional index families before any new calibration family is selected",
+  "minimum_generality_target": "at least five materially distinct index families if exact-view sources can be established"
+}
