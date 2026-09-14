@@ -10,19 +10,11 @@
 
 ## 当前状态
 
-本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M6 PASS**；当前唯一下一步是 **M7 Stable Consumer API + Snapshot Lifecycle**。
+本仓是 Layer 2 趋势状态识别组件，不是交易策略。**M0–M7 PASS**。当前唯一下一步：**M8 — 策略层调用集成验证**。
 
-接管必读：`docs/ROADMAP.md`、`docs/API_CONTRACT.md`、`docs/governance/TREND_M5_CLOSEOUT_V1.json`、`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`。
+接管必读：`docs/ROADMAP.md`、`docs/API_CONTRACT.md`、`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`、`docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`。
 
-## M5 结论
-
-在 admitted 1m/5m exact views 上：CSI1000 primary `T2=4`、CSI1000 `T2=3/5` sensitivity、STAR50 independent replication 均一致反驳原 extreme-slope exhaustion H1。Extreme absolute slope 表现为更高 persistence、更低 reversal，因此可作为 strength/persistence descriptor 候选。
-
-限制不变：15m/60m 与 phase profiles `NOT_ADMITTED_NOT_EXECUTED`；2025 Holdout 从未打开；M5 outcome 不得重开；`fresh_oos=false`。
-
-## M6 正式产品表示
-
-机器 authority：`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`。
+## 当前正式表示
 
 ```text
 state             = DOWN | SIDEWAYS | UP
@@ -30,23 +22,33 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。
+V1 stable API 不包含 T2、`STRONG_UP/STRONG_DOWN`、five-bucket state 或 `global_state`。
 
-正式 state 只有三桶。`STRONG_UP / STRONG_DOWN`、five-bucket state 与 T2 都不进入 V1 stable API。M4/M5 的 T2=3/4/5 只保留为 research artifacts。
+## M7 已完成
 
-选择连续 strength 的核心理由：T2=3/4/5 都得到同一 qualitative persistence 关系，所以证据支持连续 extremeness，而没有识别 uniquely privileged cutoff；同时 15m/60m/phase profiles 尚未获得同等级实证认证。
+正式入口：
 
-## M7 唯一任务
+```text
+query_regime(symbol, as_of, bar_interval, profile_id=None)
+```
 
-实现并测试：
+已实现 `regime_state_consumer_v1` + `trend_regime_snapshot@1.0`：immutable identity、append-only ingest、publication/receipt causality、as-of visibility、expiry、latest-expired/unavailable no-fallback、source/provider receipt identity 与 fail-closed admission。
 
-- `query_regime(symbol, as_of, bar_interval, profile_id)`；
-- immutable snapshot / stable snapshot ID；
-- publication + expiry / latest-expired no fallback；
-- provider/profile fail-closed admission；
-- snapshot fields：`state / directional_score / strength / representation_schema_id / state_scheme_id / strength_definition_id`；
-- stable API 禁止 T2、STRONG_*、five-bucket state；
-- multi-interval 无 `global_state`；
-- `production_authority=false`。
+当前 V1 provider registry 固定为 DataHub exact source，两指数只接纳 `trend_1m_official_v1` / `trend_5m_offset0_v1`。15m/60m 与其他 phase profiles 在当前 runtime registry 下 `STATE_NOT_ADMITTED`。Registry 不能由 caller/constructor 自行扩权。
 
-M7 不得重跑 M5、读取 Holdout、调整 T2 或改变 M6 representation。M7 完成后才进入 M8。
+`source_receipt_id` 必须非空；`valid_until` 属于 component/provider publication layer，不是 query caller knob。
+
+## 仍然禁止
+
+- 重跑 M5 outcome 或读取 2025 Holdout；
+- 修改 M6 representation；
+- 修改 M7 snapshot identity / expiry-no-fallback / current provider admission；
+- 在组件内输出 BUY/SELL/position/order/strategy routing；
+- 声称 15m/60m 已获得与 1m/5m 相同的 empirical certification；
+- 把工程完成解释成 `production_authority=true` 或 `fresh_oos=true`。
+
+## M8 唯一任务
+
+选择至少两个真实上层 caller 做集成/conformance 验证：它们只能读取 M7 snapshot，并在策略层自行决定多周期组合、风险状态组合和动作映射。M8 应证明调用边界稳定，而不是修改趋势组件语义。
+
+M8 完成前不进入 M9。
