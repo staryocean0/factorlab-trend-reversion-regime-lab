@@ -1,6 +1,6 @@
 # 趋势状态识别组件路线图
 
-> 本路线图定义未来工作的执行顺序。它不是收益研究结论，也不把尚未验证的状态直接写成策略规则。
+> 本路线图定义未来工作的执行顺序。它不是收益研究结论，也不把市场状态直接写成策略规则。
 >
 > 执行纪律：**一次会话只推进当前里程碑；完成当前 Gate 后也不自动进入下一里程碑。**
 
@@ -11,109 +11,96 @@
 - **M2 — PASS**：冻结 20-bar log-close OLS signed slope t-score 三桶基线，`T1=2.0`。
 - **M3 — PASS**：冻结 `1m/5m/15m/60m` versioned profile registry、view/cadence/as-of 边界。
 - **M4 — PASS**：结果前冻结五桶实验协议。
-- **M5 — PASS / COMPLETE**：source admission、Development adequacy、pre-Validation seal、CSI1000 primary、T2 sensitivity、STAR50 replication 全部按冻结顺序收口。预注册 exhaustion H1 在所有可执行 primary/sensitivity/replication contrasts 上被反驳。
-- **唯一下一步：M6 — Representation Decision。** 本轮不执行 M6；M5 outcome 与 Holdout 不得重新打开。
+- **M5 — PASS**：CSI1000 primary、T2 sensitivity、STAR50 replication 完整收口；原 extreme-slope exhaustion H1 被稳健反驳。
+- **M6 — PASS**：正式产品表示冻结为 **三桶 + 连续 strength**；正式 state 仅 `DOWN/SIDEWAYS/UP`，`directional_score=slope_t`，`strength=abs(slope_t)`；五桶保留为 research artifacts，不进入 V1 stable API。
+- **唯一下一步：M7 — Stable Consumer API + Snapshot Lifecycle。**
 
 ---
 
-## M0–M3 — 已完成基础工程
+## M0–M3 — 基础工程（PASS）
 
-组件始终是 Layer 2 趋势状态识别组件，不是交易策略。M2 冻结三桶数学，M3 将其绑定到 DataHub Layer-1 V3 wall-clock views；不同周期独立并存，不产生 `global_state`，不本地 resample，也不输出交易动作。
+组件始终是 Layer 2 趋势状态识别组件，不是交易策略。M2 冻结三桶数学，M3 绑定 DataHub Layer-1 V3 wall-clock views；不同周期独立并存，不产生 `global_state`，不本地 resample，不输出交易动作。
 
-## M4 — 五桶实验协议冻结（PASS）
+## M4 — 五桶实验协议（PASS）
 
-预注册 H1：同 interval/同方向下，extreme absolute slope state 可能比 moderate trend state 更难持续、更容易衰减/反转。
+预注册 H1：同 interval/方向下，extreme absolute slope state 可能比 moderate trend state 更难持续、更容易衰减/反转。
 
-冻结：`T1=2.0`、primary `T2=4.0`、sensitivity `T2=3/5`、Development/Validation/Holdout split、episode-entry unit、1/3/5/10/20 bar horizons、5-bar directional-survival primary、样本门槛、ISO-week bootstrap 5000、8 项 Holm family、`<=-5pp` practical guard 与 holdout unlock rule。
+冻结 `T1=2.0`、primary `T2=4.0`、sensitivity `T2=3/5`、Development/Validation/Holdout split、episode/horizon/sample floor、ISO-week bootstrap、Holm family 与 negative-result rules。
 
-机器合同：`docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json`。
-
----
-
-## M5 — 极端斜率持续性实证（PASS / COMPLETE）
+## M5 — 极端斜率持续性实证（PASS）
 
 机器 closeout：`docs/governance/TREND_M5_CLOSEOUT_V1.json`。
 
-### M5-1 — Source / Profile Admission
+当前 active exact source 对两 carrier 只实证准入 1m official / 5m offset0；15m/60m anchors 与 phase profiles 均 `NOT_ADMITTED_NOT_EXECUTED`。
 
-当前 active exact source 只准入两指数的 `trend_1m_official_v1` 与 `trend_5m_offset0_v1`。15m/60m anchors 与 phase profiles 均 `NOT_ADMITTED`；禁止 local resampling、offset substitution 或 legacy promotion。
+### CSI1000 primary `T2=4`
 
-### M5-2 — Development Sample Adequacy
+四个 executable survival Strong−Moderate contrasts 为 `+0.3673` 至 `+0.3853`，所有 CI > 0；reversal10 为 `-0.2360` 至 `-0.2507`，所有 CI < 0。Headline：`H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS`。
 
-Development=`2020-07-23`–`2022-12-30`。两 carrier 的 admitted 1m/5m strong/moderate episode 样本量均超过预注册门槛。该步骤只验证可执行性，不产生 H1 结论。
+### T2=3/5 sensitivity
 
-### M5-3 — Pre-Validation Seal
+8/8 executable sensitivity contrasts 继续 H1_CONTRADICTED，0/8 朝 H1 方向。因此结果不是 T2=4 单点阈值偶然。
 
-M4/M5 contracts、M2/M3 核心计算、Layer-1 clock、market-data reader、data manifest、DataHub source identity 与 Development artifact 均在 Validation 前通过 Git blob/SHA 封存。
+### STAR50 replication
 
-### M5-4 — CSI1000 Primary `T2=4`
+四个 executable replication survival contrasts 为 `+0.3394` 至 `+0.3735`，所有 CI > 0；reversal10 同样全部 < 0。Replication：`CLEAR_QUALITATIVE_REPLICATION_OF_PRIMARY_CONTRADICTION`。
 
-`000852.SH` Validation=`2023-01-03`–`2024-12-31`，admitted 1m/5m：
-
-| interval | direction | survival Strong−Moderate | 95% CI | reversal10 Strong−Moderate |
-|---|---|---:|---|---:|
-| 1m | UP | +0.3853 | [+0.3734,+0.3969] | -0.2476 |
-| 1m | DOWN | +0.3795 | [+0.3681,+0.3908] | -0.2507 |
-| 5m | UP | +0.3822 | [+0.3531,+0.4119] | -0.2371 |
-| 5m | DOWN | +0.3673 | [+0.3388,+0.3948] | -0.2360 |
-
-四个 primary contrasts 的 survival 方向均显著与 H1 相反，正式 headline：**`H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS`**。
-
-### M5-5 — Predeclared `T2=3/5` Sensitivity
-
-同一 CSI1000 Validation、同一 admitted 1m/5m source/profile identities：
-
-- `T2=3` 四个 survival contrasts：`+0.4045 / +0.4110 / +0.4095 / +0.4147`，CI 全部严格大于 0；
-- `T2=5` 四个 contrasts：`+0.3572 / +0.3459 / +0.3477 / +0.3382`，CI 全部严格大于 0；
-- 8/8 = `SENSITIVITY_H1_CONTRADICTED`，0/8 朝 H1 方向；
-- reversal10 也全部为负。
-
-所以 primary 反证不是 `T2=4` 单阈值偶然。
-
-### M5-6 — STAR50 Cross-Carrier Replication
-
-STAR50 `000688.SH`，相同 Validation、primary `T2=4`，仅 admitted 1m/5m：
-
-| interval | direction | survival Strong−Moderate | 95% CI | reversal10 Strong−Moderate |
-|---|---|---:|---|---:|
-| 1m | UP | +0.3735 | [+0.3621,+0.3850] | -0.2504 |
-| 1m | DOWN | +0.3727 | [+0.3608,+0.3845] | -0.2090 |
-| 5m | UP | +0.3730 | [+0.3416,+0.4042] | -0.2620 |
-| 5m | DOWN | +0.3394 | [+0.3141,+0.3640] | -0.1923 |
-
-4/4 replication contrasts 均 `REPLICATION_H1_CONTRADICTED`，0 个相反；正式 replication 状态：**`CLEAR_QUALITATIVE_REPLICATION_OF_PRIMARY_CONTRADICTION`**。STAR50 与 CSI1000 没有 pooling。
-
-### M5 最终 Gate
-
-最终证据只覆盖**已准入 1m/5m exact views**，但在以下三层全部一致：
-
-1. CSI1000 primary `T2=4`；
-2. CSI1000 predeclared `T2=3/5` sensitivity；
-3. STAR50 independent `T2=4` replication。
-
-综合结论：原“extreme slope 更容易耗竭”的 H1 被稳健反驳；extreme absolute slope 反而是**persistence/strength descriptor** 的候选语义。5-bar direction-adjusted return 没有同等稳定证据，因此不得把 persistence 差异直接翻译成收益或交易规则。
-
-未执行且保持 fail closed：15m/60m anchors、phase profiles。2025 Holdout 从未打开，因为 primary support rule 未通过。所有 one-shot outcome jobs 均 consumed，M5 outcome work 不得重开。
+M5 最终解释：对 admitted 1m/5m exact views，absolute slope extremeness 是有实证支持的 **persistence/strength descriptor 候选**，但 5-bar direction-adjusted return 没有形成同等级稳定证据，因此不能翻译成收益/交易规则。2025 Holdout 从未打开；M5 one-shot outcome jobs 均 consumed。
 
 ---
 
-## M6 — 三桶 / 五桶 / 连续强度表示裁决（唯一下一步）
+## M6 — Representation Decision（PASS）
 
-M6 只能基于 M5 已封存证据，在以下方案中做产品语义选择：
+机器 authority：`docs/governance/TREND_M6_REPRESENTATION_DECISION_V1.json`。
 
-1. **三桶 + 连续 strength**；
-2. **正式五桶**；
-3. **三桶主状态 + 五桶诊断/研究扩展**。
+### 选择
 
-M6 不得重新调 `T2`、重跑 M5、打开 Holdout，也不得把状态映射成 BUY/SELL/position。M6 完成后才进入 M7。
+正式 V1 representation：
 
-## M7 — 稳定 Consumer API 与测试
+```text
+state             = DOWN | SIDEWAYS | UP
+directional_score = frozen M2 slope_t
+strength          = abs(directional_score)
+```
 
-实现 `symbol + as_of + bar_interval/profile` 的只读 consumer、snapshot store、expiry/no-fallback 与 conformance tests。
+schema：`trend_regime_three_bucket_plus_continuous_strength@1.0`。
+
+### 为什么不正式五桶
+
+- M5 在 `T2=3/4/5` 都给出同一 qualitative persistence 结果，支持连续 extremeness，而没有识别一个独特、必须固定的产品 cutoff；
+- 15m/60m 和 phase profiles 未获得 M5 实证认证；
+- return evidence 没有 persistence/reversal 那样稳定；
+- 连续 strength 能保留信息，同时不破坏已经稳定的三桶方向合同。
+
+因此 `STRONG_UP / STRONG_DOWN` 不属于 V1 formal state enum；T2 不属于 stable caller parameter；M4/M5 五桶资产只保留为 research audit artifacts。
+
+### M6 强度定义
+
+`directional_score` 精确等于 frozen `log_close_ols_slope_t@1.0` 的 `slope_t`；`strength=abs(directional_score)`。不做 unit-interval normalization，不做 quantile normalization，不重新拟合。
+
+M5 的 persistence/strength evidence certification 当前只覆盖 1m/5m 与两个 carrier，`fresh_oos=false`。这不妨碍同一数学 representation 包装其他 profile，但不得宣称 15m/60m 已获得同等级实证认证。
+
+---
+
+## M7 — Stable Consumer API + Snapshot Lifecycle（唯一下一步）
+
+M7 必须实现并测试：
+
+- `query_regime(symbol, as_of, bar_interval, profile_id)`；
+- immutable snapshot + stable snapshot ID；
+- `published_at <= as_of < valid_until`；
+- latest-expired no fallback；
+- provider/profile fail-closed admission；
+- M6 fields：`state / directional_score / strength / representation_schema_id / state_scheme_id / strength_definition_id`；
+- stable API 禁止 T2 / STRONG_* / five-bucket state；
+- multi-interval 仍无 `global_state`；
+- `production_authority=false`。
+
+M7 不得重开 M5 outcome、打开 Holdout 或重新裁决 M6 representation。
 
 ## M8 — 策略匹配与集成验证
 
-趋势组件只描述趋势状态/强度；上层策略决定如何与风险状态组合并映射交易动作。
+趋势组件只描述状态/强度；上层策略决定如何与风险状态组合并映射交易动作。
 
 ## M9 — 发布、版本与治理
 
@@ -125,5 +112,6 @@ M6 不得重新调 `T2`、重跑 M5、打开 Holdout，也不得把状态映射�
 
 1. **组件不是策略。**
 2. **状态必须绑定时间尺度/profile/version。**
-3. **强度先连续、分桶后验证。**
-4. **负结果允许；禁止调参救结论。**
+3. **方向三桶 + 连续强度是 V1 正式表示。**
+4. **研究阈值不得静默升级成产品语义。**
+5. **负结果允许；禁止调参救结论。**
