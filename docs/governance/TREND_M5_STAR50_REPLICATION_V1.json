@@ -1,0 +1,56 @@
+{
+  "schema_id": "trend_m5_star50_replication_receipt@1.0",
+  "milestone": "M5-6",
+  "status": "PASS_EXECUTED_CLEAR_QUALITATIVE_REPLICATION",
+  "execution_contract_pre_read_git_blob": "51b6c4654c1f5e2eaba32b4a0c35299d369f8630",
+  "run": {
+    "workflow_run_id": 34818480455,
+    "head": "e6ce522e5860378f3cfeb2ddf28103d3ccf4fdf4",
+    "artifact_id": 10336884322,
+    "artifact_digest": "sha256:4ce675ec89d72c1a92d1fe1d4cb810ab9f624fec509cdf4623441b90e96e7940"
+  },
+  "carrier": "000688.SH",
+  "validation": {"start": "2023-01-03", "end": "2024-12-31"},
+  "t1": 2.0,
+  "t2": 4.0,
+  "csi1000_primary_headline_unchanged": "H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS",
+  "overall_replication_conclusion": "CLEAR_QUALITATIVE_REPLICATION_OF_PRIMARY_CONTRADICTION",
+  "executable_replication_contrasts": [
+    {"interval":"1m","direction":"UP","status":"REPLICATION_H1_CONTRADICTED","moderate_n":4640,"strong_n":2179,"moderate_survival5":0.49525862068965515,"strong_survival5":0.8687471317117944,"strong_minus_moderate":0.37348851102213926,"ci95":[0.3620846347591594,0.3849945443714432],"reversal10_strong_minus_moderate":-0.25040789036413413,"reversal10_ci95":[-0.2634981923833249,-0.23688874613893143]},
+    {"interval":"1m","direction":"DOWN","status":"REPLICATION_H1_CONTRADICTED","moderate_n":5408,"strong_n":2627,"moderate_survival5":0.5134985207100592,"strong_survival5":0.8861819566044918,"strong_minus_moderate":0.37268343589443265,"ci95":[0.36080719085029545,0.3845069385249445],"reversal10_strong_minus_moderate":-0.20896602257855637,"reversal10_ci95":[-0.2224339367359869,-0.19559778863215235]},
+    {"interval":"5m","direction":"UP","status":"REPLICATION_H1_CONTRADICTED","moderate_n":881,"strong_n":402,"moderate_survival5":0.492622020431328,"strong_survival5":0.8656716417910447,"strong_minus_moderate":0.3730496213597167,"ci95":[0.34161120463784816,0.40423297381937284],"reversal10_strong_minus_moderate":-0.2620298055692028,"reversal10_ci95":[-0.29487420980756823,-0.22933242741169288]},
+    {"interval":"5m","direction":"DOWN","status":"REPLICATION_H1_CONTRADICTED","moderate_n":1060,"strong_n":541,"moderate_survival5":0.5330188679245284,"strong_survival5":0.8724584103512015,"strong_minus_moderate":0.3394395424266732,"ci95":[0.31408145641888807,0.36398467313381516],"reversal10_strong_minus_moderate":-0.19226973110591844,"reversal10_ci95":[-0.22061054342916842,-0.16452737390070943]}
+  ],
+  "replication_counts": {
+    "executable_contrasts": 4,
+    "point_estimate_same_direction": 4,
+    "statistically_clear_same_direction": 4,
+    "statistically_clear_opposite_direction": 0,
+    "h1_contradicted": 4,
+    "h1_direction": 0
+  },
+  "remaining_robustness_reporting": {
+    "phase_sensitivity_profiles": "NOT_ADMITTED_NOT_EXECUTED",
+    "anchor_15m_60m": "NOT_ADMITTED_NOT_EXECUTED",
+    "local_resampling_used": false,
+    "profile_substitution_used": false,
+    "pooling_with_csi1000": false
+  },
+  "m5_scientific_closeout": {
+    "primary_t2_4_csi1000": "H1_CONTRADICTED_ON_ALL_EXECUTABLE_PRIMARY_CONTRASTS",
+    "t2_3_5_sensitivity": "T2_3_AND_T2_5_ALL_EXECUTABLE_CONTRASTS_H1_CONTRADICTED",
+    "star50_replication": "CLEAR_QUALITATIVE_REPLICATION_OF_PRIMARY_CONTRADICTION",
+    "combined_interpretation": "On admitted 1m/5m views, extreme absolute slope states are consistently more directionally persistent and less reversal-prone than moderate trend states across CSI1000 primary validation, preregistered T2 sensitivity, and independent STAR50 replication. This contradicts the preregistered exhaustion H1. It does not establish trading-action semantics or decide the final product representation.",
+    "holdout_opened": false,
+    "phase_robustness_executed": false,
+    "phase_robustness_reason": "predeclared phase profiles remained NOT_ADMITTED"
+  },
+  "replication_rows_read": true,
+  "holdout_rows_read": false,
+  "holdout_unlocked": false,
+  "primary_headline_changed": false,
+  "new_primary_family_created": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "next_allowed_step": "M6 representation decision only; do not reopen M5 outcomes or holdout"
+}
