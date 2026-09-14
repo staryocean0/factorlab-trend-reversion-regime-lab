@@ -1,0 +1,74 @@
+{
+  "schema_id": "trend_x5_source_fallback@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5_CROSS_CARRIER_EXPANSION",
+  "status": "FROZEN_BEFORE_FIVE_CARRIER_STATISTICS",
+  "freeze_date": "2026-09-14",
+  "supersedes_for_primary_acquisition_only": "Eastmoney acquisition path in TREND_X5_CROSS_CARRIER_REPLICATION_FREEZE_V1.json",
+  "reason": "Eastmoney source metadata and clock probes succeeded, and two existing-carrier raw files were acquired, but subsequent new-carrier acquisition was repeatedly throttled/disconnected before any new-carrier trend statistics were computed. Source fallback is therefore based on acquisition availability, not outcome selection.",
+  "no_new_carrier_statistics_seen_before_fallback": true,
+  "primary_source": {
+    "provider": "Sina public CN market K-line endpoint",
+    "endpoint_family": "quotes.sina.cn/cn/api/json_v2.php/CN_MarketData.getKLineData",
+    "authentication_required": false,
+    "period": "5m",
+    "requested_length": 1023,
+    "observed_rows_per_carrier_in_source_probe": 1023,
+    "observed_first_partial_timestamp": "2026-08-14 13:50:00",
+    "observed_last_timestamp": "2026-09-14 15:00:00",
+    "research_role": "clock-aligned independent-source cross-carrier replication; not DataHub exact-source identity and never runtime admission authority"
+  },
+  "carriers": ["000852.SH","000688.SH","000300.SH","000905.SH","000016.SH"],
+  "strict_complete_window": {
+    "start": "2026-08-17",
+    "end": "2026-09-14",
+    "expected_complete_trading_days": 21,
+    "expected_5m_rows_per_complete_day": 48,
+    "expected_rows_per_carrier": 1008,
+    "clock_gate": "every included day must contain exactly the M3 5m_offset0 close clock 09:35,09:40,...,11:30 and 13:05,13:10,...,15:00 with no duplicates or gaps"
+  },
+  "measurement": {
+    "lookback_bars": 20,
+    "price_transform": "log_close",
+    "estimator": "log_close_ols_slope_t@1.0",
+    "t1": 2.0,
+    "states": ["DOWN","SIDEWAYS","UP"],
+    "strength": "abs(slope_t)"
+  },
+  "metrics": [
+    "measurement_count",
+    "slope_t median and MAD",
+    "slope_t q05 q25 q75 q95",
+    "abs_slope_t q50 q75 q90 q95",
+    "DOWN SIDEWAYS UP occupancy",
+    "one-step self-transition by state",
+    "directional survival at 5 bars for DOWN and UP",
+    "opposite-direction entry within 10 bars for DOWN and UP"
+  ],
+  "sample_rule": {
+    "minimum_origins_for_directional_horizon_metric": 50,
+    "below_minimum_action": "UNDERPOWERED_DESCRIPTIVE_ONLY",
+    "pooling_across_carriers_forbidden": true
+  },
+  "source_identity_boundary": {
+    "may_be_called_trend_5m_offset0_v1_exact_DataHub_source": false,
+    "may_be_called_M3_clock_aligned_5m_replication": true,
+    "runtime_admission_effect": "none",
+    "cross_source_value_equivalence_assumed": false
+  },
+  "forbidden": [
+    "parameter tuning from X5 results",
+    "mixing Sina and Eastmoney rows inside the same carrier result",
+    "using native 15m/60m from either public source as M3 exact profiles",
+    "trading-return optimization",
+    "BUY SELL position order routing semantics",
+    "runtime admission expansion",
+    "moving the V1 release pointer",
+    "calling the short recent window fresh OOS"
+  ],
+  "production_authority": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "fresh_oos": false,
+  "next_action": "acquire and freeze the five-carrier Sina 5m rows, pass the complete-clock gate, then compute the predeclared X5 metrics once"
+}
