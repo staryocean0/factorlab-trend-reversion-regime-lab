@@ -1,0 +1,41 @@
+{
+  "schema_id": "trend_x4_post_x5f_update@1.0",
+  "status": "INSUFFICIENT_EVIDENCE_FOR_PRODUCT_NORMALIZED_STRENGTH_WITH_PARTIAL_X5F_DIAGNOSTIC_SUPPORT",
+  "prior_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_decision": "INSUFFICIENT_EVIDENCE",
+  "evidence_update": {
+    "60m_carrier_scale_effect": "SUPPORTED",
+    "60m_common_time_scale_effect": "SUPPORTED",
+    "carrier_plus_time_explained_log_cell_variance_fraction": 0.5985,
+    "carrier_time_interaction_or_residual_fraction": 0.4015,
+    "cross_carrier_normalized_strength_diagnostic": "SUPPORTED_RESEARCH_ONLY",
+    "stable_temporal_normalized_strength_representation": "NOT_ESTABLISHED",
+    "independent_regime_effect": "NOT_IDENTIFIED",
+    "pure_provider_effect": "NOT_IDENTIFIED",
+    "STAR50_same_provider_clock_phase_effect": "IDENTIFIED_SCOPE_LIMITED"
+  },
+  "representation_boundary": {
+    "v1_state": "UNCHANGED",
+    "v1_directional_score": "UNCHANGED",
+    "v1_strength": "UNCHANGED_abs_directional_score",
+    "x5f_normalized_strength": "research_only_diagnostic_not_product_output"
+  },
+  "reason_not_to_adopt": [
+    "about 40% of log monthly scale-cell variance remains residual after carrier and common-time factors",
+    "leave-one-carrier-out normalization still leaves monthly strength max/min ratios around 1.48 to 2.39",
+    "carrier factors drift out of time with up to about 24% multiplicative change",
+    "independent regime labels are unavailable and source/clock effects are only partially identifiable"
+  ],
+  "next_research_focus": [
+    "carrier-by-time interaction structure rather than another static threshold",
+    "causal common-scale estimation at finer time resolution without using the target carrier future",
+    "more same-clock cross-provider and same-provider multi-clock evidence across carriers",
+    "external regime covariates only under a separately frozen protocol"
+  ],
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
