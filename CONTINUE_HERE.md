@@ -10,77 +10,54 @@
 
 ## 当前产品口径
 
-本仓工程定位：**供策略调用的趋势状态识别组件**，不是独立交易策略，不直接输出买卖、仓位、订单或 Layer 4 指令。
+本仓是**供策略调用的趋势状态识别组件**，不是独立交易策略，不直接输出买卖、仓位、订单或 Layer 4 指令。
 
-当前里程碑状态：M0–M4 PASS；M5 **IN PROGRESS**。M5-1 source/profile admission 已完成，五桶 H1 仍没有 Validation 实证结论。
+当前里程碑：M0–M4 PASS；M5 **IN PROGRESS**。M5-1 source/profile admission 与 M5-2 Development sample adequacy 已完成；H1 尚未进入 Validation。
 
-接管顺序：先读 [路线图](docs/ROADMAP.md)、[M4 冻结协议](docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md)、[M5-1 admission receipt](docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.md) 与 [机器 receipt](docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json)。
+先读：[路线图](docs/ROADMAP.md)、[M4 冻结协议](docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.md)、[M5-1 receipt](docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json)、[M5-2 receipt](docs/governance/TREND_M5_DEVELOPMENT_ADEQUACY_V1.json)。
 
-## 已完成：M5-1 Source / Profile Admission
+## M5-1 已完成：Source / Profile Admission
 
-本轮没有计算任何五桶市场 outcome。8 个 M4 anchor carrier/profile pairs 已全部裁决：
+M4 的 8 个 anchor carrier/profile pair 中：
 
 | carrier | 1m official | 5m offset0 | 15m offset5 | 60m offset30 |
 |---|---|---|---|---|
 | `000852.SH` | ADMITTED | ADMITTED | NOT_ADMITTED | NOT_ADMITTED |
 | `000688.SH` | ADMITTED | ADMITTED | NOT_ADMITTED | NOT_ADMITTED |
 
-### 为什么 1m / 5m 可以准入
+15m/60m 继续 fail closed；禁止本地 resample、换 offset 或 legacy 近似替代。
 
-当前 active cross-index archive 来自 DataHub `factorlab_unified_index_kline_v3_20260824`：
+## M5-2 已完成：Development Sample Adequacy
 
-- exact `1m_official` source identity；
-- exact `5m_offset_0` source identity；
-- 两指数完整覆盖 M4 公共历史窗口 `2020-07-23`–`2025-12-31`；
-- source manifest 保留 `dataset_version / export_view_id / export_frequency / data_contract` 等 identity 字段；
-- 趋势仓 `data/market/1m`、`data/market/5m` 的逐年 hash/source path 已记录在 `data/manifest.json`。
+真实数据运行只读取 M4 Development：`2020-07-23`–`2022-12-30`，且只使用已 admitted 的 1m/5m anchors。
 
-### 为什么 15m / 60m 不准入
+主 5-bar 完整 episode-entry 数：
 
-不是因为结果不好，而是 source Gate 没过：
+| carrier/profile | UP moderate | UP strong | DOWN moderate | DOWN strong |
+|---|---:|---:|---:|---:|
+| 000852.SH / 1m | 6012 | 3003 | 5912 | 2891 |
+| 000852.SH / 5m | 1157 | 549 | 1202 | 587 |
+| 000688.SH / 1m | 5805 | 2746 | 6319 | 3084 |
+| 000688.SH / 5m | 1105 | 546 | 1267 | 631 |
 
-- STAR50 的 exact 15m/60m legacy files 虽仍保留，但 source repo 明确声明 legacy `development/` **不是当前 active research input**；
-- CSI1000 two-wave exact multi-view shipped rows只到 `2020-12-31`，无法覆盖 M4 的 Development/Validation/Holdout 冻结窗口；
-- M4 禁止本地 resample、换 offset 或近似替代。
+全部超过 M4 primary 门槛 100；10/20-bar secondary 可用量也全部超过 50。
 
-因此 15m/60m 必须 fail closed。当前 6 个 phase-sensitivity profiles 也全部保持 `NOT_ADMITTED`。
+这只说明 **Development 样本量无明显阻塞**。它不说明 extreme bucket 更容易耗竭，也不代表 Validation 一定有足够样本。
 
-## 冻结的历史时钟适配
+本轮没有读取 2023–2025，也没有计算 survival、reversal、return、transition probability、MFE/MAE、bootstrap、p-value 或 H1 adjudication。
 
-历史归档里的 raw `available_at` 是历史数据 retrieval availability，不是盘中 feed latency。依据已经冻结的数据所有者澄清，M5 causal replay 使用：
+真实运行：Actions `34812469153`；head `7069d2afc1c2137c14a16003dcfd5ebf9c21376f`；artifact digest `sha256:95eb49298359959cd4ebf82fc21eca8d79e61e932f0d550fbb3c09efd56b3147`。
 
-```text
-bar_end = exact export-view timestamp（Shanghai wall-clock contract）
-runtime_available_at = bar_end
-raw historical available_at = provenance only
-```
-
-该规则不声称测得真实延迟；它只避免把历史入库时间错误当成盘中不可见时间。
-
-## M5-1 Gate
-
-**PASS：admission audit complete, partial profile admission。**
-
-- `1m/5m`：两指数 source/profile ADMITTED；
-- `15m/60m`：两指数 NOT_ADMITTED；
-- no local resampling / no profile substitution；
-- `outcomes_computed=false`；
-- Validation outcome 未读取；
-- Holdout outcome 未读取；
-- `production_authority=false`、`fresh_oos=false` 不变。
-
-## 唯一下一步：M5-2 Development Pipeline + Sample Adequacy
+## 唯一下一步：M5-3 封存 Gate
 
 下一次会话只允许：
 
-1. 对 admitted 的 `1m/5m` anchors 建立五桶 Development pipeline；
-2. 只使用 M4 Development split：`2020-07-23`–`2022-12-30`；
-3. 检查 source/profile/cadence/split 边界；
-4. 计算 Development 样本充足性；
-5. 封存 code/config/development receipt。
+1. 封存 M5 Development pipeline code identity；
+2. 封存 M4 config / M5 source-admission / Development result identity；
+3. 固化 exact source/dataset/profile/run hashes；
+4. 形成不可被后续 Validation 结果覆盖的 Development seal receipt；
+5. 保持 Validation 与 Holdout 仍锁定。
 
-**M5-2 仍不得读取 Validation outcome，也不得打开 Holdout。**
+**M5-3 不运行 Validation。** 只有封存 Gate PASS 后，下一次会话才可能执行一次性的 primary `T2=4` Validation。
 
-只有 Development receipt 封存后，才可能按 M4 协议进入一次性的 primary `T2=4` Validation。15m/60m 不得为了凑齐研究范围而本地构造。
-
-M5 完成前不得进入 M6。历史科学状态块仍由 [REPOSITORY_STATE.json](docs/REPOSITORY_STATE.json) 管理，本轮 source admission 不自动增加市场证据。
+M5 完成前不得进入 M6。
