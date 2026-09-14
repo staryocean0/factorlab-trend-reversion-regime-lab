@@ -1,10 +1,10 @@
 # 趋势状态 Consumer：M1 现状审计与 Gap List
 
-> 本文是 `docs/API_CONTRACT.md` 的配套审计。它回答“当前仓库离目标 consumer 还有什么差距”，不把后续 M2–M7 的工作提前宣称完成。
+> 本文是 `docs/API_CONTRACT.md` 的配套审计，并随里程碑更新 gap 状态。M2 已冻结三桶 measurement baseline；正式 consumer 仍未进入 M7。
 
 ## 1. 审计结论
 
-当前仓库**已经具备 Layer 2 measurement plane 的权责边界和一批测量原语，但尚未具备正式可供策略调用的 trend-regime consumer**。
+当前仓库**已经具备 Layer 2 measurement plane、M2 三桶趋势测量基线和一批辅助测量原语，但尚未具备正式可供策略调用的 trend-regime consumer**。
 
 因此正确演进路径不是重写 Layer 2，而是：
 
@@ -53,57 +53,44 @@ measurement plane 已拒绝 `position/action/selected_*` 等策略字段。
 
 **结论：M1 API 合同把这条限制提升到公开 consumer 语义。**
 
-### A04 — 存在趋势/方向相关测量原语
+### A04 — 趋势/方向原语与 M2 主 authority
 
-`core_kline_attribute_pool.py` 当前已有包括：
+`core_kline_attribute_pool.py` 当前已有 signed efficiency ratio、signed OLS slope t-stat、direction continuity / imbalance 等属性；BDCI/DII 也提供辅助方向诊断。
 
-- signed efficiency ratio；
-- signed OLS slope t-stat；
-- direction continuity / imbalance 类指标；
-- volatility、reversal、jump 等基础属性。
-
-**结论：M2 应审计这些现有原语后选择/冻结三桶基线，不应在 M1 新造公式。**
+M2 已进一步冻结 `src/factor_lab/market_state/trend_regime_baseline.py`：20 根 completed bars、log-close signed OLS slope t-score、`T1=2.0`，唯一决定 `DOWN/SIDEWAYS/UP`。BDCI/DII 不参与主状态投票。
 
 ### A05 — 风险组件提供成熟 consumer 参考
 
-`factorlab-star50-filter-lab/research/state_degree_consumer_d5/consumer.py` 已示范：
-
-- immutable Snapshot；
-- append-only ingest；
-- as-of 查询；
-- published/expiry；
-- missing/expired 显式失败；
-- latest expired 不回退；
-- production authority=false。
+`factorlab-star50-filter-lab/research/state_degree_consumer_d5/consumer.py` 已示范 immutable Snapshot、append-only ingest、as-of 查询、published/expiry、missing/expired 显式失败、latest expired 不回退以及 production authority=false。
 
 **结论：借鉴 envelope 和时钟纪律，不复制风险业务字段。**
 
 ## 3. 当前缺口
 
-| ID | Gap | 当前证据 | 目标 | 归属里程碑 |
+| ID | Gap | 当前状态 | 目标 | 归属里程碑 |
 |---|---|---|---|---|
-| G01 | 没有公开 trend consumer entrypoint | 当前只有 measurement registry/validation 与底层属性模块 | `query_regime` / `as_of` facade | M7 |
-| G02 | 没有正式 `regime_state_consumer_v1` schema | measurement plane schema 面向能力/坐标，不是 current-state query | 稳定 consumer envelope | M7，合同已在 M1 冻结 |
-| G03 | 没有统一 current-state lifecycle | 有 `observation_time/available_at`，但无统一 `published_at/valid_until` 状态快照 | snapshot clocks + no-fallback | M2/M3 定规则，M7 实现 |
-| G04 | 缺失/过期语义未统一到趋势调用面 | 各历史组件各自处理或根本不是 runtime consumer | `AVAILABLE/UNAVAILABLE + reason` | M7 |
-| G05 | caller 与 component 参数所有权未通过公开 API 固化 | measurement plane 明确“不拥有 parameter selection”，但调用 facade 不存在 | caller 只选 versioned profile；低层参数由 component/profile 拥有 | M3/M7 |
-| G06 | 三桶数学语义尚未冻结 | 当前有多个 slope/direction primitives，但没有一个被正式指定为 `DOWN/SIDEWAYS/UP` authority | 可复现三桶基线 | M2 |
-| G07 | K 线完成、lookback、normalization、T1 尚未冻结 | 现有属性原语存在多 horizon/不同统计口径 | 单一基线定义与回归样例 | M2 |
-| G08 | 多周期 profile 尚未冻结 | capability matrix 中有 daily、60m、caller-declared 等混合历史能力 | versioned profile / bar interval registry | M3 |
-| G09 | 五桶没有正式证据 | 当前只是 H1“极端斜率耗竭”研究假设 | 预注册协议与实证裁决 | M4–M6 |
-| G10 | capability registry 不等于本仓可执行 provider | registry 的若干 `source_refs` 指向当前 checkout 不存在的历史源码，且多项 capability 为 partial/compatibility | provider admission 必须验证实际 artifact/acceptance | M2–M7 |
-| G11 | 没有 trend snapshot identity/immutable store | 当前 registry/attributes 不是发布事件存储 | stable snapshot ID + append-only semantics | M7 |
-| G12 | 没有 consumer conformance / prefix-causality tests | 现有测试主要服务历史组件和治理 | API、expiry、no-fallback、future-leak、immutability tests | M7 |
-| G13 | 当前组件索引没有把 trend consumer 登记为 active callable component | `docs/COMPONENTS.md` 仍以历史/复现生命周期为主 | consumer 生命周期、owner、version、status | M7/M9 |
-| G14 | strategy integration 尚未证明 | 当前没有至少两个不同持仓逻辑只依赖公开 trend contract 的验收 | 两类调用者集成，不复制组件代码 | M8 |
+| G01 | 没有公开 trend consumer entrypoint | OPEN：当前有 measurement primitive，无 `query_regime` facade | `query_regime` / `as_of` facade | M7 |
+| G02 | 没有正式运行中的 `regime_state_consumer_v1` schema | OPEN：M1 已冻结合同，代码未实现 | 稳定 consumer envelope | M7 |
+| G03 | 没有统一 current-state lifecycle | PARTIAL：M2 已冻结 bar-level `as_of/observation_time/available_at`；尚无 snapshot `published_at/valid_until` 与 expiry store | snapshot clocks + no-fallback | M3/M7 |
+| G04 | 缺失/过期语义未统一到趋势 consumer | PARTIAL：M2 measurement 已 fail-closed；consumer expiry/no-fallback 未实现 | `AVAILABLE/UNAVAILABLE + reason` | M7 |
+| G05 | caller 与 component 参数所有权未通过公开 API 固化 | PARTIAL：M1 已定原则，M2 低层参数已冻结；profile registry 尚不存在 | caller 只选 versioned profile | M3/M7 |
+| G06 | 三桶数学语义尚未冻结 | **RESOLVED M2**：`log_close_ols_slope_t@1.0` 是唯一主 authority | 可复现三桶基线 | M2 PASS |
+| G07 | K 线完成、lookback、normalization、T1 尚未冻结 | **RESOLVED M2**：20 bars、log-close、`T1=2.0`、completed+available as-of、坏 close fail-closed | 单一基线定义与回归样例 | M2 PASS |
+| G08 | 多周期 profile 尚未冻结 | OPEN：M2 刻意不绑定 interval，也不猜 cadence gap | versioned profile / bar interval registry | M3 |
+| G09 | 五桶没有正式证据 | OPEN：仍只是 H1“极端斜率耗竭”研究假设 | 预注册协议与实证裁决 | M4–M6 |
+| G10 | capability registry 不等于本仓可执行 provider | OPEN：M1 已确认旧 source refs 不能当 runtime admission；M2 新 baseline 是实际可执行 primitive | provider admission 验证 artifact/acceptance | M3–M7 |
+| G11 | 没有 trend snapshot identity/immutable store | OPEN | stable snapshot ID + append-only semantics | M7 |
+| G12 | 没有 consumer conformance / prefix-causality tests | PARTIAL：M2 已有 measurement future-leak/as-of 回归；consumer expiry/immutability tests 尚无 | consumer API、expiry、no-fallback、immutability tests | M7 |
+| G13 | 当前组件索引没有把 trend consumer 登记为 active callable component | OPEN | consumer 生命周期、owner、version、status | M7/M9 |
+| G14 | strategy integration 尚未证明 | OPEN | 两类调用者集成，不复制组件代码 | M8 |
 
 ## 4. 关键架构判断
 
 ### 4.1 不重写 measurement plane
 
-现有 measurement plane 已经解决了“Layer 2 能测什么、来自哪里、是否有 measurement authority”的问题。直接另建一套平行 Layer 2 会制造双重 authority。
+现有 measurement plane 已经解决“Layer 2 能测什么、来自哪里、是否有 measurement authority”。直接另建平行 Layer 2 会制造双重 authority。
 
-后续应把 trend consumer 视为其上方的**受限读取/状态发布面**。
+M2 新增的是受该边界约束的趋势 measurement primitive；未来 trend consumer 仍应是其上方的**受限读取/状态发布面**。
 
 ### 4.2 capability registry 不能直接当 runtime provider registry
 
@@ -119,53 +106,49 @@ asset_id exists
 provider executable + causal + accepted + current
 ```
 
-尤其是当前裁剪仓 `src/factor_lab/market_state/` 实际只保留少量模块，而 capability rows 仍保存若干旧 source refs。
+审计还确认 capability row 引用的旧 `trend_continuity_regime.py` 在本仓没有可恢复实现，所以 M2 没有伪称“恢复旧公式”，而是从当前可审计的 signed OLS 原语冻结了新基线。
 
-因此未来 profile 只能绑定通过 admission 的 provider；找不到实现、receipt 或 acceptance 时必须 fail closed。
+未来 profile 只能绑定通过 admission 的 provider；找不到实现、receipt 或 acceptance 时必须 fail closed。
 
-### 4.3 三桶先于五桶
+### 4.3 三桶已经冻结，五桶仍未开始
 
-当前存在 signed OLS、efficiency、direction-continuity 等多种候选测量，说明“趋势强度”并非天然只有一个公式。
+M2 现在明确：
 
-M2 必须先回答：
+- 主 authority：signed log-close OLS slope t-score；
+- lookback：20 completed/available bars；
+- `T1=2.0`；
+- `-2/+2` 都属于 SIDEWAYS；
+- future/unpublished bars 不可见；
+- 坏 close 不跳过、不回填、不插值。
 
-- 哪一个量才是三桶 authority；
-- 为什么；
-- K 线如何完成；
-- lookback 和 normalization 是什么；
-- `T1` 如何定义；
-- 是否满足前缀因果与可复现。
+这解决的是**参考定义**，没有证明 20 或 2.0 是任何时间尺度上的收益最优参数，也没有给 `T2` 或 `STRONG_*` 任何产品 authority。
 
-在这之前不能开始调 `T2` 或把 extreme bucket 做成产品字段。
+## 5. 已完成与尚未解决
 
-## 5. M1 已解决 vs 尚未解决
-
-### M1 已解决
+### 已完成：M1 + M2
 
 - 独立组件 vs 策略的接口边界；
-- caller / component / strategy 参数所有权；
-- `as_of` 消费模型；
-- availability / expiry / no-fallback 语义；
+- caller / component / strategy 参数所有权原则；
+- consumer `as_of`/availability/expiry/no-fallback 合同；
 - snapshot/provenance/authority envelope；
 - provider admission 原则；
-- 最小 schema 草案 `regime_state_consumer_v1`。
+- `regime_state_consumer_v1` 最小合同；
+- 三桶数学 authority、20-bar lookback、log-close、`T1=2.0`；
+- completed/available as-of 与 measurement fail-closed；
+- 合成因果与可复现回归测试。
 
-### M1 刻意未解决
+### 仍未解决
 
-- 三桶使用哪个 slope/strength 公式；
-- `T1`；
-- 支持哪些 bar intervals；
-- profile 清单；
+- 正式支持哪些 `bar_interval`；
+- interval/profile registry 与 cadence-gap admission；
+- `T1` 在不同 K 线周期下是否需要不同 profile/解释；
 - 五桶是否成立；
-- consumer 代码实现；
-- production authority。
+- consumer snapshot/store 代码；
+- production authority；
+- strategy integration。
 
-这些未解决项不是 M1 失败，而是路线图刻意留下的后续 Gate。
+## 6. 当前 Gate
 
-## 6. M1 Gate 判定
+**M1 PASS；M2 PASS。**
 
-**PASS。**
-
-原因：目标 consumer 可以在不知道任何交易策略的情况下独立定义；接口不包含买卖/仓位/路由语义；安全时钟与 unavailable 语义已经明确；当前实现与目标之间的缺口有清晰里程碑归属。
-
-因此下一唯一里程碑为 **M2 — 三桶基线冻结与可复现性**。
+下一唯一里程碑为 **M3 — 多 K 线级别参数化**。M3 只解决 interval/profile 与跨周期测量可解释性，不自动进入 M4/M5 的五桶研究。
