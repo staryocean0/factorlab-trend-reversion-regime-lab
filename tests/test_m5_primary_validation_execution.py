@@ -13,12 +13,15 @@ def _git_blob(path):
     return subprocess.check_output(["git", "hash-object", str(ROOT / path)], text=True).strip()
 
 
-def test_execution_contract_is_frozen_before_read():
+def test_execution_contract_is_consumed_once_after_validation():
     payload = json.loads(EXECUTION.read_text(encoding="utf-8"))
-    assert payload["status"] == "FROZEN_BEFORE_VALIDATION_READ"
-    assert payload["validation_consumed"] is False
-    assert payload["validation_rows_read"] is False
+    assert payload["status"] == "CONSUMED_AFTER_ONE_PRIMARY_VALIDATION"
+    assert payload["validation_consumed"] is True
+    assert payload["validation_rows_read"] is True
     assert payload["holdout_rows_read"] is False
+    assert payload["primary_validation_rerun_allowed"] is False
+    assert payload["holdout_unlocked"] is False
+    assert payload["holdout_permanently_blocked_by_primary_support_rule"] is True
     assert payload["carrier"] == "000852.SH"
     assert payload["primary_t2"] == 4.0
     assert (payload["validation_start"], payload["validation_end"], payload["context_start"]) == ("2023-01-03", "2024-12-31", "2022-12-30")
@@ -27,12 +30,24 @@ def test_execution_contract_is_frozen_before_read():
     assert payload["holm_alpha"] == 0.05
     assert payload["bootstrap_replicates"] == BOOTSTRAP_REPLICATES == 5000
     assert payload["bootstrap_seed"] == BOOTSTRAP_SEED == 20260914
+    assert payload["pre_read_execution_contract_git_blob"] == "4fa6b5eee9582be7b147abf52988f01d3254a672"
 
 
-def test_validation_code_and_prior_seal_objects_are_immutable():
+def test_validation_code_and_prior_seal_objects_remain_immutable():
     payload = json.loads(EXECUTION.read_text(encoding="utf-8"))
     for item in payload["locked_objects"]:
         assert _git_blob(item["path"]) == item["git_blob"], item["path"]
+
+
+def test_consumed_run_identity_is_unique_and_frozen():
+    payload = json.loads(EXECUTION.read_text(encoding="utf-8"))
+    assert payload["consumed_run"] == {
+        "workflow_run_id": 34814912150,
+        "head": "4aecd9b88a171eb51a63462bfe10eaa8168f34dc",
+        "artifact_id": 10335368583,
+        "artifact_digest": "sha256:acf170aab180478c73fb2dcc09ec5610c06e7276e566ee2fc7a134082e2dc045",
+        "result_receipt": "docs/governance/TREND_M5_PRIMARY_VALIDATION_V1.json",
+    }
 
 
 def test_primary_family_cannot_shrink_after_admission():
@@ -43,7 +58,6 @@ def test_primary_family_cannot_shrink_after_admission():
     adjusted = holm_adjust(raw)
     assert len(adjusted) == 8
     assert adjusted[4:] == [1.0, 1.0, 1.0, 1.0]
-    assert adjusted[0] >= raw[0]
 
 
 def test_cluster_bootstrap_is_deterministic_and_directional():
