@@ -1,0 +1,38 @@
+{
+  "schema_id": "trend_m5_closeout@1.0",
+  "milestone": "M5",
+  "status": "M5_COMPLETE_H1_CONTRADICTED_ROBUST_ON_ADMITTED_1M_5M",
+  "production_authority": false,
+  "fresh_oos": false,
+  "trading_semantics": false,
+  "representation_decision_pending": true,
+  "evidence_chain": [
+    {"milestone":"M5-1","path":"docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json","git_blob":"6e88f7ba15b7c4bf9ec12b2e50c67dc365d173b7","result":"1m/5m admitted for both carriers; 15m/60m and phase profiles not admitted"},
+    {"milestone":"M5-2","path":"docs/governance/TREND_M5_DEVELOPMENT_ADEQUACY_V1.json","git_blob":"490f667f2c347bd2df32bbeb66a8aba231557e92","result":"Development sample adequacy passed on admitted 1m/5m"},
+    {"milestone":"M5-3","path":"docs/governance/TREND_M5_DEVELOPMENT_SEAL_V1.json","git_blob":"0600a28544c356389f1bfccd7f337a27868a3858","result":"code/config/source/data/development identities sealed before Validation"},
+    {"milestone":"M5-4","path":"docs/governance/TREND_M5_PRIMARY_VALIDATION_V1.json","git_blob":"07f0304eef15186bed65f65211f16f356ccb31c1","result":"CSI1000 T2=4 primary H1 contradicted on all four executable contrasts"},
+    {"milestone":"M5-5","path":"docs/governance/TREND_M5_T2_SENSITIVITY_V1.json","git_blob":"61ccc6ed4dcc8e1f73ff000d8091432cdb3f9e07","result":"T2=3 and T2=5 sensitivity contradicted H1 on all eight executable contrasts"},
+    {"milestone":"M5-6","path":"docs/governance/TREND_M5_STAR50_REPLICATION_V1.json","git_blob":"711157b69b621aa7c0dfb49160607e84f5ffd183","result":"STAR50 T2=4 clearly replicated the primary contradiction on all four executable contrasts"}
+  ],
+  "headline_scientific_conclusion": "The preregistered extreme-slope exhaustion H1 is contradicted. On admitted 1m/5m views, extreme absolute slope states are consistently more directionally persistent and less reversal-prone than moderate trend states across CSI1000 primary Validation, preregistered T2 sensitivity, and independent STAR50 replication.",
+  "scope_limits": {
+    "admitted_intervals": ["1m", "5m"],
+    "not_admitted_anchor_intervals": ["15m", "60m"],
+    "phase_sensitivity_profiles": "NOT_ADMITTED_NOT_EXECUTED",
+    "carriers": ["000852.SH", "000688.SH"],
+    "validation_window": {"start":"2023-01-03","end":"2024-12-31"},
+    "holdout_opened": false,
+    "holdout_reason": "primary H1 support rule failed, so protocol holdout remained closed",
+    "local_resampling_used": false,
+    "profile_substitution_used": false,
+    "carrier_pooling_used": false,
+    "fresh_oos_claimed": false
+  },
+  "product_implication_boundary": {
+    "allowed_inference": "extreme absolute slope is a candidate persistence/strength descriptor on admitted 1m/5m views",
+    "not_yet_decided": "whether final product representation is three buckets plus continuous strength, formal five buckets, or three buckets plus a five-bucket diagnostic extension",
+    "forbidden_inference": "no BUY/SELL/position/order semantics follow from M5"
+  },
+  "m5_outcome_work_reopen_allowed": false,
+  "next_allowed_step": "M6 representation decision only"
+}
