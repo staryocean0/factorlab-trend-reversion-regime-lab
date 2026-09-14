@@ -1,0 +1,107 @@
+{
+  "schema_id": "trend_x5e_60m_temporal_scale_causal_normalization_result@1.0",
+  "status": "TEMPORAL_SCALE_NONSTATIONARITY_ESTABLISHED_CAUSAL_NORMALIZATION_NOT_ADOPTED",
+  "protocol": "TREND_X5E_60M_TEMPORAL_SCALE_CAUSAL_NORMALIZATION_PROTOCOL_V1.json",
+  "scope": {
+    "interval": "60m",
+    "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "source": "Sina native 60m independent-source research data retained by X5C",
+    "source_is_m3_datahub_exact_identity": false,
+    "raw_window": ["2026-01-05", "2026-09-14"],
+    "input_rows_per_carrier": 680,
+    "raw_measurements_per_carrier": 661,
+    "common_post_warmup_window": ["2026-03-02 15:00:00", "2026-09-14 15:00:00"],
+    "common_evaluation_measurements_per_carrier": 541
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "v1_raw_t1": 2.0,
+    "normalized_semantic_threshold": 0.44780633341059867,
+    "causal_scale": "rolling median(abs(prior slope_t scores))",
+    "candidate_windows_measurements": [40, 80, 120]
+  },
+  "raw_temporal_scale_evidence": {
+    "metric": "max_to_min ratio of monthly median abs(slope_t), months with >=40 measurements",
+    "by_carrier": {
+      "000852.SH": 2.49722552680514,
+      "000688.SH": 2.764558694723624,
+      "000300.SH": 3.3186262148303123,
+      "000905.SH": 1.6149113016787837,
+      "000016.SH": 1.6316127885130445
+    },
+    "interpretation": "All five carriers show material 60m score-scale movement through 2026; a single static yearly scale is not empirically stable on this window."
+  },
+  "common_window_baseline": {
+    "V1_RAW": {
+      "cross_carrier_median_strength_range": 1.430725031711313,
+      "median_across_carriers_monthly_strength_max_to_min_ratio": 1.6941840350877146,
+      "max_per_carrier_monthly_sideways_range": 0.2647058823529411,
+      "semantic_dispersion": {
+        "sideways": 0.12199630314232901,
+        "self_DOWN": 0.030745123466796365,
+        "self_SIDEWAYS": 0.050803155593574734,
+        "self_UP": 0.026759287224403572,
+        "survival5_DOWN": 0.11214574898785434,
+        "survival5_UP": 0.09492600422832986,
+        "opposite10_DOWN": 0.05516455194290246,
+        "opposite10_UP": 0.05971894043029474
+      }
+    }
+  },
+  "causal_candidates": {
+    "CAUSAL_MEDABS_40": {
+      "cross_carrier_median_strength_range": 0.10523754055172252,
+      "cross_carrier_strength_range_reduction_vs_raw": 0.9265,
+      "median_across_carriers_monthly_strength_max_to_min_ratio": 1.6887185212327969,
+      "semantic_improved_vs_v1": ["sideways", "self_DOWN", "self_UP", "survival5_DOWN", "survival5_UP"],
+      "semantic_worsened_vs_v1": ["self_SIDEWAYS", "opposite10_DOWN", "opposite10_UP"],
+      "strict_semantic_pareto_dominates_v1": false,
+      "state_change_fraction_vs_v1_range": [0.08317929759704251, 0.12754158964879853],
+      "opposite_direction_disagreement_count_all_carriers": 0,
+      "raw_equivalent_t1_q10_q90_across_carriers_extremes": [0.7495566159262244, 3.9124713440962777]
+    },
+    "CAUSAL_MEDABS_80": {
+      "cross_carrier_median_strength_range": 0.07775741901887956,
+      "cross_carrier_strength_range_reduction_vs_raw": 0.9456,
+      "median_across_carriers_monthly_strength_max_to_min_ratio": 2.0560072645107805,
+      "semantic_improved_vs_v1": ["sideways", "self_UP", "survival5_UP"],
+      "semantic_worsened_vs_v1": ["self_DOWN", "self_SIDEWAYS", "survival5_DOWN", "opposite10_DOWN", "opposite10_UP"],
+      "strict_semantic_pareto_dominates_v1": false,
+      "state_change_fraction_vs_v1_range": [0.04066543438077634, 0.11460258780036968],
+      "opposite_direction_disagreement_count_all_carriers": 0,
+      "raw_equivalent_t1_q10_q90_across_carriers_extremes": [0.9274868869523927, 3.136261309182312]
+    },
+    "CAUSAL_MEDABS_120": {
+      "cross_carrier_median_strength_range": 0.05734511840035739,
+      "cross_carrier_strength_range_reduction_vs_raw": 0.9599,
+      "median_across_carriers_monthly_strength_max_to_min_ratio": 1.9904711804101627,
+      "semantic_improved_vs_v1": ["sideways", "self_DOWN", "self_UP", "survival5_DOWN", "survival5_UP"],
+      "semantic_worsened_vs_v1": ["self_SIDEWAYS", "opposite10_DOWN", "opposite10_UP"],
+      "strict_semantic_pareto_dominates_v1": false,
+      "state_change_fraction_vs_v1_range": [0.024029574861367836, 0.12384473197781885],
+      "opposite_direction_disagreement_count_all_carriers": 0,
+      "raw_equivalent_t1_q10_q90_across_carriers_extremes": [1.037693143472671, 2.737705122799936]
+    }
+  },
+  "findings": {
+    "temporal_scale_nonstationarity": "SUPPORTED_ON_THIS_2026_WINDOW",
+    "cross_carrier_strength_normalization": "STRONGLY_IMPROVED_BY_ALL_CAUSAL_WINDOWS",
+    "within_carrier_temporal_strength_stability": "NOT_CONSISTENTLY_IMPROVED",
+    "state_boundary_semantics": "TRADE_OFFS_NO_PARETO_DOMINANCE",
+    "direction_sign_preservation": "All causal candidates produced zero DOWN-to-UP or UP-to-DOWN disagreements versus V1; changes are directional-versus-SIDEWAYS boundary changes only."
+  },
+  "decision": {
+    "causal_state_boundary_normalization": "NOT_SUPPORTED_FOR_ADOPTION",
+    "causal_strength_scale_normalization": "PROMISING_FOR_CROSS_CARRIER_DIAGNOSTICS_TEMPORAL_STABILITY_NOT_ESTABLISHED",
+    "v1_action": "NO_CHANGE",
+    "x6": "HOLD_NOT_READY"
+  },
+  "trading_returns_computed": false,
+  "strategy_metrics_computed": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
