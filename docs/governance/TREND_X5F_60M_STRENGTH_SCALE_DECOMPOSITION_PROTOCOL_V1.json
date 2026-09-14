@@ -1,0 +1,72 @@
+{
+  "schema_id": "trend_x5f_60m_strength_scale_decomposition_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5F_DECOMPOSITION_STATISTICS",
+  "research_only": true,
+  "objective": "Decompose 60m abs(slope_t) scale into carrier, common-time, and identifiable clock/source components, and evaluate a normalized_strength diagnostic without changing V1 state semantics.",
+  "primary_source": {
+    "provider": "Sina public index kline",
+    "bar_interval": "60m_native",
+    "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "window": {"start": "2026-01-05", "end": "2026-09-14"},
+    "old_m4_m5_2025_holdout_included": false,
+    "runtime_admission_effect": "none"
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(slope_t)",
+    "v1_state_boundary_t1": 2.0,
+    "v1_state_boundary_must_not_change": true
+  },
+  "primary_decomposition": {
+    "response": "log(abs(slope_t) + epsilon)",
+    "epsilon": 1e-08,
+    "time_cell": "calendar_month",
+    "model": "log_strength = grand_effect + carrier_effect + common_time_effect + residual",
+    "estimator": "median-polish-style additive robust effects on log scale with zero-median identifiability constraints",
+    "normalized_strength_candidate": "exp(residual) after removing estimated carrier_effect and common_time_effect",
+    "state_boundary_use": "forbidden"
+  },
+  "validation": {
+    "leave_one_carrier_out": true,
+    "out_of_time": "fit carrier effects on first half of 2026 evaluation window and assess second-half stability; common-time factor remains contemporaneous diagnostic, not causal product semantics",
+    "metrics": [
+      "variance_share_by_carrier_time_residual",
+      "carrier_median_strength_range_before_after",
+      "monthly_median_strength_range_before_after",
+      "leave_one_carrier_out_residual_scale_dispersion",
+      "first_half_vs_second_half_carrier_factor_drift",
+      "state_conditional_residual_scale_description"
+    ]
+  },
+  "regime_identifiability": {
+    "independent_external_regime_covariate_available": false,
+    "rule": "Do not relabel common-time effect as a causal regime effect. V1 state-conditional summaries are descriptive only because state is derived from the same score."
+  },
+  "clock_source_identifiability": {
+    "rule": "Estimate a separate clock/source component only where the same carrier has an overlapping alternate source or clock view. If provider and clock change together, report the effect as confounded_source_clock rather than source-only or clock-only.",
+    "no_imputation_or_local_resampling_to_manufacture_identity": true
+  },
+  "decision_rule": {
+    "normalized_strength_diagnostic_supported_if": [
+      "carrier scale dispersion is materially reduced without using carrier-specific future information",
+      "carrier factors are directionally stable out of time",
+      "residual scale is not dominated by a single carrier",
+      "clock/source confounding is explicitly bounded or marked unidentified"
+    ],
+    "product_adoption_allowed": false,
+    "x6_version_bump_allowed": false
+  },
+  "forbidden": [
+    "trading_returns",
+    "strategy_selection",
+    "BUY_SELL",
+    "position_or_order_logic",
+    "runtime_admission_expansion",
+    "opening_old_2025_holdout",
+    "changing_v1_state_boundary",
+    "changing_v1_strength_semantics"
+  ],
+  "production_authority": false,
+  "fresh_oos": false
+}
