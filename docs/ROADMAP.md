@@ -10,9 +10,9 @@
 - **M1 — PASS**：consumer 审计、API 合同与 Gap List。
 - **M2 — PASS**：冻结 20-bar log-close OLS signed slope t-score 三桶基线，`T1=2.0`。
 - **M3 — PASS**：冻结 `1m/5m/15m/60m` versioned profile registry、view/cadence/as-of 边界。
-- **M4 — PASS**：在任何 M5 outcome 前冻结五桶实验协议：primary `T2=4.0`、sensitivity `3/5`、split、anchors、endpoints、sample floors、bootstrap/Holm 与 holdout unlock。
-- **M5 — IN PROGRESS**：M5-1 source/profile admission **PASS（partial）**；M5-2 Development sample adequacy **PASS**。
-- **唯一下一步：M5-3 — seal code/config/Development receipt；不得运行 Validation。**
+- **M4 — PASS**：结果前冻结五桶实验协议。
+- **M5 — IN PROGRESS**：M5-1 source/profile admission PASS（partial）；M5-2 Development sample adequacy PASS；**M5-3 Code/Config/Development Seal PASS**。
+- **唯一下一步：M5-4 — primary `T2=4` Validation 一次。** Holdout 仍锁定；不得改 seal、协议、source/profile 或多重检验 family。
 
 ---
 
@@ -24,18 +24,9 @@
 
 ## M4 — 五桶实验协议冻结（PASS）
 
-核心 H1：同 interval/同方向下，极端绝对斜率状态可能比中等趋势状态更难持续、更易衰减或反转。
+H1：同 interval/同方向下，极端绝对斜率状态可能比中等趋势状态更难持续、更易衰减或反转。
 
-冻结要点：
-
-- `T1=2.0`；primary `T2=4.0`；sensitivity=`3.0/5.0`；
-- primary carrier=`000852.SH`，replication=`000688.SH`，禁止池化 rescue；
-- Development=`2020-07-23`–`2022-12-30`；Validation=`2023-01-03`–`2024-12-31`；locked historical holdout=`2025-01-02`–`2025-12-31`；
-- anchors：1m official、5m offset0、15m offset5、60m offset30；
-- source/profile 不满足 exact view + causal receipt 就 `NOT_ADMITTED`；
-- episode-entry 为统计单位；horizons 1/3/5/10/20；primary endpoint=5-bar directional survival；
-- validation primary 每组至少 100 episodes，10/20-bar secondary 每组至少 50；
-- week-cluster bootstrap 5000、Holm FWER、`<=-5pp` practical guard 与 holdout unlock 规则冻结。
+冻结：`T1=2.0`、primary `T2=4.0`、sensitivity `3/5`、Development/Validation/Holdout split、4 个 anchor intervals、episode-entry 单位、1/3/5/10/20 bar horizons、primary directional-survival endpoint、样本门槛、week-cluster bootstrap 5000、Holm FWER、`<=-5pp` practical guard 与 holdout unlock。
 
 机器合同：`docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json`。
 
@@ -45,55 +36,53 @@
 
 ### M5-1 — Source / Profile Admission（PASS，partial）
 
-当前 active exact source 只准入两指数的：
-
-- `trend_1m_official_v1`
-- `trend_5m_offset0_v1`
-
-15m/60m anchors 与 phase-sensitivity profiles 当前 `NOT_ADMITTED`；不能用 local resample、offset substitution 或 legacy 文件补齐。
+当前 active exact source 只准入两指数的 `trend_1m_official_v1` 与 `trend_5m_offset0_v1`。15m/60m anchors 与 phase-sensitivity profiles 当前 `NOT_ADMITTED`；禁止 local resample、offset substitution 或 legacy 文件补齐。
 
 机器 receipt：`docs/governance/TREND_M5_SOURCE_PROFILE_ADMISSION_V1.json`。
 
 ### M5-2 — Development Pipeline + Sample Adequacy（PASS）
 
-只读取 `2020-07-23`–`2022-12-30`，只运行已 admitted 的 1m/5m anchors。真实数据 run `34812469153`。
+只读取 `2020-07-23`–`2022-12-30`，真实 run `34812469153`。四个 admitted carrier/profile 的 strong/moderate 5-bar episode-entry 数均远高于 100，10/20-bar secondary 可用量均高于 50。
 
-主 5-bar 完整 episode-entry 数：
-
-| carrier/profile | UP moderate | UP strong | DOWN moderate | DOWN strong |
-|---|---:|---:|---:|---:|
-| `000852.SH / 1m` | 6012 | 3003 | 5912 | 2891 |
-| `000852.SH / 5m` | 1157 | 549 | 1202 | 587 |
-| `000688.SH / 1m` | 5805 | 2746 | 6319 | 3084 |
-| `000688.SH / 5m` | 1105 | 546 | 1267 | 631 |
-
-全部超过 primary floor=100；10/20-bar secondary 可用量全部超过 50。
-
-该 Gate 只说明 **Development 样本量不构成明显阻塞**。没有读取 Validation/Holdout，没有计算 survival、reversal、returns、transition probability、MFE/MAE、bootstrap、p-value，也没有 adjudicate H1。
+该 Gate 只说明 Development 样本量不构成明显阻塞；没有读取 Validation/Holdout，也没有计算 H1 outcome。
 
 机器 receipt：`docs/governance/TREND_M5_DEVELOPMENT_ADEQUACY_V1.json`。
 
-### M5-3 — Code / Config / Development Seal（唯一下一步）
+### M5-3 — Code / Config / Development Seal（PASS）
 
-目标：在任何 Validation outcome 出现之前，把后续正式检验所依赖的代码和身份完全封死。
+机器 seal：`docs/governance/TREND_M5_DEVELOPMENT_SEAL_V1.json`。
 
-必须封存：
+已在任何 Validation outcome 出现前固定：
 
-1. M5 Development/Validation 共用计算代码的 Git blob/hash；
-2. M4 protocol identity；
-3. M5-1 source admission identity；
-4. M5-2 Development artifact/run/dataset identity；
-5. exact admitted carrier/profile/source identities；
-6. `T1/T2/split/horizon/sample floor/bootstrap/Holm` 等配置 identity；
-7. Validation 与 Holdout 仍为 locked 的状态。
+1. M5-2 entrypoint/core 的 Git blob；
+2. M2 slope baseline、M3 profile registry、Layer-1 clock contract、market-data reader 的 Git blob；
+3. M4 protocol、M5-1 admission、M5-2 Development receipt 的 Git blob；
+4. `data/manifest.json` Git blob；
+5. DataHub export identity 与 `1m_official` / `5m_offset_0` source SHA256；
+6. Development run/head/artifact digest；
+7. historical replay clock contract；
+8. Validation/Holdout 未读状态。
 
-**M5-3 不运行 Validation。** Seal PASS 后，后续会话才允许 primary `T2=4` Validation 一次。
+`tests/test_m5_development_seal.py` 使用 `git hash-object` 对 sealed paths 做 byte-identity guard；修改 sealed code/config 将直接使 CI 失败。
+
+M5-3 **没有运行 Validation**，没有产生 survival/reversal/return/bootstrap/p-value 或 H1 adjudication。
+
+### M5-4 — Primary Validation（唯一下一步）
+
+只允许：
+
+- primary `T2=4.0`；
+- Validation=`2023-01-03`–`2024-12-31`；
+- 只执行已 admitted 的 1m/5m anchors；
+- 15m/60m 保持 `NOT_ADMITTED`，不得补造；
+- M4 planned primary family 仍为 **8 contrasts = 4 intervals × 2 directions**；15m/60m 的 4 个不可执行 contrast 按预注册规则 `p=1.0`，Holm family size 仍为 8，禁止 admission 后缩小 family；
+- Validation 只运行一次；
+- Holdout 继续锁定。
 
 ### M5 后续冻结顺序
 
-- M5-4：primary `T2=4` Validation 一次；
-- M5-5：预注册 `T2=3/5` sensitivity，不得改 primary；
-- 只有 Validation 满足 M4 support rule 才可解锁 holdout；
+- M5-5：预注册 `T2=3/5` Validation sensitivity，不得替代 primary；
+- 只有 primary Validation 满足 M4 support rule 才可解锁 primary `T2=4` holdout；
 - replication / phase sensitivity 不得 rescue CSI1000 primary。
 
 ### M5 最终 Gate
