@@ -77,7 +77,7 @@ def test_m9_component_release_governance_is_fail_closed_and_non_production():
     for relative in contract["release_artifacts"]:
         assert (ROOT / relative).is_file()
 
-    release = (ROOT / "docs/RELEASE.md").read_text(encoding="utf-8")
+    release = (ROOT / "docs/governance/TREND_V1_RELEASE.md").read_text(encoding="utf-8")
     assert "production_authority=false" in release
     assert "fresh_oos=false" in release
     assert "STATE_NOT_ADMITTED" in release
