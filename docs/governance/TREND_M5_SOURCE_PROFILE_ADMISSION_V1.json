@@ -1,0 +1,180 @@
+{
+  "schema_id": "trend_m5_source_profile_admission@1.0",
+  "receipt_id": "trend_m5_source_profile_admission_v1_20260914",
+  "status": "ADMISSION_AUDIT_COMPLETE_PARTIAL_PROFILE_ADMISSION",
+  "milestone": "M5-1",
+  "protocol_ref": "docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json",
+  "protocol_schema_id": "trend_five_bucket_protocol_m4@1.0",
+  "admission_only": true,
+  "outcomes_computed": false,
+  "five_bucket_episode_counts_computed": false,
+  "forward_metrics_computed": false,
+  "validation_outcomes_read": false,
+  "holdout_outcomes_read": false,
+  "production_authority": false,
+  "fresh_oos": false,
+  "local_resampling_used": false,
+  "profile_substitution_used": false,
+  "common_protocol_window": {
+    "start": "2020-07-23",
+    "end": "2025-12-31"
+  },
+  "source_authority": {
+    "active_cross_index_repository": "staryocean0/factorlab-star50-filter-lab",
+    "active_cross_index_manifest": "data/cross_index_risk_gate_v1/manifest.json",
+    "active_cross_index_manifest_git_blob": "c6f548ef5501627d1475286a2d0c4430f0988959",
+    "datahub_export_manifest_sha256": "c46f2da6c3df016ca054e183e37267dc472097450fcdd6644c22aa0084c15749",
+    "source_export": "factorlab_unified_index_kline_v3_20260824",
+    "active_catalog_note": "data/README.md declares cross_index_risk_gate_v1 as the current active minute catalog and the legacy development directory as not the current research input",
+    "availability_semantics_ref": "staryocean0/factorlab-star50-filter-lab:docs/governance/available_at_owner_clarification_20260906.json",
+    "availability_semantics_git_blob": "0a0641f3f886f17f789a2fee8cdd22cf772cb40d",
+    "local_copy_manifest": "data/manifest.json",
+    "local_copy_manifest_git_blob": "a1935d30326dc9306dc23cdb309ac463114e2a2a",
+    "local_copy_role": "previously_consumed_historical_material_not_fresh_oos"
+  },
+  "clock_adapter_contract": {
+    "source_timestamp_policy": "source Z strings encode Shanghai wall-clock labels; parse first 19 characters and localize Asia/Shanghai",
+    "bar_end": "source timestamp under the exact admitted export view",
+    "historical_available_at_field_role": "historical_data_retrieval_availability_time_only",
+    "m5_runtime_available_at": "bar_end",
+    "m5_runtime_available_at_basis": "explicit data-owner clarification that intraday realtime acquisition was realtime; historical retrieval available_at must not be substituted for decision-time visibility",
+    "measured_feed_latency_claimed": false,
+    "raw_historical_available_at_must_be_preserved_as_provenance": true
+  },
+  "exact_admitted_source_views": {
+    "1m_official": {
+      "source_product": "factorlab_unified_index_kline_v3_20260824/1m_official.parquet",
+      "source_sha256": "aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423",
+      "preserved_identity_columns": ["dataset_version", "export_view_id", "export_frequency", "data_contract"]
+    },
+    "5m_offset_0": {
+      "source_product": "factorlab_unified_index_kline_v3_20260824/5m_offset_0.parquet",
+      "source_sha256": "d3101e6adf7a3e85b11f7c3503a6161f3ab363f7edd90ac8cba451ffe409c46a",
+      "preserved_identity_columns": ["dataset_version", "export_view_id", "export_frequency", "data_contract"]
+    }
+  },
+  "anchor_admission": [
+    {
+      "carrier": "000852.SH",
+      "profile_id": "trend_1m_official_v1",
+      "layer1_view_id": "1m_official",
+      "status": "ADMITTED",
+      "coverage_start": "2015-01-05",
+      "coverage_end": "2025-12-31",
+      "protocol_window_covered": true,
+      "local_path_pattern": "data/market/1m/000852.SH/<year>.parquet",
+      "reason": "current active cross-index archive preserves exact DataHub V3 1m_official lineage and identity columns across the frozen protocol window"
+    },
+    {
+      "carrier": "000852.SH",
+      "profile_id": "trend_5m_offset0_v1",
+      "layer1_view_id": "5m_offset_0",
+      "status": "ADMITTED",
+      "coverage_start": "2015-01-05",
+      "coverage_end": "2025-12-31",
+      "protocol_window_covered": true,
+      "local_path_pattern": "data/market/5m/000852.SH/<year>.parquet",
+      "reason": "current active cross-index archive preserves exact DataHub V3 5m_offset_0 lineage and identity columns across the frozen protocol window"
+    },
+    {
+      "carrier": "000852.SH",
+      "profile_id": "trend_15m_offset5_v1",
+      "layer1_view_id": "15m_offset_5",
+      "status": "NOT_ADMITTED",
+      "protocol_window_covered": false,
+      "reason_code": "NO_CURRENT_ACTIVE_EXACT_VIEW_RECEIPT_FOR_FULL_PROTOCOL_WINDOW",
+      "reason": "exact CSI1000 15m_offset_5 exists only in legacy/two-wave material whose shipped rows end 2020-12-31; no current active 2020-2025 exact-view receipt is admitted",
+      "local_resampling_forbidden": true,
+      "substitution_forbidden": true
+    },
+    {
+      "carrier": "000852.SH",
+      "profile_id": "trend_60m_offset30_v1",
+      "layer1_view_id": "60m_offset_30",
+      "status": "NOT_ADMITTED",
+      "protocol_window_covered": false,
+      "reason_code": "NO_CURRENT_ACTIVE_EXACT_VIEW_RECEIPT_FOR_FULL_PROTOCOL_WINDOW",
+      "reason": "exact CSI1000 60m_offset_30 exists only in legacy/two-wave material whose shipped rows end 2020-12-31; no current active 2020-2025 exact-view receipt is admitted",
+      "local_resampling_forbidden": true,
+      "substitution_forbidden": true
+    },
+    {
+      "carrier": "000688.SH",
+      "profile_id": "trend_1m_official_v1",
+      "layer1_view_id": "1m_official",
+      "status": "ADMITTED",
+      "coverage_start": "2020-07-23",
+      "coverage_end": "2025-12-31",
+      "protocol_window_covered": true,
+      "local_path_pattern": "data/market/1m/000688.SH/<year>.parquet",
+      "reason": "current active cross-index archive preserves exact DataHub V3 1m_official lineage and identity columns across the frozen protocol window"
+    },
+    {
+      "carrier": "000688.SH",
+      "profile_id": "trend_5m_offset0_v1",
+      "layer1_view_id": "5m_offset_0",
+      "status": "ADMITTED",
+      "coverage_start": "2020-07-23",
+      "coverage_end": "2025-12-31",
+      "protocol_window_covered": true,
+      "local_path_pattern": "data/market/5m/000688.SH/<year>.parquet",
+      "reason": "current active cross-index archive preserves exact DataHub V3 5m_offset_0 lineage and identity columns across the frozen protocol window"
+    },
+    {
+      "carrier": "000688.SH",
+      "profile_id": "trend_15m_offset5_v1",
+      "layer1_view_id": "15m_offset_5",
+      "status": "NOT_ADMITTED",
+      "protocol_window_covered": false,
+      "reason_code": "LEGACY_EXACT_VIEW_NOT_CURRENT_ACTIVE_RESEARCH_INPUT",
+      "reason": "a retained exact STAR50 legacy view exists, but the source repository explicitly excludes the legacy development directory from the current active research catalog",
+      "local_resampling_forbidden": true,
+      "substitution_forbidden": true
+    },
+    {
+      "carrier": "000688.SH",
+      "profile_id": "trend_60m_offset30_v1",
+      "layer1_view_id": "60m_offset_30",
+      "status": "NOT_ADMITTED",
+      "protocol_window_covered": false,
+      "reason_code": "LEGACY_EXACT_VIEW_NOT_CURRENT_ACTIVE_RESEARCH_INPUT",
+      "reason": "a retained exact STAR50 legacy view exists, but the source repository explicitly excludes the legacy development directory from the current active research catalog",
+      "local_resampling_forbidden": true,
+      "substitution_forbidden": true
+    }
+  ],
+  "phase_sensitivity_admission": [
+    {"profile_id": "trend_5m_offset1_v1", "layer1_view_id": "5m_offset_1", "status": "NOT_ADMITTED", "reason_code": "NOT_IN_CURRENT_ACTIVE_CROSS_INDEX_CATALOG"},
+    {"profile_id": "trend_5m_offset2_v1", "layer1_view_id": "5m_offset_2", "status": "NOT_ADMITTED", "reason_code": "NOT_IN_CURRENT_ACTIVE_CROSS_INDEX_CATALOG"},
+    {"profile_id": "trend_5m_offset3_v1", "layer1_view_id": "5m_offset_3", "status": "NOT_ADMITTED", "reason_code": "NOT_IN_CURRENT_ACTIVE_CROSS_INDEX_CATALOG"},
+    {"profile_id": "trend_5m_offset4_v1", "layer1_view_id": "5m_offset_4", "status": "NOT_ADMITTED", "reason_code": "NOT_IN_CURRENT_ACTIVE_CROSS_INDEX_CATALOG"},
+    {"profile_id": "trend_15m_offset10_v1", "layer1_view_id": "15m_offset_10", "status": "NOT_ADMITTED", "reason_code": "NO_CURRENT_ACTIVE_EXACT_VIEW_RECEIPT_FOR_FULL_PROTOCOL_WINDOW"},
+    {"profile_id": "trend_60m_offset45_v1", "layer1_view_id": "60m_offset_45", "status": "NOT_ADMITTED", "reason_code": "NO_CURRENT_ACTIVE_EXACT_VIEW_RECEIPT_FOR_FULL_PROTOCOL_WINDOW"}
+  ],
+  "legacy_evidence_not_promoted": [
+    {
+      "repository": "staryocean0/factorlab-star50-filter-lab",
+      "path": "data/manifest.json",
+      "note": "retains exact 1m/5m/15m/60m STAR50 V3 views through 2026-08-21, but data/README.md says legacy development is not the current research input"
+    },
+    {
+      "repository": "staryocean0/factorlab-two-wave-strategy-lab",
+      "path": "data/manifest.json",
+      "note": "retains exact CSI1000 1m/5m/15m/60m views only through 2020-12-31; post-2020 rows are not shipped and previously consumed external slices cannot be reused as new validation evidence"
+    }
+  ],
+  "m5_primary_anchor_summary": {
+    "planned_anchor_carrier_pairs": 8,
+    "admitted_anchor_carrier_pairs": 4,
+    "not_admitted_anchor_carrier_pairs": 4,
+    "admitted_primary_intervals": ["1m", "5m"],
+    "not_admitted_primary_intervals": ["15m", "60m"]
+  },
+  "next_allowed_step": {
+    "milestone": "M5-2",
+    "scope": "development pipeline and sample-adequacy checks for admitted 1m/5m anchors only",
+    "validation_outcomes_still_locked": true,
+    "holdout_outcomes_still_locked": true,
+    "protocol_change_allowed": false
+  }
+}
