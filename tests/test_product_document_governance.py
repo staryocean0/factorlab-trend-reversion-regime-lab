@@ -119,7 +119,10 @@ def test_post_v1_cross_profile_research_is_fail_closed_and_does_not_mutate_v1():
     freeze = json.loads((gov / "TREND_X2_DISTRIBUTIONAL_INVARIANCE_FREEZE_V1.json").read_text(encoding="utf-8"))
     result = json.loads((gov / "TREND_X2_DISTRIBUTIONAL_INVARIANCE_RESULT_V1.json").read_text(encoding="utf-8"))
     sensitivity = json.loads((gov / "TREND_X2_DIAGNOSTIC_SENSITIVITY_RESULT_V1.json").read_text(encoding="utf-8"))
-    x3 = json.loads((gov / "TREND_X3_STATE_DYNAMICS_INVARIANCE_FREEZE_V1.json").read_text(encoding="utf-8"))
+    x3_freeze = json.loads((gov / "TREND_X3_STATE_DYNAMICS_INVARIANCE_FREEZE_V1.json").read_text(encoding="utf-8"))
+    x3_result = json.loads((gov / "TREND_X3_STATE_DYNAMICS_INVARIANCE_RESULT_V1.json").read_text(encoding="utf-8"))
+    x4 = json.loads((gov / "TREND_X4_CALIBRATION_FAMILY_DECISION_V1.json").read_text(encoding="utf-8"))
+    x5 = json.loads((gov / "TREND_X5_CROSS_CARRIER_SOURCE_SEARCH_V1.json").read_text(encoding="utf-8"))
 
     assert protocol["status"] == "AUTHORIZED_PROTOCOL_FROZEN_BEFORE_MARKET_OUTCOMES"
     assert protocol["relationship_to_v1"]["v1_semantics_modified"] is False
@@ -152,11 +155,32 @@ def test_post_v1_cross_profile_research_is_fail_closed_and_does_not_mutate_v1():
     sens_by_interval = {row["interval"]: row["max_abs_diff"] for row in sensitivity["cross_carrier_max_mean_occupancy_difference_across_grid"]}
     assert sens_by_interval["60m"] > sens_by_interval["5m"]
 
-    assert x3["status"] == "FROZEN_BEFORE_X3_STATISTICS"
-    assert x3["fixed_measurement"]["lookback_bars"] == 20
-    assert x3["fixed_measurement"]["t1"] == 2.0
-    assert x3["research_window"]["old_m4_m5_2025_holdout_included"] is False
-    assert x3["runtime_admission_change_forbidden"] is True
+    assert x3_freeze["status"] == "FROZEN_BEFORE_X3_STATISTICS"
+    assert x3_freeze["fixed_measurement"]["lookback_bars"] == 20
+    assert x3_freeze["fixed_measurement"]["t1"] == 2.0
+    assert x3_freeze["research_window"]["old_m4_m5_2025_holdout_included"] is False
+    assert x3_freeze["runtime_admission_change_forbidden"] is True
 
-    for obj in (protocol["relationship_to_v1"], inventory, result, sensitivity, x3):
+    assert x3_result["status"] == "X3_COMPLETE_INTERVAL_HETEROGENEITY_WITH_PHASE_STABILITY"
+    assert x3_result["market_return_outcomes_computed"] is False
+    assert x3_result["trading_return_metrics_computed"] is False
+    assert x3_result["runtime_admission_changed"] is False
+    assert x3_result["v1_parameter_changed"] is False
+    x3_by_view = {(row["carrier"], row["view_id"]): row for row in x3_result["summary_by_profile"]}
+    assert x3_by_view[("000852.SH", "60m_offset_30")]["support"]["UP"].startswith("UNDERPOWERED")
+    assert x3_by_view[("000688.SH", "60m_offset_30")]["support"]["UP"].startswith("UNDERPOWERED")
+
+    assert x4["status"] == "PASS_DECISION_INSUFFICIENT_EVIDENCE_NO_V1_CHANGE"
+    assert x4["selected_decision"] == "INSUFFICIENT_EVIDENCE"
+    assert all(value is False for value in x4["v1_effect"].values())
+    assert x4["governance"]["old_m4_m5_2025_holdout_read"] is False
+    assert x4["governance"]["m5_outcomes_reopened"] is False
+
+    assert x5["status"] == "X5_STARTED_ADDITIONAL_EXACT_VIEW_SOURCES_NOT_YET_LOCATED"
+    assert x5["minimum_generality_target"] == 5
+    assert all(row["status"] == "SOURCE_NOT_LOCATED_IN_CURRENT_ACCESSIBLE_GITHUB_SCOPE" for row in x5["candidate_searches"])
+    assert x5["v1_effect"]["runtime_admission_changed"] is False
+    assert x5["v1_effect"]["release_pointer_changed"] is False
+
+    for obj in (protocol["relationship_to_v1"], inventory, result, sensitivity, x3_result, x4["governance"], x5["governance"]):
         assert obj["production_authority"] is False
