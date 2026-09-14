@@ -12,13 +12,39 @@
 
 本仓未来工程定位已经校正为：**供策略调用的趋势状态识别组件**，不是独立交易策略，不直接输出买卖、仓位、订单或 Layer 4 指令。状态必须绑定 K 线级别/配置；三桶是基线，五桶“极端斜率可能更易耗竭”只是待验证假设。
 
-先读 [当前组件白皮书](docs/WHITEPAPER.md) 与 [执行路线图](docs/ROADMAP.md)，再读 [最新来源对账](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)、[组件生命周期](docs/COMPONENTS.md)。
+先读 [当前组件白皮书](docs/WHITEPAPER.md)、[执行路线图](docs/ROADMAP.md)、[M1 API 合同](docs/API_CONTRACT.md) 与 [M1 Gap 审计](docs/API_GAP_ANALYSIS.md)，再读 [最新来源对账](docs/research/ETF_DAY_RECONCILIATION_REVIEW_20260912.md)、[组件生命周期](docs/COMPONENTS.md)。
 
-## 唯一下一步：M1 接口合同审计
+## 已完成：M1 接口合同审计
 
-下一次会话只推进路线图 **M1**：参考 `staryocean0/factorlab-star50-filter-lab` 的风险识别 consumer / as-of / schema / availability 范式，核查本仓现有代码并形成 `docs/API_CONTRACT.md` 与 gap list。
+M1 已核查本仓 `src/factor_lab/market_state/timing_layer2_measurement_plane.py` 与风险识别参考 consumer。
 
-M1 **只定义调用合同，不修改状态算法，不跑五桶收益/持续性实验，不提前实现 M2–M9**。完成 M1 Gate 后再进入 M2。
+已确认：
+
+- 现有 Layer 2 measurement plane 已有 measurement-only authority，并明确拒绝 strategy selection、parameter selection、routing、production authority；
+- 当前真正缺的不是另一套 Layer 2，而是 measurement plane 上方稳定的 current-state snapshot / as-of consumer；
+- `docs/API_CONTRACT.md` 已冻结 `regime_state_consumer_v1` 的调用边界、clock、availability、no-fallback、snapshot/provenance 与参数所有权；
+- `docs/API_GAP_ANALYSIS.md` 已把当前实现到目标 consumer 的缺口分配给 M2–M9；
+- capability registry 中存在当前裁剪 checkout 未物化的历史 `source_refs`，因此“注册过的 asset”不得直接等同于“当前可调用 provider”，未来必须 admission/fail-closed。
+
+M1 **没有**修改状态算法、没有选择最终 slope 公式、没有调整 `T1/T2`、没有启动五桶实验，也没有授予 production authority。
+
+## 唯一下一步：M2 三桶基线冻结与可复现性
+
+下一次会话只推进路线图 **M2**。
+
+M2 必须先审计当前已有趋势/方向原语（尤其 `core_kline_attribute_pool.py` 的 signed OLS、signed efficiency、direction-continuity 类测量），然后冻结一个可复现的三桶 authority：
+
+1. 斜率/趋势强度的数学定义与价格变换；
+2. lookback/window；
+3. K 线完成规则与缺失处理；
+4. normalization；
+5. 横盘阈值 `T1` 的定义/尺度；
+6. causality / as-of 约束；
+7. 回归样例与前缀一致性验证方案。
+
+M2 Gate：给定同一输入、同一配置、同一 `as_of`，`DOWN / SIDEWAYS / UP` 结果必须可重复且无未来信息泄漏。
+
+**M2 不进入多周期 profile（M3），不设计 `T2` 实验（M4），不运行五桶实证（M5）。**
 
 最近完成的历史工作仍是 2025-12-01 字段对账和受限读取层，不是新收益实验。现有五年分钟包、上游说明和六个单日 Parquet 已经交付，不再索取相同材料。已知份额合并遗漏已修正且旧样本/均值不受影响，不重复该任务。不同产品的同步、单位和原生分钟生成语义仍有限制；不得拟合时移或补造字段让数据通过。
 
