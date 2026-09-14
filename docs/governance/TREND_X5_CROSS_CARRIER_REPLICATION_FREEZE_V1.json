@@ -1,0 +1,94 @@
+{
+  "schema_id": "trend_x5_cross_carrier_replication_freeze@1.0",
+  "program_id": "post_v1_cross_profile_invariance_calibration",
+  "stage": "X5_CROSS_CARRIER_EXPANSION",
+  "status": "FROZEN_BEFORE_X5_NEW_CARRIER_STATISTICS",
+  "freeze_date": "2026-09-14",
+  "purpose": "expand the carrier dimension to five structurally different China A-share index families using an independent public source, without changing V1 semantics or runtime admission",
+  "carriers": [
+    {"symbol":"000852.SH","label":"CSI1000","role":"existing carrier / external-source replication"},
+    {"symbol":"000688.SH","label":"STAR50","role":"existing carrier / external-source replication"},
+    {"symbol":"000300.SH","label":"CSI300","role":"new broad large-cap carrier"},
+    {"symbol":"000905.SH","label":"CSI500","role":"new mid-cap carrier"},
+    {"symbol":"000016.SH","label":"SSE50","role":"new large-cap blue-chip carrier"}
+  ],
+  "source": {
+    "provider": "Eastmoney public historical kline endpoint",
+    "endpoint_family": "push2his.eastmoney.com/api/qt/stock/kline/get",
+    "authentication_required": false,
+    "research_role": "independent external replication source; never runtime admission authority",
+    "observed_retention": {
+      "5m_first_available_partial_day": "2026-07-31",
+      "2026_08_full_month_available": true,
+      "2025_and_2026_H1_queries_returned_rows": false
+    },
+    "retention_claim_scope": "observed from source probes on 2026-09-14; provider may change retention without notice"
+  },
+  "research_window": {
+    "start": "2026-08-03",
+    "end": "2026-09-14",
+    "trading_days_observed_in_source_probe": 31,
+    "role": "recent independent external replication window",
+    "fresh_oos": false,
+    "old_m4_m5_2025_holdout_included": false
+  },
+  "strict_primary_surface": {
+    "profile_id": "trend_5m_offset0_v1",
+    "interval": "5m",
+    "clock_equivalence": "Eastmoney native 5m closes observed at 09:35,09:40,...,15:00, matching M3 5m_offset0 clocks",
+    "expected_rows_per_complete_day": 48,
+    "fixed_measurement": {
+      "lookback_bars": 20,
+      "price_transform": "log_close",
+      "estimator": "log_close_ols_slope_t@1.0",
+      "t1": 2.0,
+      "states": ["DOWN","SIDEWAYS","UP"],
+      "strength": "abs(slope_t)"
+    },
+    "metrics": [
+      "available_measurement_count",
+      "slope_t median and robust scale",
+      "slope_t quantiles",
+      "absolute slope_t quantiles",
+      "DOWN SIDEWAYS UP occupancy",
+      "one-step self-transition",
+      "directional survival at 5 bars",
+      "opposite-direction entry within 10 bars"
+    ]
+  },
+  "supplemental_interval_surface": {
+    "eastmoney_native_15m_clocks": ["09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00"],
+    "eastmoney_native_60m_clocks": ["10:30","11:30","14:00","15:00"],
+    "m3_exact_profiles_represented_by_native_clocks": false,
+    "allowed_role_before_equivalence_validation": "external native-interval diagnostic only",
+    "forbidden_claim_before_equivalence_validation": "do not label native 15m/60m rows as trend_15m_offset5/10_v1 or trend_60m_offset30/45_v1",
+    "close_clock_selection_candidate": "M3 15m/60m close clocks are a subset of 5m_offset0 clocks; close-only reconstruction may be used only after exact overlap equivalence is demonstrated against retained DataHub exact views"
+  },
+  "equivalence_gate": {
+    "reference_carrier": "000688.SH",
+    "reference_source": "retained DataHub exact views in staryocean0/factorlab-star50-filter-lab",
+    "overlap_target": {"start":"2026-08-03","end":"2026-08-21"},
+    "required_for_derived_m3_15m_60m": true,
+    "pass_rule": "every overlapping close timestamp must match exactly or with a predeclared machine-rounding tolerance attributable only to decimal serialization; no missing expected clocks",
+    "status": "PENDING"
+  },
+  "sample_rules": {
+    "minimum_origin_count_for_reported_directional_horizon_metric": 50,
+    "below_minimum_action": "UNDERPOWERED_DESCRIPTIVE_ONLY",
+    "no_pooling_to_rescue_underpowered_carrier_or_direction": true
+  },
+  "forbidden": [
+    "parameter tuning from X5 outcomes",
+    "trading-return optimization",
+    "BUY SELL position order routing semantics",
+    "runtime admission changes",
+    "moving the V1 release pointer",
+    "calling external native 15m/60m clocks M3 exact profiles before equivalence gate passes",
+    "claiming universal calibration from this short recent window"
+  ],
+  "production_authority": false,
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "fresh_oos": false,
+  "next_action": "acquire five-carrier 5m source rows, execute frozen primary statistics, and separately attempt the STAR50 close-clock equivalence gate before any derived M3 15m/60m analysis"
+}
