@@ -7,17 +7,15 @@
 ## 当前进度
 
 - **M0–M9 — COMPLETE / PASS**：`factorlab.layer2.trend_regime@1.0.0` 稳定组件合同已冻结。
-- **X1 — COMPLETE**：source/profile inventory。
-- **X2 — COMPLETE**：两指数 × 10 exact views 的固定基线与 sensitivity。
-- **X3 — COMPLETE**：state-dynamics invariance；60m carrier heterogeneity 明显。
+- **X1–X3 — COMPLETE**：source/profile inventory、distributional / state-dynamics invariance。
 - **X4 — `INSUFFICIENT_EVIDENCE`**：不修改 V1。
-- **X5 — COMPLETE**：五指数 5m external replication。
-- **X5B — COMPLETE**：5m Sina ↔ Eastmoney source robustness。
+- **X5 / X5B — COMPLETE**：五指数 5m replication + source robustness。
 - **X5C — COMPLETE**：五指数 15m/60m + 60m 长窗口；60m heterogeneity 持续。
 - **X5D — COMPLETE / NO ADOPTION**：静态 interval-specific T1 / static normalization 无外部语义支配。
 - **X5E — COMPLETE / NO ADOPTION**：causal rolling normalization 改善 cross-carrier scale，但未建立 temporal stability。
 - **X5F — COMPLETE / DIAGNOSTIC ONLY**：carrier + common-time 解释约 59.9% log-scale variation，约 40.2% interaction 未解决。
-- **X5G — COMPLETE / DIAGNOSTIC ONLY**：strictly-causal dynamic common scale + slow carrier component 再次显著改善 cross-carrier alignment，但没有建立 stable temporal normalized_strength。
+- **X5G — COMPLETE / DIAGNOSTIC ONLY**：dynamic common + slow carrier 显著改善 cross-carrier alignment，但 fixed-window temporal stability 未建立。
+- **X5H — COMPLETE / PRIMARY RESEARCH CANDIDATE QUALIFIED, NO ADOPTION**：dual fast/slow blend 通过预注册主 gate，但机制识别与 scale-turnover 仍未解决。
 - **X6 — HOLD / NOT READY**：不做 representation / SemVer 变更。
 
 V1 release pointer `release/trend-regime-v1.0.0` 必须继续指向原 M9 gated commit `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`；Post-V1 研究提交不得移动它。
@@ -30,132 +28,121 @@ directional_score = frozen M2 slope_t
 strength          = abs(directional_score)
 ```
 
-稳定入口：`query_regime(symbol, as_of, bar_interval, profile_id=None)`。Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m offset0。Post-V1 public/native-clock research source 不产生 runtime admission。
+Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m offset0。Post-V1 public/native-clock research source 不产生 runtime admission。
 
-## X5F — 60m Strength Scale Decomposition
+## 到 X5F/X5G 已知的 60m scale 结构
 
-X5F 在五指数 × 2026-01..09 monthly scale cells 上得到：
+X5F 的五指数 × 2026-01..09 monthly scale decomposition：
 
 ```text
 log(scale) = grand + carrier_effect + common_time_effect + residual
+carrier ≈ 27.4%
+common-time ≈ 32.4%
+residual / carrier×time ≈ 40.2%
 ```
 
-描述性 log-cell variance fractions：
+Jan–Apr → May–Sep leave-one-carrier-out 可将 carrier median-strength range 从约 **1.470** 压到 **0.270**（约 -81.6%），但 residual cell factor max/min 仍约 **2.408×**。
 
-- carrier ≈ **27.4%**
-- common-time ≈ **32.4%**
-- residual / carrier×time interaction ≈ **40.2%**
+X5G 再测试 strictly-causal dynamic common scale + slow carrier component。四个预注册 fixed-window 候选均把 cross-carrier range 压低约 **80.2%–85.9%**，但没有一个同时通过 temporal / breadth / interaction gates。最接近的 `COMMON20_CARRIER120` 在完整 6–9 月里 temporal ratio 基本与 raw 持平，说明更慢 fixed-window smoothing 存在 regime-shift lag。
 
-Jan–Apr → May–Sep leave-one-carrier-out 中，May–Sep raw carrier median-strength range ≈ **1.470**，normalization 后 ≈ **0.270**，约压缩 **81.6%**；说明 cross-carrier normalized_strength 有真实 transfer value。
+## X5H — Adaptive Regime-Shift Strength Scale — COMPLETE
 
-但 train/eval carrier-factor rank correlation 只有约 **0.70**，最大 factor drift 约 **24%**；two-way residual cell factor max/min 仍约 **2.408×**。因此 X5F 只支持 research diagnostic，不支持稳定产品表示。
+Protocol：`docs/governance/TREND_X5H_ADAPTIVE_REGIME_SHIFT_STRENGTH_SCALE_PROTOCOL_V1.json`  
+Result：`docs/governance/TREND_X5H_ADAPTIVE_REGIME_SHIFT_STRENGTH_SCALE_RESULT_V1.json`  
+Decision update：`docs/governance/TREND_X4_POST_X5H_UPDATE_V1.json`
 
-## X5G — Dynamic Common Scale & Carrier-Time Interaction Study — COMPLETE
+X5H 仍只研究 `normalized_strength`，不计算收益、不使用策略、不改 state boundary、不改变 V1 `strength=abs(slope_t)`。
 
-Protocol：`docs/governance/TREND_X5G_DYNAMIC_COMMON_SCALE_CARRIER_INTERACTION_PROTOCOL_V1.json`  
-Result：`docs/governance/TREND_X5G_DYNAMIC_COMMON_SCALE_CARRIER_INTERACTION_RESULT_V1.json`  
-Decision update：`docs/governance/TREND_X4_POST_X5G_UPDATE_V1.json`
+### 预注册设计
 
-X5G 只研究 strength scale，不计算收益、不使用策略、不修改 state boundary，也不改变 V1 `strength=abs(slope_t)`。
+为避免 X5G 的 partial-May 影响，主评价固定为三个完整月份：**2026-06 / 07 / 08**，每 carrier **260 measurements**；2026-09-01..14 仅作前推 extension，不参与候选选择。
 
-### 严格因果定义
+严格因果候选均只使用 `t-1` 及更早信息。common fast/slow = **5 / 20**，carrier fast/slow = **20 / 120**，blend threshold 固定为 **1.5×**。预注册候选包括 X5G baseline、carrier blend、common blend、dual blend、carrier reset。
 
-对每个 carrier `i` 和时点 `t`：
+### X5H-1：dual blend 通过全部预注册主 gate
+
+主样本 raw：
 
 ```text
-q_minus_i[u] = median(log_strength[j,u]), j != i
-common_i[t]  = median(q_minus_i[u]) over W measurements strictly before t
-carrier_i[t] = median(log_strength[i,u] - common_i[u]) over K prior measurements
-normalized_strength_i[t]
-             = exp(log_strength[i,t] - common_i[t] - carrier_i[t])
+cross-carrier median-strength range     = 2.1942
+median monthly max/min                  = 1.5066×
+monthly-cell max/min                    = 2.7612×
 ```
 
-当前 `t` 不进入自身 scale 估计；common factor 对 carrier `i` 只使用另外四个 carrier；未来信息禁止。
-
-预注册候选：
+`ADAPT_DUAL_BLEND_1P5`：
 
 ```text
-COMMON20_CARRIER120
-COMMON40_CARRIER120
-COMMON40_CARRIER240
-COMMON80_CARRIER240
+cross-carrier range                     = 0.1370
+range reduction vs raw                  = 93.75%
+median monthly max/min                  = 1.1604×
+temporal reduction vs raw               = 22.98%
+carriers improved                       = 5/5
+monthly-cell max/min                    = 1.3560×
+interaction reduction vs X5G baseline   = 36.26%
 ```
 
-统一最大 warmup = **320 measurements**，共同评价窗口为 **2026-05-15 15:00 至 2026-09-14 15:00**，每 carrier **341 measurements**。
+因此它是 **X5H 预注册 gate-qualified research candidate**。其他四个预注册候选均未通过全部 gate。
 
-### X5G-1：cross-carrier alignment 再次稳定改善
+### X5H-2：但“regime-shift mechanism”本身未被识别
 
-同窗 raw carrier median-strength range = **1.4847**。四个候选的 range reduction：
+Dual blend 的 fast 权重非常活跃：common mean weight ≈ **0.761**，carrier mean weight ≈ **0.708**；约 70%–75% 观测的权重 ≥0.5。也就是说它大部分时间都明显偏向 fast scale，并非稀疏 change-point switch。
 
-| candidate | normalized range | reduction vs raw |
-|---|---:|---:|
-| COMMON20_CARRIER120 | 0.2947 | **80.15%** |
-| COMMON40_CARRIER120 | 0.2118 | **85.74%** |
-| COMMON40_CARRIER240 | 0.2087 | **85.94%** |
-| COMMON80_CARRIER240 | 0.2886 | **80.56%** |
-
-因此 dynamic common + carrier decomposition 对 cross-carrier strength alignment 的作用是可重复的，不只是 X5F static-month decomposition 的偶然现象。
-
-### X5G-2：但 stable temporal representation 仍没有建立
-
-预注册 stability gate 同时要求：
-
-1. cross-carrier range reduction ≥ 50%；
-2. median within-carrier monthly max/min 至少改善 10%；
-3. 至少 4/5 carrier temporal ratio 改善；
-4. residual monthly-cell max/min < X5F 的 2.4080。
-
-结果：**没有任何候选通过全部四项**。
-
-最接近的是 `COMMON20_CARRIER120`：
-
-- cross-carrier range reduction ≈ **80.15%** — PASS；
-- median monthly max/min：raw **3.3912× → 2.1657×**，改善约 **36.1%** — PASS；
-- 4/5 carrier temporal ratio 改善 — PASS；
-- residual monthly-cell max/min = **4.1675×**，高于 X5F **2.4080×** — FAIL。
-
-更慢的 40/80 common window 或 240 carrier window，temporal stability 反而进一步恶化；说明 fixed-window smoothing 存在明显 regime-shift lag。
-
-### X5G-3：post-hoc full-month diagnostic 不改变主判定
-
-统一 warmup 后第一个评价月从 **2026-05-15** 才开始。预注册规则只要求当月 ≥20 measurements，因此 5 月必须保留在 primary decision。
-
-事后只看完整的 2026-06..09：
+明确标记为 post-hoc、且不参与主判定的 mechanism diagnostic 中，纯 fast `common=5 / carrier=20` 甚至略优：
 
 ```text
-raw median within-carrier monthly max/min      ≈ 1.6006×
-COMMON20_CARRIER120                            ≈ 1.6040×
-raw monthly-cell max/min                       ≈ 2.7612×
-COMMON20_CARRIER120 monthly-cell max/min       ≈ 2.2826×
+cross-carrier range reduction           ≈ 93.83%
+temporal reduction                      ≈ 23.87%
+carriers improved                       = 5/5
+monthly-cell max/min                    ≈ 1.3200×
+interaction reduction vs X5G baseline   ≈ 37.95%
 ```
 
-因此 `(20,120)` 的 primary-window temporal improvement 很大一部分来自对 5 月 scale shift 的响应；在完整 6–9 月内，时间稳定性基本没有改善，只是 cell dispersion 略有下降。该分析是 post-hoc diagnostic，不用于修改预注册主结论。
+因此 X5H 支持“更短记忆 scale 有价值”，但**不能证明 adaptive blend 的特定 regime-shift 机制优于单纯 fast scaling**。
 
-## X5G 决策
+### X5H-3：前推 extension 有支持，但不足以升级语义
+
+2026-09-01..14：raw cross-carrier range ≈ **1.5041**；dual blend ≈ **0.4418**，仍改善约 **70.6%**。该 extension 未用于选择，而且若机械套用主样本 75% gate，它并未达到该阈值。
+
+### X5H-4：scale turnover 明显上升
+
+Post-hoc turnover diagnostic 显示：
 
 ```text
-DYNAMIC_COMMON_SCALE_EFFECT                 = SUPPORTED
-SLOW_CARRIER_COMPONENT                     = USEFUL FOR CROSS-CARRIER ALIGNMENT
-CROSS_CARRIER_DYNAMIC_NORMALIZED_STRENGTH  = SUPPORTED RESEARCH DIAGNOSTIC ONLY
-STABLE_TEMPORAL_NORMALIZED_STRENGTH         = NOT ESTABLISHED
-FIXED_WINDOW_INTERACTION_RESOLUTION         = NOT SUPPORTED
-V1_STATE                                    = NO CHANGE
-V1_STRENGTH                                 = NO CHANGE
-X6                                           = HOLD / NOT READY
+X5G baseline median |Δ log(scale)|       ≈ 0.0346
+dual blend                               ≈ 0.1112   (~3.21× baseline)
+pure fast 5/20                           ≈ 0.1175   (~3.39× baseline)
+
+X5G baseline q95 |Δ log(scale)|          ≈ 0.2400
+dual blend                               ≈ 0.5310   (~2.21× baseline)
+pure fast                                ≈ 0.5061   (~2.11× baseline)
 ```
 
-X5G 后，剩余问题更像 **regime-shift / carrier-by-regime interaction**，而不是一个静态 carrier multiplier 或更慢 rolling window 能解决的噪声。若继续研究，下一优先级应是 **strength-only adaptive / change-point-aware scale response**，仍不得改写 DOWN/SIDEWAYS/UP。
+这说明更好的月度 scale alignment 是以明显更高的逐步 scale turnover 换来的。Turnover 并非 X5H 预注册 gate，因此不能事后否决 primary pass，但它阻止我们把该 candidate 直接宣称为稳定产品表示。
+
+## X5H 决策
+
+```text
+GATE_QUALIFIED_RESEARCH_CANDIDATE        = ADAPT_DUAL_BLEND_1P5
+SPECIFIC_REGIME_SHIFT_MECHANISM          = NOT IDENTIFIED
+SHORT_MEMORY_SCALE_VALUE                 = SUPPORTED FOR FURTHER RESEARCH
+STABLE_TEMPORAL_PRODUCT_STRENGTH         = NOT ESTABLISHED
+V1_STATE                                 = NO CHANGE
+V1_STRENGTH                              = NO CHANGE
+X6                                       = HOLD / NOT READY
+```
+
+下一步如继续，应在**新的预注册阶段**中直接比较 dual blend、pure-fast 5/20 与 slow baseline，并新增明确的 scale-turnover / jitter non-inferiority gate，同时使用 fresh 或结构独立的 validation window/source/carrier set。不得用交易收益或 state outcome 选择 strength estimator。
 
 ## 当前总体判断
 
 ```text
-UNIVERSAL_FIXED_T1                       = CURRENT V1 BASELINE, NOT UNIVERSAL LAW
-STATIC_INTERVAL_SPECIFIC_T1              = NOT SUPPORTED FOR ADOPTION
-STATIC_NORMALIZED_SCORE                  = NOT SUPPORTED FOR ADOPTION
-CAUSAL_STATE_BOUNDARY_NORMALIZATION      = NOT SUPPORTED FOR ADOPTION
-CROSS_CARRIER_STRENGTH_NORMALIZATION     = SUPPORTED RESEARCH DIAGNOSTIC ONLY
-DYNAMIC_COMMON_PLUS_CARRIER_NORMALIZATION= CROSS-CARRIER SUPPORTED, TEMPORAL STABILITY NOT ESTABLISHED
-CURRENT_DECISION                         = INSUFFICIENT_EVIDENCE
+UNIVERSAL_FIXED_T1                        = CURRENT V1 BASELINE, NOT UNIVERSAL LAW
+CAUSAL_STATE_BOUNDARY_NORMALIZATION       = NOT SUPPORTED FOR ADOPTION
+CROSS_CARRIER_STRENGTH_NORMALIZATION      = SUPPORTED RESEARCH DIAGNOSTIC
+ADAPTIVE_DUAL_BLEND                       = PROSPECTIVE REPLICATION CANDIDATE ONLY
+PURE_FAST_5_20                            = POST-HOC COMPARATOR, REQUIRES PREREGISTRATION
+STABLE_TEMPORAL_PRODUCT_STRENGTH          = NOT ESTABLISHED
+CURRENT_DECISION                          = INSUFFICIENT_EVIDENCE
 ```
 
 ## X6 — Representation / Version Decision — HOLD
