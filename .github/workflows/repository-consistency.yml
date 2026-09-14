@@ -41,7 +41,7 @@ jobs:
         run: python -m pip install -e '.[maintenance]'
       - name: Check repository-wide component, source and workflow consistency
         run: python scripts/repository_consistency.py --check --output "$RUNNER_TEMP/repository-consistency.json"
-      - name: Test maintenance guards and current M2/M3/M4/M5-admission contracts
+      - name: Test maintenance guards and current M2/M3/M4/M5 contracts
         run: >-
           python -m pytest -q
           tests/test_repository_consistency.py
@@ -50,6 +50,7 @@ jobs:
           tests/test_trend_regime_profiles.py
           tests/test_five_bucket_protocol.py
           tests/test_m5_source_profile_admission.py
+          tests/test_m5_development_adequacy_pipeline.py
           --junitxml="$RUNNER_TEMP/maintenance-tests.xml"
       - name: Validate setup shell syntax
         run: bash -n .codex/cloud_setup.sh
@@ -61,6 +62,41 @@ jobs:
             ${{ runner.temp }}/repository-consistency.json
             ${{ runner.temp }}/maintenance-tests.xml
           if-no-files-found: warn
+
+  m5-development-adequacy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[m5-development]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/
+            /data/manifest.json
+            /data/market/1m/
+            /data/market/5m/
+            !/docs/ops/evidence/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package and maintenance dependencies
+        run: python -m pip install -e '.[maintenance]'
+      - name: Compute Development-only episode sample adequacy
+        run: python scripts/m5_development_adequacy.py --output "$RUNNER_TEMP/m5-development-adequacy.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m5-development-adequacy-${{ github.run_id }}
+          path: ${{ runner.temp }}/m5-development-adequacy.json
+          if-no-files-found: error
+
   full-regression:
     needs: consistency
     if: inputs.full_regression == true || contains(github.event.head_commit.message, '[full-regression]')
