@@ -27,10 +27,13 @@ def test_m9_component_release_identity_is_independent_from_repo_distribution_ver
 
     assert payload["schema_id"] == "trend_m9_release_governance@1.0"
     assert payload["milestone"] == "M9"
-    assert payload["status"] == "FROZEN_RELEASE_CANDIDATE_V1"
+    assert payload["status"] == "PASS_STABLE_COMPONENT_V1_RELEASE_GOVERNANCE"
     assert payload["component_id"] == "factorlab.layer2.trend_regime"
     assert payload["component_release_version"] == "1.0.0"
-    assert payload["git_tag"] == "trend-regime-v1.0.0"
+    assert payload["canonical_git_tag"] == "trend-regime-v1.0.0"
+    assert payload["release_pointer_branch"] == "release/trend-regime-v1.0.0"
+    assert payload["roadmap_complete"] is True
+    assert payload["automatic_next_milestone"] is None
 
     distribution = payload["python_distribution"]
     assert distribution["is_component_semver_authority"] is False
