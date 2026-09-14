@@ -5,60 +5,42 @@ import json
 import subprocess
 from pathlib import Path
 
-from factor_lab.market_state.trend_regime_profiles import resolve_trend_profile
-from regime_lab.market_data import load_market_data
-from scripts.m5_development_adequacy_core import build_state_series
-from scripts.m5_primary_validation_core import analyze_profile
-from scripts.m5_validation_bootstrap import holm_adjust
-from scripts.m5_validation_durations import duration_summaries
+from scripts.m5_v4_execution import execute_validation
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / "docs/governance/TREND_FIVE_BUCKET_PROTOCOL_M4_V1.json"
 SEAL = ROOT / "docs/governance/TREND_M5_DEVELOPMENT_SEAL_V1.json"
 EXECUTION = ROOT / "docs/governance/TREND_M5_PRIMARY_VALIDATION_EXECUTION_V1.json"
-CARRIER = "000852.SH"
-CONTEXT_START = "2022-12-30"
-PROFILES = {"trend_1m_official_v1": "1m", "trend_5m_offset0_v1": "5m"}
-PLANNED = (("1m", "UP"), ("1m", "DOWN"), ("5m", "UP"), ("5m", "DOWN"), ("15m", "UP"), ("15m", "DOWN"), ("60m", "UP"), ("60m", "DOWN"))
 
 
 def _git_blob(path: str) -> str:
     return subprocess.check_output(["git", "hash-object", str(ROOT / path)], text=True).strip()
 
 
-def _assert_locked_objects(contract):
-    for item in contract["locked_objects"]:
+def _preflight():
+    protocol = json.loads(PROTOCOL.read_text(encoding="utf-8"))
+    seal = json.loads(SEAL.read_text(encoding="utf-8"))
+    execution = json.loads(EXECUTION.read_text(encoding="utf-8"))
+    if protocol["status"] != "FROZEN_BEFORE_M5_OUTCOMES":
+        raise ValueError("M4 protocol is not frozen")
+    if seal["status"] != "SEALED_BEFORE_PRIMARY_VALIDATION" or seal["next_allowed_step"]["milestone"] != "M5-4":
+        raise ValueError("M5-4 is not authorized")
+    if execution["status"] != "FROZEN_BEFORE_VALIDATION_READ" or execution["validation_consumed"]:
+        raise ValueError("M5-4 execution contract is not available")
+    for item in execution["locked_objects"]:
         if _git_blob(item["path"]) != item["git_blob"]:
             raise ValueError(f"locked object drift: {item['path']}")
+    return protocol
 
 
-def _identity(frame, column: str, expected: str | None = None):
-    if column not in frame.columns or frame[column].dropna().empty:
-        raise ValueError(f"missing identity column: {column}")
-    values = sorted({str(value) for value in frame[column].dropna().unique()})
-    if expected is not None and values != [expected]:
-        raise ValueError(f"{column} drift")
-    return values
-
-
-def _secondary_rule(block):
-    reversal = block["secondary_reversal_10"]
-    ret5 = block["secondary_return_5"]
-    reversal_h1 = bool(block["reversal_adequate"] and reversal and reversal["strong_minus_moderate"] > 0.0)
-    return_h1 = bool(block["return_adequate"] and ret5 and ret5["strong_minus_moderate"] < 0.0)
-    reversal_clear_opposite = bool(block["reversal_adequate"] and reversal and reversal["ci95"][1] < 0.0)
-    return_clear_opposite = bool(block["return_adequate"] and ret5 and ret5["ci95"][0] > 0.0)
-    return {
-        "reversal_has_h1_direction": reversal_h1,
-        "return_has_h1_direction": return_h1,
-        "reversal_statistically_clear_opposite": reversal_clear_opposite,
-        "return_statistically_clear_opposite": return_clear_opposite,
-        "passes": (reversal_h1 or return_h1) and not reversal_clear_opposite and not return_clear_opposite,
-    }
-
-
-def main():
-    print("M5 validation runner")
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    payload = execute_validation(ROOT, _preflight())
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
