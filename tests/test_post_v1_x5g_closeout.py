@@ -1,4 +1,4 @@
-"""Fail-closed regression guards for Post-V1 X5G/X5H/X5I/X5J closeout."""
+"""Fail-closed regression guards for Post-V1 X5G/X5H/X5I/X5J/X5K closeout."""
 
 import json
 from pathlib import Path
@@ -302,6 +302,81 @@ def test_post_x5j_decision_and_handoff_keep_v1_and_x6_frozen():
     for text in (handoff, roadmap):
         assert "X5J" in text
         assert "FAST_EWMA_A0P35" in text
+        assert "HOLD" in text
+        assert "production_authority=false" in text
+        assert "fresh_oos=false" in text
+
+
+def test_x5k_protocol_freezes_sparse_candidates_and_joint_turnover_gates():
+    p = load("TREND_X5K_SPARSE_HYSTERETIC_STRENGTH_SCALE_PROTOCOL_V1.json")
+    assert p["status"] == "FROZEN_BEFORE_X5K_CANDIDATE_STATISTICS"
+    assert p["research_only"] is True
+    assert set(p["preregistered_candidates"]) == {
+        "SLOW_COMMON20_CARRIER120", "FAST_COMMON5_CARRIER20", "EVENT_DEADBAND_0P12_FULL",
+        "EVENT_PERSIST2_0P10_FULL", "HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50"
+    }
+    g = p["preregistered_gates"]
+    assert g["mean_abs_log_scale_change_multiple_vs_slow"].endswith("<= 2.0")
+    assert g["q95_abs_log_scale_change_multiple_vs_slow"].endswith("<= 2.0")
+    assert g["update_fraction"].endswith("<= 0.35")
+    assert g["all_gates_required"] is True
+    assert p["sources"]["fresh_oos"] is False
+
+
+def test_x5k_sparse_candidates_replicate_but_none_pass_all_gates():
+    r = load("TREND_X5K_SPARSE_HYSTERETIC_STRENGTH_SCALE_RESULT_V1.json")
+    assert r["status"] == "X5K_COMPLETE_NO_SPARSE_HYSTERETIC_CANDIDATE_PASSES_ALL_GATES"
+    assert r["tencent"]["qualified_candidates"] == []
+    assert r["sina_replication"]["qualified_candidates"] == []
+    assert r["cross_provider_qualified_candidates"] == []
+    assert r["selected_candidate_by_preregistered_rule"] is None
+    deadband = r["tencent"]["candidates"]["EVENT_DEADBAND_0P12_FULL"]
+    persist = r["tencent"]["candidates"]["EVENT_PERSIST2_0P10_FULL"]
+    hyst = r["tencent"]["candidates"]["HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50"]
+    assert deadband["update_fraction"] > 0.35
+    assert deadband["mean_turnover_multiple_vs_slow"] > 2.0
+    assert persist["update_fraction"] <= 0.35
+    assert persist["mean_turnover_multiple_vs_slow"] > 2.0
+    assert persist["q95_turnover_multiple_vs_slow"] > 3.0
+    assert persist["carriers_improved"] == 4
+    assert hyst["q95_turnover_multiple_vs_slow"] < 2.0
+    assert hyst["update_fraction"] > 0.80
+    assert hyst["mean_turnover_multiple_vs_slow"] > 2.0
+    assert r["normalized_strength_decision"]["simple_deadband_supported"] is False
+    assert r["normalized_strength_decision"]["persistence_only_sparse_update_supported"] is False
+    assert r["normalized_strength_decision"]["simple_hysteretic_ewma_supported"] is False
+    assert r["v1_action"] == "NO_CHANGE"
+    assert r["x6_readiness"] == "HOLD_NOT_READY"
+    assert r["fresh_oos"] is False
+
+
+def test_x5k_posthoc_event_size_diagnostic_explains_persistence_failure():
+    d = load("TREND_X5K_POSTHOC_EVENT_SIZE_DIAGNOSTIC_V1.json")
+    assert d["status"] == "POST_HOC_MECHANISM_DIAGNOSTIC_NOT_USED_FOR_PRIMARY_DECISION"
+    fast = d["metrics"]["FAST_COMMON5_CARRIER20"]
+    persist = d["metrics"]["EVENT_PERSIST2_0P10_FULL"]
+    assert persist["update_events"] < fast["update_events"] / 2
+    assert persist["conditional_mean_abs_log_change"] > fast["conditional_mean_abs_log_change"] * 2
+    assert persist["conditional_q95"] > fast["conditional_q95"]
+    assert d["changes_primary_decision"] is False
+
+
+def test_post_x5k_decision_and_handoff_keep_v1_and_x6_frozen():
+    u = load("TREND_X4_POST_X5K_UPDATE_V1.json")
+    assert u["status"] == "SPARSE_HYSTERETIC_CONTROLS_DO_NOT_RESOLVE_RESPONSE_TURNOVER_FRONTIER"
+    assert u["updated_overall_decision"] == "INSUFFICIENT_EVIDENCE"
+    assert u["x5k_findings"]["cross_provider_behavior_replicated"] is True
+    assert u["x5k_findings"]["all_gate_qualified_candidates"] == []
+    assert u["v1_action"] == "NO_CHANGE"
+    assert u["x6_readiness"] == "HOLD_NOT_READY"
+    assert u["runtime_admission_changed"] is False
+    assert u["v1_state_boundary_changed"] is False
+    assert u["v1_strength_semantics_changed"] is False
+    handoff = (ROOT / "CONTINUE_HERE.md").read_text(encoding="utf-8")
+    roadmap = (ROOT / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
+    for text in (handoff, roadmap):
+        assert "X5K" in text
+        assert "EVENT_PERSIST2_0P10_FULL" in text
         assert "HOLD" in text
         assert "production_authority=false" in text
         assert "fresh_oos=false" in text
