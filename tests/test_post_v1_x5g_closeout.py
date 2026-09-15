@@ -1,4 +1,4 @@
-"""Fail-closed regression guards for Post-V1 X5G/X5H closeout."""
+"""Fail-closed regression guards for Post-V1 X5G/X5H/X5I closeout."""
 
 import json
 from pathlib import Path
@@ -157,3 +157,76 @@ def test_handoff_and_roadmap_include_x5h_candidate_and_hold():
         assert "fresh_oos=false" in text
     assert "release/trend-regime-v1.0.0" in handoff
     assert "5a563d87d1628379e0d9a04aa7c5500bc30c4bc2" in handoff
+
+
+def test_x5i_protocol_source_recovery_and_erratum_are_fail_closed():
+    p = load("TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_PROTOCOL_V1.json")
+    block = load("TREND_X5I_EASTMONEY_SOURCE_BLOCK_RECEIPT_V1.json")
+    recovery = load("TREND_X5I_SOURCE_RECOVERY_PROTOCOL_V1.json")
+    depth = load("TREND_X5I_TENCENT_DEPTH_EXTENSION_RECEIPT_V1.json")
+    err = load("TREND_X5I_PROTOCOL_ERRATUM_V1.json")
+    assert p["status"] == "FROZEN_BEFORE_X5I_SOURCE_ACQUISITION_AND_STATISTICS"
+    assert p["preregistered_gates"]["turnover_median_noninferiority_gate"].endswith("<= 2.0")
+    assert p["preregistered_gates"]["turnover_q95_noninferiority_gate"].endswith("<= 2.0")
+    assert block["status"] == "X5I_PRIMARY_SOURCE_BLOCKED_NO_CANDIDATE_DECISION"
+    assert block["data_absence_proven"] is False
+    assert block["candidate_statistics_computed"] is False
+    assert recovery["status"] == "FROZEN_AFTER_PRIMARY_SOURCE_BLOCK_BEFORE_ALTERNATE_SOURCE_STATISTICS"
+    assert recovery["candidate_redefinition_allowed"] is False
+    assert recovery["gate_redefinition_allowed"] is False
+    assert depth["request_depth"] == 800
+    assert depth["filtered_rows_per_carrier"] == 680
+    assert depth["public_2025_rows_used_for_candidate_statistics"] is False
+    assert depth["old_m4_m5_governed_2025_holdout_read"] is False
+    assert err["status"] == "SEALED_BEFORE_X5I_CANDIDATE_STATISTICS"
+    assert err["x5i_candidate_statistics_computed_before_erratum"] is False
+    assert err["candidate_parameters_changed_from_x5h"] is False
+
+
+def test_x5i_independent_source_replication_fails_turnover_aware_selection():
+    r = load("TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_RESULT_V1.json")
+    assert r["status"] == "X5I_COMPLETE_INDEPENDENT_SOURCE_REPLICATION_TURNOVER_GATE_REJECTS_FAST_AND_ADAPTIVE"
+    assert r["provider"] == "Tencent public native 60m index kline"
+    assert r["aligned_measurements_per_carrier"] == 661
+    assert r["primary_evaluation"] == {"months": ["2026-06", "2026-07", "2026-08"], "measurements_per_carrier": 260}
+    slow = r["candidates"]["SLOW_COMMON20_CARRIER120"]
+    fast = r["candidates"]["FAST_COMMON5_CARRIER20"]
+    dual = r["candidates"]["ADAPT_DUAL_BLEND_1P5"]
+    assert slow["gates"]["turnover_median"] is True and slow["gates"]["turnover_q95"] is True
+    assert slow["gates"]["temporal"] is False and slow["gates"]["breadth"] is False
+    assert fast["range_reduction_vs_raw"] > 0.93 and fast["temporal_ratio_reduction_vs_raw"] > 0.23
+    assert fast["carriers_with_lower_monthly_ratio_than_raw"] == 5
+    assert fast["turnover_median_multiple_vs_slow"] > 3.0
+    assert fast["turnover_q95_multiple_vs_slow"] > 2.0
+    assert fast["gates"]["turnover_median"] is False and fast["gates"]["turnover_q95"] is False
+    assert dual["range_reduction_vs_raw"] > 0.93 and dual["temporal_ratio_reduction_vs_raw"] > 0.22
+    assert dual["carriers_with_lower_monthly_ratio_than_raw"] == 5
+    assert dual["turnover_median_multiple_vs_slow"] > 3.0
+    assert dual["turnover_q95_multiple_vs_slow"] > 2.0
+    assert dual["gates"]["turnover_median"] is False and dual["gates"]["turnover_q95"] is False
+    assert r["primary_decision"]["all_gate_qualified_candidates"] == []
+    assert r["primary_decision"]["selected_candidate"] is None
+    assert r["primary_decision"]["short_memory_scale_benefit_replicated_on_independent_source"] is True
+    assert r["primary_decision"]["turnover_concern_replicated_prospectively"] is True
+    assert r["v1_action"] == "NO_CHANGE"
+    assert r["x6_readiness"] == "HOLD_NOT_READY"
+    assert r["fresh_oos"] is False
+
+
+def test_post_x5i_decision_and_handoff_keep_v1_frozen():
+    u = load("TREND_X4_POST_X5I_UPDATE_V1.json")
+    assert u["status"] == "INDEPENDENT_SOURCE_REPLICATION_CONFIRMS_SHORT_MEMORY_BENEFIT_BUT_TURNOVER_BLOCKS_ADOPTION"
+    assert u["updated_overall_decision"] == "INSUFFICIENT_EVIDENCE"
+    assert u["candidate_status"]["FAST_COMMON5_CARRIER20"].endswith("TURNOVER_NONINFERIORITY_FAIL")
+    assert u["candidate_status"]["ADAPT_DUAL_BLEND_1P5"].endswith("TURNOVER_NONINFERIORITY_FAIL")
+    assert u["v1_action"] == "NO_CHANGE"
+    assert u["x6_readiness"] == "HOLD_NOT_READY"
+    handoff = (ROOT / "CONTINUE_HERE.md").read_text(encoding="utf-8")
+    roadmap = (ROOT / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
+    for text in (handoff, roadmap):
+        assert "X5I" in text
+        assert "FAST_COMMON5_CARRIER20" in text
+        assert "ADAPT_DUAL_BLEND_1P5" in text
+        assert "HOLD" in text
+        assert "production_authority=false" in text
+        assert "fresh_oos=false" in text
