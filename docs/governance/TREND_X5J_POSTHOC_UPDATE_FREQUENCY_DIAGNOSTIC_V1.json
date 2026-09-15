@@ -1,0 +1,21 @@
+{
+  "schema_id": "trend_x5j_posthoc_update_frequency_diagnostic@1.0",
+  "status": "POST_HOC_MECHANISM_DIAGNOSTIC_NOT_USED_FOR_X5J_PRIMARY_DECISION",
+  "provider": "Tencent public native 60m index kline",
+  "primary_months": ["2026-06", "2026-07", "2026-08"],
+  "metrics": {
+    "SLOW_COMMON20_CARRIER120": {"q10": 0.0, "q25": 0.00428, "q50": 0.03465, "q75": 0.08286, "q90": 0.17303, "q95": 0.23996, "fraction_abs_log_change_le_0p01": 0.309, "fraction_abs_log_change_le_0p02": 0.409},
+    "FAST_COMMON5_CARRIER20": {"q10": 0.0, "q25": 0.03906, "q50": 0.11752, "q75": 0.25594, "q90": 0.42763, "q95": 0.50606, "fraction_abs_log_change_le_0p01": 0.158, "fraction_abs_log_change_le_0p02": 0.189},
+    "ADAPT_DUAL_BLEND_1P5": {"q10": 0.00369, "q25": 0.03289, "q50": 0.11119, "q75": 0.26473, "q90": 0.44702, "q95": 0.53101, "fraction_abs_log_change_le_0p01": 0.135, "fraction_abs_log_change_le_0p02": 0.185},
+    "FAST_CAP_0P06": {"q10": 0.06, "q25": 0.06, "q50": 0.06, "q75": 0.06, "q90": 0.06, "q95": 0.06, "fraction_abs_log_change_le_0p01": 0.012, "fraction_abs_log_change_le_0p02": 0.023},
+    "FAST_EWMA_A0P35": {"q10": 0.02281, "q25": 0.05516, "q50": 0.11973, "q75": 0.20179, "q90": 0.26945, "q95": 0.32176, "fraction_abs_log_change_le_0p01": 0.042, "fraction_abs_log_change_le_0p02": 0.081},
+    "DUAL_CAP_0P06": {"q10": 0.06, "q25": 0.06, "q50": 0.06, "q75": 0.06, "q90": 0.06, "q95": 0.06, "fraction_abs_log_change_le_0p01": 0.008, "fraction_abs_log_change_le_0p02": 0.015}
+  },
+  "interpretation": {
+    "cap_behavior": "The 0.06 cap is saturated across nearly the entire update distribution, so it behaves as continuous deterministic catch-up rather than occasional turnover protection; this explains lag and lost temporal performance.",
+    "ewma_behavior": "EWMA compresses tail turnover but converts large jumps into frequent medium-sized updates; q95 improves while median turnover remains high.",
+    "next_mechanism": "Sparse event-driven updates with deadband or hysteresis are better-motivated than tuning a smaller cap or alpha on these same outcomes."
+  },
+  "used_for_primary_candidate_selection": false,
+  "product_adoption_allowed": false
+}
