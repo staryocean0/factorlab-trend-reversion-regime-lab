@@ -1,0 +1,31 @@
+{
+  "schema_id": "trend_x4_post_x5i_update@1.0",
+  "status": "INDEPENDENT_SOURCE_REPLICATION_CONFIRMS_SHORT_MEMORY_BENEFIT_BUT_TURNOVER_BLOCKS_ADOPTION",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "evidence_update": {
+    "short_memory_scale_benefit": "REPLICATED_ON_STRUCTURALLY_INDEPENDENT_TENCENT_NATIVE_60M_SOURCE",
+    "adaptive_dual_blend_monthly_scale_benefit": "REPLICATED",
+    "scale_turnover_concern": "PROMOTED_FROM_POST_HOC_CONCERN_TO_PROSPECTIVE_GATE_FAILURE",
+    "specific_regime_shift_mechanism": "NOT_IDENTIFIED",
+    "stable_temporal_normalized_strength": "NOT_ESTABLISHED"
+  },
+  "candidate_status": {
+    "SLOW_COMMON20_CARRIER120": "TURNOVER_OK_BUT_TEMPORAL_BREADTH_INTERACTION_FAIL",
+    "FAST_COMMON5_CARRIER20": "SCALE_METRICS_PASS_BUT_MEDIAN_AND_Q95_TURNOVER_NONINFERIORITY_FAIL",
+    "ADAPT_DUAL_BLEND_1P5": "SCALE_METRICS_PASS_BUT_MEDIAN_AND_Q95_TURNOVER_NONINFERIORITY_FAIL"
+  },
+  "product_implication": {
+    "normalized_strength_product_adoption": "NOT_SUPPORTED",
+    "v1_strength_semantics_change": "NOT_SUPPORTED",
+    "v1_state_boundary_change": "NOT_SUPPORTED",
+    "runtime_admission_expansion": "NOT_SUPPORTED"
+  },
+  "recommended_next_research": "Separate scale responsiveness from scale jitter: test smoother fast estimators, bounded-update filters, or explicit turnover-regularized causal scale estimators on a new time window while preserving strength-only semantics.",
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "market_outcomes_computed": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
