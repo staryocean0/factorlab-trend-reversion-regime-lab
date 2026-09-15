@@ -1,0 +1,55 @@
+{
+  "schema_id": "trend_x5k_sparse_hysteretic_strength_scale_result@1.0",
+  "status": "X5K_COMPLETE_NO_SPARSE_HYSTERETIC_CANDIDATE_PASSES_ALL_GATES",
+  "research_scope": "representation-layer normalized_strength diagnostics only",
+  "primary_source": "Tencent public native 60m index kline",
+  "cross_provider_replication_source": "Sina public native 60m index kline",
+  "time_window": {"start": "2026-01-05", "end": "2026-09-14"},
+  "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+  "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "aligned_measurements_per_carrier": 661,
+  "tencent": {
+    "raw": {"cross_carrier_range": 2.1943, "median_monthly_max_to_min": 1.5066, "monthly_cell_max_to_min": 2.7612},
+    "candidates": {
+      "SLOW_COMMON20_CARRIER120": {"range_reduction_vs_raw": 0.8457, "temporal_reduction_vs_raw": 0.1085, "carriers_improved": 2, "interaction_reduction_vs_slow": 0.0, "mean_turnover_multiple_vs_slow": 1.0, "q95_turnover_multiple_vs_slow": 1.0, "update_fraction": 0.784, "all_gates_pass": false},
+      "FAST_COMMON5_CARRIER20": {"range_reduction_vs_raw": 0.9384, "temporal_reduction_vs_raw": 0.2387, "carriers_improved": 5, "interaction_reduction_vs_slow": 0.3795, "mean_turnover_multiple_vs_slow": 2.732, "q95_turnover_multiple_vs_slow": 2.109, "update_fraction": 0.876, "all_gates_pass": false},
+      "EVENT_DEADBAND_0P12_FULL": {"range_reduction_vs_raw": 0.9377, "temporal_reduction_vs_raw": 0.2359, "carriers_improved": 5, "interaction_reduction_vs_slow": 0.3841, "mean_turnover_multiple_vs_slow": 2.654, "q95_turnover_multiple_vs_slow": 2.109, "update_fraction": 0.552, "all_gates_pass": false},
+      "EVENT_PERSIST2_0P10_FULL": {"range_reduction_vs_raw": 0.9435, "temporal_reduction_vs_raw": 0.1900, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.3532, "mean_turnover_multiple_vs_slow": 2.657, "q95_turnover_multiple_vs_slow": 3.202, "update_fraction": 0.347, "all_gates_pass": false},
+      "HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50": {"range_reduction_vs_raw": 0.9381, "temporal_reduction_vs_raw": 0.2318, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.3014, "mean_turnover_multiple_vs_slow": 2.428, "q95_turnover_multiple_vs_slow": 1.604, "update_fraction": 0.846, "all_gates_pass": false}
+    },
+    "qualified_candidates": []
+  },
+  "sina_replication": {
+    "candidate_behavior_replicated": true,
+    "qualified_candidates": [],
+    "notable_metrics": {
+      "EVENT_DEADBAND_0P12_FULL_update_fraction": 0.552,
+      "EVENT_PERSIST2_0P10_FULL_update_fraction": 0.347,
+      "EVENT_PERSIST2_0P10_FULL_q95_turnover_multiple": 3.202,
+      "HYSTERETIC_EWMA_update_fraction": 0.846,
+      "HYSTERETIC_EWMA_q95_turnover_multiple": 1.604
+    }
+  },
+  "cross_provider_qualified_candidates": [],
+  "selected_candidate_by_preregistered_rule": null,
+  "primary_interpretation": "Sparse gating does not yet resolve the response-versus-turnover frontier. Deadband updates remain too frequent; persistence achieves the preregistered sparsity gate but concentrates accumulated scale movement into larger jumps, failing mean and q95 turnover gates; hysteretic EWMA remains active too often to become sparse.",
+  "normalized_strength_decision": {
+    "short_memory_alignment_benefit_reconfirmed": true,
+    "simple_deadband_supported": false,
+    "persistence_only_sparse_update_supported": false,
+    "simple_hysteretic_ewma_supported": false,
+    "stable_temporal_product_representation_established": false,
+    "recommended_next_research_question": "Study sparse partial-reset / anchored event updates or cooldown-based stateful scale control that reduces both update frequency and jump size without grid-searching thresholds on the same outcomes."
+  },
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "strategy_logic_used": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
