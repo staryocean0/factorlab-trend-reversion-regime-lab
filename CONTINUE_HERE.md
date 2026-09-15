@@ -56,10 +56,13 @@ X6                                  = HOLD / NOT READY
 
 ## 历史回归锚点
 
-以下字符串仅用于 fail-closed 文档回归，不代表当前采用：
+以下字符串仅用于 fail-closed 文档回归，不代表当前采用；其中 X5F 的历史结论是 cross-carrier diagnostic 有价值但 stable temporal representation 未建立。
 
 ```text
 X5B
+X5C
+X5D
+X5E
 X5F
 X5G
 X5H
