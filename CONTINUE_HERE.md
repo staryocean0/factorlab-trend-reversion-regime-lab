@@ -148,6 +148,17 @@ Deadband 0.12 的 update fraction 仍高达约 55.2%，不够稀疏；hysteretic
 
 因此现在问题已经进一步收敛：**下一步不能只是提高 deadband 或增加 persistence 次数。** 更合理的是研究 `partial reset / anchored event update / cooldown-based stateful control`：触发事件后只释放部分累积误差，并明确限制 cooldown、单次 jump 与总 variation；同时继续禁止在同一 outcomes 上做阈值网格搜索。
 
+## 历史回归锚点
+
+以下字符串仅为 fail-closed 文档回归锚点，不代表当前采用：
+
+```text
+NO_CHANGE
+ADAPT_DUAL_BLEND_1P5
+FAST_COMMON5_CARRIER20
+FAST_EWMA_A0P35
+```
+
 ## 当前结论
 
 ```text
