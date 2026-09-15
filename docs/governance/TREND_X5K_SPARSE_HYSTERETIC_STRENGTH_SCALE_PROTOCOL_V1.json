@@ -1,0 +1,67 @@
+{
+  "schema_id": "trend_x5k_sparse_hysteretic_strength_scale_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5K_CANDIDATE_STATISTICS",
+  "research_scope": "representation-layer normalized_strength diagnostics only",
+  "research_only": true,
+  "objective": "Test whether sparse event-driven scale updates can retain short-memory alignment benefits while materially reducing continuous scale turnover.",
+  "sources": {
+    "primary_development": "Tencent public native 60m index kline",
+    "cross_provider_replication": "Sina public native 60m index kline",
+    "window": {"start": "2026-01-05", "end": "2026-09-14"},
+    "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+    "fresh_oos": false
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "directional_score": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(directional_score)",
+    "v1_state_boundary_t1": 2.0,
+    "state_boundary_change_allowed": false
+  },
+  "fast_target": {
+    "common_window": 5,
+    "carrier_window": 20,
+    "strictly_causal": true,
+    "current_t_used_for_target_scale": false,
+    "future_information_allowed": false
+  },
+  "preregistered_candidates": {
+    "SLOW_COMMON20_CARRIER120": {"family": "baseline"},
+    "FAST_COMMON5_CARRIER20": {"family": "baseline"},
+    "EVENT_DEADBAND_0P12_FULL": {
+      "family": "sparse_event_driven",
+      "rule": "hold governed log-scale unless abs(fast_target - governed_scale_previous) >= 0.12, then jump fully to fast_target"
+    },
+    "EVENT_PERSIST2_0P10_FULL": {
+      "family": "persistent_sparse_event_driven",
+      "rule": "update fully to fast_target only after two consecutive measurements with abs(gap) >= 0.10 and the same gap sign; otherwise hold"
+    },
+    "HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50": {
+      "family": "hysteretic_event_driven",
+      "rule": "enter active mode when abs(gap)>=0.16; while active update governed scale by alpha=0.50 toward fast_target; exit active mode when abs(gap)<=0.06"
+    }
+  },
+  "preregistered_gates": {
+    "cross_carrier_range_reduction_vs_raw": ">= 0.75",
+    "temporal_ratio_reduction_vs_raw": ">= 0.15",
+    "carriers_with_lower_monthly_ratio_than_raw": ">= 4",
+    "interaction_reduction_vs_slow": ">= 0.20",
+    "mean_abs_log_scale_change_multiple_vs_slow": "<= 2.0",
+    "q95_abs_log_scale_change_multiple_vs_slow": "<= 2.0",
+    "update_fraction": "<= 0.35",
+    "all_gates_required": true
+  },
+  "selection_rule": "A research candidate must pass every gate on Tencent and repeat every gate on Sina. If multiple pass, select the lowest mean-absolute-turnover multiple, then lowest q95 multiple, then lowest update fraction.",
+  "forbidden": [
+    "parameter_grid_search_on_X5K_outcomes",
+    "market_outcomes",
+    "trading_returns",
+    "strategy_logic",
+    "state_boundary_use",
+    "runtime_admission_change",
+    "old_M4_M5_governed_2025_holdout_read",
+    "V1_strength_semantics_change",
+    "X6_version_bump"
+  ],
+  "production_authority": false
+}
