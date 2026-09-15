@@ -101,6 +101,8 @@ X5M 之后不应继续在同一 X5L/X5M outcomes 上微调 anchor、partial frac
 以下字符串保留用于 fail-closed 文档回归，不代表当前采用：
 
 ```text
+X5B
+X5F
 X5G
 X5H
 X5I
