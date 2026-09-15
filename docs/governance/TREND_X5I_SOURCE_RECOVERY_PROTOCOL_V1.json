@@ -1,0 +1,30 @@
+{
+  "schema_id": "trend_x5i_source_recovery_protocol@1.0",
+  "status": "FROZEN_AFTER_PRIMARY_SOURCE_BLOCK_BEFORE_ALTERNATE_SOURCE_STATISTICS",
+  "reason": "Eastmoney primary transport was blocked before any X5I candidate statistics were computed; therefore no candidate outcome leakage occurred.",
+  "alternate_provider": "Tencent public native 60m index kline",
+  "carrier_set": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "source_identity_rule": "Tencent native 60m is an independent research source/clock and must not be represented as Sina, Eastmoney, DataHub, or M3 exact identity.",
+  "source_adequacy_gate": {
+    "minimum_complete_calendar_months": 3,
+    "minimum_slope_measurements_per_carrier_per_month": 40,
+    "all_five_carriers_required": true,
+    "identical_native_clock_across_five_carriers_required": true,
+    "if_gate_fails": "X5I_ALTERNATE_SOURCE_BLOCKED_NO_CANDIDATE_DECISION"
+  },
+  "candidate_set_and_gates": "identical_to_TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_PROTOCOL_V1.json",
+  "candidate_redefinition_allowed": false,
+  "gate_redefinition_allowed": false,
+  "primary_evaluation_rule": "use the latest three complete common calendar months available after all candidate warmups; any later partial month is forward-extension diagnostic only",
+  "forbidden": [
+    "trading_returns",
+    "strategy_selection",
+    "runtime_admission_expansion",
+    "opening_old_m4_m5_2025_holdout",
+    "changing_v1_state_boundary",
+    "changing_v1_strength_semantics",
+    "retrofitting_candidate_parameters_or_gates_after_alternate_source_results"
+  ],
+  "production_authority": false,
+  "fresh_oos": false
+}
