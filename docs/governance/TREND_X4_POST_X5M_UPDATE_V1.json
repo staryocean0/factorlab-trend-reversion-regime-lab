@@ -1,0 +1,30 @@
+{
+  "schema_id": "trend_x4_post_x5m_update@1.0",
+  "status": "X5M_STRUCTURAL_VALIDATION_REJECTS_PROMOTION_OF_FROZEN_ANCHORED_PARTIAL",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "x5m_findings": {
+    "block_A_passed_gate_count": 5,
+    "block_A_total_gate_count": 7,
+    "block_A_failed_gates": ["temporal", "q95_turnover"],
+    "block_B_tencent_passed_gate_count": 6,
+    "block_B_sina_passed_gate_count": 6,
+    "block_B_failed_gate": "interaction",
+    "block_B_interaction_reduction_vs_slow": -0.1115,
+    "cross_provider_block_B_behavior_replicated": true,
+    "structural_generalization_established": false,
+    "promotion_rule_satisfied": false
+  },
+  "representation_status": {
+    "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25": "FROZEN_RESEARCH_CANDIDATE_FAILED_STRUCTURAL_VALIDATION_NO_RETUNE_ON_X5M_OUTCOMES",
+    "STABLE_TEMPORAL_NORMALIZED_STRENGTH": "NOT_ESTABLISHED"
+  },
+  "next_research_boundary": "Do not continue local parameter optimization on X5L/X5M outcomes. Any future work must first redefine the structural hypothesis or obtain genuinely new external evidence under a newly frozen protocol.",
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
