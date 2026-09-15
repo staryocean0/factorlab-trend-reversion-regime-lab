@@ -14,7 +14,7 @@
 
 Component：`factorlab.layer2.trend_regime@1.0.0`。
 
-2026-09-14 用户显式授权独立的 Post-V1 **Cross-Profile Invariance & Calibration Study**。它不是自动 M10，不修改 V1。
+Post-V1 Cross-Profile Invariance & Calibration Study 是独立研究线，不是自动 M10，不修改 V1。
 
 当前研究进度：
 
@@ -26,19 +26,23 @@ Component：`factorlab.layer2.trend_regime@1.0.0`。
 - X5E — **causal rolling normalization COMPLETE / NO ADOPTION**
 - X5F — **60m carrier × common-time decomposition COMPLETE / DIAGNOSTIC ONLY**
 - X5G — **dynamic common + slow carrier COMPLETE / DIAGNOSTIC ONLY**
-- X5H — **adaptive regime-shift strength scale COMPLETE / ONE PRIMARY RESEARCH CANDIDATE QUALIFIED, NO ADOPTION**
+- X5H — **dual blend became prospective research candidate, NO ADOPTION**
+- X5I — **independent-source prospective validation COMPLETE / NO CANDIDATE PASSES TURNOVER-AWARE GATES**
 - X6 — **HOLD / NOT READY**
 
-V1 release pointer `release/trend-regime-v1.0.0` 必须继续固定在 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`；Post-V1 research commits 不得移动它。
+V1 release pointer `release/trend-regime-v1.0.0` 必须继续固定在 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`。
 
 ## 接管必读
 
 - `docs/ROADMAP.md`
-- `docs/governance/TREND_X5H_ADAPTIVE_REGIME_SHIFT_STRENGTH_SCALE_PROTOCOL_V1.json`
-- `docs/governance/TREND_X5H_ADAPTIVE_REGIME_SHIFT_STRENGTH_SCALE_RESULT_V1.json`
-- `docs/governance/TREND_X4_POST_X5H_UPDATE_V1.json`
-- `docs/governance/TREND_X5G_DYNAMIC_COMMON_SCALE_CARRIER_INTERACTION_RESULT_V1.json`
-- `docs/governance/TREND_X5F_60M_STRENGTH_SCALE_DECOMPOSITION_RESULT_V1.json`
+- `docs/governance/TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_PROTOCOL_V1.json`
+- `docs/governance/TREND_X5I_EASTMONEY_SOURCE_BLOCK_RECEIPT_V1.json`
+- `docs/governance/TREND_X5I_SOURCE_RECOVERY_PROTOCOL_V1.json`
+- `docs/governance/TREND_X5I_TENCENT_DEPTH_EXTENSION_RECEIPT_V1.json`
+- `docs/governance/TREND_X5I_EVALUATION_METHOD_V1.json`
+- `docs/governance/TREND_X5I_PROTOCOL_ERRATUM_V1.json`
+- `docs/governance/TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_RESULT_V1.json`
+- `docs/governance/TREND_X4_POST_X5I_UPDATE_V1.json`
 - `docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`
 - `docs/governance/TREND_M9_RELEASE_GOVERNANCE_V1.json`
 
@@ -54,81 +58,94 @@ strength          = abs(directional_score)
 
 Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m offset0；Post-V1 public/native-clock research 数据不获得 admission。
 
-## X5F / X5G 背景
+## X5I 最新结论
 
-X5F 将 60m monthly scale 拆为 carrier、common-time 与 residual：carrier ≈ **27.4%**，common-time ≈ **32.4%**，interaction residual ≈ **40.2%**。Cross-carrier normalization 有真实 transfer value，但 residual cell factor max/min 仍约 **2.408×**。
+### 数据与身份
 
-X5G 的 strictly-causal fixed-window common+carrier 候选均能把 cross-carrier range 压低约 80%–86%，但没有候选同时通过 temporal / breadth / interaction gates；更慢窗口还会出现明显 regime-shift lag。因此下一步转为 X5H 的快慢自适应 scale。
+Eastmoney primary source 在当前执行链连续被服务端断开，因此按预注册规则没有计算任何 Eastmoney candidate outcome。随后在无 outcome leakage 的前提下冻结 recovery protocol，使用结构独立的 **Tencent native 60m**。
 
-## X5H：Adaptive Regime-Shift Strength Scale
+Tencent `ifzq.gtimg.cn` m60 800-depth 稳定返回五指数各 800 根。统计加载后立刻过滤到 **2026-01-05..2026-09-14**，每 carrier 680 bars / 661 slope measurements；2025 public Tencent 行未参与统计，旧 governed 2025 Holdout 未读取。五指数时钟一致：`10:30 / 11:30 / 14:00 / 15:00`。
 
-主评价固定为完整的 **2026-06 / 07 / 08**，每 carrier 260 measurements；9 月 1–14 日仅作 forward extension，不参与候选选择。common fast/slow = **5 / 20**，carrier fast/slow = **20 / 120**，所有 scale 只读取 `t-1` 及更早信息。
+Primary evaluation：完整的 **2026-06 / 07 / 08**，每 carrier 260 measurements。9 月 1–14 日仅作 forward diagnostic。
 
-### 主结论
+### 候选与正式 gate
 
-唯一通过全部预注册 gate 的候选：
+Prospective 候选只有：
 
 ```text
+SLOW_COMMON20_CARRIER120
+FAST_COMMON5_CARRIER20
 ADAPT_DUAL_BLEND_1P5
 ```
 
-主样本表现：
+Turnover 在看 Tencent outcome 前就被正式纳入 gate：median 与 q95 `|Δlog(scale)|` 必须都 ≤ slow baseline 的 **2.0×**。
+
+结果：
 
 ```text
-cross-carrier range reduction             ≈ 93.75%
-median monthly max/min                     1.5066× -> 1.1604×
-temporal reduction                         ≈ 22.98%
-carriers improved                          5/5
-monthly-cell max/min                       1.3560×
-interaction reduction vs X5G baseline      ≈ 36.26%
+slow 20/120
+  range reduction      84.57%
+  temporal improvement 10.85%
+  breadth              2/5
+  turnover             1.00× / 1.00×
+  result               FAIL (temporal/breadth/interaction)
+
+fast 5/20
+  range reduction      93.84%
+  temporal improvement 23.87%
+  breadth              5/5
+  interaction improve  37.95%
+  turnover median/q95  3.39× / 2.11×
+  result               FAIL (both turnover gates)
+
+dual blend
+  range reduction      93.75%
+  temporal improvement 22.97%
+  breadth              5/5
+  interaction improve  36.25%
+  turnover median/q95  3.21× / 2.21×
+  result               FAIL (both turnover gates)
 ```
 
-因此它是 **gate-qualified research candidate**，可以进入新的 prospective replication；但它不是产品采用结论。
-
-### 为什么仍不能改 V1
-
-Dual blend 大多数时候都明显偏向 fast scale：common mean blend weight ≈ **0.761**，carrier mean ≈ **0.708**，约 70%–75% observations 的 blend weight ≥0.5。
-
-Post-hoc mechanism diagnostic（不参与主判定）发现，纯 fast `common=5 / carrier=20` 甚至略优：主样本 cross-carrier reduction ≈ **93.83%**、temporal reduction ≈ **23.87%**、5/5 carrier 改善、monthly-cell max/min ≈ **1.320×**；9 月前推 cross-carrier reduction ≈ **79.1%**。
-
-所以 X5H 不能证明“adaptive regime-shift blend”这一机制本身优于简单 short-memory scaling。
-
-另外 scale turnover 显著升高：
+因此：
 
 ```text
-median |Δ log(scale)|
-X5G baseline     ≈ 0.0346
-dual blend       ≈ 0.1112   (~3.21×)
-pure fast        ≈ 0.1175   (~3.39×)
-
-q95 |Δ log(scale)|
-X5G baseline     ≈ 0.2400
-dual blend       ≈ 0.5310   (~2.21×)
-pure fast        ≈ 0.5061   (~2.11×)
+ALL_GATE_QUALIFIED_CANDIDATES = []
+SELECTED_CANDIDATE             = NONE
 ```
 
-Turnover 不是 X5H 预注册 gate，因此不能事后取消主样本 pass；但它足以阻止我们把候选直接升级成稳定产品 representation。
+9 月 extension 仍显示 short-memory 横截面改善：raw range ≈ 1.5037，fast ≈ 0.3146，dual ≈ 0.4418；但它不参与选择。
+
+## 研究解释
+
+X5I 在独立 provider/clock 上复制了 X5H 的两个事实：
+
+1. **short-memory strength scaling 很强地改善 cross-carrier 与 monthly scale alignment**；
+2. **这种改善伴随显著更高的 scale turnover**。
+
+第二点在 X5H 只是 post-hoc concern；到 X5I 已成为预注册 prospective failure。因此现在没有证据支持把 pure-fast 或 dual blend 升级为产品 `normalized_strength`。
+
+这里是结构独立 provider replication，不是新的时间 OOS；所以 `fresh_oos=false` 继续保持。
 
 ## 当前结论
 
 ```text
-GATE_QUALIFIED_RESEARCH_CANDIDATE        = ADAPT_DUAL_BLEND_1P5
-SPECIFIC_REGIME_SHIFT_MECHANISM          = NOT IDENTIFIED
-PURE_FAST_5_20                           = POST_HOC COMPARATOR, MUST BE PREREGISTERED NEXT
-SCALE_TURNOVER                           = MATERIAL NEW CONCERN
-STABLE_TEMPORAL_PRODUCT_STRENGTH         = NOT ESTABLISHED
-CAUSAL_STATE_BOUNDARY_NORMALIZATION      = NOT SUPPORTED
-CURRENT_DECISION                         = INSUFFICIENT_EVIDENCE
-V1                                       = NO CHANGE
-X6                                       = HOLD / NOT READY
+SHORT_MEMORY_SCALE_BENEFIT              = REPLICATED
+ADAPTIVE_DUAL_SCALE_BENEFIT             = REPLICATED
+SCALE_TURNOVER_CONCERN                  = PROSPECTIVELY CONFIRMED
+SPECIFIC_REGIME_SHIFT_MECHANISM         = NOT IDENTIFIED
+STABLE_TEMPORAL_PRODUCT_STRENGTH        = NOT ESTABLISHED
+CURRENT_DECISION                        = INSUFFICIENT_EVIDENCE
+V1                                      = NO CHANGE
+X6                                      = HOLD / NOT READY
 ```
 
-下一步如继续，必须新开预注册研究：直接比较 **dual blend vs pure-fast 5/20 vs slow baseline**，新增 scale-turnover/jitter non-inferiority gate，并使用 fresh 或结构独立的 validation window/source/carrier set。不得用交易收益或 state outcome 选择 strength estimator。
+下一步若继续，应研究 **响应性与 jitter 的折中**，而不是继续在 fast/dual 二选一：例如 bounded-update、turnover-regularized、state-space / exponentially-smoothed fast scale，并把 turnover 保持为预注册 gate。不得用收益或 DOWN/SIDEWAYS/UP outcome 选择 strength estimator。
 
 ## 仍然禁止
 
 - 重跑 M5 primary / T2 sensitivity / STAR50 replication；
-- 打开旧 M4/M5 2025 Holdout；
+- 打开旧 M4/M5 governed 2025 Holdout；
 - 修改冻结的 M6/M7/M8/M9 semantics；
 - 把 public/native-clock research source 写成 runtime admitted 或 DataHub exact identity；
 - 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
