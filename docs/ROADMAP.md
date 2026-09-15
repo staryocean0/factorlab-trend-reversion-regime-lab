@@ -15,7 +15,8 @@
 - **X5H–X5K — COMPLETE / NO ADOPTION**：short-memory benefit 与 turnover cost 均被复制；continuous / sparse-hysteretic controls 无全 gate candidate。
 - **X5L — COMPLETE / 6-OF-7 NEAR-CANDIDATE ONLY**：`ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25` 在 Jun–Aug 同窗跨 Tencent/Sina 通过 6/7 gate。
 - **X5M — COMPLETE / STRUCTURAL VALIDATION FAILS PROMOTION**：冻结 anchored-partial 在结构新窗口未复制为 gate-qualified representation。
-- **X5N — COMPLETE / FAILURE ATTRIBUTION**：早期失败支持 broad regime-transition；Mar–May 失败集中于 `000016.SH` 的 carrier-specific regime interaction；peer composition 与 median-vs-mean common estimator 不是主要解释；clock 对主失败不可识别。
+- **X5N — COMPLETE / FAILURE ATTRIBUTION**：regime conditionality 与 `000016.SH` carrier×regime interaction 得到支持；peer composition / median-vs-mean estimator 不是主要解释；clock 对主失败不可识别。
+- **X5O — COMPLETE / NO CAUSAL REGIME OBSERVABLE IDENTIFIED**：预注册的 slope_t-independent return-geometry observables 未达到 identifiability gates；`CORRELATION_BREAK` 仅保留为 diagnostic clue。
 - **X6 — HOLD / NOT READY**：不做 representation / SemVer 变更。
 
 V1 release pointer `release/trend-regime-v1.0.0` 必须继续指向 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`。
@@ -32,12 +33,7 @@ Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m off
 
 ## X5M — Frozen Anchored-Partial Structural Validation — COMPLETE
 
-Protocol：`docs/governance/TREND_X5M_FROZEN_ANCHORED_STRUCTURAL_VALIDATION_PROTOCOL_V1.json`  
-Result：`docs/governance/TREND_X5M_FROZEN_ANCHORED_STRUCTURAL_VALIDATION_RESULT_V1.json`  
-Diagnostic：`docs/governance/TREND_X5M_POSTHOC_STRUCTURAL_FAILURE_DIAGNOSTIC_V1.json`  
-Decision：`docs/governance/TREND_X4_POST_X5M_UPDATE_V1.json`
-
-X5M 只验证一个冻结候选 `ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25`，七项 gate 与 X5L 完全不变。Structural Block A（Sina 2025-11/12 + 2026-01）通过 5/7，失败 temporal 与 q95 turnover；Structural Block B（Tencent + Sina 2026-03/04/05）通过 6/7，但 interaction improvement≈-11.15%。因此 `ANCHORED_PARTIAL_PROMOTION=REJECTED`，`STRUCTURAL_GENERALIZATION=NOT_ESTABLISHED`。
+X5M 只验证冻结候选 `ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25`。Structural Block A（Sina 2025-11/12 + 2026-01）通过 5/7，失败 temporal 与 q95 turnover；Structural Block B（Tencent + Sina 2026-03/04/05）通过 6/7，但 interaction improvement≈-11.15%。因此 `ANCHORED_PARTIAL_PROMOTION=REJECTED`，`STRUCTURAL_GENERALIZATION=NOT_ESTABLISHED`。
 
 ## X5N — Structural Failure Attribution & Regime Conditionality — COMPLETE
 
@@ -45,30 +41,43 @@ Protocol：`docs/governance/TREND_X5N_STRUCTURAL_FAILURE_ATTRIBUTION_PROTOCOL_V1
 Result：`docs/governance/TREND_X5N_STRUCTURAL_FAILURE_ATTRIBUTION_RESULT_V1.json`  
 Decision：`docs/governance/TREND_X4_POST_X5N_UPDATE_V1.json`
 
-X5N 没有调任何 X5L/X5M 参数，只做归因：
+X5N 只归因、不调参。rolling 3-month panel 显示 failure pattern 随时间切换；早期五 carrier q95 turnover 全部 >2x slow，支持 broad `MARKET_REGIME_CONDITIONALITY`。Mar–May 的 interaction reversal 则集中于 `000016.SH`，支持 carrier-specific regime interaction。000016 peer jackknife 与 peer median→mean counterfactual 均不足以解释主失败；clock 对 000016 主失败不可识别。
 
-- rolling 3-month panel 显示 failure pattern 随时间切换：早期连续失败 temporal；Mar–Jul 转为 interaction 主导，说明 regime conditionality 明显。
-- 早期 Block A 五个 carrier 的 q95 turnover 全部超过 2x slow（约 2.06–2.63x），且 common raw strength 从约 3.81 下行到 2.99，支持 broad market-regime transition / controller response，而非单 carrier 故障。
-- Mar–May 中，000852/000688/000300/000905 的 temporal improvement 约 19%–31%，但 `000016.SH` 从 raw monthly ratio≈1.296 恶化到 normalized≈2.423，即 temporal improvement≈-87%，支持 carrier-specific regime decoupling。
-- 000016 peer jackknife 后 ratio 仍约 2.11–2.48，`CARRIER_COMPOSITION` 不支持作为主要驱动。
-- peer median 改成 peer mean 后 000016 ratio 仅改善约 4.4%，interaction 反而约 -18%，`COMMON_SCALE_ESTIMATOR` 的 median-vs-mean 选择不支持作为主要驱动。
-- 当前只有 Tencent/Sina native 60m 的 000016 同窗资产，没有 alternate 60m clock，所以 `CLOCK_STRUCTURE=NOT_IDENTIFIABLE`，不得硬归因。
+## X5O — Causal Regime Observable Identifiability — COMPLETE
 
-当前归因：
+Protocol：`docs/governance/TREND_X5O_CAUSAL_REGIME_OBSERVABLE_IDENTIFIABILITY_PROTOCOL_V1.json`  
+Result：`docs/governance/TREND_X5O_CAUSAL_REGIME_OBSERVABLE_IDENTIFIABILITY_RESULT_V1.json`  
+Post-hoc source diagnostic：`docs/governance/TREND_X5O_POSTHOC_OBSERVABLE_SOURCE_AGREEMENT_V1.json`  
+Decision：`docs/governance/TREND_X4_POST_X5O_UPDATE_V1.json`
+
+X5O 在看到评价统计前冻结了四个完全独立于 `slope_t` / state 的严格因果 observable：`COMMON_VOL_SHIFT`、`XS_VOL_SHIFT_DISPERSION`、`CORRELATION_BREAK`、`SSE50_RELATIVE_VOL_SHIFT`。所有 alert threshold 只由 2025-09/10 reference months 的 80th percentile 决定，评价块不参与阈值生成。
+
+正式结果：
 
 ```text
-MARKET_REGIME_CONDITIONALITY              = SUPPORTED
-CARRIER_SPECIFIC_REGIME_INTERACTION_000016 = SUPPORTED
-CARRIER_COMPOSITION_PRIMARY_DRIVER         = NOT SUPPORTED
-COMMON_MEDIAN_ESTIMATOR_PRIMARY_DRIVER     = NOT SUPPORTED
-CLOCK_STRUCTURE                            = NOT IDENTIFIABLE
-SINGLE_UNIFIED_STATEFUL_NORMALIZATION_LAW  = NOT ESTABLISHED
-RETUNE_ON_X5N_OUTCOMES                     = FORBIDDEN
+COMMON_REGIME_OBSERVABLE_IDENTIFIED        = false
+SSE50_CARRIER_REGIME_OBSERVABLE_IDENTIFIED = false
+common alert rho vs q95 severity            ≈ 0.405
+000016 alert rho vs normalized ratio        ≈ 0.491
+000016 alert rho vs interaction loss        ≈ 0.169
+```
+
+`CORRELATION_BREAK` 的 threshold-free rho vs q95 severity≈0.833，是最强 diagnostic clue，但首个结构失败块 alert fraction≈37.3%，低于预注册 50% gate，因此不能宣称具备可靠的事前识别能力。其 2026 同窗 Tencent/Sina 连续值 Pearson≈0.99999994，说明弱信号不是单一 provider artifact，但 source agreement 不会改变主 identifiability failure。
+
+因此：
+
+```text
+REGIME_CONDITIONALITY_EXISTS                = SUPPORTED BY X5N
+CAUSAL_REGIME_IDENTIFIABILITY               = NOT ESTABLISHED BY X5O
+REGIME_SWITCH_RULE                          = NOT AUTHORIZED
+UNIFIED_DYNAMIC_NORMALIZED_STRENGTH         = PAUSE DEVELOPMENT
+RETUNE_ON_X5O_OUTCOMES                      = FORBIDDEN
+CURRENT_DECISION                            = INSUFFICIENT_EVIDENCE
 V1                                          = NO CHANGE
 X6                                          = HOLD / NOT READY
 ```
 
-X5N 之后不应继续局部修补 X5L 参数。未来若继续 normalized_strength 研究，应先提出新的结构假设（最自然的是显式 regime-conditional representation）或获得独立 alternate-clock 证据，再在看 outcomes 前冻结新协议。
+X5O 之后不应在当前 outcomes 上搜索新 threshold、组合 observable 或拟合 regime-switched normalization。只有真正新的外生 regime 信息、独立 alternate-clock 证据，或完全新且事前冻结的结构假设，才足以重启这条 representation 研究线。
 
 ## 历史回归锚点
 
@@ -100,5 +109,6 @@ EVENT_PERSIST2_0P10_FULL
 - 不把 public/native-clock research source 写成 runtime admitted source；
 - 不产生 `global_state`、BUY/SELL、position/order、strategy selection/routing；
 - 不基于 X5L/X5M/X5N outcomes 调 anchor、partial fraction、trigger、cooldown 或 gate；
+- 不基于 X5O outcomes 搜索 observable threshold、alert combination 或 regime-switched law；
 - `production_authority=false`、`fresh_oos=false`；
 - 历史 V1 snapshots 不得原地改写。
