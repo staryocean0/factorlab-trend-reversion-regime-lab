@@ -16,8 +16,9 @@
 - **X5F — COMPLETE / DIAGNOSTIC ONLY**：carrier + common-time 约解释 59.9% log-scale variation，约 40.2% interaction 未解决。
 - **X5G — COMPLETE / DIAGNOSTIC ONLY**：strictly-causal dynamic common + slow carrier 改善横截面对齐，fixed-window temporal stability 未建立。
 - **X5H — COMPLETE / RESEARCH CANDIDATE ONLY**：dual blend 通过当时预注册 scale gates，但 turnover 为后验重大风险。
-- **X5I — COMPLETE / NO CANDIDATE PASSES TURNOVER-AWARE PROSPECTIVE GATES**：独立 Tencent native 60m 复制 short-memory scale 优势，同时 prospectively 确认 high turnover，因而无候选晋级产品表示。
-- **X5J — COMPLETE / NO GATE-QUALIFIED TURNOVER-REGULARIZED CANDIDATE**：cap / EWMA 均未同时解决响应速度与 turnover；Tencent 与 Sina 结果一致。
+- **X5I — COMPLETE / NO CANDIDATE PASSES TURNOVER-AWARE PROSPECTIVE GATES**：独立 Tencent native 60m 复制 short-memory scale 优势，同时 prospectively 确认 high turnover。
+- **X5J — COMPLETE / NO GATE-QUALIFIED TURNOVER-REGULARIZED CANDIDATE**：cap / EWMA 未同时解决响应速度与 turnover；Tencent 与 Sina 结果一致。
+- **X5K — COMPLETE / NO GATE-QUALIFIED SPARSE-HYSTERETIC CANDIDATE**：deadband / persistence / hysteretic EWMA 仍未同时解决 update frequency、jump size 与 scale stability。
 - **X6 — HOLD / NOT READY**：不做 representation / SemVer 变更。
 
 V1 release pointer `release/trend-regime-v1.0.0` 必须继续指向 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`。
@@ -38,108 +39,70 @@ X5F 显示 60m scale 同时具有 carrier effect、common-time effect 与大量 
 
 ## X5I — Prospective Fast-vs-Adaptive Strength Scale Validation — COMPLETE
 
-Protocol：`docs/governance/TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_PROTOCOL_V1.json`  
-Primary-source block：`docs/governance/TREND_X5I_EASTMONEY_SOURCE_BLOCK_RECEIPT_V1.json`  
-Recovery protocol：`docs/governance/TREND_X5I_SOURCE_RECOVERY_PROTOCOL_V1.json`  
-Tencent source receipt：`docs/governance/TREND_X5I_TENCENT_SOURCE_RECEIPT_V1.json`  
-Depth extension receipt：`docs/governance/TREND_X5I_TENCENT_DEPTH_EXTENSION_RECEIPT_V1.json`  
-Method：`docs/governance/TREND_X5I_EVALUATION_METHOD_V1.json`  
-Protocol erratum：`docs/governance/TREND_X5I_PROTOCOL_ERRATUM_V1.json`  
-Result：`docs/governance/TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_RESULT_V1.json`  
-Decision：`docs/governance/TREND_X4_POST_X5I_UPDATE_V1.json`
+X5I 在结构独立的 Tencent native 60m 上重新比较 slow 20/120、fast 5/20 与 dual blend，并在看 Tencent candidate outcome 前把 median / q95 `|Δlog(scale)| <= 2.0× slow` 纳入正式 gate。Fast 与 dual 再次复制了强 scale alignment，但都因 turnover gate 失败；slow turnover 合格，但 temporal / breadth / interaction 不合格。因此无 candidate 晋级。
 
-### Source / design
-
-Eastmoney primary endpoint 在当前执行链连续被远端断开，因此按预注册规则没有计算任何 primary-source candidate outcome。随后在没有 outcome leakage 的前提下冻结 source-recovery protocol，改用结构独立的 **Tencent native 60m**。
-
-Tencent `ifzq.gtimg.cn` m60 对 800-depth 请求稳定返回五指数各 800 根。统计加载后立刻过滤到 **2026-01-05..2026-09-14**，每 carrier 680 bars / 661 slope measurements；公共源返回的 2025 行未参与任何统计，旧 M4/M5 governed 2025 Holdout 未读取。五指数 native clock 都为 `10:30 / 11:30 / 14:00 / 15:00`，0 bad days。
-
-Primary evaluation 固定为完整的 **2026-06 / 07 / 08**，每 carrier 260 measurements；9 月 1–14 日仅作 forward diagnostic。
-
-Prospective 候选只有：
+关键结果：
 
 ```text
-SLOW_COMMON20_CARRIER120
-FAST_COMMON5_CARRIER20
-ADAPT_DUAL_BLEND_1P5
+fast 5/20
+  range reduction      ≈ 93.84%
+  temporal improvement ≈ 23.87%
+  breadth              = 5/5
+  interaction improve  ≈ 37.95%
+  turnover median/q95  ≈ 3.39× / 2.11× slow
+  result               = FAIL
+
+dual blend
+  range reduction      ≈ 93.75%
+  temporal improvement ≈ 22.97%
+  breadth              = 5/5
+  interaction improve  ≈ 36.25%
+  turnover median/q95  ≈ 3.21× / 2.21× slow
+  result               = FAIL
 ```
-
-Turnover gate 在看 Tencent 候选结果前冻结：median 和 q95 `|Δlog(scale)|` 都必须 ≤ slow baseline 的 **2.0×**。
-
-### Prospective result
-
-Raw primary：
-
-```text
-cross-carrier range              = 2.1943
-median monthly max/min           = 1.5066×
-monthly-cell max/min             = 2.7612×
-```
-
-| candidate | range reduction | temporal improvement | carriers improved | interaction improvement vs slow | median turnover vs slow | q95 turnover vs slow | all gates |
-|---|---:|---:|---:|---:|---:|---:|---|
-| slow 20/120 | 84.57% | 10.85% | 2/5 | 0% | 1.00× | 1.00× | FAIL |
-| fast 5/20 | **93.84%** | **23.87%** | **5/5** | **37.95%** | **3.39×** | **2.11×** | FAIL |
-| dual blend | **93.75%** | **22.97%** | **5/5** | **36.25%** | **3.21×** | **2.21×** | FAIL |
-
-Fast 与 dual 在独立 Tencent source 上复制了 X5H 的 scale-level 优势，但两者均同时违反 median 与 q95 turnover non-inferiority gate。Slow turnover 合格，但 temporal / breadth / interaction 不合格。因此：
-
-```text
-ALL_GATE_QUALIFIED_CANDIDATES = []
-SELECTED_CANDIDATE             = NONE
-```
-
-9 月 forward diagnostic 仍显示 short-memory 有横截面改善：raw range ≈ 1.5037，fast ≈ 0.3146，dual ≈ 0.4418；但它不参与选择。
-
-### X5I 科学结论
-
-```text
-SHORT_MEMORY_SCALE_BENEFIT                    = REPLICATED_ON_INDEPENDENT_PROVIDER
-ADAPTIVE_DUAL_SCALE_BENEFIT                   = REPLICATED
-SCALE_TURNOVER_CONCERN                        = PROSPECTIVELY_CONFIRMED
-SPECIFIC_REGIME_SHIFT_MECHANISM               = NOT_IDENTIFIED
-STABLE_TEMPORAL_NORMALIZED_STRENGTH            = NOT_ESTABLISHED
-V1_STATE                                      = NO_CHANGE
-V1_STRENGTH                                   = NO_CHANGE
-X6                                            = HOLD / NOT_READY
-```
-
-这一步把 X5H 的 turnover 从“后验担忧”升级为“独立源上的预注册 gate failure”。因此当前不应继续争论 dual vs pure-fast 谁更好，而应研究 **响应性与 jitter 的折中**。
 
 ## X5J — Turnover-Regularized Strength Scale Study — COMPLETE
 
-Protocol：`docs/governance/TREND_X5J_TURNOVER_REGULARIZED_STRENGTH_SCALE_PROTOCOL_V1.json`  
-Result：`docs/governance/TREND_X5J_TURNOVER_REGULARIZED_STRENGTH_SCALE_RESULT_V1.json`  
-Post-hoc update-frequency diagnostic：`docs/governance/TREND_X5J_POSTHOC_UPDATE_FREQUENCY_DIAGNOSTIC_V1.json`  
-Decision：`docs/governance/TREND_X4_POST_X5J_UPDATE_V1.json`
+X5J 是开发型研究，明确 `fresh_oos=false`。候选在统计前冻结，不做参数网格扫优：slow / fast / dual 三条 baseline 加 `FAST_CAP_0P06`、`FAST_EWMA_A0P35`、`DUAL_CAP_0P06`。Tencent 为 primary，Sina 为 cross-provider replication。
 
-X5J 是开发型研究，明确 `fresh_oos=false`。候选在统计前一次性冻结，不做参数网格扫优：三条既有 baseline 加三条 turnover-regularized 候选：
+结果显示：
+
+- `CAP_0.06` 通过 turnover non-inferiority，但 temporal / breadth / interaction 基本丢失；post-hoc 发现 q10–q95 `|Δlog(scale)|` 全部等于 0.06，说明它几乎每根都打满 cap，成为持续 catch-up。
+- `EWMA α=0.35` 保留 alignment，并把 q95 turnover 降到 slow 的约 1.34×，但 median turnover 仍约 3.46×；它降低尾部，却没有降低更新频率。
+- Tencent 与 Sina 均无全 gate candidate。
+
+因此连续型 regularization 暂时无法同时得到 fast-scale responsiveness 与 slow-scale low-turnover。
+
+## X5K — Sparse / Hysteretic Strength Scale Update Study — COMPLETE
+
+Protocol：`docs/governance/TREND_X5K_SPARSE_HYSTERETIC_STRENGTH_SCALE_PROTOCOL_V1.json`  
+Result：`docs/governance/TREND_X5K_SPARSE_HYSTERETIC_STRENGTH_SCALE_RESULT_V1.json`  
+Post-hoc event-size diagnostic：`docs/governance/TREND_X5K_POSTHOC_EVENT_SIZE_DIAGNOSTIC_V1.json`  
+Decision：`docs/governance/TREND_X4_POST_X5K_UPDATE_V1.json`
+
+X5K 不再继续调 cap / EWMA 参数，而是把 **update frequency** 纳入正式 gate，并增加平均绝对 `Δlog(scale)` 与 q95 jump 两个 turnover gate，避免“更新很少但每次巨跳”被误判为稳定。
+
+预注册稀疏候选：
 
 ```text
-SLOW_COMMON20_CARRIER120
-FAST_COMMON5_CARRIER20
-ADAPT_DUAL_BLEND_1P5
-FAST_CAP_0P06
-FAST_EWMA_A0P35
-DUAL_CAP_0P06
+EVENT_DEADBAND_0P12_FULL
+EVENT_PERSIST2_0P10_FULL
+HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50
 ```
 
-Primary 开发源为 Tencent native 60m；Sina 同窗用于 cross-provider replication。所有候选继续要求同时通过：cross-carrier、temporal、breadth、interaction、median-turnover、q95-turnover 六项 gate。
+同时保留 slow 20/120 与 fast 5/20 作为 baseline。要求同时满足：cross-carrier range reduction ≥75%、temporal improvement ≥15%、breadth ≥4/5、interaction improvement ≥20%、mean turnover ≤2× slow、q95 turnover ≤2× slow、update fraction ≤35%。
 
-### X5J primary / replication result
+Tencent primary：
 
-Tencent：
+| candidate | range reduction | temporal improvement | breadth | interaction improvement | mean turnover | q95 turnover | update fraction | all gates |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| slow 20/120 | 84.57% | 10.85% | 2/5 | 0% | 1.00× | 1.00× | 78.4% | FAIL |
+| fast 5/20 | 93.84% | 23.87% | 5/5 | 37.95% | 2.73× | 2.11× | 87.6% | FAIL |
+| deadband 0.12 full | 93.77% | 23.59% | 5/5 | 38.41% | 2.65× | 2.11× | 55.2% | FAIL |
+| persist2 0.10 full | **94.35%** | 19.00% | 4/5 | 35.32% | 2.66× | **3.20×** | **34.7%** | FAIL |
+| hysteretic EWMA | 93.81% | 23.18% | 4/5 | 30.14% | 2.43× | **1.60×** | 84.6% | FAIL |
 
-| candidate | range reduction | temporal improvement | breadth | interaction improvement | median turnover | q95 turnover | all gates |
-|---|---:|---:|---:|---:|---:|---:|---|
-| slow 20/120 | 84.57% | 10.85% | 2/5 | 0% | 1.00× | 1.00× | FAIL |
-| fast 5/20 | 93.84% | 23.87% | 5/5 | 37.95% | 3.39× | 2.11× | FAIL |
-| dual blend | 93.75% | 22.97% | 5/5 | 36.25% | 3.21× | 2.21× | FAIL |
-| fast cap 0.06 | 88.73% | **-0.61%** | 2/5 | 2.37% | **1.73×** | **0.25×** | FAIL |
-| fast EWMA α=0.35 | 92.44% | **25.06%** | 4/5 | 34.06% | **3.46×** | **1.34×** | FAIL |
-| dual cap 0.06 | 84.43% | **-0.03%** | 2/5 | 3.51% | **1.73×** | **0.25×** | FAIL |
-
-Sina replication 几乎逐项复现同样结构；同样 **0 个候选全 gate 通过**。因此：
+Sina 几乎逐项复现，仍为：
 
 ```text
 TENCENT_QUALIFIED_CANDIDATES        = []
@@ -148,13 +111,13 @@ CROSS_PROVIDER_QUALIFIED_CANDIDATES = []
 SELECTED_CANDIDATE                  = NONE
 ```
 
-### X5J 失败机制
+### X5K 失败机制
 
-- `CAP_0.06` 的 turnover non-inferiority 通过，但 temporal / breadth / interaction 基本丢失，说明固定 change-rate cap 引入过强响应滞后。
-- `EWMA α=0.35` 保留了 scale alignment，并把 q95 turnover 压到 slow 的约 **1.34×**，但 median turnover 仍约 **3.46×**；它把少数大跳摊成了持续的中等更新，并没有降低更新频率。
-- Post-hoc update-frequency diagnostic 显示 `CAP_0.06` 的 q10–q95 `|Δlog(scale)|` **全部等于 0.06**，几乎每一根都触及 cap。它实际上是持续 catch-up，而不是偶发限速。
+- Deadband 0.12 仍有约 **55.2%** 的观测发生更新，稀疏性不足，且 mean / q95 turnover 都超 gate。
+- `PERSIST2` 是第一个真正进入 update-frequency gate 的方案（约 **34.7%**），但它把 fast 的很多小更新攒成大跳：post-hoc 条件更新次数从 fast 的 1148 次降到 451 次，条件均值从约 **0.197** 放大到 **0.483**，条件 q95 从 **0.520** 放大到 **0.969**，因此 mean / q95 turnover 反而失败。
+- Hysteretic EWMA 的 q95 turnover 已降到约 **1.60×** slow，但 update fraction 仍约 **84.6%**，没有形成稀疏事件驱动。
 
-因此 X5J 建立的是一个更明确的前沿：**连续型 regularization 目前无法同时获得 fast-scale 的响应性和 slow-scale 的低 turnover**。下一步若继续，应研究 **deadband / hysteresis / sparse event-driven causal scale updates**，并把 update frequency 与 turnover 都保持为预注册 gate；不要在同一 outcomes 上继续扫更小 cap 或更低 α。
+因此 X5K 说明：**仅靠 deadband、持续性确认或简单 hysteretic EWMA，仍不能同时降低更新频率与单次跳跃幅度。** 下一研究问题应转向 sparse partial-reset / anchored event updates 或 cooldown-based stateful control，在触发事件时只释放一部分累积误差，并显式治理 cooldown 与 jump size；不得在同一 outcomes 上继续做阈值网格扫优。
 
 ## 当前总体判断
 
@@ -164,6 +127,7 @@ CAUSAL_STATE_BOUNDARY_NORMALIZATION       = NOT SUPPORTED FOR ADOPTION
 CROSS_CARRIER_STRENGTH_NORMALIZATION      = SUPPORTED RESEARCH DIAGNOSTIC
 SHORT_MEMORY_SCALE                        = BENEFIT REPLICATED, TURNOVER TOO HIGH
 CONTINUOUS_TURNOVER_REGULARIZATION        = NO GATE-QUALIFIED CANDIDATE IN X5J
+SPARSE_HYSTERETIC_UPDATE                  = NO GATE-QUALIFIED CANDIDATE IN X5K
 STABLE_TEMPORAL_PRODUCT_STRENGTH          = NOT ESTABLISHED
 CURRENT_DECISION                          = INSUFFICIENT_EVIDENCE
 ```
