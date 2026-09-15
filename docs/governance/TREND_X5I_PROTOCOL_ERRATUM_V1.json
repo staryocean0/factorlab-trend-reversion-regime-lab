@@ -1,0 +1,15 @@
+{
+  "schema_id": "trend_x5i_protocol_erratum@1.0",
+  "status": "SEALED_BEFORE_X5I_CANDIDATE_STATISTICS",
+  "reason": "The X5I protocol transcribed the X5H dual-blend weight incorrectly. X5I must validate the actual X5H gate-qualified candidate, not a newly invented variant.",
+  "affected_field": "candidate_set.ADAPT_DUAL_BLEND_1P5.blend_weight",
+  "incorrect_transcription": "clip((abs(log(fast_scale/slow_scale)) - log(1.5)) / log(1.5), 0, 1)",
+  "correct_x5h_definition": "clip(abs(log(fast_scale/slow_scale)) / log(1.5), 0, 1)",
+  "candidate_parameters_changed_from_x5h": false,
+  "x5i_candidate_statistics_computed_before_erratum": false,
+  "x5i_candidate_outcomes_observed_before_erratum": false,
+  "all_other_x5i_candidates_and_gates_unchanged": true,
+  "v1_action": "NO_CHANGE",
+  "production_authority": false,
+  "fresh_oos": false
+}
