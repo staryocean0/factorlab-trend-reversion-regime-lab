@@ -1,0 +1,42 @@
+{
+  "schema_id": "trend_x5i_tencent_source_receipt@1.0",
+  "status": "X5I_ALTERNATE_SOURCE_ACQUIRED_CLOCK_QC_PASS_BEFORE_CANDIDATE_STATISTICS",
+  "provider": "Tencent public native 60m index kline",
+  "endpoint_family": "ifzq.gtimg.cn/appstock/app/kline/mkline",
+  "source_identity": {
+    "Sina_identity": false,
+    "Eastmoney_identity": false,
+    "DataHub_M3_exact_identity": false,
+    "runtime_admission_effect": "none"
+  },
+  "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "raw_rows_per_carrier": 320,
+  "raw_window": {"start": "2026-05-25 10:30", "end": "2026-09-14 15:00"},
+  "native_clock": ["10:30", "11:30", "14:00", "15:00"],
+  "clock_qc": {
+    "bad_days_all_carriers": 0,
+    "identical_clock_across_five_carriers": true
+  },
+  "month_bars_per_carrier": {
+    "2026-05": 20,
+    "2026-06": 84,
+    "2026-07": 92,
+    "2026-08": 84,
+    "2026-09": 40
+  },
+  "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+  "expected_slope_measurements_primary_months": {"2026-06": 84, "2026-07": 92, "2026-08": 84},
+  "source_adequacy_gate_pass": true,
+  "sha256": {
+    "000852.SH": "f6b6700e0550b58faa1b7f727cca54696fb80d9bcec1f901936d4c3b6c516e89",
+    "000688.SH": "e0392ec26d00db8a096fac7abcd6aaf42eed26211eb6b9382940b3c90e0a1402",
+    "000300.SH": "80f20210defedc5acbae2bdecefb0375bb25b8a208406d96ee25f02675ddacbd",
+    "000905.SH": "34dffbb2b88ccfcdc2afcf4778880c533e0fc32b8601506d4f207547ee567853",
+    "000016.SH": "285a7c7cfb209b827f15f5628cd32f8435a962d9d4f02d3c875db10d003471aa"
+  },
+  "candidate_statistics_computed_at_receipt_seal": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "market_outcomes_computed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
