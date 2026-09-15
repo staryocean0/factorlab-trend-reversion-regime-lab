@@ -1,4 +1,4 @@
-"""Fail-closed guards for Post-V1 X5N structural failure attribution."""
+"""Fail-closed guards for Post-V1 X5N structural failure attribution and X5O regime-observable identifiability."""
 
 import json
 from pathlib import Path
@@ -67,3 +67,37 @@ def test_post_x5n_decision_and_docs_keep_product_boundary_frozen():
         assert "X6" in text and "HOLD" in text
         assert "production_authority=false" in text
         assert "fresh_oos=false" in text
+
+
+def test_x5o_no_preregistered_causal_observable_is_identified():
+    p = load("TREND_X5O_CAUSAL_REGIME_OBSERVABLE_IDENTIFIABILITY_PROTOCOL_V1.json")
+    r = load("TREND_X5O_CAUSAL_REGIME_OBSERVABLE_IDENTIFIABILITY_RESULT_V1.json")
+    assert p["status"] == "FROZEN_BEFORE_X5O_OBSERVABLE_STATISTICS"
+    assert p["causality"]["slope_t_used_in_observables"] is False
+    assert p["causality"]["current_t_return_used"] is False
+    assert r["status"] == "X5O_COMPLETE_NO_CAUSAL_REGIME_OBSERVABLE_MEETS_IDENTIFIABILITY_GATES"
+    assert r["decision"]["COMMON_REGIME_OBSERVABLE_IDENTIFIED"] is False
+    assert r["decision"]["SSE50_CARRIER_REGIME_OBSERVABLE_IDENTIFIED"] is False
+    assert r["common_regime_alert"]["spearman_vs_q95_turnover_severity"] < 0.60
+    assert r["sse50_carrier_regime_alert"]["spearman_vs_000016_normalized_ratio"] < 0.60
+    clue = r["per_observable_descriptive_association"]["CORRELATION_BREAK"]
+    assert clue["rho_q95"] > 0.80
+    assert clue["first_block_alert_fraction"] < 0.50
+    assert r["interpretation"]["new_normalized_strength_law_authorized"] is False
+
+
+def test_x5o_posthoc_source_agreement_does_not_change_decision():
+    d = load("TREND_X5O_POSTHOC_OBSERVABLE_SOURCE_AGREEMENT_V1.json")
+    u = load("TREND_X4_POST_X5O_UPDATE_V1.json")
+    assert d["status"] == "POST_HOC_SOURCE_AGREEMENT_DIAGNOSTIC_NOT_USED_FOR_X5O_PRIMARY_DECISION"
+    assert d["pearson"] > 0.99999
+    assert d["q95_absolute_difference"] < 0.0001
+    assert d["threshold_change_authorized"] is False
+    assert u["updated_overall_decision"] == "INSUFFICIENT_EVIDENCE"
+    assert u["x5o_findings"]["common_regime_observable_identified"] is False
+    assert u["x5o_findings"]["sse50_carrier_regime_observable_identified"] is False
+    assert u["x5o_findings"]["retuning_on_x5o_outcomes_allowed"] is False
+    assert u["v1_action"] == "NO_CHANGE"
+    assert u["x6_readiness"] == "HOLD_NOT_READY"
+    assert u["production_authority"] is False
+    assert u["fresh_oos"] is False
