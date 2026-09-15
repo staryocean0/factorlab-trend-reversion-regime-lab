@@ -1,0 +1,56 @@
+{
+  "schema_id": "trend_x5j_turnover_regularized_strength_scale_result@1.0",
+  "status": "X5J_COMPLETE_NO_CANDIDATE_PASSES_STABILITY_AND_TURNOVER_GATES",
+  "research_scope": "representation-layer normalized_strength diagnostics only",
+  "primary_development_source": "Tencent public native 60m index kline",
+  "cross_provider_replication_source": "Sina public native 60m index kline",
+  "time_window": {"start": "2026-01-05", "end": "2026-09-14"},
+  "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+  "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "aligned_measurements_per_carrier": 661,
+  "tencent": {
+    "raw": {"cross_carrier_range": 2.1943, "median_monthly_max_to_min": 1.5066, "monthly_cell_max_to_min": 2.7612},
+    "candidates": {
+      "SLOW_COMMON20_CARRIER120": {"range_reduction_vs_raw": 0.8457, "temporal_reduction_vs_raw": 0.1085, "carriers_improved": 2, "interaction_reduction_vs_slow": 0.0, "turnover_median_multiple_vs_slow": 1.0, "turnover_q95_multiple_vs_slow": 1.0, "all_gates_pass": false},
+      "FAST_COMMON5_CARRIER20": {"range_reduction_vs_raw": 0.9384, "temporal_reduction_vs_raw": 0.2387, "carriers_improved": 5, "interaction_reduction_vs_slow": 0.3795, "turnover_median_multiple_vs_slow": 3.392, "turnover_q95_multiple_vs_slow": 2.109, "all_gates_pass": false},
+      "ADAPT_DUAL_BLEND_1P5": {"range_reduction_vs_raw": 0.9375, "temporal_reduction_vs_raw": 0.2297, "carriers_improved": 5, "interaction_reduction_vs_slow": 0.3625, "turnover_median_multiple_vs_slow": 3.209, "turnover_q95_multiple_vs_slow": 2.213, "all_gates_pass": false},
+      "FAST_CAP_0P06": {"range_reduction_vs_raw": 0.8873, "temporal_reduction_vs_raw": -0.0061, "carriers_improved": 2, "interaction_reduction_vs_slow": 0.0237, "turnover_median_multiple_vs_slow": 1.732, "turnover_q95_multiple_vs_slow": 0.250, "all_gates_pass": false},
+      "FAST_EWMA_A0P35": {"range_reduction_vs_raw": 0.9244, "temporal_reduction_vs_raw": 0.2506, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.3406, "turnover_median_multiple_vs_slow": 3.456, "turnover_q95_multiple_vs_slow": 1.341, "all_gates_pass": false},
+      "DUAL_CAP_0P06": {"range_reduction_vs_raw": 0.8443, "temporal_reduction_vs_raw": -0.0003, "carriers_improved": 2, "interaction_reduction_vs_slow": 0.0351, "turnover_median_multiple_vs_slow": 1.732, "turnover_q95_multiple_vs_slow": 0.250, "all_gates_pass": false}
+    },
+    "qualified_candidates": []
+  },
+  "sina_replication": {
+    "raw": {"cross_carrier_range": 2.1942, "median_monthly_max_to_min": 1.5066, "monthly_cell_max_to_min": 2.7612},
+    "candidate_behavior_replicated": true,
+    "qualified_candidates": [],
+    "notable_metrics": {
+      "FAST_CAP_0P06_turnover_median_multiple": 1.734,
+      "FAST_EWMA_A0P35_temporal_reduction": 0.2506,
+      "FAST_EWMA_A0P35_turnover_median_multiple": 3.460,
+      "DUAL_CAP_0P06_turnover_median_multiple": 1.734
+    }
+  },
+  "cross_provider_qualified_candidates": [],
+  "selected_candidate_by_preregistered_rule": null,
+  "primary_interpretation": "Simple bounded-update and EWMA regularization expose a response-versus-turnover frontier rather than resolving it. Caps satisfy turnover but lose temporal/breadth/interaction performance; EWMA preserves scale alignment and reduces tail turnover but fails median-turnover non-inferiority because it updates too continuously.",
+  "normalized_strength_decision": {
+    "short_memory_alignment_benefit_reconfirmed": true,
+    "turnover_cost_reconfirmed": true,
+    "simple_cap_solution_supported": false,
+    "simple_ewma_solution_supported": false,
+    "stable_temporal_product_representation_established": false,
+    "recommended_next_research_question": "Test deadband, hysteresis, or sparse event-driven causal scale updates with explicit update-frequency and turnover gates; do not grid-search smaller caps or alphas on the same outcomes."
+  },
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "strategy_logic_used": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
