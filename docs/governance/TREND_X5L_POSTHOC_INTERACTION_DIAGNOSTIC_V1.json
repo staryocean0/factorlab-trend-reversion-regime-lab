@@ -1,0 +1,29 @@
+{
+  "schema_id": "trend_x5l_posthoc_interaction_diagnostic@1.0",
+  "status": "POST_HOC_MECHANISM_DIAGNOSTIC_NOT_USED_FOR_X5L_PRIMARY_DECISION",
+  "candidate": "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25",
+  "tencent": {
+    "slow_monthly_cell_max_to_min": 2.1271456309,
+    "anchored_monthly_cell_max_to_min": 1.7328645942,
+    "required_for_20pct_interaction_gate": 1.7017165047,
+    "excess_above_gate_limit": 0.0311480895,
+    "interaction_reduction_vs_slow": 0.1853568608,
+    "max_cell": {"carrier": "000688.SH", "month": "2026-06", "value": 1.5397930720},
+    "min_cell": {"carrier": "000300.SH", "month": "2026-06", "value": 0.8885824531},
+    "september_forward_cross_carrier_range": 0.4133297306
+  },
+  "sina": {
+    "slow_monthly_cell_max_to_min": 2.1272852847,
+    "anchored_monthly_cell_max_to_min": 1.7328211624,
+    "required_for_20pct_interaction_gate": 1.7018282278,
+    "excess_above_gate_limit": 0.0309929346,
+    "interaction_reduction_vs_slow": 0.1854307578,
+    "max_cell": {"carrier": "000688.SH", "month": "2026-06", "value": 1.5397971774},
+    "min_cell": {"carrier": "000300.SH", "month": "2026-06", "value": 0.8886070939},
+    "september_forward_cross_carrier_range": 0.4133141920
+  },
+  "interpretation": "The only failed gate is interaction, and the miss is small but cross-provider replicated. The same June STAR50 maximum and CSI300 minimum define the cell ratio on both providers. This does not authorize relaxing the gate or tuning the anchor/partial-reset parameters on X5L outcomes.",
+  "used_for_primary_candidate_selection": false,
+  "parameter_change_authorized": false,
+  "product_adoption_allowed": false
+}

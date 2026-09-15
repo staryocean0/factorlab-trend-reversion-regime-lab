@@ -1,0 +1,67 @@
+{
+  "schema_id": "trend_x5l_partial_reset_cooldown_strength_scale_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5L_CANDIDATE_STATISTICS",
+  "research_scope": "representation-layer normalized_strength diagnostics only",
+  "research_only": true,
+  "objective": "Test whether partial error release plus cooldown can preserve short-memory scale alignment while preventing both continuous catch-up and low-frequency large jumps.",
+  "sources": {
+    "primary_development": "Tencent public native 60m index kline",
+    "cross_provider_replication": "Sina public native 60m index kline",
+    "window": {"start": "2026-01-05", "end": "2026-09-14"},
+    "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+    "fresh_oos": false
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "directional_score": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(directional_score)",
+    "v1_state_boundary_t1": 2.0,
+    "state_boundary_change_allowed": false
+  },
+  "targets": {
+    "slow": {"common_window": 20, "carrier_window": 120},
+    "fast": {"common_window": 5, "carrier_window": 20},
+    "strictly_causal": true,
+    "current_t_used_for_target_scale": false,
+    "future_information_allowed": false
+  },
+  "preregistered_candidates": {
+    "SLOW_COMMON20_CARRIER120": {"family": "baseline"},
+    "FAST_COMMON5_CARRIER20": {"family": "baseline"},
+    "PARTIAL_PERSIST2_GAP0P10_F0P50_COOLDOWN2": {
+      "family": "persistent_partial_reset",
+      "rule": "after two consecutive same-sign gaps with abs(fast_target-governed_scale_previous)>=0.10, move 50% of the current gap toward fast_target, then hold for the next 2 measurements"
+    },
+    "PARTIAL_DEADBAND0P12_F0P50_COOLDOWN2": {
+      "family": "deadband_partial_reset",
+      "rule": "when abs(fast_target-governed_scale_previous)>=0.12 and cooldown is inactive, move 50% of the current gap toward fast_target, then hold for the next 2 measurements"
+    },
+    "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25": {
+      "family": "slow_anchored_partial_reset",
+      "rule": "when abs(fast_target-governed_scale_previous)>=0.12 and cooldown is inactive, define event target as 75% fast_target + 25% slow_target, move 50% toward that anchored target, then hold for the next 2 measurements"
+    }
+  },
+  "preregistered_gates": {
+    "cross_carrier_range_reduction_vs_raw": ">= 0.75",
+    "temporal_ratio_reduction_vs_raw": ">= 0.15",
+    "carriers_with_lower_monthly_ratio_than_raw": ">= 4",
+    "interaction_reduction_vs_slow": ">= 0.20",
+    "mean_abs_log_scale_change_multiple_vs_slow": "<= 2.0",
+    "q95_abs_log_scale_change_multiple_vs_slow": "<= 2.0",
+    "update_fraction": "<= 0.35",
+    "all_gates_required": true
+  },
+  "selection_rule": "A research candidate must pass every gate on Tencent and repeat every gate on Sina. If multiple pass, select lowest mean-absolute-turnover multiple, then lowest q95 multiple, then lowest update fraction.",
+  "forbidden": [
+    "parameter_grid_search_on_X5L_outcomes",
+    "market_outcomes",
+    "trading_returns",
+    "strategy_logic",
+    "state_boundary_use",
+    "runtime_admission_change",
+    "old_M4_M5_governed_2025_holdout_read",
+    "V1_strength_semantics_change",
+    "X6_version_bump"
+  ],
+  "production_authority": false
+}

@@ -1,0 +1,46 @@
+{
+  "schema_id": "trend_x5l_partial_reset_cooldown_strength_scale_result@1.0",
+  "status": "X5L_COMPLETE_NO_GATE_QUALIFIED_CANDIDATE_ANCHORED_PARTIAL_PASSES_6_OF_7_GATES",
+  "research_scope": "representation-layer normalized_strength diagnostics only",
+  "primary_development_source": "Tencent public native 60m index kline",
+  "cross_provider_replication_source": "Sina public native 60m index kline",
+  "window": {"start": "2026-01-05", "end": "2026-09-14"},
+  "primary_complete_months": ["2026-06", "2026-07", "2026-08"],
+  "aligned_measurements_per_carrier": 661,
+  "tencent": {
+    "qualified_candidates": [],
+    "candidates": {
+      "SLOW_COMMON20_CARRIER120": {"range_reduction_vs_raw": 0.8457178731, "temporal_reduction_vs_raw": 0.1085023750, "carriers_improved": 2, "interaction_reduction_vs_slow": 0.0, "mean_turnover_multiple_vs_slow": 1.0, "q95_turnover_multiple_vs_slow": 1.0, "update_fraction": 0.7837837838, "all_gates_pass": false},
+      "FAST_COMMON5_CARRIER20": {"range_reduction_vs_raw": 0.9383537301, "temporal_reduction_vs_raw": 0.2387255942, "carriers_improved": 5, "interaction_reduction_vs_slow": 0.3795275848, "mean_turnover_multiple_vs_slow": 2.7317656891, "q95_turnover_multiple_vs_slow": 2.1089320575, "update_fraction": 0.8764478764, "all_gates_pass": false},
+      "PARTIAL_PERSIST2_GAP0P10_F0P50_COOLDOWN2": {"range_reduction_vs_raw": 0.9146037925, "temporal_reduction_vs_raw": 0.2391960450, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.2927358948, "mean_turnover_multiple_vs_slow": 1.5468923306, "q95_turnover_multiple_vs_slow": 2.3617423363, "update_fraction": 0.2316602317, "all_gates_pass": false, "failed_gates": ["q95_turnover"]},
+      "PARTIAL_DEADBAND0P12_F0P50_COOLDOWN2": {"range_reduction_vs_raw": 0.9374816140, "temporal_reduction_vs_raw": 0.2398229666, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.3191017113, "mean_turnover_multiple_vs_slow": 1.7739405319, "q95_turnover_multiple_vs_slow": 2.4678642018, "update_fraction": 0.3166023166, "all_gates_pass": false, "failed_gates": ["q95_turnover"]},
+      "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25": {"range_reduction_vs_raw": 0.9205524635, "temporal_reduction_vs_raw": 0.1727997909, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.1853568608, "mean_turnover_multiple_vs_slow": 1.3811329894, "q95_turnover_multiple_vs_slow": 1.8762884837, "update_fraction": 0.3166023166, "all_gates_pass": false, "passed_gate_count": 6, "total_gate_count": 7, "failed_gates": ["interaction"]}
+    }
+  },
+  "sina_replication": {
+    "qualified_candidates": [],
+    "behavior_replicated": true,
+    "anchored_partial": {"range_reduction_vs_raw": 0.9205443575, "temporal_reduction_vs_raw": 0.1727953493, "carriers_improved": 4, "interaction_reduction_vs_slow": 0.1854307578, "mean_turnover_multiple_vs_slow": 1.3811412859, "q95_turnover_multiple_vs_slow": 1.8762510572, "update_fraction": 0.3166023166, "passed_gate_count": 6, "total_gate_count": 7, "failed_gates": ["interaction"]}
+  },
+  "cross_provider_qualified_candidates": [],
+  "selected_candidate_by_preregistered_rule": null,
+  "primary_interpretation": "Partial reset plus cooldown materially improves the X5K frontier. The slow-anchored partial-reset candidate passes six of seven preregistered gates on both providers, but misses the interaction gate and therefore cannot be promoted or retuned on these outcomes.",
+  "normalized_strength_decision": {
+    "partial_reset_cooldown_promising": true,
+    "cross_provider_near_gate_candidate_exists": true,
+    "gate_qualified_candidate_exists": false,
+    "stable_temporal_product_representation_established": false,
+    "recommended_next_research_question": "Validate the frozen anchored-partial mechanism on a structurally new time window before any parameter change; do not tune anchor, fraction, threshold or cooldown on X5L outcomes."
+  },
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "strategy_logic_used": false,
+  "old_m4_m5_2025_holdout_read": false,
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}

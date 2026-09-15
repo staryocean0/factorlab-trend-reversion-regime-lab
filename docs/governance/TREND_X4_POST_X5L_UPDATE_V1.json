@@ -1,0 +1,30 @@
+{
+  "schema_id": "trend_x4_post_x5l_update@1.0",
+  "status": "X5L_NEAR_GATE_CANDIDATE_FOUND_BUT_NO_ADOPTION_OR_RETUNING",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "x5l_findings": {
+    "tencent_and_sina_behavior_consistent": true,
+    "cross_provider_gate_qualified_candidate_exists": false,
+    "anchored_partial_candidate_passes_six_of_seven_gates_on_both_providers": true,
+    "only_failed_gate": "interaction",
+    "tencent_interaction_reduction": 0.1853568608,
+    "sina_interaction_reduction": 0.1854307578,
+    "preregistered_interaction_gate": 0.20,
+    "retuning_on_x5l_outcomes_allowed": false
+  },
+  "representation_status": {
+    "PARTIAL_PERSIST2_GAP0P10_F0P50_COOLDOWN2": "REJECTED_Q95_JUMP_GATE_FAIL",
+    "PARTIAL_DEADBAND0P12_F0P50_COOLDOWN2": "REJECTED_Q95_JUMP_GATE_FAIL",
+    "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25": "NEAR_GATE_RESEARCH_CANDIDATE_ONLY_REQUIRES_STRUCTURALLY_NEW_VALIDATION"
+  },
+  "next_required_evidence": "Freeze the anchored-partial mechanism unchanged and validate it on a structurally new future time window or genuinely independent historical regime before any parameter revision. Do not optimize anchor weight, partial fraction, trigger or cooldown on X5L outcomes.",
+  "v1_action": "NO_CHANGE",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "x6_readiness": "HOLD_NOT_READY",
+  "production_authority": false,
+  "fresh_oos": false
+}
