@@ -1,0 +1,35 @@
+{
+  "schema_id": "trend_x4_post_x5j_update@1.0",
+  "status": "X5J_NO_GATE_QUALIFIED_TURNOVER_REGULARIZED_CANDIDATE",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "x5j_findings": {
+    "short_memory_alignment_benefit_reconfirmed": true,
+    "short_memory_turnover_cost_reconfirmed": true,
+    "tencent_and_sina_behavior_consistent": true,
+    "bounded_update_0p06_supported": false,
+    "ewma_alpha_0p35_supported": false,
+    "cross_provider_gate_qualified_candidate_exists": false,
+    "selected_candidate": null
+  },
+  "research_interpretation": {
+    "cap_failure_mode": "turnover is bounded but response lag destroys temporal/breadth/interaction gains",
+    "ewma_failure_mode": "tail turnover falls but median turnover remains above non-inferiority because updates occur too continuously",
+    "next_hypothesis": "deadband/hysteresis/sparse-event scale updates may dominate continuous regularization by preserving responsiveness while reducing update frequency"
+  },
+  "representation_status": {
+    "SLOW_COMMON20_CARRIER120": "BASELINE_ONLY",
+    "FAST_COMMON5_CARRIER20": "ALIGNMENT_BENEFIT_REPLICATED_TURNOVER_FAIL",
+    "ADAPT_DUAL_BLEND_1P5": "ALIGNMENT_BENEFIT_REPLICATED_TURNOVER_FAIL",
+    "FAST_CAP_0P06": "TURNOVER_PASS_RESPONSE_FAIL",
+    "FAST_EWMA_A0P35": "ALIGNMENT_PASS_MEDIAN_TURNOVER_FAIL",
+    "DUAL_CAP_0P06": "TURNOVER_PASS_RESPONSE_FAIL"
+  },
+  "v1_action": "NO_CHANGE",
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "x6_readiness": "HOLD_NOT_READY",
+  "production_authority": false,
+  "fresh_oos": false
+}
