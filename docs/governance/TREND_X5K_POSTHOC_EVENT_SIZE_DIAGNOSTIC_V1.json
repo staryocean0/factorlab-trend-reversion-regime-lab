@@ -1,0 +1,17 @@
+{
+  "schema_id": "trend_x5k_posthoc_event_size_diagnostic@1.0",
+  "status": "POST_HOC_MECHANISM_DIAGNOSTIC_NOT_USED_FOR_PRIMARY_DECISION",
+  "provider": "Tencent public native 60m index kline",
+  "primary_months": ["2026-06", "2026-07", "2026-08"],
+  "metrics": {
+    "SLOW_COMMON20_CARRIER120": {"update_events": 1031, "conditional_mean_abs_log_change": 0.08002, "conditional_median": 0.04692, "conditional_q95": 0.24955, "max": 0.50103},
+    "FAST_COMMON5_CARRIER20": {"update_events": 1148, "conditional_mean_abs_log_change": 0.19747, "conditional_median": 0.14670, "conditional_q95": 0.52017, "max": 1.25313},
+    "EVENT_DEADBAND_0P12_FULL": {"update_events": 732, "conditional_mean_abs_log_change": 0.29937, "conditional_median": 0.25851, "conditional_q95": 0.59834, "max": 1.25313},
+    "EVENT_PERSIST2_0P10_FULL": {"update_events": 451, "conditional_mean_abs_log_change": 0.48299, "conditional_median": 0.43460, "conditional_q95": 0.96915, "max": 1.94592},
+    "HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50": {"update_events": 1109, "conditional_mean_abs_log_change": 0.18045, "conditional_median": 0.15742, "conditional_q95": 0.39013, "max": 0.74487}
+  },
+  "interpretation": "Persistence reduces update count but accumulates scale error and releases it in much larger jumps. Hysteretic EWMA remains active nearly continuously. Deadband alone reduces frequency only modestly. These findings explain the preregistered gate failures but do not modify them.",
+  "changes_primary_decision": false,
+  "market_outcomes_computed": false,
+  "strategy_logic_used": false
+}
