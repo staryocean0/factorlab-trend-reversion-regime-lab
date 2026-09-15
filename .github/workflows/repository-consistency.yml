@@ -51,6 +51,7 @@ jobs:
           tests/test_post_v1_x5f_closeout.py
           tests/test_post_v1_x5g_closeout.py
           tests/test_post_v1_x5l_closeout.py
+          tests/test_post_v1_x5m_closeout.py
           tests/test_trend_regime_baseline.py
           tests/test_trend_regime_profiles.py
           tests/test_five_bucket_protocol.py
