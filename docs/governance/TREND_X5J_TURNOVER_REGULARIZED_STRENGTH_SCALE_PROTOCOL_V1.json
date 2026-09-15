@@ -1,0 +1,91 @@
+{
+  "schema_id": "trend_x5j_turnover_regularized_strength_scale_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5J_CANDIDATE_STATISTICS",
+  "research_only": true,
+  "objective": "Preserve the short-memory 60m normalized_strength alignment benefit while reducing per-measurement scale turnover; do not change V1 state or strength semantics.",
+  "development_source": {
+    "provider": "Tencent public native 60m index kline",
+    "window": {"start": "2026-01-05", "end": "2026-09-14"},
+    "carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "primary_complete_months": ["2026-06", "2026-07", "2026-08"]
+  },
+  "cross_provider_replication_source": {
+    "provider": "Sina public native 60m index kline",
+    "same_time_window": true,
+    "fresh_oos": false,
+    "role": "structurally independent provider replication only"
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(slope_t)",
+    "v1_state_boundary_t1": 2.0,
+    "v1_state_boundary_must_not_change": true,
+    "v1_strength_semantics_must_not_change": true
+  },
+  "causal_scale_identity": {
+    "common_factor_for_target_carrier_uses_other_four_carriers_only": true,
+    "all_scale_estimators_use_t_minus_1_or_earlier_only": true,
+    "current_target_score_used_in_own_scale": false,
+    "future_information_allowed": false
+  },
+  "baseline_candidates": {
+    "SLOW_COMMON20_CARRIER120": {"common_window": 20, "carrier_window": 120},
+    "FAST_COMMON5_CARRIER20": {"common_window": 5, "carrier_window": 20},
+    "ADAPT_DUAL_BLEND_1P5": {"common_fast": 5, "common_slow": 20, "carrier_fast": 20, "carrier_slow": 120, "blend_rule": "clip(abs(log(fast/slow))/log(1.5),0,1)"}
+  },
+  "turnover_regularized_candidates": {
+    "FAST_CAP_0P06": {
+      "target": "FAST_COMMON5_CARRIER20 log scale",
+      "update": "log_scale[t] = log_scale[t-1] + clip(target[t]-log_scale[t-1], -0.06, +0.06)",
+      "cap_log_units_per_measurement": 0.06
+    },
+    "FAST_EWMA_A0P35": {
+      "target": "FAST_COMMON5_CARRIER20 log scale",
+      "update": "log_scale[t] = (1-alpha)*log_scale[t-1] + alpha*target[t]",
+      "alpha": 0.35
+    },
+    "DUAL_CAP_0P06": {
+      "target": "ADAPT_DUAL_BLEND_1P5 log scale",
+      "update": "log_scale[t] = log_scale[t-1] + clip(target[t]-log_scale[t-1], -0.06, +0.06)",
+      "cap_log_units_per_measurement": 0.06
+    }
+  },
+  "primary_metrics": [
+    "cross_carrier_median_strength_range_reduction_vs_raw",
+    "median_within_carrier_monthly_max_to_min_reduction_vs_raw",
+    "carriers_with_lower_monthly_ratio_than_raw",
+    "monthly_cell_max_to_min_reduction_vs_slow",
+    "median_abs_log_scale_change_multiple_vs_slow",
+    "q95_abs_log_scale_change_multiple_vs_slow"
+  ],
+  "decision_gates": {
+    "cross_carrier_range_reduction_min": 0.75,
+    "temporal_ratio_reduction_min": 0.10,
+    "carriers_improved_min": 4,
+    "interaction_reduction_vs_slow_min": 0.10,
+    "turnover_median_multiple_vs_slow_max": 2.0,
+    "turnover_q95_multiple_vs_slow_max": 2.0,
+    "candidate_requires_all_gates": true
+  },
+  "selection_rule": {
+    "development_candidate_must_pass_all_tencent_gates": true,
+    "cross_provider_replicated_candidate_must_also_pass_all_sina_gates": true,
+    "if_multiple_cross_provider_candidates_pass": "choose lowest median turnover multiple, then lowest q95 turnover multiple, then largest interaction reduction",
+    "product_adoption_allowed": false,
+    "x6_version_bump_allowed": false
+  },
+  "forbidden": [
+    "trading_returns",
+    "strategy_selection",
+    "BUY_SELL",
+    "position_or_order_logic",
+    "runtime_admission_expansion",
+    "opening_old_m4_m5_2025_holdout",
+    "changing_v1_state_boundary",
+    "changing_v1_strength_semantics",
+    "parameter_grid_search_after_outcomes"
+  ],
+  "production_authority": false,
+  "fresh_oos": false
+}
