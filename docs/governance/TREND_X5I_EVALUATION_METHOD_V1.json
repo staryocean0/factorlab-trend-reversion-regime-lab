@@ -1,0 +1,25 @@
+{
+  "schema_id": "trend_x5i_evaluation_method@1.0",
+  "status": "FROZEN_BEFORE_X5I_CANDIDATE_STATISTICS",
+  "primary_months": ["2026-06", "2026-07", "2026-08"],
+  "forward_extension": {"start": "2026-09-01", "end": "2026-09-14", "selection_role": "diagnostic_only"},
+  "candidate_scale_definition": "scale_i_t = exp(common_log_scale_i_t + carrier_log_component_i_t); normalized_strength = raw_strength / scale_i_t",
+  "summary_metrics": {
+    "cross_carrier_median_strength_range": "max minus min of the five carrier-level medians over the primary months",
+    "within_carrier_monthly_max_to_min": "for each carrier, max/min of its three monthly median normalized strengths; report median across five carriers",
+    "breadth": "number of carriers whose monthly max/min ratio is lower than raw",
+    "monthly_cell_max_to_min": "max/min across the 5 carriers x 3 primary-month median cells"
+  },
+  "turnover": {
+    "per_carrier_series": "absolute first difference of log(scale_i_t) for consecutive primary-evaluation measurements where both scales are finite",
+    "per_carrier_statistics": ["median", "q95"],
+    "aggregate_statistics": "median of the five per-carrier median values and median of the five per-carrier q95 values",
+    "candidate_multiple_vs_slow": "candidate aggregate turnover divided by SLOW_COMMON20_CARRIER120 aggregate turnover"
+  },
+  "interaction_reference": "SLOW_COMMON20_CARRIER120 monthly_cell_max_to_min",
+  "gates": "exactly as frozen in TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_PROTOCOL_V1.json",
+  "no_post_result_metric_redefinition": true,
+  "market_outcomes_computed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
