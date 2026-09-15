@@ -1,0 +1,67 @@
+{
+  "schema_id": "trend_x5n_structural_failure_attribution_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5N_ATTRIBUTION_STATISTICS",
+  "research_scope": "representation-layer normalized_strength failure attribution only",
+  "frozen_subject": "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25",
+  "subject_parameters_changed": false,
+  "x5m_gates_changed": false,
+  "primary_questions": [
+    "Why do temporal stability and q95 turnover fail in the early structural block?",
+    "Why does 000016.SH drive Block-B interaction from improvement to approximately -11 percent?"
+  ],
+  "attribution_hypotheses": [
+    "CARRIER_COMPOSITION",
+    "MARKET_REGIME_CONDITIONALITY",
+    "COMMON_SCALE_ESTIMATOR",
+    "CLOCK_STRUCTURE"
+  ],
+  "panels": {
+    "rolling_regime_panel": {
+      "provider": "Sina public native 60m index kline",
+      "fixed_three_month_blocks": [
+        ["2025-11", "2025-12", "2026-01"],
+        ["2025-12", "2026-01", "2026-02"],
+        ["2026-01", "2026-02", "2026-03"],
+        ["2026-02", "2026-03", "2026-04"],
+        ["2026-03", "2026-04", "2026-05"],
+        ["2026-04", "2026-05", "2026-06"],
+        ["2026-05", "2026-06", "2026-07"],
+        ["2026-06", "2026-07", "2026-08"]
+      ],
+      "purpose": "measure whether frozen-candidate gate failures and per-carrier temporal ratios change materially across time blocks"
+    },
+    "carrier_composition_panel": {
+      "target_carrier": "000016.SH",
+      "block": ["2026-03", "2026-04", "2026-05"],
+      "provider": "Tencent public native 60m index kline",
+      "procedure": "recompute only the 000016 common-scale target four times, each time omitting one of its four peers; all windows and anchored-partial controls remain frozen",
+      "strong_composition_attribution_if": "at least two jackknife variants reduce 000016 monthly-ratio by >=25% versus baseline and reduce it to <=1.50"
+    },
+    "common_estimator_panel": {
+      "block": ["2026-03", "2026-04", "2026-05"],
+      "providers": ["Tencent", "Sina"],
+      "counterfactual": "replace peer cross-sectional median with peer cross-sectional mean only; keep common/carrier windows and anchored-partial state machine unchanged",
+      "diagnostic_only": true,
+      "strong_estimator_attribution_if": "both providers reduce 000016 monthly-ratio by >=25% and global interaction reduction changes from negative to nonnegative"
+    },
+    "clock_panel": {
+      "rule": "direct clock attribution requires the same carrier and evaluation window under an alternate 60m clock",
+      "if_unavailable_for_000016": "CLOCK_STRUCTURE_NOT_IDENTIFIABLE_FOR_PRIMARY_FAILURE"
+    }
+  },
+  "forbidden": [
+    "retune_anchor_weight",
+    "retune_partial_fraction",
+    "retune_trigger",
+    "retune_cooldown",
+    "change_X5M_gates",
+    "promote_any_counterfactual_estimator",
+    "trading_returns",
+    "strategy_logic",
+    "runtime_admission_change",
+    "v1_state_boundary_change",
+    "v1_strength_semantics_change"
+  ],
+  "production_authority": false,
+  "fresh_oos": false
+}
