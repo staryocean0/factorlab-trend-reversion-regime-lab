@@ -30,6 +30,7 @@ Post-V1 Cross-Profile Invariance & Calibration Study 是独立研究线，不是
 - X5I — **independent-source prospective validation COMPLETE / NO CANDIDATE PASSES TURNOVER-AWARE GATES**
 - X5J — **turnover-regularized scale COMPLETE / NO GATE-QUALIFIED CANDIDATE**
 - X5K — **sparse / hysteretic scale update COMPLETE / NO GATE-QUALIFIED CANDIDATE**
+- X5L — **partial-reset / cooldown COMPLETE / ANCHORED PARTIAL PASSES 6 OF 7 GATES / NO ADOPTION**
 - X6 — **HOLD / NOT READY**
 
 V1 release pointer `release/trend-regime-v1.0.0` 必须继续固定在 `5a563d87d1628379e0d9a04aa7c5500bc30c4bc2`。
@@ -37,10 +38,11 @@ V1 release pointer `release/trend-regime-v1.0.0` 必须继续固定在 `5a563d87
 ## 接管必读
 
 - `docs/ROADMAP.md`
-- `docs/governance/TREND_X5K_SPARSE_HYSTERETIC_STRENGTH_SCALE_PROTOCOL_V1.json`
+- `docs/governance/TREND_X5L_PARTIAL_RESET_COOLDOWN_STRENGTH_SCALE_PROTOCOL_V1.json`
+- `docs/governance/TREND_X5L_PARTIAL_RESET_COOLDOWN_STRENGTH_SCALE_RESULT_V1.json`
+- `docs/governance/TREND_X5L_POSTHOC_INTERACTION_DIAGNOSTIC_V1.json`
+- `docs/governance/TREND_X4_POST_X5L_UPDATE_V1.json`
 - `docs/governance/TREND_X5K_SPARSE_HYSTERETIC_STRENGTH_SCALE_RESULT_V1.json`
-- `docs/governance/TREND_X5K_POSTHOC_EVENT_SIZE_DIAGNOSTIC_V1.json`
-- `docs/governance/TREND_X4_POST_X5K_UPDATE_V1.json`
 - `docs/governance/TREND_X5J_TURNOVER_REGULARIZED_STRENGTH_SCALE_RESULT_V1.json`
 - `docs/governance/TREND_X5I_PROSPECTIVE_FAST_VS_ADAPTIVE_STRENGTH_SCALE_RESULT_V1.json`
 - `docs/governance/TREND_M7_CONSUMER_CONTRACT_V1.json`
@@ -58,68 +60,54 @@ strength          = abs(directional_score)
 
 Runtime admission 仍只有 `000852.SH` / `000688.SH` 的 1m official 与 5m offset0；Post-V1 public/native-clock research 数据不获得 admission。
 
-## 到 X5J 已知什么
+## X5L 最新结论
 
-X5I 在独立 Tencent native 60m provider 上 prospectively 复制了 short-memory scale 的好处，也正式确认了 turnover 风险：fast 5/20 与 dual blend 均有约 93%+ 的 cross-carrier range reduction、约 23% 的 temporal improvement，但 median turnover 约为 slow 的 3.2×–3.4×，q95 约 2.1×–2.2×，因此在 turnover-aware gate 下失败。
+X5L 沿用 X5K 的七项 gate，不再调整阈值或做参数网格搜索。Tencent 为 primary，Sina 为同窗 cross-provider replication。
 
-X5J 随后测试 `CAP_0.06` 与 `EWMA α=0.35`：cap 降低了尾部 turnover，却几乎每根都打满 cap，造成明显响应滞后；EWMA 保留 scale alignment，并把 q95 turnover 压低到约 1.34× slow，但 median turnover 仍约 3.46×。因此连续型 regularization 没有产生全 gate candidate。
-
-## X5K：Sparse / Hysteretic Strength Scale Update
-
-X5K 进一步把 **update frequency** 正式纳入 gate，同时用 mean absolute `Δlog(scale)` 和 q95 jump 约束 turnover，避免“稀疏但巨跳”的方案被错误判优。
-
-预注册候选：
+预注册 stateful 候选：
 
 ```text
-EVENT_DEADBAND_0P12_FULL
-EVENT_PERSIST2_0P10_FULL
-HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50
+PARTIAL_PERSIST2_GAP0P10_F0P50_COOLDOWN2
+PARTIAL_DEADBAND0P12_F0P50_COOLDOWN2
+ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25
 ```
 
-保留 slow 20/120 和 fast 5/20 为 baseline。必须同时满足：
+Tencent 结果：
 
 ```text
-cross-carrier range reduction >= 75%
-temporal improvement           >= 15%
-breadth                       >= 4/5
-interaction improvement        >= 20%
-mean turnover                 <= 2.0x slow
-q95 turnover                  <= 2.0x slow
-update fraction               <= 35%
-```
-
-Tencent 主结果：
-
-```text
-EVENT_DEADBAND_0P12_FULL
-  range reduction      93.77%
-  temporal improvement 23.59%
-  breadth              5/5
-  interaction improve  38.41%
-  mean / q95 turnover  2.65x / 2.11x
-  update fraction      55.2%
-  result               FAIL
-
-EVENT_PERSIST2_0P10_FULL
-  range reduction      94.35%
-  temporal improvement 19.00%
+PARTIAL_PERSIST2_GAP0P10_F0P50_COOLDOWN2
+  range reduction      91.46%
+  temporal improvement 23.92%
   breadth              4/5
-  interaction improve  35.32%
-  mean / q95 turnover  2.66x / 3.20x
-  update fraction      34.7%
-  result               FAIL
+  interaction improve  29.27%
+  mean / q95 turnover  1.55x / 2.36x
+  update fraction      23.2%
+  result               FAIL (q95 jump)
 
-HYSTERETIC_EWMA_ENTRY0P16_EXIT0P06_A0P50
-  range reduction      93.81%
-  temporal improvement 23.18%
+PARTIAL_DEADBAND0P12_F0P50_COOLDOWN2
+  range reduction      93.75%
+  temporal improvement 23.98%
   breadth              4/5
-  interaction improve  30.14%
-  mean / q95 turnover  2.43x / 1.60x
-  update fraction      84.6%
-  result               FAIL
+  interaction improve  31.91%
+  mean / q95 turnover  1.77x / 2.47x
+  update fraction      31.7%
+  result               FAIL (q95 jump)
+
+ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25
+  range reduction      92.06%
+  temporal improvement 17.28%
+  breadth              4/5
+  interaction improve  18.54%
+  mean / q95 turnover  1.38x / 1.88x
+  update fraction      31.7%
+  result               FAIL (interaction only)
 ```
 
-Sina replication 几乎逐项一致，因此：
+Sina 几乎逐项复现。Anchored partial 是目前最接近稳定 normalized-strength 的研究候选：它在两个 provider 上都通过 6/7 gate，唯一未过的是预注册 interaction improvement `>=20%`，实际约 18.54%。不得因为只差约 1.46 个百分点就放宽 gate 或在当前 outcomes 上调整 25% slow anchor、50% partial fraction、0.12 trigger 或 cooldown=2。
+
+Post-hoc diagnostic 只解释失败：Tencent / Sina 都由 2026-06 STAR50 最大 cell 与 CSI300 最小 cell 定义剩余 interaction；它不参与 primary selection。
+
+因此：
 
 ```text
 TENCENT_QUALIFIED_CANDIDATES        = []
@@ -128,25 +116,7 @@ CROSS_PROVIDER_QUALIFIED_CANDIDATES = []
 SELECTED_CANDIDATE                  = NONE
 ```
 
-### X5K 机制解释
-
-`PERSIST2` 是第一个真正达到 sparse update-frequency gate 的方案（约 34.7%），但它并没有消除 turnover，而是把许多小更新积累成更大的单次跳跃。Post-hoc event-size diagnostic：
-
-```text
-FAST target
-  update events         = 1148
-  conditional mean jump ≈ 0.197
-  conditional q95       ≈ 0.520
-
-PERSIST2
-  update events         = 451
-  conditional mean jump ≈ 0.483
-  conditional q95       ≈ 0.969
-```
-
-Deadband 0.12 的 update fraction 仍高达约 55.2%，不够稀疏；hysteretic EWMA 则约 84.6% 的时点仍在更新，本质上仍接近连续控制。
-
-因此现在问题已经进一步收敛：**下一步不能只是提高 deadband 或增加 persistence 次数。** 更合理的是研究 `partial reset / anchored event update / cooldown-based stateful control`：触发事件后只释放部分累积误差，并明确限制 cooldown、单次 jump 与总 variation；同时继续禁止在同一 outcomes 上做阈值网格搜索。
+下一步若继续，优先级不再是继续调参，而是**冻结 anchored-partial 机制原样，寻找结构上新的时间窗口 / regime 做验证**。只有新的独立证据仍显示接近或跨过全部 gate，才有资格讨论参数修订或未来 representation decision。
 
 ## 历史回归锚点
 
@@ -162,17 +132,19 @@ FAST_EWMA_A0P35
 ## 当前结论
 
 ```text
-SHORT_MEMORY_SCALE_BENEFIT                = REPLICATED
-SCALE_TURNOVER_CONCERN                    = PROSPECTIVELY CONFIRMED
-SIMPLE_CHANGE_RATE_CAP                    = NOT SUPPORTED
-SIMPLE_EWMA                               = NOT SUPPORTED
-SIMPLE_DEADBAND                           = NOT SUPPORTED
-PERSISTENCE_ONLY_SPARSE_UPDATE            = NOT SUPPORTED
-SIMPLE_HYSTERETIC_EWMA                    = NOT SUPPORTED
-STABLE_TEMPORAL_PRODUCT_STRENGTH          = NOT ESTABLISHED
-CURRENT_DECISION                          = INSUFFICIENT_EVIDENCE
-V1                                        = NO CHANGE
-X6                                        = HOLD / NOT READY
+SHORT_MEMORY_SCALE_BENEFIT                  = REPLICATED
+SCALE_TURNOVER_CONCERN                      = PROSPECTIVELY CONFIRMED
+SIMPLE_CHANGE_RATE_CAP                      = NOT SUPPORTED
+SIMPLE_EWMA                                 = NOT SUPPORTED
+SIMPLE_DEADBAND                             = NOT SUPPORTED
+PERSISTENCE_ONLY_SPARSE_UPDATE              = NOT SUPPORTED
+SIMPLE_HYSTERETIC_EWMA                      = NOT SUPPORTED
+PARTIAL_RESET_COOLDOWN                      = PROMISING BUT NO GATE-QUALIFIED CANDIDATE
+ANCHORED_PARTIAL_6_OF_7_GATES               = RESEARCH NEAR-CANDIDATE ONLY
+STABLE_TEMPORAL_PRODUCT_STRENGTH            = NOT ESTABLISHED
+CURRENT_DECISION                            = INSUFFICIENT_EVIDENCE
+V1                                          = NO CHANGE
+X6                                          = HOLD / NOT READY
 ```
 
 ## 仍然禁止
@@ -182,6 +154,7 @@ X6                                        = HOLD / NOT READY
 - 修改冻结的 M6/M7/M8/M9 semantics；
 - 把 public/native-clock research source 写成 runtime admitted 或 DataHub exact identity；
 - 输出 `global_state`、BUY/SELL、position/order、strategy selection/routing；
+- 在 X5L outcomes 上调 anchor weight、partial fraction、trigger、cooldown 或 gate；
 - 把 `production_authority=false` 或 `fresh_oos=false` 改成 true。
 
 历史 V1 snapshots 永不原地改写。未来任何 T1、lookback、estimator、strength semantics 改动都必须经过新的版本化 representation decision。
