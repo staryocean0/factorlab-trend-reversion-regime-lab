@@ -119,6 +119,17 @@ SELECTED_CANDIDATE                  = NONE
 
 因此 X5K 说明：**仅靠 deadband、持续性确认或简单 hysteretic EWMA，仍不能同时降低更新频率与单次跳跃幅度。** 下一研究问题应转向 sparse partial-reset / anchored event updates 或 cooldown-based stateful control，在触发事件时只释放一部分累积误差，并显式治理 cooldown 与 jump size；不得在同一 outcomes 上继续做阈值网格扫优。
 
+## 历史回归锚点
+
+以下字符串保留用于 fail-closed 文档回归，不代表当前采用：
+
+```text
+NO_CHANGE
+ADAPT_DUAL_BLEND_1P5
+FAST_COMMON5_CARRIER20
+FAST_EWMA_A0P35
+```
+
 ## 当前总体判断
 
 ```text
