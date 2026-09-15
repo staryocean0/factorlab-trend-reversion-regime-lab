@@ -1,4 +1,4 @@
-"""Fail-closed regression guards for Post-V1 X5G/X5H/X5I closeout."""
+"""Fail-closed regression guards for Post-V1 X5G/X5H/X5I/X5J closeout."""
 
 import json
 from pathlib import Path
@@ -227,6 +227,81 @@ def test_post_x5i_decision_and_handoff_keep_v1_frozen():
         assert "X5I" in text
         assert "FAST_COMMON5_CARRIER20" in text
         assert "ADAPT_DUAL_BLEND_1P5" in text
+        assert "HOLD" in text
+        assert "production_authority=false" in text
+        assert "fresh_oos=false" in text
+
+
+def test_x5j_protocol_freezes_small_candidate_set_and_turnover_gates():
+    p = load("TREND_X5J_TURNOVER_REGULARIZED_STRENGTH_SCALE_PROTOCOL_V1.json")
+    assert p["status"] == "FROZEN_BEFORE_X5J_CANDIDATE_STATISTICS"
+    assert p["research_only"] is True
+    assert p["development_source"]["primary_complete_months"] == ["2026-06", "2026-07", "2026-08"]
+    assert p["cross_provider_replication_source"]["provider"] == "Sina public native 60m index kline"
+    assert set(p["turnover_regularized_candidates"]) == {"FAST_CAP_0P06", "FAST_EWMA_A0P35", "DUAL_CAP_0P06"}
+    assert p["decision_gates"]["turnover_median_multiple_vs_slow_max"] == 2.0
+    assert p["decision_gates"]["turnover_q95_multiple_vs_slow_max"] == 2.0
+    assert p["selection_rule"]["product_adoption_allowed"] is False
+    assert p["selection_rule"]["x6_version_bump_allowed"] is False
+    assert p["fresh_oos"] is False
+
+
+def test_x5j_finds_no_gate_qualified_regularized_candidate_on_either_provider():
+    r = load("TREND_X5J_TURNOVER_REGULARIZED_STRENGTH_SCALE_RESULT_V1.json")
+    assert r["status"] == "X5J_COMPLETE_NO_CANDIDATE_PASSES_STABILITY_AND_TURNOVER_GATES"
+    assert r["tencent"]["qualified_candidates"] == []
+    assert r["sina_replication"]["qualified_candidates"] == []
+    assert r["cross_provider_qualified_candidates"] == []
+    assert r["selected_candidate_by_preregistered_rule"] is None
+    cap = r["tencent"]["candidates"]["FAST_CAP_0P06"]
+    ewma = r["tencent"]["candidates"]["FAST_EWMA_A0P35"]
+    dualcap = r["tencent"]["candidates"]["DUAL_CAP_0P06"]
+    assert cap["turnover_median_multiple_vs_slow"] < 2.0
+    assert cap["temporal_reduction_vs_raw"] < 0.0
+    assert cap["carriers_improved"] == 2
+    assert ewma["temporal_reduction_vs_raw"] > 0.25
+    assert ewma["carriers_improved"] == 4
+    assert ewma["turnover_q95_multiple_vs_slow"] < 2.0
+    assert ewma["turnover_median_multiple_vs_slow"] > 3.0
+    assert dualcap["turnover_median_multiple_vs_slow"] < 2.0
+    assert dualcap["temporal_reduction_vs_raw"] <= 0.0
+    assert r["normalized_strength_decision"]["simple_cap_solution_supported"] is False
+    assert r["normalized_strength_decision"]["simple_ewma_solution_supported"] is False
+    assert r["v1_action"] == "NO_CHANGE"
+    assert r["x6_readiness"] == "HOLD_NOT_READY"
+    assert r["fresh_oos"] is False
+
+
+def test_x5j_posthoc_diagnostic_explains_continuous_update_failure_modes():
+    d = load("TREND_X5J_POSTHOC_UPDATE_FREQUENCY_DIAGNOSTIC_V1.json")
+    assert d["status"] == "POST_HOC_MECHANISM_DIAGNOSTIC_NOT_USED_FOR_X5J_PRIMARY_DECISION"
+    cap = d["metrics"]["FAST_CAP_0P06"]
+    for key in ("q10", "q25", "q50", "q75", "q90", "q95"):
+        assert cap[key] == 0.06
+    ewma = d["metrics"]["FAST_EWMA_A0P35"]
+    fast = d["metrics"]["FAST_COMMON5_CARRIER20"]
+    assert ewma["q95"] < fast["q95"]
+    assert ewma["q50"] > d["metrics"]["SLOW_COMMON20_CARRIER120"]["q50"]
+    assert d["used_for_primary_candidate_selection"] is False
+    assert d["product_adoption_allowed"] is False
+
+
+def test_post_x5j_decision_and_handoff_keep_v1_and_x6_frozen():
+    u = load("TREND_X4_POST_X5J_UPDATE_V1.json")
+    assert u["status"] == "X5J_NO_GATE_QUALIFIED_TURNOVER_REGULARIZED_CANDIDATE"
+    assert u["updated_overall_decision"] == "INSUFFICIENT_EVIDENCE"
+    assert u["x5j_findings"]["tencent_and_sina_behavior_consistent"] is True
+    assert u["x5j_findings"]["cross_provider_gate_qualified_candidate_exists"] is False
+    assert u["v1_action"] == "NO_CHANGE"
+    assert u["x6_readiness"] == "HOLD_NOT_READY"
+    assert u["runtime_admission_changed"] is False
+    assert u["v1_state_boundary_changed"] is False
+    assert u["v1_strength_semantics_changed"] is False
+    handoff = (ROOT / "CONTINUE_HERE.md").read_text(encoding="utf-8")
+    roadmap = (ROOT / "docs" / "ROADMAP.md").read_text(encoding="utf-8")
+    for text in (handoff, roadmap):
+        assert "X5J" in text
+        assert "FAST_EWMA_A0P35" in text
         assert "HOLD" in text
         assert "production_authority=false" in text
         assert "fresh_oos=false" in text
