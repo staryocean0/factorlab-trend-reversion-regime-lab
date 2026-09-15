@@ -1,0 +1,27 @@
+{
+  "schema_id": "trend_x5i_eastmoney_source_block_receipt@1.0",
+  "status": "X5I_PRIMARY_SOURCE_BLOCKED_NO_CANDIDATE_DECISION",
+  "provider": "Eastmoney public native 60m index kline",
+  "attempted_on": "2026-09-15",
+  "requested_carriers": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+  "requested_window": {"start": "2026-04-01", "end": "2026-09-15"},
+  "attempts": [
+    {"transport": "python_urllib_basic", "result": "RemoteDisconnected_all_five_carriers"},
+    {"transport": "python_urllib_standard_eastmoney_params_three_retries_per_carrier", "result": "RemoteDisconnected_all_15_attempts"},
+    {"transport": "curl_http1_1_browser_headers", "result": "server_closed_abruptly_http_code_000_zero_bytes"}
+  ],
+  "data_absence_proven": false,
+  "source_endpoint_capability_refuted": false,
+  "candidate_statistics_computed": false,
+  "candidate_selection_performed": false,
+  "protocol_rule_applied": "if primary source acquisition/adequacy gate fails, primary X5I produces no candidate decision",
+  "old_m4_m5_2025_holdout_read": false,
+  "market_outcomes_computed": false,
+  "trading_return_metrics_computed": false,
+  "strategy_logic_used": false,
+  "runtime_admission_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
