@@ -1,0 +1,28 @@
+{
+  "schema_id": "trend_x5m_posthoc_structural_failure_diagnostic@1.0",
+  "status": "POST_HOC_DIAGNOSTIC_NOT_USED_FOR_X5M_PRIMARY_DECISION",
+  "used_for_candidate_selection": false,
+  "used_for_gate_change": false,
+  "block_A": {
+    "raw_median_monthly_ratio": 1.5142,
+    "candidate_median_monthly_ratio": 1.3356,
+    "slow_monthly_cell_max_to_min": 2.9547,
+    "candidate_monthly_cell_max_to_min": 2.0495,
+    "interpretation": "The candidate improves interaction dispersion but fails temporal improvement and q95 jump non-inferiority in the earlier public-native block."
+  },
+  "block_B": {
+    "tencent_slow_monthly_cell_max_to_min": 2.2938,
+    "tencent_candidate_monthly_cell_max_to_min": 2.5496,
+    "sina_slow_monthly_cell_max_to_min": 2.2939,
+    "sina_candidate_monthly_cell_max_to_min": 2.5495,
+    "candidate_within_carrier_monthly_ratios_tencent": {
+      "000852": 1.1634,
+      "000688": 1.1383,
+      "000300": 1.1225,
+      "000905": 1.0612,
+      "000016": 2.4231
+    },
+    "interpretation": "The negative interaction improvement is concentrated in a large SSE50 monthly-ratio excursion while the other four carriers remain near 1.06-1.16; the same pattern reproduces on both providers."
+  },
+  "conclusion": "X5L's near-gate behavior is regime dependent. The frozen mechanism is not a structurally stable universal normalization law under the preregistered metrics."
+}
