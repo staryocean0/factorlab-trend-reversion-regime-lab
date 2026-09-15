@@ -1,0 +1,95 @@
+{
+  "schema_id": "trend_x5i_prospective_fast_vs_adaptive_strength_scale_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5I_SOURCE_ACQUISITION_AND_STATISTICS",
+  "research_only": true,
+  "objective": "Prospectively compare the X5G slow baseline, the X5H post-hoc pure-fast candidate, and the X5H preregistered adaptive dual-blend candidate on a structurally independent 60m source/clock, with explicit scale-turnover non-inferiority gates.",
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "estimator": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(slope_t)",
+    "v1_state_boundary_t1": 2.0,
+    "v1_state_boundary_must_not_change": true,
+    "v1_strength_semantics_must_not_change": true
+  },
+  "candidate_set": [
+    {
+      "candidate_id": "SLOW_COMMON20_CARRIER120",
+      "origin": "X5G baseline",
+      "common_window": 20,
+      "carrier_window": 120,
+      "adaptive": false
+    },
+    {
+      "candidate_id": "FAST_COMMON5_CARRIER20",
+      "origin": "X5H post-hoc mechanism diagnostic promoted prospectively before X5I statistics",
+      "common_window": 5,
+      "carrier_window": 20,
+      "adaptive": false
+    },
+    {
+      "candidate_id": "ADAPT_DUAL_BLEND_1P5",
+      "origin": "X5H preregistered gate-qualified research candidate",
+      "slow_common_window": 20,
+      "fast_common_window": 5,
+      "slow_carrier_window": 120,
+      "fast_carrier_window": 20,
+      "blend_threshold_ratio": 1.5,
+      "blend_weight": "clip((abs(log(fast_scale/slow_scale)) - log(1.5)) / log(1.5), 0, 1)",
+      "adaptive": true
+    }
+  ],
+  "causality": {
+    "current_score_used_for_own_scale": false,
+    "future_information_used": false,
+    "common_factor_for_carrier_i_uses_other_carriers_only": true,
+    "carrier_component_uses_own_past_residuals_only": true
+  },
+  "independent_validation_source": {
+    "primary_provider": "Eastmoney public native 60m index kline",
+    "carrier_set": ["000852.SH", "000688.SH", "000300.SH", "000905.SH", "000016.SH"],
+    "identity_rule": "Eastmoney native 60m is structurally independent from the retained Sina native 60m source used by X5C-X5H and must not be called DataHub/M3 exact identity.",
+    "source_adequacy_gate": {
+      "minimum_complete_calendar_months": 3,
+      "minimum_slope_measurements_per_carrier_per_month": 40,
+      "all_five_carriers_required": true,
+      "identical_native_clock_across_five_carriers_required": true,
+      "if_gate_fails": "X5I_SOURCE_BLOCKED_NO_CANDIDATE_DECISION"
+    }
+  },
+  "primary_metrics": [
+    "cross_carrier_median_strength_range_reduction_vs_raw",
+    "median_within_carrier_monthly_max_to_min_reduction_vs_raw",
+    "carriers_with_lower_monthly_ratio_than_raw",
+    "monthly_cell_max_to_min_reduction_vs_slow_baseline",
+    "median_abs_log_scale_change_multiple_vs_slow",
+    "q95_abs_log_scale_change_multiple_vs_slow"
+  ],
+  "preregistered_gates": {
+    "cross_carrier_gate": "range_reduction_vs_raw >= 0.75",
+    "temporal_gate": "temporal_ratio_reduction_vs_raw >= 0.15",
+    "breadth_gate": "at least 4 of 5 carriers have lower monthly max_to_min than raw",
+    "interaction_gate": "monthly_cell_max_to_min reduction vs slow baseline >= 0.20",
+    "turnover_median_noninferiority_gate": "median_abs_log_scale_change_multiple_vs_slow <= 2.0",
+    "turnover_q95_noninferiority_gate": "q95_abs_log_scale_change_multiple_vs_slow <= 2.0",
+    "candidate_advances_only_if_all_gates_pass": true
+  },
+  "selection_rule": {
+    "if_multiple_candidates_pass_all_gates": "select lower median turnover; then lower q95 turnover; then lower monthly-cell max_to_min",
+    "if_no_candidate_passes_all_gates": "NO_STABLE_STRENGTH_REPRESENTATION_ESTABLISHED_KEEP_X6_HOLD"
+  },
+  "forbidden": [
+    "trading_returns",
+    "strategy_selection",
+    "BUY_SELL",
+    "position_or_order_logic",
+    "runtime_admission_expansion",
+    "opening_old_m4_m5_2025_holdout",
+    "changing_v1_state_boundary",
+    "changing_v1_strength_semantics",
+    "retrofitting_gates_after_x5i_results"
+  ],
+  "product_adoption_allowed": false,
+  "x6_version_bump_allowed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
