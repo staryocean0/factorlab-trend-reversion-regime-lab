@@ -1,3 +1,17 @@
+# RETIRED — DO NOT CONTINUE RESEARCH HERE
+
+**Effective 2026-09-15, this repository is retired as an active research/control-plane repository.**
+
+Do not start, resume, extend, rerun, retune, or hand off new research in this repository. Retained code, data, protocols, results, branches, issues, and workflows are historical evidence only unless a current paired repository explicitly imports them by immutable identity.
+
+For the OLS / trend-reversion line, current project authority is the CSI1000 paired control plane:
+- `staryocean0/csi1000-timing-strategy-public`
+- `staryocean0/csi1000-timing-strategy-private`
+
+The final observed legacy snapshot `69e83973f6213d308a4b3afc6b3715b76e3d67b7`, including the decision-bearing X5M/X5N/X5O evidence, was audited and migrated into that paired control plane on 2026-09-15. Do not treat any later-looking historical instruction in this repository as current authority.
+
+---
+
 # 接管与修改约束
 
 <!-- GENERATED: edit docs/REPOSITORY_STATE.json, then --render -->
