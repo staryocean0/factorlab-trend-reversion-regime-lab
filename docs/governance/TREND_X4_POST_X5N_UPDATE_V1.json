@@ -1,0 +1,26 @@
+{
+  "schema_id": "trend_x4_post_x5n_update@1.0",
+  "status": "STRUCTURAL_FAILURE_ATTRIBUTED_PRIMARILY_TO_REGIME_CONDITIONALITY_NOT_PARAMETER_DEFECT",
+  "prior_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "updated_overall_decision": "INSUFFICIENT_EVIDENCE",
+  "x5n_findings": {
+    "early_failure_broad_across_carriers": true,
+    "early_failure_consistent_with_common_regime_transition": true,
+    "block_b_failure_concentrated_in_000016": true,
+    "carrier_specific_regime_interaction_supported": true,
+    "carrier_composition_primary_driver_supported": false,
+    "median_vs_mean_common_estimator_primary_driver_supported": false,
+    "clock_structure_identified": false,
+    "single_unified_stateful_normalization_law_established": false,
+    "retuning_on_x5n_outcomes_allowed": false
+  },
+  "representation_implication": "Do not continue local X5L-style parameter refinement. Any future normalized_strength work must begin from an explicit new structural hypothesis, most naturally regime-conditional representation, and must be frozen before outcome evaluation.",
+  "v1_action": "NO_CHANGE",
+  "x6_readiness": "HOLD_NOT_READY",
+  "runtime_admission_changed": false,
+  "v1_parameter_changed": false,
+  "v1_state_boundary_changed": false,
+  "v1_strength_semantics_changed": false,
+  "production_authority": false,
+  "fresh_oos": false
+}
