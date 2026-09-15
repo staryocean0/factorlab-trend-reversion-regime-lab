@@ -1,0 +1,70 @@
+{
+  "schema_id": "trend_x5m_frozen_anchored_structural_validation_protocol@1.0",
+  "status": "FROZEN_BEFORE_X5M_CANDIDATE_STATISTICS",
+  "research_scope": "representation-layer normalized_strength diagnostics only",
+  "research_only": true,
+  "objective": "Validate the exact X5L anchored-partial mechanism on structurally separated time blocks without retuning any parameter or gate.",
+  "frozen_candidate": {
+    "name": "ANCHORED_PARTIAL_DB0P12_F0P50_COOLDOWN2_SLOW25",
+    "fast_target": {"common_window": 5, "carrier_window": 20},
+    "slow_target": {"common_window": 20, "carrier_window": 120},
+    "trigger_abs_log_gap": 0.12,
+    "event_target": "0.75 * fast_target + 0.25 * slow_target",
+    "partial_fraction": 0.50,
+    "cooldown_measurements": 2,
+    "strictly_causal": true,
+    "current_t_used_for_target_scale": false,
+    "future_information_allowed": false
+  },
+  "frozen_measurement": {
+    "lookback_bars": 20,
+    "directional_score": "log_close_ols_slope_t@1.0",
+    "raw_strength": "abs(directional_score)",
+    "v1_state_boundary_t1": 2.0,
+    "state_boundary_change_allowed": false
+  },
+  "structural_blocks": {
+    "A_predevelopment_public_native": {
+      "provider": "Sina public native 60m index kline",
+      "evaluation_months": ["2025-11", "2025-12", "2026-01"],
+      "purpose": "chronologically earlier structural block; public-native 2025 rows were excluded from prior candidate statistics",
+      "old_m4_m5_governed_2025_holdout_identity": false,
+      "requires_complete_months": true
+    },
+    "B_cross_provider_pre_X5L": {
+      "providers": ["Tencent public native 60m index kline", "Sina public native 60m index kline"],
+      "evaluation_months": ["2026-03", "2026-04", "2026-05"],
+      "purpose": "cross-provider structural block separated from X5L Jun-Aug development window",
+      "requires_complete_months": true
+    }
+  },
+  "preregistered_gates": {
+    "cross_carrier_range_reduction_vs_raw": ">= 0.75",
+    "temporal_ratio_reduction_vs_raw": ">= 0.15",
+    "carriers_with_lower_monthly_ratio_than_raw": ">= 4",
+    "interaction_reduction_vs_slow": ">= 0.20",
+    "mean_abs_log_scale_change_multiple_vs_slow": "<= 2.0",
+    "q95_abs_log_scale_change_multiple_vs_slow": "<= 2.0",
+    "update_fraction": "<= 0.35",
+    "all_gates_required": true
+  },
+  "decision_rule": {
+    "promotion_requires": "frozen anchored-partial passes all seven gates in structural Block A and in both providers of structural Block B",
+    "near_candidate_definition": "passes at least six of seven gates without any parameter or gate change",
+    "parameter_retuning_allowed": false,
+    "gate_relaxation_allowed": false,
+    "product_adoption_allowed": false,
+    "x6_version_bump_allowed": false
+  },
+  "governance": {
+    "candidate_fresh_structural_test": true,
+    "repository_fresh_oos": false,
+    "old_m4_m5_governed_2025_holdout_read_allowed": false,
+    "market_outcomes_allowed": false,
+    "trading_returns_allowed": false,
+    "strategy_logic_allowed": false,
+    "runtime_admission_change_allowed": false,
+    "v1_strength_semantics_change_allowed": false,
+    "production_authority": false
+  }
+}
